@@ -1,0 +1,70 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarInset,
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
+import { MapIcon } from "@/components/icons/MapIcon";
+import { CharacterIcon } from "@/components/icons/CharacterIcon";
+import { EventIcon } from "@/components/icons/EventIcon";
+import { StoryIcon } from "@/components/icons/StoryIcon";
+import { CombatIcon } from "@/components/icons/CombatIcon";
+import { ExportIcon } from "@/components/icons/ExportIcon";
+import { AssetIcon } from "@/components/icons/AssetIcon";
+
+const navItems = [
+  { href: "/", label: "Map Editor", icon: MapIcon },
+  { href: "/character-editor", label: "Character Editor", icon: CharacterIcon },
+  { href: "/event-editor", label: "Event Editor", icon: EventIcon },
+  { href: "/story-assist", label: "Story Assist", icon: StoryIcon },
+  { href: "/combat-simulator", label: "Combat Simulator", icon: CombatIcon },
+  { href: "/asset-library", label: "Asset Library", icon: AssetIcon },
+  { href: "/export", label: "Export Game", icon: ExportIcon },
+];
+
+export default function AppLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  return (
+    <SidebarProvider>
+      <Sidebar>
+        <SidebarHeader>
+          <Button variant="ghost" className="h-10 w-full justify-start px-2">
+            <RealmforgeLogo className="h-6 w-6 text-primary" />
+            <span className="font-headline text-lg font-bold ml-2">RealmForge</span>
+          </Button>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarMenu>
+            {navItems.map((item) => (
+              <SidebarMenuItem key={item.href}>
+                <Link href={item.href} passHref legacyBehavior>
+                  <SidebarMenuButton
+                    isActive={pathname === item.href}
+                    tooltip={item.label}
+                  >
+                    <item.icon className="h-5 w-5" />
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarContent>
+      </Sidebar>
+      <SidebarInset>
+        <main className="min-h-screen p-4 sm:p-6 lg:p-8">{children}</main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}

@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-sprite",
+      "description": "Pixel art hero character sprite.",
+      "imageUrl": "https://images.unsplash.com/photo-1666153184660-a09d73e5b755?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaXhlbCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NjY4OTE5ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel character"
+    },
+    {
+      "id": "enemy-sprite",
+      "description": "Pixel art enemy character sprite.",
+      "imageUrl": "https://images.unsplash.com/photo-1653723367970-ae966c1b803e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwaXhlbCUyMG1vbnN0ZXJ8ZW58MHx8fHwxNzY2OTE4MDA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel monster"
+    },
+    {
+      "id": "grass-tile",
+      "description": "Pixel art grass tile.",
+      "imageUrl": "https://images.unsplash.com/photo-1600672940437-0898b8c38bf4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwaXhlbCUyMGdyYXNzfGVufDB8fHx8MTc2NjkxODAwNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel grass"
+    },
+    {
+      "id": "water-tile",
+      "description": "Pixel art water tile.",
+      "imageUrl": "https://images.unsplash.com/photo-1598298759108-53aa9d29fad2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwaXhlbCUyMHdhdGVyfGVufDB8fHx8MTc2Njk5OTUxMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel water"
+    },
+    {
+      "id": "stone-tile",
+      "description": "Pixel art stone tile.",
+      "imageUrl": "https://images.unsplash.com/photo-1661120577593-417868e10980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaXhlbCUyMHN0b25lfGVufDB8fHx8MTc2Njk5OTUxMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel stone"
+    },
+    {
+      "id": "tree-asset",
+      "description": "Pixel art tree asset.",
+      "imageUrl": "https://images.unsplash.com/photo-1699145748705-04bf2c386b3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwaXhlbCUyMHRyZWV8ZW58MHx8fHwxNzY2OTk5NTExfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel tree"
+    },
+    {
+      "id": "chest-asset",
+      "description": "Pixel art treasure chest asset.",
+      "imageUrl": "https://images.unsplash.com/photo-1585842630086-17ecd5af4496?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwaXhlbCUyMGNoZXN0fGVufDB8fHx8MTc2Njk5OTUxMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel chest"
+    },
+    {
+      "id": "sword-asset",
+      "description": "Pixel art sword icon.",
+      "imageUrl": "https://images.unsplash.com/photo-1677570990661-949e5083670f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaXhlbCUyMHN3b3JkfGVufDB8fHx8MTc2Njk5OTUxMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel sword"
+    },
+    {
+      "id": "shield-asset",
+      "description": "Pixel art shield icon.",
+      "imageUrl": "https://images.unsplash.com/photo-1649443655278-99a66bd9558b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwaXhlbCUyMHNoaWVsZHxlbnwwfHx8fDE3NjY5OTk1MTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel shield"
+    }
+  ]
 }
