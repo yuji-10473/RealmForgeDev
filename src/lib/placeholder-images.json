@@ -53,6 +53,102 @@
       "description": "Pixel art shield icon.",
       "imageUrl": "https://images.unsplash.com/photo-1649443655278-99a66bd9558b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwaXhlbCUyMHNoaWVsZHxlbnwwfHx8fDE3NjY5OTk1MTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pixel shield"
+    },
+    {
+      "id": "map-bg-0-0",
+      "description": "Map background 0-0",
+      "imageUrl": "https://images.unsplash.com/photo-1584623572201-d0385667e46d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-0-1",
+      "description": "Map background 0-1",
+      "imageUrl": "https://images.unsplash.com/photo-1631293624445-55f390cef754?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z3Jhc3MlMjBmaWVsZHxlbnwwfHx8fDE3NjcwMDA2NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-0-2",
+      "description": "Map background 0-2",
+      "imageUrl": "https://images.unsplash.com/photo-1592932323118-926a2bf915a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-0-3",
+      "description": "Map background 0-3",
+      "imageUrl": "https://images.unsplash.com/photo-1583227498947-cabbd5660987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-1-0",
+      "description": "Map background 1-0",
+      "imageUrl": "https://images.unsplash.com/photo-1714983894044-44ca0451216b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-1-1",
+      "description": "Map background 1-1",
+      "imageUrl": "https://images.unsplash.com/photo-1583227498947-cabbd5660987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-1-2",
+      "description": "Map background 1-2",
+      "imageUrl": "https://images.unsplash.com/photo-1667344238075-c3742c5f86a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-1-3",
+      "description": "Map background 1-3",
+      "imageUrl": "https://images.unsplash.com/photo-1564914138497-fc25707b9065?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-2-0",
+      "description": "Map background 2-0",
+      "imageUrl": "https://images.unsplash.com/photo-1617280137702-32e761be8b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-2-1",
+      "description": "Map background 2-1",
+      "imageUrl": "https://images.unsplash.com/photo-1667344238075-c3742c5f86a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-2-2",
+      "description": "Map background 2-2",
+      "imageUrl": "https://images.unsplash.com/photo-1617280137702-32e761be8b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-2-3",
+      "description": "Map background 2-3",
+      "imageUrl": "https://images.unsplash.com/photo-1714983894044-44ca0451216b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-3-0",
+      "description": "Map background 3-0",
+      "imageUrl": "https://images.unsplash.com/photo-1631293624445-55f390cef754?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z3Jhc3MlMjBmaWVsZHxlbnwwfHx8fDE3NjcwMDA2NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-3-1",
+      "description": "Map background 3-1",
+      "imageUrl": "https://images.unsplash.com/photo-1584623572201-d0385667e46d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-3-2",
+      "description": "Map background 3-2",
+      "imageUrl": "https://images.unsplash.com/photo-1592932323118-926a2bf915a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
+    },
+    {
+      "id": "map-bg-3-3",
+      "description": "Map background 3-3",
+      "imageUrl": "https://images.unsplash.com/photo-1590789822386-62fa658e3f94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxncmFzcyUyMGZpZWxkfGVufDB8fHx8MTc2NzAwMDY1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grass field"
     }
   ]
 }

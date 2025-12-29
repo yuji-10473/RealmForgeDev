@@ -2,12 +2,14 @@ import { MapEditorClient } from "@/components/client/map-editor-client";
 
 export default function MapEditorPage() {
   return (
-    <div className="space-y-8">
-      <header>
+    <div className="h-[calc(100vh-4rem)] flex flex-col">
+      <header className="py-4">
         <h1 className="text-3xl font-bold font-headline">マップエディター</h1>
-        <p className="text-muted-foreground">2Dゲームの世界をデザインしましょう。タイルを選択してグリッド上をクリックして描画します。</p>
+        <p className="text-muted-foreground">あなたの壮大なゲームの世界を構築しましょう。</p>
       </header>
-      <MapEditorClient />
+      <div className="flex-grow min-h-0">
+        <MapEditorClient />
+      </div>
     </div>
   );
 }

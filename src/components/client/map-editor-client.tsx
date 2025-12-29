@@ -1,88 +1,165 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, MouseEvent } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import Image from "next/image";
+import { Button } from "../ui/button";
+import { ZoomIn, ZoomOut, Hand } from "lucide-react";
 
-type Tile = {
+type MapObject = {
   id: string;
-  name: string;
-  color: string;
-  image?: string;
+  tileId: string;
+  x: number; // 0-1280
+  y: number; // 0-720
+  width: number;
+  height: number;
 };
 
-const tiles: Tile[] = [
-  { id: "grass", name: "草", color: "bg-green-500/20", image: PlaceHolderImages.find(p => p.id === 'grass-tile')?.imageUrl },
-  { id: "water", name: "水", color: "bg-blue-500/20", image: PlaceHolderImages.find(p => p.id === 'water-tile')?.imageUrl },
-  { id: "stone", name: "石", color: "bg-gray-500/20", image: PlaceHolderImages.find(p => p.id === 'stone-tile')?.imageUrl },
-  { id: "tree", name: "木", color: "bg-transparent", image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl },
-  { id: "chest", name: "宝箱", color: "bg-transparent", image: PlaceHolderImages.find(p => p.id === 'chest-asset')?.imageUrl },
+type MapCell = {
+  backgroundId: string;
+  objects: MapObject[];
+};
+
+type WorldMap = MapCell[][];
+
+const TILE_ASSETS = [
+  { id: "tree", name: "木", image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl, width: 64, height: 64 },
+  { id: "chest", name: "宝箱", image: PlaceHolderImages.find(p => p.id === 'chest-asset')?.imageUrl, width: 48, height: 48 },
 ];
 
-const GRID_SIZE = 20;
+const createInitialWorldMap = (): WorldMap => {
+  return Array(4).fill(null).map((_, r) =>
+    Array(4).fill(null).map((_, c) => ({
+      backgroundId: `map-bg-${r}-${c}`,
+      objects: [],
+    }))
+  );
+};
 
 export function MapEditorClient() {
-  const [selectedTile, setSelectedTile] = useState<Tile | null>(tiles[0]);
-  const [grid, setGrid] = useState<Array<Tile | null>>(() => Array(GRID_SIZE * GRID_SIZE).fill(tiles[0]));
+  const [worldMap, setWorldMap] = useState<WorldMap>(createInitialWorldMap);
+  const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
+  const [selectedAsset, setSelectedAsset] = useState<typeof TILE_ASSETS[0] | null>(null);
 
-  const handleCellClick = (index: number) => {
-    if (selectedTile) {
-      const newGrid = [...grid];
-      newGrid[index] = selectedTile;
-      setGrid(newGrid);
-    }
+  const editorRef = useRef<HTMLDivElement>(null);
+  
+  const activeMapData = worldMap[activeMap.r][activeMap.c];
+  const bgImage = PlaceHolderImages.find(p => p.id === activeMapData.backgroundId);
+
+  const handleMapClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (!selectedAsset || !editorRef.current) return;
+
+    const rect = editorRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const newObject: MapObject = {
+      id: `${Date.now()}`,
+      tileId: selectedAsset.id,
+      x: x - selectedAsset.width / 2,
+      y: y - selectedAsset.height / 2,
+      width: selectedAsset.width,
+      height: selectedAsset.height,
+    };
+    
+    const newWorldMap = [...worldMap];
+    newWorldMap[activeMap.r][activeMap.c].objects.push(newObject);
+    setWorldMap(newWorldMap);
   };
 
+
   return (
-    <div className="flex flex-col lg:flex-row gap-8">
-      <div className="flex-grow">
-        <div
-          className="grid border-2 border-dashed border-border"
-          style={{
-            gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
-            width: "100%",
-            aspectRatio: "1 / 1",
-          }}
-        >
-          {grid.map((cell, index) => (
-            <div
-              key={index}
-              onClick={() => handleCellClick(index)}
-              className={cn(
-                "w-full h-full border-r border-b border-border/20 cursor-pointer hover:bg-accent/30 transition-colors relative",
-                cell?.color
-              )}
-            >
-              {cell?.image && cell.id !== 'grass' && cell.id !== 'water' && cell.id !== 'stone' && (
-                 <Image src={cell.image} alt={cell.name} fill className="object-contain p-1" />
+    <div className="flex gap-8 h-full">
+      {/* World Map Navigator */}
+      <aside className="w-64 flex-shrink-0">
+        <Card className="h-full flex flex-col">
+          <CardHeader>
+            <CardTitle>ワールドマップ</CardTitle>
+          </CardHeader>
+          <CardContent className="flex-grow flex items-center justify-center">
+            <div className="grid grid-cols-4 gap-1 aspect-square w-full">
+              {worldMap.map((row, r) =>
+                row.map((_, c) => (
+                  <button
+                    key={`${r}-${c}`}
+                    onClick={() => setActiveMap({ r, c })}
+                    className={cn(
+                      "aspect-square border-2 flex items-center justify-center text-xs",
+                      activeMap.r === r && activeMap.c === c
+                        ? "border-primary bg-primary/20"
+                        : "border-border hover:bg-accent/50"
+                    )}
+                  >
+                   {r+1}-{c+1}
+                  </button>
+                ))
               )}
             </div>
-          ))}
+          </CardContent>
+        </Card>
+      </aside>
+
+      {/* Main Editor */}
+      <div className="flex-grow flex flex-col gap-4">
+        <div className="flex items-center gap-2">
+            <h2 className="text-lg font-semibold">
+                マップ: {activeMap.r + 1}-{activeMap.c + 1}
+            </h2>
+            <div className="ml-auto flex items-center gap-2">
+                <Button variant="outline" size="icon"><ZoomIn /></Button>
+                <Button variant="outline" size="icon"><ZoomOut /></Button>
+                <Button variant="outline" size="icon"><Hand /></Button>
+            </div>
+        </div>
+        <div
+            ref={editorRef}
+            onClick={handleMapClick}
+            className="relative w-full aspect-[16/9] bg-muted overflow-hidden border-2 border-dashed border-border cursor-crosshair"
+        >
+            {bgImage?.imageUrl && (
+            <Image
+                src={bgImage.imageUrl}
+                alt={`Map background ${activeMap.r + 1}-${activeMap.c + 1}`}
+                layout="fill"
+                objectFit="cover"
+            />
+            )}
+            {activeMapData.objects.map(obj => {
+                const asset = TILE_ASSETS.find(a => a.id === obj.tileId);
+                if (!asset || !asset.image) return null;
+                return (
+                    <div key={obj.id} style={{ left: obj.x, top: obj.y, width: obj.width, height: obj.height, position: 'absolute' }}>
+                        <Image src={asset.image} alt={asset.name} layout="fill" objectFit="contain" />
+                    </div>
+                )
+            })}
         </div>
       </div>
-      <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0">
+
+      {/* Asset Palette */}
+      <aside className="w-72 flex-shrink-0">
         <Card>
           <CardHeader>
-            <CardTitle>タイルとオブジェクト</CardTitle>
+            <CardTitle>オブジェクト</CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-3 lg:grid-cols-2 gap-4">
-            {tiles.map((tile) => (
+          <CardContent className="grid grid-cols-2 gap-4">
+            {TILE_ASSETS.map((asset) => (
               <div
-                key={tile.id}
-                onClick={() => setSelectedTile(tile)}
+                key={asset.id}
+                onClick={() => setSelectedAsset(asset)}
                 className={cn(
                   "flex flex-col items-center gap-2 p-2 rounded-lg cursor-pointer border-2 transition-all",
-                  selectedTile?.id === tile.id
+                  selectedAsset?.id === asset.id
                     ? "border-primary bg-primary/10"
                     : "border-transparent hover:border-accent hover:bg-accent/10"
                 )}
               >
-                <div className={cn("w-12 h-12 rounded-md flex items-center justify-center relative", tile.color)}>
-                  {tile.image && <Image src={tile.image} alt={tile.name} width={48} height={48} className="object-cover rounded-md" />}
+                <div className={cn("w-16 h-16 rounded-md flex items-center justify-center relative bg-muted/50")}>
+                  {asset.image && <Image src={asset.image} alt={asset.name} width={asset.width} height={asset.height} className="object-contain" />}
                 </div>
-                <span className="text-xs text-center font-medium">{tile.name}</span>
+                <span className="text-sm text-center font-medium">{asset.name}</span>
               </div>
             ))}
           </CardContent>
