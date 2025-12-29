@@ -18,7 +18,7 @@ type Character = {
 };
 
 const initialPlayer: Character = {
-  name: "Aria",
+  name: "アリア",
   hp: 80,
   maxHp: 80,
   attack: 15,
@@ -26,7 +26,7 @@ const initialPlayer: Character = {
 };
 
 const initialEnemy: Character = {
-  name: "Goblin Grunt",
+  name: "ゴブリン",
   hp: 50,
   maxHp: 50,
   attack: 8,
@@ -36,7 +36,7 @@ const initialEnemy: Character = {
 export function CombatSimulatorClient() {
   const [player, setPlayer] = useState<Character>(initialPlayer);
   const [enemy, setEnemy] = useState<Character>(initialEnemy);
-  const [log, setLog] = useState<string[]>(["The battle begins!"]);
+  const [log, setLog] = useState<string[]>(["戦闘開始！"]);
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [winner, setWinner] = useState<string | null>(null);
 
@@ -51,13 +51,13 @@ export function CombatSimulatorClient() {
     if (!isPlayerTurn || winner) return;
 
     const damage = Math.floor(player.attack + Math.random() * 5);
-    addLog(`⚔️ ${player.name} attacks ${enemy.name} for ${damage} damage!`);
+    addLog(`⚔️ ${player.name}が${enemy.name}に${damage}のダメージを与えた！`);
     const newEnemyHp = Math.max(0, enemy.hp - damage);
     setEnemy(e => ({ ...e, hp: newEnemyHp }));
 
     if (newEnemyHp === 0) {
       setWinner(player.name);
-      addLog(`🎉 ${player.name} is victorious!`);
+      addLog(`🎉 ${player.name}の勝利！`);
     } else {
       setIsPlayerTurn(false);
     }
@@ -67,13 +67,13 @@ export function CombatSimulatorClient() {
     if (!isPlayerTurn && !winner) {
       const timer = setTimeout(() => {
         const damage = Math.floor(enemy.attack + Math.random() * 3);
-        addLog(`💥 ${enemy.name} retaliates for ${damage} damage!`);
+        addLog(`💥 ${enemy.name}が反撃して${damage}のダメージを与えた！`);
         const newPlayerHp = Math.max(0, player.hp - damage);
         setPlayer(p => ({ ...p, hp: newPlayerHp }));
 
         if (newPlayerHp === 0) {
           setWinner(enemy.name);
-          addLog(`☠️ ${player.name} has been defeated.`);
+          addLog(`☠️ ${player.name}は倒された。`);
         } else {
           setIsPlayerTurn(true);
         }
@@ -86,7 +86,7 @@ export function CombatSimulatorClient() {
   const handleReset = () => {
     setPlayer(initialPlayer);
     setEnemy(initialEnemy);
-    setLog(["The battle begins!"]);
+    setLog(["戦闘開始！"]);
     setIsPlayerTurn(true);
     setWinner(null);
   };
@@ -118,17 +118,17 @@ export function CombatSimulatorClient() {
         </div>
         <Card>
             <CardHeader>
-                <CardTitle>Combat Controls</CardTitle>
+                <CardTitle>戦闘コントロール</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-4">
-                <Button onClick={handlePlayerAttack} disabled={!isPlayerTurn || !!winner}><Swords className="mr-2"/> Attack</Button>
-                <Button variant="outline" disabled={!isPlayerTurn || !!winner}><Shield className="mr-2"/> Defend</Button>
-                 {winner && <Button onClick={handleReset}>Restart Battle</Button>}
+                <Button onClick={handlePlayerAttack} disabled={!isPlayerTurn || !!winner}><Swords className="mr-2"/> 攻撃</Button>
+                <Button variant="outline" disabled={!isPlayerTurn || !!winner}><Shield className="mr-2"/> 防御</Button>
+                 {winner && <Button onClick={handleReset}>戦闘をリスタート</Button>}
             </CardContent>
         </Card>
         <Card>
             <CardHeader>
-                <CardTitle>Combat Log</CardTitle>
+                <CardTitle>戦闘ログ</CardTitle>
             </CardHeader>
             <CardContent>
                 <ScrollArea className="h-48 w-full rounded-md border p-4 font-mono text-sm">

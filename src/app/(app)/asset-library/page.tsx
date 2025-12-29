@@ -9,11 +9,11 @@ export default function AssetLibraryPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-3xl font-bold font-headline">Asset Library</h1>
-        <p className="text-muted-foreground">Browse built-in and community-created assets for your game.</p>
+        <h1 className="text-3xl font-bold font-headline">アセットライブラリ</h1>
+        <p className="text-muted-foreground">ゲーム用の組み込みアセットやコミュニティ作成のアセットを閲覧します。</p>
       </header>
       <div className="sticky top-0 z-10 py-4 bg-background/80 backdrop-blur-sm">
-        <Input placeholder="Search for assets..." className="max-w-sm" />
+        <Input placeholder="アセットを検索..." className="max-w-sm" />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {assets.map((asset) => (

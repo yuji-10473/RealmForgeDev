@@ -10,28 +10,28 @@ export default function ExportPage() {
 
   const handleExport = () => {
     toast({
-      title: "Export Initiated",
-      description: "This feature is not yet implemented. Your game would be packaged here!",
+      title: "エクスポート開始",
+      description: "この機能はまだ実装されていません。ここにゲームがパッケージ化されます！",
     });
   };
 
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-3xl font-bold font-headline">Export Game</h1>
-        <p className="text-muted-foreground">Package your game for web or desktop.</p>
+        <h1 className="text-3xl font-bold font-headline">ゲームをエクスポート</h1>
+        <p className="text-muted-foreground">ウェブまたはデスクトップ用にゲームをパッケージ化します。</p>
       </header>
       <Card className="max-w-lg mx-auto text-center">
         <CardHeader>
-          <CardTitle>Ready to Share Your Creation?</CardTitle>
+          <CardTitle>作品を共有する準備はできましたか？</CardTitle>
           <CardDescription>
-            When you're ready, you can export your game into a playable format. This feature is currently in development.
+            準備ができたら、ゲームをプレイ可能な形式にエクスポートできます。この機能は現在開発中です。
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Button size="lg" onClick={handleExport}>
             <Download className="mr-2" />
-            Package & Export Game
+            ゲームをパッケージ化してエクスポート
           </Button>
         </CardContent>
       </Card>

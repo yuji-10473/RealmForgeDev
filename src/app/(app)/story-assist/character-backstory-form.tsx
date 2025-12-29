@@ -22,7 +22,7 @@ export function CharacterBackstoryForm() {
       setResult(response.backstory);
     } catch (error) {
       console.error(error);
-      setResult("An error occurred while generating the backstory.");
+      setResult("バックストーリーの生成中にエラーが発生しました。");
     } finally {
       setLoading(false);
     }
@@ -32,25 +32,25 @@ export function CharacterBackstoryForm() {
     <div className="space-y-6">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <Label htmlFor="characterDescription" className="font-bold">Character Description</Label>
+          <Label htmlFor="characterDescription" className="font-bold">キャラクターの説明</Label>
           <Textarea
             id="characterDescription"
             {...register("characterDescription", { required: true })}
-            placeholder="e.g., A stoic elven ranger named Lyra, exiled from her forest home for practicing forbidden magic. She carries an old, gnarled bow."
+            placeholder="例：禁じられた魔法を使ったために森の故郷を追放された、ストイックなエルフのレンジャー、ライラ。古くて節くれだった弓を持っている。"
             rows={4}
             className="mt-2"
           />
         </div>
         <Button type="submit" disabled={loading} className="w-full sm:w-auto">
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Generate Backstory
+          バックストーリーを生成
         </Button>
       </form>
 
       {result && (
         <Card className="bg-secondary">
           <CardHeader>
-            <CardTitle>Generated Backstory</CardTitle>
+            <CardTitle>生成されたバックストーリー</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="whitespace-pre-wrap">{result}</p>

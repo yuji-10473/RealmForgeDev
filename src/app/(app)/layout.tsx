@@ -23,13 +23,13 @@ import { ExportIcon } from "@/components/icons/ExportIcon";
 import { AssetIcon } from "@/components/icons/AssetIcon";
 
 const navItems = [
-  { href: "/", label: "Map Editor", icon: MapIcon },
-  { href: "/character-editor", label: "Character Editor", icon: CharacterIcon },
-  { href: "/event-editor", label: "Event Editor", icon: EventIcon },
-  { href: "/story-assist", label: "Story Assist", icon: StoryIcon },
-  { href: "/combat-simulator", label: "Combat Simulator", icon: CombatIcon },
-  { href: "/asset-library", label: "Asset Library", icon: AssetIcon },
-  { href: "/export", label: "Export Game", icon: ExportIcon },
+  { href: "/", label: "マップエディター", icon: MapIcon },
+  { href: "/character-editor", label: "キャラクターエディター", icon: CharacterIcon },
+  { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
+  { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
+  { href: "/combat-simulator", label: "戦闘シミュレーター", icon: CombatIcon },
+  { href: "/asset-library", label: "アセットライブラリ", icon: AssetIcon },
+  { href: "/export", label: "ゲームをエクスポート", icon: ExportIcon },
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {

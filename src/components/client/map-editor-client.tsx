@@ -14,11 +14,11 @@ type Tile = {
 };
 
 const tiles: Tile[] = [
-  { id: "grass", name: "Grass", color: "bg-green-500/20", image: PlaceHolderImages.find(p => p.id === 'grass-tile')?.imageUrl },
-  { id: "water", name: "Water", color: "bg-blue-500/20", image: PlaceHolderImages.find(p => p.id === 'water-tile')?.imageUrl },
-  { id: "stone", name: "Stone", color: "bg-gray-500/20", image: PlaceHolderImages.find(p => p.id === 'stone-tile')?.imageUrl },
-  { id: "tree", name: "Tree", color: "bg-transparent", image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl },
-  { id: "chest", name: "Chest", color: "bg-transparent", image: PlaceHolderImages.find(p => p.id === 'chest-asset')?.imageUrl },
+  { id: "grass", name: "草", color: "bg-green-500/20", image: PlaceHolderImages.find(p => p.id === 'grass-tile')?.imageUrl },
+  { id: "water", name: "水", color: "bg-blue-500/20", image: PlaceHolderImages.find(p => p.id === 'water-tile')?.imageUrl },
+  { id: "stone", name: "石", color: "bg-gray-500/20", image: PlaceHolderImages.find(p => p.id === 'stone-tile')?.imageUrl },
+  { id: "tree", name: "木", color: "bg-transparent", image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl },
+  { id: "chest", name: "宝箱", color: "bg-transparent", image: PlaceHolderImages.find(p => p.id === 'chest-asset')?.imageUrl },
 ];
 
 const GRID_SIZE = 20;
@@ -65,7 +65,7 @@ export function MapEditorClient() {
       <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0">
         <Card>
           <CardHeader>
-            <CardTitle>Tiles & Objects</CardTitle>
+            <CardTitle>タイルとオブジェクト</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-3 lg:grid-cols-2 gap-4">
             {tiles.map((tile) => (

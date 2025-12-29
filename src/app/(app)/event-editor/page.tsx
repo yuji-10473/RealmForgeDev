@@ -6,28 +6,28 @@ import { MessageSquare, Move, PlayCircle } from "lucide-react";
 
 export default function EventEditorPage() {
   const events = [
-    { id: "evt_start", name: "Game Start" },
-    { id: "evt_talk_npc1", name: "Talk to Old Man" },
-    { id: "evt_enter_castle", name: "Enter Shadow Castle" },
+    { id: "evt_start", name: "ゲーム開始" },
+    { id: "evt_talk_npc1", name: "老人と話す" },
+    { id: "evt_enter_castle", name: "影の城に入る" },
   ];
 
   const actions = [
-    { icon: MessageSquare, title: "Show Dialogue", description: "'Welcome, traveler! The journey ahead is perilous.'" },
-    { icon: Move, title: "Move Character", description: "Player moves to coordinates (12, 34)." },
-    { icon: PlayCircle, title: "Play Cutscene", description: "cutscene_intro.mp4" },
+    { icon: MessageSquare, title: "ダイアログを表示", description: "「ようこそ、旅人よ！この先の旅は危険に満ちているぞ。」" },
+    { icon: Move, title: "キャラクターを移動", description: "プレイヤーが座標(12, 34)に移動します。" },
+    { icon: PlayCircle, title: "カットシーンを再生", description: "cutscene_intro.mp4" },
   ];
 
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-3xl font-bold font-headline">Event Editor</h1>
-        <p className="text-muted-foreground">Craft the story and interactions of your world.</p>
+        <h1 className="text-3xl font-bold font-headline">イベントエディター</h1>
+        <p className="text-muted-foreground">あなたの世界の物語とインタラクションを作り上げましょう。</p>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 h-[calc(100vh-12rem)]">
         <Card className="md:col-span-1 lg:col-span-1 flex flex-col">
           <CardHeader>
-            <CardTitle>Events</CardTitle>
-            <CardDescription>Select an event to edit its actions.</CardDescription>
+            <CardTitle>イベント</CardTitle>
+            <CardDescription>アクションを編集するイベントを選択してください。</CardDescription>
           </CardHeader>
           <ScrollArea className="flex-grow">
             <CardContent className="p-2">
@@ -45,14 +45,14 @@ export default function EventEditorPage() {
             </CardContent>
           </ScrollArea>
           <CardFooter className="p-2 border-t">
-             <Button variant="outline" className="w-full">New Event</Button>
+             <Button variant="outline" className="w-full">新規イベント</Button>
           </CardFooter>
         </Card>
 
         <Card className="md:col-span-2 lg:col-span-3 flex flex-col">
           <CardHeader>
-            <CardTitle>Actions for: Talk to Old Man</CardTitle>
-            <CardDescription>These actions will run when the event is triggered.</CardDescription>
+            <CardTitle>アクション：老人と話す</CardTitle>
+            <CardDescription>これらのアクションはイベントがトリガーされたときに実行されます。</CardDescription>
           </CardHeader>
           <ScrollArea className="flex-grow">
             <CardContent className="space-y-4">
@@ -64,14 +64,14 @@ export default function EventEditorPage() {
                       <CardTitle className="text-base">{action.title}</CardTitle>
                       <CardDescription>{action.description}</CardDescription>
                     </div>
-                    <Button variant="ghost" size="sm">Edit</Button>
+                    <Button variant="ghost" size="sm">編集</Button>
                   </CardHeader>
                 </Card>
               ))}
             </CardContent>
           </ScrollArea>
            <CardFooter className="p-2 border-t">
-             <Button variant="outline" className="w-full">Add Action</Button>
+             <Button variant="outline" className="w-full">アクションを追加</Button>
           </CardFooter>
         </Card>
       </div>

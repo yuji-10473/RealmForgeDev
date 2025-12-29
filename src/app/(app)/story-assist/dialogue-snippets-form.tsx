@@ -30,7 +30,7 @@ export function DialogueSnippetsForm() {
       setResult(response.dialogueSnippets);
     } catch (error) {
       console.error(error);
-      setResult(["An error occurred while generating dialogue."]);
+      setResult(["会話の生成中にエラーが発生しました。"]);
     } finally {
       setLoading(false);
     }
@@ -41,21 +41,21 @@ export function DialogueSnippetsForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="characterDescription" className="font-bold">Character Description</Label>
+            <Label htmlFor="characterDescription" className="font-bold">キャラクターの説明</Label>
             <Textarea
               id="characterDescription"
               {...register("characterDescription", { required: true })}
-              placeholder="e.g., Grumpy dwarf blacksmith"
+              placeholder="例：不機嫌なドワーフの鍛冶屋"
               rows={3}
               className="mt-2"
             />
           </div>
           <div>
-            <Label htmlFor="scenarioDescription" className="font-bold">Scenario Description</Label>
+            <Label htmlFor="scenarioDescription" className="font-bold">シナリオの説明</Label>
             <Textarea
               id="scenarioDescription"
               {...register("scenarioDescription", { required: true })}
-              placeholder="e.g., A customer brings in a broken sword of legendary origin."
+              placeholder="例：客が伝説の起源を持つ壊れた剣を持ってきた。"
               rows={3}
               className="mt-2"
             />
@@ -63,24 +63,24 @@ export function DialogueSnippetsForm() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-             <Label htmlFor="dialogueStyle" className="font-bold">Dialogue Style</Label>
-             <Input id="dialogueStyle" {...register("dialogueStyle")} placeholder="e.g., Gruff, humorous, formal" className="mt-2" />
+             <Label htmlFor="dialogueStyle" className="font-bold">会話のスタイル</Label>
+             <Input id="dialogueStyle" {...register("dialogueStyle")} placeholder="例：無愛想、ユーモラス、フォーマル" className="mt-2" />
           </div>
           <div>
-            <Label htmlFor="numberOfSnippets" className="font-bold">Number of Snippets</Label>
+            <Label htmlFor="numberOfSnippets" className="font-bold">スニペットの数</Label>
             <Input id="numberOfSnippets" type="number" {...register("numberOfSnippets")} defaultValue="3" className="mt-2" />
           </div>
         </div>
         <Button type="submit" disabled={loading} className="w-full sm:w-auto">
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Generate Dialogue
+          会話を生成
         </Button>
       </form>
 
       {result && (
         <Card className="bg-secondary">
           <CardHeader>
-            <CardTitle>Generated Dialogue</CardTitle>
+            <CardTitle>生成された会話</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {result.map((snippet, index) => (

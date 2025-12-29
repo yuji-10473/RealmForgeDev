@@ -22,7 +22,7 @@ export function StoryElementsForm() {
       setResult(response.storyElements);
     } catch (error) {
       console.error(error);
-      setResult("An error occurred while generating story elements.");
+      setResult("物語の要素を生成中にエラーが発生しました。");
     } finally {
       setLoading(false);
     }
@@ -32,25 +32,25 @@ export function StoryElementsForm() {
     <div className="space-y-6">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <Label htmlFor="prompt" className="font-bold">Story Prompt</Label>
+          <Label htmlFor="prompt" className="font-bold">物語のプロンプト</Label>
           <Textarea
             id="prompt"
             {...register("prompt", { required: true })}
-            placeholder="e.g., A kingdom shrouded in magical fog, a lost artifact that can control time, and a prophecy about a hero from another world."
+            placeholder="例：魔法の霧に包まれた王国、時間を操れる失われたアーティファクト、そして異世界からの英雄に関する予言。"
             rows={4}
             className="mt-2"
           />
         </div>
         <Button type="submit" disabled={loading} className="w-full sm:w-auto">
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Generate Elements
+          要素を生成
         </Button>
       </form>
 
       {result && (
         <Card className="bg-secondary">
           <CardHeader>
-            <CardTitle>Generated Story Elements</CardTitle>
+            <CardTitle>生成された物語の要素</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="whitespace-pre-wrap">{result}</p>

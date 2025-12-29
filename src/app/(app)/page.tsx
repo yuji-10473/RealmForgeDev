@@ -4,8 +4,8 @@ export default function MapEditorPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-3xl font-bold font-headline">Map Editor</h1>
-        <p className="text-muted-foreground">Design your 2D game world. Select a tile and click on the grid to paint.</p>
+        <h1 className="text-3xl font-bold font-headline">マップエディター</h1>
+        <p className="text-muted-foreground">2Dゲームの世界をデザインしましょう。タイルを選択してグリッド上をクリックして描画します。</p>
       </header>
       <MapEditorClient />
     </div>
