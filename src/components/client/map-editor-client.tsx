@@ -8,11 +8,15 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Button } from "../ui/button";
 import { ZoomIn, ZoomOut, Hand } from "lucide-react";
 
+// The canonical size of the map editor view.
+const MAP_WIDTH = 1920;
+const MAP_HEIGHT = 1080;
+
 type MapObject = {
   id: string;
   tileId: string;
-  x: number; // 0-1280
-  y: number; // 0-720
+  x: number; // 0-1920
+  y: number; // 0-1080
   width: number;
   height: number;
 };
@@ -52,14 +56,19 @@ export function MapEditorClient() {
     if (!selectedAsset || !editorRef.current) return;
 
     const rect = editorRef.current.getBoundingClientRect();
+    // Calculate click position relative to the editor element.
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+
+    // Scale the coordinates to the canonical map size (1920x1080).
+    const scaledX = (x / rect.width) * MAP_WIDTH;
+    const scaledY = (y / rect.height) * MAP_HEIGHT;
 
     const newObject: MapObject = {
       id: `${Date.now()}`,
       tileId: selectedAsset.id,
-      x: x - selectedAsset.width / 2,
-      y: y - selectedAsset.height / 2,
+      x: scaledX - selectedAsset.width / 2,
+      y: scaledY - selectedAsset.height / 2,
       width: selectedAsset.width,
       height: selectedAsset.height,
     };
@@ -129,8 +138,21 @@ export function MapEditorClient() {
             {activeMapData.objects.map(obj => {
                 const asset = TILE_ASSETS.find(a => a.id === obj.tileId);
                 if (!asset || !asset.image) return null;
+                // Scale object positions from canonical (1920x1080) to percentage for responsive rendering.
+                const leftPercent = (obj.x / MAP_WIDTH) * 100;
+                const topPercent = (obj.y / MAP_HEIGHT) * 100;
+                // Scale object size based on the canonical width.
+                const widthPercent = (obj.width / MAP_WIDTH) * 100;
+                
                 return (
-                    <div key={obj.id} style={{ left: obj.x, top: obj.y, width: obj.width, height: obj.height, position: 'absolute' }}>
+                    <div key={obj.id} style={{ 
+                        left: `${leftPercent}%`, 
+                        top: `${topPercent}%`, 
+                        width: `${widthPercent}%`, 
+                        height: 'auto', // Let aspect-ratio handle height
+                        aspectRatio: `${obj.width} / ${obj.height}`,
+                        position: 'absolute' 
+                    }}>
                         <Image src={asset.image} alt={asset.name} layout="fill" objectFit="contain" />
                     </div>
                 )
