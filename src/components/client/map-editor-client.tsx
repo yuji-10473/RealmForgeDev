@@ -1,12 +1,15 @@
 "use client";
 
-import { useState, useRef, MouseEvent } from "react";
+import { useState, useRef, MouseEvent, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Button } from "../ui/button";
-import { ZoomIn, ZoomOut, Hand } from "lucide-react";
+import { ZoomIn, ZoomOut, Hand, Loader2 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Terminal } from "lucide-react";
+
 
 // The canonical size of the map editor view.
 const MAP_WIDTH = 1920;
@@ -22,7 +25,9 @@ type MapObject = {
 };
 
 type MapCell = {
-  backgroundId: string;
+  id: string;
+  name: string;
+  imageUrl: string;
   objects: MapObject[];
 };
 
@@ -33,34 +38,51 @@ const TILE_ASSETS = [
   { id: "chest", name: "宝箱", image: PlaceHolderImages.find(p => p.id === 'chest-asset')?.imageUrl, width: 48, height: 48 },
 ];
 
-const createInitialWorldMap = (): WorldMap => {
-  return Array(4).fill(null).map((_, r) =>
-    Array(4).fill(null).map((_, c) => ({
-      backgroundId: `map-bg-${r}-${c}`,
-      objects: [],
-    }))
-  );
-};
-
 export function MapEditorClient() {
-  const [worldMap, setWorldMap] = useState<WorldMap>(createInitialWorldMap);
+  const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
   const [selectedAsset, setSelectedAsset] = useState<typeof TILE_ASSETS[0] | null>(null);
 
   const editorRef = useRef<HTMLDivElement>(null);
-  
-  const activeMapData = worldMap[activeMap.r][activeMap.c];
-  const bgImage = PlaceHolderImages.find(p => p.id === activeMapData.backgroundId);
 
+  useEffect(() => {
+    const loadMapData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/maps/maps.json');
+        if (!response.ok) {
+          throw new Error(`マップファイルの読み込みに失敗しました: ${response.statusText}`);
+        }
+        const data = await response.json();
+        
+        // Create 4x4 grid from flat array
+        const newWorldMap: WorldMap = Array(4).fill(null).map(() => Array(4).fill(null));
+        data.maps.forEach((mapData: MapCell, index: number) => {
+          const r = Math.floor(index / 4);
+          const c = index % 4;
+          newWorldMap[r][c] = mapData;
+        });
+
+        setWorldMap(newWorldMap);
+      } catch (err: any) {
+        setError(err.message || '不明なエラーが発生しました。');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadMapData();
+  }, []);
+  
   const handleMapClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (!selectedAsset || !editorRef.current) return;
+    if (!selectedAsset || !editorRef.current || !worldMap) return;
 
     const rect = editorRef.current.getBoundingClientRect();
-    // Calculate click position relative to the editor element.
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Scale the coordinates to the canonical map size (1920x1080).
     const scaledX = (x / rect.width) * MAP_WIDTH;
     const scaledY = (y / rect.height) * MAP_HEIGHT;
 
@@ -73,15 +95,38 @@ export function MapEditorClient() {
       height: selectedAsset.height,
     };
     
-    const newWorldMap = [...worldMap];
+    const newWorldMap = worldMap.map(row => [...row]);
     newWorldMap[activeMap.r][activeMap.c].objects.push(newObject);
     setWorldMap(newWorldMap);
   };
+  
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Loader2 className="mr-2 h-8 w-8 animate-spin" />
+        <p>マップデータを読み込み中...</p>
+      </div>
+    );
+  }
 
+  if (error) {
+    return (
+      <Alert variant="destructive">
+        <Terminal className="h-4 w-4" />
+        <AlertTitle>読み込みエラー</AlertTitle>
+        <AlertDescription>{error}</AlertDescription>
+      </Alert>
+    );
+  }
+
+  if (!worldMap) {
+     return <p>マップデータが見つかりません。</p>
+  }
+
+  const activeMapData = worldMap[activeMap.r][activeMap.c];
 
   return (
     <div className="flex gap-8 h-full">
-      {/* World Map Navigator */}
       <aside className="w-64 flex-shrink-0">
         <Card className="h-full flex flex-col">
           <CardHeader>
@@ -90,18 +135,19 @@ export function MapEditorClient() {
           <CardContent className="flex-grow flex items-center justify-center">
             <div className="grid grid-cols-4 gap-1 aspect-square w-full">
               {worldMap.map((row, r) =>
-                row.map((_, c) => (
+                row.map((cell, c) => (
                   <button
                     key={`${r}-${c}`}
                     onClick={() => setActiveMap({ r, c })}
                     className={cn(
-                      "aspect-square border-2 flex items-center justify-center text-xs",
+                      "aspect-square border-2 flex items-center justify-center text-xs p-1 text-center",
                       activeMap.r === r && activeMap.c === c
                         ? "border-primary bg-primary/20"
                         : "border-border hover:bg-accent/50"
                     )}
+                    title={cell.name}
                   >
-                   {r+1}-{c+1}
+                   <span className="truncate">{cell.name}</span>
                   </button>
                 ))
               )}
@@ -110,11 +156,10 @@ export function MapEditorClient() {
         </Card>
       </aside>
 
-      {/* Main Editor */}
       <div className="flex-grow flex flex-col gap-4">
         <div className="flex items-center gap-2">
-            <h2 className="text-lg font-semibold">
-                マップ: {activeMap.r + 1}-{activeMap.c + 1}
+            <h2 className="text-lg font-semibold truncate">
+                マップ: {activeMapData.name}
             </h2>
             <div className="ml-auto flex items-center gap-2">
                 <Button variant="outline" size="icon"><ZoomIn /></Button>
@@ -127,21 +172,21 @@ export function MapEditorClient() {
             onClick={handleMapClick}
             className="relative w-full aspect-[16/9] bg-muted overflow-hidden border-2 border-dashed border-border cursor-crosshair"
         >
-            {bgImage?.imageUrl && (
+            {activeMapData.imageUrl && (
             <Image
-                src={bgImage.imageUrl}
-                alt={`Map background ${activeMap.r + 1}-${activeMap.c + 1}`}
+                src={activeMapData.imageUrl}
+                alt={`Map background ${activeMapData.name}`}
                 layout="fill"
                 objectFit="cover"
+                unoptimized
             />
             )}
             {activeMapData.objects.map(obj => {
                 const asset = TILE_ASSETS.find(a => a.id === obj.tileId);
                 if (!asset || !asset.image) return null;
-                // Scale object positions from canonical (1920x1080) to percentage for responsive rendering.
+                
                 const leftPercent = (obj.x / MAP_WIDTH) * 100;
                 const topPercent = (obj.y / MAP_HEIGHT) * 100;
-                // Scale object size based on the canonical width.
                 const widthPercent = (obj.width / MAP_WIDTH) * 100;
                 
                 return (
@@ -149,18 +194,17 @@ export function MapEditorClient() {
                         left: `${leftPercent}%`, 
                         top: `${topPercent}%`, 
                         width: `${widthPercent}%`, 
-                        height: 'auto', // Let aspect-ratio handle height
+                        height: 'auto',
                         aspectRatio: `${obj.width} / ${obj.height}`,
                         position: 'absolute' 
                     }}>
-                        <Image src={asset.image} alt={asset.name} layout="fill" objectFit="contain" />
+                        <Image src={asset.image} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
                     </div>
                 )
             })}
         </div>
       </div>
 
-      {/* Asset Palette */}
       <aside className="w-72 flex-shrink-0">
         <Card>
           <CardHeader>
@@ -179,7 +223,7 @@ export function MapEditorClient() {
                 )}
               >
                 <div className={cn("w-16 h-16 rounded-md flex items-center justify-center relative bg-muted/50")}>
-                  {asset.image && <Image src={asset.image} alt={asset.name} width={asset.width} height={asset.height} className="object-contain" />}
+                  {asset.image && <Image src={asset.image} alt={asset.name} width={asset.width} height={asset.height} className="object-contain" unoptimized />}
                 </div>
                 <span className="text-sm text-center font-medium">{asset.name}</span>
               </div>

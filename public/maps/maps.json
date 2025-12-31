@@ -1,0 +1,20 @@
+{
+  "maps": [
+    { "id": "map_0_0", "name": "草原 1-1", "imageUrl": "/maps/map1/map1.png", "objects": [] },
+    { "id": "map_0_1", "name": "草原 1-2", "imageUrl": "/maps/map2/map2.png", "objects": [] },
+    { "id": "map_0_2", "name": "草原 1-3", "imageUrl": "/maps/map3/map3.png", "objects": [] },
+    { "id": "map_0_3", "name": "草原 1-4", "imageUrl": "/maps/map4/map4.png", "objects": [] },
+    { "id": "map_1_0", "name": "森 2-1", "imageUrl": "/maps/map5/map5.png", "objects": [] },
+    { "id": "map_1_1", "name": "森 2-2", "imageUrl": "/maps/map6/map6.png", "objects": [] },
+    { "id": "map_1_2", "name": "森 2-3", "imageUrl": "/maps/map7/map7.png", "objects": [] },
+    { "id": "map_1_3", "name": "森 2-4", "imageUrl": "/maps/map8/map8.png", "objects": [] },
+    { "id": "map_2_0", "name": "砂漠 3-1", "imageUrl": "/maps/map9/map9.png", "objects": [] },
+    { "id": "map_2_1", "name": "砂漠 3-2", "imageUrl": "/maps/map10/map10.png", "objects": [] },
+    { "id": "map_2_2", "name": "砂漠 3-3", "imageUrl": "/maps/map11/map11.png", "objects": [] },
+    { "id": "map_2_3", "name": "砂漠 3-4", "imageUrl": "/maps/map12/map12.png", "objects": [] },
+    { "id": "map_3_0", "name": "雪山 4-1", "imageUrl": "/maps/map13/map13.png", "objects": [] },
+    { "id": "map_3_1", "name": "雪山 4-2", "imageUrl": "/maps/map14/map14.png", "objects": [] },
+    { "id": "map_3_2", "name": "雪山 4-3", "imageUrl": "/maps/map15/map15.png", "objects": [] },
+    { "id": "map_3_3", "name": "城 4-4", "imageUrl": "/maps/map16/map16.png", "objects": [] }
+  ]
+}
