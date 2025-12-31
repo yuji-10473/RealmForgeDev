@@ -4,7 +4,6 @@ import { useState, useRef, MouseEvent, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Button } from "../ui/button";
 import { ZoomIn, ZoomOut, Hand, Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
@@ -15,7 +14,7 @@ import { Terminal } from "lucide-react";
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
 
-type MapObject = {
+type PlacedObject = {
   id: string;
   tileId: string;
   x: number; // 0-1920
@@ -24,26 +23,30 @@ type MapObject = {
   height: number;
 };
 
+type AvailableObject = {
+  id: string;
+  name: string;
+  imageUrl: string;
+  width: number;
+  height: number;
+};
+
 type MapCell = {
   id: string;
   name: string;
   imageUrl: string;
-  objects: MapObject[];
+  objects: PlacedObject[];
 };
 
 type WorldMap = MapCell[][];
 
-const TILE_ASSETS = [
-  { id: "tree", name: "木", image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl, width: 64, height: 64 },
-  { id: "chest", name: "宝箱", image: PlaceHolderImages.find(p => p.id === 'chest-asset')?.imageUrl, width: 48, height: 48 },
-];
-
 export function MapEditorClient() {
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
+  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
-  const [selectedAsset, setSelectedAsset] = useState<typeof TILE_ASSETS[0] | null>(null);
+  const [selectedAsset, setSelectedAsset] = useState<AvailableObject | null>(null);
 
   const editorRef = useRef<HTMLDivElement>(null);
 
@@ -65,6 +68,7 @@ export function MapEditorClient() {
           newWorldMap[r][c] = mapData;
         });
 
+        setAvailableObjects(data.objects);
         setWorldMap(newWorldMap);
       } catch (err: any) {
         setError(err.message || '不明なエラーが発生しました。');
@@ -86,7 +90,7 @@ export function MapEditorClient() {
     const scaledX = (x / rect.width) * MAP_WIDTH;
     const scaledY = (y / rect.height) * MAP_HEIGHT;
 
-    const newObject: MapObject = {
+    const newObject: PlacedObject = {
       id: `${Date.now()}`,
       tileId: selectedAsset.id,
       x: scaledX - selectedAsset.width / 2,
@@ -182,8 +186,8 @@ export function MapEditorClient() {
             />
             )}
             {activeMapData.objects.map(obj => {
-                const asset = TILE_ASSETS.find(a => a.id === obj.tileId);
-                if (!asset || !asset.image) return null;
+                const asset = availableObjects.find(a => a.id === obj.tileId);
+                if (!asset || !asset.imageUrl) return null;
                 
                 const leftPercent = (obj.x / MAP_WIDTH) * 100;
                 const topPercent = (obj.y / MAP_HEIGHT) * 100;
@@ -198,7 +202,7 @@ export function MapEditorClient() {
                         aspectRatio: `${obj.width} / ${obj.height}`,
                         position: 'absolute' 
                     }}>
-                        <Image src={asset.image} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
+                        <Image src={asset.imageUrl} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
                     </div>
                 )
             })}
@@ -211,7 +215,7 @@ export function MapEditorClient() {
             <CardTitle>オブジェクト</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
-            {TILE_ASSETS.map((asset) => (
+            {availableObjects.map((asset) => (
               <div
                 key={asset.id}
                 onClick={() => setSelectedAsset(asset)}
@@ -223,7 +227,7 @@ export function MapEditorClient() {
                 )}
               >
                 <div className={cn("w-16 h-16 rounded-md flex items-center justify-center relative bg-muted/50")}>
-                  {asset.image && <Image src={asset.image} alt={asset.name} width={asset.width} height={asset.height} className="object-contain" unoptimized />}
+                  {asset.imageUrl && <Image src={asset.imageUrl} alt={asset.name} width={asset.width} height={asset.height} className="object-contain" unoptimized />}
                 </div>
                 <span className="text-sm text-center font-medium">{asset.name}</span>
               </div>
