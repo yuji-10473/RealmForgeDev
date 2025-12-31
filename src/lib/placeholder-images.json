@@ -1,8 +1,26 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-sprite",
-      "description": "Pixel art hero character sprite.",
+      "id": "hero-sprite-1",
+      "description": "Pixel art hero character sprite, pose 1.",
+      "imageUrl": "https://images.unsplash.com/photo-1666153184660-a09d73e5b755?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaXhlbCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NjY4OTE5ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel character"
+    },
+    {
+      "id": "hero-sprite-2",
+      "description": "Pixel art hero character sprite, pose 2.",
+      "imageUrl": "https://images.unsplash.com/photo-1665667399435-3950c4a45693?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwaXhlbCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NjY4OTE5ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel character"
+    },
+    {
+      "id": "hero-sprite-3",
+      "description": "Pixel art hero character sprite, pose 3.",
+      "imageUrl": "https://images.unsplash.com/photo-1664162436159-9943b1ad2128?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwaXhlbCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NjY4OTE5ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pixel character"
+    },
+    {
+      "id": "hero-sprite-4",
+      "description": "Pixel art hero character sprite, pose 4.",
       "imageUrl": "https://images.unsplash.com/photo-1666153184660-a09d73e5b755?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaXhlbCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NjY4OTE5ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pixel character"
     },
