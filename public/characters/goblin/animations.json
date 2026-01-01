@@ -1,0 +1,28 @@
+{
+  "availableFrames": [
+    "goblin_idle_1.png",
+    "goblin_idle_2.png",
+    "goblin_attack_1.png",
+    "goblin_attack_2.png"
+  ],
+  "clips": [
+    {
+      "id": "clip_idle_goblin",
+      "name": "待機",
+      "fps": 3,
+      "frames": [
+        { "id": "gframe_1", "image": "goblin_idle_1.png" },
+        { "id": "gframe_2", "image": "goblin_idle_2.png" }
+      ]
+    },
+    {
+      "id": "clip_attack_goblin",
+      "name": "攻撃",
+      "fps": 6,
+      "frames": [
+        { "id": "gframe_3", "image": "goblin_attack_1.png" },
+        { "id": "gframe_4", "image": "goblin_attack_2.png" }
+      ]
+    }
+  ]
+}

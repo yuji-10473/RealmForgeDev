@@ -1,0 +1,32 @@
+{
+  "availableFrames": [
+    "player_walk_1.png",
+    "player_walk_2.png",
+    "player_walk_3.png",
+    "player_walk_4.png",
+    "player_idle_1.png",
+    "player_idle_2.png"
+  ],
+  "clips": [
+    {
+      "id": "clip_idle",
+      "name": "待機",
+      "fps": 4,
+      "frames": [
+        { "id": "frame_1", "image": "player_idle_1.png" },
+        { "id": "frame_2", "image": "player_idle_2.png" }
+      ]
+    },
+    {
+      "id": "clip_walk",
+      "name": "歩行",
+      "fps": 8,
+      "frames": [
+        { "id": "frame_3", "image": "player_walk_1.png" },
+        { "id": "frame_4", "image": "player_walk_2.png" },
+        { "id": "frame_5", "image": "player_walk_3.png" },
+        { "id": "frame_6", "image": "player_walk_4.png" }
+      ]
+    }
+  ]
+}

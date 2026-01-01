@@ -15,6 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Play,
   Pause,
@@ -23,14 +25,14 @@ import {
   Copy,
   ChevronLeft,
   ChevronRight,
+  Loader2,
+  Terminal
 } from "lucide-react";
-import { PlaceHolderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
 import { cn } from "@/lib/utils";
 
 type AnimationFrame = {
   id: string;
-  assetId: string;
-  imageUrl: string;
+  image: string; // "idle_1.png"
 };
 
 type AnimationClip = {
@@ -40,38 +42,65 @@ type AnimationClip = {
   fps: number;
 };
 
-const initialClips: AnimationClip[] = [
-  {
-    id: "clip_idle",
-    name: "待機",
-    frames: [],
-    fps: 4,
-  },
-  {
-    id: "clip_walk",
-    name: "歩行",
-    frames: [],
-    fps: 8,
-  },
+type CharacterConfig = {
+  id: string;
+  name: string;
+  path: string; // "/characters/player"
+};
+
+const characters: CharacterConfig[] = [
+    { id: "player", name: "プレイヤー", path: "/characters/player" },
+    { id: "goblin", name: "ゴブリン", path: "/characters/goblin" },
 ];
 
 export function CharacterAnimatorClient() {
-  const [assets, setAssets] = useState<ImagePlaceholder[]>([]);
-  const [clips, setClips] = useState<AnimationClip[]>(initialClips);
-  const [activeClipId, setActiveClipId] = useState<string>(
-    initialClips[0]?.id || ""
-  );
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string>(characters[0].id);
+  const [clips, setClips] = useState<AnimationClip[]>([]);
+  const [availableFrames, setAvailableFrames] = useState<string[]>([]);
+  const [activeClipId, setActiveClipId] = useState<string>("");
   const [selectedFrameId, setSelectedFrameId] = useState<string | null>(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const selectedCharacter = characters.find(c => c.id === selectedCharacterId);
 
   useEffect(() => {
-    const characterAssets = PlaceHolderImages.filter((p) =>
-      p.id.includes("hero-sprite") || p.id.includes('enemy-sprite')
-    );
-    setAssets(characterAssets);
-  }, []);
+    if (!selectedCharacter) return;
+
+    const loadAnimationData = async () => {
+      setLoading(true);
+      setError(null);
+      setClips([]);
+      setAvailableFrames([]);
+      setActiveClipId("");
+
+      try {
+        const response = await fetch(`${selectedCharacter.path}/animations.json`);
+        if (!response.ok) {
+          throw new Error(`アニメーションファイルが見つかりません: ${response.statusText}`);
+        }
+        const data = await response.json();
+        
+        setClips(data.clips);
+        setAvailableFrames(data.availableFrames);
+        if (data.clips.length > 0) {
+          setActiveClipId(data.clips[0].id);
+        }
+
+      } catch (err: any) {
+        setError(err.message || 'アニメーションデータの読み込み中に不明なエラーが発生しました。');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAnimationData();
+  }, [selectedCharacter]);
+
 
   const activeClip = clips.find((c) => c.id === activeClipId);
 
@@ -104,17 +133,12 @@ export function CharacterAnimatorClient() {
     setClips([...clips, newClip]);
     setActiveClipId(newClip.id);
   };
-  
-  const handleClipNameChange = (clipId: string, newName: string) => {
-    setClips(clips.map(c => c.id === clipId ? {...c, name: newName} : c));
-  }
 
-  const handleAddFrame = (asset: ImagePlaceholder) => {
+  const handleAddFrame = (frameImage: string) => {
     if (!activeClipId) return;
     const newFrame: AnimationFrame = {
       id: `frame_${Date.now()}`,
-      assetId: asset.id,
-      imageUrl: asset.imageUrl,
+      image: frameImage,
     };
     setClips(
       clips.map((c) =>
@@ -139,35 +163,63 @@ export function CharacterAnimatorClient() {
      setClips(clips.map(c => c.id === activeClipId ? {...c, fps: newFps[0]} : c));
   }
 
-  const previewImage = activeClip?.frames[currentFrameIndex]?.imageUrl;
+  const getFrameUrl = (imageName: string) => {
+    if (!selectedCharacter) return "";
+    return `${selectedCharacter.path}/frames/${imageName}`;
+  }
 
+  const previewImage = activeClip?.frames[currentFrameIndex]?.image;
+  const previewImageUrl = previewImage ? getFrameUrl(previewImage) : undefined;
+  
+  const MainContent = () => {
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center h-full col-span-3">
+          <Loader2 className="mr-2 h-8 w-8 animate-spin" />
+          <p>{selectedCharacter?.name}のアニメーションを読み込み中...</p>
+        </div>
+      );
+    }
+  
+    if (error) {
+      return (
+        <div className="col-span-3">
+          <Alert variant="destructive">
+            <Terminal className="h-4 w-4" />
+            <AlertTitle>読み込みエラー</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        </div>
+      );
+    }
 
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+    return (
+    <>
       {/* Left Column: Asset Library & Animation Clips */}
       <div className="lg:col-span-1 flex flex-col gap-6">
         <Card className="flex-shrink-0">
           <CardHeader>
-            <CardTitle>アセット</CardTitle>
+            <CardTitle>フレームアセット</CardTitle>
             <CardDescription>
-              アニメーションに使用する画像を選択してください。
+              クリックしてタイムラインにフレームを追加します。
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-48">
               <div className="grid grid-cols-4 gap-2">
-                {assets.map((asset) => (
+                {availableFrames.map((frameImage) => (
                   <div
-                    key={asset.id}
-                    onClick={() => handleAddFrame(asset)}
+                    key={frameImage}
+                    onClick={() => handleAddFrame(frameImage)}
                     className="aspect-square bg-muted rounded-md flex items-center justify-center p-1 cursor-pointer hover:bg-muted/80 border-2 border-transparent hover:border-primary"
                   >
                     <Image
-                      src={asset.imageUrl}
-                      alt={asset.description}
+                      src={getFrameUrl(frameImage)}
+                      alt={frameImage}
                       width={64}
                       height={64}
                       className="object-contain"
+                      unoptimized
                     />
                   </div>
                 ))}
@@ -180,7 +232,7 @@ export function CharacterAnimatorClient() {
             <CardTitle>アニメーションクリップ</CardTitle>
           </CardHeader>
           <CardContent className="flex-grow">
-            <ScrollArea className="h-full">
+            <ScrollArea className="h-full pr-4">
               <div className="space-y-2">
                 {clips.map((clip) => (
                   <Button
@@ -197,7 +249,7 @@ export function CharacterAnimatorClient() {
           </CardContent>
           <CardFooter className="p-2 border-t">
             <Button variant="outline" className="w-full" onClick={handleAddClip}>
-              <Plus className="mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               クリップを追加
             </Button>
           </CardFooter>
@@ -226,14 +278,15 @@ export function CharacterAnimatorClient() {
             </CardHeader>
             <CardContent className="flex-grow flex items-center justify-center bg-muted/50">
               <div className="w-48 h-48 relative">
-                {previewImage ? (
+                {previewImageUrl ? (
                   <Image
-                    src={previewImage}
+                    src={previewImageUrl}
                     alt="Animation Preview"
                     layout="fill"
                     objectFit="contain"
                     key={currentFrameIndex}
                     className="animate-fade-in"
+                    unoptimized
                   />
                 ) : (
                   <div className="text-center text-muted-foreground">フレームがありません</div>
@@ -268,17 +321,18 @@ export function CharacterAnimatorClient() {
                         )}
                       >
                         <Image
-                          src={frame.imageUrl}
+                          src={getFrameUrl(frame.image)}
                           alt={`Frame ${frame.id}`}
                           width={80}
                           height={80}
                           className="object-contain"
+                          unoptimized
                         />
                       </div>
                     ))}
-                     <div className="h-24 w-24 flex-shrink-0 rounded-md border-2 border-dashed text-muted-foreground flex flex-col items-center justify-center">
-                        <Plus />
-                        <span className="text-xs mt-1">アセットを追加</span>
+                     <div className="h-24 w-24 flex-shrink-0 rounded-md border-2 border-dashed text-muted-foreground flex flex-col items-center justify-center text-center p-2">
+                        <Plus className="h-6 w-6"/>
+                        <span className="text-xs mt-1">アセットをクリックして追加</span>
                      </div>
                  </div>
               </ScrollArea>
@@ -295,6 +349,28 @@ export function CharacterAnimatorClient() {
            </Card>
          </div>
       )}
+    </>
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-6 h-full">
+      <div className="flex-shrink-0">
+        <Label htmlFor="character-select">キャラクターを選択</Label>
+        <Select value={selectedCharacterId} onValueChange={setSelectedCharacterId}>
+          <SelectTrigger id="character-select" className="w-[280px] mt-2">
+            <SelectValue placeholder="編集するキャラクターを選択..." />
+          </SelectTrigger>
+          <SelectContent>
+            {characters.map(char => (
+              <SelectItem key={char.id} value={char.id}>{char.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow min-h-0">
+        <MainContent />
+      </div>
     </div>
   );
 }
