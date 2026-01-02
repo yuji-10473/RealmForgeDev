@@ -10,6 +10,8 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
 const CHARACTER_SPEED = 20;
+const CHARACTER_WIDTH = 64;
+const CHARACTER_HEIGHT = 64;
 
 type MapCell = {
   id: string;
@@ -57,29 +59,69 @@ export function PlayTestClient() {
   }, []);
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    setCharacterPosition(pos => {
-      let { x, y } = pos;
-      switch (event.key) {
-        case "ArrowUp":
-          y -= CHARACTER_SPEED;
-          break;
-        case "ArrowDown":
-          y += CHARACTER_SPEED;
-          break;
-        case "ArrowLeft":
-          x -= CHARACTER_SPEED;
-          break;
-        case "ArrowRight":
-          x += CHARACTER_SPEED;
-          break;
+    if (!worldMap) return;
+
+    let newPos = { ...characterPosition };
+    let newActiveMap = { ...activeMap };
+
+    switch (event.key) {
+      case "ArrowUp":
+        newPos.y -= CHARACTER_SPEED;
+        break;
+      case "ArrowDown":
+        newPos.y += CHARACTER_SPEED;
+        break;
+      case "ArrowLeft":
+        newPos.x -= CHARACTER_SPEED;
+        break;
+      case "ArrowRight":
+        newPos.x += CHARACTER_SPEED;
+        break;
+      default:
+        return; 
+    }
+
+    // Map transitions
+    if (newPos.x + CHARACTER_WIDTH < 0) { // Move left
+      if (activeMap.c > 0) {
+        newActiveMap.c--;
+        newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
+      } else {
+        newPos.x = 0;
       }
-      // Basic boundary collision
-      x = Math.max(0, Math.min(x, MAP_WIDTH - 64)); // Assuming character width 64
-      y = Math.max(0, Math.min(y, MAP_HEIGHT - 64)); // Assuming character height 64
-      
-      return { x, y };
-    });
-  }, []);
+    } else if (newPos.x > MAP_WIDTH) { // Move right
+      if (activeMap.c < worldMap[0].length - 1) {
+        newActiveMap.c++;
+        newPos.x = 0;
+      } else {
+        newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
+      }
+    }
+
+    if (newPos.y + CHARACTER_HEIGHT < 0) { // Move up
+      if (activeMap.r > 0) {
+        newActiveMap.r--;
+        newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
+      } else {
+        newPos.y = 0;
+      }
+    } else if (newPos.y > MAP_HEIGHT) { // Move down
+      if (activeMap.r < worldMap.length - 1) {
+        newActiveMap.r++;
+        newPos.y = 0;
+      } else {
+        newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
+      }
+    }
+
+    // Clamp position within current map boundaries if not transitioning
+    newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
+    newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
+
+    setCharacterPosition(newPos);
+    setActiveMap(newActiveMap);
+
+  }, [activeMap, characterPosition, worldMap]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -132,16 +174,16 @@ export function PlayTestClient() {
             position: 'absolute',
             left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
             top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
-            width: '64px',
-            height: '64px',
+            width: `${CHARACTER_WIDTH}px`,
+            height: `${CHARACTER_HEIGHT}px`,
             transition: 'left 0.1s linear, top 0.1s linear',
           }}>
             <Image
               src={playerSprite.imageUrl}
               alt="Player Character"
               data-ai-hint={playerSprite.imageHint}
-              width={64}
-              height={64}
+              width={CHARACTER_WIDTH}
+              height={CHARACTER_HEIGHT}
               objectFit="contain"
               unoptimized
             />
