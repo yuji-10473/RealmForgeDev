@@ -137,7 +137,7 @@ export function CharacterAnimatorClient() {
   const handleAddFrame = (frameImage: string) => {
     if (!activeClipId) return;
     const newFrame: AnimationFrame = {
-      id: `frame_${Date.now()}`,
+      id: `frame_${Date.now()}_${Math.random()}`,
       image: frameImage,
     };
     setClips(
@@ -165,6 +165,10 @@ export function CharacterAnimatorClient() {
 
   const getFrameUrl = (imageName: string) => {
     if (!selectedCharacter) return "";
+    // If imageName starts with '/', it's already a full path
+    if (imageName.startsWith('/')) {
+        return imageName;
+    }
     return `${selectedCharacter.path}/frames/${imageName}`;
   }
 
@@ -285,7 +289,6 @@ export function CharacterAnimatorClient() {
                     layout="fill"
                     objectFit="contain"
                     key={currentFrameIndex}
-                    className="animate-fade-in"
                     unoptimized
                   />
                 ) : (
