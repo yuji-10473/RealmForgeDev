@@ -317,7 +317,7 @@ export function CharacterAnimatorClient() {
             <CardContent className="flex-grow">
               <ScrollArea className="h-full whitespace-nowrap">
                  <div className="flex items-center h-full gap-2 p-2">
-                    {activeClip.frames.map((frame, index) => (
+                    {activeClip.frames.map((frame) => (
                       <div
                         key={frame.id}
                         onClick={() => setSelectedFrameId(frame.id)}

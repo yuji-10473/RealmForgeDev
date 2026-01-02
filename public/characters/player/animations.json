@@ -24,8 +24,8 @@
       "frames": [
         { "id": "frame_3", "image": "player_walk_1.png" },
         { "id": "frame_4", "image": "player_walk_2.png" },
-        { "id": "frame_3", "image": "player_walk_3.png" },
-        { "id": "frame_4", "image": "player_walk_4.png" }
+        { "id": "frame_5", "image": "player_walk_3.png" },
+        { "id": "frame_6", "image": "player_walk_4.png" }
       ]
     }
   ]
