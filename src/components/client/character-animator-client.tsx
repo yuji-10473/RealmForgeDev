@@ -136,15 +136,17 @@ export function CharacterAnimatorClient() {
 
   const handleAddFrame = (frameImage: string) => {
     if (!activeClipId) return;
-    const newFrame: AnimationFrame = {
-      id: `frame_${Date.now()}_${Math.random()}`,
-      image: frameImage,
-    };
-    setClips(
-      clips.map((c) =>
-        c.id === activeClipId ? { ...c, frames: [...c.frames, newFrame] } : c
-      )
-    );
+  
+    setClips(clips.map((c) => {
+      if (c.id === activeClipId) {
+        const newFrame: AnimationFrame = {
+          id: `${frameImage}_${c.frames.length}_${Math.random()}`,
+          image: frameImage,
+        };
+        return { ...c, frames: [...c.frames, newFrame] };
+      }
+      return c;
+    }));
   };
   
   const handleRemoveFrame = () => {
@@ -315,7 +317,7 @@ export function CharacterAnimatorClient() {
             <CardContent className="flex-grow">
               <ScrollArea className="h-full whitespace-nowrap">
                  <div className="flex items-center h-full gap-2 p-2">
-                    {activeClip.frames.map((frame) => (
+                    {activeClip.frames.map((frame, index) => (
                       <div
                         key={frame.id}
                         onClick={() => setSelectedFrameId(frame.id)}
