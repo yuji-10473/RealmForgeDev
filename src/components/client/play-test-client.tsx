@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, Terminal } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { cn } from "@/lib/utils";
 
 // The canonical size of the map editor view.
 const MAP_WIDTH = 1920;
@@ -27,6 +28,7 @@ export function PlayTestClient() {
   const [error, setError] = useState<string | null>(null);
   const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
   const [characterPosition, setCharacterPosition] = useState({ x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const playerSprite = PlaceHolderImages.find(p => p.id === 'hero-sprite-1');
 
@@ -59,7 +61,7 @@ export function PlayTestClient() {
   }, []);
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (!worldMap) return;
+    if (!worldMap || isTransitioning) return;
     
     let newPos = { ...characterPosition };
     let newActiveMap = { ...activeMap };
@@ -95,9 +97,7 @@ export function PlayTestClient() {
         newPos.x = 0;
         didTransition = true;
       }
-    }
-
-    if (newPos.y < 0) { // Move up
+    } else if (newPos.y < 0) { // Move up
       if (activeMap.r > 0) {
         newActiveMap.r--;
         newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
@@ -111,16 +111,18 @@ export function PlayTestClient() {
       }
     }
 
-    // Clamp position within current map boundaries only if not transitioning
-    if (!didTransition) {
-        newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
-        newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
+    if (didTransition) {
+      setIsTransitioning(true);
+      setActiveMap(newActiveMap);
+    } else {
+      // Clamp position within current map boundaries only if not transitioning
+      newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
+      newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
     }
 
     setCharacterPosition(newPos);
-    setActiveMap(newActiveMap);
 
-  }, [activeMap, characterPosition, worldMap]);
+  }, [activeMap, characterPosition, worldMap, isTransitioning]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -128,6 +130,10 @@ export function PlayTestClient() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
+
+  const handleImageLoad = () => {
+    setIsTransitioning(false);
+  };
 
   if (loading) {
     return (
@@ -159,13 +165,21 @@ export function PlayTestClient() {
       <div
         className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border"
       >
+        {isTransitioning && (
+          <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-20">
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          </div>
+        )}
         {activeMapData.imageUrl && (
           <Image
+            key={activeMapData.id}
             src={activeMapData.imageUrl}
             alt={`Map background ${activeMapData.name}`}
             layout="fill"
             objectFit="cover"
             unoptimized
+            onLoad={handleImageLoad}
+            priority
           />
         )}
         {playerSprite && (
@@ -175,7 +189,8 @@ export function PlayTestClient() {
             top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
             width: `${CHARACTER_WIDTH}px`,
             height: `${CHARACTER_HEIGHT}px`,
-            transition: 'left 0.1s linear, top 0.1s linear',
+            transition: isTransitioning ? 'none' : 'left 0.1s linear, top 0.1s linear',
+            zIndex: 10
           }}>
             <Image
               src={playerSprite.imageUrl}
