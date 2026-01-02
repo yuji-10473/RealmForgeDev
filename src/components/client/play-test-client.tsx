@@ -60,9 +60,10 @@ export function PlayTestClient() {
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (!worldMap) return;
-
+    
     let newPos = { ...characterPosition };
     let newActiveMap = { ...activeMap };
+    let didTransition = false;
 
     switch (event.key) {
       case "ArrowUp":
@@ -82,41 +83,39 @@ export function PlayTestClient() {
     }
 
     // Map transitions
-    if (newPos.x + CHARACTER_WIDTH < 0) { // Move left
+    if (newPos.x < 0) { // Move left
       if (activeMap.c > 0) {
         newActiveMap.c--;
         newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
-      } else {
-        newPos.x = 0;
+        didTransition = true;
       }
-    } else if (newPos.x > MAP_WIDTH) { // Move right
+    } else if (newPos.x > MAP_WIDTH - CHARACTER_WIDTH) { // Move right
       if (activeMap.c < worldMap[0].length - 1) {
         newActiveMap.c++;
         newPos.x = 0;
-      } else {
-        newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
+        didTransition = true;
       }
     }
 
-    if (newPos.y + CHARACTER_HEIGHT < 0) { // Move up
+    if (newPos.y < 0) { // Move up
       if (activeMap.r > 0) {
         newActiveMap.r--;
         newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
-      } else {
-        newPos.y = 0;
+        didTransition = true;
       }
-    } else if (newPos.y > MAP_HEIGHT) { // Move down
+    } else if (newPos.y > MAP_HEIGHT - CHARACTER_HEIGHT) { // Move down
       if (activeMap.r < worldMap.length - 1) {
         newActiveMap.r++;
         newPos.y = 0;
-      } else {
-        newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
+        didTransition = true;
       }
     }
 
-    // Clamp position within current map boundaries if not transitioning
-    newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
-    newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
+    // Clamp position within current map boundaries only if not transitioning
+    if (!didTransition) {
+        newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
+        newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
+    }
 
     setCharacterPosition(newPos);
     setActiveMap(newActiveMap);
