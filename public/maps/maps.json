@@ -1,36 +1,127 @@
 {
+  "rows": 4,
+  "cols": 4,
   "objects": [
     {
       "id": "tree",
       "name": "木",
-      "imageUrl": "/maps/objects/tree.png",
-      "width": 64,
-      "height": 64
+      "imageUrl": "/objects/tree.png",
+      "width": 128,
+      "height": 128
     },
     {
-      "id": "chest",
-      "name": "宝箱",
-      "imageUrl": "/maps/objects/chest.png",
-      "width": 48,
-      "height": 48
+      "id": "house",
+      "name": "家",
+      "imageUrl": "/objects/house.png",
+      "width": 256,
+      "height": 256
     }
   ],
   "maps": [
-    { "id": "map_0_0", "name": "森の入り口", "imageUrl": "/maps/backgrounds/map_0_0.png", "objects": [] },
-    { "id": "map_0_1", "name": "森の小道", "imageUrl": "/maps/backgrounds/map_0_1.png", "objects": [] },
-    { "id": "map_0_2", "name": "開けた場所", "imageUrl": "/maps/backgrounds/map_0_2.png", "objects": [] },
-    { "id": "map_0_3", "name": "川辺", "imageUrl": "/maps/backgrounds/map_0_3.png", "objects": [] },
-    { "id": "map_1_0", "name": "西の森", "imageUrl": "/maps/backgrounds/map_1_0.png", "objects": [] },
-    { "id": "map_1_1", "name": "森の中心", "imageUrl": "/maps/backgrounds/map_1_1.png", "objects": [] },
-    { "id": "map_1_2", "name": "東の森", "imageUrl": "/maps/backgrounds/map_1_2.png", "objects": [] },
-    { "id": "map_1_3", "name": "滝", "imageUrl": "/maps/backgrounds/map_1_3.png", "objects": [] },
-    { "id": "map_2_0", "name": "沼地", "imageUrl": "/maps/backgrounds/map_2_0.png", "objects": [] },
-    { "id": "map_2_1", "name": "沼地の小道", "imageUrl": "/maps/backgrounds/map_2_1.png", "objects": [] },
-    { "id": "map_2_2", "name": "古い遺跡", "imageUrl": "/maps/backgrounds/map_2_2.png", "objects": [] },
-    { "id": "map_2_3", "name": "遺跡の奥", "imageUrl": "/maps/backgrounds/map_2_3.png", "objects": [] },
-    { "id": "map_3_0", "name": "山の麓", "imageUrl": "/maps/backgrounds/map_3_0.png", "objects": [] },
-    { "id": "map_3_1", "name": "登山道", "imageUrl": "/maps/backgrounds/map_3_1.png", "objects": [] },
-    { "id": "map_3_2", "name": "山の中腹", "imageUrl": "/maps/backgrounds/map_3_2.png", "objects": [] },
-    { "id": "map_3_3", "name": "山頂", "imageUrl": "/maps/backgrounds/map_3_3.png", "objects": [] }
+    {
+      "id": "map1",
+      "name": "森の入口",
+      "imageUrl": "/maps/backgrounds/map_0_0.png",
+      "objects": []
+    },
+    {
+      "id": "map2",
+      "name": "森の小道",
+      "imageUrl": "/maps/backgrounds/map_0_1.png",
+      "objects": []
+    },
+    {
+      "id": "map3",
+      "name": "川辺",
+      "imageUrl": "/maps/backgrounds/map_0_2.png",
+      "objects": []
+    },
+    {
+      "id": "map4",
+      "name": "古い橋",
+      "imageUrl": "/maps/backgrounds/map_0_3.png",
+      "objects": []
+    },
+    {
+      "id": "map5",
+      "name": "草原",
+      "imageUrl": "/maps/backgrounds/map_1_0.png",
+      "objects": [
+        {
+          "id": "1721734567890",
+          "tileId": "house",
+          "x": 800,
+          "y": 400,
+          "width": 256,
+          "height": 256
+        }
+      ]
+    },
+    {
+      "id": "map6",
+      "name": "村",
+      "imageUrl": "/maps/backgrounds/map_1_1.png",
+      "objects": []
+    },
+    {
+      "id": "map7",
+      "name": "城への道",
+      "imageUrl": "/maps/backgrounds/map_1_2.png",
+      "objects": []
+    },
+    {
+      "id": "map8",
+      "name": "城門",
+      "imageUrl": "/maps/backgrounds/map_1_3.png",
+      "objects": []
+    },
+    {
+      "id": "map9",
+      "name": "山道",
+      "imageUrl": "/maps/backgrounds/map_2_0.png",
+      "objects": []
+    },
+    {
+      "id": "map10",
+      "name": "洞窟の入口",
+      "imageUrl": "/maps/backgrounds/map_2_1.png",
+      "objects": []
+    },
+    {
+      "id": "map11",
+      "name": "湿地",
+      "imageUrl": "/maps/backgrounds/map_2_2.png",
+      "objects": []
+    },
+    {
+      "id": "map12",
+      "name": "沼",
+      "imageUrl": "/maps/backgrounds/map_2_3.png",
+      "objects": []
+    },
+    {
+      "id": "map13",
+      "name": "砂漠",
+      "imageUrl": "/maps/backgrounds/map_3_0.png",
+      "objects": []
+    },
+    {
+      "id": "map14",
+      "name": "オアシス",
+      "imageUrl": "/maps/backgrounds/map_3_1.png",
+      "objects": []
+    },
+    {
+      "id": "map15",
+      "name": "遺跡",
+      "imageUrl": "/maps/backgrounds/map_3_2.png",
+      "objects": []
+    },
+    {
+      "id": "map16",
+      "name": "最果ての地",
+      "imageUrl": "/maps/backgrounds/map_3_3.png",
+      "objects": []
+    }
   ]
 }

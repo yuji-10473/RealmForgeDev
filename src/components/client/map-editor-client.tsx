@@ -76,10 +76,8 @@ export function MapEditorClient() {
         }
         const data = await response.json();
         
-        const numMaps = data.maps.length;
-        // Assume 4 columns for 16 maps, otherwise assume 1 row.
-        const cols = numMaps === 16 ? 4 : numMaps > 1 ? 8 : 1; 
-        const rows = Math.ceil(numMaps / cols);
+        const rows = data.rows || 1;
+        const cols = data.cols || data.maps.length;
 
         const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
         data.maps.forEach((mapData: MapCell, index: number) => {

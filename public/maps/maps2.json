@@ -1,69 +1,79 @@
-
 {
-  "maps": [
-    {
-      "id": "map_0_0",
-      "name": "静かな森",
-      "imageUrl": "/maps/backgrounds/map_0_0.png",
-      "objects": []
-    },
-    {
-      "id": "map_0_1",
-      "name": "せせらぎの小川",
-      "imageUrl": "/maps/backgrounds/map_0_1.png",
-      "objects": []
-    },
-    {
-      "id": "map_0_2",
-      "name": "忘れられた遺跡",
-      "imageUrl": "/maps/backgrounds/map_0_2.png",
-      "objects": []
-    },
-    {
-      "id": "map_0_3",
-      "name": "ゴブリンのキャンプ",
-      "imageUrl": "/maps/backgrounds/map_0_3.png",
-      "objects": []
-    },
-    {
-      "id": "map_1_0",
-      "name": "霧の湿地",
-      "imageUrl": "/maps/backgrounds/map_1_0.png",
-      "objects": []
-    },
-    {
-      "id": "map_1_1",
-      "name": "賢者の洞窟",
-      "imageUrl": "/maps/backgrounds/map_1_1.png",
-      "objects": []
-    },
-    {
-      "id": "map_1_2",
-      "name": "呪われた沼",
-      "imageUrl": "/maps/backgrounds/map_1_2.png",
-      "objects": []
-    },
-    {
-      "id": "map_1_3",
-      "name": "山頂への道",
-      "imageUrl": "/maps/backgrounds/map_1_3.png",
-      "objects": []
-    }
-  ],
+  "rows": 8,
+  "cols": 1,
   "objects": [
     {
-      "id": "tree-asset",
+      "id": "tree",
       "name": "木",
-      "imageUrl": "/assets/tree.png",
+      "imageUrl": "/objects/tree.png",
       "width": 128,
       "height": 128
     },
     {
-      "id": "chest-asset",
-      "name": "宝箱",
-      "imageUrl": "/assets/chest.png",
-      "width": 64,
-      "height": 64
+      "id": "house",
+      "name": "家",
+      "imageUrl": "/objects/house.png",
+      "width": 256,
+      "height": 256
+    }
+  ],
+  "maps": [
+    {
+      "id": "map1",
+      "name": "森の入口",
+      "imageUrl": "/maps/backgrounds/map_0_0.png",
+      "objects": []
+    },
+    {
+      "id": "map2",
+      "name": "森の小道",
+      "imageUrl": "/maps/backgrounds/map_0_1.png",
+      "objects": []
+    },
+    {
+      "id": "map3",
+      "name": "川辺",
+      "imageUrl": "/maps/backgrounds/map_0_2.png",
+      "objects": []
+    },
+    {
+      "id": "map4",
+      "name": "古い橋",
+      "imageUrl": "/maps/backgrounds/map_0_3.png",
+      "objects": []
+    },
+    {
+      "id": "map5",
+      "name": "草原",
+      "imageUrl": "/maps/backgrounds/map_1_0.png",
+      "objects": [
+        {
+          "id": "1721734567890",
+          "tileId": "house",
+          "x": 800,
+          "y": 400,
+          "width": 256,
+          "height": 256
+        }
+      ]
+    },
+    {
+      "id": "map6",
+      "name": "村",
+      "imageUrl": "/maps/backgrounds/map_1_1.png",
+      "objects": []
+    },
+    {
+      "id": "map7",
+      "name": "城への道",
+      "imageUrl": "/maps/backgrounds/map_1_2.png",
+      "objects": []
+    },
+    {
+      "id": "map8",
+      "name": "城門",
+      "imageUrl": "/maps/backgrounds/map_1_3.png",
+      "objects": []
     }
   ]
 }

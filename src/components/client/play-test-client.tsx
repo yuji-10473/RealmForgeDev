@@ -70,9 +70,8 @@ export function PlayTestClient() {
         const mapData = await mapResponse.json();
         const animData = await animResponse.json();
         
-        const numMaps = mapData.maps.length;
-        const cols = numMaps === 16 ? 4 : numMaps > 1 ? 8 : 1; 
-        const rows = Math.ceil(numMaps / cols);
+        const rows = mapData.rows || 1;
+        const cols = mapData.cols || mapData.maps.length;
 
         const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
         mapData.maps.forEach((mapCell: MapCell, index: number) => {
