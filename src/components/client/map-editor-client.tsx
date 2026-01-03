@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, MouseEvent, useEffect } from "react";
@@ -75,11 +76,15 @@ export function MapEditorClient() {
         }
         const data = await response.json();
         
-        // Create 4x4 grid from flat array
-        const newWorldMap: WorldMap = Array(4).fill(null).map(() => Array(4).fill(null));
+        const numMaps = data.maps.length;
+        // Assume 4 columns for 16 maps, otherwise assume 1 row.
+        const cols = numMaps === 16 ? 4 : numMaps > 1 ? 8 : 1; 
+        const rows = Math.ceil(numMaps / cols);
+
+        const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
         data.maps.forEach((mapData: MapCell, index: number) => {
-          const r = Math.floor(index / 4);
-          const c = index % 4;
+          const r = Math.floor(index / cols);
+          const c = index % cols;
           newWorldMap[r][c] = mapData;
         });
 
@@ -146,6 +151,7 @@ export function MapEditorClient() {
     }
 
     const activeMapData = worldMap[activeMap.r][activeMap.c];
+    const gridCols = worldMap[0].length;
 
     return (
       <>
@@ -155,7 +161,10 @@ export function MapEditorClient() {
               <CardTitle>ワールドマップ</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow flex items-center justify-center">
-              <div className="grid grid-cols-4 gap-1 aspect-square w-full">
+              <div 
+                className="grid gap-1 aspect-square w-full"
+                style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
+              >
                 {worldMap.map((row, r) =>
                   row.map((cell, c) => (
                     <button

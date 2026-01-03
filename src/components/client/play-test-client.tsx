@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -53,8 +54,9 @@ export function PlayTestClient() {
     const loadData = async () => {
       try {
         setLoading(true);
+        // For now, we assume we always start on 'maps.json' for play-testing.
         const [mapResponse, animResponse] = await Promise.all([
-          fetch('/maps/maps.json'),
+          fetch('/maps/maps.json'), 
           fetch('/characters/player/animations.json')
         ]);
 
@@ -68,10 +70,14 @@ export function PlayTestClient() {
         const mapData = await mapResponse.json();
         const animData = await animResponse.json();
         
-        const newWorldMap: WorldMap = Array(4).fill(null).map(() => Array(4).fill(null));
+        const numMaps = mapData.maps.length;
+        const cols = numMaps === 16 ? 4 : numMaps > 1 ? 8 : 1; 
+        const rows = Math.ceil(numMaps / cols);
+
+        const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
         mapData.maps.forEach((mapCell: MapCell, index: number) => {
-          const r = Math.floor(index / 4);
-          const c = index % 4;
+          const r = Math.floor(index / cols);
+          const c = index % cols;
           newWorldMap[r][c] = mapCell;
         });
 
@@ -280,5 +286,3 @@ export function PlayTestClient() {
     </div>
   );
 }
-
-    

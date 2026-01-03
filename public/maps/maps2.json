@@ -1,3 +1,4 @@
+
 {
   "maps": [
     {
@@ -8,7 +9,7 @@
     },
     {
       "id": "map_0_1",
-      "name": "ささやきの平原",
+      "name": "せせらぎの小川",
       "imageUrl": "/maps/backgrounds/map_0_1.png",
       "objects": []
     },
@@ -20,126 +21,47 @@
     },
     {
       "id": "map_0_3",
-      "name": "霧の湿地",
+      "name": "ゴブリンのキャンプ",
       "imageUrl": "/maps/backgrounds/map_0_3.png",
       "objects": []
     },
     {
       "id": "map_1_0",
-      "name": "始まりの村",
+      "name": "霧の湿地",
       "imageUrl": "/maps/backgrounds/map_1_0.png",
-      "objects": [
-        {
-          "id": "1719416550734",
-          "tileId": "tree1",
-          "x": 200,
-          "y": 300,
-          "width": 128,
-          "height": 128
-        },
-        {
-          "id": "1719416551834",
-          "tileId": "house1",
-          "x": 800,
-          "y": 400,
-          "width": 256,
-          "height": 256
-        }
-      ]
+      "objects": []
     },
     {
       "id": "map_1_1",
-      "name": "中央広場",
+      "name": "賢者の洞窟",
       "imageUrl": "/maps/backgrounds/map_1_1.png",
       "objects": []
     },
     {
       "id": "map_1_2",
-      "name": "市場通り",
+      "name": "呪われた沼",
       "imageUrl": "/maps/backgrounds/map_1_2.png",
       "objects": []
     },
     {
       "id": "map_1_3",
-      "name": "東門",
+      "name": "山頂への道",
       "imageUrl": "/maps/backgrounds/map_1_3.png",
-      "objects": []
-    },
-    {
-      "id": "map_2_0",
-      "name": "西の街道",
-      "imageUrl": "/maps/backgrounds/map_2_0.png",
-      "objects": []
-    },
-    {
-      "id": "map_2_1",
-      "name": "城下町",
-      "imageUrl": "/maps/backgrounds/map_2_1.png",
-      "objects": []
-    },
-    {
-      "id": "map_2_2",
-      "name": "王城への道",
-      "imageUrl": "/maps/backgrounds/map_2_2.png",
-      "objects": []
-    },
-    {
-      "id": "map_2_3",
-      "name": "水晶の湖",
-      "imageUrl": "/maps/backgrounds/map_2_3.png",
-      "objects": []
-    },
-    {
-      "id": "map_3_0",
-      "name": "南の砂漠",
-      "imageUrl": "/maps/backgrounds/map_3_0.png",
-      "objects": []
-    },
-    {
-      "id": "map_3_1",
-      "name": "オアシス",
-      "imageUrl": "/maps/backgrounds/map_3_1.png",
-      "objects": []
-    },
-    {
-      "id": "map_3_2",
-      "name": "竜の骨の谷",
-      "imageUrl": "/maps/backgrounds/map_3_2.png",
-      "objects": []
-    },
-    {
-      "id": "map_3_3",
-      "name": "世界の果て",
-      "imageUrl": "/maps/backgrounds/map_3_3.png",
       "objects": []
     }
   ],
   "objects": [
     {
-      "id": "tree1",
+      "id": "tree-asset",
       "name": "木",
-      "imageUrl": "/objects/tree1.png",
+      "imageUrl": "/assets/tree.png",
       "width": 128,
       "height": 128
     },
     {
-      "id": "house1",
-      "name": "家",
-      "imageUrl": "/objects/house1.png",
-      "width": 256,
-      "height": 256
-    },
-    {
-      "id": "rock1",
-      "name": "岩",
-      "imageUrl": "/objects/rock1.png",
-      "width": 64,
-      "height": 64
-    },
-    {
-      "id": "chest1",
+      "id": "chest-asset",
       "name": "宝箱",
-      "imageUrl": "/objects/chest1.png",
+      "imageUrl": "/assets/chest.png",
       "width": 64,
       "height": 64
     }
