@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarInset,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
@@ -22,6 +23,7 @@ import { CombatIcon } from "@/components/icons/CombatIcon";
 import { ExportIcon } from "@/components/icons/ExportIcon";
 import { AssetIcon } from "@/components/icons/AssetIcon";
 import { PlayTestIcon } from "@/components/icons/PlayTestIcon";
+import packageJson from "../../../package.json";
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -36,6 +38,7 @@ const navItems = [
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const version = packageJson.version;
 
   return (
     <SidebarProvider>
@@ -63,6 +66,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             ))}
           </SidebarMenu>
         </SidebarContent>
+        <SidebarFooter>
+          <div className="text-center text-xs text-muted-foreground p-2">
+            Ver {version}
+          </div>
+        </SidebarFooter>
       </Sidebar>
       <SidebarInset>
         <main className="min-h-screen p-4 sm:p-6 lg:p-8">{children}</main>
