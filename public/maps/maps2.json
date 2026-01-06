@@ -21,31 +21,31 @@
     {
       "id": "map1",
       "name": "森の入口",
-      "imageUrl": "/maps/backgrounds/map_0_0.png",
+      "imageUrl": "/maps/backgrounds/map_4_2.png",
       "objects": []
     },
     {
       "id": "map2",
       "name": "森の小道",
-      "imageUrl": "/maps/backgrounds/map_0_1.png",
+      "imageUrl": "/maps/backgrounds/map_4_2.png",
       "objects": []
     },
     {
       "id": "map3",
       "name": "川辺",
-      "imageUrl": "/maps/backgrounds/map_0_2.png",
+      "imageUrl": "/maps/backgrounds/map_4_2.png",
       "objects": []
     },
     {
       "id": "map4",
       "name": "古い橋",
-      "imageUrl": "/maps/backgrounds/map_0_3.png",
+      "imageUrl": "/maps/backgrounds/map_4_2.png",
       "objects": []
     },
     {
       "id": "map5",
       "name": "草原",
-      "imageUrl": "/maps/backgrounds/map_1_0.png",
+      "imageUrl": "/maps/backgrounds/map_4_2.png",
       "objects": [
         {
           "id": "1721734567890",
@@ -60,19 +60,19 @@
     {
       "id": "map6",
       "name": "村",
-      "imageUrl": "/maps/backgrounds/map_1_1.png",
+      "imageUrl": "/maps/backgrounds/map_4_2.png",
       "objects": []
     },
     {
       "id": "map7",
       "name": "城への道",
-      "imageUrl": "/maps/backgrounds/map_1_2.png",
+      "imageUrl": "/maps/backgrounds/map_4_1.png",
       "objects": []
     },
     {
       "id": "map8",
       "name": "城門",
-      "imageUrl": "/maps/backgrounds/map_1_3.png",
+      "imageUrl": "/maps/backgrounds/map_4_0.png",
       "objects": []
     }
   ]

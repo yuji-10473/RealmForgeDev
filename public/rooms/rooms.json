@@ -1,0 +1,71 @@
+
+{
+  "objects": [
+    {
+      "id": "obj_table",
+      "name": "テーブル",
+      "imageUrl": "/objects/table.png",
+      "width": 128,
+      "height": 64
+    },
+    {
+      "id": "obj_chair",
+      "name": "椅子",
+      "imageUrl": "/objects/chair.png",
+      "width": 32,
+      "height": 64
+    },
+    {
+      "id": "obj_bed",
+      "name": "ベッド",
+      "imageUrl": "/objects/bed.png",
+      "width": 64,
+      "height": 128
+    },
+    {
+      "id": "obj_bookshelf",
+      "name": "本棚",
+      "imageUrl": "/objects/bookshelf.png",
+      "width": 64,
+      "height": 96
+    },
+    {
+      "id": "obj_pot",
+      "name": "壺",
+      "imageUrl": "/objects/pot.png",
+      "width": 32,
+      "height": 32
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room_player_house",
+      "name": "プレイヤーの家",
+      "imageUrl": "/rooms/backgrounds/wood_floor.png",
+      "objects": [
+        {
+          "id": "1",
+          "objectId": "obj_bed",
+          "x": 60,
+          "y": 100,
+          "width": 64,
+          "height": 128
+        },
+        {
+          "id": "2",
+          "objectId": "obj_table",
+          "x": 300,
+          "y": 200,
+          "width": 128,
+          "height": 64
+        }
+      ]
+    },
+    {
+      "id": "room_inn",
+      "name": "宿屋の一室",
+      "imageUrl": "/rooms/backgrounds/stone_floor.png",
+      "objects": []
+    }
+  ]
+}
