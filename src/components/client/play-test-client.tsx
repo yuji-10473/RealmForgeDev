@@ -1,5 +1,6 @@
 
 
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -7,6 +8,9 @@ import Image from "next/image";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Label } from "../ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+
 
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
@@ -38,7 +42,13 @@ type WorldMap = MapCell[][];
 type CharacterState = "idle" | "walk_up" | "walk_down" | "walk_left" | "walk_right";
 type CharacterDirection = "up" | "down" | "left" | "right";
 
+const worldMapOptions = [
+  { id: 'maps', name: 'ワールドマップ 1' },
+  { id: 'maps2', name: 'ワールドマップ 2' },
+];
+
 export function PlayTestClient() {
+  const [selectedWorldMapId, setSelectedWorldMapId] = useState<string>(worldMapOptions[0].id);
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [clips, setClips] = useState<AnimationClip[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -54,9 +64,14 @@ export function PlayTestClient() {
     const loadData = async () => {
       try {
         setLoading(true);
-        // For now, we assume we always start on 'maps.json' for play-testing.
+        setError(null);
+        setWorldMap(null);
+        setClips(null);
+        setActiveMap({ r: 0, c: 0 });
+        setCharacterPosition({ x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
+
         const [mapResponse, animResponse] = await Promise.all([
-          fetch('/maps/maps.json'), 
+          fetch(`/maps/${selectedWorldMapId}.json`), 
           fetch('/characters/player/animations.json')
         ]);
 
@@ -70,14 +85,20 @@ export function PlayTestClient() {
         const mapData = await mapResponse.json();
         const animData = await animResponse.json();
         
-        const rows = mapData.rows || 1;
-        const cols = mapData.cols || mapData.maps.length;
+        const rows = mapData.rows;
+        const cols = mapData.cols;
+
+        if (typeof rows !== 'number' || typeof cols !== 'number' || rows <= 0 || cols <= 0) {
+            throw new Error(`マップファイル '${selectedWorldMapId}.json' に無効な行または列の定義が含まれています。`);
+        }
 
         const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
         mapData.maps.forEach((mapCell: MapCell, index: number) => {
           const r = Math.floor(index / cols);
           const c = index % cols;
-          newWorldMap[r][c] = mapCell;
+          if(newWorldMap[r]){
+            newWorldMap[r][c] = mapCell;
+          }
         });
 
         setWorldMap(newWorldMap);
@@ -90,7 +111,7 @@ export function PlayTestClient() {
     };
     
     loadData();
-  }, []);
+  }, [selectedWorldMapId]);
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (!worldMap || isTransitioning) return;
@@ -213,75 +234,98 @@ export function PlayTestClient() {
   const characterImageUrl = currentFrame ? `/characters/player/frames/${currentFrame.image}` : `/characters/player/frames/idle_down_1.png`; // Fallback image
 
 
-  if (loading) {
+  const GameView = () => {
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <Loader2 className="mr-2 h-8 w-8 animate-spin" />
+          <p>データを読み込み中...</p>
+        </div>
+      );
+    }
+  
+    if (error) {
+      return (
+        <Alert variant="destructive">
+          <Terminal className="h-4 w-4" />
+          <AlertTitle>読み込みエラー</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      );
+    }
+  
+    if (!worldMap || !clips) {
+       return <p>マップまたはキャラクターデータが見つかりません。</p>
+    }
+    
+    const activeMapData = worldMap[activeMap.r][activeMap.c];
+
     return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-        <p>データを読み込み中...</p>
+      <div className="flex justify-center items-center h-full">
+        <div
+          className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border"
+        >
+          {isTransitioning && (
+            <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-20">
+              <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            </div>
+          )}
+          {activeMapData.imageUrl && (
+            <Image
+              key={activeMapData.id}
+              src={activeMapData.imageUrl}
+              alt={`Map background ${activeMapData.name}`}
+              layout="fill"
+              objectFit="cover"
+              unoptimized
+              onLoad={handleImageLoad}
+              priority
+            />
+          )}
+          
+            <div style={{
+              position: 'absolute',
+              left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
+              top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
+              width: `${CHARACTER_WIDTH}px`,
+              height: `${CHARACTER_HEIGHT}px`,
+              transition: isTransitioning ? 'none' : 'left 0.05s linear, top 0.05s linear',
+              zIndex: 10,
+              imageRendering: 'pixelated',
+            }}>
+              <Image
+                key={characterImageUrl}
+                src={characterImageUrl}
+                alt="Player Character"
+                width={CHARACTER_WIDTH}
+                height={CHARACTER_HEIGHT}
+                objectFit="contain"
+                unoptimized
+              />
+            </div>
+        </div>
       </div>
     );
   }
-
-  if (error) {
-    return (
-      <Alert variant="destructive">
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>読み込みエラー</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
-  }
-
-  if (!worldMap || !clips) {
-     return <p>マップまたはキャラクターデータが見つかりません。</p>
-  }
-  
-  const activeMapData = worldMap[activeMap.r][activeMap.c];
 
   return (
-    <div className="flex justify-center items-center h-full">
-      <div
-        className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border"
-      >
-        {isTransitioning && (
-          <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-20">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" />
-          </div>
-        )}
-        {activeMapData.imageUrl && (
-          <Image
-            key={activeMapData.id}
-            src={activeMapData.imageUrl}
-            alt={`Map background ${activeMapData.name}`}
-            layout="fill"
-            objectFit="cover"
-            unoptimized
-            onLoad={handleImageLoad}
-            priority
-          />
-        )}
-        
-          <div style={{
-            position: 'absolute',
-            left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
-            top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
-            width: `${CHARACTER_WIDTH}px`,
-            height: `${CHARACTER_HEIGHT}px`,
-            transition: isTransitioning ? 'none' : 'left 0.05s linear, top 0.05s linear',
-            zIndex: 10,
-            imageRendering: 'pixelated',
-          }}>
-            <Image
-              key={characterImageUrl}
-              src={characterImageUrl}
-              alt="Player Character"
-              width={CHARACTER_WIDTH}
-              height={CHARACTER_HEIGHT}
-              objectFit="contain"
-              unoptimized
-            />
-          </div>
+    <div className="flex flex-col gap-4 h-full">
+      <div>
+        <Label htmlFor="world-map-select">ワールドマップ</Label>
+        <Select value={selectedWorldMapId} onValueChange={setSelectedWorldMapId}>
+          <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
+            <SelectValue placeholder="テストするマップを選択..." />
+          </SelectTrigger>
+          <SelectContent>
+            {worldMapOptions.map(map => (
+              <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex-grow min-h-0">
+        <GameView />
       </div>
     </div>
-  );
+  )
 }
