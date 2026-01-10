@@ -39,7 +39,7 @@ type AvailableObject = {
   imageUrl: string;
   width: number;
   height: number;
-  type?: 'person';
+  type?: 'person' | 'door';
   dialogue?: string[];
 };
 
@@ -206,7 +206,8 @@ export function MapEditorClient() {
   const Inspector = () => {
     if (selectedObject) {
       const asset = availableObjects.find(a => a.id === selectedObject.objectId);
-      const isPerson = asset?.type === 'person';
+      const objectType = asset?.type;
+
       return (
         <Card>
           <CardHeader>
@@ -220,7 +221,8 @@ export function MapEditorClient() {
                 <Input type="number" value={Math.round(selectedObject.y)} onChange={e => handleObjectUpdate({...selectedObject, y: parseInt(e.target.value)})} prefix="Y" />
               </div>
             </div>
-            {isPerson && (
+
+            {objectType === 'person' && (
               <div className="space-y-2">
                 <Label htmlFor="dialogue">会話</Label>
                 <Textarea 
@@ -232,20 +234,24 @@ export function MapEditorClient() {
                 />
               </div>
             )}
-            <Card className="bg-muted/50 p-4 space-y-2">
-                <CardDescription>トランジション</CardDescription>
-                <div>
-                    <Label htmlFor="target-map">ターゲットマップID</Label>
-                    <Input id="target-map" placeholder="例: room_1, maps2" value={selectedObject.transition?.targetMapId || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetMapId: e.target.value}})} />
-                </div>
-                <div>
-                    <Label>ターゲット座標</Label>
-                    <div className="flex gap-2">
-                      <Input type="number" placeholder="X" value={selectedObject.transition?.targetX || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetX: parseInt(e.target.value) || 0}})} />
-                      <Input type="number" placeholder="Y" value={selectedObject.transition?.targetY || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetY: parseInt(e.target.value) || 0}})} />
-                    </div>
-                </div>
-            </Card>
+            
+            {objectType === 'door' && (
+              <Card className="bg-muted/50 p-4 space-y-2">
+                  <CardDescription>トランジション</CardDescription>
+                  <div>
+                      <Label htmlFor="target-map">ターゲットマップID</Label>
+                      <Input id="target-map" placeholder="例: room_1, maps2" value={selectedObject.transition?.targetMapId || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetMapId: e.target.value}})} />
+                  </div>
+                  <div>
+                      <Label>ターゲット座標</Label>
+                      <div className="flex gap-2">
+                        <Input type="number" placeholder="X" value={selectedObject.transition?.targetX || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetX: parseInt(e.target.value) || 0}})} />
+                        <Input type="number" placeholder="Y" value={selectedObject.transition?.targetY || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetY: parseInt(e.target.value) || 0}})} />
+                      </div>
+                  </div>
+              </Card>
+            )}
+
             <Button variant="destructive" onClick={handleObjectDelete} className="w-full">
               <Trash2 className="mr-2" />
               オブジェクトを削除

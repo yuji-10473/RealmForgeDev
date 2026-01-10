@@ -41,7 +41,7 @@ type AvailableObject = {
   imageUrl: string;
   width: number;
   height: number;
-  type?: 'person';
+  type?: 'person' | 'door';
   dialogue?: string[];
 };
 
@@ -209,28 +209,34 @@ export function PlayTestClient() {
     const characterCenterY = characterPosition.y + CHARACTER_HEIGHT / 2;
 
     for (const obj of activeMapData.objects) {
+      const asset = availableObjects.find(a => a.id === obj.objectId);
+      if (!asset) continue;
+
       const objCenterX = obj.x + obj.width / 2;
       const objCenterY = obj.y + obj.height / 2;
       const distance = Math.sqrt(Math.pow(characterCenterX - objCenterX, 2) + Math.pow(characterCenterY - objCenterY, 2));
       const interactionZone = INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2;
 
       if (distance < interactionZone) {
-        // Check for dialogue
-        if (obj.dialogue && obj.dialogue.length > 0) {
-          setActiveDialogue({ lines: obj.dialogue, currentIndex: 0 });
-          return;
-        }
-
-        // Check for transition
-        if (obj.transition) {
-          const { targetMapId, targetX, targetY } = obj.transition;
-          const targetIsRoom = targetMapId === 'rooms' || targetMapId.startsWith('room_');
-          loadData(targetIsRoom ? 'rooms' : targetMapId, targetIsRoom ? targetMapId : undefined, {x: targetX, y: targetY});
-          return; 
+        switch (asset.type) {
+          case 'person':
+            if (obj.dialogue && obj.dialogue.length > 0) {
+              setActiveDialogue({ lines: obj.dialogue, currentIndex: 0 });
+              return; 
+            }
+            break;
+          case 'door':
+            if (obj.transition) {
+              const { targetMapId, targetX, targetY } = obj.transition;
+              const targetIsRoom = targetMapId === 'rooms' || targetMapId.startsWith('room_');
+              loadData(targetIsRoom ? 'rooms' : targetMapId, targetIsRoom ? targetMapId : undefined, {x: targetX, y: targetY});
+              return; 
+            }
+            break;
         }
       }
     }
-  }, [isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData]);
+  }, [isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects]);
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (isTransitioning || isInDialogue) return;

@@ -1,36 +1,65 @@
 {
   "objects": [
     {
-      "id": "obj_tree_1",
-      "name": "木",
-      "imageUrl": "/objects/tree1.png",
-      "width": 128,
-      "height": 128
-    },
-    {
-      "id": "obj_house_1",
-      "name": "家",
-      "imageUrl": "/objects/house1.png",
-      "width": 256,
-      "height": 256
-    },
-    {
-      "id": "obj_door_1",
-      "name": "ドア",
-      "imageUrl": "/objects/door1.png",
+      "id": "tree_1",
+      "name": "木 1",
+      "imageUrl": "/objects/tree_1.png",
       "width": 64,
       "height": 64
     },
     {
-      "id": "obj_old_man_1",
-      "name": "老人",
-      "imageUrl": "/objects/old_man.png",
+      "id": "tree_2",
+      "name": "木 2",
+      "imageUrl": "/objects/tree_2.png",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "house_1",
+      "name": "家 1",
+      "imageUrl": "/objects/house_1.png",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "key_1",
+      "name": "鍵",
+      "imageUrl": "/objects/key_1.png",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "door_open_1",
+      "name": "開いたドア",
+      "imageUrl": "/objects/door_open_1.png",
+      "width": 32,
+      "height": 64,
+      "type": "door"
+    },
+    {
+      "id": "player_house_interior",
+      "name": "プレイヤーの家（内装）",
+      "imageUrl": "/objects/player_house_interior.png",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "id": "player_bed",
+      "name": "ベッド",
+      "imageUrl": "/objects/player_bed.png",
+      "width": 64,
+      "height": 96
+    },
+    {
+      "id": "npc_1",
+      "name": "村人A",
+      "imageUrl": "/characters/player/frames/idle_down_1.png",
       "width": 64,
       "height": 64,
       "type": "person",
       "dialogue": [
-        "ようこそ、旅人よ。",
-        "この先は長い道のりになるじゃろう..."
+        "やあ、旅の人。",
+        "この先は危険な森が広がっているよ。気をつけてな。"
       ]
     }
   ]
