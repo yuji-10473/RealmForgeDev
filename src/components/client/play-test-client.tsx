@@ -21,8 +21,7 @@ const INTERACTION_RADIUS = 32;
 
 type PlacedObject = {
   id: string;
-  tileId?: string;
-  objectId?: string;
+  objectId: string;
   x: number;
   y: number;
   width: number;
@@ -370,8 +369,7 @@ export function PlayTestClient() {
 
           {/* Render Objects */}
           {activeMapData.objects.map(obj => {
-            const objectId = obj.objectId || obj.tileId;
-            const asset = availableObjects.find(a => a.id === objectId);
+            const asset = availableObjects.find(a => a.id === obj.objectId);
             if (!asset || !asset.imageUrl) return null;
             
             const leftPercent = (obj.x / MAP_WIDTH) * 100;

@@ -1,79 +1,15 @@
 {
-  "rows": 8,
-  "cols": 1,
-  "objects": [
-    {
-      "id": "tree",
-      "name": "木",
-      "imageUrl": "/objects/tree.png",
-      "width": 128,
-      "height": 128
-    },
-    {
-      "id": "house",
-      "name": "家",
-      "imageUrl": "/objects/house.png",
-      "width": 256,
-      "height": 256
-    }
-  ],
+  "rows": 2,
+  "cols": 2,
   "maps": [
     {
-      "id": "map1",
-      "name": "森の入口",
-      "imageUrl": "/maps/backgrounds/map_4_2.png",
+      "id": "maps2_0_0",
+      "name": "海岸線",
+      "imageUrl": "/maps/backgrounds/map_3_2.png",
       "objects": []
     },
-    {
-      "id": "map2",
-      "name": "森の小道",
-      "imageUrl": "/maps/backgrounds/map_4_2.png",
-      "objects": []
-    },
-    {
-      "id": "map3",
-      "name": "川辺",
-      "imageUrl": "/maps/backgrounds/map_4_2.png",
-      "objects": []
-    },
-    {
-      "id": "map4",
-      "name": "古い橋",
-      "imageUrl": "/maps/backgrounds/map_4_2.png",
-      "objects": []
-    },
-    {
-      "id": "map5",
-      "name": "草原",
-      "imageUrl": "/maps/backgrounds/map_4_2.png",
-      "objects": [
-        {
-          "id": "1721734567890",
-          "tileId": "house",
-          "x": 800,
-          "y": 400,
-          "width": 256,
-          "height": 256
-        }
-      ]
-    },
-    {
-      "id": "map6",
-      "name": "村",
-      "imageUrl": "/maps/backgrounds/map_4_2.png",
-      "objects": []
-    },
-    {
-      "id": "map7",
-      "name": "城への道",
-      "imageUrl": "/maps/backgrounds/map_4_1.png",
-      "objects": []
-    },
-    {
-      "id": "map8",
-      "name": "城門",
-      "imageUrl": "/maps/backgrounds/map_4_0.png",
-      "objects": []
-    }
+    { "id": "maps2_0_1", "name": "嵐の海", "imageUrl": "/maps/backgrounds/map_3_3.png", "objects": [] },
+    { "id": "maps2_1_0", "name": "海賊の入り江", "imageUrl": "/maps/backgrounds/map_2_2.png", "objects": [] },
+    { "id": "maps2_1_1", "name": "孤島", "imageUrl": "/maps/backgrounds/map_2_3.png", "objects": [] }
   ]
 }

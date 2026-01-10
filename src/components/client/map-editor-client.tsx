@@ -19,7 +19,7 @@ const MAP_HEIGHT = 1080;
 
 type PlacedObject = {
   id: string;
-  tileId: string;
+  objectId: string;
   x: number; // 0-1920
   y: number; // 0-1080
   width: number;
@@ -142,7 +142,7 @@ export function MapEditorClient() {
 
     const newObject: PlacedObject = {
       id: `${Date.now()}`,
-      tileId: selectedAsset.id,
+      objectId: selectedAsset.id,
       x: scaledX - selectedAsset.width / 2,
       y: scaledY - selectedAsset.height / 2,
       width: selectedAsset.width,
@@ -172,7 +172,7 @@ export function MapEditorClient() {
 
   const Inspector = () => {
     if (selectedObject) {
-      const asset = availableObjects.find(a => a.id === selectedObject.tileId);
+      const asset = availableObjects.find(a => a.id === selectedObject.objectId);
       return (
         <Card>
           <CardHeader>
@@ -325,7 +325,7 @@ export function MapEditorClient() {
               />
               )}
               {activeMapData.objects.map(obj => {
-                  const asset = availableObjects.find(a => a.id === obj.tileId);
+                  const asset = availableObjects.find(a => a.id === obj.objectId);
                   if (!asset || !asset.imageUrl) return null;
                   
                   const leftPercent = (obj.x / MAP_WIDTH) * 100;
