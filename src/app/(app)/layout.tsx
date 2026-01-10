@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -19,6 +20,7 @@ import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { MapIcon } from "@/components/icons/MapIcon";
 import { RoomIcon } from "@/components/icons/RoomIcon";
 import { CharacterIcon } from "@/components/icons/CharacterIcon";
+import { ObjectIcon } from "@/components/icons/ObjectIcon";
 import { EventIcon } from "@/components/icons/EventIcon";
 import { StoryIcon } from "@/components/icons/StoryIcon";
 import { CombatIcon } from "@/components/icons/CombatIcon";
@@ -30,6 +32,7 @@ import packageJson from "../../../package.json";
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
   { href: "/room-editor", label: "ルームエディター", icon: RoomIcon },
+  { href: "/object-list", label: "オブジェクトリスト", icon: ObjectIcon },
   { href: "/character-editor", label: "キャラクターエディター", icon: CharacterIcon },
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },

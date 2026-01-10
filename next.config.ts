@@ -30,6 +30,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  env: {
+    APP_URL: process.env.NODE_ENV === 'production' 
+      ? 'https://' + process.env.APP_ID + '.web.app' 
+      : 'http://localhost:9002',
+  }
 };
 
 export default nextConfig;
