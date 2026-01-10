@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { ZoomIn, ZoomOut, Hand, Loader2, Terminal, Trash2 } from "lucide-react";
+import { Download, ZoomIn, ZoomOut, Hand, Loader2, Terminal, Trash2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
@@ -169,6 +169,34 @@ export function MapEditorClient() {
     setWorldMap(newWorldMap);
     setSelectedObject(null);
   }
+  
+  const handleExport = () => {
+    if (!worldMap) {
+      alert("エクスポートするマップデータがありません。");
+      return;
+    }
+
+    const rows = worldMap.length;
+    const cols = worldMap[0]?.length || 0;
+    const maps = worldMap.flat();
+
+    const exportData = {
+      rows: rows,
+      cols: cols,
+      maps: maps,
+    };
+
+    const jsonString = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${selectedWorldMapId}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   const Inspector = () => {
     if (selectedObject) {
@@ -360,18 +388,24 @@ export function MapEditorClient() {
 
   return (
     <div className="flex flex-col gap-4 h-full">
-      <div>
-        <Label htmlFor="world-map-select">ワールドマップ</Label>
-        <Select value={selectedWorldMapId} onValueChange={setSelectedWorldMapId}>
-          <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
-            <SelectValue placeholder="編集するマップを選択..." />
-          </SelectTrigger>
-          <SelectContent>
-            {worldMapOptions.map(map => (
-              <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex items-center gap-4">
+        <div>
+          <Label htmlFor="world-map-select">ワールドマップ</Label>
+          <Select value={selectedWorldMapId} onValueChange={setSelectedWorldMapId}>
+            <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
+              <SelectValue placeholder="編集するマップを選択..." />
+            </SelectTrigger>
+            <SelectContent>
+              {worldMapOptions.map(map => (
+                <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <Button variant="outline" onClick={handleExport} className="self-end">
+          <Download className="mr-2" />
+          JSONをエクスポート
+        </Button>
       </div>
       <div className="flex gap-8 flex-grow h-full min-h-0">
         <EditorContent />
