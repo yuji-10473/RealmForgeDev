@@ -1,7 +1,4 @@
 
-
-
-
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -35,6 +32,14 @@ type PlacedObject = {
     targetX: number;
     targetY: number;
   };
+};
+
+type AvailableObject = {
+  id: string;
+  name: string;
+  imageUrl: string;
+  width: number;
+  height: number;
 };
 
 type MapCell = {
@@ -71,6 +76,7 @@ export function PlayTestClient() {
   const [selectedMapId, setSelectedMapId] = useState<string>(worldMapOptions[0].id);
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [rooms, setRooms] = useState<MapCell[] | null>(null);
+  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
   const [clips, setClips] = useState<AnimationClip[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -109,6 +115,7 @@ export function PlayTestClient() {
       if (isSwitchingToRoom) {
         setWorldMap(null);
         setRooms(mapData.rooms);
+        setAvailableObjects(mapData.objects);
         const targetRoom = targetRoomId || mapData.rooms[0]?.id;
         setActiveRoomId(targetRoom);
       } else {
@@ -120,6 +127,8 @@ export function PlayTestClient() {
         if (typeof rows !== 'number' || typeof cols !== 'number' || rows <= 0 || cols <= 0) {
             throw new Error(`マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`);
         }
+        
+        setAvailableObjects(mapData.objects);
 
         const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
         mapData.maps.forEach((mapCell: MapCell, index: number) => {
@@ -146,7 +155,7 @@ export function PlayTestClient() {
 
   useEffect(() => {
     loadData(selectedMapId);
-  }, [selectedMapId, loadData]);
+  }, []);
 
   const checkForTransition = useCallback(() => {
     const activeMapData = isRoom ? rooms?.find(r => r.id === activeRoomId) : worldMap?.[activeMap.r]?.[activeMap.c];
@@ -219,6 +228,9 @@ export function PlayTestClient() {
     setCharacterState(newState);
 
     if (!isRoom && worldMap) {
+      const currentRows = worldMap.length;
+      const currentCols = worldMap[0]?.length || 1;
+
       if (newPos.x < 0) {
         if (activeMap.c > 0) {
           newActiveMap.c--;
@@ -226,7 +238,7 @@ export function PlayTestClient() {
           didTransition = true;
         }
       } else if (newPos.x > MAP_WIDTH - CHARACTER_WIDTH) {
-        if (activeMap.c < worldMap[0].length - 1) {
+        if (activeMap.c < currentCols - 1) {
           newActiveMap.c++;
           newPos.x = 0;
           didTransition = true;
@@ -238,7 +250,7 @@ export function PlayTestClient() {
           didTransition = true;
         }
       } else if (newPos.y > MAP_HEIGHT - CHARACTER_HEIGHT) {
-        if (activeMap.r < worldMap.length - 1) {
+        if (activeMap.r < currentRows - 1) {
           newActiveMap.r++;
           newPos.y = 0;
           didTransition = true;
@@ -334,7 +346,7 @@ export function PlayTestClient() {
           className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border"
         >
           {isTransitioning && (
-            <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-20">
+            <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-30">
               <Loader2 className="h-12 w-12 animate-spin text-primary" />
             </div>
           )}
@@ -347,8 +359,35 @@ export function PlayTestClient() {
               objectFit="cover"
               unoptimized
               priority
+              className="z-0"
             />
           )}
+
+          {/* Render Objects */}
+          {activeMapData.objects.map(obj => {
+            const objectId = obj.objectId || obj.tileId;
+            const asset = availableObjects.find(a => a.id === objectId);
+            if (!asset || !asset.imageUrl) return null;
+            
+            const leftPercent = (obj.x / MAP_WIDTH) * 100;
+            const topPercent = (obj.y / MAP_HEIGHT) * 100;
+            const widthPercent = (obj.width / MAP_WIDTH) * 100;
+            
+            return (
+                <div key={obj.id} 
+                     style={{ 
+                        left: `${leftPercent}%`, 
+                        top: `${topPercent}%`, 
+                        width: `${widthPercent}%`, 
+                        height: 'auto',
+                        aspectRatio: `${obj.width} / ${obj.height}`,
+                        position: 'absolute',
+                        zIndex: 1,
+                    }}>
+                    <Image src={asset.imageUrl} alt={asset.name} layout="fill" objectFit="contain" unoptimized />
+                </div>
+            )
+          })}
           
             <div style={{
               position: 'absolute',
@@ -375,12 +414,17 @@ export function PlayTestClient() {
     );
   }
 
+  const handleMapSelectionChange = (mapId: string) => {
+    setSelectedMapId(mapId);
+    loadData(mapId);
+  }
+
   return (
     <div className="flex flex-col gap-4 h-full">
       <div className="flex items-end gap-4">
         <div>
           <Label htmlFor="world-map-select">マップ</Label>
-          <Select value={selectedMapId} onValueChange={loadData}>
+          <Select value={selectedMapId} onValueChange={handleMapSelectionChange}>
             <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
               <SelectValue placeholder="テストするマップを選択..." />
             </SelectTrigger>
