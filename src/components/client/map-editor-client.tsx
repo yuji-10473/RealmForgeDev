@@ -74,20 +74,29 @@ export function MapEditorClient() {
         setActiveMap({ r: 0, c: 0 });
         setSelectedObject(null);
 
-        const response = await fetch(`/maps/${selectedWorldMapId}.json`);
-        if (!response.ok) {
-          if(response.status === 404) {
+        const [mapResponse, objectsResponse] = await Promise.all([
+          fetch(`/maps/${selectedWorldMapId}.json`),
+          fetch('/objects.json')
+        ]);
+        
+        if (!mapResponse.ok) {
+          if(mapResponse.status === 404) {
             throw new Error(`マップファイルが見つかりません: ${selectedWorldMapId}.json`);
           }
-          throw new Error(`マップファイルの読み込みに失敗しました: ${response.statusText}`);
+          throw new Error(`マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`);
         }
-        const data = await response.json();
+        if (!objectsResponse.ok) {
+          throw new Error(`オブジェクトファイルの読み込みに失敗しました: ${objectsResponse.statusText}`);
+        }
+
+        const mapData = await mapResponse.json();
+        const objectsData = await objectsResponse.json();
         
-        const rows = data.rows || 1;
-        const cols = data.cols || data.maps.length;
+        const rows = mapData.rows || 1;
+        const cols = mapData.cols || mapData.maps.length;
 
         const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
-        data.maps.forEach((mapData: MapCell, index: number) => {
+        mapData.maps.forEach((mapData: MapCell, index: number) => {
           const r = Math.floor(index / cols);
           const c = index % cols;
           if (newWorldMap[r]) {
@@ -95,7 +104,7 @@ export function MapEditorClient() {
           }
         });
 
-        setAvailableObjects(data.objects);
+        setAvailableObjects(objectsData.objects);
         setWorldMap(newWorldMap);
       } catch (err: any) {
         setError(err.message || '不明なエラーが発生しました。');

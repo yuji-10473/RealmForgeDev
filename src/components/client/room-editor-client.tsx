@@ -45,7 +45,6 @@ type Room = {
 };
 
 type RoomData = {
-  objects: AvailableObject[];
   rooms: Room[];
 };
 
@@ -70,19 +69,28 @@ export function RoomEditorClient() {
         setActiveRoomId(null);
         setSelectedObject(null);
 
-        const response = await fetch(`/rooms/rooms.json`);
-        if (!response.ok) {
-          if(response.status === 404) {
+        const [roomsResponse, objectsResponse] = await Promise.all([
+          fetch(`/rooms/rooms.json`),
+          fetch('/objects.json')
+        ]);
+        
+        if (!roomsResponse.ok) {
+          if(roomsResponse.status === 404) {
             throw new Error(`ルームファイルが見つかりません: rooms.json`);
           }
-          throw new Error(`ルームファイルの読み込みに失敗しました: ${response.statusText}`);
+          throw new Error(`ルームファイルの読み込みに失敗しました: ${roomsResponse.statusText}`);
         }
-        const data: RoomData = await response.json();
+         if (!objectsResponse.ok) {
+          throw new Error(`オブジェクトファイルの読み込みに失敗しました: ${objectsResponse.statusText}`);
+        }
+
+        const roomData: RoomData = await roomsResponse.json();
+        const objectsData = await objectsResponse.json();
         
-        setAvailableObjects(data.objects);
-        setRooms(data.rooms);
-        if (data.rooms.length > 0) {
-          setActiveRoomId(data.rooms[0].id);
+        setAvailableObjects(objectsData.objects);
+        setRooms(roomData.rooms);
+        if (roomData.rooms.length > 0) {
+          setActiveRoomId(roomData.rooms[0].id);
         }
       } catch (err: any) {
         setError(err.message || '不明なエラーが発生しました。');

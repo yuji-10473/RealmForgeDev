@@ -99,12 +99,15 @@ export function PlayTestClient() {
       setIsTransitioning(true);
       setError(null);
       
-      const isSwitchingToRoom = mapId === 'rooms';
+      const isSwitchingToRoom = mapId === 'rooms' || mapId.startsWith('room_');
 
-      const mapResponse = await fetch(`/${mapId}/${isSwitchingToRoom ? 'rooms' : mapId}.json`);
-      if (!mapResponse.ok) throw new Error(`マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`);
-      const mapData = await mapResponse.json();
-
+      if (!availableObjects.length) {
+        const objectsResponse = await fetch('/objects.json');
+        if (!objectsResponse.ok) throw new Error(`オブジェクトファイルの読み込みに失敗しました: ${objectsResponse.statusText}`);
+        const objectsData = await objectsResponse.json();
+        setAvailableObjects(objectsData.objects);
+      }
+      
       if (!clips) {
         const animResponse = await fetch('/characters/player/animations.json');
         if (!animResponse.ok) throw new Error(`アニメーションファイルの読み込みに失敗しました: ${animResponse.statusText}`);
@@ -113,12 +116,19 @@ export function PlayTestClient() {
       }
       
       if (isSwitchingToRoom) {
+        const roomsResponse = await fetch('/rooms/rooms.json');
+        if (!roomsResponse.ok) throw new Error(`ルームファイルの読み込みに失敗しました: ${roomsResponse.statusText}`);
+        const roomsData = await roomsResponse.json();
+
         setWorldMap(null);
-        setRooms(mapData.rooms);
-        setAvailableObjects(mapData.objects);
-        const targetRoom = targetRoomId || mapData.rooms[0]?.id;
+        setRooms(roomsData.rooms);
+        const targetRoom = targetRoomId || roomsData.rooms[0]?.id;
         setActiveRoomId(targetRoom);
+        setSelectedMapId('rooms');
       } else {
+        const mapResponse = await fetch(`/${mapId}/${mapId}.json`);
+        if (!mapResponse.ok) throw new Error(`マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`);
+        const mapData = await mapResponse.json();
         setRooms(null);
         setActiveRoomId(null);
         const rows = mapData.rows || 1;
@@ -128,8 +138,6 @@ export function PlayTestClient() {
             throw new Error(`マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`);
         }
         
-        setAvailableObjects(mapData.objects);
-
         const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
         mapData.maps.forEach((mapCell: MapCell, index: number) => {
           const r = Math.floor(index / cols);
@@ -140,10 +148,10 @@ export function PlayTestClient() {
         });
         setWorldMap(newWorldMap);
         setActiveMap({r: 0, c: 0});
+        setSelectedMapId(mapId);
       }
       
       setCharacterPosition(targetPos || { x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
-      setSelectedMapId(mapId);
 
     } catch (err: any) {
       setError(err.message || '不明なエラーが発生しました。');
@@ -151,10 +159,12 @@ export function PlayTestClient() {
       // A small delay to allow the new map image to start loading
       setTimeout(() => setIsTransitioning(false), 100);
     }
-  }, [clips]);
+  }, [clips, availableObjects]);
 
   useEffect(() => {
+    // Initial load
     loadData(selectedMapId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkForTransition = useCallback(() => {
@@ -172,13 +182,7 @@ export function PlayTestClient() {
 
         if (distance < INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2) {
           const { targetMapId, targetX, targetY } = obj.transition;
-          const targetIsRoom = targetMapId.startsWith('room_');
-          
-          if(targetIsRoom) {
-            loadData('rooms', targetMapId, {x: targetX, y: targetY});
-          } else {
-            loadData(targetMapId, undefined, {x: targetX, y: targetY});
-          }
+          loadData(targetMapId, targetMapId, {x: targetX, y: targetY});
           return; // Exit after first transition found
         }
       }
@@ -313,7 +317,8 @@ export function PlayTestClient() {
 
 
   const GameView = () => {
-    if (loading && !worldMap && !rooms) {
+    const firstLoad = loading && !worldMap && !rooms;
+    if (firstLoad) {
       return (
         <div className="flex items-center justify-center h-full">
           <Loader2 className="mr-2 h-8 w-8 animate-spin" />
@@ -415,7 +420,6 @@ export function PlayTestClient() {
   }
 
   const handleMapSelectionChange = (mapId: string) => {
-    setSelectedMapId(mapId);
     loadData(mapId);
   }
 

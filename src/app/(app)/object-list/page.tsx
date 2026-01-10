@@ -11,28 +11,16 @@ type AvailableObject = {
 };
 
 async function getObjects(): Promise<AvailableObject[]> {
-  // In a real app, you'd fetch this from a single source or combine sources.
-  // For now, we'll just use the objects from the main world map.
   try {
-    const mapResponse = await fetch(`${process.env.APP_URL}/maps/maps.json`, { cache: 'no-store' });
-    const roomResponse = await fetch(`${process.env.APP_URL}/rooms/rooms.json`, { cache: 'no-store' });
+    const response = await fetch(`${process.env.APP_URL}/objects.json`, { cache: 'no-store' });
     
-    if (!mapResponse.ok || !roomResponse.ok) {
+    if (!response.ok) {
         console.error("Failed to fetch object data");
         return [];
     }
     
-    const mapData = await mapResponse.json();
-    const roomData = await roomResponse.json();
-
-    const allObjects: AvailableObject[] = [...mapData.objects, ...roomData.objects];
-
-    // Remove duplicates
-    const uniqueObjects = allObjects.filter((obj, index, self) =>
-        index === self.findIndex((o) => o.id === obj.id)
-    );
-
-    return uniqueObjects;
+    const data = await response.json();
+    return data.objects;
 
   } catch (error) {
     console.error("Error fetching objects:", error);

@@ -1,0 +1,53 @@
+{
+  "objects": [
+    {
+      "id": "tree1",
+      "name": "木 1",
+      "imageUrl": "/objects/tree1.png",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "tree2",
+      "name": "木 2",
+      "imageUrl": "/objects/tree2.png",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "house1",
+      "name": "家 1",
+      "imageUrl": "/objects/house1.png",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "id": "door1",
+      "name": "ドア 1",
+      "imageUrl": "/objects/door1.png",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "bed1",
+      "name": "ベッド",
+      "imageUrl": "/objects/bed1.png",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "table1",
+      "name": "テーブル",
+      "imageUrl": "/objects/table1.png",
+      "width": 128,
+      "height": 96
+    },
+    {
+      "id": "chest1",
+      "name": "宝箱",
+      "imageUrl": "/objects/chest1.png",
+      "width": 64,
+      "height": 64
+    }
+  ]
+}
