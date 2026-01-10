@@ -1,6 +1,7 @@
 
 
 
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -18,6 +19,30 @@ const CHARACTER_SPEED = 20;
 const CHARACTER_WIDTH = 64;
 const CHARACTER_HEIGHT = 64;
 const ANIMATION_FPS = 8;
+const INTERACTION_RADIUS = 32;
+
+
+type PlacedObject = {
+  id: string;
+  tileId?: string;
+  objectId?: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  transition?: {
+    targetMapId: string;
+    targetX: number;
+    targetY: number;
+  };
+};
+
+type MapCell = {
+  id: string;
+  name: string;
+  imageUrl: string;
+  objects: PlacedObject[];
+};
 
 type AnimationFrame = {
   id: string;
@@ -31,12 +56,6 @@ type AnimationClip = {
   fps: number;
 };
 
-type MapCell = {
-  id: string;
-  name: string;
-  imageUrl: string;
-};
-
 type WorldMap = MapCell[][];
 
 type CharacterState = "idle" | "walk_up" | "walk_down" | "walk_left" | "walk_right";
@@ -45,51 +64,61 @@ type CharacterDirection = "up" | "down" | "left" | "right";
 const worldMapOptions = [
   { id: 'maps', name: 'ワールドマップ 1' },
   { id: 'maps2', name: 'ワールドマップ 2' },
+  { id: 'rooms', name: 'ルーム' },
 ];
 
 export function PlayTestClient() {
-  const [selectedWorldMapId, setSelectedWorldMapId] = useState<string>(worldMapOptions[0].id);
+  const [selectedMapId, setSelectedMapId] = useState<string>(worldMapOptions[0].id);
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
+  const [rooms, setRooms] = useState<MapCell[] | null>(null);
   const [clips, setClips] = useState<AnimationClip[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // For world maps (grid)
   const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
+  // For room maps (list)
+  const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
+
   const [characterPosition, setCharacterPosition] = useState({ x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>("idle");
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>("down");
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        setWorldMap(null);
-        setClips(null);
-        setActiveMap({ r: 0, c: 0 });
-        setCharacterPosition({ x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
+  const isRoom = selectedMapId === 'rooms';
+  
+  const loadData = useCallback(async (mapId: string, targetRoomId?: string, targetPos?: {x: number, y: number}) => {
+    try {
+      setIsTransitioning(true);
+      setError(null);
+      
+      const isSwitchingToRoom = mapId === 'rooms';
 
-        const [mapResponse, animResponse] = await Promise.all([
-          fetch(`/maps/${selectedWorldMapId}.json`), 
-          fetch('/characters/player/animations.json')
-        ]);
+      const mapResponse = await fetch(`/${mapId}/${isSwitchingToRoom ? 'rooms' : mapId}.json`);
+      if (!mapResponse.ok) throw new Error(`マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`);
+      const mapData = await mapResponse.json();
 
-        if (!mapResponse.ok) {
-          throw new Error(`マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`);
-        }
-        if (!animResponse.ok) {
-          throw new Error(`アニメーションファイルの読み込みに失敗しました: ${animResponse.statusText}`);
-        }
-
-        const mapData = await mapResponse.json();
+      if (!clips) {
+        const animResponse = await fetch('/characters/player/animations.json');
+        if (!animResponse.ok) throw new Error(`アニメーションファイルの読み込みに失敗しました: ${animResponse.statusText}`);
         const animData = await animResponse.json();
-        
-        const rows = mapData.rows;
-        const cols = mapData.cols;
+        setClips(animData.clips);
+      }
+      
+      if (isSwitchingToRoom) {
+        setWorldMap(null);
+        setRooms(mapData.rooms);
+        const targetRoom = targetRoomId || mapData.rooms[0]?.id;
+        setActiveRoomId(targetRoom);
+      } else {
+        setRooms(null);
+        setActiveRoomId(null);
+        const rows = mapData.rows || 1;
+        const cols = mapData.cols || 1;
 
         if (typeof rows !== 'number' || typeof cols !== 'number' || rows <= 0 || cols <= 0) {
-            throw new Error(`マップファイル '${selectedWorldMapId}.json' に無効な行または列の定義が含まれています。`);
+            throw new Error(`マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`);
         }
 
         const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
@@ -100,21 +129,55 @@ export function PlayTestClient() {
             newWorldMap[r][c] = mapCell;
           }
         });
-
         setWorldMap(newWorldMap);
-        setClips(animData.clips);
-      } catch (err: any) {
-        setError(err.message || '不明なエラーが発生しました。');
-      } finally {
-        setLoading(false);
+        setActiveMap({r: 0, c: 0});
       }
-    };
-    
-    loadData();
-  }, [selectedWorldMapId]);
+      
+      setCharacterPosition(targetPos || { x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
+      setSelectedMapId(mapId);
+
+    } catch (err: any) {
+      setError(err.message || '不明なエラーが発生しました。');
+    } finally {
+      // A small delay to allow the new map image to start loading
+      setTimeout(() => setIsTransitioning(false), 100);
+    }
+  }, [clips]);
+
+  useEffect(() => {
+    loadData(selectedMapId);
+  }, [selectedMapId, loadData]);
+
+  const checkForTransition = useCallback(() => {
+    const activeMapData = isRoom ? rooms?.find(r => r.id === activeRoomId) : worldMap?.[activeMap.r]?.[activeMap.c];
+    if (!activeMapData) return;
+
+    const characterCenterX = characterPosition.x + CHARACTER_WIDTH / 2;
+    const characterCenterY = characterPosition.y + CHARACTER_HEIGHT / 2;
+
+    for (const obj of activeMapData.objects) {
+      if (obj.transition) {
+        const objCenterX = obj.x + obj.width / 2;
+        const objCenterY = obj.y + obj.height / 2;
+        const distance = Math.sqrt(Math.pow(characterCenterX - objCenterX, 2) + Math.pow(characterCenterY - objCenterY, 2));
+
+        if (distance < INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2) {
+          const { targetMapId, targetX, targetY } = obj.transition;
+          const targetIsRoom = targetMapId.startsWith('room_');
+          
+          if(targetIsRoom) {
+            loadData('rooms', targetMapId, {x: targetX, y: targetY});
+          } else {
+            loadData(targetMapId, undefined, {x: targetX, y: targetY});
+          }
+          return; // Exit after first transition found
+        }
+      }
+    }
+  }, [isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData]);
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (!worldMap || isTransitioning) return;
+    if (isTransitioning) return;
     
     let newPos = { ...characterPosition };
     let newActiveMap = { ...activeMap };
@@ -143,6 +206,11 @@ export function PlayTestClient() {
         newDirection = "right";
         newState = "walk_right";
         break;
+      case "e":
+      case "E":
+      case "Enter":
+        checkForTransition();
+        return;
       default:
         return; 
     }
@@ -150,35 +218,38 @@ export function PlayTestClient() {
     setCharacterDirection(newDirection);
     setCharacterState(newState);
 
-    if (newPos.x < 0) {
-      if (activeMap.c > 0) {
-        newActiveMap.c--;
-        newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
-        didTransition = true;
-      }
-    } else if (newPos.x > MAP_WIDTH - CHARACTER_WIDTH) {
-      if (activeMap.c < worldMap[0].length - 1) {
-        newActiveMap.c++;
-        newPos.x = 0;
-        didTransition = true;
-      }
-    } else if (newPos.y < 0) {
-      if (activeMap.r > 0) {
-        newActiveMap.r--;
-        newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
-        didTransition = true;
-      }
-    } else if (newPos.y > MAP_HEIGHT - CHARACTER_HEIGHT) {
-      if (activeMap.r < worldMap.length - 1) {
-        newActiveMap.r++;
-        newPos.y = 0;
-        didTransition = true;
+    if (!isRoom && worldMap) {
+      if (newPos.x < 0) {
+        if (activeMap.c > 0) {
+          newActiveMap.c--;
+          newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
+          didTransition = true;
+        }
+      } else if (newPos.x > MAP_WIDTH - CHARACTER_WIDTH) {
+        if (activeMap.c < worldMap[0].length - 1) {
+          newActiveMap.c++;
+          newPos.x = 0;
+          didTransition = true;
+        }
+      } else if (newPos.y < 0) {
+        if (activeMap.r > 0) {
+          newActiveMap.r--;
+          newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
+          didTransition = true;
+        }
+      } else if (newPos.y > MAP_HEIGHT - CHARACTER_HEIGHT) {
+        if (activeMap.r < worldMap.length - 1) {
+          newActiveMap.r++;
+          newPos.y = 0;
+          didTransition = true;
+        }
       }
     }
 
     if (didTransition) {
       setIsTransitioning(true);
       setActiveMap(newActiveMap);
+      setTimeout(() => setIsTransitioning(false), 100);
     } else {
       newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
       newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
@@ -186,7 +257,7 @@ export function PlayTestClient() {
 
     setCharacterPosition(newPos);
 
-  }, [activeMap, characterPosition, characterDirection, worldMap, isTransitioning]);
+  }, [activeMap, characterPosition, characterDirection, worldMap, isTransitioning, isRoom, checkForTransition]);
   
   const handleKeyUp = useCallback(() => {
     setCharacterState("idle");
@@ -225,17 +296,12 @@ export function PlayTestClient() {
     setCurrentFrameIndex(0);
   }, [characterState, characterDirection])
 
-
-  const handleImageLoad = () => {
-    setIsTransitioning(false);
-  };
-  
   const currentFrame = activeClip?.frames[currentFrameIndex];
   const characterImageUrl = currentFrame ? `/characters/player/frames/${currentFrame.image}` : `/characters/player/frames/idle_down_1.png`; // Fallback image
 
 
   const GameView = () => {
-    if (loading) {
+    if (loading && !worldMap && !rooms) {
       return (
         <div className="flex items-center justify-center h-full">
           <Loader2 className="mr-2 h-8 w-8 animate-spin" />
@@ -254,11 +320,13 @@ export function PlayTestClient() {
       );
     }
   
-    if (!worldMap || !clips) {
+    const activeMapData = isRoom 
+      ? rooms?.find(r => r.id === activeRoomId)
+      : worldMap?.[activeMap.r]?.[activeMap.c];
+
+    if (!activeMapData) {
        return <p>マップまたはキャラクターデータが見つかりません。</p>
     }
-    
-    const activeMapData = worldMap[activeMap.r][activeMap.c];
 
     return (
       <div className="flex justify-center items-center h-full">
@@ -278,7 +346,6 @@ export function PlayTestClient() {
               layout="fill"
               objectFit="cover"
               unoptimized
-              onLoad={handleImageLoad}
               priority
             />
           )}
@@ -310,18 +377,35 @@ export function PlayTestClient() {
 
   return (
     <div className="flex flex-col gap-4 h-full">
-      <div>
-        <Label htmlFor="world-map-select">ワールドマップ</Label>
-        <Select value={selectedWorldMapId} onValueChange={setSelectedWorldMapId}>
-          <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
-            <SelectValue placeholder="テストするマップを選択..." />
-          </SelectTrigger>
-          <SelectContent>
-            {worldMapOptions.map(map => (
-              <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex items-end gap-4">
+        <div>
+          <Label htmlFor="world-map-select">マップ</Label>
+          <Select value={selectedMapId} onValueChange={loadData}>
+            <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
+              <SelectValue placeholder="テストするマップを選択..." />
+            </SelectTrigger>
+            <SelectContent>
+              {worldMapOptions.map(map => (
+                <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {isRoom && rooms && (
+           <div>
+            <Label htmlFor="room-select">ルーム</Label>
+            <Select value={activeRoomId || ''} onValueChange={(roomId) => setActiveRoomId(roomId)}>
+              <SelectTrigger id="room-select" className="w-[280px] mt-2">
+                <SelectValue placeholder="テストするルームを選択..." />
+              </SelectTrigger>
+              <SelectContent>
+                {rooms.map(room => (
+                  <SelectItem key={room.id} value={room.id}>{room.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
       <div className="flex-grow min-h-0">
         <GameView />

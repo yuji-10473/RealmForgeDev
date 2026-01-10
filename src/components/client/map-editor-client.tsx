@@ -3,14 +3,14 @@
 
 import { useState, useRef, MouseEvent, useEffect } from "react";
 import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { ZoomIn, ZoomOut, Hand, Loader2 } from "lucide-react";
+import { ZoomIn, ZoomOut, Hand, Loader2, Terminal, Trash2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { Terminal } from "lucide-react";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Input } from "../ui/input";
 
 
 // The canonical size of the map editor view.
@@ -24,6 +24,11 @@ type PlacedObject = {
   y: number; // 0-1080
   width: number;
   height: number;
+  transition?: {
+    targetMapId: string;
+    targetX: number;
+    targetY: number;
+  }
 };
 
 type AvailableObject = {
@@ -56,6 +61,7 @@ export function MapEditorClient() {
   const [error, setError] = useState<string | null>(null);
   const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
   const [selectedAsset, setSelectedAsset] = useState<AvailableObject | null>(null);
+  const [selectedObject, setSelectedObject] = useState<PlacedObject | null>(null);
 
   const editorRef = useRef<HTMLDivElement>(null);
 
@@ -66,6 +72,7 @@ export function MapEditorClient() {
         setError(null);
         setWorldMap(null);
         setActiveMap({ r: 0, c: 0 });
+        setSelectedObject(null);
 
         const response = await fetch(`/maps/${selectedWorldMapId}.json`);
         if (!response.ok) {
@@ -83,7 +90,9 @@ export function MapEditorClient() {
         data.maps.forEach((mapData: MapCell, index: number) => {
           const r = Math.floor(index / cols);
           const c = index % cols;
-          newWorldMap[r][c] = mapData;
+          if (newWorldMap[r]) {
+            newWorldMap[r][c] = mapData;
+          }
         });
 
         setAvailableObjects(data.objects);
@@ -99,7 +108,21 @@ export function MapEditorClient() {
   }, [selectedWorldMapId]);
   
   const handleMapClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (!selectedAsset || !editorRef.current || !worldMap) return;
+    if (!selectedAsset || !editorRef.current || !worldMap) {
+      // If we clicked on an existing object, select it.
+      const target = e.target as HTMLElement;
+      const objectId = target.closest('[data-object-id]')?.getAttribute('data-object-id');
+      if (objectId) {
+          const object = worldMap[activeMap.r][activeMap.c].objects.find(o => o.id === objectId);
+          if (object) {
+              setSelectedObject(object);
+              setSelectedAsset(null);
+          }
+      } else {
+        setSelectedObject(null);
+      }
+      return;
+    }
 
     const rect = editorRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -117,11 +140,93 @@ export function MapEditorClient() {
       height: selectedAsset.height,
     };
     
-    const newWorldMap = worldMap.map(row => [...row]);
+    const newWorldMap = worldMap.map(row => [...row].map(cell => ({...cell, objects: [...cell.objects]})));
     newWorldMap[activeMap.r][activeMap.c].objects.push(newObject);
     setWorldMap(newWorldMap);
+    setSelectedObject(newObject);
+    setSelectedAsset(null);
   };
   
+  const handleObjectUpdate = (updatedObject: PlacedObject) => {
+    if (!worldMap) return;
+    const newWorldMap = worldMap.map(row => [...row].map(cell => ({...cell, objects: cell.objects.map(o => o.id === updatedObject.id ? updatedObject : o)})));
+    setWorldMap(newWorldMap);
+    setSelectedObject(updatedObject);
+  }
+
+  const handleObjectDelete = () => {
+    if (!worldMap || !selectedObject) return;
+    const newWorldMap = worldMap.map(row => [...row].map(cell => ({...cell, objects: cell.objects.filter(o => o.id !== selectedObject.id)})));
+    setWorldMap(newWorldMap);
+    setSelectedObject(null);
+  }
+
+  const Inspector = () => {
+    if (selectedObject) {
+      const asset = availableObjects.find(a => a.id === selectedObject.tileId);
+      return (
+        <Card>
+          <CardHeader>
+            <CardTitle>インスペクター: {asset?.name}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label>座標</Label>
+              <div className="flex gap-2">
+                <Input type="number" value={Math.round(selectedObject.x)} onChange={e => handleObjectUpdate({...selectedObject, x: parseInt(e.target.value)})} prefix="X" />
+                <Input type="number" value={Math.round(selectedObject.y)} onChange={e => handleObjectUpdate({...selectedObject, y: parseInt(e.target.value)})} prefix="Y" />
+              </div>
+            </div>
+            <Card className="bg-muted/50 p-4 space-y-2">
+                <CardDescription>トランジション</CardDescription>
+                <div>
+                    <Label htmlFor="target-map">ターゲットマップID</Label>
+                    <Input id="target-map" placeholder="例: room_1, maps2" value={selectedObject.transition?.targetMapId || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetMapId: e.target.value}})} />
+                </div>
+                <div>
+                    <Label>ターゲット座標</Label>
+                    <div className="flex gap-2">
+                      <Input type="number" placeholder="X" value={selectedObject.transition?.targetX || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetX: parseInt(e.target.value) || 0}})} />
+                      <Input type="number" placeholder="Y" value={selectedObject.transition?.targetY || ''} onChange={e => handleObjectUpdate({...selectedObject, transition: {...(selectedObject.transition || {targetMapId: '', targetX: 0, targetY: 0}), targetY: parseInt(e.target.value) || 0}})} />
+                    </div>
+                </div>
+            </Card>
+            <Button variant="destructive" onClick={handleObjectDelete} className="w-full">
+              <Trash2 className="mr-2" />
+              オブジェクトを削除
+            </Button>
+          </CardContent>
+        </Card>
+      )
+    }
+    return (
+       <Card>
+        <CardHeader>
+          <CardTitle>オブジェクト</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-4">
+          {availableObjects.map((asset) => (
+            <div
+              key={asset.id}
+              onClick={() => { setSelectedAsset(asset); setSelectedObject(null); }}
+              className={cn(
+                "flex flex-col items-center gap-2 p-2 rounded-lg cursor-pointer border-2 transition-all",
+                selectedAsset?.id === asset.id
+                  ? "border-primary bg-primary/10"
+                  : "border-transparent hover:border-accent hover:bg-accent/10"
+              )}
+            >
+              <div className={cn("w-16 h-16 rounded-md flex items-center justify-center relative bg-muted/50")}>
+                {asset.imageUrl && <Image src={asset.imageUrl} alt={asset.name} width={asset.width} height={asset.height} className="object-contain" unoptimized />}
+              </div>
+              <span className="text-sm text-center font-medium">{asset.name}</span>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    )
+  }
+
   const EditorContent = () => {
     if (loading) {
       return (
@@ -167,7 +272,7 @@ export function MapEditorClient() {
                   row.map((cell, c) => (
                     <button
                       key={`${r}-${c}`}
-                      onClick={() => setActiveMap({ r, c })}
+                      onClick={() => { setActiveMap({ r, c }); setSelectedObject(null); }}
                       className={cn(
                         "aspect-square border-2 flex items-center justify-center text-xs p-1 text-center",
                         activeMap.r === r && activeMap.c === c
@@ -199,7 +304,7 @@ export function MapEditorClient() {
           <div
               ref={editorRef}
               onClick={handleMapClick}
-              className="relative w-full aspect-[16/9] bg-muted overflow-hidden border-2 border-dashed border-border cursor-crosshair"
+              className={cn("relative w-full aspect-[16/9] bg-muted overflow-hidden border-2 border-dashed border-border", selectedAsset ? "cursor-crosshair" : "cursor-default")}
           >
               {activeMapData.imageUrl && (
               <Image
@@ -219,15 +324,18 @@ export function MapEditorClient() {
                   const widthPercent = (obj.width / MAP_WIDTH) * 100;
                   
                   return (
-                      <div key={obj.id} style={{ 
-                          left: `${leftPercent}%`, 
-                          top: `${topPercent}%`, 
-                          width: `${widthPercent}%`, 
-                          height: 'auto',
-                          aspectRatio: `${obj.width} / ${obj.height}`,
-                          position: 'absolute' 
-                      }}>
-                          <Image src={asset.imageUrl} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
+                      <div key={obj.id} 
+                           data-object-id={obj.id}
+                           style={{ 
+                              left: `${leftPercent}%`, 
+                              top: `${topPercent}%`, 
+                              width: `${widthPercent}%`, 
+                              height: 'auto',
+                              aspectRatio: `${obj.width} / ${obj.height}`,
+                              position: 'absolute',
+                              cursor: 'pointer',
+                          }}>
+                          <Image src={asset.imageUrl} alt={asset.name} layout="fill" objectFit="contain" unoptimized className={cn("pointer-events-none", selectedObject?.id === obj.id && "ring-2 ring-primary ring-offset-2 ring-offset-background")}/>
                       </div>
                   )
               })}
@@ -235,30 +343,7 @@ export function MapEditorClient() {
         </div>
 
         <aside className="w-72 flex-shrink-0">
-          <Card>
-            <CardHeader>
-              <CardTitle>オブジェクト</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-4">
-              {availableObjects.map((asset) => (
-                <div
-                  key={asset.id}
-                  onClick={() => setSelectedAsset(asset)}
-                  className={cn(
-                    "flex flex-col items-center gap-2 p-2 rounded-lg cursor-pointer border-2 transition-all",
-                    selectedAsset?.id === asset.id
-                      ? "border-primary bg-primary/10"
-                      : "border-transparent hover:border-accent hover:bg-accent/10"
-                  )}
-                >
-                  <div className={cn("w-16 h-16 rounded-md flex items-center justify-center relative bg-muted/50")}>
-                    {asset.imageUrl && <Image src={asset.imageUrl} alt={asset.name} width={asset.width} height={asset.height} className="object-contain" unoptimized />}
-                  </div>
-                  <span className="text-sm text-center font-medium">{asset.name}</span>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+          <Inspector />
         </aside>
       </>
     );

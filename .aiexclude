@@ -1,0 +1,7 @@
+# 巨大なディレクトリを除外
+node_modules/
+.next/
+dist/
+build/
+.git/
+

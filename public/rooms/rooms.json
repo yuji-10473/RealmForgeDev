@@ -41,7 +41,7 @@
     {
       "id": "room_player_house",
       "name": "プレイヤーの家",
-      "imageUrl": "/rooms/backgrounds/wood_floor.png",
+      "imageUrl": "/rooms/backgrounds/wood_floor_1.png",
       "objects": [
         {
           "id": "1",
