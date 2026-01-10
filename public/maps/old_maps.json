@@ -1,0 +1,41 @@
+{
+  "rows": 4,
+  "cols": 4,
+  "maps": [
+    {
+      "id": "map_0_0",
+      "name": "森の入り口",
+      "imageUrl": "/maps/backgrounds/map_0_0.png",
+      "objects": [
+        {
+          "id": "1717145785055",
+          "objectId": "door",
+          "x": 863,
+          "y": 481,
+          "width": 64,
+          "height": 64,
+          "transition": {
+            "targetMapId": "room_1",
+            "targetX": 930,
+            "targetY": 850
+          }
+        }
+      ]
+    },
+    { "id": "map_0_1", "name": "静かな森", "imageUrl": "/maps/backgrounds/map_0_1.png", "objects": [] },
+    { "id": "map_0_2", "name": "せせらぎの小道", "imageUrl": "/maps/backgrounds/map_0_2.png", "objects": [] },
+    { "id": "map_0_3", "name": "忘れられた遺跡", "imageUrl": "/maps/backgrounds/map_0_3.png", "objects": [] },
+    { "id": "map_1_0", "name": "オークのキャンプ", "imageUrl": "/maps/backgrounds/map_1_0.png", "objects": [] },
+    { "id": "map_1_1", "name": "霧のかかった沼地", "imageUrl": "/maps/backgrounds/map_1_1.png", "objects": [] },
+    { "id": "map_1_2", "name": "賢者の洞窟", "imageUrl": "/maps/backgrounds/map_1_2.png", "objects": [] },
+    { "id": "map_1_3", "name": "北の山道", "imageUrl": "/maps/backgrounds/map_1_3.png", "objects": [] },
+    { "id": "map_2_0", "name": "城下町", "imageUrl": "/maps/backgrounds/map_2_0.png", "objects": [] },
+    { "id": "map_2_1", "name": "王都の広場", "imageUrl": "/maps/backgrounds/map_2_1.png", "objects": [] },
+    { "id": "map_2_2", "name": "港町", "imageUrl": "/maps/backgrounds/map_2_2.png", "objects": [] },
+    { "id": "map_2_3", "name": "東の灯台", "imageUrl": "/maps/backgrounds/map_2_3.png", "objects": [] },
+    { "id": "map_3_0", "name": "南の砂漠", "imageUrl": "/maps/backgrounds/map_3_0.png", "objects": [] },
+    { "id": "map_3_1", "name": "オアシス", "imageUrl": "/maps/backgrounds/map_3_1.png", "objects": [] },
+    { "id": "map_3_2", "name": "ピラミッド", "imageUrl": "/maps/backgrounds/map_3_2.png", "objects": [] },
+    { "id": "map_3_3", "name": "竜の骨の谷", "imageUrl": "/maps/backgrounds/map_3_3.png", "objects": [] }
+  ]
+}

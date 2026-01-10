@@ -11,6 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 
 // The canonical size of the map editor view.
@@ -28,7 +29,8 @@ type PlacedObject = {
     targetMapId: string;
     targetX: number;
     targetY: number;
-  }
+  };
+  dialogue?: string[];
 };
 
 type AvailableObject = {
@@ -37,6 +39,8 @@ type AvailableObject = {
   imageUrl: string;
   width: number;
   height: number;
+  type?: 'person';
+  dialogue?: string[];
 };
 
 type MapCell = {
@@ -147,6 +151,7 @@ export function MapEditorClient() {
       y: scaledY - selectedAsset.height / 2,
       width: selectedAsset.width,
       height: selectedAsset.height,
+      dialogue: selectedAsset.dialogue ? [...selectedAsset.dialogue] : undefined,
     };
     
     const newWorldMap = worldMap.map(row => [...row].map(cell => ({...cell, objects: [...cell.objects]})));
@@ -201,6 +206,7 @@ export function MapEditorClient() {
   const Inspector = () => {
     if (selectedObject) {
       const asset = availableObjects.find(a => a.id === selectedObject.objectId);
+      const isPerson = asset?.type === 'person';
       return (
         <Card>
           <CardHeader>
@@ -214,6 +220,18 @@ export function MapEditorClient() {
                 <Input type="number" value={Math.round(selectedObject.y)} onChange={e => handleObjectUpdate({...selectedObject, y: parseInt(e.target.value)})} prefix="Y" />
               </div>
             </div>
+            {isPerson && (
+              <div className="space-y-2">
+                <Label htmlFor="dialogue">会話</Label>
+                <Textarea 
+                  id="dialogue"
+                  placeholder="1行に1つのセリフを入力..."
+                  value={selectedObject.dialogue?.join('\n') || ''}
+                  onChange={(e) => handleObjectUpdate({...selectedObject, dialogue: e.target.value.split('\n')})}
+                  rows={5}
+                />
+              </div>
+            )}
             <Card className="bg-muted/50 p-4 space-y-2">
                 <CardDescription>トランジション</CardDescription>
                 <div>

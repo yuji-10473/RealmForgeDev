@@ -19,23 +19,138 @@
             "targetX": 930,
             "targetY": 850
           }
+        },
+        {
+          "id": "1768047550730",
+          "objectId": "tree1",
+          "x": 475.9129053143438,
+          "y": 413.21332450238043,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047556147",
+          "objectId": "tree2",
+          "x": 820.760502902215,
+          "y": 441.07979600616903,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047560543",
+          "objectId": "tree2",
+          "x": 1324.0986630178452,
+          "y": 374.89692618467103,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047563664",
+          "objectId": "tree1",
+          "x": 1073.3004102266661,
+          "y": 291.29751167330517,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047619146",
+          "objectId": "door1",
+          "x": 1491.9477166130673,
+          "y": 530.5543934827332,
+          "width": 64,
+          "height": 64
         }
       ]
     },
-    { "id": "map_0_1", "name": "静かな森", "imageUrl": "/maps/backgrounds/map_0_1.png", "objects": [] },
-    { "id": "map_0_2", "name": "せせらぎの小道", "imageUrl": "/maps/backgrounds/map_0_2.png", "objects": [] },
-    { "id": "map_0_3", "name": "忘れられた遺跡", "imageUrl": "/maps/backgrounds/map_0_3.png", "objects": [] },
-    { "id": "map_1_0", "name": "オークのキャンプ", "imageUrl": "/maps/backgrounds/map_1_0.png", "objects": [] },
-    { "id": "map_1_1", "name": "霧のかかった沼地", "imageUrl": "/maps/backgrounds/map_1_1.png", "objects": [] },
-    { "id": "map_1_2", "name": "賢者の洞窟", "imageUrl": "/maps/backgrounds/map_1_2.png", "objects": [] },
-    { "id": "map_1_3", "name": "北の山道", "imageUrl": "/maps/backgrounds/map_1_3.png", "objects": [] },
-    { "id": "map_2_0", "name": "城下町", "imageUrl": "/maps/backgrounds/map_2_0.png", "objects": [] },
-    { "id": "map_2_1", "name": "王都の広場", "imageUrl": "/maps/backgrounds/map_2_1.png", "objects": [] },
-    { "id": "map_2_2", "name": "港町", "imageUrl": "/maps/backgrounds/map_2_2.png", "objects": [] },
-    { "id": "map_2_3", "name": "東の灯台", "imageUrl": "/maps/backgrounds/map_2_3.png", "objects": [] },
-    { "id": "map_3_0", "name": "南の砂漠", "imageUrl": "/maps/backgrounds/map_3_0.png", "objects": [] },
-    { "id": "map_3_1", "name": "オアシス", "imageUrl": "/maps/backgrounds/map_3_1.png", "objects": [] },
-    { "id": "map_3_2", "name": "ピラミッド", "imageUrl": "/maps/backgrounds/map_3_2.png", "objects": [] },
-    { "id": "map_3_3", "name": "竜の骨の谷", "imageUrl": "/maps/backgrounds/map_3_3.png", "objects": [] }
+    {
+      "id": "map_0_1",
+      "name": "静かな森",
+      "imageUrl": "/maps/backgrounds/map_0_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_0_2",
+      "name": "せせらぎの小道",
+      "imageUrl": "/maps/backgrounds/map_0_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_0_3",
+      "name": "忘れられた遺跡",
+      "imageUrl": "/maps/backgrounds/map_0_3.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_0",
+      "name": "オークのキャンプ",
+      "imageUrl": "/maps/backgrounds/map_1_0.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_1",
+      "name": "霧のかかった沼地",
+      "imageUrl": "/maps/backgrounds/map_1_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_2",
+      "name": "賢者の洞窟",
+      "imageUrl": "/maps/backgrounds/map_1_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_3",
+      "name": "北の山道",
+      "imageUrl": "/maps/backgrounds/map_1_3.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_0",
+      "name": "城下町",
+      "imageUrl": "/maps/backgrounds/map_2_0.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_1",
+      "name": "王都の広場",
+      "imageUrl": "/maps/backgrounds/map_2_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_2",
+      "name": "港町",
+      "imageUrl": "/maps/backgrounds/map_2_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_3",
+      "name": "東の灯台",
+      "imageUrl": "/maps/backgrounds/map_2_3.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_0",
+      "name": "南の砂漠",
+      "imageUrl": "/maps/backgrounds/map_3_0.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_1",
+      "name": "オアシス",
+      "imageUrl": "/maps/backgrounds/map_3_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_2",
+      "name": "ピラミッド",
+      "imageUrl": "/maps/backgrounds/map_3_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_3",
+      "name": "竜の骨の谷",
+      "imageUrl": "/maps/backgrounds/map_3_3.png",
+      "objects": []
+    }
   ]
 }

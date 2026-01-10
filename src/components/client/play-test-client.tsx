@@ -8,6 +8,7 @@ import { Loader2, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Button } from "../ui/button";
 
 
 const MAP_WIDTH = 1920;
@@ -31,6 +32,7 @@ type PlacedObject = {
     targetX: number;
     targetY: number;
   };
+  dialogue?: string[];
 };
 
 type AvailableObject = {
@@ -39,6 +41,8 @@ type AvailableObject = {
   imageUrl: string;
   width: number;
   height: number;
+  type?: 'person';
+  dialogue?: string[];
 };
 
 type MapCell = {
@@ -65,11 +69,40 @@ type WorldMap = MapCell[][];
 type CharacterState = "idle" | "walk_up" | "walk_down" | "walk_left" | "walk_right";
 type CharacterDirection = "up" | "down" | "left" | "right";
 
+type ActiveDialogue = {
+  lines: string[];
+  currentIndex: number;
+}
+
 const worldMapOptions = [
   { id: 'maps', name: 'ワールドマップ 1' },
   { id: 'maps2', name: 'ワールドマップ 2' },
   { id: 'rooms', name: 'ルーム' },
 ];
+
+function DialogueBox({ dialogue, onComplete }: { dialogue: ActiveDialogue, onComplete: () => void }) {
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+
+  const handleNext = () => {
+    if (currentLineIndex < dialogue.lines.length - 1) {
+      setCurrentLineIndex(prev => prev + 1);
+    } else {
+      onComplete();
+    }
+  };
+
+  return (
+    <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-4 z-40 text-foreground shadow-lg">
+      <p className="mb-4 text-lg">{dialogue.lines[currentLineIndex]}</p>
+      <div className="flex justify-end">
+        <Button onClick={handleNext}>
+          {currentLineIndex < dialogue.lines.length - 1 ? '次へ' : '閉じる'}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 
 export function PlayTestClient() {
   const [selectedMapId, setSelectedMapId] = useState<string>(worldMapOptions[0].id);
@@ -90,8 +123,10 @@ export function PlayTestClient() {
   const [characterState, setCharacterState] = useState<CharacterState>("idle");
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>("down");
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+  const [activeDialogue, setActiveDialogue] = useState<ActiveDialogue | null>(null);
 
   const isRoom = selectedMapId === 'rooms';
+  const isInDialogue = activeDialogue !== null;
   
   const loadData = useCallback(async (mapId: string, targetRoomId?: string, targetPos?: {x: number, y: number}) => {
     try {
@@ -121,8 +156,8 @@ export function PlayTestClient() {
 
         setWorldMap(null);
         setRooms(roomsData.rooms);
-        const targetRoom = targetRoomId || roomsData.rooms[0]?.id;
-        setActiveRoomId(targetRoom);
+        const targetId = targetRoomId ? roomsData.rooms.find((r: MapCell) => r.id === targetRoomId)?.id : roomsData.rooms[0]?.id;
+        setActiveRoomId(targetId);
         setSelectedMapId('rooms');
       } else {
         const mapResponse = await fetch(`/${mapId}/${mapId}.json`);
@@ -166,7 +201,7 @@ export function PlayTestClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const checkForTransition = useCallback(() => {
+  const checkForInteraction = useCallback(() => {
     const activeMapData = isRoom ? rooms?.find(r => r.id === activeRoomId) : worldMap?.[activeMap.r]?.[activeMap.c];
     if (!activeMapData) return;
 
@@ -174,22 +209,31 @@ export function PlayTestClient() {
     const characterCenterY = characterPosition.y + CHARACTER_HEIGHT / 2;
 
     for (const obj of activeMapData.objects) {
-      if (obj.transition) {
-        const objCenterX = obj.x + obj.width / 2;
-        const objCenterY = obj.y + obj.height / 2;
-        const distance = Math.sqrt(Math.pow(characterCenterX - objCenterX, 2) + Math.pow(characterCenterY - objCenterY, 2));
+      const objCenterX = obj.x + obj.width / 2;
+      const objCenterY = obj.y + obj.height / 2;
+      const distance = Math.sqrt(Math.pow(characterCenterX - objCenterX, 2) + Math.pow(characterCenterY - objCenterY, 2));
+      const interactionZone = INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2;
 
-        if (distance < INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2) {
+      if (distance < interactionZone) {
+        // Check for dialogue
+        if (obj.dialogue && obj.dialogue.length > 0) {
+          setActiveDialogue({ lines: obj.dialogue, currentIndex: 0 });
+          return;
+        }
+
+        // Check for transition
+        if (obj.transition) {
           const { targetMapId, targetX, targetY } = obj.transition;
-          loadData(targetMapId, targetMapId, {x: targetX, y: targetY});
-          return; // Exit after first transition found
+          const targetIsRoom = targetMapId === 'rooms' || targetMapId.startsWith('room_');
+          loadData(targetIsRoom ? 'rooms' : targetMapId, targetIsRoom ? targetMapId : undefined, {x: targetX, y: targetY});
+          return; 
         }
       }
     }
   }, [isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData]);
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (isTransitioning) return;
+    if (isTransitioning || isInDialogue) return;
     
     let newPos = { ...characterPosition };
     let newActiveMap = { ...activeMap };
@@ -221,7 +265,7 @@ export function PlayTestClient() {
       case "e":
       case "E":
       case "Enter":
-        checkForTransition();
+        checkForInteraction();
         return;
       default:
         return; 
@@ -272,7 +316,7 @@ export function PlayTestClient() {
 
     setCharacterPosition(newPos);
 
-  }, [activeMap, characterPosition, characterDirection, worldMap, isTransitioning, isRoom, checkForTransition]);
+  }, [activeMap, characterPosition, characterDirection, worldMap, isTransitioning, isRoom, checkForInteraction, isInDialogue]);
   
   const handleKeyUp = useCallback(() => {
     setCharacterState("idle");
@@ -412,6 +456,9 @@ export function PlayTestClient() {
                 unoptimized
               />
             </div>
+             {isInDialogue && (
+              <DialogueBox dialogue={activeDialogue} onComplete={() => setActiveDialogue(null)} />
+            )}
         </div>
       </div>
     );
@@ -426,7 +473,7 @@ export function PlayTestClient() {
       <div className="flex items-end gap-4">
         <div>
           <Label htmlFor="world-map-select">マップ</Label>
-          <Select value={selectedMapId} onValueChange={handleMapSelectionChange}>
+          <Select value={selectedMapId} onValueChange={handleMapSelectionChange} disabled={isInDialogue}>
             <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
               <SelectValue placeholder="テストするマップを選択..." />
             </SelectTrigger>
@@ -440,7 +487,7 @@ export function PlayTestClient() {
         {isRoom && rooms && (
            <div>
             <Label htmlFor="room-select">ルーム</Label>
-            <Select value={activeRoomId || ''} onValueChange={(roomId) => setActiveRoomId(roomId)}>
+            <Select value={activeRoomId || ''} onValueChange={(roomId) => setActiveRoomId(roomId)} disabled={isInDialogue}>
               <SelectTrigger id="room-select" className="w-[280px] mt-2">
                 <SelectValue placeholder="テストするルームを選択..." />
               </SelectTrigger>
