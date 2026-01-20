@@ -29,7 +29,7 @@ fi
 jq -s '
   (.[0].objects | map(.id)) as $existing_ids |
   (.[0].objects) + (
-    .[1].villagers | map(
+    .[1] | map(
       ("villager_" + .name) as $new_id |
       if ($existing_ids | index($new_id)) then
         empty
