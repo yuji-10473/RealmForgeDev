@@ -24,7 +24,7 @@ const GenerateConversationInputSchema = z.object({
 export type GenerateConversationInput = z.infer<typeof GenerateConversationInputSchema>;
 
 const GenerateConversationOutputSchema = z.object({
-  conversation: z.string().describe('An array of generated dialogue snippets.'),
+  conversation: z.string().describe('A generated conversation snippet.'),
 });
 
 export type GenerateConversationOutput = z.infer<typeof GenerateConversationOutputSchema>;

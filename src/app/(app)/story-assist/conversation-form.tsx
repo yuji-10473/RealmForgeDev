@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { generateConversation, type GenerateConversationInput } from "@/ai/flows/generate-dialogue-snippets";
+import { generateConversation, type GenerateConversationInput } from "@/ai/flows/generate-conversation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";

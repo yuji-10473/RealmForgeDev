@@ -28,7 +28,7 @@ type PlacedObject = {
     targetX: number;
     targetY: number;
   };
-  dialogue?: string[];
+  conversation?: string;
 };
 
 type AvailableObject = {
@@ -38,7 +38,7 @@ type AvailableObject = {
   width: number;
   height: number;
   type?: 'person' | 'door';
-  dialogue?: string[];
+  conversation?: string;
 };
 
 type Room = {
@@ -138,7 +138,7 @@ export function RoomEditorClient() {
       y: scaledY - selectedAsset.height / 2,
       width: selectedAsset.width,
       height: selectedAsset.height,
-      dialogue: selectedAsset.dialogue ? [...selectedAsset.dialogue] : undefined,
+      conversation: selectedAsset.conversation,
     };
     
     const newRooms = rooms.map(room => {
@@ -189,12 +189,12 @@ export function RoomEditorClient() {
 
             {objectType === 'person' && (
               <div className="space-y-2">
-                <Label htmlFor="dialogue">会話</Label>
+                <Label htmlFor="conversation">会話</Label>
                 <Textarea 
-                  id="dialogue"
-                  placeholder="1行に1つのセリフを入力..."
-                  value={selectedObject.dialogue?.join('\n') || ''}
-                  onChange={(e) => handleObjectUpdate({...selectedObject, dialogue: e.target.value.split('\n')})}
+                  id="conversation"
+                  placeholder="キャラクターの会話を入力..."
+                  value={selectedObject.conversation || ''}
+                  onChange={(e) => handleObjectUpdate({...selectedObject, conversation: e.target.value})}
                   rows={5}
                 />
               </div>

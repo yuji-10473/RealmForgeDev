@@ -32,7 +32,7 @@ type PlacedObject = {
     targetX: number;
     targetY: number;
   };
-  dialogue?: string[];
+  conversation?: string;
 };
 
 type AvailableObject = {
@@ -42,7 +42,7 @@ type AvailableObject = {
   width: number;
   height: number;
   type?: 'person' | 'door';
-  dialogue?: string[];
+  conversation?: string;
 };
 
 type MapCell = {
@@ -69,34 +69,19 @@ type WorldMap = MapCell[][];
 type CharacterState = "idle" | "walk_up" | "walk_down" | "walk_left" | "walk_right";
 type CharacterDirection = "up" | "down" | "left" | "right";
 
-type ActiveDialogue = {
-  lines: string[];
-  currentIndex: number;
-}
-
 const worldMapOptions = [
   { id: 'maps', name: 'ワールドマップ 1' },
   { id: 'maps2', name: 'ワールドマップ 2' },
   { id: 'rooms', name: 'ルーム' },
 ];
 
-function DialogueBox({ dialogue, onComplete }: { dialogue: ActiveDialogue, onComplete: () => void }) {
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
-
-  const handleNext = () => {
-    if (currentLineIndex < dialogue.lines.length - 1) {
-      setCurrentLineIndex(prev => prev + 1);
-    } else {
-      onComplete();
-    }
-  };
-
+function DialogueBox({ conversation, onComplete }: { conversation: string, onComplete: () => void }) {
   return (
     <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-4 z-40 text-foreground shadow-lg">
-      <p className="mb-4 text-lg">{dialogue.lines[currentLineIndex]}</p>
+      <p className="mb-4 text-lg whitespace-pre-wrap">{conversation}</p>
       <div className="flex justify-end">
-        <Button onClick={handleNext}>
-          {currentLineIndex < dialogue.lines.length - 1 ? '次へ' : '閉じる'}
+        <Button onClick={onComplete}>
+          閉じる
         </Button>
       </div>
     </div>
@@ -123,7 +108,7 @@ export function PlayTestClient() {
   const [characterState, setCharacterState] = useState<CharacterState>("idle");
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>("down");
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
-  const [activeDialogue, setActiveDialogue] = useState<ActiveDialogue | null>(null);
+  const [activeDialogue, setActiveDialogue] = useState<string | null>(null);
 
   const isRoom = selectedMapId === 'rooms';
   const isInDialogue = activeDialogue !== null;
@@ -220,8 +205,8 @@ export function PlayTestClient() {
       if (distance < interactionZone) {
         switch (asset.type) {
           case 'person':
-            if (obj.dialogue && obj.dialogue.length > 0) {
-              setActiveDialogue({ lines: obj.dialogue, currentIndex: 0 });
+            if (obj.conversation) {
+              setActiveDialogue(obj.conversation);
               return; 
             }
             break;
@@ -463,7 +448,7 @@ export function PlayTestClient() {
               />
             </div>
              {isInDialogue && (
-              <DialogueBox dialogue={activeDialogue} onComplete={() => setActiveDialogue(null)} />
+              <DialogueBox conversation={activeDialogue} onComplete={() => setActiveDialogue(null)} />
             )}
         </div>
       </div>

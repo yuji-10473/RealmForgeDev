@@ -69,7 +69,9 @@
       "conversation": "「おや、旅の人かい。日差しが強いから、そこの木陰でひと休みしたらどうだい。喉が渇いたなら、井戸水でも汲んでおやり」",
       "id": "villager_しず",
       "imageUrl": "/characters/villagers/images/Aqs3Annh4ru5uRixSgho.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "紋太",
@@ -78,7 +80,9 @@
       "conversation": "おや、旅の若者か。この暑い盛りによくぞここまで。日陰で一休みしていきなされ、冷たい沢水があるぞ。",
       "id": "villager_紋太",
       "imageUrl": "/characters/villagers/images/ejn9K1lUhjCBZd67mx0B.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "おしげ",
@@ -87,7 +91,9 @@
       "conversation": "おや、旅のお方かい？こんな暑い盛りによくぞここまで。日差しが強いから、そこの木陰で少し休んでいきなさいな。",
       "id": "villager_おしげ",
       "imageUrl": "/characters/villagers/images/kPqAriSaRwp4bUg4tbS9.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "勘太",
@@ -96,7 +102,9 @@
       "conversation": "旅のお方か。こんな暑い日に遠くからようこそ。日陰で少し休んでいかねえか、冷たい沢水でも用意するぜ。",
       "id": "villager_勘太",
       "imageUrl": "/characters/villagers/images/IjX31wjbBQxdPsVK0Dit.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "弥平",
@@ -105,7 +113,9 @@
       "conversation": "暑い盛りじゃのう、旅の若者よ。日差しは強いが、この豊かな緑を見れば、畑の作物もよう育つじゃろうて。",
       "id": "villager_弥平",
       "imageUrl": "/characters/villagers/images/l9OQHeEKsllqsTgVBnsE.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "源太",
@@ -114,7 +124,9 @@
       "conversation": "「こんな暑い盛りに遠路はるばるご苦労さんじゃな。おや、若いのにしっかりした旅人さんだ。日が傾く前に、どこか休める場所を見つけると良いぞ。」",
       "id": "villager_源太",
       "imageUrl": "/characters/villagers/images/MYt16EagBGANLopR2WxX.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "まつ",
@@ -123,7 +135,9 @@
       "conversation": "旅の若者よ、こんな暑い日は日差しを避けねばならん。少し休んで、この井戸水でも飲んでいくといい。",
       "id": "villager_まつ",
       "imageUrl": "/characters/villagers/images/gh9gg9PoOv89NWEg3vry.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "うめ",
@@ -132,7 +146,9 @@
       "conversation": "旅の人かい？こんな暑い日に遠くから、一体どんな面白い話を持ってきてくれたんだい？",
       "id": "villager_うめ",
       "imageUrl": "/characters/villagers/images/wMSjRWzjMW8zmymdIxYk.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "たけ",
@@ -141,7 +157,9 @@
       "conversation": "あんた、若いのにずいぶん遠くまで来たもんだね。この暑さじゃ水筒が欠かせないよ、しっかり飲みな。",
       "id": "villager_たけ",
       "imageUrl": "/characters/villagers/images/lg6USIozxY3kV8mUtFrv.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "ふじ",
@@ -150,7 +168,9 @@
       "conversation": "おや、旅のお方かい？こんな暑い盛りによく来たもんだね。少し休んで、この冷たい水でも飲んでいくといいよ。",
       "id": "villager_ふじ",
       "imageUrl": "/characters/villagers/images/wxkrxJkKSXwtiWiURiTf.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "まさ",
@@ -159,7 +179,9 @@
       "conversation": "「こんな暑い日に遠くまでよう来たのう。日差しが強いから、そこの木陰で少し休んでいきなされ。冷たい水もあるぞ。」}{",
       "id": "villager_まさ",
       "imageUrl": "/characters/villagers/images/0x9QCvl35ETTNNDvBAOg.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "いね",
@@ -168,7 +190,9 @@
       "conversation": "おや、旅の方かい？この暑い中、どこへ急ぐんだい。よかったら、あそこの井戸で喉を潤していくといいよ。",
       "id": "villager_いね",
       "imageUrl": "/characters/villagers/images/TFS6nW3oE8YYdiJ21M9R.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "おはな",
@@ -177,7 +201,9 @@
       "conversation": "あんたさん、見慣れない顔だね。こんな暑い日に遠くから来たのかい？うちの井戸水で喉を潤していくといいよ。",
       "id": "villager_おはな",
       "imageUrl": "/characters/villagers/images/7WVudEcwgprud6DxaSiB.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "庄助",
@@ -186,7 +212,9 @@
       "conversation": "暑い中、遠くからよう来たな。日差しは強いが、日暮れには涼しい風が吹く。休んでいけ。",
       "id": "villager_庄助",
       "imageUrl": "/characters/villagers/images/4OPELhPhTx0RpaQiu0Af.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "おとみ",
@@ -195,7 +223,9 @@
       "conversation": "「旅の方かい？ この日差しじゃさぞ喉も渇くじゃろう。井戸水でも一杯、どうじゃね。」",
       "id": "villager_おとみ",
       "imageUrl": "/characters/villagers/images/0qRyop1RAw8TsEnICzbm.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     },
     {
       "name": "きぬ",
@@ -204,7 +234,9 @@
       "conversation": "おや、見慣れぬ旅人さんかね。こんな暑い盛りによくぞここまで。日差しがきついから、泉で喉を潤していくといいよ。",
       "id": "villager_きぬ",
       "imageUrl": "/characters/villagers/images/6uxZ9UvQDDCAfFi0MplG.png",
-      "type": "person"
+      "type": "person",
+      "width": 128,
+      "height": 128
     }
   ]
 }

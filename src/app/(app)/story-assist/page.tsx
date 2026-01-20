@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StoryElementsForm } from "./story-elements-form";
 import { CharacterBackstoryForm } from "./character-backstory-form";
-import { DialogueSnippetsForm } from "./dialogue-snippets-form";
+import { ConversationForm } from "./conversation-form";
 
 export default function StoryAssistPage() {
   return (
@@ -15,7 +15,7 @@ export default function StoryAssistPage() {
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="story-elements">物語の要素</TabsTrigger>
           <TabsTrigger value="character-backstories">キャラクターのバックストーリー</TabsTrigger>
-          <TabsTrigger value="dialogue-snippets">会話の断片</TabsTrigger>
+          <TabsTrigger value="conversation">会話生成</TabsTrigger>
         </TabsList>
         <TabsContent value="story-elements" className="mt-6">
           <StoryElementsForm />
@@ -23,8 +23,8 @@ export default function StoryAssistPage() {
         <TabsContent value="character-backstories" className="mt-6">
           <CharacterBackstoryForm />
         </TabsContent>
-        <TabsContent value="dialogue-snippets" className="mt-6">
-          <DialogueSnippetsForm />
+        <TabsContent value="conversation" className="mt-6">
+          <ConversationForm />
         </TabsContent>
       </Tabs>
     </div>
