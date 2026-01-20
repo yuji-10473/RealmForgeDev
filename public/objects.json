@@ -61,6 +61,150 @@
         "やあ、旅の人。",
         "この先は危険な森が広がっているよ。気をつけてな。"
       ]
+    },
+    {
+      "name": "しず",
+      "age": 56,
+      "introduction": "しずは村で最も古株の一人として、皆から慕われている。野良仕事の合間には、村の子供たちに昔話を語り聞かせ、祭りでは誰よりも楽しそうに踊る。",
+      "conversation": "「おや、旅の人かい。日差しが強いから、そこの木陰でひと休みしたらどうだい。喉が渇いたなら、井戸水でも汲んでおやり」",
+      "id": "villager_しず",
+      "imageUrl": "/characters/villagers/images/Aqs3Annh4ru5uRixSgho.png",
+      "type": "person"
+    },
+    {
+      "name": "紋太",
+      "age": 42,
+      "introduction": "紋太は、村の田畑を耕し続けて四十余年、今年も豊作を願う日々だ。日々の苦労は絶えぬが、村の若者たちに稲作の知恵を教えることを楽しみとしている。",
+      "conversation": "おや、旅の若者か。この暑い盛りによくぞここまで。日陰で一休みしていきなされ、冷たい沢水があるぞ。",
+      "id": "villager_紋太",
+      "imageUrl": "/characters/villagers/images/ejn9K1lUhjCBZd67mx0B.png",
+      "type": "person"
+    },
+    {
+      "name": "おしげ",
+      "age": 28,
+      "introduction": "おしげは村の誰よりも早起きで、朝露が乾く前に畑仕事に取り掛かります。手先が器用で、夏祭りにはいつも皆の髪を結ってやるのが楽しみです。",
+      "conversation": "おや、旅のお方かい？こんな暑い盛りによくぞここまで。日差しが強いから、そこの木陰で少し休んでいきなさいな。",
+      "id": "villager_おしげ",
+      "imageUrl": "/characters/villagers/images/kPqAriSaRwp4bUg4tbS9.png",
+      "type": "person"
+    },
+    {
+      "name": "勘太",
+      "age": 16,
+      "introduction": "勘太は、夏の盛りに田んぼで汗を流すのが日課の、若き働き手だ。秋の収穫祭や冬の狩りの話に目を輝かせる、村の将来を担う一人である。",
+      "conversation": "旅のお方か。こんな暑い日に遠くからようこそ。日陰で少し休んでいかねえか、冷たい沢水でも用意するぜ。",
+      "id": "villager_勘太",
+      "imageUrl": "/characters/villagers/images/IjX31wjbBQxdPsVK0Dit.png",
+      "type": "person"
+    },
+    {
+      "name": "弥平",
+      "age": 51,
+      "introduction": "村の畑を守り半世紀、弥平は村の長老として皆に頼られる存在だ。今年の夏の豊作を願いつつ、夕焼け空の下、孫と過ごすひと時が何よりの楽しみである。",
+      "conversation": "暑い盛りじゃのう、旅の若者よ。日差しは強いが、この豊かな緑を見れば、畑の作物もよう育つじゃろうて。",
+      "id": "villager_弥平",
+      "imageUrl": "/characters/villagers/images/l9OQHeEKsllqsTgVBnsE.png",
+      "type": "person"
+    },
+    {
+      "name": "源太",
+      "age": 32,
+      "introduction": "源太は、村の誰よりも早起きして田畑を耕す実直な男。日中の厳しい農作業の合間には、村の子供たちに笑顔で話しかけ、彼らの成長を温かく見守っている。",
+      "conversation": "「こんな暑い盛りに遠路はるばるご苦労さんじゃな。おや、若いのにしっかりした旅人さんだ。日が傾く前に、どこか休める場所を見つけると良いぞ。」",
+      "id": "villager_源太",
+      "imageUrl": "/characters/villagers/images/MYt16EagBGANLopR2WxX.png",
+      "type": "person"
+    },
+    {
+      "name": "まつ",
+      "age": 50,
+      "introduction": "若き日に夫を亡くし、畑仕事と家の切り盛りに精を出してきた。近年は孫の顔を見るのが何よりの楽しみで、収穫の喜びを共に分かち合っている。",
+      "conversation": "旅の若者よ、こんな暑い日は日差しを避けねばならん。少し休んで、この井戸水でも飲んでいくといい。",
+      "id": "villager_まつ",
+      "imageUrl": "/characters/villagers/images/gh9gg9PoOv89NWEg3vry.png",
+      "type": "person"
+    },
+    {
+      "name": "うめ",
+      "age": 16,
+      "introduction": "田畑を耕す両親を手伝いながらも、遠くの都の話に耳を傾けるのが好きだ。祭りの準備ではいつも誰よりも早く駆けつけ、村の賑わいを心待ちにしている。",
+      "conversation": "旅の人かい？こんな暑い日に遠くから、一体どんな面白い話を持ってきてくれたんだい？",
+      "id": "villager_うめ",
+      "imageUrl": "/characters/villagers/images/wMSjRWzjMW8zmymdIxYk.png",
+      "type": "person"
+    },
+    {
+      "name": "たけ",
+      "age": 44,
+      "introduction": "たけは、夫と共に田畑を耕し、日々の糧を得ている。若い衆の世話を焼き、村の祭ではいつも一番先に準備に取り掛かる、頼りになる存在だ。",
+      "conversation": "あんた、若いのにずいぶん遠くまで来たもんだね。この暑さじゃ水筒が欠かせないよ、しっかり飲みな。",
+      "id": "villager_たけ",
+      "imageUrl": "/characters/villagers/images/lg6USIozxY3kV8mUtFrv.png",
+      "type": "person"
+    },
+    {
+      "name": "ふじ",
+      "age": 50,
+      "introduction": "ふじは、村の誰よりも朝早く起き、井戸端で一日を始める。彼女の作った味噌は村一番と評判で、嫁いだ娘や孫たちが時折味見に訪れるのが何よりの楽しみだ。",
+      "conversation": "おや、旅のお方かい？こんな暑い盛りによく来たもんだね。少し休んで、この冷たい水でも飲んでいくといいよ。",
+      "id": "villager_ふじ",
+      "imageUrl": "/characters/villagers/images/wxkrxJkKSXwtiWiURiTf.png",
+      "type": "person"
+    },
+    {
+      "name": "まさ",
+      "age": 41,
+      "introduction": "夫に先立たれても、畑を一人で守り抜く気丈な女性。村の若い衆には実の母のように慕われ、困っている者を見れば放っておけない。",
+      "conversation": "「こんな暑い日に遠くまでよう来たのう。日差しが強いから、そこの木陰で少し休んでいきなされ。冷たい水もあるぞ。」}{",
+      "id": "villager_まさ",
+      "imageUrl": "/characters/villagers/images/0x9QCvl35ETTNNDvBAOg.png",
+      "type": "person"
+    },
+    {
+      "name": "いね",
+      "age": 24,
+      "introduction": "いねは村で一番の働き者で、夏は田んぼの草むしりに精を出す。疲れた体で眺める夕焼けが、日々のささやかな楽しみだ。",
+      "conversation": "おや、旅の方かい？この暑い中、どこへ急ぐんだい。よかったら、あそこの井戸で喉を潤していくといいよ。",
+      "id": "villager_いね",
+      "imageUrl": "/characters/villagers/images/TFS6nW3oE8YYdiJ21M9R.png",
+      "type": "person"
+    },
+    {
+      "name": "おはな",
+      "age": 55,
+      "introduction": "長年この地の土を耕し、多くの豊作も凶作も経験してきたおはな。祭りでは若い衆に昔話を語り、村の子供たちにとっては優しいおばあちゃんだ。",
+      "conversation": "あんたさん、見慣れない顔だね。こんな暑い日に遠くから来たのかい？うちの井戸水で喉を潤していくといいよ。",
+      "id": "villager_おはな",
+      "imageUrl": "/characters/villagers/images/7WVudEcwgprud6DxaSiB.png",
+      "type": "person"
+    },
+    {
+      "name": "庄助",
+      "age": 22,
+      "introduction": "庄助は、村で一番の働き手と評判の若者だ。厳しい年貢に耐えつつも、秋の収穫祭では太鼓を叩き、皆と笑い合うのを何よりの楽しみにしている。",
+      "conversation": "暑い中、遠くからよう来たな。日差しは強いが、日暮れには涼しい風が吹く。休んでいけ。",
+      "id": "villager_庄助",
+      "imageUrl": "/characters/villagers/images/4OPELhPhTx0RpaQiu0Af.png",
+      "type": "person"
+    },
+    {
+      "name": "おとみ",
+      "age": 31,
+      "introduction": "夫を早くに亡くしたが、持ち前の世話好きで村の子供たちを温かく見守るしっかり者。夏の盛りは畑仕事に精を出しつつ、村の皆の健康も気にかける日々を送っている。",
+      "conversation": "「旅の方かい？ この日差しじゃさぞ喉も渇くじゃろう。井戸水でも一杯、どうじゃね。」",
+      "id": "villager_おとみ",
+      "imageUrl": "/characters/villagers/images/0qRyop1RAw8TsEnICzbm.png",
+      "type": "person"
+    },
+    {
+      "name": "きぬ",
+      "age": 48,
+      "introduction": "きぬは村の古株で、薬草の知識が豊富だ。若い嫁たちに日々の暮らしの知恵を教え、夏には畑仕事の合間に涼みながら、昔語りをするのが好きだ。",
+      "conversation": "おや、見慣れぬ旅人さんかね。こんな暑い盛りによくぞここまで。日差しがきついから、泉で喉を潤していくといいよ。",
+      "id": "villager_きぬ",
+      "imageUrl": "/characters/villagers/images/6uxZ9UvQDDCAfFi0MplG.png",
+      "type": "person"
     }
   ]
 }
