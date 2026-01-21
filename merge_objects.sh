@@ -23,7 +23,8 @@ fi
 #    c. imageName を imageUrl に変換し、正しいパスを追加します。
 #    d. "type": "person" を追加します。
 #    e. デフォルトの width と height を追加します。
-#    f. 変換後、不要になった imageName を削除します。
+#    f. デフォルトの会話文を追加します。
+#    g. 変換後、不要になった imageName を削除します。
 # 3. 既存のオブジェクトリストと、重複しない新しい村人リストを結合します。
 # 4. 一時ファイルに書き出し、アトミックに上書きします。
 
@@ -40,7 +41,8 @@ jq -s '
           "imageUrl": ("/characters/villagers/images/" + .imageName),
           "type": "person",
           "width": 64,
-          "height": 64
+          "height": 64,
+          "conversation": ("こんにちは！私は" + .name + "です。")
         } | del(.imageName)
       end
     )
