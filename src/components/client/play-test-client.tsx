@@ -360,10 +360,11 @@ export function PlayTestClient() {
   
   useEffect(() => {
     setCurrentFrameIndex(0);
-  }, [characterState, characterDirection])
+  }, [activeClipName]);
 
-  const currentFrame = activeClip?.frames[currentFrameIndex];
-  const characterImageUrl = currentFrame ? `/characters/player/frames/${currentFrame.image}` : `/characters/player/frames/idle_down_1.png`; // Fallback image
+  const safeFrameIndex = activeClip && currentFrameIndex < activeClip.frames.length ? currentFrameIndex : 0;
+  const currentFrame = activeClip?.frames[safeFrameIndex];
+  const characterImageUrl = currentFrame ? `/characters/player/frames/${currentFrame.image}` : `/characters/player/frames/idle_down_1.png`;
 
 
   const GameView = () => {
