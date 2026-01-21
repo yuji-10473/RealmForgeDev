@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -185,6 +186,18 @@ export function PlayTestClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (!clips) return;
+
+    // Preload all animation frames to prevent flickering
+    clips.forEach(clip => {
+      clip.frames.forEach(frame => {
+        const img = new (window as any).Image();
+        img.src = `/characters/player/frames/${frame.image}`;
+      });
+    });
+  }, [clips]);
+
   const checkForInteraction = useCallback(() => {
     const activeMapData = isRoom ? rooms?.find(r => r.id === activeRoomId) : worldMap?.[activeMap.r]?.[activeMap.c];
     if (!activeMapData) return;
@@ -325,13 +338,12 @@ export function PlayTestClient() {
   const activeClip = clips?.find(c => c.name === activeClipName);
 
   useEffect(() => {
-    if (!activeClip || activeClip.frames.length === 0) {
-      // No clip to animate, so just stop.
-      return;
-    }
-
     let frameId: number;
     let lastTime = 0;
+    
+    if (!activeClip || activeClip.frames.length === 0) {
+        return;
+    }
 
     const animate = (currentTime: number) => {
       if (lastTime === 0) {
@@ -361,10 +373,7 @@ export function PlayTestClient() {
     setCurrentFrameIndex(0);
   }, [activeClipName]);
 
-  const safeFrameIndex = Math.min(
-    currentFrameIndex,
-    (activeClip?.frames.length || 1) - 1
-  );
+  const safeFrameIndex = activeClip ? Math.min(currentFrameIndex, activeClip.frames.length - 1) : 0;
   const currentFrame = activeClip?.frames[safeFrameIndex];
   const characterImageUrl = currentFrame ? `/characters/player/frames/${currentFrame.image}` : `/characters/player/frames/idle_down_1.png`;
 
@@ -456,7 +465,6 @@ export function PlayTestClient() {
               imageRendering: 'pixelated',
             }}>
               <Image
-                key={characterImageUrl}
                 src={characterImageUrl}
                 alt="Player Character"
                 width={CHARACTER_WIDTH}
