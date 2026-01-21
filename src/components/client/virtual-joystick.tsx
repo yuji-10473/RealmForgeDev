@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, MouseEvent, TouchEvent } from 'react';
 
 interface VirtualJoystickProps {
   onMove: (vector: { x: number; y: number }) => void;
@@ -22,15 +22,19 @@ export function VirtualJoystick({
   const [isDragging, setIsDragging] = useState(false);
   const [stickPosition, setStickPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const center = { x: size / 2, y: size / 2 };
+  
   const stickRadius = size / 2;
 
-  const updateStickPosition = useCallback((clientX: number, clientY: number) => {
+  const calculateVectorAndMove = useCallback((clientX: number, clientY: number) => {
     if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    let x = clientX - rect.left - center.x;
-    let y = clientY - rect.top - center.y;
 
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + stickRadius;
+    const centerY = rect.top + stickRadius;
+
+    let x = clientX - centerX;
+    let y = clientY - centerY;
+    
     const distance = Math.sqrt(x * x + y * y);
 
     if (distance > stickRadius) {
@@ -45,57 +49,43 @@ export function VirtualJoystick({
         y: y / stickRadius
     };
     onMove(vector);
-  }, [center.x, center.y, onMove, stickRadius]);
+
+  }, [onMove, stickRadius]);
+
 
   const handleInteractionStart = useCallback((clientX: number, clientY: number) => {
     setIsDragging(true);
-    updateStickPosition(clientX, clientY);
-  }, [updateStickPosition]);
+    calculateVectorAndMove(clientX, clientY);
+  }, [calculateVectorAndMove]);
 
   const handleInteractionMove = useCallback((clientX: number, clientY: number) => {
-    updateStickPosition(clientX, clientY);
-  }, [updateStickPosition]);
+    if (!isDragging) return;
+    calculateVectorAndMove(clientX, clientY);
+  }, [isDragging, calculateVectorAndMove]);
 
   const handleInteractionEnd = useCallback(() => {
+    if (!isDragging) return;
     setIsDragging(false);
     setStickPosition({ x: 0, y: 0 });
     onEnd();
-  }, [onEnd]);
+  }, [onEnd, isDragging]);
   
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => handleInteractionMove(e.clientX, e.clientY);
-    const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      handleInteractionMove(e.touches[0].clientX, e.touches[0].clientY);
-    };
-
-    if (isDragging) {
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', handleInteractionEnd);
-      window.addEventListener('touchmove', onTouchMove, { passive: false });
-      window.addEventListener('touchend', handleInteractionEnd);
-      window.addEventListener('touchcancel', handleInteractionEnd);
-    }
-
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', handleInteractionEnd);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', handleInteractionEnd);
-      window.removeEventListener('touchcancel', handleInteractionEnd);
-    };
-  }, [isDragging, handleInteractionMove, handleInteractionEnd]);
-  
-  // Start interaction handlers
-  const onMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    handleInteractionStart(e.clientX, e.clientY)
+  // Mouse Handlers
+  const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    handleInteractionStart(e.clientX, e.clientY);
   };
-  
-  const onTouchStart = (e: React.TouchEvent) => {
-    e.preventDefault();
+  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    handleInteractionMove(e.clientX, e.clientY);
+  };
+
+  // Touch Handlers
+  const onTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     const touch = e.touches[0];
     handleInteractionStart(touch.clientX, touch.clientY);
+  };
+  const onTouchMove = (e: TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    handleInteractionMove(touch.clientX, touch.clientY);
   };
 
   return (
@@ -107,11 +97,18 @@ export function VirtualJoystick({
         height: `${size}px`,
       }}
       onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={handleInteractionEnd}
+      onMouseLeave={handleInteractionEnd} // Stop if mouse leaves the area
+      
       onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={handleInteractionEnd}
+      onTouchCancel={handleInteractionEnd}
     >
       <div
         className="w-full h-full rounded-full"
-        style={{ backgroundColor: baseColor }}
+        style={{ backgroundColor: baseColor, touchAction: 'none' }}
       />
       <div
         className="absolute rounded-full"
