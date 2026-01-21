@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from '../ui/select';
 import {Button} from '../ui/button';
-import {VirtualJoystick} from './virtual-joystick'; // New import
 
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
@@ -130,7 +129,6 @@ export function PlayTestClient() {
 
   // New state for game loop
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
-  const [joystickVector, setJoystickVector] = useState({x: 0, y: 0});
   const gameLoopRef = useRef<number>();
 
   const isRoom = selectedMapId === 'rooms';
@@ -350,9 +348,7 @@ export function PlayTestClient() {
 
       let moveVector = {x: 0, y: 0};
 
-      if (joystickVector.x !== 0 || joystickVector.y !== 0) {
-        moveVector = joystickVector;
-      } else if (pressedKeys.size > 0) {
+      if (pressedKeys.size > 0) {
         if (pressedKeys.has('ArrowUp')) moveVector.y -= 1;
         if (pressedKeys.has('ArrowDown')) moveVector.y += 1;
         if (pressedKeys.has('ArrowLeft')) moveVector.x -= 1;
@@ -460,7 +456,6 @@ export function PlayTestClient() {
   }, [
     isTransitioning,
     isInDialogue,
-    joystickVector,
     pressedKeys,
     characterPosition,
     activeMap,
@@ -644,10 +639,6 @@ export function PlayTestClient() {
               onComplete={() => setActiveDialogue(null)}
             />
           )}
-          <VirtualJoystick
-            onMove={vector => setJoystickVector(vector)}
-            onEnd={() => setJoystickVector({x: 0, y: 0})}
-          />
         </div>
       </div>
     );
