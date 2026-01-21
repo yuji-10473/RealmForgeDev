@@ -17,7 +17,7 @@ import {Button} from '../ui/button';
 
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
-const CHARACTER_SPEED = 20;
+const CHARACTER_SPEED = 10;
 const CHARACTER_WIDTH = 64;
 const CHARACTER_HEIGHT = 64;
 const ANIMATION_FPS = 8;
@@ -126,8 +126,11 @@ export function PlayTestClient() {
     useState<CharacterDirection>('down');
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [activeDialogue, setActiveDialogue] = useState<string | null>(null);
+  const [destination, setDestination] = useState<{x: number; y: number} | null>(
+    null
+  );
 
-  // New state for game loop
+  const gameViewRef = useRef<HTMLDivElement>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
   const gameLoopRef = useRef<number>();
 
@@ -302,6 +305,26 @@ export function PlayTestClient() {
     availableObjects,
   ]);
 
+  const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isInDialogue || !gameViewRef.current) return;
+
+    const rect = gameViewRef.current.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    const targetX = (clickX / rect.width) * MAP_WIDTH;
+    const targetY = (clickY / rect.height) * MAP_HEIGHT;
+
+    // Center the character on the target coordinates
+    setDestination({
+      x: targetX - CHARACTER_WIDTH / 2,
+      y: targetY - CHARACTER_HEIGHT / 2,
+    });
+
+    // Clear keyboard input when clicking to move
+    setPressedKeys(new Set());
+  };
+
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if (isInDialogue) return;
@@ -315,6 +338,7 @@ export function PlayTestClient() {
         ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)
       ) {
         setPressedKeys(prev => new Set(prev).add(event.key));
+        setDestination(null); // Cancel click-to-move
       }
     },
     [isInDialogue, checkForInteraction]
@@ -347,15 +371,31 @@ export function PlayTestClient() {
       }
 
       let moveVector = {x: 0, y: 0};
+      let isMoving = false;
 
-      if (pressedKeys.size > 0) {
+      // Prioritize click-to-move destination
+      if (destination) {
+        const dx = destination.x - characterPosition.x;
+        const dy = destination.y - characterPosition.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < CHARACTER_SPEED) {
+          setDestination(null);
+          isMoving = false;
+        } else {
+          moveVector = {x: dx / distance, y: dy / distance};
+          isMoving = true;
+        }
+      } else if (pressedKeys.size > 0) {
+        // Fallback to keyboard
         if (pressedKeys.has('ArrowUp')) moveVector.y -= 1;
         if (pressedKeys.has('ArrowDown')) moveVector.y += 1;
         if (pressedKeys.has('ArrowLeft')) moveVector.x -= 1;
         if (pressedKeys.has('ArrowRight')) moveVector.x += 1;
+        isMoving = true;
       }
 
-      if (moveVector.x === 0 && moveVector.y === 0) {
+      if (!isMoving) {
         setCharacterState('idle');
         gameLoopRef.current = requestAnimationFrame(loop);
         return;
@@ -457,6 +497,7 @@ export function PlayTestClient() {
     isTransitioning,
     isInDialogue,
     pressedKeys,
+    destination,
     characterPosition,
     activeMap,
     isRoom,
@@ -541,7 +582,11 @@ export function PlayTestClient() {
 
     return (
       <div className="flex justify-center items-center h-full">
-        <div className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border">
+        <div
+          ref={gameViewRef}
+          onClick={handleMapClick}
+          className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border cursor-pointer"
+        >
           {isTransitioning && (
             <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-30">
               <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -633,6 +678,15 @@ export function PlayTestClient() {
                 />
               ))}
           </div>
+          {destination && (
+             <div
+                className="absolute z-20 w-4 h-4 bg-red-500 rounded-full border-2 border-white pointer-events-none -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  left: `${(destination.x + CHARACTER_WIDTH / 2) / MAP_WIDTH * 100}%`,
+                  top: `${(destination.y + CHARACTER_HEIGHT / 2) / MAP_HEIGHT * 100}%`,
+                }}
+             />
+          )}
           {isInDialogue && (
             <DialogueBox
               conversation={activeDialogue}
