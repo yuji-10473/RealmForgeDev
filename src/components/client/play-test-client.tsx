@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -362,7 +361,10 @@ export function PlayTestClient() {
     setCurrentFrameIndex(0);
   }, [activeClipName]);
 
-  const safeFrameIndex = activeClip && currentFrameIndex < activeClip.frames.length ? currentFrameIndex : 0;
+  const safeFrameIndex = Math.min(
+    currentFrameIndex,
+    (activeClip?.frames.length || 1) - 1
+  );
   const currentFrame = activeClip?.frames[safeFrameIndex];
   const characterImageUrl = currentFrame ? `/characters/player/frames/${currentFrame.image}` : `/characters/player/frames/idle_down_1.png`;
 
@@ -450,7 +452,6 @@ export function PlayTestClient() {
               top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
               width: `${CHARACTER_WIDTH}px`,
               height: `${CHARACTER_HEIGHT}px`,
-              transition: isTransitioning ? 'none' : 'left 0.05s linear, top 0.05s linear',
               zIndex: 10,
               imageRendering: 'pixelated',
             }}>
