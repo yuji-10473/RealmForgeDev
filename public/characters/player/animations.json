@@ -47,7 +47,7 @@
     {
       "id": "clip_walk",
       "name": "walk_right",
-      "fps": 8,
+      "fps": 4,
       "frames": [
         { "id": "frame_3", "image": "player_walk_1.png" },
         { "id": "frame_5", "image": "player_walk_3.png" },

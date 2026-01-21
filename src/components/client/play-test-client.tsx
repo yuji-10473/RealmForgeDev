@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -374,10 +373,7 @@ export function PlayTestClient() {
   }, [activeClipName]);
 
   const safeFrameIndex = activeClip ? Math.min(currentFrameIndex, activeClip.frames.length - 1) : 0;
-  const currentFrame = activeClip?.frames[safeFrameIndex];
-  const characterImageUrl = currentFrame ? `/characters/player/frames/${currentFrame.image}` : `/characters/player/frames/idle_down_1.png`;
-
-
+  
   const GameView = () => {
     const firstLoad = loading && !worldMap && !rooms;
     if (firstLoad) {
@@ -425,7 +421,6 @@ export function PlayTestClient() {
               layout="fill"
               objectFit="cover"
               unoptimized
-              priority
               className="z-0"
             />
           )}
@@ -464,14 +459,34 @@ export function PlayTestClient() {
               zIndex: 10,
               imageRendering: 'pixelated',
             }}>
-              <Image
-                src={characterImageUrl}
-                alt="Player Character"
-                width={CHARACTER_WIDTH}
-                height={CHARACTER_HEIGHT}
-                objectFit="contain"
-                unoptimized
-              />
+               {/* Fallback for when there's no active clip or it has no frames */}
+              {(!activeClip || activeClip.frames.length === 0) && (
+                 <Image
+                    src={`/characters/player/frames/idle_down_1.png`}
+                    alt="Player Character"
+                    width={CHARACTER_WIDTH}
+                    height={CHARACTER_HEIGHT}
+                    objectFit="contain"
+                    unoptimized
+                  />
+              )}
+              {/* Filmstrip-style animation */}
+              {activeClip && activeClip.frames.length > 0 && activeClip.frames.map((frame, index) => (
+                <Image
+                  key={frame.id}
+                  src={`/characters/player/frames/${frame.image}`}
+                  alt=""
+                  width={CHARACTER_WIDTH}
+                  height={CHARACTER_HEIGHT}
+                  objectFit="contain"
+                  unoptimized
+                  aria-hidden="true"
+                  className={cn(
+                    "absolute inset-0",
+                    index === safeFrameIndex ? "opacity-100" : "opacity-0"
+                  )}
+                />
+              ))}
             </div>
              {isInDialogue && (
               <DialogueBox conversation={activeDialogue} onComplete={() => setActiveDialogue(null)} />
