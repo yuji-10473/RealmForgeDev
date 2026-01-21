@@ -45,7 +45,7 @@
       ]
     },
     {
-      "id": "clip_walk",
+      "id": "clip_walk_right",
       "name": "walk_right",
       "fps": 7,
       "frames": [
@@ -56,6 +56,47 @@
         { "id": "frame_11", "image": "player_walk_9.png" },
         { "id": "frame_13", "image": "player_walk_11.png" },
         { "id": "frame_15", "image": "player_walk_13.png" }
+      ]
+    },
+    {
+      "id": "clip_walk_left",
+      "name": "walk_left",
+      "fps": 7,
+      "frames": [
+        { "id": "frame_21", "image": "player_walk_21.png" },
+        { "id": "frame_22", "image": "player_walk_22.png" },
+        { "id": "frame_23", "image": "player_walk_23.png" },
+        { "id": "frame_24", "image": "player_walk_24.png" },
+        { "id": "frame_25", "image": "player_walk_25.png" },
+        { "id": "frame_26", "image": "player_walk_26.png" },
+        { "id": "frame_27", "image": "player_walk_27.png" }
+      ]
+    },
+    {
+      "id": "clip_walk_up",
+      "name": "walk_up",
+      "fps": 7,
+      "frames": [
+        { "id": "frame_31", "image": "player_walk_31.png" },
+        { "id": "frame_32", "image": "player_walk_32.png" },
+        { "id": "frame_33", "image": "player_walk_33.png" },
+        { "id": "frame_34", "image": "player_walk_34.png" },
+        { "id": "frame_35", "image": "player_walk_35.png" },
+        { "id": "frame_36", "image": "player_walk_36.png" },
+        { "id": "frame_37", "image": "player_walk_37.png" }
+      ]
+    },
+    {
+      "id": "clip_walk_down",
+      "name": "walk_down",
+      "fps": 6,
+      "frames": [
+        { "id": "frame_41", "image": "player_walk_41.png" },
+        { "id": "frame_43", "image": "player_walk_43.png" },
+        { "id": "frame_44", "image": "player_walk_44.png" },
+        { "id": "frame_45", "image": "player_walk_45.png" },
+        { "id": "frame_46", "image": "player_walk_46.png" },
+        { "id": "frame_48", "image": "player_walk_48.png" }
       ]
     }
   ]

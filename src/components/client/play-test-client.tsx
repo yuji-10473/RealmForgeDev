@@ -1,14 +1,20 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, Terminal } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Label } from "../ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Button } from "../ui/button";
-
+import {useState, useEffect, useCallback, useRef} from 'react';
+import Image from 'next/image';
+import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
+import {Loader2, Terminal} from 'lucide-react';
+import {cn} from '@/lib/utils';
+import {Label} from '../ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
+import {Button} from '../ui/button';
+import {VirtualJoystick} from './virtual-joystick'; // New import
 
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
@@ -17,7 +23,6 @@ const CHARACTER_WIDTH = 64;
 const CHARACTER_HEIGHT = 64;
 const ANIMATION_FPS = 8;
 const INTERACTION_RADIUS = 32;
-
 
 type PlacedObject = {
   id: string;
@@ -65,130 +70,175 @@ type AnimationClip = {
 
 type WorldMap = MapCell[][];
 
-type CharacterState = "idle" | "walk_up" | "walk_down" | "walk_left" | "walk_right";
-type CharacterDirection = "up" | "down" | "left" | "right";
+type CharacterState =
+  | 'idle'
+  | 'walk_up'
+  | 'walk_down'
+  | 'walk_left'
+  | 'walk_right';
+type CharacterDirection = 'up' | 'down' | 'left' | 'right';
 
 const worldMapOptions = [
-  { id: 'maps', name: 'ワールドマップ 1' },
-  { id: 'maps2', name: 'ワールドマップ 2' },
-  { id: 'rooms', name: 'ルーム' },
+  {id: 'maps', name: 'ワールドマップ 1'},
+  {id: 'maps2', name: 'ワールドマップ 2'},
+  {id: 'rooms', name: 'ルーム'},
 ];
 
-function DialogueBox({ conversation, onComplete }: { conversation: string, onComplete: () => void }) {
+function DialogueBox({
+  conversation,
+  onComplete,
+}: {
+  conversation: string;
+  onComplete: () => void;
+}) {
   return (
-    <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-4 z-40 text-foreground shadow-lg">
+    <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-4 z-50 text-foreground shadow-lg">
       <p className="mb-4 text-lg whitespace-pre-wrap">{conversation}</p>
       <div className="flex justify-end">
-        <Button onClick={onComplete}>
-          閉じる
-        </Button>
+        <Button onClick={onComplete}>閉じる</Button>
       </div>
     </div>
   );
 }
 
-
 export function PlayTestClient() {
-  const [selectedMapId, setSelectedMapId] = useState<string>(worldMapOptions[0].id);
+  const [selectedMapId, setSelectedMapId] = useState<string>(
+    worldMapOptions[0].id
+  );
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [rooms, setRooms] = useState<MapCell[] | null>(null);
-  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
+  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>(
+    []
+  );
   const [clips, setClips] = useState<AnimationClip[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // For world maps (grid)
-  const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
-  // For room maps (list)
+
+  const [activeMap, setActiveMap] = useState({r: 0, c: 0});
   const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
 
-  const [characterPosition, setCharacterPosition] = useState({ x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
+  const [characterPosition, setCharacterPosition] = useState({
+    x: MAP_WIDTH / 2,
+    y: MAP_HEIGHT / 2,
+  });
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [characterState, setCharacterState] = useState<CharacterState>("idle");
-  const [characterDirection, setCharacterDirection] = useState<CharacterDirection>("down");
+  const [characterState, setCharacterState] = useState<CharacterState>('idle');
+  const [characterDirection, setCharacterDirection] =
+    useState<CharacterDirection>('down');
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [activeDialogue, setActiveDialogue] = useState<string | null>(null);
 
+  // New state for game loop
+  const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
+  const [joystickVector, setJoystickVector] = useState({x: 0, y: 0});
+  const gameLoopRef = useRef<number>();
+
   const isRoom = selectedMapId === 'rooms';
   const isInDialogue = activeDialogue !== null;
-  
-  const loadData = useCallback(async (mapId: string, targetRoomId?: string, targetPos?: {x: number, y: number}) => {
-    try {
-      setIsTransitioning(true);
-      setError(null);
-      
-      const isSwitchingToRoom = mapId === 'rooms' || mapId.startsWith('room_');
 
-      if (!availableObjects.length) {
-        const objectsResponse = await fetch('/objects.json');
-        if (!objectsResponse.ok) throw new Error(`オブジェクトファイルの読み込みに失敗しました: ${objectsResponse.statusText}`);
-        const objectsData = await objectsResponse.json();
-        setAvailableObjects(objectsData.objects);
-      }
-      
-      if (!clips) {
-        const animResponse = await fetch('/characters/player/animations.json');
-        if (!animResponse.ok) throw new Error(`アニメーションファイルの読み込みに失敗しました: ${animResponse.statusText}`);
-        const animData = await animResponse.json();
-        setClips(animData.clips);
-      }
-      
-      if (isSwitchingToRoom) {
-        const roomsResponse = await fetch('/rooms/rooms.json');
-        if (!roomsResponse.ok) throw new Error(`ルームファイルの読み込みに失敗しました: ${roomsResponse.statusText}`);
-        const roomsData = await roomsResponse.json();
+  const loadData = useCallback(
+    async (
+      mapId: string,
+      targetRoomId?: string,
+      targetPos?: {x: number; y: number}
+    ) => {
+      try {
+        setIsTransitioning(true);
+        setError(null);
 
-        setWorldMap(null);
-        setRooms(roomsData.rooms);
-        const targetId = targetRoomId ? roomsData.rooms.find((r: MapCell) => r.id === targetRoomId)?.id : roomsData.rooms[0]?.id;
-        setActiveRoomId(targetId);
-        setSelectedMapId('rooms');
-      } else {
-        const mapResponse = await fetch(`/${mapId}/${mapId}.json`);
-        if (!mapResponse.ok) throw new Error(`マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`);
-        const mapData = await mapResponse.json();
-        setRooms(null);
-        setActiveRoomId(null);
-        const rows = mapData.rows || 1;
-        const cols = mapData.cols || 1;
+        const isSwitchingToRoom =
+          mapId === 'rooms' || mapId.startsWith('room_');
 
-        if (typeof rows !== 'number' || typeof cols !== 'number' || rows <= 0 || cols <= 0) {
-            throw new Error(`マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`);
+        if (!availableObjects.length) {
+          const objectsResponse = await fetch('/objects.json');
+          if (!objectsResponse.ok)
+            throw new Error(
+              `オブジェクトファイルの読み込みに失敗しました: ${objectsResponse.statusText}`
+            );
+          const objectsData = await objectsResponse.json();
+          setAvailableObjects(objectsData.objects);
         }
-        
-        const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
-        mapData.maps.forEach((mapCell: MapCell, index: number) => {
-          const r = Math.floor(index / cols);
-          const c = index % cols;
-          if(newWorldMap[r]){
-            newWorldMap[r][c] = mapCell;
-          }
-        });
-        setWorldMap(newWorldMap);
-        setActiveMap({r: 0, c: 0});
-        setSelectedMapId(mapId);
-      }
-      
-      setCharacterPosition(targetPos || { x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 });
 
-    } catch (err: any) {
-      setError(err.message || '不明なエラーが発生しました。');
-    } finally {
-      // A small delay to allow the new map image to start loading
-      setTimeout(() => setIsTransitioning(false), 100);
-    }
-  }, [clips, availableObjects]);
+        if (!clips) {
+          const animResponse = await fetch('/characters/player/animations.json');
+          if (!animResponse.ok)
+            throw new Error(
+              `アニメーションファイルの読み込みに失敗しました: ${animResponse.statusText}`
+            );
+          const animData = await animResponse.json();
+          setClips(animData.clips);
+        }
+
+        if (isSwitchingToRoom) {
+          const roomsResponse = await fetch('/rooms/rooms.json');
+          if (!roomsResponse.ok)
+            throw new Error(
+              `ルームファイルの読み込みに失敗しました: ${roomsResponse.statusText}`
+            );
+          const roomsData = await roomsResponse.json();
+
+          setWorldMap(null);
+          setRooms(roomsData.rooms);
+          const targetId = targetRoomId
+            ? roomsData.rooms.find((r: MapCell) => r.id === targetRoomId)?.id
+            : roomsData.rooms[0]?.id;
+          setActiveRoomId(targetId);
+          setSelectedMapId('rooms');
+        } else {
+          const mapResponse = await fetch(`/${mapId}/${mapId}.json`);
+          if (!mapResponse.ok)
+            throw new Error(
+              `マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`
+            );
+          const mapData = await mapResponse.json();
+          setRooms(null);
+          setActiveRoomId(null);
+          const rows = mapData.rows || 1;
+          const cols = mapData.cols || 1;
+
+          if (
+            typeof rows !== 'number' ||
+            typeof cols !== 'number' ||
+            rows <= 0 ||
+            cols <= 0
+          ) {
+            throw new Error(
+              `マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`
+            );
+          }
+
+          const newWorldMap: WorldMap = Array(rows)
+            .fill(null)
+            .map(() => Array(cols).fill(null));
+          mapData.maps.forEach((mapCell: MapCell, index: number) => {
+            const r = Math.floor(index / cols);
+            const c = index % cols;
+            if (newWorldMap[r]) {
+              newWorldMap[r][c] = mapCell;
+            }
+          });
+          setWorldMap(newWorldMap);
+          setActiveMap({r: 0, c: 0});
+          setSelectedMapId(mapId);
+        }
+
+        setCharacterPosition(targetPos || {x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2});
+      } catch (err: any) {
+        setError(err.message || '不明なエラーが発生しました。');
+      } finally {
+        setTimeout(() => setIsTransitioning(false), 100);
+      }
+    },
+    [clips, availableObjects]
+  );
 
   useEffect(() => {
-    // Initial load
     loadData(selectedMapId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!clips) return;
-
-    // Preload all animation frames to prevent flickering
     clips.forEach(clip => {
       clip.frames.forEach(frame => {
         const img = new (window as any).Image();
@@ -198,7 +248,9 @@ export function PlayTestClient() {
   }, [clips]);
 
   const checkForInteraction = useCallback(() => {
-    const activeMapData = isRoom ? rooms?.find(r => r.id === activeRoomId) : worldMap?.[activeMap.r]?.[activeMap.c];
+    const activeMapData = isRoom
+      ? rooms?.find(r => r.id === activeRoomId)
+      : worldMap?.[activeMap.r]?.[activeMap.c];
     if (!activeMapData) return;
 
     const characterCenterX = characterPosition.x + CHARACTER_WIDTH / 2;
@@ -210,152 +262,239 @@ export function PlayTestClient() {
 
       const objCenterX = obj.x + obj.width / 2;
       const objCenterY = obj.y + obj.height / 2;
-      const distance = Math.sqrt(Math.pow(characterCenterX - objCenterX, 2) + Math.pow(characterCenterY - objCenterY, 2));
-      const interactionZone = INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2;
+      const distance = Math.sqrt(
+        Math.pow(characterCenterX - objCenterX, 2) +
+          Math.pow(characterCenterY - objCenterY, 2)
+      );
+      const interactionZone =
+        INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2;
 
       if (distance < interactionZone) {
         switch (asset.type) {
           case 'person':
             if (obj.conversation) {
               setActiveDialogue(obj.conversation);
-              return; 
+              return;
             }
             break;
           case 'door':
             if (obj.transition) {
-              const { targetMapId, targetX, targetY } = obj.transition;
-              const targetIsRoom = targetMapId === 'rooms' || targetMapId.startsWith('room_');
-              loadData(targetIsRoom ? 'rooms' : targetMapId, targetIsRoom ? targetMapId : undefined, {x: targetX, y: targetY});
-              return; 
+              const {targetMapId, targetX, targetY} = obj.transition;
+              const targetIsRoom =
+                targetMapId === 'rooms' || targetMapId.startsWith('room_');
+              loadData(
+                targetIsRoom ? 'rooms' : targetMapId,
+                targetIsRoom ? targetMapId : undefined,
+                {x: targetX, y: targetY}
+              );
+              return;
             }
             break;
         }
       }
     }
-  }, [isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects]);
+  }, [
+    isRoom,
+    rooms,
+    activeRoomId,
+    worldMap,
+    activeMap,
+    characterPosition,
+    loadData,
+    availableObjects,
+  ]);
 
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (isTransitioning || isInDialogue) return;
-    
-    let newPos = { ...characterPosition };
-    let newActiveMap = { ...activeMap };
-    let didTransition = false;
-    let newDirection = characterDirection;
-    let newState: CharacterState = "idle";
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (isInDialogue) return;
 
-    switch (event.key) {
-      case "ArrowUp":
-        newPos.y -= CHARACTER_SPEED;
-        newDirection = "up";
-        newState = "walk_up";
-        break;
-      case "ArrowDown":
-        newPos.y += CHARACTER_SPEED;
-        newDirection = "down";
-        newState = "walk_down";
-        break;
-      case "ArrowLeft":
-        newPos.x -= CHARACTER_SPEED;
-        newDirection = "left";
-        newState = "walk_left";
-        break;
-      case "ArrowRight":
-        newPos.x += CHARACTER_SPEED;
-        newDirection = "right";
-        newState = "walk_right";
-        break;
-      case "e":
-      case "E":
-      case "Enter":
+      if (['e', 'E', 'Enter'].includes(event.key)) {
         checkForInteraction();
         return;
-      default:
-        return; 
-    }
-
-    setCharacterDirection(newDirection);
-    setCharacterState(newState);
-
-    if (!isRoom && worldMap) {
-      const currentRows = worldMap.length;
-      const currentCols = worldMap[0]?.length || 1;
-
-      if (newPos.x < 0) {
-        if (activeMap.c > 0) {
-          newActiveMap.c--;
-          newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
-          didTransition = true;
-        }
-      } else if (newPos.x > MAP_WIDTH - CHARACTER_WIDTH) {
-        if (activeMap.c < currentCols - 1) {
-          newActiveMap.c++;
-          newPos.x = 0;
-          didTransition = true;
-        }
-      } else if (newPos.y < 0) {
-        if (activeMap.r > 0) {
-          newActiveMap.r--;
-          newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
-          didTransition = true;
-        }
-      } else if (newPos.y > MAP_HEIGHT - CHARACTER_HEIGHT) {
-        if (activeMap.r < currentRows - 1) {
-          newActiveMap.r++;
-          newPos.y = 0;
-          didTransition = true;
-        }
       }
-    }
 
-    if (didTransition) {
-      setIsTransitioning(true);
-      setActiveMap(newActiveMap);
-      setTimeout(() => setIsTransitioning(false), 100);
-    } else {
-      newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
-      newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
-    }
+      if (
+        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)
+      ) {
+        setPressedKeys(prev => new Set(prev).add(event.key));
+      }
+    },
+    [isInDialogue, checkForInteraction]
+  );
 
-    setCharacterPosition(newPos);
-
-  }, [activeMap, characterPosition, characterDirection, worldMap, isTransitioning, isRoom, checkForInteraction, isInDialogue]);
-  
-  const handleKeyUp = useCallback(() => {
-    setCharacterState("idle");
+  const handleKeyUp = useCallback((event: KeyboardEvent) => {
+    setPressedKeys(prev => {
+      const next = new Set(prev);
+      next.delete(event.key);
+      return next;
+    });
   }, []);
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, [handleKeyDown, handleKeyUp]);
-  
-  const activeClipName = characterState === "idle" ? `idle_${characterDirection}` : characterState;
+
+  // Main game loop
+  useEffect(() => {
+    const loop = () => {
+      if (isTransitioning || isInDialogue) {
+        setCharacterState('idle');
+        gameLoopRef.current = requestAnimationFrame(loop);
+        return;
+      }
+
+      let moveVector = {x: 0, y: 0};
+
+      if (joystickVector.x !== 0 || joystickVector.y !== 0) {
+        moveVector = joystickVector;
+      } else if (pressedKeys.size > 0) {
+        if (pressedKeys.has('ArrowUp')) moveVector.y -= 1;
+        if (pressedKeys.has('ArrowDown')) moveVector.y += 1;
+        if (pressedKeys.has('ArrowLeft')) moveVector.x -= 1;
+        if (pressedKeys.has('ArrowRight')) moveVector.x += 1;
+      }
+
+      if (moveVector.x === 0 && moveVector.y === 0) {
+        setCharacterState('idle');
+        gameLoopRef.current = requestAnimationFrame(loop);
+        return;
+      }
+
+      // Normalize vector for consistent diagonal speed
+      const magnitude = Math.sqrt(
+        moveVector.x * moveVector.x + moveVector.y * moveVector.y
+      );
+      if (magnitude > 1) {
+        moveVector.x /= magnitude;
+        moveVector.y /= magnitude;
+      }
+
+      let newPos = {
+        x: characterPosition.x + moveVector.x * CHARACTER_SPEED,
+        y: characterPosition.y + moveVector.y * CHARACTER_SPEED,
+      };
+      let newActiveMap = {...activeMap};
+      let didTransition = false;
+
+      // Animation state from vector
+      let newState: CharacterState = 'idle';
+      let newDirection = characterDirection;
+      if (Math.abs(moveVector.x) > Math.abs(moveVector.y)) {
+        if (moveVector.x > 0) {
+          newState = 'walk_right';
+          newDirection = 'right';
+        } else {
+          newState = 'walk_left';
+          newDirection = 'left';
+        }
+      } else {
+        if (moveVector.y > 0) {
+          newState = 'walk_down';
+          newDirection = 'down';
+        } else {
+          newState = 'walk_up';
+          newDirection = 'up';
+        }
+      }
+      setCharacterState(newState);
+      setCharacterDirection(newDirection);
+
+      // Map transitions
+      if (!isRoom && worldMap) {
+        const currentRows = worldMap.length;
+        const currentCols = worldMap[0]?.length || 1;
+
+        if (newPos.x < 0) {
+          if (activeMap.c > 0) {
+            newActiveMap.c--;
+            newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
+            didTransition = true;
+          }
+        } else if (newPos.x > MAP_WIDTH - CHARACTER_WIDTH) {
+          if (activeMap.c < currentCols - 1) {
+            newActiveMap.c++;
+            newPos.x = 0;
+            didTransition = true;
+          }
+        } else if (newPos.y < 0) {
+          if (activeMap.r > 0) {
+            newActiveMap.r--;
+            newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
+            didTransition = true;
+          }
+        } else if (newPos.y > MAP_HEIGHT - CHARACTER_HEIGHT) {
+          if (activeMap.r < currentRows - 1) {
+            newActiveMap.r++;
+            newPos.y = 0;
+            didTransition = true;
+          }
+        }
+      }
+
+      // Clamp position
+      newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
+      newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
+      setCharacterPosition(newPos);
+
+      if (didTransition) {
+        setIsTransitioning(true);
+        setActiveMap(newActiveMap);
+        setTimeout(() => setIsTransitioning(false), 100);
+      }
+
+      gameLoopRef.current = requestAnimationFrame(loop);
+    };
+
+    gameLoopRef.current = requestAnimationFrame(loop);
+
+    return () => {
+      if (gameLoopRef.current) {
+        cancelAnimationFrame(gameLoopRef.current);
+      }
+    };
+  }, [
+    isTransitioning,
+    isInDialogue,
+    joystickVector,
+    pressedKeys,
+    characterPosition,
+    activeMap,
+    isRoom,
+    worldMap,
+    characterDirection,
+  ]);
+
+  const activeClipName =
+    characterState === 'idle' ? `idle_${characterDirection}` : characterState;
   const activeClip = clips?.find(c => c.name === activeClipName);
 
   useEffect(() => {
     let frameId: number;
     let lastTime = 0;
-    
+
     if (!activeClip || activeClip.frames.length === 0) {
-        return;
+      return;
     }
 
     const animate = (currentTime: number) => {
       if (lastTime === 0) {
         lastTime = currentTime;
       }
-      
+
       const deltaTime = currentTime - lastTime;
       const frameDuration = 1000 / (activeClip.fps || ANIMATION_FPS);
 
       if (deltaTime > frameDuration) {
         const framesToAdvance = Math.floor(deltaTime / frameDuration);
         lastTime += framesToAdvance * frameDuration;
-        setCurrentFrameIndex((prevIndex) => (prevIndex + framesToAdvance) % activeClip.frames.length);
+        setCurrentFrameIndex(
+          prevIndex => (prevIndex + framesToAdvance) % activeClip.frames.length
+        );
       }
 
       frameId = requestAnimationFrame(animate);
@@ -367,13 +506,15 @@ export function PlayTestClient() {
       cancelAnimationFrame(frameId);
     };
   }, [activeClip]);
-  
+
   useEffect(() => {
     setCurrentFrameIndex(0);
   }, [activeClipName]);
 
-  const safeFrameIndex = activeClip ? Math.min(currentFrameIndex, activeClip.frames.length - 1) : 0;
-  
+  const safeFrameIndex = activeClip
+    ? Math.min(currentFrameIndex, activeClip.frames.length - 1)
+    : 0;
+
   const GameView = () => {
     const firstLoad = loading && !worldMap && !rooms;
     if (firstLoad) {
@@ -384,7 +525,7 @@ export function PlayTestClient() {
         </div>
       );
     }
-  
+
     if (error) {
       return (
         <Alert variant="destructive">
@@ -394,20 +535,18 @@ export function PlayTestClient() {
         </Alert>
       );
     }
-  
-    const activeMapData = isRoom 
+
+    const activeMapData = isRoom
       ? rooms?.find(r => r.id === activeRoomId)
       : worldMap?.[activeMap.r]?.[activeMap.c];
 
     if (!activeMapData) {
-       return <p>マップまたはキャラクターデータが見つかりません。</p>
+      return <p>マップまたはキャラクターデータが見つかりません。</p>;
     }
 
     return (
       <div className="flex justify-center items-center h-full">
-        <div
-          className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border"
-        >
+        <div className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border">
           {isTransitioning && (
             <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-30">
               <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -422,35 +561,44 @@ export function PlayTestClient() {
               objectFit="cover"
               unoptimized
               className="z-0"
+              priority
             />
           )}
 
-          {/* Render Objects */}
           {activeMapData.objects.map(obj => {
             const asset = availableObjects.find(a => a.id === obj.objectId);
             if (!asset || !asset.imageUrl) return null;
-            
+
             const leftPercent = (obj.x / MAP_WIDTH) * 100;
             const topPercent = (obj.y / MAP_HEIGHT) * 100;
             const widthPercent = (obj.width / MAP_WIDTH) * 100;
-            
+
             return (
-                <div key={obj.id} 
-                     style={{ 
-                        left: `${leftPercent}%`, 
-                        top: `${topPercent}%`, 
-                        width: `${widthPercent}%`, 
-                        height: 'auto',
-                        aspectRatio: `${obj.width} / ${obj.height}`,
-                        position: 'absolute',
-                        zIndex: 1,
-                    }}>
-                    <Image src={asset.imageUrl} alt={asset.name} layout="fill" objectFit="contain" unoptimized />
-                </div>
-            )
+              <div
+                key={obj.id}
+                style={{
+                  left: `${leftPercent}%`,
+                  top: `${topPercent}%`,
+                  width: `${widthPercent}%`,
+                  height: 'auto',
+                  aspectRatio: `${obj.width} / ${obj.height}`,
+                  position: 'absolute',
+                  zIndex: 1,
+                }}
+              >
+                <Image
+                  src={asset.imageUrl}
+                  alt={asset.name}
+                  layout="fill"
+                  objectFit="contain"
+                  unoptimized
+                />
+              </div>
+            );
           })}
-          
-            <div style={{
+
+          <div
+            style={{
               position: 'absolute',
               left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
               top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
@@ -458,20 +606,21 @@ export function PlayTestClient() {
               height: `${CHARACTER_HEIGHT}px`,
               zIndex: 10,
               imageRendering: 'pixelated',
-            }}>
-               {/* Fallback for when there's no active clip or it has no frames */}
-              {(!activeClip || activeClip.frames.length === 0) && (
-                 <Image
-                    src={`/characters/player/frames/idle_down_1.png`}
-                    alt="Player Character"
-                    width={CHARACTER_WIDTH}
-                    height={CHARACTER_HEIGHT}
-                    objectFit="contain"
-                    unoptimized
-                  />
-              )}
-              {/* Filmstrip-style animation */}
-              {activeClip && activeClip.frames.length > 0 && activeClip.frames.map((frame, index) => (
+            }}
+          >
+            {(!activeClip || activeClip.frames.length === 0) && (
+              <Image
+                src={`/characters/player/frames/idle_down_1.png`}
+                alt="Player Character"
+                width={CHARACTER_WIDTH}
+                height={CHARACTER_HEIGHT}
+                objectFit="contain"
+                unoptimized
+              />
+            )}
+            {activeClip &&
+              activeClip.frames.length > 0 &&
+              activeClip.frames.map((frame, index) => (
                 <Image
                   key={frame.id}
                   src={`/characters/player/frames/${frame.image}`}
@@ -481,51 +630,71 @@ export function PlayTestClient() {
                   objectFit="contain"
                   unoptimized
                   aria-hidden="true"
+                  priority
                   className={cn(
-                    "absolute inset-0",
-                    index === safeFrameIndex ? "opacity-100" : "opacity-0"
+                    'absolute inset-0',
+                    index === safeFrameIndex ? 'opacity-100' : 'opacity-0'
                   )}
                 />
               ))}
-            </div>
-             {isInDialogue && (
-              <DialogueBox conversation={activeDialogue} onComplete={() => setActiveDialogue(null)} />
-            )}
+          </div>
+          {isInDialogue && (
+            <DialogueBox
+              conversation={activeDialogue}
+              onComplete={() => setActiveDialogue(null)}
+            />
+          )}
+          <VirtualJoystick
+            onMove={vector => setJoystickVector(vector)}
+            onEnd={() => setJoystickVector({x: 0, y: 0})}
+          />
         </div>
       </div>
     );
-  }
+  };
 
   const handleMapSelectionChange = (mapId: string) => {
     loadData(mapId);
-  }
+  };
 
   return (
     <div className="flex flex-col gap-4 h-full">
       <div className="flex items-end gap-4">
         <div>
           <Label htmlFor="world-map-select">マップ</Label>
-          <Select value={selectedMapId} onValueChange={handleMapSelectionChange} disabled={isInDialogue}>
+          <Select
+            value={selectedMapId}
+            onValueChange={handleMapSelectionChange}
+            disabled={isInDialogue}
+          >
             <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
               <SelectValue placeholder="テストするマップを選択..." />
             </SelectTrigger>
             <SelectContent>
               {worldMapOptions.map(map => (
-                <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>
+                <SelectItem key={map.id} value={map.id}>
+                  {map.name}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
         {isRoom && rooms && (
-           <div>
+          <div>
             <Label htmlFor="room-select">ルーム</Label>
-            <Select value={activeRoomId || ''} onValueChange={(roomId) => setActiveRoomId(roomId)} disabled={isInDialogue}>
+            <Select
+              value={activeRoomId || ''}
+              onValueChange={roomId => setActiveRoomId(roomId)}
+              disabled={isInDialogue}
+            >
               <SelectTrigger id="room-select" className="w-[280px] mt-2">
                 <SelectValue placeholder="テストするルームを選択..." />
               </SelectTrigger>
               <SelectContent>
                 {rooms.map(room => (
-                  <SelectItem key={room.id} value={room.id}>{room.name}</SelectItem>
+                  <SelectItem key={room.id} value={room.id}>
+                    {room.name}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -536,5 +705,5 @@ export function PlayTestClient() {
         <GameView />
       </div>
     </div>
-  )
+  );
 }
