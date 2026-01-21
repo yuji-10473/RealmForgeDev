@@ -326,21 +326,36 @@ export function PlayTestClient() {
   const activeClip = clips?.find(c => c.name === activeClipName);
 
   useEffect(() => {
-    let animationInterval: NodeJS.Timeout;
-    if (activeClip && activeClip.frames.length > 0) {
-      animationInterval = setInterval(() => {
-        setCurrentFrameIndex(
-          (prevIndex) => (prevIndex + 1) % activeClip.frames.length
-        );
-      }, 1000 / (activeClip.fps || ANIMATION_FPS));
-    } else if (characterState !== "idle") { // Fallback if walk clip is missing
-       const idleClip = clips?.find(c => c.name === `idle_${characterDirection}`)
-       if(idleClip && idleClip.frames.length > 0) {
-          setCurrentFrameIndex(0);
-       }
+    if (!activeClip || activeClip.frames.length === 0) {
+      // No clip to animate, so just stop.
+      return;
     }
-    return () => clearInterval(animationInterval);
-  }, [activeClip, characterState, characterDirection, clips]);
+
+    let frameId: number;
+    let lastTime = 0;
+
+    const animate = (currentTime: number) => {
+      if (lastTime === 0) {
+        lastTime = currentTime;
+      }
+      
+      const deltaTime = currentTime - lastTime;
+      const frameDuration = 1000 / (activeClip.fps || ANIMATION_FPS);
+
+      if (deltaTime > frameDuration) {
+        lastTime = currentTime - (deltaTime % frameDuration);
+        setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % activeClip.frames.length);
+      }
+
+      frameId = requestAnimationFrame(animate);
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
+  }, [activeClip]);
   
   useEffect(() => {
     setCurrentFrameIndex(0);

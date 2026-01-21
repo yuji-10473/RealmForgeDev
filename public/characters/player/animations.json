@@ -9,34 +9,53 @@
   ],
   "clips": [
     {
-      "id": "clip_idle",
+      "id": "clip_idle_down",
       "name": "idle_down",
       "fps": 1,
       "frames": [
-        { "id": "frame_1", "image": "player_idle_1.png" },
-        { "id": "frame_2", "image": "player_idle_1.png" }
+        { "id": "frame_101", "image": "player_idle_1.png" },
+        { "id": "frame_102", "image": "player_idle_1.png" }
+      ]
+    },
+    {
+      "id": "clip_idle_left",
+      "name": "idle_left",
+      "fps": 1,
+      "frames": [
+        { "id": "frame_111", "image": "player_idle_2.png" },
+        { "id": "frame_112", "image": "player_idle_2.png" }
+      ]
+    },
+    {
+      "id": "clip_idle_right",
+      "name": "idle_right",
+      "fps": 1,
+      "frames": [
+        { "id": "frame_121", "image": "player_idle_3.png" },
+        { "id": "frame_122", "image": "player_idle_3.png" }
+      ]
+    },
+    {
+      "id": "clip_idle_up",
+      "name": "idle_up",
+      "fps": 1,
+      "frames": [
+        { "id": "frame_131", "image": "player_idle_4.png" },
+        { "id": "frame_132", "image": "player_idle_4.png" }
       ]
     },
     {
       "id": "clip_walk",
       "name": "walk_right",
-      "fps": 15,
+      "fps": 4,
       "frames": [
         { "id": "frame_3", "image": "player_walk_1.png" },
-        { "id": "frame_4", "image": "player_walk_2.png" },
         { "id": "frame_5", "image": "player_walk_3.png" },
-        { "id": "frame_6", "image": "player_walk_4.png" },
         { "id": "frame_7", "image": "player_walk_5.png" },
-        { "id": "frame_8", "image": "player_walk_6.png" },
         { "id": "frame_9", "image": "player_walk_7.png" },
-        { "id": "frame_10", "image": "player_walk_8.png" },
         { "id": "frame_11", "image": "player_walk_9.png" },
-        { "id": "frame_12", "image": "player_walk_10.png" },
         { "id": "frame_13", "image": "player_walk_11.png" },
-        { "id": "frame_14", "image": "player_walk_12.png" },
-        { "id": "frame_15", "image": "player_walk_13.png" },
-        { "id": "frame_16", "image": "player_walk_14.png" },
-        { "id": "frame_17", "image": "player_walk_15.png" }
+        { "id": "frame_15", "image": "player_walk_13.png" }
       ]
     }
   ]
