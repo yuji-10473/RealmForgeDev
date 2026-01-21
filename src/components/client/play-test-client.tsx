@@ -343,8 +343,9 @@ export function PlayTestClient() {
       const frameDuration = 1000 / (activeClip.fps || ANIMATION_FPS);
 
       if (deltaTime > frameDuration) {
-        lastTime = currentTime - (deltaTime % frameDuration);
-        setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % activeClip.frames.length);
+        const framesToAdvance = Math.floor(deltaTime / frameDuration);
+        lastTime += framesToAdvance * frameDuration;
+        setCurrentFrameIndex((prevIndex) => (prevIndex + framesToAdvance) % activeClip.frames.length);
       }
 
       frameId = requestAnimationFrame(animate);
