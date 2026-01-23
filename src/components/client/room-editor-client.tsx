@@ -37,7 +37,7 @@ type AvailableObject = {
   imageUrl: string;
   width: number;
   height: number;
-  type?: 'person' | 'door';
+  type?: 'person' | 'door' | 'item';
   conversation?: string;
 };
 
