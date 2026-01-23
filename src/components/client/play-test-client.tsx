@@ -109,6 +109,215 @@ function DialogueBox({
   );
 }
 
+// The GameView component is now defined outside of PlayTestClient
+// to prevent it from being re-created on every render.
+const GameView = ({
+  loading,
+  worldMap,
+  rooms,
+  error,
+  isRoom,
+  activeRoomId,
+  activeMap,
+  gameViewRef,
+  handleMapClick,
+  isTransitioning,
+  availableObjects,
+  characterPosition,
+  activeClip,
+  safeFrameIndex,
+  isMenuOpen,
+  setIsMenuOpen,
+  destination,
+  isInDialogue,
+  activeDialogue,
+  setActiveDialogue
+}: {
+  loading: boolean;
+  worldMap: WorldMap | null;
+  rooms: MapCell[] | null;
+  error: string | null;
+  isRoom: boolean;
+  activeRoomId: string | null;
+  activeMap: { r: number; c: number };
+  gameViewRef: React.RefObject<HTMLDivElement>;
+  handleMapClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+  isTransitioning: boolean;
+  availableObjects: AvailableObject[];
+  characterPosition: { x: number; y: number };
+  activeClip: AnimationClip | undefined;
+  safeFrameIndex: number;
+  isMenuOpen: boolean;
+  setIsMenuOpen: (open: boolean) => void;
+  destination: { x: number; y: number } | null;
+  isInDialogue: boolean;
+  activeDialogue: string | null;
+  setActiveDialogue: (dialogue: string | null) => void;
+}) => {
+  const firstLoad = loading && !worldMap && !rooms;
+  if (firstLoad) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Loader2 className="mr-2 h-8 w-8 animate-spin" />
+        <p>データを読み込み中...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert variant="destructive">
+        <Terminal className="h-4 w-4" />
+        <AlertTitle>読み込みエラー</AlertTitle>
+        <AlertDescription>{error}</AlertDescription>
+      </Alert>
+    );
+  }
+
+  const activeMapData = isRoom
+    ? rooms?.find(r => r.id === activeRoomId)
+    : worldMap?.[activeMap.r]?.[activeMap.c];
+
+  if (!activeMapData) {
+    return <p>マップまたはキャラクターデータが見つかりません。</p>;
+  }
+
+  return (
+    <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+      <div className="flex justify-center items-center h-full">
+        <div
+          ref={gameViewRef}
+          onClick={handleMapClick}
+          className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border cursor-pointer"
+        >
+          {isTransitioning && (
+            <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-30">
+              <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            </div>
+          )}
+          {activeMapData.imageUrl && (
+            <Image
+              key={activeMapData.id}
+              src={activeMapData.imageUrl}
+              alt={`Map background ${activeMapData.name}`}
+              layout="fill"
+              objectFit="cover"
+              unoptimized
+              className="z-0"
+              priority
+            />
+          )}
+
+          {activeMapData.objects.map(obj => {
+            const asset = availableObjects.find(a => a.id === obj.objectId);
+            if (!asset || !asset.imageUrl) return null;
+
+            const leftPercent = (obj.x / MAP_WIDTH) * 100;
+            const topPercent = (obj.y / MAP_HEIGHT) * 100;
+            const widthPercent = (obj.width / MAP_WIDTH) * 100;
+
+            return (
+              <div
+                key={obj.id}
+                style={{
+                  left: `${leftPercent}%`,
+                  top: `${topPercent}%`,
+                  width: `${widthPercent}%`,
+                  height: 'auto',
+                  aspectRatio: `${obj.width} / ${obj.height}`,
+                  position: 'absolute',
+                  zIndex: 1,
+                }}
+              >
+                <Image
+                  src={asset.imageUrl}
+                  alt={asset.name}
+                  layout="fill"
+                  objectFit="contain"
+                  unoptimized
+                />
+              </div>
+            );
+          })}
+
+          <div
+            style={{
+              position: 'absolute',
+              left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
+              top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
+              width: `${CHARACTER_WIDTH}px`,
+              height: `${CHARACTER_HEIGHT}px`,
+              zIndex: 10,
+              imageRendering: 'pixelated',
+            }}
+          >
+            {(!activeClip || activeClip.frames.length === 0) && (
+              <Image
+                src={`/characters/player/frames/idle_down_1.png`}
+                alt="Player Character"
+                width={CHARACTER_WIDTH}
+                height={CHARACTER_HEIGHT}
+                objectFit="contain"
+                unoptimized
+              />
+            )}
+            {activeClip &&
+              activeClip.frames.length > 0 &&
+              activeClip.frames.map((frame, index) => (
+                <Image
+                  key={frame.id}
+                  src={`/characters/player/frames/${frame.image}`}
+                  alt=""
+                  width={CHARACTER_WIDTH}
+                  height={CHARACTER_HEIGHT}
+                  objectFit="contain"
+                  unoptimized
+                  aria-hidden="true"
+                  priority
+                  className={cn(
+                    'absolute inset-0',
+                    index === safeFrameIndex ? 'opacity-100' : 'opacity-0'
+                  )}
+                />
+              ))}
+          </div>
+
+          <SheetTrigger asChild>
+            <Button size="icon" className="absolute top-4 right-4 z-20 bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
+                <MenuIcon className="h-6 w-6" />
+                <span className="sr-only">Open Menu</span>
+            </Button>
+          </SheetTrigger>
+
+          {destination && (
+            <div
+                className="absolute z-20 w-4 h-4 bg-red-500 rounded-full border-2 border-white pointer-events-none -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  left: `${(destination.x + CHARACTER_WIDTH / 2) / MAP_WIDTH * 100}%`,
+                  top: `${(destination.y + CHARACTER_HEIGHT / 2) / MAP_HEIGHT * 100}%`,
+                }}
+            />
+          )}
+          {isInDialogue && (
+            <DialogueBox
+              conversation={activeDialogue!}
+              onComplete={() => setActiveDialogue(null)}
+            />
+          )}
+        </div>
+      </div>
+      <SheetContent className="w-full sm:max-w-lg p-0">
+        <div className="p-6 h-full overflow-y-auto">
+          <SheetHeader className="mb-6">
+            <SheetTitle>メニュー</SheetTitle>
+          </SheetHeader>
+          <MenuSimulatorClient />
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+};
+
 export function PlayTestClient() {
   const [selectedMapId, setSelectedMapId] = useState<string>(
     worldMapOptions[0].id
@@ -570,171 +779,6 @@ export function PlayTestClient() {
     ? Math.min(currentFrameIndex, activeClip.frames.length - 1)
     : 0;
 
-  const GameView = () => {
-    const firstLoad = loading && !worldMap && !rooms;
-    if (firstLoad) {
-      return (
-        <div className="flex items-center justify-center h-full">
-          <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-          <p>データを読み込み中...</p>
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <Alert variant="destructive">
-          <Terminal className="h-4 w-4" />
-          <AlertTitle>読み込みエラー</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      );
-    }
-
-    const activeMapData = isRoom
-      ? rooms?.find(r => r.id === activeRoomId)
-      : worldMap?.[activeMap.r]?.[activeMap.c];
-
-    if (!activeMapData) {
-      return <p>マップまたはキャラクターデータが見つかりません。</p>;
-    }
-
-    return (
-      <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <div className="flex justify-center items-center h-full">
-          <div
-            ref={gameViewRef}
-            onClick={handleMapClick}
-            className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border cursor-pointer"
-          >
-            {isTransitioning && (
-              <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-30">
-                <Loader2 className="h-12 w-12 animate-spin text-primary" />
-              </div>
-            )}
-            {activeMapData.imageUrl && (
-              <Image
-                key={activeMapData.id}
-                src={activeMapData.imageUrl}
-                alt={`Map background ${activeMapData.name}`}
-                layout="fill"
-                objectFit="cover"
-                unoptimized
-                className="z-0"
-                priority
-              />
-            )}
-
-            {activeMapData.objects.map(obj => {
-              const asset = availableObjects.find(a => a.id === obj.objectId);
-              if (!asset || !asset.imageUrl) return null;
-
-              const leftPercent = (obj.x / MAP_WIDTH) * 100;
-              const topPercent = (obj.y / MAP_HEIGHT) * 100;
-              const widthPercent = (obj.width / MAP_WIDTH) * 100;
-
-              return (
-                <div
-                  key={obj.id}
-                  style={{
-                    left: `${leftPercent}%`,
-                    top: `${topPercent}%`,
-                    width: `${widthPercent}%`,
-                    height: 'auto',
-                    aspectRatio: `${obj.width} / ${obj.height}`,
-                    position: 'absolute',
-                    zIndex: 1,
-                  }}
-                >
-                  <Image
-                    src={asset.imageUrl}
-                    alt={asset.name}
-                    layout="fill"
-                    objectFit="contain"
-                    unoptimized
-                  />
-                </div>
-              );
-            })}
-
-            <div
-              style={{
-                position: 'absolute',
-                left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
-                top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
-                width: `${CHARACTER_WIDTH}px`,
-                height: `${CHARACTER_HEIGHT}px`,
-                zIndex: 10,
-                imageRendering: 'pixelated',
-              }}
-            >
-              {(!activeClip || activeClip.frames.length === 0) && (
-                <Image
-                  src={`/characters/player/frames/idle_down_1.png`}
-                  alt="Player Character"
-                  width={CHARACTER_WIDTH}
-                  height={CHARACTER_HEIGHT}
-                  objectFit="contain"
-                  unoptimized
-                />
-              )}
-              {activeClip &&
-                activeClip.frames.length > 0 &&
-                activeClip.frames.map((frame, index) => (
-                  <Image
-                    key={frame.id}
-                    src={`/characters/player/frames/${frame.image}`}
-                    alt=""
-                    width={CHARACTER_WIDTH}
-                    height={CHARACTER_HEIGHT}
-                    objectFit="contain"
-                    unoptimized
-                    aria-hidden="true"
-                    priority
-                    className={cn(
-                      'absolute inset-0',
-                      index === safeFrameIndex ? 'opacity-100' : 'opacity-0'
-                    )}
-                  />
-                ))}
-            </div>
-
-            <SheetTrigger asChild>
-              <Button size="icon" className="absolute top-4 right-4 z-20 bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
-                  <MenuIcon className="h-6 w-6" />
-                  <span className="sr-only">Open Menu</span>
-              </Button>
-            </SheetTrigger>
-
-            {destination && (
-              <div
-                  className="absolute z-20 w-4 h-4 bg-red-500 rounded-full border-2 border-white pointer-events-none -translate-x-1/2 -translate-y-1/2"
-                  style={{
-                    left: `${(destination.x + CHARACTER_WIDTH / 2) / MAP_WIDTH * 100}%`,
-                    top: `${(destination.y + CHARACTER_HEIGHT / 2) / MAP_HEIGHT * 100}%`,
-                  }}
-              />
-            )}
-            {isInDialogue && (
-              <DialogueBox
-                conversation={activeDialogue!}
-                onComplete={() => setActiveDialogue(null)}
-              />
-            )}
-          </div>
-        </div>
-        <SheetContent className="w-full sm:max-w-lg p-0">
-          <div className="p-6 h-full overflow-y-auto">
-            <SheetHeader className="mb-6">
-              <SheetTitle>メニュー</SheetTitle>
-            </SheetHeader>
-            <MenuSimulatorClient />
-          </div>
-        </SheetContent>
-      </Sheet>
-    );
-  };
-
   const handleMapSelectionChange = (mapId: string) => {
     loadData(mapId);
   };
@@ -784,7 +828,28 @@ export function PlayTestClient() {
         )}
       </div>
       <div className="flex-grow min-h-0">
-        <GameView />
+        <GameView
+          loading={loading}
+          worldMap={worldMap}
+          rooms={rooms}
+          error={error}
+          isRoom={isRoom}
+          activeRoomId={activeRoomId}
+          activeMap={activeMap}
+          gameViewRef={gameViewRef}
+          handleMapClick={handleMapClick}
+          isTransitioning={isTransitioning}
+          availableObjects={availableObjects}
+          characterPosition={characterPosition}
+          activeClip={activeClip}
+          safeFrameIndex={safeFrameIndex}
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          destination={destination}
+          isInDialogue={isInDialogue}
+          activeDialogue={activeDialogue}
+          setActiveDialogue={setActiveDialogue}
+        />
       </div>
     </div>
   );
