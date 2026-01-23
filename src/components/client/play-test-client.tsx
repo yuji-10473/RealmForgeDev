@@ -632,7 +632,7 @@ export function PlayTestClient() {
             <Label htmlFor="room-select">ルーム</Label>
             <Select
               value={activeRoomId || ''}
-              onValueChange={roomId => setActiveRoomId(roomId)}
+              onValuege={roomId => setActiveRoomId(roomId)}
               disabled={isInDialogue}
             >
               <SelectTrigger id="room-select" className="w-[280px] mt-2">
