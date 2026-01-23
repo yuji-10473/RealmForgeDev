@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Terminal} from 'lucide-react';
+import {Loader2, Save, Terminal} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -23,6 +23,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MenuSimulatorClient } from './menu-simulator-client';
+import type { User } from 'firebase/auth';
+import { useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { useDoc } from '@/firebase/firestore/use-doc';
+import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { serverTimestamp } from 'firebase/firestore';
+import { useToast } from '@/hooks/use-toast';
 
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
@@ -109,8 +116,6 @@ function DialogueBox({
   );
 }
 
-// The GameView component is now defined outside of PlayTestClient
-// to prevent it from being re-created on every render.
 const GameView = ({
   loading,
   worldMap,
@@ -131,7 +136,8 @@ const GameView = ({
   destination,
   isInDialogue,
   activeDialogue,
-  setActiveDialogue
+  setActiveDialogue,
+  handleSave
 }: {
   loading: boolean;
   worldMap: WorldMap | null;
@@ -153,6 +159,7 @@ const GameView = ({
   isInDialogue: boolean;
   activeDialogue: string | null;
   setActiveDialogue: (dialogue: string | null) => void;
+  handleSave: () => void;
 }) => {
   const firstLoad = loading && !worldMap && !rooms;
   if (firstLoad) {
@@ -281,13 +288,19 @@ const GameView = ({
                 />
               ))}
           </div>
-
-          <SheetTrigger asChild>
-            <Button size="icon" className="absolute top-4 right-4 z-20 bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
-                <MenuIcon className="h-6 w-6" />
-                <span className="sr-only">Open Menu</span>
+          
+          <div className="absolute top-4 right-4 z-20 flex gap-2">
+            <Button size="icon" onClick={handleSave} className="bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
+                <Save className="h-5 w-5" />
+                <span className="sr-only">Save Game</span>
             </Button>
-          </SheetTrigger>
+            <SheetTrigger asChild>
+              <Button size="icon" className="bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
+                  <MenuIcon className="h-6 w-6" />
+                  <span className="sr-only">Open Menu</span>
+              </Button>
+            </SheetTrigger>
+          </div>
 
           {destination && (
             <div
@@ -318,7 +331,12 @@ const GameView = ({
   );
 };
 
-export function PlayTestClient() {
+export function PlayTestClient({ user }: { user: User }) {
+  const firestore = useFirestore();
+  const { toast } = useToast();
+  const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
+  const { data: saveData, isLoading: isSaveLoading } = useDoc(saveDocRef.current);
+  
   const [selectedMapId, setSelectedMapId] = useState<string>(
     worldMapOptions[0].id
   );
@@ -348,6 +366,7 @@ export function PlayTestClient() {
     null
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const gameViewRef = useRef<HTMLDivElement>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
@@ -356,6 +375,21 @@ export function PlayTestClient() {
   const isRoom = selectedMapId === 'rooms';
   const isInDialogue = activeDialogue !== null;
   const isGamePaused = isInDialogue || isMenuOpen;
+  
+  useEffect(() => {
+    if (!isSaveLoading && !dataLoaded && saveData) {
+      loadData(
+        saveData.mapId,
+        saveData.roomId,
+        { x: saveData.positionX, y: saveData.positionY }
+      );
+      setDataLoaded(true);
+    } else if (!isSaveLoading && !dataLoaded) {
+      loadData(selectedMapId);
+      setDataLoaded(true);
+    }
+  }, [saveData, isSaveLoading, dataLoaded, selectedMapId]);
+
 
   const loadData = useCallback(
     async (
@@ -366,6 +400,7 @@ export function PlayTestClient() {
       try {
         setIsTransitioning(true);
         setError(null);
+        setLoading(true);
 
         const isSwitchingToRoom =
           mapId === 'rooms' || mapId.startsWith('room_');
@@ -447,16 +482,29 @@ export function PlayTestClient() {
       } catch (err: any) {
         setError(err.message || '不明なエラーが発生しました。');
       } finally {
+        setLoading(false);
         setTimeout(() => setIsTransitioning(false), 100);
       }
     },
     [clips, availableObjects]
   );
-
-  useEffect(() => {
-    loadData(selectedMapId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  
+  const handleSave = () => {
+    const saveData = {
+      userId: user.uid,
+      mapId: selectedMapId,
+      roomId: activeRoomId,
+      positionX: characterPosition.x,
+      positionY: characterPosition.y,
+      updatedAt: serverTimestamp(),
+    };
+    
+    setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
+    toast({
+      title: "ゲームをセーブしました！",
+      description: "進行状況が正常に保存されました。",
+    });
+  };
 
   useEffect(() => {
     if (!clips) return;
@@ -543,13 +591,11 @@ export function PlayTestClient() {
     const targetX = (clickX / rect.width) * MAP_WIDTH;
     const targetY = (clickY / rect.height) * MAP_HEIGHT;
 
-    // Center the character on the target coordinates
     setDestination({
       x: targetX - CHARACTER_WIDTH / 2,
       y: targetY - CHARACTER_HEIGHT / 2,
     });
 
-    // Clear keyboard input when clicking to move
     setPressedKeys(new Set());
   };
 
@@ -566,7 +612,7 @@ export function PlayTestClient() {
         ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)
       ) {
         setPressedKeys(prev => new Set(prev).add(event.key));
-        setDestination(null); // Cancel click-to-move
+        setDestination(null);
       }
     },
     [isGamePaused, checkForInteraction]
@@ -589,7 +635,6 @@ export function PlayTestClient() {
     };
   }, [handleKeyDown, handleKeyUp]);
 
-  // Main game loop
   useEffect(() => {
     const loop = () => {
       if (isTransitioning || isGamePaused) {
@@ -601,7 +646,6 @@ export function PlayTestClient() {
       let moveVector = {x: 0, y: 0};
       let isMoving = false;
 
-      // Prioritize click-to-move destination
       if (destination) {
         const dx = destination.x - characterPosition.x;
         const dy = destination.y - characterPosition.y;
@@ -615,7 +659,6 @@ export function PlayTestClient() {
           isMoving = true;
         }
       } else if (pressedKeys.size > 0) {
-        // Fallback to keyboard
         if (pressedKeys.has('ArrowUp')) moveVector.y -= 1;
         if (pressedKeys.has('ArrowDown')) moveVector.y += 1;
         if (pressedKeys.has('ArrowLeft')) moveVector.x -= 1;
@@ -629,7 +672,6 @@ export function PlayTestClient() {
         return;
       }
 
-      // Normalize vector for consistent diagonal speed
       const magnitude = Math.sqrt(
         moveVector.x * moveVector.x + moveVector.y * moveVector.y
       );
@@ -645,7 +687,6 @@ export function PlayTestClient() {
       let newActiveMap = {...activeMap};
       let didTransition = false;
 
-      // Animation state from vector
       let newState: CharacterState = 'idle';
       let newDirection = characterDirection;
       if (Math.abs(moveVector.x) > Math.abs(moveVector.y)) {
@@ -668,7 +709,6 @@ export function PlayTestClient() {
       setCharacterState(newState);
       setCharacterDirection(newDirection);
 
-      // Map transitions
       if (!isRoom && worldMap) {
         const currentRows = worldMap.length;
         const currentCols = worldMap[0]?.length || 1;
@@ -700,7 +740,6 @@ export function PlayTestClient() {
         }
       }
 
-      // Clamp position
       newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
       newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
       setCharacterPosition(newPos);
@@ -829,7 +868,7 @@ export function PlayTestClient() {
       </div>
       <div className="flex-grow min-h-0">
         <GameView
-          loading={loading}
+          loading={loading || isSaveLoading}
           worldMap={worldMap}
           rooms={rooms}
           error={error}
@@ -849,6 +888,7 @@ export function PlayTestClient() {
           isInDialogue={isInDialogue}
           activeDialogue={activeDialogue}
           setActiveDialogue={setActiveDialogue}
+          handleSave={handleSave}
         />
       </div>
     </div>

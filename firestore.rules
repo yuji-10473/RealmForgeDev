@@ -1,117 +1,24 @@
-/**
- * This ruleset enforces a strict user-ownership security model.
- *
- * Core Philosophy:
- * A user's data is exclusively their own. All user-generated content, including
- * their profile and playtest sessions, is stored within a document tree
- * identified by their unique user ID (`userId`). Access is granted only when the
- * authenticated user's ID matches the `userId` in the document path.
- *
- * Data Structure:
- * All data is organized hierarchically under the `/users/{userId}` collection.
- * - `/users/{userId}`: Stores the user's public profile information.
- * - `/users/{userId}/playtest_sessions/{playtestSessionId}`: Stores private playtest data for that user.
- *
- * Key Security Decisions:
- * - User Isolation: Users can only read, write, and query documents that exist
- *   under their own `/users/{userId}` path.
- * - No User Listing: To protect user privacy, it is impossible to list all
- *   documents in the top-level `/users` collection.
- * - Path-Based Security: Ownership is determined by the document's path, which
- *   is efficient and avoids costly `get()` calls to other documents for
- *   authorization checks.
- * - Relational Integrity: On document creation, rules ensure that internal
- *   ID fields (like `User.id` and `PlaytestSession.userId`) correctly match the
- *   corresponding IDs in the document path. These fields are immutable on update.
- */
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions to improve readability and maintainability.
-
-    /**
-     * Checks if a user is authenticated.
-     */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /**
-     * Validates that the requesting user is the owner of the document based on the path.
-     * @param userId The user ID from the document path.
-     */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /**
-     * Validates ownership for an existing document. Used for update and delete operations.
-     * Ensures the operation targets a document that actually exists.
-     * @param userId The user ID from the document path.
-     */
-    function isExistingOwner(userId) {
-      return isOwner(userId) && resource != null;
-    }
-
-    /**
-     * Validates that the User document being created contains an `id` field
-     * that matches the document's ID (and thus the user's auth UID).
-     */
-    function hasValidUserCreateData(userId) {
-      return request.resource.data.id == userId;
-    }
-
-    /**
-     * Enforces immutability of the User's `id` field on update.
-     */
-    function hasValidUserUpdateData() {
-      return request.resource.data.id == resource.data.id;
-    }
-
-    /**
-     * Validates that the PlaytestSession document being created has a `userId`
-     * that matches the owner's ID from the path.
-     */
-    function hasValidPlaytestSessionCreateData(userId) {
-      return request.resource.data.userId == userId;
-    }
-
-    /**
-     * Enforces immutability of the PlaytestSession's `userId` field on update.
-     */
-    function hasValidPlaytestSessionUpdateData() {
-      return request.resource.data.userId == resource.data.userId;
-    }
-
-    /**
-     * @description Rules for the User profile document.
-     * @path /users/{userId}
-     * @allow (create) An authenticated user creating their own user document for the first time. auth.uid must match {userId}.
-     * @deny (list) Any user, authenticated or not, attempting to list all user documents.
-     * @principle Restricts access to a user's own data tree and prevents enumeration of all users.
-     */
+    // Users can only read and write their own profile.
     match /users/{userId} {
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isOwner(userId) && hasValidUserCreateData(userId);
-      allow update: if isExistingOwner(userId) && hasValidUserUpdateData();
-      allow delete: if isExistingOwner(userId);
-
-      /**
-       * @description Rules for a user's collection of playtest sessions.
-       * @path /users/{userId}/playtest_sessions/{playtestSessionId}
-       * @allow (create, get, list, update, delete) An authenticated user managing their own playtest sessions.
-       * @deny (get) An authenticated user attempting to access another user's playtest sessions.
-       * @principle Enforces document ownership for all operations within a user's private subcollection.
-       */
-      match /playtest_sessions/{playtestSessionId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if isOwner(userId) && hasValidPlaytestSessionCreateData(userId);
-        allow update: if isExistingOwner(userId) && hasValidPlaytestSessionUpdateData();
-        allow delete: if isExistingOwner(userId);
-      }
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Users can only read and write their own playtest save data.
+    match /playtestSaves/{userId} {
+      allow read, write: if isOwner(userId);
     }
   }
 }

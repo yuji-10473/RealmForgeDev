@@ -1,121 +1,76 @@
 {
   "entities": {
-    "PlaytestSession": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "PlaytestSession",
+    "UserProfile": {
+      "title": "User Profile",
       "type": "object",
-      "description": "Represents a single playtest session for a user.",
+      "description": "Represents a user's public profile.",
       "properties": {
-        "id": {
+        "displayName": {
           "type": "string",
-          "description": "Unique identifier for the playtest session."
-        },
-        "userId": {
-          "type": "string",
-          "description": "Reference to the User who initiated the playtest session. (Relationship: User 1:N PlaytestSession)"
-        },
-        "gameVersion": {
-          "type": "string",
-          "description": "The version of the game being playtested."
-        },
-        "startTime": {
-          "type": "string",
-          "description": "Timestamp indicating when the playtest session started.",
-          "format": "date-time"
-        },
-        "endTime": {
-          "type": "string",
-          "description": "Timestamp indicating when the playtest session ended.",
-          "format": "date-time"
-        },
-        "sessionData": {
-          "type": "string",
-          "description": "A string containing serialized game data associated with this playtest session."
-        },
-        "notes": {
-          "type": "string",
-          "description": "Any notes or feedback provided by the user during or after the playtest session."
-        }
-      },
-      "required": [
-        "id",
-        "userId",
-        "gameVersion",
-        "startTime"
-      ]
-    },
-    "User": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "User",
-      "type": "object",
-      "description": "Represents a user of the RealmForge application.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the user."
+          "description": "The user's display name."
         },
         "email": {
           "type": "string",
-          "description": "Email address of the user.",
-          "format": "email"
+          "format": "email",
+          "description": "The user's email address."
         },
-        "username": {
+        "photoURL": {
           "type": "string",
-          "description": "The user's preferred username."
+          "format": "uri",
+          "description": "URL of the user's profile picture."
         }
       },
-      "required": [
-        "id",
-        "email",
-        "username"
-      ]
+      "required": ["displayName", "email"]
+    },
+    "PlaytestSave": {
+      "title": "Playtest Save",
+      "type": "object",
+      "description": "Represents a user's saved playtest session.",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user this save belongs to."
+        },
+        "mapId": {
+          "type": "string",
+          "description": "The ID of the map the user was on."
+        },
+        "roomId": {
+          "type": "string",
+          "description": "The ID of the room the user was in, if any."
+        },
+        "positionX": {
+          "type": "number",
+          "description": "Character's X position."
+        },
+        "positionY": {
+          "type": "number",
+          "description": "Character's Y position."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last save."
+        }
+      },
+      "required": ["userId", "mapId", "positionX", "positionY", "updatedAt"]
     }
   },
   "auth": {
-    "providers": [
-      "password",
-      "anonymous"
-    ]
+    "providers": ["google.com"]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/users/{userId}/playtest_sessions/{playtestSessionId}",
-        "definition": {
-          "entityName": "PlaytestSession",
-          "schema": {
-            "$ref": "#/backend/entities/PlaytestSession"
-          },
-          "description": "Stores playtest session data for a specific user. Uses path-based ownership; only the user with the matching {userId} can access these documents.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "playtestSessionId",
-              "description": "The unique identifier of the playtest session."
-            }
-          ]
-        }
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
       },
-      {
-        "path": "/users/{userId}",
-        "definition": {
-          "entityName": "User",
-          "schema": {
-            "$ref": "#/backend/entities/User"
-          },
-          "description": "Stores user profile information. This collection is path based on userId.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            }
-          ]
-        }
-      }
-    ],
-    "reasoning": "The data structure is designed to securely store playtest session data for individual users. It leverages path-based ownership to ensure that only the authenticated user can access their own playtest sessions. This eliminates the need for complex security rules involving `get()` calls, which improves performance and security. Specifically, all `PlaytestSession` documents are stored under `/users/{userId}/playtest_sessions/{playtestSessionId}`, creating a clear ownership hierarchy and enabling atomic operations (transactions/batches). This design follows the principle of Authorization Independence (CRITICAL) by directly associating data with the user's ID in the path, avoiding the need to check parent documents for authorization information. This structure supports the required QAPs by ensuring that list operations on `/users/{userId}/playtest_sessions` are inherently secure, as only the authenticated user can access documents under their respective `userId`."
+      "description": "Stores public user profile information."
+    },
+    "/playtestSaves/{userId}": {
+      "schema": {
+        "$ref": "#/entities/PlaytestSave"
+      },
+      "description": "Stores the playtest save data for a specific user. The document ID is the user's UID."
+    }
   }
 }

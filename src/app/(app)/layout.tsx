@@ -28,6 +28,8 @@ import { AssetIcon } from "@/components/icons/AssetIcon";
 import { PlayTestIcon } from "@/components/icons/PlayTestIcon";
 import { MenuIcon } from "@/components/icons/MenuIcon";
 import packageJson from "../../../package.json";
+import { AuthButton } from "@/components/client/auth-button";
+import { FirebaseClientProvider } from "@/firebase/client-provider";
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -49,40 +51,45 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const version = packageJson.version;
 
   return (
-    <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
-          <Button variant="ghost" className="h-10 w-full justify-start px-2">
-            <RealmforgeLogo className="h-6 w-6 text-primary" />
-            <span className="font-headline text-lg font-bold ml-2">RealmForge</span>
-          </Button>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            {navItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <Link href={item.href} passHref>
-                  <SidebarMenuButton
-                    isActive={pathname === item.href}
-                    tooltip={item.label}
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarContent>
-        <SidebarFooter>
-          <div className="text-center text-xs text-muted-foreground p-2">
-            Ver {version}
-          </div>
-        </SidebarFooter>
-      </Sidebar>
-      <SidebarInset>
-        <main className="min-h-screen p-4 sm:p-6 lg:p-8">{children}</main>
-      </SidebarInset>
-    </SidebarProvider>
+    <FirebaseClientProvider>
+      <SidebarProvider>
+        <Sidebar>
+          <SidebarHeader>
+            <div className="flex items-center justify-between p-2">
+              <Button variant="ghost" className="h-10 justify-start px-2">
+                <RealmforgeLogo className="h-6 w-6 text-primary" />
+                <span className="font-headline text-lg font-bold ml-2">RealmForge</span>
+              </Button>
+              <AuthButton />
+            </div>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarMenu>
+              {navItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <Link href={item.href} passHref>
+                    <SidebarMenuButton
+                      isActive={pathname === item.href}
+                      tooltip={item.label}
+                    >
+                      <item.icon className="h-5 w-5" />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarContent>
+          <SidebarFooter>
+            <div className="text-center text-xs text-muted-foreground p-2">
+              Ver {version}
+            </div>
+          </SidebarFooter>
+        </Sidebar>
+        <SidebarInset>
+          <main className="min-h-screen p-4 sm:p-6 lg:p-8">{children}</main>
+        </SidebarInset>
+      </SidebarProvider>
+    </FirebaseClientProvider>
   );
 }
