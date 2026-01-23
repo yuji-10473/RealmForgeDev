@@ -100,41 +100,6 @@ function DialogueBox({
   );
 }
 
-function InventoryBar({ items }: { items: AvailableObject[] }) {
-  const inventorySize = 8;
-  const slots = Array(inventorySize).fill(null);
-  
-  items.forEach((item, index) => {
-    if (index < inventorySize) {
-      slots[index] = item;
-    }
-  });
-
-  return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40">
-      <div className="flex gap-2 p-2 bg-background/70 backdrop-blur-sm rounded-lg border border-border shadow-lg">
-        {slots.map((item, index) => (
-          <div 
-            key={index}
-            className="w-16 h-16 bg-muted/50 rounded-md border-2 border-dashed border-border flex items-center justify-center"
-          >
-            {item && (
-              <Image 
-                src={item.imageUrl}
-                alt={item.name}
-                width={48}
-                height={48}
-                className="object-contain"
-                unoptimized
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function PlayTestClient() {
   const [selectedMapId, setSelectedMapId] = useState<string>(
     worldMapOptions[0].id
@@ -162,7 +127,6 @@ export function PlayTestClient() {
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [activeDialogue, setActiveDialogue] = useState<string | null>(null);
   const [interactableNpcs, setInteractableNpcs] = useState<string[]>([]);
-  const [inventory, setInventory] = useState<AvailableObject[]>([]);
 
   const gameViewRef = useRef<HTMLDivElement>(null);
   const gameLoopRef = useRef<number>();
@@ -632,7 +596,6 @@ export function PlayTestClient() {
               onComplete={() => setActiveDialogue(null)}
             />
           )}
-          <InventoryBar items={inventory} />
         </div>
       </div>
     );
