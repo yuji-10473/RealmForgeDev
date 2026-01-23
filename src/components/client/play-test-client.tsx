@@ -746,7 +746,7 @@ export function PlayTestClient() {
           <Label htmlFor="world-map-select">マップ</Label>
           <Select
             value={selectedMapId}
-            onValue-change={handleMapSelectionChange}
+            onValueChange={handleMapSelectionChange}
             disabled={isGamePaused}
           >
             <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
