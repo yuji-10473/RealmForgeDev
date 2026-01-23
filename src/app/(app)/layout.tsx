@@ -26,6 +26,7 @@ import { CombatIcon } from "@/components/icons/CombatIcon";
 import { ExportIcon } from "@/components/icons/ExportIcon";
 import { AssetIcon } from "@/components/icons/AssetIcon";
 import { PlayTestIcon } from "@/components/icons/PlayTestIcon";
+import { MenuIcon } from "@/components/icons/MenuIcon";
 import packageJson from "../../../package.json";
 
 const navItems = [
@@ -36,6 +37,7 @@ const navItems = [
   { href: "/character-editor", label: "キャラクターエディター", icon: CharacterIcon },
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
+  { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
   { href: "/combat-simulator", label: "戦闘シミュレーター", icon: CombatIcon },
   { href: "/asset-library", label: "アセットライブラリ", icon: AssetIcon },
   { href: "/play-test", label: "プレイテスト", icon: PlayTestIcon },
