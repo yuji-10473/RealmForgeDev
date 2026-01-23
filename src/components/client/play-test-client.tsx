@@ -2,6 +2,7 @@
 
 import {useState, useEffect, useCallback, useRef} from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Loader2, Terminal} from 'lucide-react';
 import {cn} from '@/lib/utils';
@@ -14,6 +15,7 @@ import {
   SelectValue,
 } from '../ui/select';
 import {Button} from '../ui/button';
+import { MenuIcon } from '@/components/icons/MenuIcon';
 
 const MAP_WIDTH = 1920;
 const MAP_HEIGHT = 1080;
@@ -307,6 +309,11 @@ export function PlayTestClient() {
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isInDialogue || !gameViewRef.current) return;
+
+    const target = e.target as HTMLElement;
+    if (target.closest('button')) {
+      return;
+    }
 
     const rect = gameViewRef.current.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
@@ -678,6 +685,14 @@ export function PlayTestClient() {
                 />
               ))}
           </div>
+
+          <Button asChild size="icon" className="absolute top-4 right-4 z-20 bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
+            <Link href="/menu-simulator">
+                <MenuIcon className="h-6 w-6" />
+                <span className="sr-only">Open Menu</span>
+            </Link>
+          </Button>
+
           {destination && (
              <div
                 className="absolute z-20 w-4 h-4 bg-red-500 rounded-full border-2 border-white pointer-events-none -translate-x-1/2 -translate-y-1/2"
