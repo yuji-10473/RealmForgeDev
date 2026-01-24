@@ -60,7 +60,7 @@ type AvailableObject = {
   imageUrl: string;
   width: number;
   height: number;
-  type?: 'person' | 'door';
+  type?: 'person' | 'door' | 'item';
   conversation?: string;
 };
 
@@ -144,6 +144,7 @@ const GameView = ({
   setActiveDialogue,
   handleSave,
   displayInventoryItems,
+  collectedObjectIds,
 }: {
   loading: boolean;
   worldMap: WorldMap | null;
@@ -167,6 +168,7 @@ const GameView = ({
   setActiveDialogue: (dialogue: string | null) => void;
   handleSave: () => void;
   displayInventoryItems: DisplayInventoryItem[];
+  collectedObjectIds: string[];
 }) => {
   const firstLoad = loading && !worldMap && !rooms;
   if (firstLoad) {
@@ -222,7 +224,7 @@ const GameView = ({
             />
           )}
 
-          {activeMapData.objects.map(obj => {
+          {activeMapData.objects.filter(obj => !collectedObjectIds.includes(obj.id)).map(obj => {
             const asset = availableObjects.find(a => a.id === obj.objectId);
             if (!asset || !asset.imageUrl) return null;
 
@@ -364,6 +366,7 @@ export function PlayTestClient({ user }: { user: User }) {
     y: MAP_HEIGHT / 2,
   });
   const [inventory, setInventory] = useState<SavedInventoryItem[]>([]);
+  const [collectedObjectIds, setCollectedObjectIds] = useState<string[]>([]);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const [characterDirection, setCharacterDirection] =
@@ -492,9 +495,11 @@ export function PlayTestClient({ user }: { user: User }) {
         { x: saveData.positionX, y: saveData.positionY }
       );
       setInventory(saveData.inventory || []);
+      setCollectedObjectIds(saveData.collectedObjectIds || []);
     } else {
       loadData(selectedMapId);
-      setInventory([]); // Start with empty inventory
+      setInventory([]);
+      setCollectedObjectIds([]);
     }
     setDataLoaded(true);
   }, [saveData, isSaveLoading, dataLoaded, loadData, selectedMapId]);
@@ -507,6 +512,7 @@ export function PlayTestClient({ user }: { user: User }) {
       positionX: characterPosition.x,
       positionY: characterPosition.y,
       inventory: inventory,
+      collectedObjectIds: collectedObjectIds,
       updatedAt: serverTimestamp(),
     };
     
@@ -572,6 +578,27 @@ export function PlayTestClient({ user }: { user: User }) {
               return;
             }
             break;
+          case 'item':
+            if (collectedObjectIds.includes(obj.id)) {
+              continue;
+            }
+            setInventory(prevInventory => {
+              const existingItem = prevInventory.find(i => i.itemId === obj.objectId);
+              if (existingItem) {
+                return prevInventory.map(i => i.itemId === obj.objectId ? { ...i, quantity: i.quantity + 1 } : i);
+              } else {
+                return [...prevInventory, { itemId: obj.objectId, quantity: 1 }];
+              }
+            });
+
+            setCollectedObjectIds(prev => [...prev, obj.id]);
+            setDestination(null);
+
+            toast({
+              title: "アイテムをゲット！",
+              description: `${asset.name} を手に入れた。`,
+            });
+            return;
         }
       }
     }
@@ -585,6 +612,8 @@ export function PlayTestClient({ user }: { user: User }) {
     characterPosition,
     loadData,
     availableObjects,
+    collectedObjectIds,
+    toast,
   ]);
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -914,6 +943,7 @@ export function PlayTestClient({ user }: { user: User }) {
           setActiveDialogue={setActiveDialogue}
           handleSave={handleSave}
           displayInventoryItems={displayInventoryItems}
+          collectedObjectIds={collectedObjectIds}
         />
       </div>
     </div>

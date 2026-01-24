@@ -67,6 +67,13 @@
             },
             "required": ["itemId", "quantity"]
           }
+        },
+        "collectedObjectIds": {
+          "type": "array",
+          "description": "A list of unique object IDs that the player has collected from the map.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["userId", "mapId", "positionX", "positionY", "updatedAt"]
