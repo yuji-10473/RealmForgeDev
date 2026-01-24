@@ -1,6 +1,6 @@
 'use client';
 
-import {useState, useEffect, useCallback, useRef} from 'react';
+import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Loader2, Save, Terminal} from 'lucide-react';
@@ -22,7 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MenuSimulatorClient } from './menu-simulator-client';
+import { MenuSimulatorClient, type DisplayInventoryItem } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
 import { useFirestore } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -93,6 +93,11 @@ type CharacterState =
   | 'walk_right';
 type CharacterDirection = 'up' | 'down' | 'left' | 'right';
 
+type SavedInventoryItem = {
+  itemId: string;
+  quantity: number;
+};
+
 const worldMapOptions = [
   {id: 'maps', name: 'ワールドマップ 1'},
   {id: 'maps2', name: 'ワールドマップ 2'},
@@ -137,7 +142,8 @@ const GameView = ({
   isInDialogue,
   activeDialogue,
   setActiveDialogue,
-  handleSave
+  handleSave,
+  displayInventoryItems,
 }: {
   loading: boolean;
   worldMap: WorldMap | null;
@@ -160,6 +166,7 @@ const GameView = ({
   activeDialogue: string | null;
   setActiveDialogue: (dialogue: string | null) => void;
   handleSave: () => void;
+  displayInventoryItems: DisplayInventoryItem[];
 }) => {
   const firstLoad = loading && !worldMap && !rooms;
   if (firstLoad) {
@@ -324,7 +331,7 @@ const GameView = ({
           <SheetHeader className="mb-6">
             <SheetTitle>メニュー</SheetTitle>
           </SheetHeader>
-          <MenuSimulatorClient />
+          <MenuSimulatorClient inventoryItems={displayInventoryItems} />
         </div>
       </SheetContent>
     </Sheet>
@@ -356,6 +363,7 @@ export function PlayTestClient({ user }: { user: User }) {
     x: MAP_WIDTH / 2,
     y: MAP_HEIGHT / 2,
   });
+  const [inventory, setInventory] = useState<SavedInventoryItem[]>([]);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const [characterDirection, setCharacterDirection] =
@@ -376,21 +384,6 @@ export function PlayTestClient({ user }: { user: User }) {
   const isInDialogue = activeDialogue !== null;
   const isGamePaused = isInDialogue || isMenuOpen;
   
-  useEffect(() => {
-    if (!isSaveLoading && !dataLoaded && saveData) {
-      loadData(
-        saveData.mapId,
-        saveData.roomId,
-        { x: saveData.positionX, y: saveData.positionY }
-      );
-      setDataLoaded(true);
-    } else if (!isSaveLoading && !dataLoaded) {
-      loadData(selectedMapId);
-      setDataLoaded(true);
-    }
-  }, [saveData, isSaveLoading, dataLoaded, selectedMapId]);
-
-
   const loadData = useCallback(
     async (
       mapId: string,
@@ -489,6 +482,23 @@ export function PlayTestClient({ user }: { user: User }) {
     [clips, availableObjects]
   );
   
+  useEffect(() => {
+    if (isSaveLoading || dataLoaded) return;
+
+    if (saveData) {
+      loadData(
+        saveData.mapId,
+        saveData.roomId,
+        { x: saveData.positionX, y: saveData.positionY }
+      );
+      setInventory(saveData.inventory || []);
+    } else {
+      loadData(selectedMapId);
+      setInventory([]); // Start with empty inventory
+    }
+    setDataLoaded(true);
+  }, [saveData, isSaveLoading, dataLoaded, loadData, selectedMapId]);
+
   const handleSave = () => {
     const saveData = {
       userId: user.uid,
@@ -496,6 +506,7 @@ export function PlayTestClient({ user }: { user: User }) {
       roomId: activeRoomId,
       positionX: characterPosition.x,
       positionY: characterPosition.y,
+      inventory: inventory,
       updatedAt: serverTimestamp(),
     };
     
@@ -821,6 +832,19 @@ export function PlayTestClient({ user }: { user: User }) {
   const handleMapSelectionChange = (mapId: string) => {
     loadData(mapId);
   };
+  
+  const displayInventoryItems: DisplayInventoryItem[] = useMemo(() => {
+    if (!availableObjects.length) return [];
+    return inventory.map(savedItem => {
+      const itemDetails = availableObjects.find(obj => obj.id === savedItem.itemId);
+      return {
+        id: savedItem.itemId,
+        name: itemDetails?.name || '不明なアイテム',
+        imageUrl: itemDetails?.imageUrl || '',
+        quantity: savedItem.quantity,
+      };
+    }).filter(item => item.imageUrl);
+  }, [inventory, availableObjects]);
 
   return (
     <div className="flex flex-col gap-4 h-full">
@@ -889,6 +913,7 @@ export function PlayTestClient({ user }: { user: User }) {
           activeDialogue={activeDialogue}
           setActiveDialogue={setActiveDialogue}
           handleSave={handleSave}
+          displayInventoryItems={displayInventoryItems}
         />
       </div>
     </div>

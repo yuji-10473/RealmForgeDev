@@ -51,6 +51,22 @@
           "type": "string",
           "format": "date-time",
           "description": "Timestamp of the last save."
+        },
+        "inventory": {
+          "type": "array",
+          "description": "The player's inventory.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "itemId": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number"
+              }
+            },
+            "required": ["itemId", "quantity"]
+          }
         }
       },
       "required": ["userId", "mapId", "positionX", "positionY", "updatedAt"]

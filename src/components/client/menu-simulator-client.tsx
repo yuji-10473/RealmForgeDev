@@ -3,45 +3,15 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 
-type InventoryItem = {
+export type DisplayInventoryItem = {
   id: string;
   name: string;
   imageUrl: string;
   quantity: number;
-  description: string;
-  imageHint: string;
 };
 
-// Simulate fetching player inventory
-function getInventoryItems(): InventoryItem[] {
-  const sword = PlaceHolderImages.find(p => p.id === 'sword-asset');
-  const shield = PlaceHolderImages.find(p => p.id === 'shield-asset');
-  const potion = PlaceHolderImages.find(p => p.id === 'chest-asset'); // Using chest as a potion placeholder
-  const key = PlaceHolderImages.find(p => p.id === 'tree-asset'); // Using tree as a key placeholder
-
-  const inventory: InventoryItem[] = [];
-
-  if (sword) {
-    inventory.push({ ...sword, name: "勇者の剣", quantity: 1 });
-  }
-  if (shield) {
-    inventory.push({ ...shield, name: "鋼の盾", quantity: 1 });
-  }
-  if (potion) {
-    inventory.push({ ...potion, name: "回復ポーション", quantity: 5, id: "potion" });
-  }
-   if (key) {
-    inventory.push({ ...key, name: "古い鍵", quantity: 2, id: "key" });
-  }
-
-  return inventory;
-}
-
-export function MenuSimulatorClient() {
-  const inventoryItems = getInventoryItems();
-
+export function MenuSimulatorClient({ inventoryItems = [] }: { inventoryItems: DisplayInventoryItem[] }) {
   return (
     <Tabs defaultValue="items" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
@@ -67,7 +37,7 @@ export function MenuSimulatorClient() {
                           alt={item.name}
                           layout="fill"
                           objectFit="contain"
-                          data-ai-hint={item.imageHint}
+                          unoptimized
                         />
                       </div>
                     </CardContent>
