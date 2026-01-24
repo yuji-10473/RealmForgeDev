@@ -25,10 +25,8 @@ import {
 import { MenuSimulatorClient, type DisplayInventoryItem } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
 import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { useDoc } from '@/firebase/firestore/use-doc';
+import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
-import { serverTimestamp } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 
 const MAP_WIDTH = 1920;
@@ -170,12 +168,11 @@ const GameView = ({
   displayInventoryItems: DisplayInventoryItem[];
   collectedObjectIds: string[];
 }) => {
-  const firstLoad = loading && !worldMap && !rooms;
-  if (firstLoad) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
         <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-        <p>データを読み込み中...</p>
+        <p>ゲームデータを読み込み中...</p>
       </div>
     );
   }
@@ -340,14 +337,13 @@ const GameView = ({
   );
 };
 
-export function PlayTestClient({ user }: { user: User }) {
+export function PlayTestClient({ user, initialData }: { user: User, initialData: any | null }) {
   const firestore = useFirestore();
   const { toast } = useToast();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
-  const { data: saveData, isLoading: isSaveLoading } = useDoc(saveDocRef.current);
   
   const [selectedMapId, setSelectedMapId] = useState<string>(
-    worldMapOptions[0].id
+    initialData?.mapId || worldMapOptions[0].id
   );
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [rooms, setRooms] = useState<MapCell[] | null>(null);
@@ -377,7 +373,6 @@ export function PlayTestClient({ user }: { user: User }) {
     null
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [dataLoaded, setDataLoaded] = useState(false);
 
   const gameViewRef = useRef<HTMLDivElement>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
@@ -396,7 +391,6 @@ export function PlayTestClient({ user }: { user: User }) {
       try {
         setIsTransitioning(true);
         setError(null);
-        setLoading(true);
 
         const isSwitchingToRoom =
           mapId === 'rooms' || mapId.startsWith('room_');
@@ -478,7 +472,6 @@ export function PlayTestClient({ user }: { user: User }) {
       } catch (err: any) {
         setError(err.message || '不明なエラーが発生しました。');
       } finally {
-        setLoading(false);
         setTimeout(() => setIsTransitioning(false), 100);
       }
     },
@@ -486,23 +479,26 @@ export function PlayTestClient({ user }: { user: User }) {
   );
   
   useEffect(() => {
-    if (isSaveLoading || dataLoaded) return;
+    const initializeGame = async () => {
+      setLoading(true);
+      if (initialData) {
+        await loadData(
+          initialData.mapId,
+          initialData.roomId,
+          { x: initialData.positionX, y: initialData.positionY }
+        );
+        setInventory(initialData.inventory || []);
+        setCollectedObjectIds(initialData.collectedObjectIds || []);
+      } else {
+        await loadData(worldMapOptions[0].id);
+        setInventory([]);
+        setCollectedObjectIds([]);
+      }
+      setLoading(false);
+    };
 
-    if (saveData) {
-      loadData(
-        saveData.mapId,
-        saveData.roomId,
-        { x: saveData.positionX, y: saveData.positionY }
-      );
-      setInventory(saveData.inventory || []);
-      setCollectedObjectIds(saveData.collectedObjectIds || []);
-    } else {
-      loadData(selectedMapId);
-      setInventory([]);
-      setCollectedObjectIds([]);
-    }
-    setDataLoaded(true);
-  }, [saveData, isSaveLoading, dataLoaded, loadData, selectedMapId]);
+    initializeGame();
+  }, [initialData, loadData]);
 
   const handleSave = () => {
     const saveData = {
@@ -921,7 +917,7 @@ export function PlayTestClient({ user }: { user: User }) {
       </div>
       <div className="flex-grow min-h-0">
         <GameView
-          loading={loading || isSaveLoading}
+          loading={loading}
           worldMap={worldMap}
           rooms={rooms}
           error={error}
