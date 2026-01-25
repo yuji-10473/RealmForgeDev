@@ -27,6 +27,7 @@ import { ExportIcon } from "@/components/icons/ExportIcon";
 import { AssetIcon } from "@/components/icons/AssetIcon";
 import { PlayTestIcon } from "@/components/icons/PlayTestIcon";
 import { MenuIcon } from "@/components/icons/MenuIcon";
+import { ShopIcon } from "@/components/icons/ShopIcon";
 import packageJson from "../../../package.json";
 import { AuthButton } from "@/components/client/auth-button";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
@@ -40,6 +41,7 @@ const navItems = [
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
   { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
+  { href: "/shop-simulator", label: "ショップシミュレーター", icon: ShopIcon },
   { href: "/combat-simulator", label: "戦闘シミュレーター", icon: CombatIcon },
   { href: "/asset-library", label: "アセットライブラリ", icon: AssetIcon },
   { href: "/play-test", label: "プレイテスト", icon: PlayTestIcon },
