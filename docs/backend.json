@@ -47,6 +47,10 @@
           "type": "number",
           "description": "Character's Y position."
         },
+        "gold": {
+          "type": "number",
+          "description": "The player's current amount of gold."
+        },
         "updatedAt": {
           "type": "string",
           "format": "date-time",

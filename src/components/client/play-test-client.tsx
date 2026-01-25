@@ -143,6 +143,7 @@ const GameView = ({
   handleSave,
   displayInventoryItems,
   collectedObjectIds,
+  gold,
 }: {
   loading: boolean;
   worldMap: WorldMap | null;
@@ -167,6 +168,7 @@ const GameView = ({
   handleSave: () => void;
   displayInventoryItems: DisplayInventoryItem[];
   collectedObjectIds: string[];
+  gold: number;
 }) => {
   if (loading) {
     return (
@@ -295,7 +297,11 @@ const GameView = ({
               ))}
           </div>
           
-          <div className="absolute top-4 right-4 z-20 flex gap-2">
+          <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm rounded-full px-3 h-10 text-foreground font-bold shadow">
+              <span>{gold}</span>
+              <span className="text-sm">K</span>
+            </div>
             <Button size="icon" onClick={handleSave} className="bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
                 <Save className="h-5 w-5" />
                 <span className="sr-only">Save Game</span>
@@ -363,6 +369,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   });
   const [inventory, setInventory] = useState<SavedInventoryItem[]>([]);
   const [collectedObjectIds, setCollectedObjectIds] = useState<string[]>([]);
+  const [gold, setGold] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const [characterDirection, setCharacterDirection] =
@@ -489,10 +496,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         );
         setInventory(initialData.inventory || []);
         setCollectedObjectIds(initialData.collectedObjectIds || []);
+        setGold(initialData.gold || 0);
       } else {
         await loadData(worldMapOptions[0].id);
         setInventory([]);
         setCollectedObjectIds([]);
+        setGold(0);
       }
       setLoading(false);
     };
@@ -509,6 +518,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       positionY: characterPosition.y,
       inventory: inventory,
       collectedObjectIds: collectedObjectIds,
+      gold: gold,
       updatedAt: serverTimestamp(),
     };
     
@@ -940,6 +950,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           handleSave={handleSave}
           displayInventoryItems={displayInventoryItems}
           collectedObjectIds={collectedObjectIds}
+          gold={gold}
         />
       </div>
     </div>
