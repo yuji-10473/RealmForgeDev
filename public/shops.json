@@ -4,25 +4,18 @@
       "id": "village_store",
       "name": "はじまりの村の道具屋",
       "items": [
-        { "itemId": "item_potion", "price": 10 },
-        { "itemId": "item_antidote", "price": 15 },
-        { "itemId": "item_sword_wood", "price": 50 }
-      ]
-    },
-    {
-      "id": "capital_weapon_shop",
-      "name": "王都の武器屋",
-      "items": [
-        { "itemId": "item_sword_wood", "price": 45 },
-        { "itemId": "item_sword_iron", "price": 200 },
-        { "itemId": "item_shield_wood", "price": 80 }
-      ]
-    },
-    {
-      "id": "secret_shop",
-      "name": "ひみつのお店",
-      "items": [
-        { "itemId": "item_elixir", "price": 1000 }
+        {
+          "itemId": "item_potion",
+          "price": 10
+        },
+        {
+          "itemId": "item_antidote",
+          "price": 15
+        },
+        {
+          "itemId": "item_sword_wood",
+          "price": 50
+        }
       ]
     }
   ]
