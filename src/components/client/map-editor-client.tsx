@@ -15,8 +15,8 @@ import { Textarea } from "../ui/textarea";
 
 
 // The canonical size of the map editor view.
-const MAP_WIDTH = 1920;
-const MAP_HEIGHT = 1080;
+const MAP_WIDTH = 2752;
+const MAP_HEIGHT = 1536;
 
 type PlacedObject = {
   id: string;

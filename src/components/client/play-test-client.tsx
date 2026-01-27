@@ -29,11 +29,11 @@ import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
 
-const MAP_WIDTH = 1920;
-const MAP_HEIGHT = 1080;
+const MAP_WIDTH = 2752;
+const MAP_HEIGHT = 1536;
 const CHARACTER_SPEED = 10;
-const CHARACTER_WIDTH = 128;
-const CHARACTER_HEIGHT = 128;
+const CHARACTER_WIDTH = 183;
+const CHARACTER_HEIGHT = 183;
 const ANIMATION_FPS = 8;
 const INTERACTION_RADIUS = 32;
 
