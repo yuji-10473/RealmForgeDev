@@ -35,7 +35,7 @@ const CHARACTER_SPEED = 10;
 const CHARACTER_WIDTH = 183;
 const CHARACTER_HEIGHT = 183;
 const ANIMATION_FPS = 8;
-const INTERACTION_RADIUS = 32;
+const INTERACTION_RADIUS = 50;
 
 type PlacedObject = {
   id: string;
@@ -565,12 +565,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         switch (asset.type) {
           case 'person':
             if (obj.conversation) {
+              setDestination(null);
               setActiveDialogue(obj.conversation);
               return;
             }
             break;
           case 'door':
             if (obj.transition) {
+              setDestination(null);
               const {targetMapId, targetX, targetY} = obj.transition;
               const targetIsRoom =
                 targetMapId === 'rooms' || targetMapId.startsWith('room_');
@@ -647,13 +649,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     (event: KeyboardEvent) => {
       if (isGamePaused) return;
 
-      if (['e', 'E', 'Enter'].includes(event.key)) {
+      if (['e', 'E', 'Enter', ' '].includes(event.key)) {
+        event.preventDefault();
         checkForInteraction();
         return;
       }
 
       if (
-        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)
+        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(event.key)
       ) {
         setPressedKeys(prev => new Set(prev).add(event.key));
         setDestination(null);
@@ -703,10 +706,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           isMoving = true;
         }
       } else if (pressedKeys.size > 0) {
-        if (pressedKeys.has('ArrowUp')) moveVector.y -= 1;
-        if (pressedKeys.has('ArrowDown')) moveVector.y += 1;
-        if (pressedKeys.has('ArrowLeft')) moveVector.x -= 1;
-        if (pressedKeys.has('ArrowRight')) moveVector.x += 1;
+        if (pressedKeys.has('ArrowUp') || pressedKeys.has('w')) moveVector.y -= 1;
+        if (pressedKeys.has('ArrowDown') || pressedKeys.has('s')) moveVector.y += 1;
+        if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveVector.x -= 1;
+        if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveVector.x += 1;
         isMoving = true;
       }
 
@@ -789,6 +792,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       setCharacterPosition(newPos);
 
       if (didTransition) {
+        setDestination(null);
         setIsTransitioning(true);
         setActiveMap(newActiveMap);
         setTimeout(() => setIsTransitioning(false), 100);
