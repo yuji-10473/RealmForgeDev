@@ -260,31 +260,28 @@ const GameView = ({
               position: 'absolute',
               left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
               top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
-              width: `${CHARACTER_WIDTH}px`,
-              height: `${CHARACTER_HEIGHT}px`,
+              width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`,
+              height: 'auto',
+              aspectRatio: `${CHARACTER_WIDTH} / ${CHARACTER_HEIGHT}`,
               zIndex: 10,
               imageRendering: 'pixelated',
             }}
           >
-            {(!activeClip || activeClip.frames.length === 0) && (
+            {(!activeClip || activeClip.frames.length === 0) ? (
               <Image
                 src={`/characters/player/frames/idle_down_1.png`}
                 alt="Player Character"
-                width={CHARACTER_WIDTH}
-                height={CHARACTER_HEIGHT}
+                layout="fill"
                 objectFit="contain"
                 unoptimized
               />
-            )}
-            {activeClip &&
-              activeClip.frames.length > 0 &&
+            ) : (
               activeClip.frames.map((frame, index) => (
                 <Image
                   key={frame.id}
                   src={`/characters/player/frames/${frame.image}`}
                   alt=""
-                  width={CHARACTER_WIDTH}
-                  height={CHARACTER_HEIGHT}
+                  layout="fill"
                   objectFit="contain"
                   unoptimized
                   aria-hidden="true"
@@ -294,7 +291,8 @@ const GameView = ({
                     index === safeFrameIndex ? 'opacity-100' : 'opacity-0'
                   )}
                 />
-              ))}
+              ))
+            )}
           </div>
           
           <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
