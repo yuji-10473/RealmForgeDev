@@ -52,13 +52,14 @@ type MapCell = {
 
 type WorldMap = MapCell[][];
 
-const worldMapOptions = [
-  { id: 'maps', name: 'ワールドマップ 1' },
-  { id: 'maps2', name: 'ワールドマップ 2' },
-];
+type WorldMapOption = {
+  id: string;
+  name: string;
+};
 
 export function MapEditorClient() {
-  const [selectedWorldMapId, setSelectedWorldMapId] = useState<string>(worldMapOptions[0].id);
+  const [worldMapOptions, setWorldMapOptions] = useState<WorldMapOption[]>([]);
+  const [selectedWorldMapId, setSelectedWorldMapId] = useState<string>('');
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,18 +71,51 @@ export function MapEditorClient() {
   const editorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const loadMapData = async () => {
+    const loadInitialData = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        setLoading(true);
+        const [worldsResponse, objectsResponse] = await Promise.all([
+          fetch(`/maps/worlds.json`),
+          fetch('/objects.json')
+        ]);
+        
+        if (!worldsResponse.ok) throw new Error(`ワールドマップリスト(worlds.json)の読み込みに失敗しました。`);
+        if (!objectsResponse.ok) throw new Error(`オブジェクトファイルの読み込みに失敗しました。`);
+
+        const worldsData = await worldsResponse.json();
+        const objectsData = await objectsResponse.json();
+        
+        const filteredWorlds = worldsData.worlds.filter((w: WorldMapOption) => w.id !== 'rooms');
+
+        setAvailableObjects(objectsData.objects);
+        setWorldMapOptions(filteredWorlds);
+
+        if (filteredWorlds.length > 0) {
+          setSelectedWorldMapId(filteredWorlds[0].id);
+        } else {
+           setLoading(false);
+        }
+      } catch (err: any) {
+        setError(err.message || '不明なエラーが発生しました。');
+        setLoading(false);
+      }
+    };
+    loadInitialData();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedWorldMapId) return;
+
+    const loadMapData = async () => {
+      setLoading(true);
+      try {
         setError(null);
         setWorldMap(null);
         setActiveMap({ r: 0, c: 0 });
         setSelectedObject(null);
 
-        const [mapResponse, objectsResponse] = await Promise.all([
-          fetch(`/maps/${selectedWorldMapId}.json`),
-          fetch('/objects.json')
-        ]);
+        const mapResponse = await fetch(`/maps/${selectedWorldMapId}.json`);
         
         if (!mapResponse.ok) {
           if(mapResponse.status === 404) {
@@ -89,12 +123,8 @@ export function MapEditorClient() {
           }
           throw new Error(`マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`);
         }
-        if (!objectsResponse.ok) {
-          throw new Error(`オブジェクトファイルの読み込みに失敗しました: ${objectsResponse.statusText}`);
-        }
 
         const mapData = await mapResponse.json();
-        const objectsData = await objectsResponse.json();
         
         const rows = mapData.rows || 1;
         const cols = mapData.cols || mapData.maps.length;
@@ -108,7 +138,6 @@ export function MapEditorClient() {
           }
         });
 
-        setAvailableObjects(objectsData.objects);
         setWorldMap(newWorldMap);
       } catch (err: any) {
         setError(err.message || '不明なエラーが発生しました。');

@@ -96,11 +96,10 @@ type SavedInventoryItem = {
   quantity: number;
 };
 
-const worldMapOptions = [
-  {id: 'maps', name: 'ワールドマップ 1'},
-  {id: 'maps2', name: 'ワールドマップ 2'},
-  {id: 'rooms', name: 'ルーム'},
-];
+type WorldMapOption = {
+  id: string;
+  name: string;
+};
 
 function DialogueBox({
   conversation,
@@ -346,9 +345,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const { toast } = useToast();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
   
-  const [selectedMapId, setSelectedMapId] = useState<string>(
-    initialData?.mapId || worldMapOptions[0].id
-  );
+  const [worldMapOptions, setWorldMapOptions] = useState<WorldMapOption[]>([]);
+  const [selectedMapId, setSelectedMapId] = useState<string>(initialData?.mapId || '');
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [rooms, setRooms] = useState<MapCell[] | null>(null);
   const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>(
@@ -436,7 +434,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setActiveRoomId(targetId);
           setSelectedMapId('rooms');
         } else {
-          const mapResponse = await fetch(`/${mapId}/${mapId}.json`);
+          const mapResponse = await fetch(`/maps/${mapId}.json`);
           if (!mapResponse.ok)
             throw new Error(
               `マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`
@@ -486,22 +484,34 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   useEffect(() => {
     const initializeGame = async () => {
       setLoading(true);
-      if (initialData) {
-        await loadData(
-          initialData.mapId,
-          initialData.roomId,
-          { x: initialData.positionX, y: initialData.positionY }
-        );
-        setInventory(initialData.inventory || []);
-        setCollectedObjectIds(initialData.collectedObjectIds || []);
-        setGold(initialData.gold || 0);
-      } else {
-        await loadData(worldMapOptions[0].id);
-        setInventory([]);
-        setCollectedObjectIds([]);
-        setGold(0);
+
+      try {
+        const worldsResponse = await fetch('/maps/worlds.json');
+        if (!worldsResponse.ok) throw new Error("ワールドリスト(worlds.json)の読み込みに失敗しました。");
+        const worldsData = await worldsResponse.json();
+        setWorldMapOptions(worldsData.worlds);
+
+        if (initialData) {
+          await loadData(
+            initialData.mapId,
+            initialData.roomId,
+            { x: initialData.positionX, y: initialData.positionY }
+          );
+          setInventory(initialData.inventory || []);
+          setCollectedObjectIds(initialData.collectedObjectIds || []);
+          setGold(initialData.gold || 0);
+        } else {
+          const firstMapId = worldsData.worlds.length > 0 ? worldsData.worlds[0].id : '';
+          await loadData(firstMapId);
+          setInventory([]);
+          setCollectedObjectIds([]);
+          setGold(0);
+        }
+      } catch (err: any) {
+        setError(err.message || '不明なエラーが発生しました。');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     initializeGame();
