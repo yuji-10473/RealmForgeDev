@@ -21,6 +21,7 @@ import { CharacterIcon } from "@/components/icons/CharacterIcon";
 import { ObjectIcon } from "@/components/icons/ObjectIcon";
 import { ItemIcon } from "@/components/icons/ItemIcon";
 import { EventIcon } from "@/components/icons/EventIcon";
+import { EventSimulatorIcon } from "@/components/icons/EventSimulatorIcon";
 import { StoryIcon } from "@/components/icons/StoryIcon";
 import { CombatIcon } from "@/components/icons/CombatIcon";
 import { ExportIcon } from "@/components/icons/ExportIcon";
@@ -39,6 +40,7 @@ const navItems = [
   { href: "/item-list", label: "アイテムリスト", icon: ItemIcon },
   { href: "/character-editor", label: "キャラクターエディター", icon: CharacterIcon },
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
+  { href: "/event-simulator", label: "イベントシミュレーター", icon: EventSimulatorIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
   { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
   { href: "/shop-simulator", label: "ショップシミュレーター", icon: ShopIcon },

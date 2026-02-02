@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, Move, PlayCircle, Gift, Import } from "lucide-react";
+import { MessageSquare, Move, PlayCircle, Gift, Info } from "lucide-react";
 
 // Define types for clarity
 type Action = {
@@ -17,17 +17,6 @@ type Event = {
   id: string;
   name: string;
   actions: Action[];
-};
-
-type SubEvent = {
-  id: string;
-  name: string;
-  description: string;
-  actions: {
-      icon: string; // From JSON it will be a string
-      title: string;
-      description: string;
-  }[];
 };
 
 // Icon mapping
@@ -51,42 +40,8 @@ const initialEvents: Event[] = [
 export default function EventEditorPage() {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const [activeEventId, setActiveEventId] = useState<string>('evt_talk_npc1');
-  const [subEvents, setSubEvents] = useState<SubEvent[]>([]);
-  
-  useEffect(() => {
-    // Fetch sub-events from the new JSON file
-    fetch('/events/sub-events.json')
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then(data => setSubEvents(data.subEvents))
-      .catch(err => console.error("Failed to load sub-events:", err));
-  }, []);
 
   const activeEvent = events.find(e => e.id === activeEventId);
-
-  const handleImportSubEvent = (subEventId: string) => {
-    const subEvent = subEvents.find(se => se.id === subEventId);
-    if (!subEvent || !activeEventId) return;
-
-    // Convert icon strings from JSON to actual components
-    const newActions = subEvent.actions.map(action => ({
-      ...action,
-      icon: iconComponents[action.icon] || MessageSquare, // Fallback icon
-    }));
-
-    setEvents(prevEvents => 
-      prevEvents.map(event => {
-        if (event.id === activeEventId) {
-          return { ...event, actions: [...event.actions, ...newActions] };
-        }
-        return event;
-      })
-    );
-  };
 
   return (
     <div className="space-y-8">
@@ -129,27 +84,17 @@ export default function EventEditorPage() {
               <CardTitle>サブイベントライブラリ</CardTitle>
               <CardDescription>再利用可能なイベントの部品です。</CardDescription>
             </CardHeader>
-            <ScrollArea className="flex-grow">
-              <CardContent className="p-2 space-y-2">
-                {subEvents.length > 0 ? subEvents.map((subEvent) => (
-                  <div key={subEvent.id} className="flex items-center gap-2">
-                    <div className="flex-grow text-sm p-2 rounded-md bg-muted/50">
-                      <p className="font-semibold">{subEvent.name}</p>
-                      <p className="text-xs text-muted-foreground">{subEvent.description}</p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleImportSubEvent(subEvent.id)}
-                      disabled={!activeEventId}
-                    >
-                      <Import className="mr-2 h-4 w-4" />
-                      インポート
-                    </Button>
-                  </div>
-                )) : <p className="text-sm text-center text-muted-foreground p-4">サブイベントが見つかりません。</p>}
-              </CardContent>
-            </ScrollArea>
+            <CardContent className="flex-grow flex items-center justify-center text-center text-muted-foreground">
+                <div className="p-4 space-y-2">
+                    <Info className="mx-auto h-8 w-8" />
+                    <p className="text-sm">
+                        この機能は、新しいイベントシステムへの移行に伴い、現在非推奨となっています。
+                    </p>
+                    <p className="text-xs">
+                        新しい「イベントシミュレーター」をご利用ください。
+                    </p>
+                </div>
+            </CardContent>
           </Card>
         </div>
 

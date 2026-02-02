@@ -1,22 +1,77 @@
-{
-  "subEvents": [
-    {
-      "id": "sub_greeting_generic",
-      "name": "汎用的な挨拶",
-      "description": "プレイヤーに挨拶をする一連のアクション。",
-      "actions": [
-        { "icon": "MessageSquare", "title": "ダイアログを表示", "description": "「こんにちは、旅の方。」" },
-        { "icon": "MessageSquare", "title": "ダイアログを表示", "description": "「こんにちは。」" }
-      ]
-    },
-    {
-      "id": "sub_give_potion",
-      "name": "ポーションを渡す",
-      "description": "プレイヤーに回復ポーションを1つ渡す。",
-      "actions": [
-        { "icon": "Gift", "title": "アイテムを渡す", "description": "回復ポーション x 1" },
-        { "icon": "MessageSquare", "title": "ダイアログを表示", "description": "「これをどうぞ。きっと役に立つでしょう。」" }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "event_drought_and_seed_01",
+    "title": "日照りと不思議な種",
+    "villagerName": "弥助",
+    "plot": "旅人であるあなたは、村の畑で弥助が頭を抱えているのを見つける。話を聞くと、日照りで困っており、伝説の『恵みの種』があれば解決するかもしれないという。種を見つけて弥助に渡すと、報酬として珍しいアイテムがもらえる。",
+    "createdAt": "2024-07-26T10:30:00.123Z",
+    "nodes": [
+      {
+        "id": "node-1",
+        "type": "start",
+        "content": "村の畑で、老人の弥助が空を見上げて深いため息をついている。",
+        "nextStepId": "node-2"
+      },
+      {
+        "id": "node-2",
+        "type": "story",
+        "content": "弥助「おお、旅の方か...。この日照りにはほとほと困り果てたわい。」",
+        "nextStepId": "node-3"
+      },
+      {
+        "id": "node-3",
+        "type": "choice",
+        "content": "どうしますか？",
+        "choices": [
+          {
+            "text": "「何か困っているのですか？」と尋ねる",
+            "nextStepId": "node-4"
+          },
+          {
+            "text": "「不思議な種」を渡す",
+            "requiredItemId": "item_mysterious_seed",
+            "lockedText": "（渡せるような種は持っていない）",
+            "nextStepId": "node-10"
+          },
+          {
+            "text": "立ち去る",
+            "nextStepId": "node-99"
+          }
+        ]
+      },
+      {
+        "id": "node-4",
+        "type": "story",
+        "content": "弥助「この日照りで、作物がみんな枯れてしもうてな。言い伝えにある『恵みの種』さえあれば、雨を呼べるんじゃが...。どこにあるのやら。」",
+        "nextStepId": "node-3"
+      },
+      {
+        "id": "node-10",
+        "type": "story",
+        "content": "弥助「おおっ！その輝きは、まさしく『恵みの種』！よくぞ見つけてきてくれた！これで村は救われる！」",
+        "nextStepId": "node-11"
+      },
+      {
+        "id": "node-11",
+        "type": "reward",
+        "content": "弥助は感謝のしるしとして、お礼の品をくれた。",
+        "reward": {
+          "itemId": "item_golden_apple",
+          "itemName": "黄金のリンゴ"
+        },
+        "nextStepId": "node-end"
+      },
+      {
+        "id": "node-99",
+        "type": "story",
+        "content": "あなたは弥助に背を向け、その場を立ち去った。",
+        "nextStepId": "node-end"
+      },
+      {
+        "id": "node-end",
+        "type": "end",
+        "content": "（イベント終了）"
+      }
+    ]
+  }
+]
