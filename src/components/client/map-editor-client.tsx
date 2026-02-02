@@ -31,6 +31,7 @@ type PlacedObject = {
     targetY: number;
   };
   conversation?: string;
+  eventId?: string;
 };
 
 type AvailableObject = {
@@ -57,11 +58,17 @@ type WorldMapOption = {
   name: string;
 };
 
+type GameEvent = {
+  id: string;
+  title: string;
+}
+
 export function MapEditorClient() {
   const [worldMapOptions, setWorldMapOptions] = useState<WorldMapOption[]>([]);
   const [selectedWorldMapId, setSelectedWorldMapId] = useState<string>('');
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
+  const [availableEvents, setAvailableEvents] = useState<GameEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeMap, setActiveMap] = useState({ r: 0, c: 0 });
@@ -75,24 +82,26 @@ export function MapEditorClient() {
       setLoading(true);
       setError(null);
       try {
-        const [worldsResponse, objectsResponse] = await Promise.all([
+        const [worldsResponse, objectsResponse, eventsResponse] = await Promise.all([
           fetch(`/maps/worlds.json`),
-          fetch('/objects.json')
+          fetch('/objects.json'),
+          fetch('/events/sub-events.json')
         ]);
         
         if (!worldsResponse.ok) throw new Error(`ワールドマップリスト(worlds.json)の読み込みに失敗しました。`);
-        if (!objectsResponse.ok) throw new Error(`オブジェクトファイルの読み込みに失敗しました。`);
+        if (!objectsResponse.ok) throw new Error(`オブジェクトファイル(objects.json)の読み込みに失敗しました。`);
+        if (!eventsResponse.ok) throw new Error(`イベントファイル(sub-events.json)の読み込みに失敗しました。`);
 
         const worldsData = await worldsResponse.json();
         const objectsData = await objectsResponse.json();
+        const eventsData = await eventsResponse.json();
         
-        const filteredWorlds = worldsData.worlds.filter((w: WorldMapOption) => w.id !== 'rooms');
-
         setAvailableObjects(objectsData.objects);
-        setWorldMapOptions(filteredWorlds);
+        setWorldMapOptions(worldsData.worlds);
+        setAvailableEvents(eventsData);
 
-        if (filteredWorlds.length > 0) {
-          setSelectedWorldMapId(filteredWorlds[0].id);
+        if (worldsData.worlds.length > 0) {
+          setSelectedWorldMapId(worldsData.worlds[0].id);
         } else {
            setLoading(false);
         }
@@ -252,16 +261,37 @@ export function MapEditorClient() {
             </div>
 
             {objectType === 'person' && (
-              <div className="space-y-2">
-                <Label htmlFor="conversation">会話</Label>
-                <Textarea 
-                  id="conversation"
-                  placeholder="キャラクターの会話を入力..."
-                  value={selectedObject.conversation || ''}
-                  onChange={(e) => handleObjectUpdate({...selectedObject, conversation: e.target.value})}
-                  rows={5}
-                />
-              </div>
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="conversation">会話 (フォールバック)</Label>
+                  <Textarea 
+                    id="conversation"
+                    placeholder="イベントが設定されていない場合に表示されます。"
+                    value={selectedObject.conversation || ''}
+                    onChange={(e) => handleObjectUpdate({...selectedObject, conversation: e.target.value})}
+                    rows={3}
+                  />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="event-select">イベント</Label>
+                    <Select
+                        value={selectedObject.eventId || ''}
+                        onValueChange={(value) => handleObjectUpdate({...selectedObject, eventId: value === 'none' ? undefined : value})}
+                    >
+                        <SelectTrigger id="event-select">
+                        <SelectValue placeholder="イベントを選択..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                        <SelectItem value="none">なし</SelectItem>
+                        {availableEvents.map((event) => (
+                            <SelectItem key={event.id} value={event.id}>
+                            {event.title}
+                            </SelectItem>
+                        ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+              </>
             )}
             
             {objectType === 'door' && (

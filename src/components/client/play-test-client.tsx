@@ -1,3 +1,4 @@
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -37,6 +38,7 @@ const CHARACTER_HEIGHT = 183;
 const ANIMATION_FPS = 8;
 const INTERACTION_RADIUS = 50;
 
+// Data structure types
 type PlacedObject = {
   id: string;
   objectId: string;
@@ -50,6 +52,7 @@ type PlacedObject = {
     targetY: number;
   };
   conversation?: string;
+  eventId?: string;
 };
 
 type AvailableObject = {
@@ -101,6 +104,39 @@ type WorldMapOption = {
   name: string;
 };
 
+// --- Event System Types ---
+type EventChoice = {
+  text: string;
+  nextStepId: string;
+  requiredItemId?: string;
+  lockedText?: string;
+};
+
+type EventReward = {
+  itemId: string;
+  itemName: string;
+};
+
+type EventNode = {
+  id: string;
+  type: 'start' | 'story' | 'choice' | 'reward' | 'end';
+  content: string;
+  nextStepId?: string;
+  choices?: EventChoice[];
+  reward?: EventReward;
+};
+
+type GameEvent = {
+  id: string;
+  title: string;
+  villagerName?: string;
+  plot?: string;
+  createdAt: string;
+  nodes: EventNode[];
+};
+// --- End Event System Types ---
+
+
 function DialogueBox({
   conversation,
   onComplete,
@@ -117,6 +153,49 @@ function DialogueBox({
     </div>
   );
 }
+
+function EventPlayerUI({
+    currentNode,
+    onChoice,
+    onNext,
+    inventory,
+  }: {
+    currentNode: EventNode;
+    onChoice: (choice: EventChoice) => void;
+    onNext: (nodeId: string) => void;
+    inventory: SavedInventoryItem[];
+  }) {
+    if (!currentNode) return null;
+  
+    return (
+      <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-6 z-50 text-foreground shadow-lg space-y-4 max-w-3xl mx-auto">
+        <p className="text-lg whitespace-pre-wrap min-h-[3rem]">{currentNode.content}</p>
+        <div className="flex flex-col gap-2">
+          {currentNode.type === 'choice' && currentNode.choices?.map((choice, index) => {
+            const hasItem = choice.requiredItemId ? inventory.some(i => i.itemId === choice.requiredItemId) : true;
+            const isDisabled = !!choice.requiredItemId && !hasItem;
+            return (
+              <Button
+                key={index}
+                onClick={() => onChoice(choice)}
+                disabled={isDisabled}
+                variant={isDisabled ? "secondary" : "default"}
+                className="w-full justify-between"
+              >
+                <span>{choice.text}</span>
+                {choice.requiredItemId && <span className="text-xs font-mono p-1 bg-primary-foreground/20 rounded">要:{choice.requiredItemId}</span>}
+              </Button>
+            );
+          })}
+          {(currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && currentNode.nextStepId && (
+            <Button onClick={() => onNext(currentNode.nextStepId!)} className="w-full">
+              次へ
+            </Button>
+          )}
+        </div>
+      </div>
+    );
+  }
 
 const GameView = ({
   loading,
@@ -143,6 +222,13 @@ const GameView = ({
   displayInventoryItems,
   collectedObjectIds,
   gold,
+  // Event props
+  isInEvent,
+  activeEvent,
+  currentNode,
+  handleEventChoice,
+  goToNode,
+  inventory,
 }: {
   loading: boolean;
   worldMap: WorldMap | null;
@@ -168,6 +254,13 @@ const GameView = ({
   displayInventoryItems: DisplayInventoryItem[];
   collectedObjectIds: string[];
   gold: number;
+  // Event props
+  isInEvent: boolean;
+  activeEvent: GameEvent | null;
+  currentNode: EventNode | null;
+  handleEventChoice: (choice: EventChoice) => void;
+  goToNode: (nodeId: string) => void;
+  inventory: SavedInventoryItem[];
 }) => {
   if (loading) {
     return (
@@ -326,6 +419,14 @@ const GameView = ({
               onComplete={() => setActiveDialogue(null)}
             />
           )}
+          {isInEvent && activeEvent && currentNode && (
+            <EventPlayerUI 
+                currentNode={currentNode}
+                onChoice={handleEventChoice}
+                onNext={goToNode}
+                inventory={inventory}
+            />
+          )}
         </div>
       </div>
       <SheetContent className="w-full sm:max-w-lg p-0">
@@ -345,37 +446,36 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const { toast } = useToast();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
   
+  // Game data state
   const [worldMapOptions, setWorldMapOptions] = useState<WorldMapOption[]>([]);
-  const [selectedMapId, setSelectedMapId] = useState<string>(initialData?.mapId || '');
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [rooms, setRooms] = useState<MapCell[] | null>(null);
-  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>(
-    []
-  );
+  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
   const [clips, setClips] = useState<AnimationClip[] | null>(null);
+  const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  
+  // Player and game state
+  const [selectedMapId, setSelectedMapId] = useState<string>(initialData?.mapId || '');
   const [activeMap, setActiveMap] = useState({r: 0, c: 0});
   const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
-
-  const [characterPosition, setCharacterPosition] = useState({
-    x: MAP_WIDTH / 2,
-    y: MAP_HEIGHT / 2,
-  });
+  const [characterPosition, setCharacterPosition] = useState({x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2});
   const [inventory, setInventory] = useState<SavedInventoryItem[]>([]);
   const [collectedObjectIds, setCollectedObjectIds] = useState<string[]>([]);
   const [gold, setGold] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
-  const [characterDirection, setCharacterDirection] =
-    useState<CharacterDirection>('down');
+  const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const [activeDialogue, setActiveDialogue] = useState<string | null>(null);
-  const [destination, setDestination] = useState<{x: number; y: number} | null>(
-    null
-  );
+  const [destination, setDestination] = useState<{x: number; y: number} | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // Event system state
+  const [activeEvent, setActiveEvent] = useState<GameEvent | null>(null);
+  const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
+  const isInEvent = activeEvent !== null;
 
   const gameViewRef = useRef<HTMLDivElement>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
@@ -383,7 +483,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   const isRoom = selectedMapId === 'rooms';
   const isInDialogue = activeDialogue !== null;
-  const isGamePaused = isInDialogue || isMenuOpen;
+  const isGamePaused = isInDialogue || isMenuOpen || isInEvent;
   
   const loadData = useCallback(
     async (
@@ -399,31 +499,28 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           mapId === 'rooms' || mapId.startsWith('room_');
 
         if (!availableObjects.length) {
-          const objectsResponse = await fetch('/objects.json');
-          if (!objectsResponse.ok)
-            throw new Error(
-              `オブジェクトファイルの読み込みに失敗しました: ${objectsResponse.statusText}`
-            );
+          const [objectsResponse, animResponse, eventsResponse] = await Promise.all([
+            fetch('/objects.json'),
+            fetch('/characters/player/animations.json'),
+            fetch('/events/sub-events.json'),
+          ]);
+  
+          if (!objectsResponse.ok) throw new Error('オブジェクトファイル(objects.json)の読み込みに失敗しました。');
+          if (!animResponse.ok) throw new Error('アニメーションファイル(animations.json)の読み込みに失敗しました。');
+          if (!eventsResponse.ok) throw new Error('イベントファイル(sub-events.json)の読み込みに失敗しました。');
+          
           const objectsData = await objectsResponse.json();
-          setAvailableObjects(objectsData.objects);
-        }
-
-        if (!clips) {
-          const animResponse = await fetch('/characters/player/animations.json');
-          if (!animResponse.ok)
-            throw new Error(
-              `アニメーションファイルの読み込みに失敗しました: ${animResponse.statusText}`
-            );
           const animData = await animResponse.json();
+          const eventsData = await eventsResponse.json();
+          
+          setAvailableObjects(objectsData.objects);
           setClips(animData.clips);
+          setGameEvents(eventsData);
         }
 
         if (isSwitchingToRoom) {
           const roomsResponse = await fetch('/rooms/rooms.json');
-          if (!roomsResponse.ok)
-            throw new Error(
-              `ルームファイルの読み込みに失敗しました: ${roomsResponse.statusText}`
-            );
+          if (!roomsResponse.ok) throw new Error(`ルームファイル(rooms.json)の読み込みに失敗しました。`);
           const roomsData = await roomsResponse.json();
 
           setWorldMap(null);
@@ -435,36 +532,22 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setSelectedMapId('rooms');
         } else {
           const mapResponse = await fetch(`/maps/${mapId}.json`);
-          if (!mapResponse.ok)
-            throw new Error(
-              `マップファイルの読み込みに失敗しました: ${mapResponse.statusText}`
-            );
+          if (!mapResponse.ok) throw new Error(`マップファイル(${mapId}.json)の読み込みに失敗しました。`);
           const mapData = await mapResponse.json();
           setRooms(null);
           setActiveRoomId(null);
           const rows = mapData.rows || 1;
           const cols = mapData.cols || 1;
 
-          if (
-            typeof rows !== 'number' ||
-            typeof cols !== 'number' ||
-            rows <= 0 ||
-            cols <= 0
-          ) {
-            throw new Error(
-              `マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`
-            );
+          if (typeof rows !== 'number' || typeof cols !== 'number' || rows <= 0 || cols <= 0) {
+            throw new Error(`マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`);
           }
 
-          const newWorldMap: WorldMap = Array(rows)
-            .fill(null)
-            .map(() => Array(cols).fill(null));
+          const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
           mapData.maps.forEach((mapCell: MapCell, index: number) => {
             const r = Math.floor(index / cols);
             const c = index % cols;
-            if (newWorldMap[r]) {
-              newWorldMap[r][c] = mapCell;
-            }
+            if (newWorldMap[r]) { newWorldMap[r][c] = mapCell; }
           });
           setWorldMap(newWorldMap);
           setActiveMap({r: 0, c: 0});
@@ -478,7 +561,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setTimeout(() => setIsTransitioning(false), 100);
       }
     },
-    [clips, availableObjects]
+    [availableObjects.length]
   );
   
   useEffect(() => {
@@ -536,6 +619,58 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       description: "進行状況が正常に保存されました。",
     });
   };
+  
+    // --- Event Handling Logic ---
+    const endEvent = useCallback(() => {
+        setActiveEvent(null);
+        setCurrentNode(null);
+    }, []);
+
+    const goToNode = useCallback((nodeId: string) => {
+        if (!activeEvent) return;
+
+        const nextNode = activeEvent.nodes.find(n => n.id === nodeId);
+
+        if (nextNode) {
+            setCurrentNode(nextNode);
+
+            if (nextNode.type === 'reward' && nextNode.reward) {
+                const { itemId, itemName } = nextNode.reward;
+                setInventory(prevInventory => {
+                    const existingItem = prevInventory.find(i => i.itemId === itemId);
+                    if (existingItem) {
+                        return prevInventory.map(i => i.itemId === itemId ? { ...i, quantity: i.quantity + 1 } : i);
+                    }
+                    return [...prevInventory, { itemId, quantity: 1 }];
+                });
+                toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
+            }
+
+            if (nextNode.type === 'end') {
+                setTimeout(() => endEvent(), 500);
+            }
+        } else {
+            endEvent();
+        }
+    }, [activeEvent, endEvent, toast]);
+
+
+    const handleEventChoice = useCallback((choice: EventChoice) => {
+        if (choice.requiredItemId) {
+            const hasItem = inventory.some(item => item.itemId === choice.requiredItemId);
+            if (!hasItem) {
+                toast({
+                    variant: "destructive",
+                    title: "アイテムがありません",
+                    description: choice.lockedText || "この選択肢を実行できません。",
+                });
+                return;
+            }
+        }
+        goToNode(choice.nextStepId);
+    }, [inventory, goToNode, toast]);
+
+    // --- End Event Handling Logic ---
 
   useEffect(() => {
     if (!clips) return;
@@ -572,6 +707,25 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2;
 
       if (distance < interactionZone) {
+        // --- Event Check (Priority) ---
+        if (obj.eventId) {
+            const eventToStart = gameEvents.find(e => e.id === obj.eventId);
+            if (eventToStart) {
+              const startNode = eventToStart.nodes.find(n => n.type === 'start');
+              if (startNode) {
+                setDestination(null);
+                setActiveEvent(eventToStart);
+                setCurrentNode(startNode);
+                if (startNode.type === 'reward' && startNode.reward) {
+                    const { itemId, itemName } = startNode.reward;
+                    setInventory(prev => [...prev, {itemId, quantity: 1}]); // Simplified add for now
+                    toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
+                }
+                return;
+              }
+            }
+          }
+        
         switch (asset.type) {
           case 'person':
             if (obj.conversation) {
@@ -584,8 +738,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             if (obj.transition) {
               setDestination(null);
               const {targetMapId, targetX, targetY} = obj.transition;
-              const targetIsRoom =
-                targetMapId === 'rooms' || targetMapId.startsWith('room_');
+              const targetIsRoom = targetMapId === 'rooms' || targetMapId.startsWith('room_');
               loadData(
                 targetIsRoom ? 'rooms' : targetMapId,
                 targetIsRoom ? targetMapId : undefined,
@@ -618,19 +771,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [
-    isGamePaused,
-    isRoom,
-    rooms,
-    activeRoomId,
-    worldMap,
-    activeMap,
-    characterPosition,
-    loadData,
-    availableObjects,
-    collectedObjectIds,
-    toast,
-  ]);
+  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, gameEvents, inventory]);
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isGamePaused || !gameViewRef.current) return;
@@ -963,6 +1104,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           displayInventoryItems={displayInventoryItems}
           collectedObjectIds={collectedObjectIds}
           gold={gold}
+          // Event props
+          isInEvent={isInEvent}
+          activeEvent={activeEvent}
+          currentNode={currentNode}
+          handleEventChoice={handleEventChoice}
+          goToNode={goToNode}
+          inventory={inventory}
         />
       </div>
     </div>
