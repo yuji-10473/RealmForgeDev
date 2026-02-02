@@ -1,0 +1,22 @@
+{
+  "subEvents": [
+    {
+      "id": "sub_greeting_generic",
+      "name": "汎用的な挨拶",
+      "description": "プレイヤーに挨拶をする一連のアクション。",
+      "actions": [
+        { "icon": "MessageSquare", "title": "ダイアログを表示", "description": "「こんにちは、旅の方。」" },
+        { "icon": "MessageSquare", "title": "ダイアログを表示", "description": "「こんにちは。」" }
+      ]
+    },
+    {
+      "id": "sub_give_potion",
+      "name": "ポーションを渡す",
+      "description": "プレイヤーに回復ポーションを1つ渡す。",
+      "actions": [
+        { "icon": "Gift", "title": "アイテムを渡す", "description": "回復ポーション x 1" },
+        { "icon": "MessageSquare", "title": "ダイアログを表示", "description": "「これをどうぞ。きっと役に立つでしょう。」" }
+      ]
+    }
+  ]
+}
