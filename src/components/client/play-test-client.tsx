@@ -25,8 +25,8 @@ import {
 } from "@/components/ui/sheet";
 import { MenuSimulatorClient, type DisplayInventoryItem } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
-import { useFirestore } from '@/firebase';
-import { doc, serverTimestamp } from 'firebase/firestore';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
 
@@ -104,34 +104,39 @@ type WorldMapOption = {
   name: string;
 };
 
-// --- Event System Types ---
-type EventChoice = {
+// --- Event System Types (New Spec) ---
+export type Choice = {
   text: string;
   nextStepId: string;
   requiredItemId?: string;
   lockedText?: string;
 };
 
-type EventReward = {
-  itemId: string;
-  itemName: string;
+export type Reward = {
+  itemId?: string;
+  itemName?: string;
+  amount?: number;
 };
 
-type EventNode = {
+export type EventNode = {
   id: string;
   type: 'start' | 'story' | 'choice' | 'reward' | 'end';
   content: string;
+  setFlag?: string;
   nextStepId?: string;
-  choices?: EventChoice[];
-  reward?: EventReward;
+  requiredFlag?: string;
+  choices?: Choice[];
+  reward?: Reward;
 };
 
-type GameEvent = {
-  id: string;
+export type GameEvent = {
+  id: string; // Firestore document ID
   title: string;
-  villagerName?: string;
   plot?: string;
-  createdAt: string;
+  villagerId?: string;
+  villagerName?: string;
+  createdAt?: any; // Firestore Timestamp
+  requiredFlag?: string;
   nodes: EventNode[];
 };
 // --- End Event System Types ---
@@ -161,7 +166,7 @@ function EventPlayerUI({
     inventory,
   }: {
     currentNode: EventNode;
-    onChoice: (choice: EventChoice) => void;
+    onChoice: (choice: Choice) => void;
     onNext: (nodeId: string) => void;
     inventory: SavedInventoryItem[];
   }) {
@@ -258,7 +263,7 @@ const GameView = ({
   isInEvent: boolean;
   activeEvent: GameEvent | null;
   currentNode: EventNode | null;
-  handleEventChoice: (choice: EventChoice) => void;
+  handleEventChoice: (choice: Choice) => void;
   goToNode: (nodeId: string) => void;
   inventory: SavedInventoryItem[];
 }) => {
@@ -452,7 +457,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [rooms, setRooms] = useState<MapCell[] | null>(null);
   const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
   const [clips, setClips] = useState<AnimationClip[] | null>(null);
-  const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
+  
+  const eventsCollectionRef = useMemoFirebase(() => collection(firestore, 'eventFlows'), [firestore]);
+  const { data: gameEvents } = useCollection<GameEvent>(eventsCollectionRef);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
@@ -463,6 +471,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [characterPosition, setCharacterPosition] = useState({x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2});
   const [inventory, setInventory] = useState<SavedInventoryItem[]>([]);
   const [collectedObjectIds, setCollectedObjectIds] = useState<string[]>([]);
+  const [playerFlags, setPlayerFlags] = useState<string[]>([]);
   const [gold, setGold] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
@@ -499,23 +508,19 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           mapId === 'rooms' || mapId.startsWith('room_');
 
         if (!availableObjects.length) {
-          const [objectsResponse, animResponse, eventsResponse] = await Promise.all([
+          const [objectsResponse, animResponse] = await Promise.all([
             fetch('/objects.json'),
             fetch('/characters/player/animations.json'),
-            fetch('/events/sub-events.json'),
           ]);
   
           if (!objectsResponse.ok) throw new Error('オブジェクトファイル(objects.json)の読み込みに失敗しました。');
           if (!animResponse.ok) throw new Error('アニメーションファイル(animations.json)の読み込みに失敗しました。');
-          if (!eventsResponse.ok) throw new Error('イベントファイル(sub-events.json)の読み込みに失敗しました。');
           
           const objectsData = await objectsResponse.json();
           const animData = await animResponse.json();
-          const eventsData = await eventsResponse.json();
           
           setAvailableObjects(objectsData.objects);
           setClips(animData.clips);
-          setGameEvents(eventsData);
         }
 
         if (isSwitchingToRoom) {
@@ -582,12 +587,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           );
           setInventory(initialData.inventory || []);
           setCollectedObjectIds(initialData.collectedObjectIds || []);
+          setPlayerFlags(initialData.flags || []);
           setGold(initialData.gold || 0);
         } else {
           const firstMapId = worldsData.worlds.length > 0 ? worldsData.worlds[0].id : '';
           await loadData(firstMapId);
           setInventory([]);
           setCollectedObjectIds([]);
+          setPlayerFlags([]);
           setGold(0);
         }
       } catch (err: any) {
@@ -609,6 +616,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       positionY: characterPosition.y,
       inventory: inventory,
       collectedObjectIds: collectedObjectIds,
+      flags: playerFlags,
       gold: gold,
       updatedAt: serverTimestamp(),
     };
@@ -634,16 +642,27 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         if (nextNode) {
             setCurrentNode(nextNode);
 
+            if (nextNode.setFlag && !playerFlags.includes(nextNode.setFlag)) {
+                setPlayerFlags(prev => [...prev, nextNode.setFlag!]);
+                toast({ title: "フラグ獲得！", description: nextNode.setFlag });
+            }
+
             if (nextNode.type === 'reward' && nextNode.reward) {
-                const { itemId, itemName } = nextNode.reward;
-                setInventory(prevInventory => {
-                    const existingItem = prevInventory.find(i => i.itemId === itemId);
-                    if (existingItem) {
-                        return prevInventory.map(i => i.itemId === itemId ? { ...i, quantity: i.quantity + 1 } : i);
-                    }
-                    return [...prevInventory, { itemId, quantity: 1 }];
-                });
-                toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
+                const { itemId, itemName, amount } = nextNode.reward;
+                if (itemId && itemName) {
+                    setInventory(prevInventory => {
+                        const existingItem = prevInventory.find(i => i.itemId === itemId);
+                        if (existingItem) {
+                            return prevInventory.map(i => i.itemId === itemId ? { ...i, quantity: i.quantity + 1 } : i);
+                        }
+                        return [...prevInventory, { itemId, quantity: 1 }];
+                    });
+                    toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
+                }
+                if(amount) {
+                    setGold(prev => prev + amount);
+                    toast({ title: "報酬ゲット！", description: `${amount}K を手に入れた。` });
+                }
             }
 
             if (nextNode.type === 'end') {
@@ -652,10 +671,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         } else {
             endEvent();
         }
-    }, [activeEvent, endEvent, toast]);
+    }, [activeEvent, endEvent, toast, playerFlags]);
 
 
-    const handleEventChoice = useCallback((choice: EventChoice) => {
+    const handleEventChoice = useCallback((choice: Choice) => {
         if (choice.requiredItemId) {
             const hasItem = inventory.some(item => item.itemId === choice.requiredItemId);
             if (!hasItem) {
@@ -709,17 +728,46 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (distance < interactionZone) {
         // --- Event Check (Priority) ---
         if (obj.eventId) {
-            const eventToStart = gameEvents.find(e => e.id === obj.eventId);
+            const eventToStart = gameEvents?.find(e => e.id === obj.eventId);
             if (eventToStart) {
+
+              if (eventToStart.requiredFlag && !playerFlags.includes(eventToStart.requiredFlag)) {
+                 if (obj.conversation) {
+                    setDestination(null);
+                    setActiveDialogue(obj.conversation);
+                  }
+                  return;
+              }
+              
               const startNode = eventToStart.nodes.find(n => n.type === 'start');
               if (startNode) {
+                 if (startNode.requiredFlag && !playerFlags.includes(startNode.requiredFlag)) {
+                    if (obj.conversation) {
+                        setDestination(null);
+                        setActiveDialogue(obj.conversation);
+                    }
+                    return;
+                }
+                
                 setDestination(null);
                 setActiveEvent(eventToStart);
                 setCurrentNode(startNode);
+                
+                if (startNode.setFlag && !playerFlags.includes(startNode.setFlag)) {
+                    setPlayerFlags(prev => [...prev, startNode.setFlag!]);
+                    toast({ title: "フラグ獲得！", description: startNode.setFlag });
+                }
+
                 if (startNode.type === 'reward' && startNode.reward) {
-                    const { itemId, itemName } = startNode.reward;
-                    setInventory(prev => [...prev, {itemId, quantity: 1}]); // Simplified add for now
-                    toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
+                    const { itemId, itemName, amount } = startNode.reward;
+                    if (itemId && itemName) {
+                        setInventory(prev => [...prev, {itemId, quantity: 1}]);
+                        toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
+                    }
+                    if (amount) {
+                        setGold(prev => prev + amount);
+                        toast({ title: "報酬ゲット！", description: `${amount}K を手に入れた。` });
+                    }
                 }
                 return;
               }
@@ -771,7 +819,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, gameEvents, inventory]);
+  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, gameEvents, inventory, playerFlags]);
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isGamePaused || !gameViewRef.current) return;

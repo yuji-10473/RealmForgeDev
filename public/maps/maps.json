@@ -94,6 +94,16 @@
           "y": 547.4629157338742,
           "width": 32,
           "height": 32
+        },
+        {
+          "id": "1770075835114",
+          "objectId": "villager_おとみ",
+          "x": 1855.8356143711146,
+          "y": 528.4577687196112,
+          "width": 64,
+          "height": 64,
+          "conversation": "こんにちは！私はおとみです。",
+          "eventId": "fH2PmaxuD30tJ0TgtJft"
         }
       ]
     },

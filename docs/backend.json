@@ -78,9 +78,121 @@
           "items": {
             "type": "string"
           }
+        },
+        "flags": {
+          "type": "array",
+          "description": "A list of flags the player has acquired during events.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["userId", "mapId", "positionX", "positionY", "updatedAt"]
+    },
+    "EventFlow": {
+      "title": "Event Flow",
+      "type": "object",
+      "description": "Defines the structure of a game event.",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "plot": {
+          "type": "string"
+        },
+        "villagerId": {
+          "type": "string"
+        },
+        "villagerName": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requiredFlag": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/entities/EventNode"
+          }
+        }
+      },
+      "required": ["title", "nodes"]
+    },
+    "EventNode": {
+      "title": "Event Node",
+      "type": "object",
+      "description": "A single scene or step within an Event Flow.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["start", "story", "choice", "reward", "end"]
+        },
+        "content": {
+          "type": "string"
+        },
+        "setFlag": {
+          "type": "string"
+        },
+        "nextStepId": {
+          "type": "string"
+        },
+        "requiredFlag": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/entities/Choice"
+          }
+        },
+        "reward": {
+          "$ref": "#/entities/Reward"
+        }
+      },
+      "required": ["id", "type", "content"]
+    },
+    "Choice": {
+      "title": "Choice",
+      "type": "object",
+      "description": "A player choice within a choice node.",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "nextStepId": {
+          "type": "string"
+        },
+        "requiredItemId": {
+          "type": "string"
+        },
+        "lockedText": {
+          "type": "string"
+        }
+      },
+      "required": ["text", "nextStepId"]
+    },
+    "Reward": {
+      "title": "Reward",
+      "type": "object",
+      "description": "A reward given to the player.",
+      "properties": {
+        "itemId": {
+          "type": "string"
+        },
+        "itemName": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        }
+      }
     }
   },
   "auth": {
@@ -98,6 +210,12 @@
         "$ref": "#/entities/PlaytestSave"
       },
       "description": "Stores the playtest save data for a specific user. The document ID is the user's UID."
+    },
+    "/eventFlows/{eventFlowId}": {
+      "schema": {
+        "$ref": "#/entities/EventFlow"
+      },
+      "description": "Stores event flow data for the game."
     }
   }
 }
