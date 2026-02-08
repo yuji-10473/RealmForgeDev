@@ -21,9 +21,9 @@ service cloud.firestore {
       allow read, write: if isOwner(userId);
     }
 
-    // Event flows are public game data, readable by any authenticated user.
+    // Event flows are public game data, readable by anyone.
     match /eventFlows/{eventFlowId} {
-      allow read: if isSignedIn();
+      allow read;
     }
   }
 }
