@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   Card,
@@ -48,13 +48,12 @@ type CharacterConfig = {
   path: string; // "/characters/player"
 };
 
-const characters: CharacterConfig[] = [
-    { id: "player", name: "プレイヤー", path: "/characters/player" },
-    { id: "goblin", name: "ゴブリン", path: "/characters/goblin" },
-];
-
 export function CharacterAnimatorClient() {
-  const [selectedCharacterId, setSelectedCharacterId] = useState<string>(characters[0].id);
+  const [characters, setCharacters] = useState<CharacterConfig[]>([]);
+  const [listLoading, setListLoading] = useState(true);
+  const [listError, setListError] = useState<string | null>(null);
+
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string>("");
   const [clips, setClips] = useState<AnimationClip[]>([]);
   const [availableFrames, setAvailableFrames] = useState<string[]>([]);
   const [activeClipId, setActiveClipId] = useState<string>("");
@@ -63,13 +62,42 @@ export function CharacterAnimatorClient() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        setListLoading(true);
+        const response = await fetch('/characters/characters.json');
+        if (!response.ok) {
+          throw new Error('キャラクターリスト(characters.json)の読み込みに失敗しました。');
+        }
+        const data = await response.json();
+        setCharacters(data.characters);
+        if (data.characters.length > 0) {
+          setSelectedCharacterId(data.characters[0].id);
+        }
+      } catch (err: any) {
+        setListError(err.message);
+      } finally {
+        setListLoading(false);
+      }
+    };
+    fetchCharacters();
+  }, []);
 
   const selectedCharacter = characters.find(c => c.id === selectedCharacterId);
 
   useEffect(() => {
-    if (!selectedCharacter) return;
+    if (!selectedCharacter) {
+      setClips([]);
+      setAvailableFrames([]);
+      setActiveClipId("");
+      setError(null);
+      setLoading(false);
+      return;
+    };
 
     const loadAnimationData = async () => {
       setLoading(true);
@@ -81,7 +109,7 @@ export function CharacterAnimatorClient() {
       try {
         const response = await fetch(`${selectedCharacter.path}/animations.json`);
         if (!response.ok) {
-          throw new Error(`アニメーションファイルが見つかりません: ${response.statusText}`);
+          throw new Error(`アニメーションファイルが見つかりません: ${selectedCharacter.path}/animations.json`);
         }
         const data = await response.json();
         
@@ -167,7 +195,6 @@ export function CharacterAnimatorClient() {
 
   const getFrameUrl = (imageName: string) => {
     if (!selectedCharacter) return "";
-    // If imageName starts with '/', it's already a full path
     if (imageName.startsWith('/')) {
         return imageName;
     }
@@ -177,6 +204,25 @@ export function CharacterAnimatorClient() {
   const previewImage = activeClip?.frames[currentFrameIndex]?.image;
   const previewImageUrl = previewImage ? getFrameUrl(previewImage) : undefined;
   
+  if (listLoading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Loader2 className="mr-2 h-8 w-8 animate-spin" />
+        <p>キャラクターリストを読み込み中...</p>
+      </div>
+    );
+  }
+
+  if (listError) {
+    return (
+      <Alert variant="destructive">
+        <Terminal className="h-4 w-4" />
+        <AlertTitle>リスト読み込みエラー</AlertTitle>
+        <AlertDescription>{listError}</AlertDescription>
+      </Alert>
+    );
+  }
+
   const MainContent = () => {
     if (loading) {
       return (
@@ -348,8 +394,10 @@ export function CharacterAnimatorClient() {
          <div className="lg:col-span-2 flex items-center justify-center">
            <Card className="text-center">
              <CardHeader>
-               <CardTitle>クリップが選択されていません</CardTitle>
-               <CardDescription>左のリストからクリップを選択するか、新しいクリップを作成してください。</CardDescription>
+               <CardTitle>{ selectedCharacter ? "クリップがありません" : "キャラクターが選択されていません"}</CardTitle>
+               <CardDescription>
+                 { selectedCharacter ? "左のリストからクリップを選択するか、新しいクリップを作成してください。" : "編集するキャラクターを選択してください。" }
+                </CardDescription>
              </CardHeader>
            </Card>
          </div>

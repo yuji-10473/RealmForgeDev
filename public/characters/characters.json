@@ -1,0 +1,29 @@
+{
+  "characters": [
+    {
+      "id": "player",
+      "name": "プレイヤー",
+      "path": "/characters/player"
+    },
+    {
+      "id": "goblin",
+      "name": "ゴブリン",
+      "path": "/characters/goblin"
+    },
+    {
+      "id": "sub1",
+      "name": "サブ1",
+      "path": "/characters/sub1"
+    },
+    {
+      "id": "sub2",
+      "name": "サブ2",
+      "path": "/characters/sub2"
+    },
+    {
+      "id": "sub3",
+      "name": "サブ3",
+      "path": "/characters/sub3"
+    }
+  ]
+}
