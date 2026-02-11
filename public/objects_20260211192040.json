@@ -111,17 +111,17 @@
           "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav"
         },
         {
-          "id": "1770840778579",
+          "id": "1770836459511",
           "objectId": "villager_弥三郎",
-          "x": 994.1025794384761,
-          "y": 638.8478847884788,
+          "x": 1098.9738654445132,
+          "y": 857.6921692169217,
           "width": 256,
           "height": 256,
           "conversation": "こんにちは！私は弥三郎です。",
           "audioPath": "/characters/villagers/audio/kMEH8wVv0Y7HfbElMrtt.wav",
           "movement": {
             "type": "patrol-h",
-            "range": 10
+            "range": 20
           }
         }
       ]
