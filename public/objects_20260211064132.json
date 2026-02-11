@@ -226,26 +226,6 @@
       "type": "person",
       "width": 64,
       "height": 64
-    },
-    {
-      "id": "villager_弥三郎",
-      "name": "弥三郎",
-      "imageUrl": "/characters/villagers/",
-      "audioPath": "/characters/villagers/",
-      "type": "person",
-      "width": 128,
-      "height": 128,
-      "conversation": "こんにちは！私は弥三郎です。"
-    },
-    {
-      "id": "villager_凪咲",
-      "name": "凪咲",
-      "imageUrl": "/characters/villagers/",
-      "audioPath": "/characters/villagers/",
-      "type": "person",
-      "width": 128,
-      "height": 128,
-      "conversation": "こんにちは！私は凪咲です。"
     }
   ]
 }
