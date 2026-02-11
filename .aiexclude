@@ -5,3 +5,9 @@ dist/
 build/
 .git/
 
+# 画像ファイル
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico

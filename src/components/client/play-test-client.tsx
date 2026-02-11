@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -176,11 +177,13 @@ function EventPlayerUI({
     currentNode,
     onChoice,
     onNext,
+    onClose,
     inventory,
   }: {
     currentNode: EventNode;
     onChoice: (choice: Choice) => void;
     onNext: (nodeId: string) => void;
+    onClose: () => void;
     inventory: SavedInventoryItem[];
   }) {
     if (!currentNode) return null;
@@ -208,6 +211,11 @@ function EventPlayerUI({
           {(currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && currentNode.nextStepId && (
             <Button onClick={() => onNext(currentNode.nextStepId!)} className="w-full">
               次へ
+            </Button>
+          )}
+          {currentNode.type === 'end' && (
+            <Button onClick={onClose} variant="outline" className="w-full">
+              閉じる
             </Button>
           )}
         </div>
@@ -246,6 +254,7 @@ const GameView = ({
   currentNode,
   handleEventChoice,
   goToNode,
+  endEvent,
   inventory,
 }: {
   loading: boolean;
@@ -278,6 +287,7 @@ const GameView = ({
   currentNode: EventNode | null;
   handleEventChoice: (choice: Choice) => void;
   goToNode: (nodeId: string) => void;
+  endEvent: () => void;
   inventory: SavedInventoryItem[];
 }) => {
   if (loading) {
@@ -443,6 +453,7 @@ const GameView = ({
                 currentNode={currentNode}
                 onChoice={handleEventChoice}
                 onNext={goToNode}
+                onClose={endEvent}
                 inventory={inventory}
             />
           )}
@@ -588,7 +599,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       try {
         const [worldsResponse, eventsResponse] = await Promise.all([
             fetch('/maps/worlds.json'),
-            fetch('/events/sub-events.json')
+            fetch('/public/events/sub-events.json')
         ]);
         if (!worldsResponse.ok) throw new Error("ワールドリスト(worlds.json)の読み込みに失敗しました。");
         if (!eventsResponse.ok) throw new Error("イベントファイル(sub-events.json)の読み込みに失敗しました。");
@@ -685,9 +696,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 }
             }
 
-            if (nextNode.type === 'end') {
-                setTimeout(() => endEvent(), 500);
-            }
         } else {
             endEvent();
         }
@@ -1178,6 +1186,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           currentNode={currentNode}
           handleEventChoice={handleEventChoice}
           goToNode={goToNode}
+          endEvent={endEvent}
           inventory={inventory}
         />
       </div>
