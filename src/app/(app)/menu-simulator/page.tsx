@@ -1,4 +1,15 @@
-import { MenuSimulatorClient } from "@/components/client/menu-simulator-client";
+'use client';
+
+import dynamic from 'next/dynamic';
+import { Loader2 } from 'lucide-react';
+
+const MenuSimulatorClient = dynamic(
+  () => import('@/components/client/menu-simulator-client').then((mod) => mod.MenuSimulatorClient),
+  {
+    ssr: false,
+    loading: () => <div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>,
+  }
+);
 
 export default function MenuSimulatorPage() {
   return (

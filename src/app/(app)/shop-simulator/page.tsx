@@ -1,5 +1,15 @@
-import { ShopSimulatorClient } from "@/components/client/shop-simulator-client";
-import { Suspense } from "react";
+'use client';
+
+import dynamic from 'next/dynamic';
+import { Loader2 } from 'lucide-react';
+
+const ShopSimulatorClient = dynamic(
+  () => import('@/components/client/shop-simulator-client').then((mod) => mod.ShopSimulatorClient),
+  {
+    ssr: false,
+    loading: () => <div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>,
+  }
+);
 
 export default function ShopSimulatorPage() {
   return (
@@ -8,9 +18,7 @@ export default function ShopSimulatorPage() {
         <h1 className="text-3xl font-bold font-headline">ショップシミュレーター</h1>
         <p className="text-muted-foreground">ショップのUIと売買ロジックをテストします。</p>
       </header>
-      <Suspense fallback={<div className="flex items-center justify-center p-8">Loading...</div>}>
-        <ShopSimulatorClient />
-      </Suspense>
+      <ShopSimulatorClient />
     </div>
   );
 }

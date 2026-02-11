@@ -1,4 +1,15 @@
-import { MapEditorClient } from "@/components/client/map-editor-client";
+'use client';
+
+import dynamic from 'next/dynamic'
+import { Loader2 } from 'lucide-react'
+
+const MapEditorClient = dynamic(
+  () => import('@/components/client/map-editor-client').then((mod) => mod.MapEditorClient),
+  { 
+    ssr: false,
+    loading: () => <div className="flex h-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>
+  }
+);
 
 export default function MapEditorPage() {
   return (

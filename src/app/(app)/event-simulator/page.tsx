@@ -1,5 +1,16 @@
-import { EventSimulatorClient } from "@/components/client/event-simulator-client";
-import { Suspense } from "react";
+'use client';
+
+import dynamic from 'next/dynamic';
+import { Loader2 } from 'lucide-react';
+
+const EventSimulatorClient = dynamic(
+  () => import('@/components/client/event-simulator-client').then((mod) => mod.EventSimulatorClient),
+  {
+    ssr: false,
+    loading: () => <div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>,
+  }
+);
+
 
 export default function EventSimulatorPage() {
   return (
@@ -8,9 +19,7 @@ export default function EventSimulatorPage() {
         <h1 className="text-3xl font-bold font-headline">イベントシミュレーター</h1>
         <p className="text-muted-foreground">イベントのフローと分岐をテストします。</p>
       </header>
-      <Suspense fallback={<div className="flex items-center justify-center p-8">Loading...</div>}>
-        <EventSimulatorClient />
-      </Suspense>
+      <EventSimulatorClient />
     </div>
   );
 }

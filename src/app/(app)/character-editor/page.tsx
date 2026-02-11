@@ -1,4 +1,15 @@
-import { CharacterAnimatorClient } from "@/components/client/character-animator-client";
+'use client';
+
+import dynamic from 'next/dynamic'
+import { Loader2 } from 'lucide-react'
+
+const CharacterAnimatorClient = dynamic(
+  () => import('@/components/client/character-animator-client').then((mod) => mod.CharacterAnimatorClient),
+  { 
+    ssr: false,
+    loading: () => <div className="flex h-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>
+  }
+);
 
 export default function CharacterEditorPage() {
   return (

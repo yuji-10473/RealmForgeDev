@@ -1,4 +1,15 @@
-import { CombatSimulatorClient } from "@/components/client/combat-simulator-client";
+'use client';
+
+import dynamic from 'next/dynamic'
+import { Loader2 } from 'lucide-react'
+
+const CombatSimulatorClient = dynamic(
+  () => import('@/components/client/combat-simulator-client').then((mod) => mod.CombatSimulatorClient),
+  { 
+    ssr: false,
+    loading: () => <div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>
+  }
+);
 
 export default function CombatSimulatorPage() {
   return (
