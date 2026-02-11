@@ -68,7 +68,8 @@
           "width": 256,
           "height": 256,
           "conversation": "「おや、旅の人かい。日差しが強いから、そこの木陰でひと休みしたらどうだい。喉が渇いたなら、井戸水でも汲んでおやり」",
-          "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav"
+          "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav",
+          "eventId": "OHMw41VkfFBo6rw42exP"
         },
         {
           "id": "1768970543604",
@@ -77,7 +78,8 @@
           "y": 307.5333600620233,
           "width": 256,
           "height": 256,
-          "conversation": "おや、旅の若者か。この暑い盛りによくぞここまで。日陰で一休みしていきなされ、冷たい沢水があるぞ。"
+          "conversation": "おや、旅の若者か。この暑い盛りによくぞここまで。日陰で一休みしていきなされ、冷たい沢水があるぞ。",
+          "eventId": "fH2PmaxuD30tJ0TgtJft"
         },
         {
           "id": "1768970547278",
@@ -87,7 +89,7 @@
           "width": 256,
           "height": 256,
           "conversation": "おや、旅のお方かい？こんな暑い盛りによくぞここまで。日差しが強いから、そこの木陰で少し休んでいきなさいな。",
-          "audioPath": "/audio/0qRyop1RAw8TsEnICzbm.wav"
+          "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav"
         },
         {
           "id": "1769268819546",
@@ -106,7 +108,7 @@
           "height": 256,
           "conversation": "こんにちは！私はおとみです。",
           "eventId": "fH2PmaxuD30tJ0TgtJft",
-          "audioPath": "/audio/0qRyop1RAw8TsEnICzbm.wav"
+          "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav"
         }
       ]
     },

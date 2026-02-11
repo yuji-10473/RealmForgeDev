@@ -25,8 +25,8 @@ import {
 } from "@/components/ui/sheet";
 import { MenuSimulatorClient, type DisplayInventoryItem } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, doc, serverTimestamp } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
+import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
 
@@ -132,7 +132,7 @@ export type EventNode = {
 };
 
 export type GameEvent = {
-  id: string; // Firestore document ID
+  id: string; // Document ID
   title: string;
   plot?: string;
   villagerId?: string;
@@ -471,9 +471,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [rooms, setRooms] = useState<MapCell[] | null>(null);
   const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
   const [clips, setClips] = useState<AnimationClip[] | null>(null);
-  
-  const eventsCollectionRef = useMemoFirebase(() => collection(firestore, 'eventFlows'), [firestore]);
-  const { data: gameEvents } = useCollection<GameEvent>(eventsCollectionRef);
+  const [allEvents, setAllEvents] = useState<GameEvent[]>([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -588,10 +586,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       setLoading(true);
 
       try {
-        const worldsResponse = await fetch('/maps/worlds.json');
+        const [worldsResponse, eventsResponse] = await Promise.all([
+            fetch('/maps/worlds.json'),
+            fetch('/events/sub-events.json')
+        ]);
         if (!worldsResponse.ok) throw new Error("ワールドリスト(worlds.json)の読み込みに失敗しました。");
+        if (!eventsResponse.ok) throw new Error("イベントファイル(sub-events.json)の読み込みに失敗しました。");
+
         const worldsData = await worldsResponse.json();
+        const eventsData = await eventsResponse.json();
+        
         setWorldMapOptions(worldsData.worlds);
+        setAllEvents(eventsData.events || []);
 
         if (initialData) {
           await loadData(
@@ -742,7 +748,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (distance < interactionZone) {
         // --- Event Check (Priority) ---
         if (obj.eventId) {
-            const eventToStart = gameEvents?.find(e => e.id === obj.eventId);
+            const eventToStart = allEvents.find(e => e.id === obj.eventId);
             if (eventToStart) {
 
               if (eventToStart.requiredFlag && !playerFlags.includes(eventToStart.requiredFlag)) {
@@ -833,7 +839,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, gameEvents, inventory, playerFlags]);
+  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, allEvents, inventory, playerFlags]);
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isGamePaused || !gameViewRef.current) return;
