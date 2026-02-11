@@ -1,0 +1,220 @@
+{
+  "rows": 4,
+  "cols": 4,
+  "maps": [
+    {
+      "id": "map_0_0",
+      "name": "森の入り口",
+      "imageUrl": "/maps/backgrounds/map_0_0.png",
+      "objects": [
+        {
+          "id": "1717145785055",
+          "objectId": "door",
+          "x": 863,
+          "y": 481,
+          "width": 64,
+          "height": 64,
+          "transition": {
+            "targetMapId": "room_1",
+            "targetX": 930,
+            "targetY": 850
+          }
+        },
+        {
+          "id": "1768047550730",
+          "objectId": "tree1",
+          "x": 475.9129053143438,
+          "y": 413.21332450238043,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047556147",
+          "objectId": "tree2",
+          "x": 820.760502902215,
+          "y": 441.07979600616903,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047560543",
+          "objectId": "tree2",
+          "x": 1324.0986630178452,
+          "y": 374.89692618467103,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047563664",
+          "objectId": "tree1",
+          "x": 1073.3004102266661,
+          "y": 291.29751167330517,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "id": "1768047619146",
+          "objectId": "door1",
+          "x": 1491.9477166130673,
+          "y": 530.5543934827332,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "id": "1768970538658",
+          "objectId": "villager_しず",
+          "x": 710.761538045601,
+          "y": 400.8569054804462,
+          "width": 256,
+          "height": 256,
+          "conversation": "「おや、旅の人かい。日差しが強いから、そこの木陰でひと休みしたらどうだい。喉が渇いたなら、井戸水でも汲んでおやり」",
+          "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav",
+          "eventId": "OHMw41VkfFBo6rw42exP"
+        },
+        {
+          "id": "1768970543604",
+          "objectId": "villager_紋太",
+          "x": 1038.2743700376052,
+          "y": 307.5333600620233,
+          "width": 256,
+          "height": 256,
+          "conversation": "おや、旅の若者か。この暑い盛りによくぞここまで。日陰で一休みしていきなされ、冷たい沢水があるぞ。",
+          "eventId": "fH2PmaxuD30tJ0TgtJft"
+        },
+        {
+          "id": "1768970547278",
+          "objectId": "villager_おしげ",
+          "x": 1427.415960737782,
+          "y": 358.5971868004056,
+          "width": 256,
+          "height": 256,
+          "conversation": "おや、旅のお方かい？こんな暑い盛りによくぞここまで。日差しが強いから、そこの木陰で少し休んでいきなさいな。",
+          "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav"
+        },
+        {
+          "id": "1769268819546",
+          "objectId": "key_asset",
+          "x": 464.70431792374796,
+          "y": 547.4629157338742,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "id": "1770075835114",
+          "objectId": "villager_おとみ",
+          "x": 1855.8356143711146,
+          "y": 528.4577687196112,
+          "width": 256,
+          "height": 256,
+          "conversation": "こんにちは！私はおとみです。",
+          "eventId": "fH2PmaxuD30tJ0TgtJft",
+          "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav"
+        },
+        {
+          "id": "1770836459511",
+          "objectId": "villager_弥三郎",
+          "x": 1098.9738654445132,
+          "y": 857.6921692169217,
+          "width": 256,
+          "height": 256,
+          "conversation": "こんにちは！私は弥三郎です。",
+          "audioPath": "/characters/villagers/audio/kMEH8wVv0Y7HfbElMrtt.wav",
+          "movement": {
+            "type": "patrol-h",
+            "range": 20
+          }
+        }
+      ]
+    },
+    {
+      "id": "map_0_1",
+      "name": "静かな森",
+      "imageUrl": "/maps/backgrounds/map_0_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_0_2",
+      "name": "せせらぎの小道",
+      "imageUrl": "/maps/backgrounds/map_0_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_0_3",
+      "name": "忘れられた遺跡",
+      "imageUrl": "/maps/backgrounds/map_0_3.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_0",
+      "name": "オークのキャンプ",
+      "imageUrl": "/maps/backgrounds/map_1_0.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_1",
+      "name": "霧のかかった沼地",
+      "imageUrl": "/maps/backgrounds/map_1_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_2",
+      "name": "賢者の洞窟",
+      "imageUrl": "/maps/backgrounds/map_1_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_1_3",
+      "name": "北の山道",
+      "imageUrl": "/maps/backgrounds/map_1_3.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_0",
+      "name": "城下町",
+      "imageUrl": "/maps/backgrounds/map_2_0.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_1",
+      "name": "王都の広場",
+      "imageUrl": "/maps/backgrounds/map_2_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_2",
+      "name": "港町",
+      "imageUrl": "/maps/backgrounds/map_2_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_2_3",
+      "name": "東の灯台",
+      "imageUrl": "/maps/backgrounds/map_2_3.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_0",
+      "name": "南の砂漠",
+      "imageUrl": "/maps/backgrounds/map_3_0.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_1",
+      "name": "オアシス",
+      "imageUrl": "/maps/backgrounds/map_3_1.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_2",
+      "name": "ピラミッド",
+      "imageUrl": "/maps/backgrounds/map_3_2.png",
+      "objects": []
+    },
+    {
+      "id": "map_3_3",
+      "name": "竜の骨の谷",
+      "imageUrl": "/maps/backgrounds/map_3_3.png",
+      "objects": []
+    }
+  ]
+}

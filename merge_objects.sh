@@ -35,7 +35,7 @@ jq -s '
   # 1. objects.json から村人以外のオブジェクトを抽出
   (.[0].objects | map(select(.id | startswith("villager_") | not))) as $non_villagers |
   # 2. villagers.json から最新の村人データを生成
-  (.[1] | map({
+  (.[1].villagers // [] | map({
       "id": ("villager_" + .name),
       "name": .name,
       "imageUrl": ("/characters/villagers/" + .imagePath),
