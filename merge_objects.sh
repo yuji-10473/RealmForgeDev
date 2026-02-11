@@ -38,8 +38,8 @@ jq -s '
   (.[1] | map({
       "id": ("villager_" + .name),
       "name": .name,
-      "imageUrl": ("/characters/villagers/" + .image),
-      "audioPath": ("/characters/villagers/" + .audio),
+      "imageUrl": ("/characters/villagers/" + .imagePath),
+      "audioPath": ("/characters/villagers/" + .audioPath),
       "type": "person",
       "width": 128,
       "height": 128,
