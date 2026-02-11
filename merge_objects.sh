@@ -35,7 +35,8 @@ fi
 #    d. "type": "person" を追加します。
 #    e. デフォルトの width と height を追加します。
 #    f. デフォルトの会話文を追加します。
-#    g. 変換後、不要になった imageName を削除します。
+#    g. audioPath をマージ内容に含めます。
+#    h. 変換後、不要になった imageName を削除します。
 # 3. 既存のオブジェクトリストと、重複しない新しい村人リストを結合します。
 # 4. 一時ファイルに書き出し、アトミックに上書きします。
 
@@ -54,7 +55,7 @@ jq -s '
           "width": 128,
           "height": 128,
           "conversation": ("こんにちは！私は" + .name + "です。")
-        } | del(.imageName)
+        } | .audioPath = .audioPath | del(.imageName)
       end
     )
   ) | {objects: .}
