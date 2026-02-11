@@ -10,8 +10,6 @@ import { Loader2, Terminal, Plus, Trash2, BookOpen, Flag } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '../ui/input';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection } from 'firebase/firestore';
 
 // Data types based on the new specification
 export type Choice = {
@@ -39,12 +37,12 @@ export type EventNode = {
 };
 
 export type GameEvent = {
-  id: string; // Firestore document ID
+  id: string; // Document ID
   title: string;
   plot?: string;
   villagerId?: string;
   villagerName?: string;
-  createdAt?: any; // Firestore Timestamp
+  createdAt?: any; // Timestamp
   requiredFlag?: string;
   nodes: EventNode[];
 };
@@ -57,9 +55,11 @@ type PlayerInventoryItem = {
 
 export function EventSimulatorClient() {
   const { toast } = useToast();
-  const firestore = useFirestore();
-  const eventsCollectionRef = useMemoFirebase(() => collection(firestore, 'eventFlows'), [firestore]);
-  const { data: allEvents, isLoading: eventsLoading, error: eventsError } = useCollection<GameEvent>(eventsCollectionRef);
+
+  // State for fetching local JSON data
+  const [allEvents, setAllEvents] = useState<GameEvent[]>([]);
+  const [eventsLoading, setEventsLoading] = useState(true);
+  const [eventsError, setEventsError] = useState<Error | null>(null);
 
   const [selectedEventId, setSelectedEventId] = useState<string>('');
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
@@ -73,6 +73,26 @@ export function EventSimulatorClient() {
   const [newItemId, setNewItemId] = useState('');
   const [newItemName, setNewItemName] = useState('');
   const [newFlag, setNewFlag] = useState('');
+
+  // Fetch events from local JSON file
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setEventsLoading(true);
+        const response = await fetch('/events/sub-events.json');
+        if (!response.ok) {
+          throw new Error(`イベントファイル(/public/events/sub-events.json)の読み込みに失敗しました。`);
+        }
+        const data = await response.json();
+        setAllEvents(data.events || []);
+      } catch (err: any) {
+        setEventsError(err);
+      } finally {
+        setEventsLoading(false);
+      }
+    };
+    fetchEvents();
+  }, []);
 
   const selectedEvent = useMemo(() => allEvents?.find(e => e.id === selectedEventId), [allEvents, selectedEventId]);
 
@@ -130,7 +150,7 @@ export function EventSimulatorClient() {
       setCurrentNode(null);
       setLog([]);
     }
-  }, [selectedEvent, playerFlags]); // Rerun if playerFlags change to re-evaluate entry conditions
+  }, [selectedEvent, playerFlags, toast]);
 
   const goToNode = (nodeId: string | undefined) => {
     if (!selectedEvent || !nodeId) {

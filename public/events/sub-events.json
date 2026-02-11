@@ -1,83 +1,111 @@
-[
-  {
-    "id": "event_drought_and_seed",
-    "title": "日照りと不思議な種",
-    "villagerName": "弥助",
-    "villagerId": "villager_yasuke",
-    "plot": "日照りが続く村で、長老の弥助が畑を眺めながら頭を抱えている。彼は古文書に記された「恵みの種」の伝説を信じているが、種を見つけるのに必要な「古い水差し」をなくしてしまい、困り果てている。プレイヤーが水差しを見つけて渡すと、弥助は喜び、お礼に種のありかのヒントをくれる。",
-    "createdAt": "2024-07-26T10:00:00.000Z",
-    "requiredFlag": "main_quest_started",
-    "nodes": [
-      {
-        "id": "node-1",
-        "type": "start",
-        "content": "弥助「おお、旅の方か...。この日照りにはほとほと困り果てたわい...」",
-        "nextStepId": "node-2",
-        "requiredFlag": "main_quest_started"
-      },
-      {
-        "id": "node-2",
-        "type": "story",
-        "content": "弥助「古文書によれば、この近くの洞窟に、雨を呼ぶ『恵みの種』が眠っているという。じゃが、その洞窟の扉を開けるには、わしが先祖から受け継いだ『古い水差し』が必要でな...」",
-        "nextStepId": "node-3"
-      },
-      {
-        "id": "node-3",
-        "type": "story",
-        "content": "弥助「それを先日、うっかりどこかで落としてしまったようなんじゃ。あんたさん、もし見かけたらわしのところに持ってきてはくれんかのう？」",
-        "setFlag": "drought_quest_accepted",
-        "nextStepId": "node-4"
-      },
-      {
-        "id": "node-4",
-        "type": "choice",
-        "content": "弥助が困っている。どうしようか？",
-        "choices": [
-          {
-            "text": "「古い水差し」を渡す",
-            "nextStepId": "node-10",
-            "requiredItemId": "item_old_jar",
-            "lockedText": "（まだ古い水差しを持っていない）"
-          },
-          {
-            "text": "また今度にする",
-            "nextStepId": "node-99"
-          }
-        ]
-      },
-      {
-        "id": "node-10",
-        "type": "story",
-        "content": "弥助「おお！これじゃ、これじゃ！よくぞ見つけてくれた！これで洞窟の扉を開けることができるわい！」",
-        "nextStepId": "node-11"
-      },
-      {
-        "id": "node-11",
-        "type": "reward",
-        "content": "弥助「これはお礼じゃ。少ないが足しにしてくだされ。」",
-        "reward": {
-          "amount": 50
+{
+  "events": [
+    {
+      "id": "old_man_intro",
+      "title": "長老との出会い",
+      "plot": "村の入り口で、物知りな長老が旅人に声をかける。",
+      "villagerName": "長老",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "start",
+          "content": "「おお、見かけない顔じゃな。わしはこの村の長老じゃ。何か困りごとかね？」",
+          "nextStepId": "choice_1"
         },
-        "setFlag": "drought_quest_jar_returned",
-        "nextStepId": "node-12"
-      },
-      {
-        "id": "node-12",
-        "type": "story",
-        "content": "弥助「『恵みの種』は、東の森を抜けた先にある洞窟の、一番奥で青白く光っていると古文書にはある。気をつけて行くんじゃぞ。」",
-        "nextStepId": "node-end"
-      },
-      {
-        "id": "node-99",
-        "type": "story",
-        "content": "弥助「そうか...。もし気が変わったら、また声をかけておくれ。」",
-        "nextStepId": "node-end"
-      },
-      {
-        "id": "node-end",
-        "type": "end",
-        "content": "（弥助との会話を終えた）"
-      }
-    ]
-  }
-]
+        {
+          "id": "choice_1",
+          "type": "choice",
+          "content": "どう答える？",
+          "choices": [
+            {
+              "text": "「道に迷ってしまいました」",
+              "nextStepId": "story_lost"
+            },
+            {
+              "text": "「この村について教えてください」",
+              "nextStepId": "story_about_village"
+            },
+            {
+              "text": "「いえ、別に...」",
+              "nextStepId": "end_nothing"
+            }
+          ]
+        },
+        {
+          "id": "story_lost",
+          "type": "story",
+          "content": "「そうか、それは難儀なことじゃ。この村はずれの森は迷いやすいからのう。少し休んでいくといい。」",
+          "nextStepId": "end_rest"
+        },
+        {
+          "id": "story_about_village",
+          "type": "story",
+          "content": "「この村は古くから竜の伝説が伝わっておってな...（長話が続く）」",
+          "nextStepId": "end_listen"
+        },
+        {
+          "id": "end_nothing",
+          "type": "end",
+          "content": "「そうか。まあ、何かあればまた声をかけるんじゃな。」"
+        },
+        {
+          "id": "end_rest",
+          "type": "end",
+          "content": "長老の厚意に甘え、あなたは少し休むことにした。"
+        },
+        {
+          "id": "end_listen",
+          "type": "end",
+          "content": "あなたは村の伝説について詳しくなった。"
+        }
+      ]
+    },
+    {
+      "id": "potion_quest",
+      "title": "薬草探しの依頼",
+      "plot": "薬屋の主人が、貴重な薬草が足りずに困っている。",
+      "villagerName": "薬屋",
+      "requiredFlag": "MET_ELDER",
+      "nodes": [
+        {
+          "id": "start_quest",
+          "type": "start",
+          "content": "「ああ、旅の方。ちょうどいいところに。実は薬の材料が切れてしまってね。森にしか生えない『月光草』を取ってきてはくれんだろうか？」",
+          "setFlag": "QUEST_POTION_ACCEPTED",
+          "nextStepId": "choice_quest"
+        },
+        {
+          "id": "choice_quest",
+          "type": "choice",
+          "content": "依頼を受ける？",
+          "choices": [
+            {
+              "text": "引き受ける",
+              "nextStepId": "story_accepted"
+            },
+            {
+              "text": "断る",
+              "nextStepId": "end_declined"
+            }
+          ]
+        },
+        {
+          "id": "story_accepted",
+          "type": "story",
+          "content": "「本当かい！助かるよ。これが月光草の見本だ。森の奥、月明かりが差す場所に咲いているという。気をつけてな。」",
+          "nextStepId": "end_accepted"
+        },
+        {
+            "id": "end_declined",
+            "type": "end",
+            "content": "「そうか...残念だ。また気が向いたら頼むよ。」"
+        },
+        {
+            "id": "end_accepted",
+            "type": "end",
+            "content": "あなたは薬草探しの依頼を引き受けた。"
+        }
+      ]
+    }
+  ]
+}
