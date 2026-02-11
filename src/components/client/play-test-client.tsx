@@ -558,22 +558,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         const isSwitchingToRoom =
           mapId === 'rooms' || mapId.startsWith('room_');
 
-        if (!availableObjects.length) {
-          const [objectsResponse, animResponse] = await Promise.all([
-            fetch('/objects.json'),
-            fetch('/characters/player/animations.json'),
-          ]);
-  
-          if (!objectsResponse.ok) throw new Error('オブジェクトファイル(objects.json)の読み込みに失敗しました。');
-          if (!animResponse.ok) throw new Error('アニメーションファイル(animations.json)の読み込みに失敗しました。');
-          
-          const objectsData = await objectsResponse.json();
-          const animData = await animResponse.json();
-          
-          setAvailableObjects(objectsData.objects);
-          setClips(animData.clips);
-        }
-
         if (isSwitchingToRoom) {
           const roomsResponse = await fetch('/rooms/rooms.json');
           if (!roomsResponse.ok) throw new Error(`ルームファイル(rooms.json)の読み込みに失敗しました。`);
@@ -617,7 +601,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setTimeout(() => setIsTransitioning(false), 100);
       }
     },
-    [availableObjects.length]
+    []
   );
   
   useEffect(() => {
@@ -625,16 +609,24 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       setLoading(true);
 
       try {
-        const [worldsResponse, eventsResponse] = await Promise.all([
+        const [objectsResponse, animResponse, worldsResponse, eventsResponse] = await Promise.all([
+            fetch('/objects.json'),
+            fetch('/characters/player/animations.json'),
             fetch('/maps/worlds.json'),
             fetch('/events/sub-events.json')
         ]);
+        if (!objectsResponse.ok) throw new Error('オブジェクトファイル(objects.json)の読み込みに失敗しました。');
+        if (!animResponse.ok) throw new Error('アニメーションファイル(animations.json)の読み込みに失敗しました。');
         if (!worldsResponse.ok) throw new Error("ワールドリスト(worlds.json)の読み込みに失敗しました。");
         if (!eventsResponse.ok) throw new Error("イベントファイル(/events/sub-events.json)の読み込みに失敗しました。");
 
+        const objectsData = await objectsResponse.json();
+        const animData = await animResponse.json();
         const worldsData = await worldsResponse.json();
         const eventsData = await eventsResponse.json();
         
+        setAvailableObjects(objectsData.objects || []);
+        setClips(animData.clips);
         setWorldMapOptions(worldsData.worlds);
         setAllEvents(eventsData.events || []);
 
