@@ -192,6 +192,7 @@ function EventPlayerUI({
       <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-6 z-50 text-foreground shadow-lg space-y-4 max-w-3xl mx-auto">
         <p className="text-lg whitespace-pre-wrap min-h-[3rem]">{currentNode.content}</p>
         <div className="flex flex-col gap-2">
+          {/* Choices */}
           {currentNode.type === 'choice' && currentNode.choices?.map((choice, index) => {
             const hasItem = choice.requiredItemId ? inventory.some(i => i.itemId === choice.requiredItemId) : true;
             const isDisabled = !!choice.requiredItemId && !hasItem;
@@ -208,12 +209,16 @@ function EventPlayerUI({
               </Button>
             );
           })}
+
+          {/* Next Button */}
           {(currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && currentNode.nextStepId && (
             <Button onClick={() => onNext(currentNode.nextStepId!)} className="w-full">
               次へ
             </Button>
           )}
-          {currentNode.type === 'end' && (
+
+          {/* Close Button: Appears for 'end' nodes OR for 'story'/'start'/'reward' nodes that are dead-ends. */}
+          {(currentNode.type === 'end' || ((currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && !currentNode.nextStepId)) && (
             <Button onClick={onClose} variant="outline" className="w-full">
               閉じる
             </Button>
