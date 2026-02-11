@@ -13,9 +13,15 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 const EDITOR_WIDTH = 1920;
 const EDITOR_HEIGHT = 1080;
+
+type Movement = {
+  type: 'stationary' | 'patrol-h';
+  range?: number;
+};
 
 type PlacedObject = {
   id: string;
@@ -31,6 +37,7 @@ type PlacedObject = {
   };
   conversation?: string;
   audioPath?: string;
+  movement?: Movement;
 };
 
 type AvailableObject = {
@@ -233,6 +240,48 @@ export function RoomEditorClient() {
                     </Button>
                   </div>
                 </div>
+                <Card className="bg-muted/50 p-4 space-y-2">
+                  <CardDescription>移動設定</CardDescription>
+                  <div>
+                      <Label htmlFor="movement-type">移動タイプ</Label>
+                      <Select
+                          value={selectedObject.movement?.type || 'stationary'}
+                          onValueChange={(value) => handleObjectUpdate({
+                              ...selectedObject,
+                              movement: {
+                                  ...(selectedObject.movement || { type: 'stationary' }),
+                                  type: value as 'stationary' | 'patrol-h'
+                              }
+                          })}
+                      >
+                          <SelectTrigger id="movement-type">
+                              <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                              <SelectItem value="stationary">静止</SelectItem>
+                              <SelectItem value="patrol-h">水平に巡回</SelectItem>
+                          </SelectContent>
+                      </Select>
+                  </div>
+                  {selectedObject.movement?.type === 'patrol-h' && (
+                      <div>
+                          <Label htmlFor="movement-range">移動範囲 (px)</Label>
+                          <Input
+                              id="movement-range"
+                              type="number"
+                              placeholder="例: 200"
+                              value={selectedObject.movement?.range || ''}
+                              onChange={e => handleObjectUpdate({
+                                  ...selectedObject,
+                                  movement: {
+                                      ...(selectedObject.movement || { type: 'stationary' }),
+                                      range: parseInt(e.target.value) || 0
+                                  }
+                              })}
+                          />
+                      </div>
+                  )}
+                </Card>
               </>
             )}
             

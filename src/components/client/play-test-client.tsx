@@ -39,6 +39,11 @@ const CHARACTER_HEIGHT = 183;
 const ANIMATION_FPS = 8;
 const INTERACTION_RADIUS = 50;
 
+type Movement = {
+  type: 'stationary' | 'patrol-h';
+  range?: number;
+};
+
 // Data structure types
 type PlacedObject = {
   id: string;
@@ -55,6 +60,7 @@ type PlacedObject = {
   conversation?: string;
   audioPath?: string;
   eventId?: string;
+  movement?: Movement;
 };
 
 type AvailableObject = {
@@ -143,6 +149,15 @@ export type GameEvent = {
   nodes: EventNode[];
 };
 // --- End Event System Types ---
+
+// --- NPC State Types ---
+type NpcState = {
+  x: number;
+  y: number;
+  originX: number;
+  movement: Movement;
+  direction: number; // for patrol
+};
 
 
 function DialogueBox({
@@ -253,6 +268,7 @@ const GameView = ({
   displayInventoryItems,
   collectedObjectIds,
   gold,
+  npcStates,
   // Event props
   isInEvent,
   activeEvent,
@@ -286,6 +302,7 @@ const GameView = ({
   displayInventoryItems: DisplayInventoryItem[];
   collectedObjectIds: string[];
   gold: number;
+  npcStates: Record<string, NpcState>;
   // Event props
   isInEvent: boolean;
   activeEvent: GameEvent | null;
@@ -352,8 +369,11 @@ const GameView = ({
             const asset = availableObjects.find(a => a.id === obj.objectId);
             if (!asset || !asset.imageUrl) return null;
 
-            const leftPercent = (obj.x / MAP_WIDTH) * 100;
-            const topPercent = (obj.y / MAP_HEIGHT) * 100;
+            const isNpc = npcStates[obj.id];
+            const currentPos = isNpc ? { x: npcStates[obj.id].x, y: npcStates[obj.id].y } : { x: obj.x, y: obj.y };
+
+            const leftPercent = (currentPos.x / MAP_WIDTH) * 100;
+            const topPercent = (currentPos.y / MAP_HEIGHT) * 100;
             const widthPercent = (obj.width / MAP_WIDTH) * 100;
 
             return (
@@ -509,6 +529,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [destination, setDestination] = useState<{x: number; y: number} | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
+  // NPC state
+  const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
+
   // Event system state
   const [activeEvent, setActiveEvent] = useState<GameEvent | null>(null);
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
@@ -643,6 +666,30 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     initializeGame();
   }, [initialData, loadData]);
 
+  // Initialize or update NPC states when map changes
+  useEffect(() => {
+    const activeMapData = isRoom
+      ? rooms?.find(r => r.id === activeRoomId)
+      : worldMap?.[activeMap.r]?.[activeMap.c];
+
+    if (activeMapData) {
+      const newNpcStates: Record<string, NpcState> = {};
+      for (const obj of activeMapData.objects) {
+        if (obj.movement && obj.movement.type !== 'stationary') {
+          newNpcStates[obj.id] = {
+            x: obj.x,
+            y: obj.y,
+            originX: obj.x,
+            movement: obj.movement,
+            direction: 1,
+          };
+        }
+      }
+      setNpcStates(newNpcStates);
+    }
+  }, [worldMap, rooms, activeMap, activeRoomId, isRoom]);
+
+
   const handleSave = () => {
     const saveData = {
       userId: user.uid,
@@ -749,8 +796,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       const asset = availableObjects.find(a => a.id === obj.objectId);
       if (!asset) continue;
 
-      const objCenterX = obj.x + obj.width / 2;
-      const objCenterY = obj.y + obj.height / 2;
+      const isNpc = npcStates[obj.id];
+      const currentPos = isNpc ? { x: npcStates[obj.id].x, y: npcStates[obj.id].y } : { x: obj.x, y: obj.y };
+
+      const objCenterX = currentPos.x + obj.width / 2;
+      const objCenterY = currentPos.y + obj.height / 2;
       const distance = Math.sqrt(
         Math.pow(characterCenterX - objCenterX, 2) +
           Math.pow(characterCenterY - objCenterY, 2)
@@ -852,7 +902,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, allEvents, inventory, playerFlags]);
+  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, allEvents, inventory, playerFlags, npcStates]);
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isGamePaused || !gameViewRef.current) return;
@@ -921,6 +971,40 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         gameLoopRef.current = requestAnimationFrame(loop);
         return;
       }
+
+      // Update NPCs
+      setNpcStates(prevNpcStates => {
+        const newNpcStates = { ...prevNpcStates };
+        let statesChanged = false;
+    
+        for (const id in newNpcStates) {
+            const npc = newNpcStates[id];
+            let { x, direction } = npc;
+            const { movement, originX } = npc;
+            let newDirection = direction;
+            
+            if (movement.type === 'patrol-h') {
+                const speed = CHARACTER_SPEED / 5; // Slower NPCs
+                x += speed * direction;
+                
+                const range = movement.range || 100;
+                if (x > originX + range) {
+                    x = originX + range;
+                    newDirection = -1;
+                } else if (x < originX - range) {
+                    x = originX - range;
+                    newDirection = 1;
+                }
+            }
+            
+            if (x !== npc.x || newDirection !== npc.direction) {
+                newNpcStates[id] = { ...npc, x, direction: newDirection };
+                statesChanged = true;
+            }
+        }
+        return statesChanged ? newNpcStates : prevNpcStates;
+      });
+
 
       let moveVector = {x: 0, y: 0};
       let isMoving = false;
@@ -1185,6 +1269,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           displayInventoryItems={displayInventoryItems}
           collectedObjectIds={collectedObjectIds}
           gold={gold}
+          npcStates={npcStates}
           // Event props
           isInEvent={isInEvent}
           activeEvent={activeEvent}
