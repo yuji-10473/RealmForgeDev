@@ -35,14 +35,17 @@ jq -s '
   # 1. objects.json から村人以外のオブジェクトを抽出
   (.[0].objects | map(select(.id | startswith("villager_") | not))) as $non_villagers |
   # 2. villagers.json から最新の村人データを生成
-  (.[1].villagers // [] | map({
+  (
+    # villagers.jsonが配列か、{"villagers": [...]}形式のオブジェクトか、どちらの形式にも対応
+    (if (.[1] | type) == "array" then .[1] else .[1].villagers // [] end) |
+    map({
       "id": ("villager_" + .name),
       "name": .name,
       "imageUrl": ("/characters/villagers/" + .imagePath),
       "audioPath": ("/characters/villagers/" + .audioPath),
       "type": "person",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "conversation": ("こんにちは！私は" + .name + "です。")
   })) as $new_villagers |
   # 3. 両者を結合して最終的なオブジェクトリストを生成
