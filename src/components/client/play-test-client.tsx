@@ -599,10 +599,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       try {
         const [worldsResponse, eventsResponse] = await Promise.all([
             fetch('/maps/worlds.json'),
-            fetch('/public/events/sub-events.json')
+            fetch('/events/sub-events.json')
         ]);
         if (!worldsResponse.ok) throw new Error("ワールドリスト(worlds.json)の読み込みに失敗しました。");
-        if (!eventsResponse.ok) throw new Error("イベントファイル(sub-events.json)の読み込みに失敗しました。");
+        if (!eventsResponse.ok) throw new Error("イベントファイル(/events/sub-events.json)の読み込みに失敗しました。");
 
         const worldsData = await worldsResponse.json();
         const eventsData = await eventsResponse.json();
