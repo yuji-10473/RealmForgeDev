@@ -40,8 +40,8 @@ jq -s '
           "id": $new_id,
           "imageUrl": ("/characters/villagers/images/" + .imageName),
           "type": "person",
-          "width": 64,
-          "height": 64,
+          "width": 128,
+          "height": 128,
           "conversation": ("こんにちは！私は" + .name + "です。")
         } | del(.imageName)
       end
