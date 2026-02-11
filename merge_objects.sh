@@ -15,6 +15,17 @@ if [ ! -f "public/characters/villagers/villagers.json" ]; then
     exit 1
 fi
 
+# 念のため、マージ前にバックアップを作成します。
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
+BACKUP_FILE="public/objects_${TIMESTAMP}.json"
+echo "バックアップを作成中: ${BACKUP_FILE}"
+cp public/objects.json "${BACKUP_FILE}"
+if [ $? -ne 0 ]; then
+    echo "エラー: バックアップの作成に失敗しました。"
+    exit 1
+fi
+
+
 # jq を使用して2つのJSONファイルをマージします。
 # 1. objects.json から既存のIDのリストを作成します。
 # 2. villagers.json の各村人に対して以下を実行します。
