@@ -33,6 +33,7 @@ type PlacedObject = {
     targetY: number;
   };
   conversation?: string;
+  audioPath?: string;
   eventId?: string;
 };
 
@@ -44,6 +45,7 @@ type AvailableObject = {
   height: number;
   type?: 'person' | 'door' | 'item';
   conversation?: string;
+  audioPath?: string;
 };
 
 type MapCell = {
@@ -199,6 +201,7 @@ export function MapEditorClient() {
       width: selectedAsset.width,
       height: selectedAsset.height,
       conversation: selectedAsset.conversation,
+      audioPath: selectedAsset.audioPath,
     };
     
     const newWorldMap = worldMap.map(row => [...row].map(cell => ({...cell, objects: [...cell.objects]})));
@@ -279,6 +282,15 @@ export function MapEditorClient() {
                     value={selectedObject.conversation || ''}
                     onChange={(e) => handleObjectUpdate({...selectedObject, conversation: e.target.value})}
                     rows={3}
+                  />
+                </div>
+                 <div className="space-y-2">
+                  <Label htmlFor="audio-path">音声パス (フォールバック)</Label>
+                  <Input 
+                    id="audio-path"
+                    placeholder="例: /audio/hello.wav"
+                    value={selectedObject.audioPath || ''}
+                    onChange={(e) => handleObjectUpdate({...selectedObject, audioPath: e.target.value})}
                   />
                 </div>
                 <div className="space-y-2">

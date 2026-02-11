@@ -52,6 +52,7 @@ type PlacedObject = {
     targetY: number;
   };
   conversation?: string;
+  audioPath?: string;
   eventId?: string;
 };
 
@@ -63,6 +64,7 @@ type AvailableObject = {
   height: number;
   type?: 'person' | 'door' | 'item';
   conversation?: string;
+  audioPath?: string;
 };
 
 type MapCell = {
@@ -144,17 +146,28 @@ export type GameEvent = {
 
 function DialogueBox({
   conversation,
+  audioPath,
   onComplete,
 }: {
   conversation: string;
+  audioPath?: string;
   onComplete: () => void;
 }) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (audioPath && audioRef.current) {
+      audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+    }
+  }, [audioPath]);
+
   return (
     <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-4 z-50 text-foreground shadow-lg">
       <p className="mb-4 text-lg whitespace-pre-wrap">{conversation}</p>
       <div className="flex justify-end">
         <Button onClick={onComplete}>閉じる</Button>
       </div>
+      {audioPath && <audio ref={audioRef} src={audioPath} preload="auto" />}
     </div>
   );
 }
@@ -221,8 +234,8 @@ const GameView = ({
   setIsMenuOpen,
   destination,
   isInDialogue,
-  activeDialogue,
-  setActiveDialogue,
+  activeInteraction,
+  setActiveInteraction,
   handleSave,
   displayInventoryItems,
   collectedObjectIds,
@@ -253,8 +266,8 @@ const GameView = ({
   setIsMenuOpen: (open: boolean) => void;
   destination: { x: number; y: number } | null;
   isInDialogue: boolean;
-  activeDialogue: string | null;
-  setActiveDialogue: (dialogue: string | null) => void;
+  activeInteraction: { conversation: string; audioPath?: string } | null;
+  setActiveInteraction: (interaction: { conversation: string; audioPath?: string } | null) => void;
   handleSave: () => void;
   displayInventoryItems: DisplayInventoryItem[];
   collectedObjectIds: string[];
@@ -418,10 +431,11 @@ const GameView = ({
                 }}
             />
           )}
-          {isInDialogue && (
+          {isInDialogue && activeInteraction && (
             <DialogueBox
-              conversation={activeDialogue!}
-              onComplete={() => setActiveDialogue(null)}
+              conversation={activeInteraction.conversation}
+              audioPath={activeInteraction.audioPath}
+              onComplete={() => setActiveInteraction(null)}
             />
           )}
           {isInEvent && activeEvent && currentNode && (
@@ -477,7 +491,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
-  const [activeDialogue, setActiveDialogue] = useState<string | null>(null);
+  const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
   const [destination, setDestination] = useState<{x: number; y: number} | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -491,7 +505,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const gameLoopRef = useRef<number>();
 
   const isRoom = selectedMapId === 'rooms';
-  const isInDialogue = activeDialogue !== null;
+  const isInDialogue = activeInteraction !== null;
   const isGamePaused = isInDialogue || isMenuOpen || isInEvent;
   
   const loadData = useCallback(
@@ -734,7 +748,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               if (eventToStart.requiredFlag && !playerFlags.includes(eventToStart.requiredFlag)) {
                  if (obj.conversation) {
                     setDestination(null);
-                    setActiveDialogue(obj.conversation);
+                    setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
                   }
                   return;
               }
@@ -744,7 +758,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                  if (startNode.requiredFlag && !playerFlags.includes(startNode.requiredFlag)) {
                     if (obj.conversation) {
                         setDestination(null);
-                        setActiveDialogue(obj.conversation);
+                        setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
                     }
                     return;
                 }
@@ -778,7 +792,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           case 'person':
             if (obj.conversation) {
               setDestination(null);
-              setActiveDialogue(obj.conversation);
+              setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
               return;
             }
             break;
@@ -1146,8 +1160,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setIsMenuOpen={setIsMenuOpen}
           destination={destination}
           isInDialogue={isInDialogue}
-          activeDialogue={activeDialogue}
-          setActiveDialogue={setActiveDialogue}
+          activeInteraction={activeInteraction}
+          setActiveInteraction={setActiveInteraction}
           handleSave={handleSave}
           displayInventoryItems={displayInventoryItems}
           collectedObjectIds={collectedObjectIds}

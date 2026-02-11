@@ -29,6 +29,7 @@ type PlacedObject = {
     targetY: number;
   };
   conversation?: string;
+  audioPath?: string;
 };
 
 type AvailableObject = {
@@ -39,6 +40,7 @@ type AvailableObject = {
   height: number;
   type?: 'person' | 'door' | 'item';
   conversation?: string;
+  audioPath?: string;
 };
 
 type Room = {
@@ -139,6 +141,7 @@ export function RoomEditorClient() {
       width: selectedAsset.width,
       height: selectedAsset.height,
       conversation: selectedAsset.conversation,
+      audioPath: selectedAsset.audioPath,
     };
     
     const newRooms = rooms.map(room => {
@@ -188,16 +191,27 @@ export function RoomEditorClient() {
             </div>
 
             {objectType === 'person' && (
-              <div className="space-y-2">
-                <Label htmlFor="conversation">会話</Label>
-                <Textarea 
-                  id="conversation"
-                  placeholder="キャラクターの会話を入力..."
-                  value={selectedObject.conversation || ''}
-                  onChange={(e) => handleObjectUpdate({...selectedObject, conversation: e.target.value})}
-                  rows={5}
-                />
-              </div>
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="conversation">会話</Label>
+                  <Textarea 
+                    id="conversation"
+                    placeholder="キャラクターの会話を入力..."
+                    value={selectedObject.conversation || ''}
+                    onChange={(e) => handleObjectUpdate({...selectedObject, conversation: e.target.value})}
+                    rows={5}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="audioPath">音声パス</Label>
+                  <Input
+                    id="audioPath"
+                    placeholder="音声ファイルのパス"
+                    value={selectedObject.audioPath || ''}
+                    onChange={(e) => handleObjectUpdate({...selectedObject, audioPath: e.target.value})}
+                  />
+                </div>
+              </>
             )}
             
             {objectType === 'door' && (
