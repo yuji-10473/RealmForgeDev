@@ -32,6 +32,7 @@ import { ShopIcon } from "@/components/icons/ShopIcon";
 import packageJson from "../../../package.json";
 import { AuthButton } from "@/components/client/auth-button";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
+import { StoryEditorIcon } from "@/components/icons/StoryEditorIcon";
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -41,6 +42,7 @@ const navItems = [
   { href: "/character-editor", label: "キャラクターエディター", icon: CharacterIcon },
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
   { href: "/event-simulator", label: "イベントシミュレーター", icon: EventSimulatorIcon },
+  { href: "/story-editor", label: "ストーリーエディター", icon: StoryEditorIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
   { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
   { href: "/shop-simulator", label: "ショップシミュレーター", icon: ShopIcon },

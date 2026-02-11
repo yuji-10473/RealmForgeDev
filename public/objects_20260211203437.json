@@ -1,0 +1,235 @@
+{
+  "objects": [
+    {
+      "id": "obj_tree_1",
+      "name": "木",
+      "imageUrl": "/objects/tree.png",
+      "width": 183,
+      "height": 275
+    },
+    {
+      "id": "obj_door_wood",
+      "name": "木の扉",
+      "type": "door",
+      "imageUrl": "/objects/door_wood.png",
+      "width": 92,
+      "height": 138
+    },
+    {
+      "id": "person_old_man",
+      "name": "老人",
+      "type": "person",
+      "imageUrl": "/characters/old_man.png",
+      "conversation": "やあ、旅の人。わしになにか用かな？",
+      "width": 92,
+      "height": 92
+    },
+    {
+      "id": "item_potion",
+      "name": "ポーション",
+      "type": "item",
+      "imageUrl": "/items/potion.png",
+      "baseValue": 5,
+      "width": 92,
+      "height": 92
+    },
+    {
+      "id": "item_antidote",
+      "name": "どくけし",
+      "type": "item",
+      "imageUrl": "/items/antidote.png",
+      "baseValue": 8,
+      "width": 92,
+      "height": 92
+    },
+    {
+      "id": "item_sword_wood",
+      "name": "ひのきのぼう",
+      "type": "item",
+      "imageUrl": "/items/sword_wood.png",
+      "baseValue": 25,
+      "width": 92,
+      "height": 92
+    },
+    {
+      "id": "villager_弥三郎",
+      "name": "弥三郎",
+      "imageUrl": "/characters/villagers/images/kMEH8wVv0Y7HfbElMrtt.png",
+      "audioPath": "/characters/villagers/audio/kMEH8wVv0Y7HfbElMrtt.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私は弥三郎です。"
+    },
+    {
+      "id": "villager_凪咲",
+      "name": "凪咲",
+      "imageUrl": "/characters/villagers/images/7H41aASWF8ULMczjdf8s.png",
+      "audioPath": "/characters/villagers/audio/7H41aASWF8ULMczjdf8s.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私は凪咲です。"
+    },
+    {
+      "id": "villager_しず",
+      "name": "しず",
+      "imageUrl": "/characters/villagers/images/Aqs3Annh4ru5uRixSgho.png",
+      "audioPath": "/characters/villagers/audio/Aqs3Annh4ru5uRixSgho.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はしずです。"
+    },
+    {
+      "id": "villager_紋太",
+      "name": "紋太",
+      "imageUrl": "/characters/villagers/images/ejn9K1lUhjCBZd67mx0B.png",
+      "audioPath": "/characters/villagers/audio/ejn9K1lUhjCBZd67mx0B.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私は紋太です。"
+    },
+    {
+      "id": "villager_おしげ",
+      "name": "おしげ",
+      "imageUrl": "/characters/villagers/images/kPqAriSaRwp4bUg4tbS9.png",
+      "audioPath": "/characters/villagers/audio/kPqAriSaRwp4bUg4tbS9.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はおしげです。"
+    },
+    {
+      "id": "villager_勘太",
+      "name": "勘太",
+      "imageUrl": "/characters/villagers/images/IjX31wjbBQxdPsVK0Dit.png",
+      "audioPath": "/characters/villagers/audio/IjX31wjbBQxdPsVK0Dit.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私は勘太です。"
+    },
+    {
+      "id": "villager_弥平",
+      "name": "弥平",
+      "imageUrl": "/characters/villagers/images/l9OQHeEKsllqsTgVBnsE.png",
+      "audioPath": "/characters/villagers/audio/l9OQHeEKsllqsTgVBnsE.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私は弥平です。"
+    },
+    {
+      "id": "villager_源太",
+      "name": "源太",
+      "imageUrl": "/characters/villagers/images/MYt16EagBGANLopR2WxX.png",
+      "audioPath": "/characters/villagers/audio/MYt16EagBGANLopR2WxX.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私は源太です。"
+    },
+    {
+      "id": "villager_まつ",
+      "name": "まつ",
+      "imageUrl": "/characters/villagers/images/gh9gg9PoOv89NWEg3vry.png",
+      "audioPath": "/characters/villagers/audio/gh9gg9PoOv89NWEg3vry.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はまつです。"
+    },
+    {
+      "id": "villager_うめ",
+      "name": "うめ",
+      "imageUrl": "/characters/villagers/images/wMSjRWzjMW8zmymdIxYk.png",
+      "audioPath": "/characters/villagers/audio/wMSjRWzjMW8zmymdIxYk.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はうめです。"
+    },
+    {
+      "id": "villager_たけ",
+      "name": "たけ",
+      "imageUrl": "/characters/villagers/images/lg6USIozxY3kV8mUtFrv.png",
+      "audioPath": "/characters/villagers/audio/lg6USIozxY3kV8mUtFrv.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はたけです。"
+    },
+    {
+      "id": "villager_ふじ",
+      "name": "ふじ",
+      "imageUrl": "/characters/villagers/images/wxkrxJkKSXwtiWiURiTf.png",
+      "audioPath": "/characters/villagers/audio/wxkrxJkKSXwtiWiURiTf.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はふじです。"
+    },
+    {
+      "id": "villager_まさ",
+      "name": "まさ",
+      "imageUrl": "/characters/villagers/images/0x9QCvl35ETTNNDvBAOg.png",
+      "audioPath": "/characters/villagers/audio/0x9QCvl35ETTNNDvBAOg.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はまさです。"
+    },
+    {
+      "id": "villager_いね",
+      "name": "いね",
+      "imageUrl": "/characters/villagers/images/TFS6nW3oE8YYdiJ21M9R.png",
+      "audioPath": "/characters/villagers/audio/TFS6nW3oE8YYdiJ21M9R.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はいねです。"
+    },
+    {
+      "id": "villager_おはな",
+      "name": "おはな",
+      "imageUrl": "/characters/villagers/images/7WVudEcwgprud6DxaSiB.png",
+      "audioPath": "/characters/villagers/audio/7WVudEcwgprud6DxaSiB.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はおはなです。"
+    },
+    {
+      "id": "villager_庄助",
+      "name": "庄助",
+      "imageUrl": "/characters/villagers/images/4OPELhPhTx0RpaQiu0Af.png",
+      "audioPath": "/characters/villagers/audio/4OPELhPhTx0RpaQiu0Af.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私は庄助です。"
+    },
+    {
+      "id": "villager_おとみ",
+      "name": "おとみ",
+      "imageUrl": "/characters/villagers/images/0qRyop1RAw8TsEnICzbm.png",
+      "audioPath": "/characters/villagers/audio/0qRyop1RAw8TsEnICzbm.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はおとみです。"
+    },
+    {
+      "id": "villager_きぬ",
+      "name": "きぬ",
+      "imageUrl": "/characters/villagers/images/6uxZ9UvQDDCAfFi0MplG.png",
+      "audioPath": "/characters/villagers/audio/6uxZ9UvQDDCAfFi0MplG.wav",
+      "type": "person",
+      "width": 256,
+      "height": 256,
+      "conversation": "こんにちは！私はきぬです。"
+    }
+  ]
+}
