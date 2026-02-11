@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -11,6 +12,7 @@ import { Loader2, Terminal, MapPin, Play, Plus, Trash2, Route } from "lucide-rea
 import Image from "next/image";
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '../ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type Waypoint = { x: number; y: number; eventId?: string };
 
@@ -47,58 +49,37 @@ export function StoryEditorClient() {
                 setLoading(true);
                 setError(null);
 
-                // --- 1. Fetch and process maps ---
                 const allMaps: AvailableMap[] = [];
-
-                // Fetch world list
                 const worldsRes = await fetch('/maps/worlds.json');
                 if (!worldsRes.ok) throw new Error('ワールドリスト(worlds.json)の読み込みに失敗しました。');
                 const worldsData = await worldsRes.json();
                 const worldList = worldsData.worlds || [];
 
-                // Fetch data for each world
                 if (worldList.length > 0) {
                     const worldDataPromises = worldList.map((world: any) => 
                         fetch(`/maps/${world.id}.json`)
-                            .then(res => {
-                                if (!res.ok) {
-                                    console.warn(`マップファイル /maps/${world.id}.json が見つからないか、読み込めません。`);
-                                    return null; // Continue even if one file is missing
-                                }
-                                return res.json();
-                            })
+                            .then(res => res.ok ? res.json() : null)
+                            .catch(() => null)
                     );
                     const allWorldData = await Promise.all(worldDataPromises);
 
-                    // Extract individual map cells from each world's data
                     allWorldData.forEach(worldData => {
                         if (worldData && worldData.maps) {
                             worldData.maps.forEach((mapCell: any) => {
-                                allMaps.push({
-                                    id: mapCell.id,
-                                    name: mapCell.name,
-                                    url: mapCell.imageUrl,
-                                });
+                                allMaps.push({ id: mapCell.id, name: mapCell.name, url: mapCell.imageUrl });
                             });
                         }
                     });
                 }
 
-                // Fetch rooms
                 const roomsRes = await fetch('/rooms/rooms.json');
                 if (roomsRes.ok) {
                     const roomsData = await roomsRes.json();
                     if (roomsData && roomsData.rooms) {
                          roomsData.rooms.forEach((room: any) => {
-                            allMaps.push({
-                                id: room.id,
-                                name: `(ルーム) ${room.name}`,
-                                url: room.imageUrl,
-                            });
+                            allMaps.push({ id: room.id, name: `(ルーム) ${room.name}`, url: room.imageUrl });
                         });
                     }
-                } else {
-                    console.warn('ルームデータ(rooms.json)の読み込みに失敗しました。');
                 }
                 
                 setAvailableMaps(allMaps);
@@ -106,7 +87,6 @@ export function StoryEditorClient() {
                     setMapId(allMaps[0].id);
                 }
 
-                // --- 2. Fetch other assets (characters, events) ---
                 const [objectsRes, playerCharsRes, eventsRes] = await Promise.all([
                     fetch('/objects.json'),
                     fetch('/characters/characters.json'),
@@ -117,14 +97,12 @@ export function StoryEditorClient() {
                 if (!playerCharsRes.ok) throw new Error('プレイヤーキャラクターデータ(characters.json)の読み込みに失敗しました。');
                 if (!eventsRes.ok) throw new Error('イベントデータ(sub-events.json)の読み込みに失敗しました。');
 
-                // Characters
                 const objectsData = await objectsRes.json();
                 const playerCharsData = await playerCharsRes.json();
                 const npcChars = (objectsData.objects || []).filter((o: any) => o.type === 'person').map((o: any) => ({ id: o.id, name: o.name, imageUrl: o.imageUrl }));
                 const playerChars = (playerCharsData.characters || []).map((c: any) => ({ id: `player_${c.id}`, name: c.name, imageUrl: `${c.path}/frames/idle_down_1.png`}));
                 setAvailableCharacters([...playerChars, ...npcChars]);
 
-                // Events
                 const eventsData = await eventsRes.json();
                 setAvailableEvents((eventsData.events || []).map((e:any) => ({ id: e.id, title: e.title })));
 
@@ -191,11 +169,11 @@ export function StoryEditorClient() {
 
     return (
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-full">
-            {/* Main Stage Panel (wider) */}
+            {/* Main Stage Panel */}
             <div className="xl:col-span-3 space-y-4 flex flex-col">
                 <div ref={stageRef} onClick={handleStageClick} className="relative w-full aspect-[16/9] bg-muted overflow-hidden border-2 border-dashed border-border cursor-crosshair flex-grow">
                     {mapUrl ? (
-                      <Image src={mapUrl} alt="Map Background" layout="fill" objectFit="cover" unoptimized priority/>
+                      <Image src={mapUrl} alt="Map Background" layout="fill" objectFit="contain" unoptimized priority/>
                     ) : (
                       <div className="flex items-center justify-center h-full text-muted-foreground">マップ画像が見つかりません</div>
                     )}
@@ -247,21 +225,7 @@ export function StoryEditorClient() {
                             </div>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardHeader><CardTitle>アセット</CardTitle></CardHeader>
-                        <CardContent>
-                            <ScrollArea className="h-48">
-                                <div className="grid grid-cols-3 gap-2">
-                                    {availableCharacters.map(char => (
-                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted">
-                                            <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
-                                            <p className="text-xs text-center truncate">{char.name}</p>
-                                        </button>
-                                    ))}
-                                </div>
-                            </ScrollArea>
-                        </CardContent>
-                    </Card>
+
                     <Card className="flex-grow flex flex-col min-h-0">
                         <CardHeader><CardTitle>シーケンス構成</CardTitle></CardHeader>
                         <CardContent className="flex-grow">
@@ -296,35 +260,61 @@ export function StoryEditorClient() {
                             <Button variant="outline" className="w-full"><Play className="mr-2"/> シーケンスを再生</Button>
                         </CardFooter>
                     </Card>
-                    <Card>
-                        <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
-                        <CardContent className="space-y-4 min-h-[10rem]">
-                            {!selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
-                            {selectedChar && !selectedWaypoint && (
-                                <div className="space-y-2">
-                                    <Label>キャラクター: {getCharacterAsset(selectedChar.objectId)?.name}</Label>
-                                    <p className="text-xs text-muted-foreground">ステージをクリックして移動経路を作成します。</p>
+
+                    <Tabs defaultValue="assets" className="flex-grow flex flex-col min-h-0">
+                      <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="assets">アセット</TabsTrigger>
+                        <TabsTrigger value="inspector">インスペクター</TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="assets" className="flex-grow mt-4">
+                        <Card className="h-full">
+                          <CardHeader><CardTitle>キャラクター</CardTitle></CardHeader>
+                          <CardContent>
+                            <ScrollArea className="h-48">
+                                <div className="grid grid-cols-3 gap-2">
+                                    {availableCharacters.map(char => (
+                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted">
+                                            <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
+                                            <p className="text-xs text-center truncate">{char.name}</p>
+                                        </button>
+                                    ))}
                                 </div>
-                            )}
-                            {selectedChar && selectedWaypoint && (
-                                <div>
-                                    <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
-                                    <Select 
-                                        value={selectedWaypoint.eventId || 'none'}
-                                        onValueChange={(value) => updateWaypointEvent(selectedChar.id, selectedElement!.waypointIndex!, value)}
-                                    >
-                                        <SelectTrigger id="event-id"><SelectValue /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="none">なし</SelectItem>
-                                            {availableEvents.map(evt => (
-                                                <SelectItem key={evt.id} value={evt.id}>{evt.title}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
+                            </ScrollArea>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+                      <TabsContent value="inspector" className="flex-grow mt-4">
+                        <Card className="h-full">
+                            <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
+                            <CardContent className="space-y-4 min-h-[10rem]">
+                                {!selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
+                                {selectedChar && !selectedWaypoint && (
+                                    <div className="space-y-2">
+                                        <Label>キャラクター: {getCharacterAsset(selectedChar.objectId)?.name}</Label>
+                                        <p className="text-xs text-muted-foreground">ステージをクリックして移動経路を作成します。</p>
+                                    </div>
+                                )}
+                                {selectedChar && selectedWaypoint && (
+                                    <div>
+                                        <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
+                                        <Select 
+                                            value={selectedWaypoint.eventId || 'none'}
+                                            onValueChange={(value) => updateWaypointEvent(selectedChar.id, selectedElement!.waypointIndex!, value)}
+                                        >
+                                            <SelectTrigger id="event-id"><SelectValue /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="none">なし</SelectItem>
+                                                {availableEvents.map(evt => (
+                                                    <SelectItem key={evt.id} value={evt.id}>{evt.title}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+                      </TabsContent>
+                    </Tabs>
                   </div>
                 </ScrollArea>
             </div>
