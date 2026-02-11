@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
@@ -70,7 +71,7 @@ export function ShopSimulatorClient() {
         const objectsData = await objectsResponse.json();
 
         setShops(shopsData.shops);
-        setAllItems(objectsData.objects.filter((obj: AvailableObject) => obj.type === 'item'));
+        setAllItems((objectsData.objects || []).filter((obj: AvailableObject) => obj.type === 'item'));
         
         if (shopsData.shops.length > 0) {
           setSelectedShopId(shopsData.shops[0].id);

@@ -113,7 +113,7 @@ export function MapEditorClient() {
         const objectsData = await objectsResponse.json();
         const eventsData = await eventsResponse.json();
         
-        setAvailableObjects(objectsData.objects);
+        setAvailableObjects(objectsData.objects || []);
         setAvailableEvents(eventsData.events || []);
         setWorldMapOptions(worldsData.worlds);
 

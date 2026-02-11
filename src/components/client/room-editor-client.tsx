@@ -101,7 +101,7 @@ export function RoomEditorClient() {
         const roomData: RoomData = await roomsResponse.json();
         const objectsData = await objectsResponse.json();
         
-        setAvailableObjects(objectsData.objects);
+        setAvailableObjects(objectsData.objects || []);
         setRooms(roomData.rooms);
         if (roomData.rooms.length > 0) {
           setActiveRoomId(roomData.rooms[0].id);

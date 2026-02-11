@@ -20,7 +20,7 @@ async function getObjects(): Promise<AvailableObject[]> {
     }
     
     const data = await response.json();
-    return data.objects;
+    return data.objects || [];
 
   } catch (error) {
     console.error("Error fetching objects:", error);

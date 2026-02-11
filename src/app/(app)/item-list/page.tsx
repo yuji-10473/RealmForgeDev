@@ -21,7 +21,7 @@ async function getItems(): Promise<AvailableObject[]> {
     }
     
     const data = await response.json();
-    return data.objects.filter((obj: AvailableObject) => obj.type === 'item');
+    return (data.objects || []).filter((obj: AvailableObject) => obj.type === 'item');
 
   } catch (error) {
     console.error("Error fetching items:", error);
