@@ -31,12 +31,11 @@ fi
 # 2. villagers.json の各村人に対して以下を実行します。
 #    a. nameから新しいIDを生成します (例: villager_村人A)。
 #    b. そのIDが既存のIDリストに存在しないことを確認します（重複チェック）。
-#    c. imageName を imageUrl に変換し、正しいパスを追加します。
-#    d. "type": "person" を追加します。
-#    e. デフォルトの width と height を追加します。
-#    f. デフォルトの会話文を追加します。
-#    g. audioPath をマージ内容に含めます。
-#    h. 変換後、不要になった imageName を削除します。
+#    c. "image" フィールドから "imageUrl" を生成します (例: /characters/villagers/image/xxxx.png)。
+#    d. "audio" フィールドから "audioPath" を生成します (例: /characters/villagers/audio/xxxx.wav)。
+#    e. "type": "person" を追加します。
+#    f. デフォルトの width と height を追加します。
+#    g. デフォルトの会話文を追加します。
 # 3. 既存のオブジェクトリストと、重複しない新しい村人リストを結合します。
 # 4. 一時ファイルに書き出し、アトミックに上書きします。
 
@@ -48,14 +47,16 @@ jq -s '
       if ($existing_ids | index($new_id)) then
         empty
       else
-        . + {
+        {
           "id": $new_id,
-          "imageUrl": ("/characters/villagers/images/" + .imageName),
+          "name": .name,
+          "imageUrl": ("/characters/villagers/" + .image),
+          "audioPath": ("/characters/villagers/" + .audio),
           "type": "person",
           "width": 128,
           "height": 128,
           "conversation": ("こんにちは！私は" + .name + "です。")
-        } | .audioPath = .audioPath | del(.imageName)
+        }
       end
     )
   ) | {objects: .}
@@ -65,7 +66,7 @@ public/characters/villagers/villagers.json > tmp_objects.json && \
 mv tmp_objects.json public/objects.json
 
 if [ $? -eq 0 ]; then
-    echo "正常に public/objects.json に村人データを統合しました。重複チェックと画像パスの変換が行われました。"
+    echo "正常に public/objects.json に村人データを統合しました。パスのプレフィックスを考慮して修正されました。"
 else
     echo "エラー: JSONのマージに失敗しました。jqがインストールされているか確認してください。"
     # 一時ファイルを削除
