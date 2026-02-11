@@ -13,8 +13,6 @@ import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
-import { collection } from "firebase/firestore";
 
 
 // The canonical size of the map editor view.
@@ -80,10 +78,7 @@ export function MapEditorClient() {
   const [selectedWorldMapId, setSelectedWorldMapId] = useState<string>('');
   const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
   const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
-  
-  const firestore = useFirestore();
-  const eventsCollectionRef = useMemoFirebase(() => collection(firestore, 'eventFlows'), [firestore]);
-  const { data: availableEvents, isLoading: eventsLoading } = useCollection<GameEvent>(eventsCollectionRef);
+  const [availableEvents, setAvailableEvents] = useState<GameEvent[]>([]);
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -98,18 +93,22 @@ export function MapEditorClient() {
       setLoading(true);
       setError(null);
       try {
-        const [worldsResponse, objectsResponse] = await Promise.all([
+        const [worldsResponse, objectsResponse, eventsResponse] = await Promise.all([
           fetch(`/maps/worlds.json`),
           fetch('/objects.json'),
+          fetch('/events/sub-events.json'),
         ]);
         
         if (!worldsResponse.ok) throw new Error(`ワールドマップリスト(worlds.json)の読み込みに失敗しました。`);
         if (!objectsResponse.ok) throw new Error(`オブジェクトファイル(objects.json)の読み込みに失敗しました。`);
+        if (!eventsResponse.ok) throw new Error(`イベントファイル(sub-events.json)の読み込みに失敗しました。`);
 
         const worldsData = await worldsResponse.json();
         const objectsData = await objectsResponse.json();
+        const eventsData = await eventsResponse.json();
         
         setAvailableObjects(objectsData.objects);
+        setAvailableEvents(eventsData.events || []);
         setWorldMapOptions(worldsData.worlds);
 
         if (worldsData.worlds.length > 0) {
@@ -320,10 +319,10 @@ export function MapEditorClient() {
                     <Select
                         value={selectedObject.eventId || ''}
                         onValueChange={(value) => handleObjectUpdate({...selectedObject, eventId: value === 'none' ? undefined : value})}
-                        disabled={eventsLoading}
+                        disabled={loading}
                     >
                         <SelectTrigger id="event-select">
-                        <SelectValue placeholder={eventsLoading ? "イベントを読込中..." : "イベントを選択..."} />
+                        <SelectValue placeholder={loading ? "イベントを読込中..." : "イベントを選択..."} />
                         </SelectTrigger>
                         <SelectContent>
                         <SelectItem value="none">なし</SelectItem>
