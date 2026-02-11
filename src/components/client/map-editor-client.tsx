@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useRef, MouseEvent, useEffect } from "react";
@@ -6,7 +7,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { Download, ZoomIn, ZoomOut, Hand, Loader2, Terminal, Trash2 } from "lucide-react";
+import { Download, ZoomIn, ZoomOut, Hand, Loader2, Terminal, Trash2, Play } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
@@ -258,6 +259,21 @@ export function MapEditorClient() {
       const asset = availableObjects.find(a => a.id === selectedObject.objectId);
       const objectType = asset?.type;
 
+      const handleTestAudio = () => {
+        if (selectedObject && selectedObject.audioPath) {
+          try {
+            const audio = new Audio(selectedObject.audioPath);
+            audio.play().catch(error => {
+              alert(`音声の再生に失敗しました: ${error.message}\nパスが正しいか、ファイルが存在するか確認してください。`);
+            });
+          } catch (error: any) {
+            alert(`音声の初期化に失敗しました: ${error.message}`);
+          }
+        } else {
+          alert("音声パスが設定されていません。");
+        }
+      };
+
       return (
         <Card>
           <CardHeader>
@@ -286,12 +302,18 @@ export function MapEditorClient() {
                 </div>
                  <div className="space-y-2">
                   <Label htmlFor="audio-path">音声パス (フォールバック)</Label>
-                  <Input 
-                    id="audio-path"
-                    placeholder="例: /audio/hello.wav"
-                    value={selectedObject.audioPath || ''}
-                    onChange={(e) => handleObjectUpdate({...selectedObject, audioPath: e.target.value})}
-                  />
+                   <div className="flex items-center gap-2">
+                    <Input 
+                      id="audio-path"
+                      placeholder="例: /audio/hello.wav"
+                      value={selectedObject.audioPath || ''}
+                      onChange={(e) => handleObjectUpdate({...selectedObject, audioPath: e.target.value})}
+                    />
+                    <Button variant="outline" size="icon" onClick={handleTestAudio} disabled={!selectedObject.audioPath}>
+                      <Play className="h-4 w-4" />
+                      <span className="sr-only">音声をテスト</span>
+                    </Button>
+                  </div>
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="event-select">イベント</Label>

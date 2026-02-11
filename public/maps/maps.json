@@ -67,7 +67,8 @@
           "y": 400.8569054804462,
           "width": 256,
           "height": 256,
-          "conversation": "「おや、旅の人かい。日差しが強いから、そこの木陰でひと休みしたらどうだい。喉が渇いたなら、井戸水でも汲んでおやり」"
+          "conversation": "「おや、旅の人かい。日差しが強いから、そこの木陰でひと休みしたらどうだい。喉が渇いたなら、井戸水でも汲んでおやり」",
+          "audioPath": "/audio/0qRyop1RAw8TsEnICzbm.wav"
         },
         {
           "id": "1768970543604",
@@ -85,7 +86,8 @@
           "y": 358.5971868004056,
           "width": 256,
           "height": 256,
-          "conversation": "おや、旅のお方かい？こんな暑い盛りによくぞここまで。日差しが強いから、そこの木陰で少し休んでいきなさいな。"
+          "conversation": "おや、旅のお方かい？こんな暑い盛りによくぞここまで。日差しが強いから、そこの木陰で少し休んでいきなさいな。",
+          "audioPath": "/audio/0qRyop1RAw8TsEnICzbm.wav"
         },
         {
           "id": "1769268819546",
@@ -103,7 +105,8 @@
           "width": 256,
           "height": 256,
           "conversation": "こんにちは！私はおとみです。",
-          "eventId": "fH2PmaxuD30tJ0TgtJft"
+          "eventId": "fH2PmaxuD30tJ0TgtJft",
+          "audioPath": "/audio/0qRyop1RAw8TsEnICzbm.wav"
         }
       ]
     },
