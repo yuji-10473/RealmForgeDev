@@ -8,11 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, Terminal, StopCircle, Play, Plus, Trash2, Route } from "lucide-react";
+import { Loader2, Terminal, StepForward, RotateCcw, Plus, Trash2, Route } from "lucide-react";
 import Image from "next/image";
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '../ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from '@/hooks/use-toast';
 
 // --- Event System Types ---
 type Choice = {
@@ -99,15 +100,10 @@ type SequenceCharacter = {
   speed: number;
 };
 
-type AnimationFrame = {
-  id: string;
-  image: string;
-};
-
 type AnimationClip = {
   id: string;
   name: string;
-  frames: AnimationFrame[];
+  frames: any[];
   fps: number;
 };
 
@@ -126,19 +122,10 @@ type AvailableEvent = GameEvent;
 const EDITOR_WIDTH = 1920;
 const EDITOR_HEIGHT = 1080;
 
-type CharacterAnimationName = 'idle_down' | 'idle_up' | 'idle_left' | 'idle_right' | 'walk_down' | 'walk_up' | 'walk_left' | 'walk_right';
-
-type PlaybackState = {
-  x: number;
-  y: number;
-  targetWaypointIndex: number;
-  status: 'idle' | 'moving' | 'event';
-  animationName: CharacterAnimationName;
-  animationFrame: number;
-  lastFrameUpdate: number;
-};
+type PlaybackState = { x: number; y: number };
 
 export function StoryEditorClient() {
+    const { toast } = useToast();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -152,12 +139,12 @@ export function StoryEditorClient() {
     const stageRef = useRef<HTMLDivElement>(null);
     
     // Playback state
-    const [isPlaying, setIsPlaying] = useState(false);
     const [playbackState, setPlaybackState] = useState<Record<string, PlaybackState>>({});
-    const prevPlaybackStateRef = useRef<Record<string, PlaybackState>>({});
+    const [playbackCursor, setPlaybackCursor] = useState<{ step: number; action: 'event' | 'move' } | null>(null);
     const [activeEvent, setActiveEvent] = useState<{event: GameEvent, triggererId: string} | null>(null);
     const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
-    const animationLoopRef = useRef<number>();
+    
+    const isPlaybackActive = playbackCursor !== null;
 
     const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
 
@@ -221,25 +208,22 @@ export function StoryEditorClient() {
                 
                 const playerCharPromises = (playerCharsData.characters || []).map(async (c: any) => {
                     let clips: AnimationClip[] = [];
+                    let imageUrl = `${c.path}/frames/idle_down_1.png`; // Fallback
                     try {
                         const animRes = await fetch(`${c.path}/animations.json`);
                         if (animRes.ok) {
                             const animData = await animRes.json();
                             clips = animData.clips || [];
+                            const idleDownClip = clips.find((clip: any) => clip.name === 'idle_down');
+                            if (idleDownClip && idleDownClip.frames.length > 0) {
+                                imageUrl = `${c.path}/frames/${idleDownClip.frames[0].image}`;
+                            }
                         }
                     } catch (e) {
                         console.warn(`Could not load animations for ${c.name}`, e);
                     }
-                    
-                    const idleDownClip = clips.find((clip: any) => clip.name === 'idle_down');
-                    let imageUrl = `${c.path}/frames/idle_down_1.png`;
-                    if (idleDownClip && idleDownClip.frames.length > 0) {
-                        imageUrl = `${c.path}/frames/${idleDownClip.frames[0].image}`;
-                    }
-
                     return { id: `player_${c.id}`, name: c.name, imageUrl, basePath: c.path, clips };
                 });
-
                 const playerChars = await Promise.all(playerCharPromises);
 
                 const npcChars = (objectsData.objects || [])
@@ -265,38 +249,13 @@ export function StoryEditorClient() {
         if (startNode) {
             setActiveEvent({ event, triggererId });
             setCurrentEventNode(startNode);
-            setPlaybackState(current => ({
-                ...current,
-                [triggererId]: {
-                    ...current[triggererId],
-                    status: 'event'
-                }
-            }));
         }
     }, []);
 
     const endEvent = useCallback(() => {
-        if (!activeEvent) return;
-        const charId = activeEvent.triggererId;
         setActiveEvent(null);
         setCurrentEventNode(null);
-
-        setPlaybackState(current => {
-            const charState = current[charId];
-            if (!charState) return current;
-            const sequenceChar = sequenceCharacters.find(sc => sc.id === charId);
-            const nextWaypointIndex = charState.targetWaypointIndex + 1;
-            const hasMoreWaypoints = sequenceChar && nextWaypointIndex < sequenceChar.path.length;
-            return {
-                ...current,
-                [charId]: {
-                    ...charState,
-                    status: hasMoreWaypoints ? 'moving' : 'idle',
-                    targetWaypointIndex: hasMoreWaypoints ? nextWaypointIndex : charState.targetWaypointIndex,
-                }
-            };
-        });
-    }, [activeEvent, sequenceCharacters]);
+    }, []);
     
     const goToNextEventNode = useCallback((nodeId: string | undefined) => {
         if (!activeEvent || !nodeId) {
@@ -315,7 +274,7 @@ export function StoryEditorClient() {
         goToNextEventNode(choice.nextStepId);
     }, [goToNextEventNode]);
 
-    const handlePlay = useCallback(() => {
+    const handleReset = useCallback(() => {
         if (sequenceCharacters.length === 0) return;
 
         const initialState: Record<string, PlaybackState> = {};
@@ -324,177 +283,68 @@ export function StoryEditorClient() {
                 initialState[char.id] = {
                     x: char.path[0].x,
                     y: char.path[0].y,
-                    targetWaypointIndex: 0,
-                    status: 'idle',
-                    animationName: 'idle_down',
-                    animationFrame: 0,
-                    lastFrameUpdate: performance.now(),
                 };
             }
         });
-
+        
         setPlaybackState(initialState);
-        setIsPlaying(true);
+        setPlaybackCursor({ step: 0, action: 'event' });
+        setActiveEvent(null);
+        setCurrentEventNode(null);
         setSelectedElement(null);
     }, [sequenceCharacters]);
 
-    const handleStop = useCallback(() => {
-        setIsPlaying(false);
-        setPlaybackState({});
-        setActiveEvent(null);
-        setCurrentEventNode(null);
-        if (animationLoopRef.current) {
-            cancelAnimationFrame(animationLoopRef.current);
-        }
-    }, []);
-    
-    // Game Loop for movement and animation
-    useEffect(() => {
-        if (!isPlaying) {
-            if (animationLoopRef.current) {
-                cancelAnimationFrame(animationLoopRef.current);
-            }
-            return;
-        }
-    
-        let lastTime = performance.now();
-    
-        const gameLoop = (currentTime: number) => {
-            const deltaTime = currentTime - lastTime;
-            lastTime = currentTime;
-    
-            setPlaybackState(currentPlaybackState => {
-                const newState: Record<string, PlaybackState> = { ...currentPlaybackState };
-                let allFinished = true;
-    
-                for (const charId in newState) {
-                    const charState = newState[charId];
-                    const sequenceChar = sequenceCharacters.find(sc => sc.id === charId);
-                    if (!sequenceChar) continue;
+    const handleStepExecute = useCallback(() => {
+        if (!playbackCursor || activeEvent) return;
 
-                    const asset = getCharacterAsset(sequenceChar.objectId);
+        const { step, action } = playbackCursor;
 
-                    if (charState.status !== 'moving') {
-                         if (charState.status !== 'idle' || charState.targetWaypointIndex >= sequenceChar.path.length -1) {
-                            allFinished = allFinished && true;
-                         } else {
-                            allFinished = false;
-                         }
-                        continue;
-                    }
-
-                    allFinished = false;
-                    const targetWaypoint = sequenceChar.path[charState.targetWaypointIndex];
-                    if (!targetWaypoint) {
-                        newState[charId].status = 'idle';
-                        continue;
-                    }
-    
-                    const dx = targetWaypoint.x - charState.x;
-                    const dy = targetWaypoint.y - charState.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    const speed = (sequenceChar.speed || 1) * 150; // pixels per second
-                    const moveDistance = (speed * deltaTime) / 1000;
-    
-                    let animationName: CharacterAnimationName = charState.animationName;
-    
-                    if (distance <= moveDistance) {
-                        newState[charId].x = targetWaypoint.x;
-                        newState[charId].y = targetWaypoint.y;
-                        newState[charId].status = 'idle';
-    
-                    } else {
-                        const moveX = (dx / distance) * moveDistance;
-                        const moveY = (dy / distance) * moveDistance;
-                        newState[charId].x += moveX;
-                        newState[charId].y += moveY;
-
-                        if (Math.abs(dx) > Math.abs(dy)) {
-                            animationName = dx > 0 ? 'walk_right' : 'walk_left';
-                        } else {
-                            animationName = dy > 0 ? 'walk_down' : 'walk_up';
-                        }
-                    }
-
-                    const animClip = asset?.clips.find(c => c.name === animationName);
-                    const fps = animClip?.fps || 10;
-                    if (currentTime - charState.lastFrameUpdate > 1000 / fps) {
-                        newState[charId].animationFrame = (charState.animationFrame + 1) % (animClip?.frames.length || 1);
-                        newState[charId].lastFrameUpdate = currentTime;
-                    }
-                    newState[charId].animationName = animationName;
-                }
-    
-                if (allFinished && Object.keys(newState).length > 0) {
-                    setTimeout(() => handleStop(), 500);
-                }
-    
-                return newState;
-            });
-    
-            animationLoopRef.current = requestAnimationFrame(gameLoop);
-        };
-    
-        animationLoopRef.current = requestAnimationFrame(gameLoop);
-    
-        return () => {
-            if (animationLoopRef.current) {
-                cancelAnimationFrame(animationLoopRef.current);
-            }
-        };
-    }, [isPlaying, sequenceCharacters, getCharacterAsset, handleStop]);
-
-    // Effect to handle logic at waypoints (when characters become idle)
-    useEffect(() => {
-        if (!isPlaying) {
-            prevPlaybackStateRef.current = {};
-            return;
-        };
-
-        const prevState = prevPlaybackStateRef.current;
-
-        Object.keys(playbackState).forEach(charId => {
-            const charState = playbackState[charId];
-            const prevCharState = prevState[charId];
-
-            if (charState.status === 'idle' && prevCharState?.status !== 'idle') {
-                const sequenceChar = sequenceCharacters.find(sc => sc.id === charId);
-                const currentWaypoint = sequenceChar?.path[charState.targetWaypointIndex];
-
-                if (currentWaypoint?.eventId) {
-                    const event = availableEvents.find(e => e.id === currentWaypoint.eventId);
+        if (action === 'event') {
+            let eventTriggered = false;
+            for (const char of sequenceCharacters) {
+                const waypoint = char.path[step];
+                if (waypoint?.eventId) {
+                    const event = availableEvents.find(e => e.id === waypoint.eventId);
                     if (event) {
-                        startEvent(event, charId);
-                        return;
+                        startEvent(event, char.id);
+                        eventTriggered = true;
+                        break; // Only one event at a time
                     }
                 }
-                
-                const nextWaypointIndex = charState.targetWaypointIndex + 1;
-                if (sequenceChar && nextWaypointIndex < sequenceChar.path.length) {
-                    setPlaybackState(current => ({
-                        ...current,
-                        [charId]: {
-                            ...current[charId],
-                            status: 'moving',
-                            targetWaypointIndex: nextWaypointIndex
-                        }
-                    }));
-                } else {
-                     const currentDir = charState.animationName.split('_')[1] || 'down';
-                     setPlaybackState(current => ({
-                        ...current,
-                        [charId]: {
-                            ...current[charId],
-                            animationName: `idle_${currentDir}` as CharacterAnimationName,
-                        }
-                    }));
-                }
             }
-        });
-        prevPlaybackStateRef.current = playbackState;
+            setPlaybackCursor({ step, action: 'move' });
+            if (!eventTriggered) {
+                 toast({ description: `ステップ ${step + 1}: イベントなし。次のステップは移動です。`, duration: 2000 });
+            } else {
+                 toast({ description: `ステップ ${step + 1}: イベントを再生中...`, duration: 2000 });
+            }
+        } else if (action === 'move') {
+            const nextStep = step + 1;
+            const hasMoreWaypoints = sequenceCharacters.some(char => char.path.length > nextStep);
 
-    }, [playbackState, isPlaying, sequenceCharacters, availableEvents, startEvent]);
+            if (!hasMoreWaypoints) {
+                toast({ title: "シーケンス終了", description: "すべてのウェイポイントの再生が完了しました。" });
+                setPlaybackCursor(null);
+                return;
+            }
 
+            const newPlaybackState: Record<string, PlaybackState> = { ...playbackState };
+            let moved = false;
+            sequenceCharacters.forEach(char => {
+                const nextWaypoint = char.path[nextStep];
+                if (nextWaypoint) {
+                    newPlaybackState[char.id] = { x: nextWaypoint.x, y: nextWaypoint.y };
+                    moved = true;
+                }
+            });
+
+            if (moved) {
+                setPlaybackState(newPlaybackState);
+                setPlaybackCursor({ step: nextStep, action: 'event' });
+                toast({ description: `ステップ ${step + 1} -> ${step + 2} へ移動しました。`, duration: 2000 });
+            }
+        }
+    }, [playbackCursor, activeEvent, sequenceCharacters, availableEvents, startEvent, playbackState, toast]);
 
     const handleAddCharacter = (objectId: string) => {
         const newChar: SequenceCharacter = {
@@ -515,7 +365,7 @@ export function StoryEditorClient() {
     }
 
     const handleStageClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isPlaying) return;
+        if (isPlaybackActive) return;
         
         const target = e.target as HTMLElement;
         const isCharacterClick = !!target.closest('[data-char-id]');
@@ -552,6 +402,7 @@ export function StoryEditorClient() {
     };
     
     const selectCharacter = (charId: string) => {
+        if(isPlaybackActive) return;
         setSelectedElement({ charId });
     }
 
@@ -578,7 +429,7 @@ export function StoryEditorClient() {
             {/* Main Stage Panel */}
             <div className="xl:col-span-3 space-y-4 flex flex-col">
                  <div className="flex items-center justify-between flex-shrink-0">
-                    <Select value={mapId} onValueChange={setMapId} disabled={isPlaying}>
+                    <Select value={mapId} onValueChange={setMapId} disabled={isPlaybackActive}>
                         <SelectTrigger id="map-select" className="max-w-sm">
                             <SelectValue placeholder="背景マップを選択..." />
                         </SelectTrigger>
@@ -587,11 +438,8 @@ export function StoryEditorClient() {
                         </SelectContent>
                     </Select>
                      <div className="flex items-center gap-2">
-                        {isPlaying ? (
-                            <Button variant="destructive" onClick={handleStop}><StopCircle className="mr-2"/>停止</Button>
-                        ) : (
-                            <Button onClick={handlePlay}><Play className="mr-2"/>シーケンス再生</Button>
-                        )}
+                        <Button onClick={handleReset} variant="outline"><RotateCcw className="mr-2"/>リセット</Button>
+                        <Button onClick={handleStepExecute} disabled={!!activeEvent || !isPlaybackActive}><StepForward className="mr-2"/>ステップ実行</Button>
                     </div>
                 </div>
                 <div 
@@ -606,7 +454,7 @@ export function StoryEditorClient() {
                     )}
 
                     {/* Waypoints and Paths */}
-                    {!isPlaying && sequenceCharacters.map(char => {
+                    {!isPlaybackActive && sequenceCharacters.map(char => {
                         const isSelected = char.id === selectedChar?.id;
                         if (!isSelected) return null;
                         
@@ -637,17 +485,12 @@ export function StoryEditorClient() {
                         
                         const state = playbackState[char.id];
                         
-                        if (isPlaying && state) {
+                        if (isPlaybackActive && state) {
                             position = { x: state.x, y: state.y };
-                            const animClip = asset.clips.find(c => c.name === state.animationName);
-                            if (animClip && animClip.frames.length > 0) {
-                                const frame = animClip.frames[state.animationFrame % animClip.frames.length];
-                                if(frame) imageToShow = `${asset.basePath}/frames/${frame.image}`;
-                            }
-                        } else if (char.path.length > 0) {
+                        } else if (!isPlaybackActive && char.path.length > 0) {
                             position = { x: char.path[0].x, y: char.path[0].y };
                         } else {
-                            return null; // Don't render if no path and not playing
+                            return null; // Don't render if no path and not in playback
                         }
                         
                         const left = (position.x / EDITOR_WIDTH) * 100;
@@ -660,13 +503,13 @@ export function StoryEditorClient() {
                                 className="absolute w-16 h-16 -translate-x-1/2 -translate-y-full cursor-pointer"
                                 style={{ left: `${left}%`, top: `${top}%` }}
                                 onClick={(e) => {
-                                  if (isPlaying) return;
+                                  if (isPlaybackActive) return;
                                   e.stopPropagation();
                                   selectCharacter(char.id);
                                 }}
                             >
                                 <Image src={imageToShow} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
-                                <div className={cn("absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 rounded-full blur-sm", char.id === selectedElement?.charId && !isPlaying ? 'ring-2 ring-primary' : '')}></div>
+                                <div className={cn("absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 rounded-full blur-sm", char.id === selectedElement?.charId && !isPlaybackActive ? 'ring-2 ring-primary' : '')}></div>
                             </div>
                         )
                     })}
@@ -733,7 +576,7 @@ export function StoryEditorClient() {
                             <ScrollArea className="h-full max-h-48 pr-2">
                                 <div className="grid grid-cols-3 gap-2">
                                     {availableCharacters.map(char => (
-                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted" disabled={isPlaying}>
+                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted" disabled={isPlaybackActive}>
                                             <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
                                             <p className="text-xs text-center truncate">{char.name}</p>
                                         </button>
@@ -747,9 +590,9 @@ export function StoryEditorClient() {
                         <Card className="h-full">
                             <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
                             <CardContent className="space-y-4 min-h-[10rem]">
-                                {isPlaying && <p className="text-muted-foreground text-sm">再生中は編集できません。</p>}
-                                {!isPlaying && !selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
-                                {!isPlaying && selectedChar && !selectedWaypoint && (
+                                {isPlaybackActive && <p className="text-muted-foreground text-sm">再生中は編集できません。</p>}
+                                {!isPlaybackActive && !selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
+                                {!isPlaybackActive && selectedChar && !selectedWaypoint && (
                                     <div className="space-y-4">
                                         <div>
                                             <Label>キャラクター</Label>
@@ -769,7 +612,7 @@ export function StoryEditorClient() {
                                         </div>
                                     </div>
                                 )}
-                                {!isPlaying && selectedChar && selectedWaypoint && (
+                                {!isPlaybackActive && selectedChar && selectedWaypoint && (
                                     <div>
                                         <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
                                         <Select 
