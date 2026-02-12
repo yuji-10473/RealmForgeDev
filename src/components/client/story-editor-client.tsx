@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -49,19 +48,23 @@ export function StoryEditorClient() {
                 setLoading(true);
                 setError(null);
 
+                // --- Start Map Loading ---
                 const allMaps: AvailableMap[] = [];
+                // 1. Fetch all world definitions
                 const worldsRes = await fetch('/maps/worlds.json');
                 if (!worldsRes.ok) throw new Error('ワールドリスト(worlds.json)の読み込みに失敗しました。');
                 const worldsData = await worldsRes.json();
                 const worldList = worldsData.worlds || [];
-
+                
+                // 2. For each world, fetch its content and extract individual map cells
                 if (worldList.length > 0) {
-                    const worldDataPromises = worldList.map((world: any) => 
-                        fetch(`/maps/${world.id}.json`)
-                            .then(res => res.ok ? res.json() : null)
-                            .catch(() => null)
+                    const allWorldData = await Promise.all(
+                        worldList.map((world: any) => 
+                            fetch(`/maps/${world.id}.json`)
+                                .then(res => res.ok ? res.json() : null)
+                                .catch(() => null)
+                        )
                     );
-                    const allWorldData = await Promise.all(worldDataPromises);
 
                     allWorldData.forEach(worldData => {
                         if (worldData && worldData.maps) {
@@ -71,7 +74,8 @@ export function StoryEditorClient() {
                         }
                     });
                 }
-
+                
+                // 3. Fetch rooms
                 const roomsRes = await fetch('/rooms/rooms.json');
                 if (roomsRes.ok) {
                     const roomsData = await roomsRes.json();
@@ -86,6 +90,7 @@ export function StoryEditorClient() {
                 if (allMaps.length > 0) {
                     setMapId(allMaps[0].id);
                 }
+                // --- End Map Loading ---
 
                 const [objectsRes, playerCharsRes, eventsRes] = await Promise.all([
                     fetch('/objects.json'),
@@ -99,8 +104,30 @@ export function StoryEditorClient() {
 
                 const objectsData = await objectsRes.json();
                 const playerCharsData = await playerCharsRes.json();
+                
+                // NPC Chars (simple, from objects.json)
                 const npcChars = (objectsData.objects || []).filter((o: any) => o.type === 'person').map((o: any) => ({ id: o.id, name: o.name, imageUrl: o.imageUrl }));
-                const playerChars = (playerCharsData.characters || []).map((c: any) => ({ id: `player_${c.id}`, name: c.name, imageUrl: `${c.path}/frames/idle_down_1.png`}));
+                
+                // Player Chars (complex, load animations.json for each)
+                const playerCharPromises = (playerCharsData.characters || []).map(async (c: any) => {
+                    let imageUrl = `${c.path}/frames/idle_down_1.png`; // Fallback
+                    try {
+                        const animRes = await fetch(`${c.path}/animations.json`);
+                        if (animRes.ok) {
+                            const animData = await animRes.json();
+                            const idleDownClip = animData.clips.find((clip: any) => clip.name === 'idle_down');
+                            if (idleDownClip && idleDownClip.frames.length > 0) {
+                                imageUrl = `${c.path}/frames/${idleDownClip.frames[0].image}`;
+                            }
+                        }
+                    } catch (e) {
+                        console.warn(`Could not load animations for ${c.name}`, e);
+                    }
+                    return { id: `player_${c.id}`, name: c.name, imageUrl };
+                });
+
+                const playerChars = await Promise.all(playerCharPromises);
+
                 setAvailableCharacters([...playerChars, ...npcChars]);
 
                 const eventsData = await eventsRes.json();
@@ -134,7 +161,17 @@ export function StoryEditorClient() {
     }
 
     const handleStageClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!selectedElement?.charId || selectedElement.waypointIndex !== undefined || !stageRef.current) return;
+        // This logic has a bug where if a waypoint was previously selected,
+        // it doesn't get cleared when the character is re-selected,
+        // preventing new waypoints from being added.
+        if (!selectedElement?.charId || selectedElement.waypointIndex !== undefined || !stageRef.current) {
+             // Reset selection if clicking on the stage without a valid state
+            const target = e.target as HTMLElement;
+            if (target === stageRef.current || (target.firstChild as HTMLElement) === stageRef.current?.firstChild) {
+                setSelectedElement(null);
+            }
+            return;
+        }
         
         const rect = stageRef.current.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width;
@@ -147,6 +184,11 @@ export function StoryEditorClient() {
             return char;
         }));
     };
+    
+    // Fix: This function resets the waypoint selection when a character is selected.
+    const selectCharacter = (charId: string) => {
+        setSelectedElement({ charId });
+    }
 
     const updateWaypointEvent = (charId: string, waypointIndex: number, eventId: string) => {
         setSequenceCharacters(prev => prev.map(char => {
@@ -171,7 +213,11 @@ export function StoryEditorClient() {
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-full">
             {/* Main Stage Panel */}
             <div className="xl:col-span-3 space-y-4 flex flex-col">
-                <div ref={stageRef} onClick={handleStageClick} className="relative w-full aspect-[16/9] bg-muted overflow-hidden border-2 border-dashed border-border cursor-crosshair flex-grow">
+                <div 
+                    ref={stageRef} 
+                    onClick={handleStageClick} 
+                    className="relative w-full bg-muted overflow-hidden border-2 border-dashed border-border flex-grow aspect-video"
+                >
                     {mapUrl ? (
                       <Image src={mapUrl} alt="Map Background" layout="fill" objectFit="contain" unoptimized priority/>
                     ) : (
@@ -208,115 +254,113 @@ export function StoryEditorClient() {
             </div>
 
             {/* Right Sidebar */}
-            <div className="xl:col-span-1 flex flex-col h-full min-h-0">
-                <ScrollArea className="h-full pr-2 -mr-2">
-                  <div className="space-y-4">
-                    <Card>
-                        <CardHeader><CardTitle>シーケンス設定</CardTitle></CardHeader>
-                        <CardContent className="space-y-4">
-                            <div>
-                                <Label htmlFor="map-select">背景マップ</Label>
-                                <Select value={mapId} onValueChange={setMapId}>
-                                    <SelectTrigger id="map-select"><SelectValue /></SelectTrigger>
-                                    <SelectContent>
-                                        {availableMaps.map(map => <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>)}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="flex-grow flex flex-col min-h-0">
-                        <CardHeader><CardTitle>シーケンス構成</CardTitle></CardHeader>
-                        <CardContent className="flex-grow">
-                             <ScrollArea className="h-64">
-                                {sequenceCharacters.map(char => {
-                                    const asset = getCharacterAsset(char.objectId);
-                                    return (
-                                        <div key={char.id} className={cn('p-3 rounded-lg mb-4 border', selectedElement?.charId === char.id && !selectedElement.waypointIndex ? 'bg-secondary border-primary' : 'border-transparent')}>
-                                            <div className="flex justify-between items-center">
-                                                <button onClick={() => setSelectedElement({ charId: char.id })} className="font-semibold w-full text-left flex items-center gap-2 hover:text-primary"><Route/> {asset?.name || 'Unknown'}</button>
-                                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleRemoveCharacter(char.id)}><Trash2 className="h-4 w-4"/></Button>
-                                            </div>
-                                            <div className="pl-4 mt-2 space-y-1 border-l-2 ml-2">
-                                                {char.path.length === 0 && <p className="text-xs text-muted-foreground pl-2 py-1">ステージをクリックしてウェイポイントを追加</p>}
-                                                {char.path.map((point, index) => (
-                                                    <div 
-                                                        key={index} 
-                                                        className={cn('p-2 rounded-md cursor-pointer', selectedElement?.waypointIndex === index && selectedElement?.charId === char.id ? 'bg-primary/20' : 'hover:bg-muted')}
-                                                        onClick={() => setSelectedElement({ charId: char.id, waypointIndex: index })}
-                                                    >
-                                                        <p className="text-sm font-medium">ウェイポイント {index + 1}</p>
-                                                        {point.eventId && <p className="text-xs text-muted-foreground">イベント: {availableEvents.find(e => e.id === point.eventId)?.title || point.eventId}</p>}
-                                                    </div>
-                                                ))}
-                                            </div>
+            <div className="xl:col-span-1 flex flex-col h-full min-h-0 space-y-4">
+                <Card>
+                    <CardHeader><CardTitle>シーケンス設定</CardTitle></CardHeader>
+                    <CardContent className="space-y-4">
+                        <div>
+                            <Label htmlFor="map-select">背景マップ</Label>
+                            <Select value={mapId} onValueChange={setMapId}>
+                                <SelectTrigger id="map-select"><SelectValue /></SelectTrigger>
+                                <SelectContent>
+                                    {availableMaps.map(map => <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="flex-grow flex flex-col min-h-0">
+                    <CardHeader>
+                        <CardTitle>シーケンス構成</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <ScrollArea className="h-40">
+                            {sequenceCharacters.map(char => {
+                                const asset = getCharacterAsset(char.objectId);
+                                return (
+                                    <div key={char.id} className={cn('p-3 rounded-lg mb-4 border', selectedElement?.charId === char.id && !selectedElement.waypointIndex ? 'bg-secondary border-primary' : 'border-transparent')}>
+                                        <div className="flex justify-between items-center">
+                                            <button onClick={() => selectCharacter(char.id)} className="font-semibold w-full text-left flex items-center gap-2 hover:text-primary"><Route/> {asset?.name || 'Unknown'}</button>
+                                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleRemoveCharacter(char.id)}><Trash2 className="h-4 w-4"/></Button>
                                         </div>
-                                    )
-                                })}
-                            </ScrollArea>
-                        </CardContent>
-                         <CardFooter>
-                            <Button variant="outline" className="w-full"><Play className="mr-2"/> シーケンスを再生</Button>
-                        </CardFooter>
-                    </Card>
+                                        <div className="pl-4 mt-2 space-y-1 border-l-2 ml-2">
+                                            {char.path.length === 0 && <p className="text-xs text-muted-foreground pl-2 py-1">ステージをクリックしてウェイポイントを追加</p>}
+                                            {char.path.map((point, index) => (
+                                                <div 
+                                                    key={index} 
+                                                    className={cn('p-2 rounded-md cursor-pointer', selectedElement?.waypointIndex === index && selectedElement?.charId === char.id ? 'bg-primary/20' : 'hover:bg-muted')}
+                                                    onClick={() => setSelectedElement({ charId: char.id, waypointIndex: index })}
+                                                >
+                                                    <p className="text-sm font-medium">ウェイポイント {index + 1}</p>
+                                                    {point.eventId && <p className="text-xs text-muted-foreground">イベント: {availableEvents.find(e => e.id === point.eventId)?.title || point.eventId}</p>}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                             {sequenceCharacters.length === 0 && <p className="text-muted-foreground text-sm text-center py-4">キャラクターをアセットから追加してください。</p>}
+                        </ScrollArea>
+                    </CardContent>
+                     <CardFooter>
+                        <Button variant="outline" className="w-full"><Play className="mr-2"/> シーケンスを再生</Button>
+                    </CardFooter>
+                </Card>
 
-                    <Tabs defaultValue="assets" className="flex-grow flex flex-col min-h-0">
-                      <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="assets">アセット</TabsTrigger>
-                        <TabsTrigger value="inspector">インスペクター</TabsTrigger>
-                      </TabsList>
-                      <TabsContent value="assets" className="flex-grow mt-4">
-                        <Card className="h-full">
-                          <CardHeader><CardTitle>キャラクター</CardTitle></CardHeader>
-                          <CardContent>
-                            <ScrollArea className="h-48">
-                                <div className="grid grid-cols-3 gap-2">
-                                    {availableCharacters.map(char => (
-                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted">
-                                            <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
-                                            <p className="text-xs text-center truncate">{char.name}</p>
-                                        </button>
-                                    ))}
+                <Tabs defaultValue="assets" className="flex-grow flex flex-col min-h-0">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="assets">アセット</TabsTrigger>
+                    <TabsTrigger value="inspector">インスペクター</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="assets" className="flex-grow mt-4">
+                    <Card className="h-full">
+                      <CardHeader><CardTitle>キャラクター</CardTitle></CardHeader>
+                      <CardContent>
+                        <ScrollArea className="h-48">
+                            <div className="grid grid-cols-3 gap-2">
+                                {availableCharacters.map(char => (
+                                    <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted">
+                                        <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
+                                        <p className="text-xs text-center truncate">{char.name}</p>
+                                    </button>
+                                ))}
+                            </div>
+                        </ScrollArea>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                  <TabsContent value="inspector" className="flex-grow mt-4">
+                    <Card className="h-full">
+                        <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
+                        <CardContent className="space-y-4 min-h-[10rem]">
+                            {!selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
+                            {selectedChar && !selectedWaypoint && (
+                                <div className="space-y-2">
+                                    <Label>キャラクター: {getCharacterAsset(selectedChar.objectId)?.name}</Label>
+                                    <p className="text-xs text-muted-foreground">ステージをクリックして移動経路を作成します。</p>
                                 </div>
-                            </ScrollArea>
-                          </CardContent>
-                        </Card>
-                      </TabsContent>
-                      <TabsContent value="inspector" className="flex-grow mt-4">
-                        <Card className="h-full">
-                            <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
-                            <CardContent className="space-y-4 min-h-[10rem]">
-                                {!selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
-                                {selectedChar && !selectedWaypoint && (
-                                    <div className="space-y-2">
-                                        <Label>キャラクター: {getCharacterAsset(selectedChar.objectId)?.name}</Label>
-                                        <p className="text-xs text-muted-foreground">ステージをクリックして移動経路を作成します。</p>
-                                    </div>
-                                )}
-                                {selectedChar && selectedWaypoint && (
-                                    <div>
-                                        <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
-                                        <Select 
-                                            value={selectedWaypoint.eventId || 'none'}
-                                            onValueChange={(value) => updateWaypointEvent(selectedChar.id, selectedElement!.waypointIndex!, value)}
-                                        >
-                                            <SelectTrigger id="event-id"><SelectValue /></SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="none">なし</SelectItem>
-                                                {availableEvents.map(evt => (
-                                                    <SelectItem key={evt.id} value={evt.id}>{evt.title}</SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                )}
-                            </CardContent>
-                        </Card>
-                      </TabsContent>
-                    </Tabs>
-                  </div>
-                </ScrollArea>
+                            )}
+                            {selectedChar && selectedWaypoint && (
+                                <div>
+                                    <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
+                                    <Select 
+                                        value={selectedWaypoint.eventId || 'none'}
+                                        onValueChange={(value) => updateWaypointEvent(selectedChar.id, selectedElement!.waypointIndex!, value)}
+                                    >
+                                        <SelectTrigger id="event-id"><SelectValue /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="none">なし</SelectItem>
+                                            {availableEvents.map(evt => (
+                                                <SelectItem key={evt.id} value={evt.id}>{evt.title}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                  </TabsContent>
+                </Tabs>
             </div>
         </div>
     );
