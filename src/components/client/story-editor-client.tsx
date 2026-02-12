@@ -79,6 +79,7 @@ export function StoryEditorClient() {
     const [activeEvent, setActiveEvent] = useState<{event: AvailableEvent, triggererId: string} | null>(null);
     const animationLoopRef = useRef<number>();
 
+    const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
 
     useEffect(() => {
         const loadAssets = async () => {
@@ -139,21 +140,23 @@ export function StoryEditorClient() {
                 const playerCharsData = await playerCharsRes.json();
                 
                 const playerCharPromises = (playerCharsData.characters || []).map(async (c: any) => {
-                    let imageUrl = `${c.path}/frames/idle_down_1.png`;
                     let clips: AnimationClip[] = [];
                     try {
                         const animRes = await fetch(`${c.path}/animations.json`);
                         if (animRes.ok) {
                             const animData = await animRes.json();
                             clips = animData.clips || [];
-                            const idleDownClip = clips.find((clip: any) => clip.name === 'idle_down');
-                            if (idleDownClip && idleDownClip.frames.length > 0) {
-                                imageUrl = `${c.path}/frames/${idleDownClip.frames[0].image}`;
-                            }
                         }
                     } catch (e) {
                         console.warn(`Could not load animations for ${c.name}`, e);
                     }
+                    
+                    const idleDownClip = clips.find((clip: any) => clip.name === 'idle_down');
+                    let imageUrl = `${c.path}/frames/idle_down_1.png`;
+                    if (idleDownClip && idleDownClip.frames.length > 0) {
+                        imageUrl = `${c.path}/frames/${idleDownClip.frames[0].image}`;
+                    }
+
                     return { id: `player_${c.id}`, name: c.name, imageUrl, basePath: c.path, clips };
                 });
 
@@ -344,11 +347,18 @@ export function StoryEditorClient() {
         const isCharacterClick = !!target.closest('[data-char-id]');
         const isWaypointClick = !!target.closest('[data-waypoint-index]');
         
-        if (!selectedElement?.charId || selectedElement.waypointIndex !== undefined) {
+        if (!selectedElement?.charId) {
              if (!isCharacterClick && !isWaypointClick) {
                  setSelectedElement(null);
              }
              return;
+        }
+
+        if (selectedElement.waypointIndex !== undefined) {
+             if (!isCharacterClick && !isWaypointClick) {
+                 setSelectedElement({ charId: selectedElement.charId });
+             }
+            return;
         }
 
         if (isCharacterClick || isWaypointClick || !stageRef.current) {
@@ -384,7 +394,6 @@ export function StoryEditorClient() {
     
     const selectedChar = sequenceCharacters.find(c => c.id === selectedElement?.charId);
     const selectedWaypoint = selectedChar && selectedElement?.waypointIndex !== undefined ? selectedChar.path[selectedElement.waypointIndex] : undefined;
-    const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
     const mapUrl = availableMaps.find(m => m.id === mapId)?.url || '';
 
     if (loading) return <div className="flex h-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
@@ -394,7 +403,7 @@ export function StoryEditorClient() {
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-full">
             {/* Main Stage Panel */}
             <div className="xl:col-span-3 space-y-4 flex flex-col">
-                 <div className="flex-shrink-0">
+                 <div className="flex items-center justify-between flex-shrink-0">
                     <Select value={mapId} onValueChange={setMapId} disabled={isPlaying}>
                         <SelectTrigger id="map-select" className="max-w-sm">
                             <SelectValue placeholder="背景マップを選択..." />
@@ -403,6 +412,13 @@ export function StoryEditorClient() {
                             {availableMaps.map(map => <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
+                     <div className="flex items-center gap-2">
+                        {isPlaying ? (
+                            <Button variant="destructive" onClick={handleStop}><StopCircle className="mr-2"/>停止</Button>
+                        ) : (
+                            <Button onClick={handlePlay}><Play className="mr-2"/>シーケンス再生</Button>
+                        )}
+                    </div>
                 </div>
                 <div 
                     ref={stageRef} 
@@ -506,23 +522,12 @@ export function StoryEditorClient() {
 
             {/* Right Sidebar */}
             <div className="xl:col-span-1 flex flex-col h-full min-h-0 space-y-4">
-                <Card>
-                    <CardHeader className="flex-row items-center justify-between">
-                        <CardTitle>シーケンス制御</CardTitle>
-                        {isPlaying ? (
-                            <Button variant="destructive" onClick={handleStop}><StopCircle className="mr-2"/>停止</Button>
-                        ) : (
-                            <Button variant="outline" onClick={handlePlay}><Play className="mr-2"/>再生</Button>
-                        )}
-                    </CardHeader>
-                </Card>
-
                 <Card className="flex-grow flex flex-col min-h-0">
                     <CardHeader>
                         <CardTitle>シーケンス構成</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                        <ScrollArea className="h-40">
+                        <ScrollArea className="h-full max-h-48">
                             {sequenceCharacters.map(char => {
                                 const asset = getCharacterAsset(char.objectId);
                                 return (
@@ -561,7 +566,7 @@ export function StoryEditorClient() {
                     <Card className="h-full">
                       <CardHeader><CardTitle>キャラクター</CardTitle></CardHeader>
                       <CardContent>
-                        <ScrollArea className="h-48">
+                        <ScrollArea className="h-full max-h-48">
                             <div className="grid grid-cols-3 gap-2">
                                 {availableCharacters.map(char => (
                                     <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted" disabled={isPlaying}>
