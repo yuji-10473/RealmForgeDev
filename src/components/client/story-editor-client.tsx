@@ -14,6 +14,82 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '../ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// --- Event System Types ---
+type Choice = {
+  text: string;
+  nextStepId: string;
+  requiredItemId?: string;
+  lockedText?: string;
+};
+
+type Reward = {
+  itemId?: string;
+  itemName?: string;
+  amount?: number;
+};
+
+type EventNode = {
+  id: string;
+  type: 'start' | 'story' | 'choice' | 'reward' | 'end';
+  content: string;
+  setFlag?: string;
+  nextStepId?: string;
+  requiredFlag?: string;
+  choices?: Choice[];
+  reward?: Reward;
+};
+
+type GameEvent = {
+  id: string; // Document ID
+  title: string;
+  nodes: EventNode[];
+};
+// --- End Event System Types ---
+
+function EventPlayerUI({
+    currentNode,
+    onChoice,
+    onNext,
+    onClose,
+  }: {
+    currentNode: EventNode;
+    onChoice: (choice: Choice) => void;
+    onNext: (nodeId: string) => void;
+    onClose: () => void;
+  }) {
+    if (!currentNode) return null;
+  
+    return (
+      <div className="bg-background/80 backdrop-blur-sm border border-border rounded-lg p-6 z-50 text-foreground shadow-lg space-y-4 max-w-3xl mx-auto">
+        <p className="text-lg whitespace-pre-wrap min-h-[3rem]">{currentNode.content}</p>
+        <div className="flex flex-col gap-2">
+          {currentNode.type === 'choice' && currentNode.choices?.map((choice, index) => {
+            return (
+              <Button
+                key={index}
+                onClick={() => onChoice(choice)}
+                className="w-full justify-between"
+              >
+                <span>{choice.text}</span>
+              </Button>
+            );
+          })}
+          {(currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && currentNode.nextStepId && (
+            <Button onClick={() => onNext(currentNode.nextStepId!)} className="w-full">
+              次へ
+            </Button>
+          )}
+          {(currentNode.type === 'end' || ((currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && !currentNode.nextStepId)) && (
+            <Button onClick={onClose} variant="outline" className="w-full">
+              閉じる
+            </Button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+
 type Waypoint = { x: number; y: number; eventId?: string };
 
 type SequenceCharacter = {
@@ -43,7 +119,9 @@ type AvailableCharacter = {
     basePath: string;
     clips: AnimationClip[];
 };
-type AvailableEvent = { id: string; title: string; };
+
+type AvailableEvent = GameEvent;
+
 
 const EDITOR_WIDTH = 1920;
 const EDITOR_HEIGHT = 1080;
@@ -76,7 +154,9 @@ export function StoryEditorClient() {
     // Playback state
     const [isPlaying, setIsPlaying] = useState(false);
     const [playbackState, setPlaybackState] = useState<Record<string, PlaybackState>>({});
-    const [activeEvent, setActiveEvent] = useState<{event: AvailableEvent, triggererId: string} | null>(null);
+    const prevPlaybackStateRef = useRef<Record<string, PlaybackState>>({});
+    const [activeEvent, setActiveEvent] = useState<{event: GameEvent, triggererId: string} | null>(null);
+    const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
     const animationLoopRef = useRef<number>();
 
     const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
@@ -169,7 +249,7 @@ export function StoryEditorClient() {
                 setAvailableCharacters([...playerChars, ...npcChars]);
 
                 const eventsData = await eventsRes.json();
-                setAvailableEvents((eventsData.events || []).map((e:any) => ({ id: e.id, title: e.title })));
+                setAvailableEvents(eventsData.events || []);
 
             } catch (e: any) {
                 setError(e.message || "アセットの読み込みに失敗しました。");
@@ -180,6 +260,61 @@ export function StoryEditorClient() {
         loadAssets();
     }, []);
 
+    const startEvent = useCallback((event: GameEvent, triggererId: string) => {
+        const startNode = event.nodes.find(n => n.type === 'start');
+        if (startNode) {
+            setActiveEvent({ event, triggererId });
+            setCurrentEventNode(startNode);
+            setPlaybackState(current => ({
+                ...current,
+                [triggererId]: {
+                    ...current[triggererId],
+                    status: 'event'
+                }
+            }));
+        }
+    }, []);
+
+    const endEvent = useCallback(() => {
+        if (!activeEvent) return;
+        const charId = activeEvent.triggererId;
+        setActiveEvent(null);
+        setCurrentEventNode(null);
+
+        setPlaybackState(current => {
+            const charState = current[charId];
+            if (!charState) return current;
+            const sequenceChar = sequenceCharacters.find(sc => sc.id === charId);
+            const nextWaypointIndex = charState.targetWaypointIndex + 1;
+            const hasMoreWaypoints = sequenceChar && nextWaypointIndex < sequenceChar.path.length;
+            return {
+                ...current,
+                [charId]: {
+                    ...charState,
+                    status: hasMoreWaypoints ? 'moving' : 'idle',
+                    targetWaypointIndex: hasMoreWaypoints ? nextWaypointIndex : charState.targetWaypointIndex,
+                }
+            };
+        });
+    }, [activeEvent, sequenceCharacters]);
+    
+    const goToNextEventNode = useCallback((nodeId: string | undefined) => {
+        if (!activeEvent || !nodeId) {
+            endEvent();
+            return;
+        }
+        const nextNode = activeEvent.event.nodes.find(n => n.id === nodeId);
+        if (nextNode) {
+            setCurrentEventNode(nextNode);
+        } else {
+            endEvent();
+        }
+    }, [activeEvent, endEvent]);
+
+    const handleEventChoice = useCallback((choice: Choice) => {
+        goToNextEventNode(choice.nextStepId);
+    }, [goToNextEventNode]);
+
     const handlePlay = useCallback(() => {
         if (sequenceCharacters.length === 0) return;
 
@@ -189,8 +324,8 @@ export function StoryEditorClient() {
                 initialState[char.id] = {
                     x: char.path[0].x,
                     y: char.path[0].y,
-                    targetWaypointIndex: 1,
-                    status: char.path.length > 1 ? 'moving' : 'idle',
+                    targetWaypointIndex: 0,
+                    status: 'idle',
                     animationName: 'idle_down',
                     animationFrame: 0,
                     lastFrameUpdate: performance.now(),
@@ -207,11 +342,13 @@ export function StoryEditorClient() {
         setIsPlaying(false);
         setPlaybackState({});
         setActiveEvent(null);
+        setCurrentEventNode(null);
         if (animationLoopRef.current) {
             cancelAnimationFrame(animationLoopRef.current);
         }
     }, []);
     
+    // Game Loop for movement and animation
     useEffect(() => {
         if (!isPlaying) {
             if (animationLoopRef.current) {
@@ -227,25 +364,29 @@ export function StoryEditorClient() {
             lastTime = currentTime;
     
             setPlaybackState(currentPlaybackState => {
-                const newState: Record<string, PlaybackState> = JSON.parse(JSON.stringify(currentPlaybackState));
-                let allIdle = true;
+                const newState: Record<string, PlaybackState> = { ...currentPlaybackState };
+                let allFinished = true;
     
                 for (const charId in newState) {
                     const charState = newState[charId];
                     const sequenceChar = sequenceCharacters.find(sc => sc.id === charId);
-                    const asset = sequenceChar ? getCharacterAsset(sequenceChar.objectId) : undefined;
-                    
-                    if (!sequenceChar || charState.status !== 'moving') {
-                        if (charState.status !== 'idle') allIdle = false;
+                    if (!sequenceChar) continue;
+
+                    const asset = getCharacterAsset(sequenceChar.objectId);
+
+                    if (charState.status !== 'moving') {
+                         if (charState.status !== 'idle' || charState.targetWaypointIndex >= sequenceChar.path.length -1) {
+                            allFinished = allFinished && true;
+                         } else {
+                            allFinished = false;
+                         }
                         continue;
                     }
-                    
-                    allIdle = false;
+
+                    allFinished = false;
                     const targetWaypoint = sequenceChar.path[charState.targetWaypointIndex];
-                    
                     if (!targetWaypoint) {
-                        const currentDir = charState.animationName.split('_')[1] || 'down';
-                        newState[charId] = { ...charState, status: 'idle', animationName: `idle_${currentDir}` as CharacterAnimationName };
+                        newState[charId].status = 'idle';
                         continue;
                     }
     
@@ -255,33 +396,16 @@ export function StoryEditorClient() {
                     const speed = (sequenceChar.speed || 1) * 150; // pixels per second
                     const moveDistance = (speed * deltaTime) / 1000;
     
-                    let animationName = charState.animationName;
+                    let animationName: CharacterAnimationName = charState.animationName;
     
                     if (distance <= moveDistance) {
-                        // Reached waypoint
                         newState[charId].x = targetWaypoint.x;
                         newState[charId].y = targetWaypoint.y;
-                        newState[charId].targetWaypointIndex = charState.targetWaypointIndex + 1;
-                        
-                        if (targetWaypoint.eventId) {
-                            const event = availableEvents.find(e => e.id === targetWaypoint.eventId);
-                            if (event) {
-                                setActiveEvent({ event, triggererId: charId });
-                                newState[charId].status = 'event';
-                            }
-                        }
-                        
-                        if (charState.targetWaypointIndex >= sequenceChar.path.length - 1) {
-                           const currentDir = animationName.split('_')[1] || 'down';
-                           newState[charId].status = 'idle';
-                           newState[charId].animationName = `idle_${currentDir}` as CharacterAnimationName;
-                        }
+                        newState[charId].status = 'idle';
     
                     } else {
-                        // Still moving
                         const moveX = (dx / distance) * moveDistance;
                         const moveY = (dy / distance) * moveDistance;
-                        
                         newState[charId].x += moveX;
                         newState[charId].y += moveY;
 
@@ -290,19 +414,18 @@ export function StoryEditorClient() {
                         } else {
                             animationName = dy > 0 ? 'walk_down' : 'walk_up';
                         }
-                        
-                        newState[charId].animationName = animationName;
-
-                        const animClip = asset?.clips.find(c => c.name === animationName);
-                        const fps = animClip?.fps || 10;
-                        if (currentTime - charState.lastFrameUpdate > 1000 / fps) {
-                           newState[charId].animationFrame = (charState.animationFrame + 1) % (animClip?.frames.length || 1);
-                           newState[charId].lastFrameUpdate = currentTime;
-                        }
                     }
+
+                    const animClip = asset?.clips.find(c => c.name === animationName);
+                    const fps = animClip?.fps || 10;
+                    if (currentTime - charState.lastFrameUpdate > 1000 / fps) {
+                        newState[charId].animationFrame = (charState.animationFrame + 1) % (animClip?.frames.length || 1);
+                        newState[charId].lastFrameUpdate = currentTime;
+                    }
+                    newState[charId].animationName = animationName;
                 }
     
-                if (allIdle && Object.keys(newState).length > 0) {
+                if (allFinished && Object.keys(newState).length > 0) {
                     setTimeout(() => handleStop(), 500);
                 }
     
@@ -319,7 +442,58 @@ export function StoryEditorClient() {
                 cancelAnimationFrame(animationLoopRef.current);
             }
         };
-    }, [isPlaying, sequenceCharacters, availableEvents, getCharacterAsset, handleStop]);
+    }, [isPlaying, sequenceCharacters, getCharacterAsset, handleStop]);
+
+    // Effect to handle logic at waypoints (when characters become idle)
+    useEffect(() => {
+        if (!isPlaying) {
+            prevPlaybackStateRef.current = {};
+            return;
+        };
+
+        const prevState = prevPlaybackStateRef.current;
+
+        Object.keys(playbackState).forEach(charId => {
+            const charState = playbackState[charId];
+            const prevCharState = prevState[charId];
+
+            if (charState.status === 'idle' && prevCharState?.status !== 'idle') {
+                const sequenceChar = sequenceCharacters.find(sc => sc.id === charId);
+                const currentWaypoint = sequenceChar?.path[charState.targetWaypointIndex];
+
+                if (currentWaypoint?.eventId) {
+                    const event = availableEvents.find(e => e.id === currentWaypoint.eventId);
+                    if (event) {
+                        startEvent(event, charId);
+                        return;
+                    }
+                }
+                
+                const nextWaypointIndex = charState.targetWaypointIndex + 1;
+                if (sequenceChar && nextWaypointIndex < sequenceChar.path.length) {
+                    setPlaybackState(current => ({
+                        ...current,
+                        [charId]: {
+                            ...current[charId],
+                            status: 'moving',
+                            targetWaypointIndex: nextWaypointIndex
+                        }
+                    }));
+                } else {
+                     const currentDir = charState.animationName.split('_')[1] || 'down';
+                     setPlaybackState(current => ({
+                        ...current,
+                        [charId]: {
+                            ...current[charId],
+                            animationName: `idle_${currentDir}` as CharacterAnimationName,
+                        }
+                    }));
+                }
+            }
+        });
+        prevPlaybackStateRef.current = playbackState;
+
+    }, [playbackState, isPlaying, sequenceCharacters, availableEvents, startEvent]);
 
 
     const handleAddCharacter = (objectId: string) => {
@@ -484,7 +658,7 @@ export function StoryEditorClient() {
                                 key={char.id}
                                 data-char-id={char.id}
                                 className="absolute w-16 h-16 -translate-x-1/2 -translate-y-full cursor-pointer"
-                                style={{ left: `${left}%`, top: `${top}%`, transition: isPlaying ? 'none' : 'left 0.2s, top 0.2s' }}
+                                style={{ left: `${left}%`, top: `${top}%` }}
                                 onClick={(e) => {
                                   if (isPlaying) return;
                                   e.stopPropagation();
@@ -497,24 +671,14 @@ export function StoryEditorClient() {
                         )
                     })}
 
-                    {activeEvent && (
-                        <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50 p-8">
-                            <Card className="max-w-md">
-                                <CardHeader><CardTitle>{activeEvent.event.title}</CardTitle></CardHeader>
-                                <CardContent><p>イベント「{activeEvent.event.title}」がここで再生されます。</p></CardContent>
-                                <CardFooter>
-                                    <Button onClick={() => {
-                                        setPlaybackState(current => ({
-                                            ...current,
-                                            [activeEvent.triggererId]: {
-                                                ...current[activeEvent.triggererId],
-                                                status: 'moving',
-                                            }
-                                        }));
-                                        setActiveEvent(null);
-                                    }}>閉じる</Button>
-                                </CardFooter>
-                            </Card>
+                    {activeEvent && currentEventNode && (
+                         <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8">
+                            <EventPlayerUI
+                                currentNode={currentEventNode}
+                                onChoice={handleEventChoice}
+                                onNext={goToNextEventNode}
+                                onClose={endEvent}
+                            />
                         </div>
                     )}
                 </div>
@@ -522,12 +686,12 @@ export function StoryEditorClient() {
 
             {/* Right Sidebar */}
             <div className="xl:col-span-1 flex flex-col h-full min-h-0 space-y-4">
-                <Card className="flex-grow flex flex-col min-h-0">
+                 <Card className="flex-grow-[2] flex flex-col min-h-0">
                     <CardHeader>
                         <CardTitle>シーケンス構成</CardTitle>
                     </CardHeader>
-                    <CardContent className="flex-grow">
-                        <ScrollArea className="h-full max-h-48">
+                    <CardContent className="flex-grow p-2">
+                        <ScrollArea className="h-full pr-2">
                             {sequenceCharacters.map(char => {
                                 const asset = getCharacterAsset(char.objectId);
                                 return (
@@ -556,76 +720,77 @@ export function StoryEditorClient() {
                         </ScrollArea>
                     </CardContent>
                 </Card>
-
-                <Tabs defaultValue="assets" className="flex-grow flex flex-col min-h-0">
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="assets">アセット</TabsTrigger>
-                    <TabsTrigger value="inspector">インスペクター</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="assets" className="flex-grow mt-4">
-                    <Card className="h-full">
-                      <CardHeader><CardTitle>キャラクター</CardTitle></CardHeader>
-                      <CardContent>
-                        <ScrollArea className="h-full max-h-48">
-                            <div className="grid grid-cols-3 gap-2">
-                                {availableCharacters.map(char => (
-                                    <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted" disabled={isPlaying}>
-                                        <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
-                                        <p className="text-xs text-center truncate">{char.name}</p>
-                                    </button>
-                                ))}
-                            </div>
-                        </ScrollArea>
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                  <TabsContent value="inspector" className="flex-grow mt-4">
-                    <Card className="h-full">
-                        <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
-                        <CardContent className="space-y-4 min-h-[10rem]">
-                            {isPlaying && <p className="text-muted-foreground text-sm">再生中は編集できません。</p>}
-                            {!isPlaying && !selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
-                            {!isPlaying && selectedChar && !selectedWaypoint && (
-                                <div className="space-y-4">
+                <div className="flex-grow-[3]">
+                    <Tabs defaultValue="assets" className="flex flex-col h-full">
+                      <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="assets">アセット</TabsTrigger>
+                        <TabsTrigger value="inspector">インスペクター</TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="assets" className="flex-grow mt-4">
+                        <Card className="h-full">
+                          <CardHeader><CardTitle>キャラクター</CardTitle></CardHeader>
+                           <CardContent className="p-2">
+                            <ScrollArea className="h-full max-h-48 pr-2">
+                                <div className="grid grid-cols-3 gap-2">
+                                    {availableCharacters.map(char => (
+                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted" disabled={isPlaying}>
+                                            <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
+                                            <p className="text-xs text-center truncate">{char.name}</p>
+                                        </button>
+                                    ))}
+                                </div>
+                            </ScrollArea>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+                      <TabsContent value="inspector" className="flex-grow mt-4">
+                        <Card className="h-full">
+                            <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
+                            <CardContent className="space-y-4 min-h-[10rem]">
+                                {isPlaying && <p className="text-muted-foreground text-sm">再生中は編集できません。</p>}
+                                {!isPlaying && !selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
+                                {!isPlaying && selectedChar && !selectedWaypoint && (
+                                    <div className="space-y-4">
+                                        <div>
+                                            <Label>キャラクター</Label>
+                                            <p className="font-semibold">{getCharacterAsset(selectedChar.objectId)?.name}</p>
+                                            <p className="text-xs text-muted-foreground">ステージをクリックして移動経路を作成します。</p>
+                                        </div>
+                                         <div>
+                                            <Label htmlFor="char-speed">移動速度</Label>
+                                            <Input
+                                                id="char-speed"
+                                                type="number"
+                                                value={selectedChar.speed}
+                                                onChange={(e) => setSequenceCharacters(prev => prev.map(c => c.id === selectedChar.id ? {...c, speed: parseFloat(e.target.value) || 1} : c))}
+                                                min="0.1"
+                                                step="0.1"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                                {!isPlaying && selectedChar && selectedWaypoint && (
                                     <div>
-                                        <Label>キャラクター</Label>
-                                        <p className="font-semibold">{getCharacterAsset(selectedChar.objectId)?.name}</p>
-                                        <p className="text-xs text-muted-foreground">ステージをクリックして移動経路を作成します。</p>
+                                        <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
+                                        <Select 
+                                            value={selectedWaypoint.eventId || 'none'}
+                                            onValueChange={(value) => updateWaypointEvent(selectedChar.id, selectedElement!.waypointIndex!, value)}
+                                        >
+                                            <SelectTrigger id="event-id"><SelectValue /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="none">なし</SelectItem>
+                                                {availableEvents.map(evt => (
+                                                    <SelectItem key={evt.id} value={evt.id}>{evt.title}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                     </div>
-                                     <div>
-                                        <Label htmlFor="char-speed">移動速度</Label>
-                                        <Input
-                                            id="char-speed"
-                                            type="number"
-                                            value={selectedChar.speed}
-                                            onChange={(e) => setSequenceCharacters(prev => prev.map(c => c.id === selectedChar.id ? {...c, speed: parseFloat(e.target.value) || 1} : c))}
-                                            min="0.1"
-                                            step="0.1"
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                            {!isPlaying && selectedChar && selectedWaypoint && (
-                                <div>
-                                    <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
-                                    <Select 
-                                        value={selectedWaypoint.eventId || 'none'}
-                                        onValueChange={(value) => updateWaypointEvent(selectedChar.id, selectedElement!.waypointIndex!, value)}
-                                    >
-                                        <SelectTrigger id="event-id"><SelectValue /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="none">なし</SelectItem>
-                                            {availableEvents.map(evt => (
-                                                <SelectItem key={evt.id} value={evt.id}>{evt.title}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
-                  </TabsContent>
-                </Tabs>
+                                )}
+                            </CardContent>
+                        </Card>
+                      </TabsContent>
+                    </Tabs>
+                </div>
             </div>
         </div>
     );
