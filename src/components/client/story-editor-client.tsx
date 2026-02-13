@@ -143,6 +143,7 @@ export function StoryEditorClient() {
     const [playbackState, setPlaybackState] = useState<Record<string, PlaybackState>>({});
     const [isPlaying, setIsPlaying] = useState(false);
     const [isStepModeActive, setIsStepModeActive] = useState(false);
+    const [stepPhase, setStepPhase] = useState<'move' | 'event'>('move');
 
     const [activeEvent, setActiveEvent] = useState<{event: GameEvent, triggererId: string} | null>(null);
     const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
@@ -255,20 +256,19 @@ export function StoryEditorClient() {
         if (startNode) {
             setActiveEvent({ event, triggererId });
             setCurrentEventNode(startNode);
+            setStepPhase('event');
         }
     }, []);
     
     const endEvent = useCallback(() => {
         setActiveEvent(null);
         setCurrentEventNode(null);
+        setStepPhase('move');
         if (isStepModeActive) {
-            // In step mode, after an event, we should be ready for the next move.
             const charState = selectedChar ? playbackState[selectedChar.id] : null;
             if (charState) {
-                const nextWaypointIndex = charState.targetWaypointIndex + 1;
-                if (nextWaypointIndex < (selectedChar?.path.length || 0)) {
-                    // Ready for next move
-                } else {
+                const nextWaypointIndex = charState.targetWaypointIndex;
+                if (nextWaypointIndex >= (selectedChar?.path.length || 0) -1) {
                      toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
                 }
             }
@@ -307,12 +307,13 @@ export function StoryEditorClient() {
         setIsPlaying(false);
         setActiveEvent(null);
         setCurrentEventNode(null);
+        setIsStepModeActive(false); 
+        setStepPhase('move');
     }, [sequenceCharacters]);
     
     const handlePlay = useCallback(() => {
         if (sequenceCharacters.length === 0) return;
         handleReset();
-        setIsStepModeActive(false);
         setIsPlaying(true);
     }, [sequenceCharacters, handleReset]);
 
@@ -333,13 +334,6 @@ export function StoryEditorClient() {
         if (!isStepModeActive) {
             handleReset();
             setIsStepModeActive(true);
-            const firstWaypoint = selectedChar.path[0];
-            if (firstWaypoint?.eventId) {
-                const event = availableEvents.find(e => e.id === firstWaypoint.eventId);
-                if (event) {
-                    startEvent(event, selectedChar.id);
-                }
-            }
             return;
         }
     
@@ -347,29 +341,32 @@ export function StoryEditorClient() {
         if (!charState) return;
     
         const currentWaypointIndex = charState.targetWaypointIndex;
-        const nextWaypointIndex = currentWaypointIndex + 1;
+        
+        if (stepPhase === 'move') {
+            const nextWaypointIndex = currentWaypointIndex + 1;
 
-        if (nextWaypointIndex < selectedChar.path.length) {
-            const nextWaypoint = selectedChar.path[nextWaypointIndex];
-            setPlaybackState(prev => ({
-                ...prev,
-                [selectedChar.id]: {
-                    ...charState,
-                    x: nextWaypoint.x,
-                    y: nextWaypoint.y,
-                    targetWaypointIndex: nextWaypointIndex,
+            if (nextWaypointIndex < selectedChar.path.length) {
+                const nextWaypoint = selectedChar.path[nextWaypointIndex];
+                setPlaybackState(prev => ({
+                    ...prev,
+                    [selectedChar.id]: {
+                        ...charState,
+                        x: nextWaypoint.x,
+                        y: nextWaypoint.y,
+                        targetWaypointIndex: nextWaypointIndex,
+                    }
+                }));
+                if (nextWaypoint.eventId) {
+                     const event = availableEvents.find(e => e.id === nextWaypoint.eventId);
+                     if (event) {
+                        startEvent(event, selectedChar.id);
+                     }
                 }
-            }));
-            if (nextWaypoint.eventId) {
-                 const event = availableEvents.find(e => e.id === nextWaypoint.eventId);
-                 if (event) {
-                    startEvent(event, selectedChar.id);
-                 }
+            } else {
+                 toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
             }
-        } else {
-            toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
         }
-    }, [selectedChar, playbackState, activeEvent, handleReset, availableEvents, startEvent, toast, isStepModeActive]);
+    }, [selectedChar, playbackState, activeEvent, handleReset, availableEvents, startEvent, toast, isStepModeActive, stepPhase]);
 
     useEffect(() => {
         if (!isPlaying) {
@@ -561,9 +558,9 @@ export function StoryEditorClient() {
                         </SelectContent>
                     </Select>
                      <div className="flex items-center gap-2">
-                        <Button onClick={handlePlay} disabled={isPlaying || isStepModeActive}><Play className="mr-2"/>シーケンス再生</Button>
-                        <Button onClick={handleStop} disabled={!isPlaying} variant="destructive"><StopCircle className="mr-2"/>停止</Button>
-                        <Button onClick={handleStepExecute} disabled={isEditingDisabled}><StepForward className="mr-2"/>ステップ実行</Button>
+                        <Button onClick={handlePlay} disabled={isPlaybackActive}><Play className="mr-2"/>再生</Button>
+                        <Button onClick={handleStop} disabled={!isPlaying} variant="secondary"><StopCircle className="mr-2"/>停止</Button>
+                        <Button onClick={handleStepExecute} disabled={isPlaying || activeEvent}><StepForward className="mr-2"/>ステップ実行</Button>
                         <Button onClick={handleReset} disabled={isPlaying} variant="outline"><RotateCcw className="mr-2"/>リセット</Button>
                     </div>
                 </div>
@@ -638,7 +635,7 @@ export function StoryEditorClient() {
                     })}
 
                     {activeEvent && currentEventNode && (
-                         <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8">
+                         <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8" onClick={(e) => e.stopPropagation()}>
                             <EventPlayerUI
                                 currentNode={currentEventNode}
                                 onChoice={handleEventChoice}
