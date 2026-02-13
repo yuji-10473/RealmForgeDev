@@ -151,6 +151,8 @@ export function StoryEditorClient() {
 
     const selectedChar = sequenceCharacters.find(c => c.id === selectedElement?.charId);
     
+    const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
+    
     useEffect(() => {
         const loadAssets = async () => {
             try {
@@ -247,7 +249,6 @@ export function StoryEditorClient() {
         loadAssets();
     }, []);
 
-    const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
 
     const startEvent = useCallback((event: GameEvent, triggererId: string) => {
         const startNode = event.nodes.find(n => n.type === 'start');
@@ -530,20 +531,20 @@ export function StoryEditorClient() {
     }
 
     const updateWaypointEvent = (charId: string, waypointIndex: number, eventId: string) => {
-        setSequenceCharacters(prev => 
-            prev.map(char => {
-                if (char.id === charId) {
-                    const newPath = char.path.map((point, index) => {
-                        if (index === waypointIndex) {
-                            return { ...point, eventId: eventId === 'none' ? undefined : eventId };
-                        }
-                        return point;
-                    });
-                    return { ...char, path: newPath };
-                }
-                return char;
-            })
-        );
+      setSequenceCharacters(prev => 
+          prev.map(char => {
+              if (char.id === charId) {
+                  const newPath = char.path.map((point, index) => {
+                      if (index === waypointIndex) {
+                          return { ...point, eventId: eventId === 'none' ? undefined : eventId };
+                      }
+                      return point;
+                  });
+                  return { ...char, path: newPath };
+              }
+              return char;
+          })
+      );
     }
     
     const selectedWaypoint = selectedChar && selectedElement?.waypointIndex !== undefined ? selectedChar.path[selectedElement.waypointIndex] : undefined;
@@ -685,11 +686,7 @@ export function StoryEditorClient() {
                                                 <div 
                                                     key={index} 
                                                     className={cn('p-2 rounded-md cursor-pointer', selectedElement?.waypointIndex === index && selectedElement?.charId === char.id ? 'bg-primary/20' : 'hover:bg-muted')}
-                                                    onClick={() => {
-                                                        const newPath = [...char.path];
-                                                        newPath.splice(index, 1);
-                                                        setSequenceCharacters(prev => prev.map(c => c.id === char.id ? {...c, path: newPath} : c));
-                                                    }}
+                                                    onClick={() => setSelectedElement({ charId: char.id, waypointIndex: index })}
                                                 >
                                                     <p className="text-sm font-medium">ウェイポイント {index + 1}</p>
                                                     {point.eventId && <p className="text-xs text-muted-foreground">イベント: {availableEvents.find(e => e.id === point.eventId)?.title || point.eventId}</p>}
