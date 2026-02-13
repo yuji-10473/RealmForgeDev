@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
@@ -147,6 +148,8 @@ export function StoryEditorClient() {
     const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
     
     const gameLoopRef = useRef<number>();
+
+    const selectedChar = sequenceCharacters.find(c => c.id === selectedElement?.charId);
     
     useEffect(() => {
         const loadAssets = async () => {
@@ -293,7 +296,7 @@ export function StoryEditorClient() {
         setCurrentEventNode(null);
         setStepPhase('event');
     }, [sequenceCharacters]);
-
+    
     const handlePlay = useCallback(() => {
         if (sequenceCharacters.length === 0) return;
         
@@ -317,7 +320,7 @@ export function StoryEditorClient() {
         setIsPlaying(false);
         handleReset();
     }, [handleReset]);
-    
+
     const handleStepExecute = useCallback(() => {
         if (!selectedChar) {
             toast({ variant: 'destructive', title: 'キャラクターを選択してください' });
@@ -543,7 +546,6 @@ export function StoryEditorClient() {
         );
     }
     
-    const selectedChar = sequenceCharacters.find(c => c.id === selectedElement?.charId);
     const selectedWaypoint = selectedChar && selectedElement?.waypointIndex !== undefined ? selectedChar.path[selectedElement.waypointIndex] : undefined;
     const mapUrl = availableMaps.find(m => m.id === mapId)?.url || '';
 
@@ -683,7 +685,11 @@ export function StoryEditorClient() {
                                                 <div 
                                                     key={index} 
                                                     className={cn('p-2 rounded-md cursor-pointer', selectedElement?.waypointIndex === index && selectedElement?.charId === char.id ? 'bg-primary/20' : 'hover:bg-muted')}
-                                                    onClick={() => setSelectedElement({ charId: char.id, waypointIndex: index })}
+                                                    onClick={() => {
+                                                        const newPath = [...char.path];
+                                                        newPath.splice(index, 1);
+                                                        setSequenceCharacters(prev => prev.map(c => c.id === char.id ? {...c, path: newPath} : c));
+                                                    }}
                                                 >
                                                     <p className="text-sm font-medium">ウェイポイント {index + 1}</p>
                                                     {point.eventId && <p className="text-xs text-muted-foreground">イベント: {availableEvents.find(e => e.id === point.eventId)?.title || point.eventId}</p>}
