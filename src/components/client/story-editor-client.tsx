@@ -48,6 +48,11 @@ type GameEvent = {
 };
 // --- End Event System Types ---
 
+type AnimationFrame = {
+    id: string;
+    image: string;
+};
+
 function EventPlayerUI({
     currentNode,
     onChoice,
@@ -104,7 +109,7 @@ type SequenceCharacter = {
 type AnimationClip = {
   id: string;
   name: string;
-  frames: any[];
+  frames: AnimationFrame[];
   fps: number;
 };
 
@@ -150,7 +155,6 @@ export function StoryEditorClient() {
     const [playbackAnimationState, setPlaybackAnimationState] = useState<Record<string, CharacterPlaybackAnimationState>>({});
     const [isPlaying, setIsPlaying] = useState(false);
     const [isStepModeActive, setIsStepModeActive] = useState(false);
-    const [stepPhase, setStepPhase] = useState<'move' | 'event'>('move');
 
     const [activeEvent, setActiveEvent] = useState<{event: GameEvent, triggererId: string} | null>(null);
     const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
@@ -257,20 +261,36 @@ export function StoryEditorClient() {
         loadAssets();
     }, []);
 
+    // Preload animation frames
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        availableCharacters.forEach(char => {
+            if (char.basePath && char.clips) {
+                char.clips.forEach(clip => {
+                    clip.frames.forEach(frame => {
+                        if (frame.image) {
+                            const img = new (window as any).Image();
+                            img.src = `${char.basePath}/frames/${frame.image}`;
+                        }
+                    });
+                });
+            }
+        });
+    }, [availableCharacters]);
+
 
     const startEvent = useCallback((event: GameEvent, triggererId: string) => {
         const startNode = event.nodes.find(n => n.type === 'start');
         if (startNode) {
             setActiveEvent({ event, triggererId });
             setCurrentEventNode(startNode);
-            setStepPhase('event');
         }
     }, []);
     
     const endEvent = useCallback(() => {
         setActiveEvent(null);
         setCurrentEventNode(null);
-        setStepPhase('move');
         if (isStepModeActive) {
             const charState = selectedChar ? playbackState[selectedChar.id] : null;
             if (charState) {
@@ -323,9 +343,8 @@ export function StoryEditorClient() {
         setActiveEvent(null);
         setCurrentEventNode(null);
         setIsStepModeActive(false); 
-        setStepPhase('move');
     }, [sequenceCharacters]);
-    
+
     const handlePlay = useCallback(() => {
         if (sequenceCharacters.length === 0) return;
         handleReset();
@@ -337,6 +356,12 @@ export function StoryEditorClient() {
     }, []);
     
     const handleStepExecute = useCallback(() => {
+        if (!isStepModeActive) {
+            handleReset();
+            setIsStepModeActive(true);
+            return;
+        }
+
         if (!selectedChar) {
             toast({ variant: 'destructive', title: 'キャラクターを選択してください' });
             return;
@@ -345,43 +370,39 @@ export function StoryEditorClient() {
             toast({ title: 'イベント進行中', description: 'イベントを完了しないと次のステップへは進めません。' });
             return;
         }
-
-        if (!isStepModeActive) {
-            handleReset();
-            setIsStepModeActive(true);
-            return;
-        }
     
         const charState = playbackState[selectedChar.id];
+        if (!charState && selectedChar.path.length === 0) {
+            toast({ title: 'ウェイポイントがありません', description: 'キャラクターの移動経路を設定してください。' });
+            return;
+        }
         if (!charState) return;
-    
+
         const currentWaypointIndex = charState.targetWaypointIndex;
         
-        if (stepPhase === 'move') {
-            const nextWaypointIndex = currentWaypointIndex + 1;
+        const nextWaypointIndex = currentWaypointIndex + 1;
 
-            if (nextWaypointIndex < selectedChar.path.length) {
-                const nextWaypoint = selectedChar.path[nextWaypointIndex];
-                setPlaybackState(prev => ({
-                    ...prev,
-                    [selectedChar.id]: {
-                        ...charState,
-                        x: nextWaypoint.x,
-                        y: nextWaypoint.y,
-                        targetWaypointIndex: nextWaypointIndex,
-                    }
-                }));
-                if (nextWaypoint.eventId) {
-                     const event = availableEvents.find(e => e.id === nextWaypoint.eventId);
-                     if (event) {
-                        startEvent(event, selectedChar.id);
-                     }
+        if (nextWaypointIndex < selectedChar.path.length) {
+            const nextWaypoint = selectedChar.path[nextWaypointIndex];
+            setPlaybackState(prev => ({
+                ...prev,
+                [selectedChar.id]: {
+                    ...charState,
+                    x: nextWaypoint.x,
+                    y: nextWaypoint.y,
+                    targetWaypointIndex: nextWaypointIndex,
                 }
-            } else {
-                 toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
+            }));
+            if (nextWaypoint.eventId) {
+                    const event = availableEvents.find(e => e.id === nextWaypoint.eventId);
+                    if (event) {
+                    startEvent(event, selectedChar.id);
+                    }
             }
+        } else {
+                toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
         }
-    }, [selectedChar, isStepModeActive, activeEvent, playbackState, availableEvents, handleReset, startEvent, stepPhase, toast]);
+    }, [selectedChar, isStepModeActive, activeEvent, playbackState, availableEvents, handleReset, startEvent, toast]);
     
     useEffect(() => {
         if (!isPlaying) {
