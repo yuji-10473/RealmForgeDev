@@ -1,6 +1,6 @@
 
 
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -142,7 +142,7 @@ export function StoryEditorClient() {
     // Playback state
     const [playbackState, setPlaybackState] = useState<Record<string, PlaybackState>>({});
     const [isPlaying, setIsPlaying] = useState(false);
-    const [stepPhase, setStepPhase] = useState<'event' | 'move'>('event');
+    const [isStepModeActive, setIsStepModeActive] = useState(false);
 
     const [activeEvent, setActiveEvent] = useState<{event: GameEvent, triggererId: string} | null>(null);
     const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
@@ -261,7 +261,19 @@ export function StoryEditorClient() {
     const endEvent = useCallback(() => {
         setActiveEvent(null);
         setCurrentEventNode(null);
-    }, []);
+        if (isStepModeActive) {
+            // In step mode, after an event, we should be ready for the next move.
+            const charState = selectedChar ? playbackState[selectedChar.id] : null;
+            if (charState) {
+                const nextWaypointIndex = charState.targetWaypointIndex + 1;
+                if (nextWaypointIndex < (selectedChar?.path.length || 0)) {
+                    // Ready for next move
+                } else {
+                     toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
+                }
+            }
+        }
+    }, [isStepModeActive, playbackState, selectedChar, toast]);
 
     const goToNextEventNode = useCallback((nodeId: string | undefined) => {
         if (!activeEvent || !nodeId) {
@@ -293,35 +305,22 @@ export function StoryEditorClient() {
         });
         setPlaybackState(initialState);
         setIsPlaying(false);
+        setIsStepModeActive(false);
         setActiveEvent(null);
         setCurrentEventNode(null);
-        setStepPhase('event');
     }, [sequenceCharacters]);
     
     const handlePlay = useCallback(() => {
         if (sequenceCharacters.length === 0) return;
-        
-        const initialState: Record<string, PlaybackState> = {};
-        sequenceCharacters.forEach(char => {
-            if (char.path.length > 0) {
-                initialState[char.id] = {
-                    x: char.path[0].x,
-                    y: char.path[0].y,
-                    targetWaypointIndex: 1,
-                };
-            }
-        });
-        setPlaybackState(initialState);
-        setActiveEvent(null);
-        setCurrentEventNode(null);
+        handleReset();
+        setIsStepModeActive(false);
         setIsPlaying(true);
-    }, [sequenceCharacters]);
+    }, [sequenceCharacters, handleReset]);
 
     const handleStop = useCallback(() => {
         setIsPlaying(false);
-        handleReset();
-    }, [handleReset]);
-
+    }, []);
+    
     const handleStepExecute = useCallback(() => {
         if (!selectedChar) {
             toast({ variant: 'destructive', title: 'キャラクターを選択してください' });
@@ -331,41 +330,26 @@ export function StoryEditorClient() {
             toast({ title: 'イベント進行中', description: 'イベントを完了しないと次のステップへは進めません。' });
             return;
         }
-    
-        const charState = playbackState[selectedChar.id];
-    
-        // Initialize on first step
-        if (!charState) {
+
+        if (!isStepModeActive) {
             handleReset();
-            // The state update is async, so we use a timeout to run the first step check after state is set.
-            setTimeout(() => {
-                const firstWaypoint = selectedChar.path[0];
-                if (firstWaypoint && firstWaypoint.eventId) {
-                    const event = availableEvents.find(e => e.id === firstWaypoint.eventId);
-                    if (event) {
-                        startEvent(event, selectedChar.id);
-                        setStepPhase('move');
-                    }
+            setIsStepModeActive(true);
+            const firstWaypoint = selectedChar.path[0];
+            if (firstWaypoint?.eventId) {
+                const event = availableEvents.find(e => e.id === firstWaypoint.eventId);
+                if (event) {
+                    startEvent(event, selectedChar.id);
                 }
-            }, 0);
+            }
             return;
         }
     
+        const charState = playbackState[selectedChar.id];
+        if (!charState) return;
+    
         const currentWaypointIndex = charState.targetWaypointIndex;
-        const currentWaypoint = selectedChar.path[currentWaypointIndex];
-    
-        // Phase 1: Check for event at current location
-        if (stepPhase === 'event' && currentWaypoint?.eventId) {
-            const event = availableEvents.find(e => e.id === currentWaypoint.eventId);
-            if (event) {
-                startEvent(event, selectedChar.id);
-                setStepPhase('move'); // Next step will be a move
-                return;
-            }
-        }
-    
-        // Phase 2: Move to next waypoint (if no event was triggered or if it's move phase)
         const nextWaypointIndex = currentWaypointIndex + 1;
+
         if (nextWaypointIndex < selectedChar.path.length) {
             const nextWaypoint = selectedChar.path[nextWaypointIndex];
             setPlaybackState(prev => ({
@@ -377,11 +361,16 @@ export function StoryEditorClient() {
                     targetWaypointIndex: nextWaypointIndex,
                 }
             }));
-            setStepPhase('event'); // After moving, next step is to check for an event
+            if (nextWaypoint.eventId) {
+                 const event = availableEvents.find(e => e.id === nextWaypoint.eventId);
+                 if (event) {
+                    startEvent(event, selectedChar.id);
+                 }
+            }
         } else {
             toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
         }
-    }, [selectedChar, playbackState, activeEvent, handleReset, availableEvents, startEvent, toast, stepPhase]);
+    }, [selectedChar, playbackState, activeEvent, handleReset, availableEvents, startEvent, toast, isStepModeActive]);
 
     useEffect(() => {
         if (!isPlaying) {
@@ -437,7 +426,8 @@ export function StoryEditorClient() {
             setPlaybackState(newPlaybackState);
 
             if (allFinished) {
-                handleStop();
+                setIsPlaying(false);
+                toast({ title: 'シーケンス再生終了' });
             }
 
             gameLoopRef.current = requestAnimationFrame(loop);
@@ -450,7 +440,7 @@ export function StoryEditorClient() {
                 cancelAnimationFrame(gameLoopRef.current);
             }
         }
-    }, [isPlaying, playbackState, activeEvent, sequenceCharacters, availableEvents, startEvent, handleStop]);
+    }, [isPlaying, playbackState, activeEvent, sequenceCharacters, availableEvents, startEvent, toast]);
 
 
     const handleAddCharacter = (objectId: string) => {
@@ -467,7 +457,6 @@ export function StoryEditorClient() {
     const handleRemoveCharacter = (charId: string) => {
         setSequenceCharacters(prev => {
             const newChars = prev.filter(c => c.id !== charId);
-            // Also update playback state
             setPlaybackState(currentPlaybackState => {
                 const newPlaybackState = { ...currentPlaybackState };
                 delete newPlaybackState[charId];
@@ -481,7 +470,7 @@ export function StoryEditorClient() {
     }
 
     const handleStageClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isPlaying) return;
+        if (isPlaying || activeEvent) return;
         
         const target = e.target as HTMLElement;
         const isCharacterClick = !!target.closest('[data-char-id]');
@@ -509,42 +498,45 @@ export function StoryEditorClient() {
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
 
-        setSequenceCharacters(prev => prev.map(char => {
-            if (char.id === selectedElement.charId) {
-                const newPath = [...char.path, { x: x * EDITOR_WIDTH, y: y * EDITOR_HEIGHT }];
-                // if it's the first waypoint, reset playback state for this char
-                if (newPath.length === 1) {
-                    setPlaybackState(prevPlayback => ({
-                        ...prevPlayback,
-                        [char.id]: { x: newPath[0].x, y: newPath[0].y, targetWaypointIndex: 0 }
-                    }));
-                }
-                return { ...char, path: newPath };
+        const newPathPoint = { x: x * EDITOR_WIDTH, y: y * EDITOR_HEIGHT };
+
+        setSequenceCharacters(prevChars => {
+            const newChars = [...prevChars];
+            const charIndex = newChars.findIndex(c => c.id === selectedElement.charId);
+            if (charIndex === -1) return prevChars;
+
+            const charToUpdate = { ...newChars[charIndex] };
+            charToUpdate.path = [...charToUpdate.path, newPathPoint];
+            newChars[charIndex] = charToUpdate;
+
+            if (charToUpdate.path.length === 1) {
+                setPlaybackState(prevPlayback => ({
+                    ...prevPlayback,
+                    [charToUpdate.id]: { x: newPathPoint.x, y: newPathPoint.y, targetWaypointIndex: 0 }
+                }));
             }
-            return char;
-        }));
+            return newChars;
+        });
     };
     
     const selectCharacter = (charId: string) => {
-        if(isPlaying) return;
+        if(isPlaying || activeEvent) return;
         setSelectedElement({ charId });
     }
 
     const updateWaypointEvent = (charId: string, waypointIndex: number, eventId: string) => {
-      setSequenceCharacters(prev => 
-          prev.map(char => {
-              if (char.id === charId) {
-                  const newPath = char.path.map((point, index) => {
-                      if (index === waypointIndex) {
-                          return { ...point, eventId: eventId === 'none' ? undefined : eventId };
-                      }
-                      return point;
-                  });
-                  return { ...char, path: newPath };
-              }
-              return char;
-          })
-      );
+        setSequenceCharacters(prev =>
+            prev.map(char => {
+                if (char.id === charId) {
+                    const newPath = [...char.path];
+                    const pointToUpdate = { ...newPath[waypointIndex] };
+                    pointToUpdate.eventId = eventId === 'none' ? undefined : eventId;
+                    newPath[waypointIndex] = pointToUpdate;
+                    return { ...char, path: newPath };
+                }
+                return char;
+            })
+        );
     }
     
     const selectedWaypoint = selectedChar && selectedElement?.waypointIndex !== undefined ? selectedChar.path[selectedElement.waypointIndex] : undefined;
@@ -553,8 +545,8 @@ export function StoryEditorClient() {
     if (loading) return <div className="flex h-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     if (error) return <Alert variant="destructive"><Terminal className="h-4 w-4" /><AlertTitle>Error</AlertTitle><AlertDescription>{error}</AlertDescription></Alert>;
 
-    const isPlaybackActive = isPlaying || Object.keys(playbackState).length > 0;
-    const isEditingDisabled = isPlaying || !!activeEvent;
+    const isPlaybackActive = isPlaying || isStepModeActive;
+    const isEditingDisabled = isPlaying || isStepModeActive || !!activeEvent;
 
     return (
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-full">
@@ -570,11 +562,8 @@ export function StoryEditorClient() {
                         </SelectContent>
                     </Select>
                      <div className="flex items-center gap-2">
-                        {isPlaying ? (
-                             <Button onClick={handleStop} variant="destructive"><StopCircle className="mr-2"/>停止</Button>
-                        ) : (
-                             <Button onClick={handlePlay}><Play className="mr-2"/>シーケンス再生</Button>
-                        )}
+                        <Button onClick={handlePlay} disabled={isPlaying || isStepModeActive}><Play className="mr-2"/>シーケンス再生</Button>
+                        <Button onClick={handleStop} disabled={!isPlaying} variant="destructive"><StopCircle className="mr-2"/>停止</Button>
                         <Button onClick={handleStepExecute} disabled={isEditingDisabled}><StepForward className="mr-2"/>ステップ実行</Button>
                         <Button onClick={handleReset} disabled={isPlaying} variant="outline"><RotateCcw className="mr-2"/>リセット</Button>
                     </div>
@@ -591,26 +580,25 @@ export function StoryEditorClient() {
                     )}
 
                     {/* Waypoints and Paths */}
-                    {!isPlaying && sequenceCharacters.map(char => {
-                        const isSelected = char.id === selectedChar?.id;
-                        if (!isSelected) return null;
-                        
-                        return (
-                            <React.Fragment key={`${char.id}-path`}>
-                                {char.path.map((point, index, arr) => (
-                                    <React.Fragment key={index}>
-                                        {index > 0 && <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"><line x1={`${(arr[index-1].x / EDITOR_WIDTH) * 100}%`} y1={`${(arr[index-1].y / EDITOR_HEIGHT) * 100}%`} x2={`${(point.x / EDITOR_WIDTH) * 100}%`} y2={`${(point.y / EDITOR_HEIGHT) * 100}%`} stroke="hsl(var(--primary))" strokeWidth="2" strokeDasharray="4" /></svg>}
-                                        <div 
-                                            data-waypoint-index={index}
-                                            className={cn("absolute w-3 h-3 bg-background border-2 border-primary rounded-full -translate-x-1/2 -translate-y-1/2 cursor-pointer ring-offset-background ring-offset-2", selectedElement?.waypointIndex === index ? 'ring-2 ring-primary' : '')}
-                                            style={{ left: `${(point.x / EDITOR_WIDTH) * 100}%`, top: `${(point.y / EDITOR_HEIGHT) * 100}%` }}
-                                            onClick={(e) => { e.stopPropagation(); setSelectedElement({ charId: char.id, waypointIndex: index }); }}
-                                        />
-                                    </React.Fragment>
-                                ))}
-                            </React.Fragment>
-                        );
-                    })}
+                    {!isPlaybackActive && selectedChar && (
+                        <React.Fragment>
+                            {selectedChar.path.map((point, index, arr) => (
+                                <React.Fragment key={index}>
+                                    {index > 0 && <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"><line x1={`${(arr[index-1].x / EDITOR_WIDTH) * 100}%`} y1={`${(arr[index-1].y / EDITOR_HEIGHT) * 100}%`} x2={`${(point.x / EDITOR_WIDTH) * 100}%`} y2={`${(point.y / EDITOR_HEIGHT) * 100}%`} stroke="hsl(var(--primary))" strokeWidth="2" strokeDasharray="4" /></svg>}
+                                    <div 
+                                        data-waypoint-index={index}
+                                        className={cn("absolute w-3 h-3 bg-background border-2 border-primary rounded-full -translate-x-1/2 -translate-y-1/2 cursor-pointer ring-offset-background ring-offset-2", selectedElement?.waypointIndex === index ? 'ring-2 ring-primary' : '')}
+                                        style={{ left: `${(point.x / EDITOR_WIDTH) * 100}%`, top: `${(point.y / EDITOR_HEIGHT) * 100}%` }}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (isEditingDisabled) return;
+                                            setSelectedElement({ charId: selectedChar.id, waypointIndex: index });
+                                        }}
+                                    />
+                                </React.Fragment>
+                            ))}
+                        </React.Fragment>
+                    )}
 
                      {/* Characters */}
                     {sequenceCharacters.map(char => {
@@ -640,7 +628,6 @@ export function StoryEditorClient() {
                                 className="absolute w-16 h-16 -translate-x-1/2 -translate-y-full cursor-pointer"
                                 style={{ left: `${left}%`, top: `${top}%` }}
                                 onClick={(e) => {
-                                  if (isPlaying) return;
                                   e.stopPropagation();
                                   selectCharacter(char.id);
                                 }}
@@ -652,7 +639,7 @@ export function StoryEditorClient() {
                     })}
 
                     {activeEvent && currentEventNode && (
-                         <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8">
+                         <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8" onClick={(e) => e.stopPropagation()}>
                             <EventPlayerUI
                                 currentNode={currentEventNode}
                                 onChoice={handleEventChoice}
@@ -684,9 +671,13 @@ export function StoryEditorClient() {
                                             {char.path.length === 0 && <p className="text-xs text-muted-foreground pl-2 py-1">ステージをクリックしてウェイポイントを追加</p>}
                                             {char.path.map((point, index) => (
                                                 <div 
-                                                    key={index} 
+                                                    key={index}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (isEditingDisabled) return;
+                                                        setSelectedElement({ charId: char.id, waypointIndex: index });
+                                                    }}
                                                     className={cn('p-2 rounded-md cursor-pointer', selectedElement?.waypointIndex === index && selectedElement?.charId === char.id ? 'bg-primary/20' : 'hover:bg-muted')}
-                                                    onClick={() => setSelectedElement({ charId: char.id, waypointIndex: index })}
                                                 >
                                                     <p className="text-sm font-medium">ウェイポイント {index + 1}</p>
                                                     {point.eventId && <p className="text-xs text-muted-foreground">イベント: {availableEvents.find(e => e.id === point.eventId)?.title || point.eventId}</p>}
