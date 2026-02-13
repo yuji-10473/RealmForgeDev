@@ -356,21 +356,41 @@ export function StoryEditorClient() {
     }, []);
     
     const handleStepExecute = useCallback(() => {
-        if (!isStepModeActive) {
-            handleReset();
-            setIsStepModeActive(true);
+        if (isPlaying || activeEvent) {
+            if (isPlaying) {
+                toast({ variant: 'destructive', title: '再生中はステップ実行できません' });
+            }
+            if (activeEvent) {
+                toast({ title: 'イベント進行中', description: 'イベントを完了しないと次のステップへは進めません。' });
+            }
             return;
         }
 
+        // Must have a character selected to do anything
         if (!selectedChar) {
             toast({ variant: 'destructive', title: 'キャラクターを選択してください' });
             return;
         }
-        if (activeEvent) {
-            toast({ title: 'イベント進行中', description: 'イベントを完了しないと次のステップへは進めません。' });
+
+        // First click setup
+        if (!isStepModeActive) {
+            handleReset();
+            setIsStepModeActive(true);
+
+            // After resetting, check for an event at the starting waypoint (index 0)
+            if (selectedChar.path.length > 0) {
+                const startingWaypoint = selectedChar.path[0];
+                if (startingWaypoint.eventId) {
+                    const event = availableEvents.find(e => e.id === startingWaypoint.eventId);
+                    if (event) {
+                        startEvent(event, selectedChar.id);
+                    }
+                }
+            }
             return;
         }
-    
+
+        // Subsequent clicks
         const charState = playbackState[selectedChar.id];
         if (!charState && selectedChar.path.length === 0) {
             toast({ title: 'ウェイポイントがありません', description: 'キャラクターの移動経路を設定してください。' });
@@ -379,7 +399,6 @@ export function StoryEditorClient() {
         if (!charState) return;
 
         const currentWaypointIndex = charState.targetWaypointIndex;
-        
         const nextWaypointIndex = currentWaypointIndex + 1;
 
         if (nextWaypointIndex < selectedChar.path.length) {
@@ -393,16 +412,18 @@ export function StoryEditorClient() {
                     targetWaypointIndex: nextWaypointIndex,
                 }
             }));
+            
+            // Check the event on the waypoint we just arrived at.
             if (nextWaypoint.eventId) {
-                    const event = availableEvents.find(e => e.id === nextWaypoint.eventId);
-                    if (event) {
+                const event = availableEvents.find(e => e.id === nextWaypoint.eventId);
+                if (event) {
                     startEvent(event, selectedChar.id);
-                    }
+                }
             }
         } else {
-                toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
+            toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
         }
-    }, [selectedChar, isStepModeActive, activeEvent, playbackState, availableEvents, handleReset, startEvent, toast]);
+    }, [selectedChar, isStepModeActive, activeEvent, playbackState, isPlaying, handleReset, availableEvents, startEvent, toast]);
     
     useEffect(() => {
         if (!isPlaying) {
@@ -685,7 +706,7 @@ export function StoryEditorClient() {
                      <div className="flex items-center gap-2">
                         <Button onClick={handlePlay} disabled={isPlaybackActive}><Play className="mr-2"/>再生</Button>
                         <Button onClick={handleStop} disabled={!isPlaying} variant="secondary"><StopCircle className="mr-2"/>停止</Button>
-                        <Button onClick={handleStepExecute} disabled={isPlaying || activeEvent}><StepForward className="mr-2"/>ステップ実行</Button>
+                        <Button onClick={handleStepExecute}><StepForward className="mr-2"/>ステップ実行</Button>
                         <Button onClick={handleReset} disabled={isPlaying} variant="outline"><RotateCcw className="mr-2"/>リセット</Button>
                     </div>
                 </div>
