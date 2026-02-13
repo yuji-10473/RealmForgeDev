@@ -125,6 +125,12 @@ const EDITOR_HEIGHT = 1080;
 
 type PlaybackState = { x: number; y: number; targetWaypointIndex: number; };
 
+type CharacterPlaybackAnimationState = {
+    animationName: string;
+    frameIndex: number;
+    lastFrameUpdateTime: number;
+};
+
 export function StoryEditorClient() {
     const { toast } = useToast();
     const [loading, setLoading] = useState(true);
@@ -141,6 +147,7 @@ export function StoryEditorClient() {
     
     // Playback state
     const [playbackState, setPlaybackState] = useState<Record<string, PlaybackState>>({});
+    const [playbackAnimationState, setPlaybackAnimationState] = useState<Record<string, CharacterPlaybackAnimationState>>({});
     const [isPlaying, setIsPlaying] = useState(false);
     const [isStepModeActive, setIsStepModeActive] = useState(false);
     const [stepPhase, setStepPhase] = useState<'move' | 'event'>('move');
@@ -149,10 +156,10 @@ export function StoryEditorClient() {
     const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
     
     const gameLoopRef = useRef<number>();
+    const animationLoopRef = useRef<number>();
 
-    const selectedChar = sequenceCharacters.find(c => c.id === selectedElement?.charId);
-    
     const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
+    const selectedChar = sequenceCharacters.find(c => c.id === selectedElement?.charId);
     
     useEffect(() => {
         const loadAssets = async () => {
@@ -293,17 +300,25 @@ export function StoryEditorClient() {
     }, [goToNextEventNode]);
 
     const handleReset = useCallback(() => {
-        const initialState: Record<string, PlaybackState> = {};
+        const initialPlaybackState: Record<string, PlaybackState> = {};
+        const initialAnimationState: Record<string, CharacterPlaybackAnimationState> = {};
+
         sequenceCharacters.forEach(char => {
             if (char.path.length > 0) {
-                initialState[char.id] = {
+                initialPlaybackState[char.id] = {
                     x: char.path[0].x,
                     y: char.path[0].y,
                     targetWaypointIndex: 0,
                 };
+                initialAnimationState[char.id] = {
+                    animationName: 'idle_down',
+                    frameIndex: 0,
+                    lastFrameUpdateTime: 0,
+                }
             }
         });
-        setPlaybackState(initialState);
+        setPlaybackState(initialPlaybackState);
+        setPlaybackAnimationState(initialAnimationState);
         setIsPlaying(false);
         setActiveEvent(null);
         setCurrentEventNode(null);
@@ -366,15 +381,15 @@ export function StoryEditorClient() {
                  toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
             }
         }
-    }, [selectedChar, playbackState, activeEvent, handleReset, availableEvents, startEvent, toast, isStepModeActive, stepPhase]);
-
+    }, [selectedChar, isStepModeActive, activeEvent, playbackState, availableEvents, handleReset, startEvent, stepPhase, toast]);
+    
     useEffect(() => {
         if (!isPlaying) {
             if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
             return;
         }
 
-        const loop = () => {
+        const loop = (currentTime: number) => {
             if (!isPlaying) return;
 
             if (activeEvent) {
@@ -384,6 +399,7 @@ export function StoryEditorClient() {
 
             let allFinished = true;
             const newPlaybackState: Record<string, PlaybackState> = {};
+            const newAnimationStates: Record<string, Partial<CharacterPlaybackAnimationState>> = {};
             
             for (const char of sequenceCharacters) {
                 const charState = playbackState[char.id];
@@ -406,6 +422,21 @@ export function StoryEditorClient() {
 
                 if (distance < speed) {
                     newPlaybackState[char.id] = { x: targetWaypoint.x, y: targetWaypoint.y, targetWaypointIndex: targetIndex + 1 };
+                    
+                    let idleDirection = 'down';
+                    const nextTargetIndex = targetIndex + 1;
+                    if (nextTargetIndex < char.path.length) {
+                        const nextTarget = char.path[nextTargetIndex];
+                        const nextDx = nextTarget.x - targetWaypoint.x;
+                        const nextDy = nextTarget.y - targetWaypoint.y;
+                        if (Math.abs(nextDx) > Math.abs(nextDy)) {
+                            idleDirection = nextDx > 0 ? 'right' : 'left';
+                        } else if (nextDy !== 0) {
+                            idleDirection = nextDy > 0 ? 'down' : 'up';
+                        }
+                    }
+                    newAnimationStates[char.id] = { animationName: `idle_${idleDirection}`};
+
                     if (targetWaypoint.eventId) {
                         const event = availableEvents.find(e => e.id === targetWaypoint.eventId);
                         if (event) {
@@ -416,10 +447,34 @@ export function StoryEditorClient() {
                     const moveX = (dx / distance) * speed;
                     const moveY = (dy / distance) * speed;
                     newPlaybackState[char.id] = { ...charState, x: charState.x + moveX, y: charState.y + moveY };
+
+                    let animationName: string;
+                     if (Math.abs(dx) > Math.abs(dy)) {
+                        animationName = dx > 0 ? 'walk_right' : 'walk_left';
+                    } else {
+                        animationName = dy > 0 ? 'walk_down' : 'walk_up';
+                    }
+                    newAnimationStates[char.id] = { animationName };
                 }
             }
 
             setPlaybackState(newPlaybackState);
+
+            setPlaybackAnimationState(prev => {
+                const newState = {...prev};
+                for (const charId in newAnimationStates) {
+                    const newAnim = newAnimationStates[charId];
+                    if (newState[charId]?.animationName !== newAnim.animationName) {
+                        newState[charId] = {
+                            animationName: newAnim.animationName || 'idle_down',
+                            frameIndex: 0,
+                            lastFrameUpdateTime: currentTime,
+                        };
+                    }
+                }
+                return newState;
+            });
+
 
             if (allFinished) {
                 setIsPlaying(false);
@@ -437,6 +492,51 @@ export function StoryEditorClient() {
             }
         }
     }, [isPlaying, playbackState, activeEvent, sequenceCharacters, availableEvents, startEvent, toast]);
+
+
+    useEffect(() => {
+        if (!isPlaying) {
+            if (animationLoopRef.current) cancelAnimationFrame(animationLoopRef.current);
+            return;
+        }
+    
+        const animate = (currentTime: number) => {
+            setPlaybackAnimationState(currentStates => {
+                const newStates = { ...currentStates };
+                let hasChanged = false;
+    
+                for (const charId in newStates) {
+                    const state = newStates[charId];
+                    const char = sequenceCharacters.find(c => c.id === charId);
+                    const asset = char ? getCharacterAsset(char.objectId) : undefined;
+                    const clip = asset?.clips.find(c => c.name === state.animationName);
+    
+                    if (clip && clip.frames.length > 0) {
+                        const frameDuration = 1000 / (clip.fps || 8);
+                        if (currentTime - state.lastFrameUpdateTime > frameDuration) {
+                            newStates[charId] = {
+                                ...state,
+                                frameIndex: (state.frameIndex + 1) % clip.frames.length,
+                                lastFrameUpdateTime: currentTime
+                            };
+                            hasChanged = true;
+                        }
+                    }
+                }
+                return hasChanged ? newStates : currentStates;
+            });
+    
+            animationLoopRef.current = requestAnimationFrame(animate);
+        };
+    
+        animationLoopRef.current = requestAnimationFrame(animate);
+    
+        return () => {
+            if (animationLoopRef.current) {
+                cancelAnimationFrame(animationLoopRef.current);
+            }
+        };
+    }, [isPlaying, sequenceCharacters, getCharacterAsset]);
 
 
     const handleAddCharacter = (objectId: string) => {
@@ -509,6 +609,10 @@ export function StoryEditorClient() {
                 setPlaybackState(prevPlayback => ({
                     ...prevPlayback,
                     [charToUpdate.id]: { x: newPathPoint.x, y: newPathPoint.y, targetWaypointIndex: 0 }
+                }));
+                setPlaybackAnimationState(prev => ({
+                    ...prev,
+                    [charToUpdate.id]: { animationName: 'idle_down', frameIndex: 0, lastFrameUpdateTime: 0 }
                 }));
             }
             return newChars;
@@ -604,10 +708,20 @@ export function StoryEditorClient() {
                         let position = { x: -1000, y: -1000 };
                         let imageToShow = asset.imageUrl;
                         
-                        const state = playbackState[char.id];
+                        const posState = playbackState[char.id];
+                        const animState = playbackAnimationState[char.id];
                         
-                        if (isPlaybackActive && state) {
-                            position = { x: state.x, y: state.y };
+                        if (isPlaybackActive && posState) {
+                            position = { x: posState.x, y: posState.y };
+                            if (animState && asset && asset.clips.length > 0) {
+                                const activeClip = asset.clips.find(c => c.name === animState.animationName);
+                                if (activeClip && activeClip.frames.length > 0) {
+                                    const frame = activeClip.frames[animState.frameIndex % activeClip.frames.length];
+                                    if (frame && asset.basePath) {
+                                        imageToShow = `${asset.basePath}/frames/${frame.image}`;
+                                    }
+                                }
+                            }
                         } else if (!isPlaybackActive && char.path.length > 0) {
                              position = { x: char.path[0].x, y: char.path[0].y };
                         } else if (!isPlaybackActive) {
