@@ -62,7 +62,7 @@ function EventPlayerUI({
     if (!currentNode) return null;
   
     return (
-      <div className="bg-background/80 backdrop-blur-sm border border-border rounded-lg p-6 z-50 text-foreground shadow-lg space-y-4 max-w-3xl mx-auto">
+      <div className="bg-background/80 backdrop-blur-sm border border-border rounded-lg p-6 z-50 text-foreground shadow-lg space-y-4 max-w-3xl mx-auto" onClick={(e) => e.stopPropagation()}>
         <p className="text-lg whitespace-pre-wrap min-h-[3rem]">{currentNode.content}</p>
         <div className="flex flex-col gap-2">
           {currentNode.type === 'choice' && currentNode.choices?.map((choice, index) => {
@@ -305,7 +305,6 @@ export function StoryEditorClient() {
         });
         setPlaybackState(initialState);
         setIsPlaying(false);
-        setIsStepModeActive(false);
         setActiveEvent(null);
         setCurrentEventNode(null);
     }, [sequenceCharacters]);
@@ -639,7 +638,7 @@ export function StoryEditorClient() {
                     })}
 
                     {activeEvent && currentEventNode && (
-                         <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8" onClick={(e) => e.stopPropagation()}>
+                         <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8">
                             <EventPlayerUI
                                 currentNode={currentEventNode}
                                 onChoice={handleEventChoice}
@@ -663,9 +662,9 @@ export function StoryEditorClient() {
                                 const asset = getCharacterAsset(char.objectId);
                                 return (
                                     <div key={char.id} className={cn('p-3 rounded-lg mb-2 border', selectedElement?.charId === char.id && !selectedElement.waypointIndex ? 'bg-secondary border-primary' : 'border-border')}>
-                                        <div className="flex justify-between items-center">
-                                            <button onClick={() => selectCharacter(char.id)} className="font-semibold w-full text-left flex items-center gap-2 hover:text-primary" disabled={isEditingDisabled}><Route/> {asset?.name || 'Unknown'}</button>
-                                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleRemoveCharacter(char.id)} disabled={isEditingDisabled}><Trash2 className="h-4 w-4"/></Button>
+                                        <div className="flex justify-between items-center" onClick={(e) => { e.stopPropagation(); selectCharacter(char.id); }}>
+                                            <span className="font-semibold w-full text-left flex items-center gap-2 hover:text-primary" ><Route/> {asset?.name || 'Unknown'}</span>
+                                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={(e) => {e.stopPropagation(); handleRemoveCharacter(char.id);}} disabled={isEditingDisabled}><Trash2 className="h-4 w-4"/></Button>
                                         </div>
                                         <div className="pl-4 mt-2 space-y-1 border-l-2 ml-2">
                                             {char.path.length === 0 && <p className="text-xs text-muted-foreground pl-2 py-1">ステージをクリックしてウェイポイントを追加</p>}
