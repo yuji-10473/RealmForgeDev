@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
@@ -416,14 +414,15 @@ export function StoryEditorClient() {
         if (!isStepModeActive) {
             handleReset();
             setIsStepModeActive(true);
-            if (selectedChar.path.length > 0) {
-                const startingWaypoint = selectedChar.path[0];
-                if (startingWaypoint.eventId) {
-                    const event = availableEvents.find(e => e.id === startingWaypoint.eventId);
-                    if (event) {
-                        startEvent(event, selectedChar.id);
-                    }
+            const charToInit = sequenceCharacters.find(c => c.id === selectedChar.id);
+            if (charToInit && charToInit.path.length > 0) {
+              const startingWaypoint = charToInit.path[0];
+              if (startingWaypoint.eventId) {
+                const event = availableEvents.find(e => e.id === startingWaypoint.eventId);
+                if (event) {
+                  startEvent(event, charToInit.id);
                 }
+              }
             }
             return;
         }
@@ -459,7 +458,7 @@ export function StoryEditorClient() {
         } else {
             toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
         }
-    }, [selectedChar, isStepModeActive, activeEvent, playbackState, isPlaying, handleReset, availableEvents, startEvent, toast]);
+    }, [selectedChar, isStepModeActive, activeEvent, playbackState, isPlaying, handleReset, availableEvents, startEvent, toast, sequenceCharacters]);
     
     useEffect(() => {
         if (!isPlaying) {
@@ -658,16 +657,16 @@ export function StoryEditorClient() {
             <div className="xl:col-span-3 space-y-4 flex flex-col">
                  <div className="flex items-center justify-between flex-shrink-0 flex-wrap gap-4">
                     <div className="flex items-center gap-2 flex-wrap">
-                        <Select value={selectedSequenceId} onValueChange={setSelectedSequenceId} disabled={isPlaybackActive}>
+                        <Select value={selectedSequenceId} onValueChange={setSelectedSequenceId} disabled={isEditingDisabled}>
                             <SelectTrigger className="w-56"><SelectValue placeholder="シーケンスを選択..." /></SelectTrigger>
                             <SelectContent>{sequenceOptions.map(seq => <SelectItem key={seq.id} value={seq.id}>{seq.name}</SelectItem>)}</SelectContent>
                         </Select>
-                        <Input className="w-56" value={sequenceName} onChange={(e) => setSequenceName(e.target.value)} placeholder="シーケンス名..." disabled={isPlaybackActive}/>
-                        <Button onClick={handleNewSequence} variant="outline" disabled={isPlaybackActive}><FilePlus className="mr-2"/>新規</Button>
+                        <Input className="w-56" value={sequenceName} onChange={(e) => setSequenceName(e.target.value)} placeholder="シーケンス名..." disabled={isEditingDisabled}/>
+                        <Button onClick={handleNewSequence} variant="outline" disabled={isEditingDisabled}><FilePlus className="mr-2"/>新規</Button>
                         <Button onClick={handleExport} variant="outline"><Save className="mr-2"/>エクスポート</Button>
                     </div>
                      <div className="flex items-center gap-2">
-                        <Button onClick={handlePlay} disabled={isPlaybackActive}><Play className="mr-2"/>再生</Button>
+                        <Button onClick={handlePlay} disabled={isEditingDisabled}><Play className="mr-2"/>再生</Button>
                         <Button onClick={handleStop} disabled={!isPlaying} variant="secondary"><StopCircle className="mr-2"/>停止</Button>
                         <Button onClick={handleStepExecute}><StepForward className="mr-2"/>ステップ実行</Button>
                         <Button onClick={handleReset} disabled={isPlaying} variant="outline"><RotateCcw className="mr-2"/>リセット</Button>
@@ -724,7 +723,7 @@ export function StoryEditorClient() {
                 </div>
                 <div>
                   <Label htmlFor="map-select">背景マップ</Label>
-                  <Select value={mapId} onValueChange={setMapId} disabled={isPlaybackActive}>
+                  <Select value={mapId} onValueChange={setMapId} disabled={isEditingDisabled}>
                       <SelectTrigger id="map-select"><SelectValue placeholder="背景マップを選択..." /></SelectTrigger>
                       <SelectContent>{availableMaps.map(map => <SelectItem key={map.id} value={map.id}>{map.name}</SelectItem>)}</SelectContent>
                   </Select>
