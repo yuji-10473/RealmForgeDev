@@ -1,6 +1,27 @@
 {
   "id": "default_sequence",
   "name": "デフォルトのシーケンス",
-  "mapId": "",
-  "characters": []
+  "mapId": "map_0_0",
+  "characters": [
+    {
+      "id": "seq_char_1770960999292",
+      "objectId": "player_player",
+      "path": [
+        {
+          "x": 1590.207305034551,
+          "y": 402.54545454545456
+        },
+        {
+          "x": 1086.0414610069101,
+          "y": 400.0909090909091,
+          "eventId": "OHMw41VkfFBo6rw42exP"
+        },
+        {
+          "x": 471.9447186574531,
+          "y": 455.3181818181818
+        }
+      ],
+      "speed": 1
+    }
+  ]
 }
