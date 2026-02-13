@@ -141,13 +141,13 @@ export function StoryEditorClient() {
     // Playback state
     const [playbackState, setPlaybackState] = useState<Record<string, PlaybackState>>({});
     const [isPlaying, setIsPlaying] = useState(false);
+    const [stepPhase, setStepPhase] = useState<'event' | 'move'>('event');
+
     const [activeEvent, setActiveEvent] = useState<{event: GameEvent, triggererId: string} | null>(null);
     const [currentEventNode, setCurrentEventNode] = useState<EventNode | null>(null);
     
     const gameLoopRef = useRef<number>();
     
-    const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
-
     useEffect(() => {
         const loadAssets = async () => {
             try {
@@ -244,6 +244,8 @@ export function StoryEditorClient() {
         loadAssets();
     }, []);
 
+    const getCharacterAsset = useCallback((objectId: string) => availableCharacters.find(c => c.id === objectId), [availableCharacters]);
+
     const startEvent = useCallback((event: GameEvent, triggererId: string) => {
         const startNode = event.nodes.find(n => n.type === 'start');
         if (startNode) {
@@ -251,12 +253,12 @@ export function StoryEditorClient() {
             setCurrentEventNode(startNode);
         }
     }, []);
-
+    
     const endEvent = useCallback(() => {
         setActiveEvent(null);
         setCurrentEventNode(null);
     }, []);
-    
+
     const goToNextEventNode = useCallback((nodeId: string | undefined) => {
         if (!activeEvent || !nodeId) {
             endEvent();
@@ -274,6 +276,24 @@ export function StoryEditorClient() {
         goToNextEventNode(choice.nextStepId);
     }, [goToNextEventNode]);
 
+    const handleReset = useCallback(() => {
+        const initialState: Record<string, PlaybackState> = {};
+        sequenceCharacters.forEach(char => {
+            if (char.path.length > 0) {
+                initialState[char.id] = {
+                    x: char.path[0].x,
+                    y: char.path[0].y,
+                    targetWaypointIndex: 0,
+                };
+            }
+        });
+        setPlaybackState(initialState);
+        setIsPlaying(false);
+        setActiveEvent(null);
+        setCurrentEventNode(null);
+        setStepPhase('event');
+    }, [sequenceCharacters]);
+
     const handlePlay = useCallback(() => {
         if (sequenceCharacters.length === 0) return;
         
@@ -288,20 +308,77 @@ export function StoryEditorClient() {
             }
         });
         setPlaybackState(initialState);
+        setActiveEvent(null);
+        setCurrentEventNode(null);
         setIsPlaying(true);
-        setSelectedElement(null);
     }, [sequenceCharacters]);
 
     const handleStop = useCallback(() => {
         setIsPlaying(false);
-        setPlaybackState({});
-        setActiveEvent(null);
-        setCurrentEventNode(null);
-        if (gameLoopRef.current) {
-            cancelAnimationFrame(gameLoopRef.current);
-        }
-    }, []);
+        handleReset();
+    }, [handleReset]);
     
+    const handleStepExecute = useCallback(() => {
+        if (!selectedChar) {
+            toast({ variant: 'destructive', title: 'キャラクターを選択してください' });
+            return;
+        }
+        if (activeEvent) {
+            toast({ title: 'イベント進行中', description: 'イベントを完了しないと次のステップへは進めません。' });
+            return;
+        }
+    
+        const charState = playbackState[selectedChar.id];
+    
+        // Initialize on first step
+        if (!charState) {
+            handleReset();
+            // The state update is async, so we use a timeout to run the first step check after state is set.
+            setTimeout(() => {
+                const firstWaypoint = selectedChar.path[0];
+                if (firstWaypoint && firstWaypoint.eventId) {
+                    const event = availableEvents.find(e => e.id === firstWaypoint.eventId);
+                    if (event) {
+                        startEvent(event, selectedChar.id);
+                        setStepPhase('move');
+                    }
+                }
+            }, 0);
+            return;
+        }
+    
+        const currentWaypointIndex = charState.targetWaypointIndex;
+        const currentWaypoint = selectedChar.path[currentWaypointIndex];
+    
+        // Phase 1: Check for event at current location
+        if (stepPhase === 'event' && currentWaypoint?.eventId) {
+            const event = availableEvents.find(e => e.id === currentWaypoint.eventId);
+            if (event) {
+                startEvent(event, selectedChar.id);
+                setStepPhase('move'); // Next step will be a move
+                return;
+            }
+        }
+    
+        // Phase 2: Move to next waypoint (if no event was triggered or if it's move phase)
+        const nextWaypointIndex = currentWaypointIndex + 1;
+        if (nextWaypointIndex < selectedChar.path.length) {
+            const nextWaypoint = selectedChar.path[nextWaypointIndex];
+            setPlaybackState(prev => ({
+                ...prev,
+                [selectedChar.id]: {
+                    ...charState,
+                    x: nextWaypoint.x,
+                    y: nextWaypoint.y,
+                    targetWaypointIndex: nextWaypointIndex,
+                }
+            }));
+            setStepPhase('event'); // After moving, next step is to check for an event
+        } else {
+            toast({ title: 'シーケンス終了', description: '「リセット」で最初からやり直せます。' });
+        }
+    }, [selectedChar, playbackState, activeEvent, handleReset, availableEvents, startEvent, toast, stepPhase]);
+
     useEffect(() => {
         if (!isPlaying) {
             if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
@@ -309,7 +386,9 @@ export function StoryEditorClient() {
         }
 
         const loop = () => {
-            if (!isPlaying || activeEvent) {
+            if (!isPlaying) return;
+
+            if (activeEvent) {
                 gameLoopRef.current = requestAnimationFrame(loop);
                 return;
             }
@@ -321,14 +400,14 @@ export function StoryEditorClient() {
                 const charState = playbackState[char.id];
                 if (!charState || !char.path.length) continue;
 
-                allFinished = false;
                 const targetIndex = charState.targetWaypointIndex;
 
                 if (targetIndex >= char.path.length) {
-                    newPlaybackState[char.id] = charState; // Keep last state
-                    continue;
+                    newPlaybackState[char.id] = charState; 
+                    continue; 
                 }
-
+                
+                allFinished = false;
                 const targetWaypoint = char.path[targetIndex];
                 const dx = targetWaypoint.x - charState.x;
                 const dy = targetWaypoint.y - charState.y;
@@ -337,7 +416,6 @@ export function StoryEditorClient() {
                 const speed = char.speed * 5;
 
                 if (distance < speed) {
-                    // Arrived at waypoint
                     newPlaybackState[char.id] = { x: targetWaypoint.x, y: targetWaypoint.y, targetWaypointIndex: targetIndex + 1 };
                     if (targetWaypoint.eventId) {
                         const event = availableEvents.find(e => e.id === targetWaypoint.eventId);
@@ -346,10 +424,9 @@ export function StoryEditorClient() {
                         }
                     }
                 } else {
-                    // Moving towards waypoint
                     const moveX = (dx / distance) * speed;
                     const moveY = (dy / distance) * speed;
-                    newPlaybackState[char.id] = { x: charState.x + moveX, y: charState.y + moveY, targetWaypointIndex: targetIndex };
+                    newPlaybackState[char.id] = { ...charState, x: charState.x + moveX, y: charState.y + moveY };
                 }
             }
 
@@ -369,7 +446,7 @@ export function StoryEditorClient() {
                 cancelAnimationFrame(gameLoopRef.current);
             }
         }
-    }, [isPlaying, sequenceCharacters, availableEvents, getCharacterAsset, handleStop, playbackState, activeEvent, startEvent]);
+    }, [isPlaying, playbackState, activeEvent, sequenceCharacters, availableEvents, startEvent, handleStop]);
 
 
     const handleAddCharacter = (objectId: string) => {
@@ -384,7 +461,16 @@ export function StoryEditorClient() {
     };
 
     const handleRemoveCharacter = (charId: string) => {
-        setSequenceCharacters(prev => prev.filter(c => c.id !== charId));
+        setSequenceCharacters(prev => {
+            const newChars = prev.filter(c => c.id !== charId);
+            // Also update playback state
+            setPlaybackState(currentPlaybackState => {
+                const newPlaybackState = { ...currentPlaybackState };
+                delete newPlaybackState[charId];
+                return newPlaybackState;
+            });
+            return newChars;
+        });
         if (selectedElement?.charId === charId) {
             setSelectedElement(null);
         }
@@ -421,7 +507,15 @@ export function StoryEditorClient() {
 
         setSequenceCharacters(prev => prev.map(char => {
             if (char.id === selectedElement.charId) {
-                return { ...char, path: [...char.path, { x: x * EDITOR_WIDTH, y: y * EDITOR_HEIGHT }] };
+                const newPath = [...char.path, { x: x * EDITOR_WIDTH, y: y * EDITOR_HEIGHT }];
+                // if it's the first waypoint, reset playback state for this char
+                if (newPath.length === 1) {
+                    setPlaybackState(prevPlayback => ({
+                        ...prevPlayback,
+                        [char.id]: { x: newPath[0].x, y: newPath[0].y, targetWaypointIndex: 0 }
+                    }));
+                }
+                return { ...char, path: newPath };
             }
             return char;
         }));
@@ -456,12 +550,15 @@ export function StoryEditorClient() {
     if (loading) return <div className="flex h-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     if (error) return <Alert variant="destructive"><Terminal className="h-4 w-4" /><AlertTitle>Error</AlertTitle><AlertDescription>{error}</AlertDescription></Alert>;
 
+    const isPlaybackActive = isPlaying || Object.keys(playbackState).length > 0;
+    const isEditingDisabled = isPlaying || !!activeEvent;
+
     return (
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-full">
             {/* Main Stage Panel */}
             <div className="xl:col-span-3 space-y-4 flex flex-col">
                  <div className="flex items-center justify-between flex-shrink-0">
-                    <Select value={mapId} onValueChange={setMapId} disabled={isPlaying}>
+                    <Select value={mapId} onValueChange={setMapId} disabled={isPlaybackActive}>
                         <SelectTrigger id="map-select" className="max-w-sm">
                             <SelectValue placeholder="背景マップを選択..." />
                         </SelectTrigger>
@@ -475,6 +572,8 @@ export function StoryEditorClient() {
                         ) : (
                              <Button onClick={handlePlay}><Play className="mr-2"/>シーケンス再生</Button>
                         )}
+                        <Button onClick={handleStepExecute} disabled={isEditingDisabled}><StepForward className="mr-2"/>ステップ実行</Button>
+                        <Button onClick={handleReset} disabled={isPlaying} variant="outline"><RotateCcw className="mr-2"/>リセット</Button>
                     </div>
                 </div>
                 <div 
@@ -520,11 +619,11 @@ export function StoryEditorClient() {
                         
                         const state = playbackState[char.id];
                         
-                        if (isPlaying && state) {
+                        if (isPlaybackActive && state) {
                             position = { x: state.x, y: state.y };
-                        } else if (!isPlaying && char.path.length > 0) {
-                            position = { x: char.path[0].x, y: char.path[0].y };
-                        } else if (!isPlaying) {
+                        } else if (!isPlaybackActive && char.path.length > 0) {
+                             position = { x: char.path[0].x, y: char.path[0].y };
+                        } else if (!isPlaybackActive) {
                             return null;
                         }
                         
@@ -544,7 +643,7 @@ export function StoryEditorClient() {
                                 }}
                             >
                                 <Image src={imageToShow} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
-                                <div className={cn("absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 rounded-full blur-sm", char.id === selectedElement?.charId && !isPlaying ? 'ring-2 ring-primary' : '')}></div>
+                                <div className={cn("absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 rounded-full blur-sm", char.id === selectedElement?.charId && !isEditingDisabled ? 'ring-2 ring-primary' : '')}></div>
                             </div>
                         )
                     })}
@@ -575,8 +674,8 @@ export function StoryEditorClient() {
                                 return (
                                     <div key={char.id} className={cn('p-3 rounded-lg mb-2 border', selectedElement?.charId === char.id && !selectedElement.waypointIndex ? 'bg-secondary border-primary' : 'border-border')}>
                                         <div className="flex justify-between items-center">
-                                            <button onClick={() => selectCharacter(char.id)} className="font-semibold w-full text-left flex items-center gap-2 hover:text-primary"><Route/> {asset?.name || 'Unknown'}</button>
-                                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleRemoveCharacter(char.id)}><Trash2 className="h-4 w-4"/></Button>
+                                            <button onClick={() => selectCharacter(char.id)} className="font-semibold w-full text-left flex items-center gap-2 hover:text-primary" disabled={isEditingDisabled}><Route/> {asset?.name || 'Unknown'}</button>
+                                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleRemoveCharacter(char.id)} disabled={isEditingDisabled}><Trash2 className="h-4 w-4"/></Button>
                                         </div>
                                         <div className="pl-4 mt-2 space-y-1 border-l-2 ml-2">
                                             {char.path.length === 0 && <p className="text-xs text-muted-foreground pl-2 py-1">ステージをクリックしてウェイポイントを追加</p>}
@@ -611,7 +710,7 @@ export function StoryEditorClient() {
                             <ScrollArea className="h-full max-h-48 pr-2">
                                 <div className="grid grid-cols-3 gap-2">
                                     {availableCharacters.map(char => (
-                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted" disabled={isPlaying}>
+                                        <button key={char.id} onClick={() => handleAddCharacter(char.id)} className="flex flex-col items-center p-2 rounded-md hover:bg-muted" disabled={isEditingDisabled}>
                                             <div className="w-12 h-12 relative"><Image src={char.imageUrl} alt={char.name} layout="fill" objectFit="contain" unoptimized/></div>
                                             <p className="text-xs text-center truncate">{char.name}</p>
                                         </button>
@@ -625,9 +724,9 @@ export function StoryEditorClient() {
                         <Card className="h-full">
                             <CardHeader><CardTitle>インスペクター</CardTitle></CardHeader>
                             <CardContent className="space-y-4 min-h-[10rem]">
-                                {isPlaying && <p className="text-muted-foreground text-sm">再生中は編集できません。</p>}
-                                {!isPlaying && !selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
-                                {!isPlaying && selectedChar && !selectedWaypoint && (
+                                {isEditingDisabled && <p className="text-muted-foreground text-sm">再生中またはイベント中は編集できません。</p>}
+                                {!isEditingDisabled && !selectedElement && <p className="text-muted-foreground text-sm">要素を選択してください</p>}
+                                {!isEditingDisabled && selectedChar && !selectedWaypoint && (
                                     <div className="space-y-4">
                                         <div>
                                             <Label>キャラクター</Label>
@@ -647,7 +746,7 @@ export function StoryEditorClient() {
                                         </div>
                                     </div>
                                 )}
-                                {!isPlaying && selectedChar && selectedWaypoint && (
+                                {!isEditingDisabled && selectedChar && selectedWaypoint && (
                                     <div>
                                         <Label htmlFor="event-id">ウェイポイント {selectedElement!.waypointIndex! + 1} のイベント</Label>
                                         <Select 
