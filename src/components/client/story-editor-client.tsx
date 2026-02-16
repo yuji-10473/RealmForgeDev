@@ -122,8 +122,8 @@ type AvailableCharacter = {
 
 type AvailableEvent = GameEvent;
 
-const EDITOR_WIDTH = 1920;
-const EDITOR_HEIGHT = 1080;
+const EDITOR_WIDTH = 2752;
+const EDITOR_HEIGHT = 1536;
 
 type PlaybackState = { x: number; y: number; targetWaypointIndex: number; };
 
@@ -605,10 +605,10 @@ export function StoryEditorClient() {
         }
         if (isCharacterClick || isWaypointClick || !stageRef.current) return;
         
-        const rect = stageRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        const newPathPoint = { x: x * EDITOR_WIDTH, y: y * EDITOR_HEIGHT };
+        const stage = e.currentTarget;
+        const rect = stage.getBoundingClientRect();
+        
+        const newPathPoint = { x: e.clientX - rect.left, y: e.clientY - rect.top };
 
         setSequenceCharacters(prevChars => {
             const charIndex = prevChars.findIndex(c => c.id === selectedElement.charId);
@@ -672,54 +672,57 @@ export function StoryEditorClient() {
                         <Button onClick={handleReset} disabled={isPlaying} variant="outline"><RotateCcw className="mr-2"/>リセット</Button>
                     </div>
                 </div>
-                <div 
-                    ref={stageRef} 
-                    onClick={handleStageClick} 
-                    className="relative w-full bg-muted overflow-hidden border-2 border-dashed border-border flex-grow aspect-video"
-                >
-                    {mapUrl ? <Image src={mapUrl} alt="Map Background" layout="fill" objectFit="cover" unoptimized priority/> : <div className="flex items-center justify-center h-full text-muted-foreground">マップ画像が見つかりません</div>}
-                    {!isPlaying && !isStepModeActive && selectedChar?.path.map((point, index, arr) => (
-                        <React.Fragment key={index}>
-                            {index > 0 && <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"><line x1={`${(arr[index-1].x / EDITOR_WIDTH) * 100}%`} y1={`${(arr[index-1].y / EDITOR_HEIGHT) * 100}%`} x2={`${(point.x / EDITOR_WIDTH) * 100}%`} y2={`${(point.y / EDITOR_HEIGHT) * 100}%`} stroke="hsl(var(--primary))" strokeWidth="2" strokeDasharray="4" /></svg>}
-                            <div 
-                                data-waypoint-index={index}
-                                className={cn("absolute w-3 h-3 bg-background border-2 border-primary rounded-full -translate-x-1/2 -translate-y-1/2 cursor-pointer ring-offset-background ring-offset-2", selectedElement?.waypointIndex === index ? 'ring-2 ring-primary' : '')}
-                                style={{ left: `${(point.x / EDITOR_WIDTH) * 100}%`, top: `${(point.y / EDITOR_HEIGHT) * 100}%` }}
-                                onClick={(e) => { e.stopPropagation(); if (isEditingDisabled) return; setSelectedElement({ charId: selectedChar.id, waypointIndex: index }); }}
-                            />
-                        </React.Fragment>
-                    ))}
-                    {sequenceCharacters.map(char => {
-                        const asset = getCharacterAsset(char.objectId);
-                        if (!asset) return null;
-                        const posState = playbackState[char.id];
-                        const animState = playbackAnimationState[char.id];
-                        let position = { x: -1000, y: -1000 };
-                        let imageToShow = asset.imageUrl;
-                        
-                        if ((isPlaying || isStepModeActive) && posState) {
-                            position = { x: posState.x, y: posState.y };
-                            if (animState && asset?.clips.length > 0) {
-                                const activeClip = asset.clips.find(c => c.name === animState.animationName);
-                                if (activeClip?.frames.length > 0) {
-                                    const frame = activeClip.frames[animState.frameIndex % activeClip.frames.length];
-                                    if (frame && asset.basePath) imageToShow = `${asset.basePath}/frames/${frame.image}`;
+                <div className="flex-grow overflow-auto border-2 border-dashed border-border">
+                    <div 
+                        ref={stageRef} 
+                        onClick={handleStageClick} 
+                        className="relative bg-muted"
+                        style={{ width: EDITOR_WIDTH, height: EDITOR_HEIGHT }}
+                    >
+                        {mapUrl ? <Image src={mapUrl} alt="Map Background" layout="fill" objectFit="cover" unoptimized priority/> : <div className="flex items-center justify-center h-full text-muted-foreground">マップ画像が見つかりません</div>}
+                        {!isPlaying && !isStepModeActive && selectedChar?.path.map((point, index, arr) => (
+                            <React.Fragment key={index}>
+                                {index > 0 && <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"><line x1={arr[index-1].x} y1={arr[index-1].y} x2={point.x} y2={point.y} stroke="hsl(var(--primary))" strokeWidth="2" strokeDasharray="4" /></svg>}
+                                <div 
+                                    data-waypoint-index={index}
+                                    className={cn("absolute w-3 h-3 bg-background border-2 border-primary rounded-full -translate-x-1/2 -translate-y-1/2 cursor-pointer ring-offset-background ring-offset-2", selectedElement?.waypointIndex === index ? 'ring-2 ring-primary' : '')}
+                                    style={{ left: point.x, top: point.y }}
+                                    onClick={(e) => { e.stopPropagation(); if (isEditingDisabled) return; setSelectedElement({ charId: selectedChar.id, waypointIndex: index }); }}
+                                />
+                            </React.Fragment>
+                        ))}
+                        {sequenceCharacters.map(char => {
+                            const asset = getCharacterAsset(char.objectId);
+                            if (!asset) return null;
+                            const posState = playbackState[char.id];
+                            const animState = playbackAnimationState[char.id];
+                            let position = { x: -1000, y: -1000 };
+                            let imageToShow = asset.imageUrl;
+                            
+                            if ((isPlaying || isStepModeActive) && posState) {
+                                position = { x: posState.x, y: posState.y };
+                                if (animState && asset?.clips.length > 0) {
+                                    const activeClip = asset.clips.find(c => c.name === animState.animationName);
+                                    if (activeClip?.frames.length > 0) {
+                                        const frame = activeClip.frames[animState.frameIndex % activeClip.frames.length];
+                                        if (frame && asset.basePath) imageToShow = `${asset.basePath}/frames/${frame.image}`;
+                                    }
                                 }
+                            } else if (!isPlaying && !isStepModeActive && char.path.length > 0) {
+                                 position = { x: char.path[0].x, y: char.path[0].y };
+                            } else if (!isPlaying && !isStepModeActive) {
+                                return null;
                             }
-                        } else if (!isPlaying && !isStepModeActive && char.path.length > 0) {
-                             position = { x: char.path[0].x, y: char.path[0].y };
-                        } else if (!isPlaying && !isStepModeActive) {
-                            return null;
-                        }
-                        
-                        return (
-                            <div key={char.id} data-char-id={char.id} className="absolute w-16 h-16 -translate-x-1/2 -translate-y-full cursor-pointer" style={{ left: `${(position.x / EDITOR_WIDTH) * 100}%`, top: `${(position.y / EDITOR_HEIGHT) * 100}%` }} onClick={(e) => { e.stopPropagation(); selectCharacter(char.id); }}>
-                                <Image src={imageToShow} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
-                                <div className={cn("absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 rounded-full blur-sm", char.id === selectedElement?.charId && !isEditingDisabled ? 'ring-2 ring-primary' : '')}></div>
-                            </div>
-                        )
-                    })}
-                    {activeEvent && currentEventNode && <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8" onClick={(e) => e.stopPropagation()}><EventPlayerUI currentNode={currentEventNode} onChoice={handleEventChoice} onNext={goToNextEventNode} onClose={endEvent}/></div>}
+                            
+                            return (
+                                <div key={char.id} data-char-id={char.id} className="absolute w-16 h-16 -translate-x-1/2 -translate-y-full cursor-pointer" style={{ left: position.x, top: position.y }} onClick={(e) => { e.stopPropagation(); selectCharacter(char.id); }}>
+                                    <Image src={imageToShow} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
+                                    <div className={cn("absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 rounded-full blur-sm", char.id === selectedElement?.charId && !isEditingDisabled ? 'ring-2 ring-primary' : '')}></div>
+                                </div>
+                            )
+                        })}
+                        {activeEvent && currentEventNode && <div className="absolute inset-0 bg-black/60 flex items-end justify-center z-50 p-8" onClick={(e) => e.stopPropagation()}><EventPlayerUI currentNode={currentEventNode} onChoice={handleEventChoice} onNext={goToNextEventNode} onClose={endEvent}/></div>}
+                    </div>
                 </div>
                 <div>
                   <Label htmlFor="map-select">背景マップ</Label>
