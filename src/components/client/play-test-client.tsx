@@ -34,8 +34,8 @@ import { useToast } from '@/hooks/use-toast';
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
 const CHARACTER_SPEED = 10;
-const CHARACTER_WIDTH = 183;
-const CHARACTER_HEIGHT = 183;
+const CHARACTER_WIDTH = 256;
+const CHARACTER_HEIGHT = 256;
 const ANIMATION_FPS = 8;
 const INTERACTION_RADIUS = 50;
 

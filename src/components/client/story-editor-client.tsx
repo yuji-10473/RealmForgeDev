@@ -124,6 +124,7 @@ type AvailableEvent = GameEvent;
 
 const EDITOR_WIDTH = 2752;
 const EDITOR_HEIGHT = 1536;
+const CHARACTER_SIZE = 256;
 
 type PlaybackState = { x: number; y: number; targetWaypointIndex: number; };
 
@@ -714,8 +715,21 @@ export function StoryEditorClient() {
                                 return null;
                             }
                             
+                            const widthPercent = (CHARACTER_SIZE / EDITOR_WIDTH) * 100;
+
                             return (
-                                <div key={char.id} data-char-id={char.id} className="absolute w-16 h-16 -translate-x-1/2 -translate-y-full cursor-pointer" style={{ left: position.x, top: position.y }} onClick={(e) => { e.stopPropagation(); selectCharacter(char.id); }}>
+                                <div
+                                    key={char.id}
+                                    data-char-id={char.id}
+                                    className="absolute -translate-x-1/2 -translate-y-full cursor-pointer"
+                                    style={{
+                                        left: position.x,
+                                        top: position.y,
+                                        width: `${widthPercent}%`,
+                                        height: 'auto',
+                                        aspectRatio: '1 / 1',
+                                    }}
+                                    onClick={(e) => { e.stopPropagation(); selectCharacter(char.id); }}>
                                     <Image src={imageToShow} alt={asset.name} layout="fill" objectFit="contain" unoptimized/>
                                     <div className={cn("absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 rounded-full blur-sm", char.id === selectedElement?.charId && !isEditingDisabled ? 'ring-2 ring-primary' : '')}></div>
                                 </div>
