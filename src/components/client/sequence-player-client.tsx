@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Play, ChevronRight, RotateCcw, AlertCircle, FileJson } from "lucide-react";
+import { Loader2, Play, ChevronRight, RotateCcw, AlertCircle, FileJson, Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
@@ -58,7 +58,8 @@ type EventNode = {
   type: 'start' | 'story' | 'choice' | 'reward' | 'end';
   content: string;
   nextStepId?: string;
-  choices?: { text: string; nextStepId: string }[];
+  audioPath?: string; // v1.0 Voice support
+  choices?: { text: string; nextStepId: string; audioPath?: string }[];
 };
 
 type EventData = {
@@ -73,9 +74,9 @@ const CHAR_SIZE = 256;
 
 export function SequencePlayerClient() {
   const { toast } = useToast();
-  const [sequencePath, setSequencePath] = useState('/sequences/demo'); // デフォルトパス
+  const [sequencePath, setSequencePath] = useState('/sequences/demo'); 
   const [sequence, setSequence] = useState<Sequence | null>(null);
-  const [currentStepIndex, setCurrentStepIndex] = useState(-1); // -1: 待機, >=0: 再生中
+  const [currentStepIndex, setCurrentStepIndex] = useState(-1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -85,17 +86,34 @@ export function SequencePlayerClient() {
   const [activeEvent, setActiveEvent] = useState<EventData | null>(null);
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
   const [isFinished, setIsFinished] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
+  // Audio Elements
+  const bgmRef = useRef<HTMLAudioElement | null>(null);
+  const voiceRef = useRef<HTMLAudioElement | null>(null);
   const gameLoopRef = useRef<number>(null);
 
-  // Helper to resolve media paths robustly
-  const resolvePath = useCallback((url: string | undefined) => {
+  // Helper to resolve media paths robustly based on v1.0 structure
+  const resolvePath = useCallback((url: string | undefined, subDir?: string) => {
     if (!url) return '';
-    // If it's already an absolute URL or starting with /
     if (url.startsWith('http') || url.startsWith('/')) return url;
-    // Otherwise append to sequencePath
+    
+    // If a subDir is provided (like 'media/bgm'), ensure it's included if not present
+    if (subDir && !url.startsWith(subDir)) {
+      return `${sequencePath}/${subDir}/${url}`;
+    }
+    
     return `${sequencePath}/${url}`;
   }, [sequencePath]);
+
+  // Handle BGM
+  useEffect(() => {
+    if (!bgmRef.current) {
+      bgmRef.current = new Audio();
+      bgmRef.current.loop = true;
+    }
+    bgmRef.current.muted = isMuted;
+  }, [isMuted]);
 
   // Sequence Loading
   const loadSequence = async () => {
@@ -115,13 +133,13 @@ export function SequencePlayerClient() {
     }
   };
 
-  // Step Execution
   const startStep = useCallback(async (index: number) => {
     if (!sequence) return;
     
     if (index >= sequence.steps.length) {
       setIsFinished(true);
       setCurrentStepIndex(-1);
+      if (bgmRef.current) bgmRef.current.pause();
       return;
     }
 
@@ -129,9 +147,9 @@ export function SequencePlayerClient() {
     if (step.type === 'story') {
       await initStoryStep(step);
     } else if (step.type === 'video') {
-      // Clear story state when entering video step
       setChars({});
       setCurrentMapUrl(null);
+      if (bgmRef.current) bgmRef.current.pause();
     }
     setCurrentStepIndex(index);
   }, [sequence, sequencePath]);
@@ -140,20 +158,29 @@ export function SequencePlayerClient() {
     try {
       // 1. Load Story
       const storyRes = await fetch(`${sequencePath}/data/stories/${step.storyId}.json`);
-      if (!storyRes.ok) throw new Error('Story data not found');
+      if (!storyRes.ok) throw new Error(`Story data not found: ${step.storyId}`);
       const story: StoryData = await storyRes.json();
 
-      // 2. Load Map
-      const mapPath = `${sequencePath}/media/backgrounds/${story.mapId}.png`;
-      const mapRes = await fetch(mapPath);
-      if (mapRes.ok) {
-        setCurrentMapUrl(mapPath);
-      } else {
-        // Fallback or attempt jpg
-        setCurrentMapUrl(`${sequencePath}/media/backgrounds/${story.mapId}.jpg`);
+      // 2. Load BGM
+      if (story.bgmUrl && bgmRef.current) {
+        bgmRef.current.src = resolvePath(story.bgmUrl, 'media/bgm');
+        bgmRef.current.play().catch(e => console.warn("BGM play blocked by browser. Interaction required."));
       }
 
-      // 3. Load Villagers and Initial State
+      // 3. Load Map
+      // Try png, then jpg
+      const mapId = story.mapId;
+      const mapPathPng = resolvePath(`media/backgrounds/${mapId}.png`);
+      const mapPathJpg = resolvePath(`media/backgrounds/${mapId}.jpg`);
+      
+      try {
+        const check = await fetch(mapPathPng, { method: 'HEAD' });
+        setCurrentMapUrl(check.ok ? mapPathPng : mapPathJpg);
+      } catch {
+        setCurrentMapUrl(mapPathPng); // Fallback
+      }
+
+      // 4. Load Villagers and Initial State
       const newChars: Record<string, any> = {};
       for (const sc of story.characters) {
         try {
@@ -176,8 +203,8 @@ export function SequencePlayerClient() {
       }
       setChars(newChars);
       setActiveEvent(null);
-    } catch (e) {
-      toast({ variant: 'destructive', title: 'ステップの初期化に失敗', description: 'ストーリーデータまたはマップが見つかりません。' });
+    } catch (e: any) {
+      toast({ variant: 'destructive', title: 'ストーリーの初期化に失敗', description: e.message });
     }
   };
 
@@ -190,10 +217,22 @@ export function SequencePlayerClient() {
       const startNode = data.nodes.find(n => n.type === 'start');
       if (startNode) {
         setActiveEvent(data);
+        playNodeVoice(startNode);
         setCurrentNode(startNode);
       }
     } catch (e) {
       console.error("Event load failed", e);
+    }
+  };
+
+  const playNodeVoice = (node: EventNode) => {
+    if (!voiceRef.current) {
+      voiceRef.current = new Audio();
+    }
+    if (node.audioPath) {
+      voiceRef.current.src = resolvePath(node.audioPath, 'media/voices');
+      voiceRef.current.muted = isMuted;
+      voiceRef.current.play().catch(e => console.warn("Voice play failed", e));
     }
   };
 
@@ -207,14 +246,14 @@ export function SequencePlayerClient() {
     const loop = () => {
       setChars(prev => {
         const next = { ...prev };
-        let allStopped = true;
+        let anyMoving = false;
         let eventTriggered = false;
 
         for (const id in next) {
           const c = next[id];
           if (c.targetIdx >= c.path.length) continue;
 
-          allStopped = false;
+          anyMoving = true;
           const target = c.path[c.targetIdx];
           const dx = target.x - c.x;
           const dy = target.y - c.y;
@@ -226,7 +265,7 @@ export function SequencePlayerClient() {
             if (target.eventId) {
               triggerEvent(target.eventId);
               eventTriggered = true;
-              break; // Trigger one event at a time and pause
+              break; 
             }
           } else {
             next[id] = { ...c, x: c.x + (dx / dist) * moveSpeed, y: c.y + (dy / dist) * moveSpeed };
@@ -235,10 +274,8 @@ export function SequencePlayerClient() {
 
         if (eventTriggered) return next;
 
-        if (allStopped && Object.keys(next).length > 0) {
-          // All characters in this step finished their paths
-          // Use a timeout to avoid recursive state updates in render
-          setTimeout(() => startStep(currentStepIndex + 1), 100);
+        if (!anyMoving && Object.keys(next).length > 0) {
+          setTimeout(() => startStep(currentStepIndex + 1), 500);
           return next;
         }
 
@@ -256,6 +293,7 @@ export function SequencePlayerClient() {
   const handleNextStep = () => startStep(currentStepIndex + 1);
 
   const reset = () => {
+    if (bgmRef.current) bgmRef.current.pause();
     setCurrentStepIndex(-1);
     setIsFinished(false);
     setChars({});
@@ -264,7 +302,6 @@ export function SequencePlayerClient() {
     setCurrentNode(null);
   };
 
-  // Renderers
   if (loading) return <div className="flex flex-col items-center justify-center h-full space-y-4"><Loader2 className="h-12 w-12 animate-spin text-primary" /><p>物語をロード中...</p></div>;
 
   if (error) return <Card className="border-destructive max-w-md mx-auto"><CardHeader><CardTitle className="text-destructive flex items-center gap-2"><AlertCircle />エラー</CardTitle><CardDescription>{error}</CardDescription></CardHeader><CardContent><Button onClick={() => setError(null)}>戻る</Button></CardContent></Card>;
@@ -294,6 +331,13 @@ export function SequencePlayerClient() {
 
   return (
     <div className="flex flex-col h-full space-y-4">
+      <div className="flex justify-end">
+        <Button variant="ghost" size="sm" onClick={() => setIsMuted(!isMuted)}>
+          {isMuted ? <VolumeX className="h-4 w-4 mr-2" /> : <Volume2 className="h-4 w-4 mr-2" />}
+          {isMuted ? '消音中' : '音声あり'}
+        </Button>
+      </div>
+
       {currentStepIndex === -1 && !isFinished && (
         <Card className="max-w-2xl mx-auto">
           <CardHeader>
@@ -313,18 +357,17 @@ export function SequencePlayerClient() {
 
       {currentStepIndex >= 0 && !isFinished && (
         <div className="relative flex-grow min-h-0 bg-black border-2 border-border overflow-hidden rounded-lg shadow-2xl">
-          {/* Story Type Rendering */}
           {step?.type === 'story' && (
             <div className="relative w-full h-full">
               {currentMapUrl ? (
                 <Image src={currentMapUrl} alt="Background" layout="fill" objectFit="cover" unoptimized priority />
               ) : (
-                <div className="flex items-center justify-center h-full text-white">マップ画像を読み込めません</div>
+                <div className="flex items-center justify-center h-full text-white">マップ画像を読み込み中...</div>
               )}
               {Object.entries(chars).map(([id, char]) => (
                 <div
                   key={id}
-                  className="absolute -translate-x-1/2 -translate-y-full"
+                  className="absolute -translate-x-1/2 -translate-y-full transition-all duration-100 ease-linear"
                   style={{
                     left: `${(char.x / CANVAS_WIDTH) * 100}%`,
                     top: `${(char.y / CANVAS_HEIGHT) * 100}%`,
@@ -334,13 +377,13 @@ export function SequencePlayerClient() {
                   }}
                 >
                   <Image 
-                    src={resolvePath(char.data.imageUrl)} 
+                    src={resolvePath(char.data.imageUrl, 'media/characters')} 
                     alt={char.data.name} 
                     layout="fill" 
                     objectFit="contain" 
                     unoptimized 
                   />
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap">
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap border border-white/20">
                     {char.data.name}
                   </div>
                 </div>
@@ -348,14 +391,13 @@ export function SequencePlayerClient() {
             </div>
           )}
 
-          {/* Video Type Rendering */}
           {step?.type === 'video' && (
             <div className="w-full h-full flex flex-col items-center justify-center bg-black p-4">
               <h2 className="text-white text-xl mb-4">{step.videoTitle || 'Movie'}</h2>
               <div className="relative w-full max-w-4xl aspect-video bg-black flex items-center justify-center">
                 <video
-                  key={step.videoUrl} // Force remount when step changes
-                  src={resolvePath(step.videoUrl)}
+                  key={step.videoUrl} 
+                  src={resolvePath(step.videoUrl, 'media/videos')}
                   className="max-w-full max-h-full"
                   autoPlay
                   playsInline
@@ -377,28 +419,37 @@ export function SequencePlayerClient() {
             </div>
           )}
 
-          {/* Event Overlay */}
           {activeEvent && currentNode && (
             <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-8 z-50">
-              <Card className="w-full max-w-2xl bg-background/95 backdrop-blur shadow-2xl border-primary/20">
+              <Card className="w-full max-w-2xl bg-background/95 backdrop-blur shadow-2xl border-primary/40 animate-in slide-in-from-bottom-4 duration-300">
                 <CardContent className="pt-6 space-y-4">
-                  <p className="text-xl leading-relaxed whitespace-pre-wrap">{currentNode.content}</p>
+                  <p className="text-xl leading-relaxed whitespace-pre-wrap font-medium">{currentNode.content}</p>
                   <div className="flex flex-col gap-2">
                     {currentNode.type === 'choice' ? (
                       currentNode.choices?.map((choice, i) => (
-                        <Button key={i} size="lg" className="w-full justify-start" onClick={() => {
+                        <Button key={i} size="lg" className="w-full justify-start text-left h-auto py-3 whitespace-normal" onClick={() => {
                           const next = activeEvent.nodes.find(n => n.id === choice.nextStepId);
-                          if (next) setCurrentNode(next); else setActiveEvent(null);
+                          if (next) {
+                            playNodeVoice(next);
+                            setCurrentNode(next);
+                          } else {
+                            setActiveEvent(null);
+                          }
                         }}>
                           {choice.text}
                         </Button>
                       ))
                     ) : (
-                      <Button size="lg" className="w-full" onClick={() => {
+                      <Button size="lg" className="w-full h-14 text-lg" onClick={() => {
                         const next = activeEvent.nodes.find(n => n.id === currentNode.nextStepId);
-                        if (next) setCurrentNode(next); else setActiveEvent(null);
+                        if (next) {
+                          playNodeVoice(next);
+                          setCurrentNode(next);
+                        } else {
+                          setActiveEvent(null);
+                        }
                       }}>
-                        {currentNode.type === 'end' ? '閉じる' : '次へ'}
+                        {currentNode.type === 'end' ? '物語を続ける' : '次へ'}
                       </Button>
                     )}
                   </div>
@@ -412,7 +463,7 @@ export function SequencePlayerClient() {
       {isFinished && (
         <Card className="max-w-md mx-auto text-center py-12">
           <CardHeader>
-            <CardTitle className="text-3xl">完</CardTitle>
+            <CardTitle className="text-3xl font-headline">完</CardTitle>
             <CardDescription>物語はすべて終了しました。</CardDescription>
           </CardHeader>
           <CardContent>
