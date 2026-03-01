@@ -94,16 +94,17 @@ export function SequencePlayerClient() {
   const gameLoopRef = useRef<number>(null);
 
   // Helper to resolve media paths robustly based on v1.0 structure
-  const resolvePath = useCallback((url: string | undefined, subDir?: string) => {
-    if (!url) return '';
-    if (url.startsWith('http') || url.startsWith('/')) return url;
+  const resolvePath = useCallback((path: string | undefined, defaultDir: string) => {
+    if (!path) return '';
+    if (path.startsWith('http') || path.startsWith('/')) return path;
     
-    // If a subDir is provided (like 'media/bgm'), ensure it's included if not present
-    if (subDir && !url.startsWith(subDir)) {
-      return `${sequencePath}/${subDir}/${url}`;
-    }
-    
-    return `${sequencePath}/${url}`;
+    // If the path already contains the defaultDir or a 'media/' prefix, 
+    // we assume it's a relative path from the sequence root.
+    // Otherwise, we prepend the defaultDir.
+    const isFullPath = path.startsWith('media/') || path.startsWith('data/') || path.includes('/');
+    const fullPath = isFullPath ? path : `${defaultDir}/${path}`;
+        
+    return `${sequencePath}/${fullPath}`;
   }, [sequencePath]);
 
   // Handle BGM
@@ -168,17 +169,11 @@ export function SequencePlayerClient() {
       }
 
       // 3. Load Map
-      // Try png, then jpg
+      // If mapId is just 'map_0_0', try to add extension
       const mapId = story.mapId;
-      const mapPathPng = resolvePath(`media/backgrounds/${mapId}.png`);
-      const mapPathJpg = resolvePath(`media/backgrounds/${mapId}.jpg`);
-      
-      try {
-        const check = await fetch(mapPathPng, { method: 'HEAD' });
-        setCurrentMapUrl(check.ok ? mapPathPng : mapPathJpg);
-      } catch {
-        setCurrentMapUrl(mapPathPng); // Fallback
-      }
+      const hasExtension = mapId.includes('.');
+      const mapPath = resolvePath(hasExtension ? mapId : `${mapId}.png`, 'media/backgrounds');
+      setCurrentMapUrl(mapPath);
 
       // 4. Load Villagers and Initial State
       const newChars: Record<string, any> = {};
@@ -315,7 +310,7 @@ export function SequencePlayerClient() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-2">
-            <Input value={sequencePath} onChange={e => setSequencePath(e.target.value)} placeholder="/sequences/my-story" />
+            <Input value={sequencePath} onChange={e => setSequencePath(e.target.value)} placeholder="/sequences/demo" />
             <Button onClick={loadSequence}><FileJson className="mr-2 h-4 w-4"/>読み込み</Button>
           </div>
           <div className="text-xs text-muted-foreground space-y-1">
@@ -360,7 +355,20 @@ export function SequencePlayerClient() {
           {step?.type === 'story' && (
             <div className="relative w-full h-full">
               {currentMapUrl ? (
-                <Image src={currentMapUrl} alt="Background" layout="fill" objectFit="cover" unoptimized priority />
+                <Image 
+                  src={currentMapUrl} 
+                  alt="Background" 
+                  layout="fill" 
+                  objectFit="cover" 
+                  unoptimized 
+                  priority 
+                  onError={() => {
+                    // If PNG fails, try JPG as fallback
+                    if (currentMapUrl.endsWith('.png')) {
+                      setCurrentMapUrl(currentMapUrl.replace('.png', '.jpg'));
+                    }
+                  }}
+                />
               ) : (
                 <div className="flex items-center justify-center h-full text-white">マップ画像を読み込み中...</div>
               )}
