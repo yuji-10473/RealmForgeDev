@@ -1,0 +1,63 @@
+{
+  "rows": 2,
+  "name": "夜海岸",
+  "maps": [
+    {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F8cbQhI5KmyB1d9DrvOvM%2Fmap_0_0.jpg?alt=media&token=8409bfbc-522e-436f-8c99-3d35672437c2",
+      "objects": [
+        {
+          "height": 150,
+          "conversation": "",
+          "width": 150,
+          "eventId": "LsuceXFK7C8OS8AbiFIX",
+          "objectId": "A44lygLrpBVZjTZD1EqT",
+          "x": 1495,
+          "y": 665,
+          "id": "1771654000857"
+        },
+        {
+          "height": 150,
+          "conversation": "",
+          "width": 150,
+          "eventId": "SS3U7Dy8AnkaWyguQqGM",
+          "objectId": "tTPwcEBQZSA6Bxl7JYcF",
+          "y": 683,
+          "x": 1255,
+          "id": "1771654004375"
+        }
+      ],
+      "name": "北海岸夜",
+      "id": "map_0_0"
+    },
+    {
+      "name": "弥三郎家前夜",
+      "id": "map_1_0",
+      "objects": [
+        {
+          "x": 507,
+          "y": 495,
+          "id": "1771542185220",
+          "conversation": "",
+          "height": 300,
+          "width": 300,
+          "objectId": "kY4q0QP01Anm6gzNFJLC"
+        },
+        {
+          "x": 368,
+          "y": 791,
+          "id": "1771542187556",
+          "width": 300,
+          "height": 300,
+          "conversation": "",
+          "objectId": "kY4q0QP01Anm6gzNFJLC"
+        }
+      ],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F8cbQhI5KmyB1d9DrvOvM%2Fmap_1_0.jpg?alt=media&token=6a5b0758-690c-45dd-b18d-808380880589"
+    }
+  ],
+  "cols": 1,
+  "createdAt": {
+    "seconds": 1771303511,
+    "nanoseconds": 596000000
+  }
+}

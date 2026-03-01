@@ -1,0 +1,54 @@
+{
+  "maps": [
+    {
+      "objects": [
+        {
+          "id": "1771562476026",
+          "y": 475,
+          "x": 1573,
+          "objectId": "NeU3W8egDLjgpE6ufm5L",
+          "width": 550,
+          "conversation": "",
+          "height": 400
+        },
+        {
+          "id": "1771562586728",
+          "x": 467,
+          "y": 633,
+          "objectId": "kY4q0QP01Anm6gzNFJLC",
+          "height": 260,
+          "conversation": "",
+          "width": 280
+        }
+      ],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4",
+      "id": "map_0_0",
+      "name": "海岸1"
+    },
+    {
+      "name": "海岸2",
+      "id": "map_1_0",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4",
+      "objects": []
+    },
+    {
+      "objects": [],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4",
+      "id": "map_2_0",
+      "name": "海岸3"
+    },
+    {
+      "id": "map_3_0",
+      "name": "海岸4",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4",
+      "objects": []
+    }
+  ],
+  "name": "海岸",
+  "rows": 4,
+  "createdAt": {
+    "nanoseconds": 183000000,
+    "seconds": 1770976164
+  },
+  "cols": 1
+}

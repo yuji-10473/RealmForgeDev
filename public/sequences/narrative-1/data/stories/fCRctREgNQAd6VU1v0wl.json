@@ -1,0 +1,92 @@
+{
+  "mapId": "map_0_0",
+  "createdAt": {
+    "seconds": 1771655025,
+    "nanoseconds": 195000000
+  },
+  "characters": [
+    {
+      "speed": 1,
+      "path": [
+        {
+          "x": 1604,
+          "y": 715,
+          "waitForEventId": "9Nz9tw4vVX3wGhaau0wx"
+        },
+        {
+          "y": 1251,
+          "x": 1605,
+          "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+          "visibility": "none"
+        }
+      ],
+      "objectId": "A44lygLrpBVZjTZD1EqT",
+      "id": "seq_char_1771655133164"
+    },
+    {
+      "speed": 1,
+      "path": [
+        {
+          "eventId": "SS3U7Dy8AnkaWyguQqGM",
+          "x": 1376,
+          "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+          "y": 768
+        },
+        {
+          "visibility": "none",
+          "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+          "x": 1387,
+          "y": 1329
+        }
+      ],
+      "objectId": "tTPwcEBQZSA6Bxl7JYcF",
+      "id": "seq_char_1771655155105"
+    },
+    {
+      "objectId": "kMEH8wVv0Y7HfbElMrtt",
+      "id": "seq_char_1771903696866",
+      "speed": 1,
+      "path": [
+        {
+          "visibility": "disappear",
+          "y": 1462,
+          "x": 1525
+        },
+        {
+          "eventId": "",
+          "visibility": "appear",
+          "x": 1609,
+          "y": 1455
+        },
+        {
+          "eventId": "9Nz9tw4vVX3wGhaau0wx",
+          "visibility": "none",
+          "x": 1609,
+          "y": 1038
+        },
+        {
+          "visibility": "none",
+          "x": 1642,
+          "y": 1460
+        }
+      ]
+    },
+    {
+      "id": "seq_char_1772037149901",
+      "objectId": "olCEMKCl0vWKNZOIrj2g",
+      "speed": 1,
+      "path": [
+        {
+          "eventId": "k4FQ2Vz6z2hY1OL8ndTu",
+          "visibility": "none",
+          "x": 2591,
+          "y": 1354
+        }
+      ]
+    }
+  ],
+  "worldId": "8cbQhI5KmyB1d9DrvOvM",
+  "name": "新しい物語",
+  "bgmUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/stories%2FfCRctREgNQAd6VU1v0wl%2Fbgm%2F1772168973247_SUMMER_TRIANGLE.mp3?alt=media&token=c1076eaa-3918-4678-96a2-b779295ba045",
+  "id": "opening_scene"
+}

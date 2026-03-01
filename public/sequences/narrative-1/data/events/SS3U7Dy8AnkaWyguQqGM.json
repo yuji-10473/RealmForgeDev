@@ -1,0 +1,65 @@
+{
+  "createdAt": {
+    "seconds": 1771828947,
+    "nanoseconds": 183000000
+  },
+  "title": "浜辺の少年僧、船路の疲れに伏す",
+  "villagerId": "tTPwcEBQZSA6Bxl7JYcF",
+  "plot": "浜辺で伯耆と日蓮が談話しています。",
+  "requiredFlag": "",
+  "villagerName": "伯耆",
+  "nodes": [
+    {
+      "type": "start",
+      "content": "う〜ん、苦しいよ〜\n船があんなに揺れるものだとは思っても見なかったよ〜",
+      "id": "node-1",
+      "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+      "readingText": "う〜ん、くるしいよ〜ふねがあんなにゆれるものだとはおもってもみなかったよ〜",
+      "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-1_1772004057120.wav?alt=media&token=a5ddbe36-fdef-4f9e-b621-2010b3e772ad",
+      "speakerName": "伯耆",
+      "expressionName": "苦しい表情",
+      "nextStepId": "node-2"
+    },
+    {
+      "content": "伯耆は船に乗ったのは初めてだったか。\nこればっかりは丘の上にいたのでは鍛えられないからな。\n船旅に慣れることも仏道修行だと思ってしっかり祈り苦労を噛み締めておくといいよ。\nこれから先、船に乗ることも多くなるかも知れないからね。",
+      "type": "story",
+      "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-2_1772004074849.wav?alt=media&token=9bff41fe-dce3-4f01-823f-780453d2fd95",
+      "speakerId": "A44lygLrpBVZjTZD1EqT",
+      "readingText": "ほうきはふねにのったのははじめてだったか。こればっかりはおかのうえにいたのではきたえられないからな。ふなたびになれることもぶつどうしゅぎょうだとおもってしっかりいのりくろうをかみしめておくといいよ。これからさき、ふねにのることもおおくなるかもしれないからね。",
+      "speakerName": "日蓮",
+      "id": "node-2",
+      "nextStepId": "node-3"
+    },
+    {
+      "nextStepId": "node-4",
+      "expressionName": "苦しい表情",
+      "speakerName": "伯耆",
+      "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-3_1772004114317.wav?alt=media&token=fdab82d0-27c6-4ad4-97e1-e07ac283c5f2",
+      "id": "node-3",
+      "readingText": "そうですね〜ぶっぽうはきびしいですね〜せっかくほうなんをごいっしょし、まもりぬくかくごでおともしたのに、いきなりでばなをくじかれたようでなさけないです。",
+      "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+      "type": "story",
+      "content": "そうですね〜\n仏法は厳しいですね〜\nせっかく法難をご一緒し、守り抜く覚悟でお供したのに、いきなり出鼻をくじかれたようで情けないです。"
+    },
+    {
+      "speakerId": "A44lygLrpBVZjTZD1EqT",
+      "readingText": "ほうなんをうけとめようとするこころいきだけあればだいじょうぶ。ほうきはまだわかいからすぐにりっぱなにょせつしゅぎょうのぎょうじゃになれるよ。たのしみだな…",
+      "speakerName": "日蓮",
+      "nextStepId": "node-5",
+      "id": "node-4",
+      "content": "法難を受け止めようとする心意気だけあれば大丈夫。\n伯耆はまだ若いからすぐに立派な如説修行の行者になれるよ。\n楽しみだな…",
+      "type": "story",
+      "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-4_1772004124970.wav?alt=media&token=172923aa-45ec-4875-b953-3f3075ac8986"
+    },
+    {
+      "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+      "readingText": "うーん…そういってもらえるのがせめてものすくいですが、いまはなみのおとさえうらめしいです。なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…",
+      "speakerName": "伯耆",
+      "expressionName": "苦しい表情",
+      "id": "node-5",
+      "content": "う〜ん…\nそう言ってもらえるのがせめてもの救いですが、今は波の音さえ恨めしいです。\n南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…",
+      "type": "end",
+      "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-5_1772004137874.wav?alt=media&token=69c86044-d70c-4ae4-a960-5d6cc8192279"
+    }
+  ]
+}
