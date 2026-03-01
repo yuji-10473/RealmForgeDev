@@ -33,6 +33,7 @@ import packageJson from "../../../package.json";
 import { AuthButton } from "@/components/client/auth-button";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 import { StoryEditorIcon } from "@/components/icons/StoryEditorIcon";
+import { SequencePlayerIcon } from "@/components/icons/SequencePlayerIcon";
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -43,6 +44,7 @@ const navItems = [
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
   { href: "/event-simulator", label: "イベントシミュレーター", icon: EventSimulatorIcon },
   { href: "/story-editor", label: "ストーリーエディター", icon: StoryEditorIcon },
+  { href: "/sequence-player", label: "シーケンスプレイヤー", icon: SequencePlayerIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
   { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
   { href: "/shop-simulator", label: "ショップシミュレーター", icon: ShopIcon },
