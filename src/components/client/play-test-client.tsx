@@ -4,7 +4,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -29,13 +29,14 @@ import { useFirestore } from '@/firebase';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent } from '../ui/card';
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
-const CHARACTER_SPEED = 10;
+const CHARACTER_SPEED = 12;
 const CHARACTER_WIDTH = 256;
 const CHARACTER_HEIGHT = 256;
-const INTERACTION_RADIUS = 150; // インタラクト判定距離を少し広めに設定
+const INTERACTION_RADIUS = 150;
 
 // v1.1.1 Path Resolution
 const resolveMediaUrl = (path: string | undefined) => {
@@ -171,6 +172,37 @@ function DialogueBox({
   );
 }
 
+// MiniMap Component to help visualize transitions
+function MiniMap({ world, activeIndex }: { world: WorldData | undefined, activeIndex: number }) {
+  if (!world || !world.rows || !world.cols) return null;
+
+  return (
+    <div className="absolute top-4 right-4 bg-background/60 backdrop-blur-md border border-border p-2 rounded-lg z-40 shadow-xl">
+      <div className="flex items-center gap-2 mb-2">
+        <MapIcon className="h-3 w-3 text-muted-foreground" />
+        <span className="text-[10px] font-bold uppercase tracking-wider">{world.name}</span>
+      </div>
+      <div 
+        className="grid gap-1" 
+        style={{ 
+          gridTemplateColumns: `repeat(${world.cols}, 1fr)`,
+          width: '80px'
+        }}
+      >
+        {Array.from({ length: world.rows * world.cols }).map((_, i) => (
+          <div 
+            key={i} 
+            className={cn(
+              "aspect-square border rounded-[1px]",
+              i === activeIndex ? "bg-primary border-primary shadow-[0_0_5px_rgba(var(--primary),0.5)]" : "bg-muted/40 border-border/50"
+            )}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function PlayTestClient({ user, initialData }: { user: User, initialData: any | null }) {
   const { toast } = useToast();
   const firestore = useFirestore();
@@ -231,7 +263,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return Array.isArray(data) ? data : (data.worlds || data.events || []);
         };
 
-        const [worlds, villagers, items, buildings, events, playerListRes] = await Promise.all([
+        const [worldIndex, villagers, items, buildings, events, playerListRes] = await Promise.all([
           fetchData('worlds'),
           fetchData('villagers'),
           fetchData('items'),
@@ -240,7 +272,19 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] })
         ]);
 
-        setMasterWorlds(worlds);
+        // "world.json"の読み込み方は変えず、中身に基づいて詳細データを補完する
+        const fullWorlds = await Promise.all(worldIndex.map(async (w: any) => {
+          try {
+            const detailRes = await fetch(`/data/${w.id}.json`);
+            if (detailRes.ok) {
+              const detail = await detailRes.json();
+              return { ...w, ...detail };
+            }
+          } catch (e) {}
+          return w;
+        }));
+
+        setMasterWorlds(fullWorlds);
         setAvailableObjects([...villagers, ...items, ...buildings]);
         setMasterEvents(events);
         setPlayerCharacters(playerListRes.characters || []);
@@ -249,8 +293,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setActivePlayerId(playerListRes.characters[0].id);
         }
 
-        if (worlds.length > 0 && !selectedWorldId) {
-          setSelectedWorldId(worlds[0].id);
+        if (fullWorlds.length > 0 && !selectedWorldId) {
+          setSelectedWorldId(fullWorlds[0].id);
         }
       } catch (e: any) {
         console.error("Initialization error:", e);
@@ -330,12 +374,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           // 同じワールド内の別マップか、別のワールド/ルームかを判定
           const mapIdx = currentWorld?.maps.findIndex(m => m.id === targetMapId);
           if (mapIdx !== undefined && mapIdx !== -1) {
-            // 同一ワールド内の区画切り替え
             setActiveCellIndex(mapIdx);
           } else {
-            // 別のワールドまたはルームへの遷移
             setSelectedWorldId(targetMapId);
-            setActiveCellIndex(0); // 遷移先では最初のマップを表示
+            setActiveCellIndex(0);
           }
           
           setCharacterPosition({ x: targetX, y: targetY });
@@ -413,21 +455,24 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           let finalY = nextY;
           let hasTransitioned = false;
 
-          if (nextX < -CHARACTER_WIDTH / 2 && currentCol > 0) {
+          // 境界突破判定の閾値を調整
+          const EDGE_THRESHOLD = 50;
+
+          if (nextX < -EDGE_THRESHOLD && currentCol > 0) {
             nextCellIdx = activeCellIndex - 1;
-            finalX = MAP_WIDTH - CHARACTER_WIDTH / 2;
+            finalX = MAP_WIDTH - CHARACTER_WIDTH + EDGE_THRESHOLD;
             hasTransitioned = true;
-          } else if (nextX > MAP_WIDTH - CHARACTER_WIDTH / 2 && currentCol + 1 < currentWorld.cols) {
+          } else if (nextX > MAP_WIDTH - CHARACTER_WIDTH + EDGE_THRESHOLD && currentCol + 1 < currentWorld.cols) {
             nextCellIdx = activeCellIndex + 1;
-            finalX = -CHARACTER_WIDTH / 2;
+            finalX = -EDGE_THRESHOLD;
             hasTransitioned = true;
-          } else if (nextY < -CHARACTER_HEIGHT / 2 && currentRow > 0) {
+          } else if (nextY < -EDGE_THRESHOLD && currentRow > 0) {
             nextCellIdx = activeCellIndex - currentWorld.cols;
-            finalY = MAP_HEIGHT - CHARACTER_HEIGHT / 2;
+            finalY = MAP_HEIGHT - CHARACTER_HEIGHT + EDGE_THRESHOLD;
             hasTransitioned = true;
-          } else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT / 2 && currentRow + 1 < currentWorld.rows) {
+          } else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + EDGE_THRESHOLD && currentRow + 1 < currentWorld.rows) {
             nextCellIdx = activeCellIndex + currentWorld.cols;
-            finalY = -CHARACTER_HEIGHT / 2;
+            finalY = -EDGE_THRESHOLD;
             hasTransitioned = true;
           }
 
@@ -436,14 +481,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             setCharacterPosition({ x: finalX, y: finalY });
             setTargetPosition(null);
           } else {
-            // 境界内なら通常移動
             setCharacterPosition({
               x: Math.max(-CHARACTER_WIDTH / 2, Math.min(MAP_WIDTH - CHARACTER_WIDTH / 2, nextX)),
               y: Math.max(-CHARACTER_HEIGHT / 2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT / 2, nextY))
             });
           }
         } else {
-          // ワールド情報がない場合はクランプのみ
           setCharacterPosition({
             x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)),
             y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY))
@@ -507,8 +550,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-      <div className="flex flex-col h-full gap-4">
-        <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4">
+      <div className="flex flex-col h-full gap-4 relative">
+        <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4 z-10">
           <div className="flex items-center gap-2 flex-grow max-w-sm">
             <Label className="whitespace-nowrap text-xs">マップ</Label>
             <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }}>
@@ -539,7 +582,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           onClick={handleMapClick}
           className="relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9] cursor-crosshair"
         >
-          {activeMapData && (
+          {activeMapData ? (
             <>
               <Image src={resolveMediaUrl(activeMapData.imageUrl)} alt="" fill className="object-cover" unoptimized priority />
               {activeMapData.objects.map(obj => {
@@ -553,6 +596,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 );
               })}
               
+              <MiniMap world={currentWorld} activeIndex={activeCellIndex} />
+
               {/* Target Indicator */}
               {targetPosition && (
                 <div 
@@ -581,6 +626,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 </div>
               )}
             </>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full space-y-4">
+              <Loader2 className="h-12 w-12 animate-spin text-primary" />
+              <p className="text-muted-foreground">マップデータを構築中...</p>
+            </div>
           )}
 
           {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
