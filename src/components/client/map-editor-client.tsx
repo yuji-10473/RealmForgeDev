@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useRef, MouseEvent, useEffect, useMemo } from "react";
@@ -29,8 +28,8 @@ type AvailableObject = {
   id: string;
   name: string;
   imageUrl: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   type?: 'person' | 'door' | 'item';
 };
 
@@ -68,8 +67,7 @@ export function MapEditorClient() {
   const resolveImagePath = (path: string) => {
     if (!path) return '';
     if (path.startsWith('http') || path.startsWith('/')) return path;
-    if (path.startsWith('media/')) return `/${path}`;
-    return `/media/images/${path}`;
+    return `/${path}`; // v1.1.1 paths already start with media/images/...
   };
 
   useEffect(() => {
@@ -80,10 +78,9 @@ export function MapEditorClient() {
           const res = await fetch(`/data/${file}.json`);
           if (!res.ok) return [];
           const data = await res.json();
-          return Array.isArray(data) ? data : (data[file] || []);
+          return Array.isArray(data) ? data : [];
         };
 
-        // v1.1.1: Fetch from consolidated files
         const [worlds, villagers, items, buildings] = await Promise.all([
           fetchData('worlds'),
           fetchData('villagers'),

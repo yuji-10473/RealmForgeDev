@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -39,12 +37,18 @@ const CHARACTER_HEIGHT = 256;
 const ANIMATION_FPS = 8;
 const INTERACTION_RADIUS = 50;
 
+// v1.1.1 Path Resolution
+const resolveMediaUrl = (path: string | undefined) => {
+  if (!path) return '';
+  if (path.startsWith('http') || path.startsWith('/')) return path;
+  return `/${path}`; // v1.1.1 paths already include media/images/...
+};
+
 type Movement = {
   type: 'stationary' | 'patrol-h';
   range?: number;
 };
 
-// Data structure types
 type PlacedObject = {
   id: string;
   objectId: string;
@@ -67,8 +71,8 @@ type AvailableObject = {
   id: string;
   name: string;
   imageUrl: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   type?: 'person' | 'door' | 'item';
   conversation?: string;
   audioPath?: string;
@@ -79,6 +83,14 @@ type MapCell = {
   name: string;
   imageUrl: string;
   objects: PlacedObject[];
+};
+
+type WorldData = {
+  id: string;
+  name: string;
+  rows: number;
+  cols: number;
+  maps: MapCell[];
 };
 
 type AnimationFrame = {
@@ -93,14 +105,7 @@ type AnimationClip = {
   fps: number;
 };
 
-type WorldMap = MapCell[][];
-
-type CharacterState =
-  | 'idle'
-  | 'walk_up'
-  | 'walk_down'
-  | 'walk_left'
-  | 'walk_right';
+type CharacterState = 'idle' | 'walk_up' | 'walk_down' | 'walk_left' | 'walk_right';
 type CharacterDirection = 'up' | 'down' | 'left' | 'right';
 
 type SavedInventoryItem = {
@@ -108,57 +113,33 @@ type SavedInventoryItem = {
   quantity: number;
 };
 
-type WorldMapOption = {
-  id: string;
-  name: string;
-};
-
-// --- Event System Types (New Spec) ---
+// --- Event System Types ---
 export type Choice = {
   text: string;
   nextStepId: string;
-  requiredItemId?: string;
-  lockedText?: string;
-};
-
-export type Reward = {
-  itemId?: string;
-  itemName?: string;
-  amount?: number;
 };
 
 export type EventNode = {
   id: string;
   type: 'start' | 'story' | 'choice' | 'reward' | 'end';
   content: string;
-  setFlag?: string;
   nextStepId?: string;
-  requiredFlag?: string;
   choices?: Choice[];
-  reward?: Reward;
+  audioUrl?: string;
 };
 
-export type GameEvent = {
-  id: string; // Document ID
-  title: string;
-  plot?: string;
-  villagerId?: string;
-  villagerName?: string;
-  createdAt?: any; // Firestore Timestamp
-  requiredFlag?: string;
+export type EventFlow = {
+  id: string;
   nodes: EventNode[];
 };
-// --- End Event System Types ---
 
-// --- NPC State Types ---
 type NpcState = {
   x: number;
   y: number;
   originX: number;
   movement: Movement;
-  direction: number; // for patrol
+  direction: number;
 };
-
 
 function DialogueBox({
   conversation,
@@ -183,7 +164,7 @@ function DialogueBox({
       <div className="flex justify-end">
         <Button onClick={onComplete}>閉じる</Button>
       </div>
-      {audioPath && <audio ref={audioRef} src={audioPath} preload="auto" />}
+      {audioPath && <audio ref={audioRef} src={resolveMediaUrl(audioPath)} preload="auto" />}
     </div>
   );
 }
@@ -193,47 +174,27 @@ function EventPlayerUI({
     onChoice,
     onNext,
     onClose,
-    inventory,
   }: {
     currentNode: EventNode;
     onChoice: (choice: Choice) => void;
     onNext: (nodeId: string) => void;
     onClose: () => void;
-    inventory: SavedInventoryItem[];
   }) {
-    if (!currentNode) return null;
-  
     return (
       <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-6 z-50 text-foreground shadow-lg space-y-4 max-w-3xl mx-auto">
         <p className="text-lg whitespace-pre-wrap min-h-[3rem]">{currentNode.content}</p>
         <div className="flex flex-col gap-2">
-          {/* Choices */}
-          {currentNode.type === 'choice' && currentNode.choices?.map((choice, index) => {
-            const hasItem = choice.requiredItemId ? inventory.some(i => i.itemId === choice.requiredItemId) : true;
-            const isDisabled = !!choice.requiredItemId && !hasItem;
-            return (
-              <Button
-                key={index}
-                onClick={() => onChoice(choice)}
-                disabled={isDisabled}
-                variant={isDisabled ? "secondary" : "default"}
-                className="w-full justify-between"
-              >
-                <span>{choice.text}</span>
-                {choice.requiredItemId && <span className="text-xs font-mono p-1 bg-primary-foreground/20 rounded">要:{choice.requiredItemId}</span>}
-              </Button>
-            );
-          })}
-
-          {/* Next Button */}
+          {currentNode.type === 'choice' && currentNode.choices?.map((choice, index) => (
+            <Button key={index} onClick={() => onChoice(choice)} className="w-full justify-start">
+              {choice.text}
+            </Button>
+          ))}
           {(currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && currentNode.nextStepId && (
             <Button onClick={() => onNext(currentNode.nextStepId!)} className="w-full">
               次へ
             </Button>
           )}
-
-          {/* Close Button: Appears for 'end' nodes OR for 'story'/'start'/'reward' nodes that are dead-ends. */}
-          {(currentNode.type === 'end' || ((currentNode.type === 'start' || currentNode.type === 'story' || currentNode.type === 'reward') && !currentNode.nextStepId)) && (
+          {(currentNode.type === 'end' || !currentNode.nextStepId) && (
             <Button onClick={onClose} variant="outline" className="w-full">
               閉じる
             </Button>
@@ -243,1035 +204,238 @@ function EventPlayerUI({
     );
   }
 
-const GameView = ({
-  loading,
-  worldMap,
-  rooms,
-  error,
-  isRoom,
-  activeRoomId,
-  activeMap,
-  gameViewRef,
-  handleMapClick,
-  isTransitioning,
-  availableObjects,
-  characterPosition,
-  activeClip,
-  safeFrameIndex,
-  isMenuOpen,
-  setIsMenuOpen,
-  destination,
-  isInDialogue,
-  activeInteraction,
-  setActiveInteraction,
-  handleSave,
-  displayInventoryItems,
-  collectedObjectIds,
-  gold,
-  npcStates,
-  // Event props
-  isInEvent,
-  activeEvent,
-  currentNode,
-  handleEventChoice,
-  goToNode,
-  endEvent,
-  inventory,
-}: {
-  loading: boolean;
-  worldMap: WorldMap | null;
-  rooms: MapCell[] | null;
-  error: string | null;
-  isRoom: boolean;
-  activeRoomId: string | null;
-  activeMap: { r: number; c: number };
-  gameViewRef: React.RefObject<HTMLDivElement>;
-  handleMapClick: (e: React.MouseEvent<HTMLDivElement>) => void;
-  isTransitioning: boolean;
-  availableObjects: AvailableObject[];
-  characterPosition: { x: number; y: number };
-  activeClip: AnimationClip | undefined;
-  safeFrameIndex: number;
-  isMenuOpen: boolean;
-  setIsMenuOpen: (open: boolean) => void;
-  destination: { x: number; y: number } | null;
-  isInDialogue: boolean;
-  activeInteraction: { conversation: string; audioPath?: string } | null;
-  setActiveInteraction: (interaction: { conversation: string; audioPath?: string } | null) => void;
-  handleSave: () => void;
-  displayInventoryItems: DisplayInventoryItem[];
-  collectedObjectIds: string[];
-  gold: number;
-  npcStates: Record<string, NpcState>;
-  // Event props
-  isInEvent: boolean;
-  activeEvent: GameEvent | null;
-  currentNode: EventNode | null;
-  handleEventChoice: (choice: Choice) => void;
-  goToNode: (nodeId: string) => void;
-  endEvent: () => void;
-  inventory: SavedInventoryItem[];
-}) => {
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-        <p>ゲームデータを読み込み中...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <Alert variant="destructive">
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>読み込みエラー</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
-  }
-
-  const activeMapData = isRoom
-    ? rooms?.find(r => r.id === activeRoomId)
-    : worldMap?.[activeMap.r]?.[activeMap.c];
-
-  if (!activeMapData) {
-    return <p>マップまたはキャラクターデータが見つかりません。</p>;
-  }
-
-  return (
-    <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-      <div className="flex justify-center items-center h-full">
-        <div
-          ref={gameViewRef}
-          onClick={handleMapClick}
-          className="relative aspect-[16/9] w-full max-w-full h-auto max-h-full bg-muted overflow-hidden border-2 border-border cursor-pointer"
-        >
-          {isTransitioning && (
-            <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-30">
-              <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            </div>
-          )}
-          {activeMapData.imageUrl && (
-            <Image
-              key={activeMapData.id}
-              src={activeMapData.imageUrl}
-              alt={`Map background ${activeMapData.name}`}
-              layout="fill"
-              objectFit="cover"
-              unoptimized
-              className="z-0"
-              priority
-            />
-          )}
-
-          {activeMapData.objects.filter(obj => !collectedObjectIds.includes(obj.id)).map(obj => {
-            const asset = availableObjects.find(a => a.id === obj.objectId);
-            if (!asset || !asset.imageUrl) return null;
-
-            const isNpc = npcStates[obj.id];
-            const currentPos = isNpc ? { x: npcStates[obj.id].x, y: npcStates[obj.id].y } : { x: obj.x, y: obj.y };
-
-            const leftPercent = (currentPos.x / MAP_WIDTH) * 100;
-            const topPercent = (currentPos.y / MAP_HEIGHT) * 100;
-            const widthPercent = (obj.width / MAP_WIDTH) * 100;
-
-            return (
-              <div
-                key={obj.id}
-                style={{
-                  left: `${leftPercent}%`,
-                  top: `${topPercent}%`,
-                  width: `${widthPercent}%`,
-                  height: 'auto',
-                  aspectRatio: `${obj.width} / ${obj.height}`,
-                  position: 'absolute',
-                  zIndex: 1,
-                }}
-              >
-                <Image
-                  src={asset.imageUrl}
-                  alt={asset.name}
-                  layout="fill"
-                  objectFit="contain"
-                  unoptimized
-                />
-              </div>
-            );
-          })}
-
-          <div
-            style={{
-              position: 'absolute',
-              left: `${(characterPosition.x / MAP_WIDTH) * 100}%`,
-              top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`,
-              width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`,
-              height: 'auto',
-              aspectRatio: `${CHARACTER_WIDTH} / ${CHARACTER_HEIGHT}`,
-              zIndex: 10,
-              imageRendering: 'pixelated',
-            }}
-          >
-            {(!activeClip || activeClip.frames.length === 0) ? (
-              <Image
-                src={`/characters/player/frames/idle_down_1.png`}
-                alt="Player Character"
-                layout="fill"
-                objectFit="contain"
-                unoptimized
-              />
-            ) : (
-              activeClip.frames.map((frame, index) => (
-                <Image
-                  key={frame.id}
-                  src={`/characters/player/frames/${frame.image}`}
-                  alt=""
-                  layout="fill"
-                  objectFit="contain"
-                  unoptimized
-                  aria-hidden="true"
-                  priority
-                  className={cn(
-                    'absolute inset-0',
-                    index === safeFrameIndex ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
-              ))
-            )}
-          </div>
-          
-          <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-            <div className="flex items-center gap-2 bg-background/50 backdrop-blur-sm rounded-full px-3 h-10 text-foreground font-bold shadow">
-              <span>{gold}</span>
-              <span className="text-sm">K</span>
-            </div>
-            <Button size="icon" onClick={handleSave} className="bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
-                <Save className="h-5 w-5" />
-                <span className="sr-only">Save Game</span>
-            </Button>
-            <SheetTrigger asChild>
-              <Button size="icon" className="bg-background/50 hover:bg-background/80 backdrop-blur-sm h-10 w-10">
-                  <MenuIcon className="h-6 w-6" />
-                  <span className="sr-only">Open Menu</span>
-              </Button>
-            </SheetTrigger>
-          </div>
-
-          {destination && (
-            <div
-                className="absolute z-20 w-4 h-4 bg-red-500 rounded-full border-2 border-white pointer-events-none -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  left: `${(destination.x + CHARACTER_WIDTH / 2) / MAP_WIDTH * 100}%`,
-                  top: `${(destination.y + CHARACTER_HEIGHT / 2) / MAP_HEIGHT * 100}%`,
-                }}
-            />
-          )}
-          {isInDialogue && activeInteraction && (
-            <DialogueBox
-              conversation={activeInteraction.conversation}
-              audioPath={activeInteraction.audioPath}
-              onComplete={() => setActiveInteraction(null)}
-            />
-          )}
-          {isInEvent && activeEvent && currentNode && (
-            <EventPlayerUI 
-                currentNode={currentNode}
-                onChoice={handleEventChoice}
-                onNext={goToNode}
-                onClose={endEvent}
-                inventory={inventory}
-            />
-          )}
-        </div>
-      </div>
-      <SheetContent className="w-full sm:max-w-lg p-0">
-        <div className="p-6 h-full overflow-y-auto">
-          <SheetHeader className="mb-6">
-            <SheetTitle>メニュー</SheetTitle>
-          </SheetHeader>
-          <MenuSimulatorClient inventoryItems={displayInventoryItems} />
-        </div>
-      </SheetContent>
-    </Sheet>
-  );
-};
-
 export function PlayTestClient({ user, initialData }: { user: User, initialData: any | null }) {
-  const firestore = useFirestore();
   const { toast } = useToast();
+  const firestore = useFirestore();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
-  
-  // Game data state
-  const [worldMapOptions, setWorldMapOptions] = useState<WorldMapOption[]>([]);
-  const [worldMap, setWorldMap] = useState<WorldMap | null>(null);
-  const [rooms, setRooms] = useState<MapCell[] | null>(null);
-  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
-  const [clips, setClips] = useState<AnimationClip[] | null>(null);
-  const [allEvents, setAllEvents] = useState<GameEvent[]>([]);
 
+  // Assets
+  const [masterWorlds, setMasterWorlds] = useState<WorldData[]>([]);
+  const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
+  const [masterEvents, setMasterEvents] = useState<EventFlow[]>([]);
+  const [clips, setClips] = useState<AnimationClip[]>([]);
+
+  // State
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Player and game state
-  const [selectedMapId, setSelectedMapId] = useState<string>(initialData?.mapId || '');
-  const [activeMap, setActiveMap] = useState({r: 0, c: 0});
-  const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
+  const [selectedWorldId, setSelectedWorldId] = useState<string>(initialData?.mapId || '');
+  const [activeCellIndex, setActiveCellIndex] = useState(0);
   const [characterPosition, setCharacterPosition] = useState({x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2});
   const [inventory, setInventory] = useState<SavedInventoryItem[]>([]);
-  const [collectedObjectIds, setCollectedObjectIds] = useState<string[]>([]);
-  const [playerFlags, setPlayerFlags] = useState<string[]>([]);
   const [gold, setGold] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
-  const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
-  const [destination, setDestination] = useState<{x: number; y: number} | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  // NPC state
-  const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
-
-  // Event system state
-  const [activeEvent, setActiveEvent] = useState<GameEvent | null>(null);
+  const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
+  const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
-  const isInEvent = activeEvent !== null;
+  const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
+  const [destination, setDestination] = useState<{x: number; y: number} | null>(null);
 
   const gameViewRef = useRef<HTMLDivElement>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
   const gameLoopRef = useRef<number>();
 
-  const isRoom = selectedMapId === 'rooms';
-  const isInDialogue = activeInteraction !== null;
-  const isGamePaused = isInDialogue || isMenuOpen || isInEvent;
-  
-  const loadData = useCallback(
-    async (
-      mapId: string,
-      targetRoomId?: string,
-      targetPos?: {x: number; y: number}
-    ) => {
-      try {
-        setIsTransitioning(true);
-        setError(null);
+  const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
+  const activeMapData = currentWorld?.maps[activeCellIndex];
+  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null;
 
-        const isSwitchingToRoom =
-          mapId === 'rooms' || mapId.startsWith('room_');
-
-        if (isSwitchingToRoom) {
-          const roomsResponse = await fetch('/rooms/rooms.json');
-          if (!roomsResponse.ok) throw new Error(`ルームファイル(rooms.json)の読み込みに失敗しました。`);
-          const roomsData = await roomsResponse.json();
-
-          setWorldMap(null);
-          setRooms(roomsData.rooms);
-          const targetId = targetRoomId
-            ? roomsData.rooms.find((r: MapCell) => r.id === targetRoomId)?.id
-            : roomsData.rooms[0]?.id;
-          setActiveRoomId(targetId);
-          setSelectedMapId('rooms');
-        } else {
-          const mapResponse = await fetch(`/maps/${mapId}.json`);
-          if (!mapResponse.ok) throw new Error(`マップファイル(${mapId}.json)の読み込みに失敗しました。`);
-          const mapData = await mapResponse.json();
-          setRooms(null);
-          setActiveRoomId(null);
-          const rows = mapData.rows || 1;
-          const cols = mapData.cols || 1;
-
-          if (typeof rows !== 'number' || typeof cols !== 'number' || rows <= 0 || cols <= 0) {
-            throw new Error(`マップファイル '${mapId}.json' に無効な行または列の定義が含まれています。`);
-          }
-
-          const newWorldMap: WorldMap = Array(rows).fill(null).map(() => Array(cols).fill(null));
-          mapData.maps.forEach((mapCell: MapCell, index: number) => {
-            const r = Math.floor(index / cols);
-            const c = index % cols;
-            if (newWorldMap[r]) { newWorldMap[r][c] = mapCell; }
-          });
-          setWorldMap(newWorldMap);
-          setActiveMap({r: 0, c: 0});
-          setSelectedMapId(mapId);
-        }
-
-        setCharacterPosition(targetPos || {x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2});
-      } catch (err: any) {
-        setError(err.message || '不明なエラーが発生しました。');
-      } finally {
-        setTimeout(() => setIsTransitioning(false), 100);
-      }
-    },
-    []
-  );
-  
   useEffect(() => {
-    const initializeGame = async () => {
-      setLoading(true);
-
+    const init = async () => {
       try {
-        const [objectsResponse, animResponse, worldsResponse, eventsResponse] = await Promise.all([
-            fetch('/objects.json'),
-            fetch('/characters/player/animations.json'),
-            fetch('/maps/worlds.json'),
-            fetch('/events/sub-events.json')
+        setLoading(true);
+        const fetchData = async (file: string) => {
+          const res = await fetch(`/data/${file}.json`);
+          return res.ok ? await res.json() : [];
+        };
+
+        const [worlds, villagers, items, buildings, events] = await Promise.all([
+          fetchData('worlds'),
+          fetchData('villagers'),
+          fetchData('items'),
+          fetchData('buildings'),
+          fetchData('eventFlows')
         ]);
-        if (!objectsResponse.ok) throw new Error('オブジェクトファイル(objects.json)の読み込みに失敗しました。');
-        if (!animResponse.ok) throw new Error('アニメーションファイル(animations.json)の読み込みに失敗しました。');
-        if (!worldsResponse.ok) throw new Error("ワールドリスト(worlds.json)の読み込みに失敗しました。");
-        if (!eventsResponse.ok) throw new Error("イベントファイル(/events/sub-events.json)の読み込みに失敗しました。");
 
-        const objectsData = await objectsResponse.json();
-        const animData = await animResponse.json();
-        const worldsData = await worldsResponse.json();
-        const eventsData = await eventsResponse.json();
-        
-        setAvailableObjects(objectsData.objects || []);
-        setClips(animData.clips);
-        setWorldMapOptions(worldsData.worlds);
-        setAllEvents(eventsData.events || []);
+        setMasterWorlds(worlds);
+        setAvailableObjects([...villagers, ...items, ...buildings]);
+        setMasterEvents(events);
 
-        if (initialData) {
-          await loadData(
-            initialData.mapId,
-            initialData.roomId,
-            { x: initialData.positionX, y: initialData.positionY }
-          );
-          setInventory(initialData.inventory || []);
-          setCollectedObjectIds(initialData.collectedObjectIds || []);
-          setPlayerFlags(initialData.flags || []);
-          setGold(initialData.gold || 0);
-        } else {
-          const firstMapId = worldsData.worlds.length > 0 ? worldsData.worlds[0].id : '';
-          await loadData(firstMapId);
-          setInventory([]);
-          setCollectedObjectIds([]);
-          setPlayerFlags([]);
-          setGold(0);
+        // Load player animations
+        const animRes = await fetch('/media/characters/player/animations.json').catch(() => null);
+        if (animRes?.ok) {
+          const animData = await animRes.json();
+          setClips(animData.clips || []);
         }
-      } catch (err: any) {
-        setError(err.message || '不明なエラーが発生しました。');
+
+        if (worlds.length > 0 && !selectedWorldId) {
+          setSelectedWorldId(worlds[0].id);
+        }
+      } catch (e: any) {
+        setError(e.message);
       } finally {
         setLoading(false);
       }
     };
+    init();
+  }, []);
 
-    initializeGame();
-  }, [initialData, loadData]);
-
-  // Initialize or update NPC states when map changes
+  // Update NPCs when map changes
   useEffect(() => {
-    const activeMapData = isRoom
-      ? rooms?.find(r => r.id === activeRoomId)
-      : worldMap?.[activeMap.r]?.[activeMap.c];
-
-    if (activeMapData) {
-      const newNpcStates: Record<string, NpcState> = {};
-      for (const obj of activeMapData.objects) {
-        if (obj.movement && obj.movement.type !== 'stationary') {
-          newNpcStates[obj.id] = {
-            x: obj.x,
-            y: obj.y,
-            originX: obj.x,
-            movement: obj.movement,
-            direction: 1,
-          };
-        }
+    if (!activeMapData) return;
+    const newNpcStates: Record<string, NpcState> = {};
+    activeMapData.objects.forEach(obj => {
+      if (obj.movement?.type === 'patrol-h') {
+        newNpcStates[obj.id] = { x: obj.x, y: obj.y, originX: obj.x, movement: obj.movement, direction: 1 };
       }
-      setNpcStates(newNpcStates);
-    }
-  }, [worldMap, rooms, activeMap, activeRoomId, isRoom]);
-
+    });
+    setNpcStates(newNpcStates);
+  }, [activeMapData]);
 
   const handleSave = () => {
     const saveData = {
       userId: user.uid,
-      mapId: selectedMapId,
-      roomId: activeRoomId,
+      mapId: selectedWorldId,
       positionX: characterPosition.x,
       positionY: characterPosition.y,
-      inventory: inventory,
-      collectedObjectIds: collectedObjectIds,
-      flags: playerFlags,
-      gold: gold,
+      inventory,
+      gold,
       updatedAt: serverTimestamp(),
     };
-    
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
-    toast({
-      title: "ゲームをセーブしました！",
-      description: "進行状況が正常に保存されました。",
-    });
+    toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
   };
-  
-    // --- Event Handling Logic ---
-    const endEvent = useCallback(() => {
-        setActiveEvent(null);
-        setCurrentNode(null);
-    }, []);
-
-    const goToNode = useCallback((nodeId: string) => {
-        if (!activeEvent) return;
-
-        const nextNode = activeEvent.nodes.find(n => n.id === nodeId);
-
-        if (nextNode) {
-            setCurrentNode(nextNode);
-
-            if (nextNode.setFlag && !playerFlags.includes(nextNode.setFlag)) {
-                setPlayerFlags(prev => [...prev, nextNode.setFlag!]);
-                toast({ title: "フラグ獲得！", description: nextNode.setFlag });
-            }
-
-            if (nextNode.type === 'reward' && nextNode.reward) {
-                const { itemId, itemName, amount } = nextNode.reward;
-                if (itemId && itemName) {
-                    setInventory(prevInventory => {
-                        const existingItem = prevInventory.find(i => i.itemId === itemId);
-                        if (existingItem) {
-                            return prevInventory.map(i => i.itemId === itemId ? { ...i, quantity: i.quantity + 1 } : i);
-                        }
-                        return [...prevInventory, { itemId, quantity: 1 }];
-                    });
-                    toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
-                }
-                if(amount) {
-                    setGold(prev => prev + amount);
-                    toast({ title: "報酬ゲット！", description: `${amount}K を手に入れた。` });
-                }
-            }
-
-        } else {
-            endEvent();
-        }
-    }, [activeEvent, endEvent, toast, playerFlags]);
-
-
-    const handleEventChoice = useCallback((choice: Choice) => {
-        if (choice.requiredItemId) {
-            const hasItem = inventory.some(item => item.itemId === choice.requiredItemId);
-            if (!hasItem) {
-                toast({
-                    variant: "destructive",
-                    title: "アイテムがありません",
-                    description: choice.lockedText || "この選択肢を実行できません。",
-                });
-                return;
-            }
-        }
-        goToNode(choice.nextStepId);
-    }, [inventory, goToNode, toast]);
-
-    // --- End Event Handling Logic ---
-
-  useEffect(() => {
-    if (!clips) return;
-    clips.forEach(clip => {
-      clip.frames.forEach(frame => {
-        const img = new (window as any).Image();
-        img.src = `/characters/player/frames/${frame.image}`;
-      });
-    });
-  }, [clips]);
 
   const checkForInteraction = useCallback(() => {
-    if (isGamePaused) return;
-    
-    const activeMapData = isRoom
-      ? rooms?.find(r => r.id === activeRoomId)
-      : worldMap?.[activeMap.r]?.[activeMap.c];
-    if (!activeMapData) return;
-
-    const characterCenterX = characterPosition.x + CHARACTER_WIDTH / 2;
-    const characterCenterY = characterPosition.y + CHARACTER_HEIGHT / 2;
+    if (isGamePaused || !activeMapData) return;
+    const charCX = characterPosition.x + CHARACTER_WIDTH / 2;
+    const charCY = characterPosition.y + CHARACTER_HEIGHT / 2;
 
     for (const obj of activeMapData.objects) {
       const asset = availableObjects.find(a => a.id === obj.objectId);
       if (!asset) continue;
 
-      const isNpc = npcStates[obj.id];
-      const currentPos = isNpc ? { x: npcStates[obj.id].x, y: npcStates[obj.id].y } : { x: obj.x, y: obj.y };
+      const currentX = npcStates[obj.id]?.x ?? obj.x;
+      const dist = Math.sqrt(Math.pow(charCX - (currentX + obj.width / 2), 2) + Math.pow(charCY - (obj.y + obj.height / 2), 2));
 
-      const objCenterX = currentPos.x + obj.width / 2;
-      const objCenterY = currentPos.y + obj.height / 2;
-      const distance = Math.sqrt(
-        Math.pow(characterCenterX - objCenterX, 2) +
-          Math.pow(characterCenterY - objCenterY, 2)
-      );
-      const interactionZone =
-        INTERACTION_RADIUS + Math.min(obj.width, obj.height) / 2;
-
-      if (distance < interactionZone) {
-        // --- Event Check (Priority) ---
+      if (dist < INTERACTION_RADIUS + 100) {
         if (obj.eventId) {
-            const eventToStart = allEvents.find(e => e.id === obj.eventId);
-            if (eventToStart) {
-
-              if (eventToStart.requiredFlag && !playerFlags.includes(eventToStart.requiredFlag)) {
-                 if (obj.conversation) {
-                    setDestination(null);
-                    setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
-                  }
-                  return;
-              }
-              
-              const startNode = eventToStart.nodes.find(n => n.type === 'start');
-              if (startNode) {
-                 if (startNode.requiredFlag && !playerFlags.includes(startNode.requiredFlag)) {
-                    if (obj.conversation) {
-                        setDestination(null);
-                        setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
-                    }
-                    return;
-                }
-                
-                setDestination(null);
-                setActiveEvent(eventToStart);
-                setCurrentNode(startNode);
-                
-                if (startNode.setFlag && !playerFlags.includes(startNode.setFlag)) {
-                    setPlayerFlags(prev => [...prev, startNode.setFlag!]);
-                    toast({ title: "フラグ獲得！", description: startNode.setFlag });
-                }
-
-                if (startNode.type === 'reward' && startNode.reward) {
-                    const { itemId, itemName, amount } = startNode.reward;
-                    if (itemId && itemName) {
-                        setInventory(prev => [...prev, {itemId, quantity: 1}]);
-                        toast({ title: "報酬ゲット！", description: `${itemName} を手に入れた。` });
-                    }
-                    if (amount) {
-                        setGold(prev => prev + amount);
-                        toast({ title: "報酬ゲット！", description: `${amount}K を手に入れた。` });
-                    }
-                }
-                return;
-              }
-            }
-          }
-        
-        switch (asset.type) {
-          case 'person':
-            if (obj.conversation) {
-              setDestination(null);
-              setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
-              return;
-            }
-            break;
-          case 'door':
-            if (obj.transition) {
-              setDestination(null);
-              const {targetMapId, targetX, targetY} = obj.transition;
-              const targetIsRoom = targetMapId === 'rooms' || targetMapId.startsWith('room_');
-              loadData(
-                targetIsRoom ? 'rooms' : targetMapId,
-                targetIsRoom ? targetMapId : undefined,
-                {x: targetX, y: targetY}
-              );
-              return;
-            }
-            break;
-          case 'item':
-            if (collectedObjectIds.includes(obj.id)) {
-              continue;
-            }
-            setInventory(prevInventory => {
-              const existingItem = prevInventory.find(i => i.itemId === obj.objectId);
-              if (existingItem) {
-                return prevInventory.map(i => i.itemId === obj.objectId ? { ...i, quantity: i.quantity + 1 } : i);
-              } else {
-                return [...prevInventory, { itemId: obj.objectId, quantity: 1 }];
-              }
-            });
-
-            setCollectedObjectIds(prev => [...prev, obj.id]);
-            setDestination(null);
-
-            toast({
-              title: "アイテムをゲット！",
-              description: `${asset.name} を手に入れた。`,
-            });
+          const flow = masterEvents.find(e => e.id === obj.eventId);
+          if (flow) {
+            setActiveEvent(flow);
+            setCurrentNode(flow.nodes.find(n => n.type === 'start') || null);
             return;
+          }
+        }
+        if (obj.conversation) {
+          setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
+          return;
         }
       }
     }
-  }, [isGamePaused, isRoom, rooms, activeRoomId, worldMap, activeMap, characterPosition, loadData, availableObjects, collectedObjectIds, toast, allEvents, inventory, playerFlags, npcStates]);
-
-  const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isGamePaused || !gameViewRef.current) return;
-
-    const target = e.target as HTMLElement;
-    if (target.closest('button')) {
-      return;
-    }
-
-    const rect = gameViewRef.current.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const clickY = e.clientY - rect.top;
-
-    const targetX = (clickX / rect.width) * MAP_WIDTH;
-    const targetY = (clickY / rect.height) * MAP_HEIGHT;
-
-    setDestination({
-      x: targetX - CHARACTER_WIDTH / 2,
-      y: targetY - CHARACTER_HEIGHT / 2,
-    });
-
-    setPressedKeys(new Set());
-  };
-
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (isGamePaused) return;
-
-      if (['e', 'E', 'Enter', ' '].includes(event.key)) {
-        event.preventDefault();
-        checkForInteraction();
-        return;
-      }
-
-      if (
-        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(event.key)
-      ) {
-        setPressedKeys(prev => new Set(prev).add(event.key));
-        setDestination(null);
-      }
-    },
-    [isGamePaused, checkForInteraction]
-  );
-
-  const handleKeyUp = useCallback((event: KeyboardEvent) => {
-    setPressedKeys(prev => {
-      const next = new Set(prev);
-      next.delete(event.key);
-      return next;
-    });
-  }, []);
+  }, [activeMapData, characterPosition, availableObjects, npcStates, masterEvents, isGamePaused]);
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, [handleKeyDown, handleKeyUp]);
-
-  useEffect(() => {
-    const loop = () => {
-      if (isTransitioning || isGamePaused) {
-        setCharacterState('idle');
+    const loop = (time: number) => {
+      if (isGamePaused) {
         gameLoopRef.current = requestAnimationFrame(loop);
         return;
       }
 
-      // Update NPCs
-      setNpcStates(prevNpcStates => {
-        const newNpcStates = { ...prevNpcStates };
-        let statesChanged = false;
-    
-        for (const id in newNpcStates) {
-            const npc = newNpcStates[id];
-            let { x, direction } = npc;
-            const { movement, originX } = npc;
-            let newDirection = direction;
-            
-            if (movement.type === 'patrol-h') {
-                const speed = CHARACTER_SPEED / 5; // Slower NPCs
-                x += speed * direction;
-                
-                const range = movement.range || 100;
-                if (x > originX + range) {
-                    x = originX + range;
-                    newDirection = -1;
-                } else if (x < originX - range) {
-                    x = originX - range;
-                    newDirection = 1;
-                }
-            }
-            
-            if (x !== npc.x || newDirection !== npc.direction) {
-                newNpcStates[id] = { ...npc, x, direction: newDirection };
-                statesChanged = true;
-            }
-        }
-        return statesChanged ? newNpcStates : prevNpcStates;
-      });
+      // Movement logic
+      let moveX = 0, moveY = 0;
+      if (pressedKeys.has('ArrowUp') || pressedKeys.has('w')) moveY -= 1;
+      if (pressedKeys.has('ArrowDown') || pressedKeys.has('s')) moveY += 1;
+      if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveX -= 1;
+      if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveX += 1;
 
-
-      let moveVector = {x: 0, y: 0};
-      let isMoving = false;
-
-      if (destination) {
-        const dx = destination.x - characterPosition.x;
-        const dy = destination.y - characterPosition.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < CHARACTER_SPEED) {
-          setDestination(null);
-          isMoving = false;
-        } else {
-          moveVector = {x: dx / distance, y: dy / distance};
-          isMoving = true;
-        }
-      } else if (pressedKeys.size > 0) {
-        if (pressedKeys.has('ArrowUp') || pressedKeys.has('w')) moveVector.y -= 1;
-        if (pressedKeys.has('ArrowDown') || pressedKeys.has('s')) moveVector.y += 1;
-        if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveVector.x -= 1;
-        if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveVector.x += 1;
-        isMoving = true;
-      }
-
-      if (!isMoving) {
-        setCharacterState('idle');
-        gameLoopRef.current = requestAnimationFrame(loop);
-        return;
-      }
-
-      const magnitude = Math.sqrt(
-        moveVector.x * moveVector.x + moveVector.y * moveVector.y
-      );
-      if (magnitude > 1) {
-        moveVector.x /= magnitude;
-        moveVector.y /= magnitude;
-      }
-
-      let newPos = {
-        x: characterPosition.x + moveVector.x * CHARACTER_SPEED,
-        y: characterPosition.y + moveVector.y * CHARACTER_SPEED,
-      };
-      let newActiveMap = {...activeMap};
-      let didTransition = false;
-
-      let newState: CharacterState = 'idle';
-      let newDirection = characterDirection;
-      if (Math.abs(moveVector.x) > Math.abs(moveVector.y)) {
-        if (moveVector.x > 0) {
-          newState = 'walk_right';
-          newDirection = 'right';
-        } else {
-          newState = 'walk_left';
-          newDirection = 'left';
-        }
+      if (moveX !== 0 || moveY !== 0) {
+        setCharacterState(moveX > 0 ? 'walk_right' : moveX < 0 ? 'walk_left' : moveY > 0 ? 'walk_down' : 'walk_up');
+        setCharacterDirection(moveX > 0 ? 'right' : moveX < 0 ? 'left' : moveY > 0 ? 'down' : 'up');
+        setCharacterPosition(prev => ({
+          x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, prev.x + moveX * CHARACTER_SPEED)),
+          y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, prev.y + moveY * CHARACTER_SPEED))
+        }));
       } else {
-        if (moveVector.y > 0) {
-          newState = 'walk_down';
-          newDirection = 'down';
-        } else {
-          newState = 'walk_up';
-          newDirection = 'up';
-        }
-      }
-      setCharacterState(newState);
-      setCharacterDirection(newDirection);
-
-      if (!isRoom && worldMap) {
-        const currentRows = worldMap.length;
-        const currentCols = worldMap[0]?.length || 1;
-
-        if (newPos.x < 0) {
-          if (activeMap.c > 0) {
-            newActiveMap.c--;
-            newPos.x = MAP_WIDTH - CHARACTER_WIDTH;
-            didTransition = true;
-          }
-        } else if (newPos.x > MAP_WIDTH - CHARACTER_WIDTH) {
-          if (activeMap.c < currentCols - 1) {
-            newActiveMap.c++;
-            newPos.x = 0;
-            didTransition = true;
-          }
-        } else if (newPos.y < 0) {
-          if (activeMap.r > 0) {
-            newActiveMap.r--;
-            newPos.y = MAP_HEIGHT - CHARACTER_HEIGHT;
-            didTransition = true;
-          }
-        } else if (newPos.y > MAP_HEIGHT - CHARACTER_HEIGHT) {
-          if (activeMap.r < currentRows - 1) {
-            newActiveMap.r++;
-            newPos.y = 0;
-            didTransition = true;
-          }
-        }
-      }
-
-      newPos.x = Math.max(0, Math.min(newPos.x, MAP_WIDTH - CHARACTER_WIDTH));
-      newPos.y = Math.max(0, Math.min(newPos.y, MAP_HEIGHT - CHARACTER_HEIGHT));
-      setCharacterPosition(newPos);
-
-      if (didTransition) {
-        setDestination(null);
-        setIsTransitioning(true);
-        setActiveMap(newActiveMap);
-        setTimeout(() => setIsTransitioning(false), 100);
+        setCharacterState('idle');
       }
 
       gameLoopRef.current = requestAnimationFrame(loop);
     };
-
     gameLoopRef.current = requestAnimationFrame(loop);
-
-    return () => {
-      if (gameLoopRef.current) {
-        cancelAnimationFrame(gameLoopRef.current);
-      }
-    };
-  }, [
-    isTransitioning,
-    isGamePaused,
-    pressedKeys,
-    destination,
-    characterPosition,
-    activeMap,
-    isRoom,
-    worldMap,
-    characterDirection,
-  ]);
-
-  const activeClipName =
-    characterState === 'idle' ? `idle_${characterDirection}` : characterState;
-  const activeClip = clips?.find(c => c.name === activeClipName);
+    return () => cancelAnimationFrame(gameLoopRef.current!);
+  }, [pressedKeys, isGamePaused]);
 
   useEffect(() => {
-    let frameId: number;
-    let lastTime = 0;
-
-    if (!activeClip || activeClip.frames.length === 0) {
-      return;
-    }
-
-    const animate = (currentTime: number) => {
-      if (lastTime === 0) {
-        lastTime = currentTime;
-      }
-
-      const deltaTime = currentTime - lastTime;
-      const frameDuration = 1000 / (activeClip.fps || ANIMATION_FPS);
-
-      if (deltaTime > frameDuration) {
-        const framesToAdvance = Math.floor(deltaTime / frameDuration);
-        lastTime += framesToAdvance * frameDuration;
-        setCurrentFrameIndex(
-          prevIndex => (prevIndex + framesToAdvance) % activeClip.frames.length
-        );
-      }
-
-      frameId = requestAnimationFrame(animate);
+    const handleDown = (e: KeyboardEvent) => {
+      if ([' ', 'Enter'].includes(e.key)) checkForInteraction();
+      else setPressedKeys(prev => new Set(prev).add(e.key));
     };
+    const handleUp = (e: KeyboardEvent) => setPressedKeys(prev => { const n = new Set(prev); n.delete(e.key); return n; });
+    window.addEventListener('keydown', handleDown);
+    window.addEventListener('keyup', handleUp);
+    return () => { window.removeEventListener('keydown', handleDown); window.removeEventListener('keyup', handleUp); };
+  }, [checkForInteraction]);
 
-    frameId = requestAnimationFrame(animate);
+  const displayInventory: DisplayInventoryItem[] = inventory.map(i => {
+    const details = availableObjects.find(a => a.id === i.itemId);
+    return { id: i.itemId, name: details?.name || 'Unknown', imageUrl: resolveMediaUrl(details?.imageUrl), quantity: i.quantity };
+  });
 
-    return () => {
-      cancelAnimationFrame(frameId);
-    };
-  }, [activeClip]);
-
-  useEffect(() => {
-    setCurrentFrameIndex(0);
-  }, [activeClipName]);
-
-  const safeFrameIndex = activeClip
-    ? Math.min(currentFrameIndex, activeClip.frames.length - 1)
-    : 0;
-
-  const handleMapSelectionChange = (mapId: string) => {
-    loadData(mapId);
-  };
-  
-  const displayInventoryItems: DisplayInventoryItem[] = useMemo(() => {
-    if (!availableObjects.length) return [];
-    return inventory.map(savedItem => {
-      const itemDetails = availableObjects.find(obj => obj.id === savedItem.itemId);
-      return {
-        id: savedItem.itemId,
-        name: itemDetails?.name || '不明なアイテム',
-        imageUrl: itemDetails?.imageUrl || '',
-        quantity: savedItem.quantity,
-      };
-    }).filter(item => item.imageUrl);
-  }, [inventory, availableObjects]);
+  if (loading) return <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin mr-2" /> ロード中...</div>;
 
   return (
-    <div className="flex flex-col gap-4 h-full">
-      <div className="flex items-end gap-4">
-        <div>
-          <Label htmlFor="world-map-select">マップ</Label>
-          <Select
-            value={selectedMapId}
-            onValueChange={handleMapSelectionChange}
-            disabled={isGamePaused}
-          >
-            <SelectTrigger id="world-map-select" className="w-[280px] mt-2">
-              <SelectValue placeholder="テストするマップを選択..." />
-            </SelectTrigger>
-            <SelectContent>
-              {worldMapOptions.map(map => (
-                <SelectItem key={map.id} value={map.id}>
-                  {map.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
+    <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+      <div className="flex flex-col h-full gap-4">
+        <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border">
+          <Select value={selectedWorldId} onValueChange={setSelectedWorldId}>
+            <SelectTrigger className="w-64"><SelectValue /></SelectTrigger>
+            <SelectContent>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
           </Select>
-        </div>
-        {isRoom && rooms && (
-          <div>
-            <Label htmlFor="room-select">ルーム</Label>
-            <Select
-              value={activeRoomId || ''}
-              onValueChange={roomId => setActiveRoomId(roomId)}
-              disabled={isGamePaused}
-            >
-              <SelectTrigger id="room-select" className="w-[280px] mt-2">
-                <SelectValue placeholder="テストするルームを選択..." />
-              </SelectTrigger>
-              <SelectContent>
-                {rooms.map(room => (
-                  <SelectItem key={room.id} value={room.id}>
-                    {room.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <div className="flex gap-2">
+            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary">{gold} K</div>
+            <Button size="icon" variant="outline" onClick={handleSave}><Save className="h-4 w-4"/></Button>
+            <SheetTrigger asChild><Button size="icon" variant="outline"><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
-        )}
+        </div>
+
+        <div className="relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9]">
+          {activeMapData && (
+            <>
+              <Image src={resolveMediaUrl(activeMapData.imageUrl)} alt="" layout="fill" objectFit="cover" unoptimized priority />
+              {activeMapData.objects.map(obj => {
+                const asset = availableObjects.find(a => a.id === obj.objectId);
+                if (!asset) return null;
+                const curX = npcStates[obj.id]?.x ?? obj.x;
+                return (
+                  <div key={obj.id} style={{ left: `${(curX / MAP_WIDTH) * 100}%`, top: `${(obj.y / MAP_HEIGHT) * 100}%`, width: `${(obj.width / MAP_WIDTH) * 100}%`, position: 'absolute' }}>
+                    <Image src={resolveMediaUrl(asset.imageUrl)} alt="" layout="responsive" width={asset.width || 256} height={asset.height || 256} unoptimized />
+                  </div>
+                );
+              })}
+              {/* Player */}
+              <div style={{ left: `${(characterPosition.x / MAP_WIDTH) * 100}%`, top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`, width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, position: 'absolute', zIndex: 10 }}>
+                <Image src={`/media/characters/player/frames/idle_${characterDirection}_1.png`} alt="" layout="responsive" width={256} height={256} unoptimized />
+              </div>
+            </>
+          )}
+
+          {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
+          {activeEvent && currentNode && (
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-8 z-50">
+              <EventPlayerUI 
+                currentNode={currentNode} 
+                onChoice={(c) => setCurrentNode(activeEvent.nodes.find(n => n.id === c.nextStepId) || null)} 
+                onNext={(id) => setCurrentNode(activeEvent.nodes.find(n => n.id === id) || null)} 
+                onClose={() => setActiveEvent(null)} 
+              />
+            </div>
+          )}
+        </div>
       </div>
-      <div className="flex-grow min-h-0">
-        <GameView
-          loading={loading}
-          worldMap={worldMap}
-          rooms={rooms}
-          error={error}
-          isRoom={isRoom}
-          activeRoomId={activeRoomId}
-          activeMap={activeMap}
-          gameViewRef={gameViewRef}
-          handleMapClick={handleMapClick}
-          isTransitioning={isTransitioning}
-          availableObjects={availableObjects}
-          characterPosition={characterPosition}
-          activeClip={activeClip}
-          safeFrameIndex={safeFrameIndex}
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-          destination={destination}
-          isInDialogue={isInDialogue}
-          activeInteraction={activeInteraction}
-          setActiveInteraction={setActiveInteraction}
-          handleSave={handleSave}
-          displayInventoryItems={displayInventoryItems}
-          collectedObjectIds={collectedObjectIds}
-          gold={gold}
-          npcStates={npcStates}
-          // Event props
-          isInEvent={isInEvent}
-          activeEvent={activeEvent}
-          currentNode={currentNode}
-          handleEventChoice={handleEventChoice}
-          goToNode={goToNode}
-          endEvent={endEvent}
-          inventory={inventory}
-        />
-      </div>
-    </div>
+      <SheetContent><MenuSimulatorClient inventoryItems={displayInventory} /></SheetContent>
+    </Sheet>
   );
 }
