@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -272,7 +271,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] })
         ]);
 
-        // "world.json"の読み込み方は変えず、中身に基づいて詳細データを補完する
         const fullWorlds = await Promise.all(worldIndex.map(async (w: any) => {
           try {
             const detailRes = await fetch(`/data/${w.id}.json`);
@@ -305,7 +303,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     init();
   }, []);
 
-  // Fetch animations.json when active player changes
+  // Fetch animations.json and preload frames when active player changes
   useEffect(() => {
     if (!activePlayerChar) return;
     const fetchAnims = async () => {
@@ -313,7 +311,16 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         const res = await fetch(`${activePlayerChar.path}/animations.json`);
         if (res.ok) {
           const data = await res.json();
-          setPlayerClips(data.clips || []);
+          const clips = data.clips || [];
+          setPlayerClips(clips);
+
+          // Preload all frames
+          clips.forEach((clip: AnimationClip) => {
+            clip.frames.forEach((frame) => {
+              const img = new (window as any).Image();
+              img.src = resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`);
+            });
+          });
         } else {
           setPlayerClips([]);
         }
@@ -367,11 +374,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       const dist = Math.sqrt(Math.pow(charCX - (currentX + obj.width / 2), 2) + Math.pow(charCY - (obj.y + obj.height / 2), 2));
 
       if (dist < INTERACTION_RADIUS) {
-        // マップ遷移オブジェクトの判定
         if (obj.transition) {
           const { targetMapId, targetX, targetY } = obj.transition;
           
-          // 同じワールド内の別マップか、別のワールド/ルームかを判定
           const mapIdx = currentWorld?.maps.findIndex(m => m.id === targetMapId);
           if (mapIdx !== undefined && mapIdx !== -1) {
             setActiveCellIndex(mapIdx);
@@ -446,7 +451,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         const nextX = characterPosition.x + moveX * CHARACTER_SPEED;
         const nextY = characterPosition.y + moveY * CHARACTER_SPEED;
 
-        // マップ境界チェックによる自動遷移
         if (currentWorld && currentWorld.rows && currentWorld.cols) {
           const currentRow = Math.floor(activeCellIndex / currentWorld.cols);
           const currentCol = activeCellIndex % currentWorld.cols;
@@ -455,7 +459,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           let finalY = nextY;
           let hasTransitioned = false;
 
-          // 境界突破判定の閾値を調整
           const EDGE_THRESHOLD = 50;
 
           if (nextX < -EDGE_THRESHOLD && currentCol > 0) {
@@ -598,7 +601,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               
               <MiniMap world={currentWorld} activeIndex={activeCellIndex} />
 
-              {/* Target Indicator */}
               {targetPosition && (
                 <div 
                   className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2"
@@ -606,7 +608,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 />
               )}
 
-              {/* Player Rendering */}
               {activePlayerChar && (
                 <div style={{ 
                   left: `${(characterPosition.x / MAP_WIDTH) * 100}%`, 
