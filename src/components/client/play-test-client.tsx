@@ -1,3 +1,4 @@
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -178,13 +179,17 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
   const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
 
-  const gameLoopRef = useRef<number>();
+  const gameLoopRef = useRef<number>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
+
+  const activePlayerChar = useMemo(() => {
+    if (playerCharacters.length === 0) return null;
+    return playerCharacters.find(c => c.id === activePlayerId) || playerCharacters[0];
+  }, [playerCharacters, activePlayerId]);
 
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
   const activeMapData = currentWorld?.maps[activeCellIndex];
   const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null;
-  const activePlayerChar = useMemo(() => playerCharacters.find(c => c.id === activePlayerId) || playerCharacters[0], [playerCharacters, activePlayerId]);
 
   useEffect(() => {
     const init = async () => {
@@ -192,7 +197,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setLoading(true);
         const fetchData = async (file: string) => {
           const res = await fetch(`/data/${file}.json`);
-          return res.ok ? await res.json() : [];
+          if (!res.ok) return [];
+          const data = await res.json();
+          return Array.isArray(data) ? data : (data.worlds || data.events || []);
         };
 
         const [worlds, villagers, items, buildings, events, playerListRes] = await Promise.all([
@@ -209,7 +216,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setMasterEvents(events);
         setPlayerCharacters(playerListRes.characters || []);
 
-        if (playerListRes.characters?.length > 0) {
+        if (playerListRes.characters?.length > 0 && !activePlayerId) {
           setActivePlayerId(playerListRes.characters[0].id);
         }
 
@@ -223,7 +230,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       }
     };
     init();
-  }, [selectedWorldId]);
+  }, [selectedWorldId, activePlayerId]);
 
   useEffect(() => {
     if (!activeMapData) return;
@@ -300,7 +307,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       gameLoopRef.current = requestAnimationFrame(loop);
     };
     gameLoopRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(gameLoopRef.current!);
+    return () => {
+      if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
+    };
   }, [pressedKeys, isGamePaused]);
 
   useEffect(() => {
@@ -364,19 +373,26 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                   </div>
                 );
               })}
-              {/* Player - Character Editor's frame structure: path/frames/idle_direction_1.png */}
-              <div style={{ left: `${(characterPosition.x / MAP_WIDTH) * 100}%`, top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`, width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, position: 'absolute', zIndex: 10 }}>
-                {activePlayerChar && (
+              
+              {/* Player Rendering */}
+              {activePlayerChar && (
+                <div style={{ 
+                  left: `${(characterPosition.x / MAP_WIDTH) * 100}%`, 
+                  top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`, 
+                  width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
+                  position: 'absolute', 
+                  zIndex: 10 
+                }}>
                   <Image 
-                    src={`${activePlayerChar.path}/frames/idle_${characterDirection}_1.png`} 
+                    src={resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${characterDirection}_1.png`)} 
                     alt="Player" 
-                    layout="responsive" 
                     width={256} 
                     height={256} 
+                    className="w-full h-auto"
                     unoptimized 
                   />
-                )}
-              </div>
+                </div>
+              )}
             </>
           )}
 
