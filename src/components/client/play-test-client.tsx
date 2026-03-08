@@ -44,6 +44,18 @@ const resolveMediaUrl = (path: string | undefined) => {
   return `/${path}`;
 };
 
+type AnimationFrame = {
+  id: string;
+  image: string;
+};
+
+type AnimationClip = {
+  id: string;
+  name: string;
+  frames: AnimationFrame[];
+  fps: number;
+};
+
 type Movement = {
   type: 'stationary' | 'patrol-h';
   range?: number;
@@ -173,11 +185,17 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [inventory, setInventory] = useState<SavedInventoryItem[]>(initialData?.inventory || []);
   const [gold, setGold] = useState(initialData?.gold || 0);
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
+  const [isMoving, setIsMoving] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
   const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
   const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
+
+  // Animation State
+  const [playerClips, setPlayerClips] = useState<AnimationClip[]>([]);
+  const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+  const lastFrameUpdateTimeRef = useRef<number>(0);
 
   const gameLoopRef = useRef<number>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
@@ -230,7 +248,26 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       }
     };
     init();
-  }, [selectedWorldId, activePlayerId]);
+  }, []);
+
+  // Fetch animations.json when active player changes
+  useEffect(() => {
+    if (!activePlayerChar) return;
+    const fetchAnims = async () => {
+      try {
+        const res = await fetch(`${activePlayerChar.path}/animations.json`);
+        if (res.ok) {
+          const data = await res.json();
+          setPlayerClips(data.clips || []);
+        } else {
+          setPlayerClips([]);
+        }
+      } catch (e) {
+        setPlayerClips([]);
+      }
+    };
+    fetchAnims();
+  }, [activePlayerChar]);
 
   useEffect(() => {
     if (!activeMapData) return;
@@ -284,7 +321,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused]);
 
   useEffect(() => {
-    const loop = () => {
+    const loop = (currentTime: number) => {
       if (isGamePaused) {
         gameLoopRef.current = requestAnimationFrame(loop);
         return;
@@ -296,12 +333,32 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveX -= 1;
       if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveX += 1;
 
-      if (moveX !== 0 || moveY !== 0) {
-        setCharacterDirection(moveX > 0 ? 'right' : moveX < 0 ? 'left' : moveY > 0 ? 'down' : 'up');
+      const moving = moveX !== 0 || moveY !== 0;
+      setIsMoving(moving);
+
+      if (moving) {
+        const newDirection = moveX > 0 ? 'right' : moveX < 0 ? 'left' : moveY > 0 ? 'down' : 'up';
+        if (newDirection !== characterDirection) {
+          setCharacterDirection(newDirection);
+          setCurrentFrameIndex(0);
+        }
+        
         setCharacterPosition(prev => ({
           x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, prev.x + moveX * CHARACTER_SPEED)),
           y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, prev.y + moveY * CHARACTER_SPEED))
         }));
+      }
+
+      // Animation Logic
+      const currentClipName = moving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
+      const clip = playerClips.find(c => c.name === currentClipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
+      
+      if (clip && clip.frames.length > 0) {
+        const frameDuration = 1000 / (clip.fps || 8);
+        if (currentTime - lastFrameUpdateTimeRef.current > frameDuration) {
+          setCurrentFrameIndex(prev => (prev + 1) % clip.frames.length);
+          lastFrameUpdateTimeRef.current = currentTime;
+        }
       }
 
       gameLoopRef.current = requestAnimationFrame(loop);
@@ -310,11 +367,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     return () => {
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
     };
-  }, [pressedKeys, isGamePaused]);
+  }, [pressedKeys, isGamePaused, playerClips, characterDirection]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
-      if ([' ', 'Enter'].includes(e.key)) checkForInteraction();
+      if ([' ', 'Enter'].includes(e.key)) {
+        e.preventDefault();
+        checkForInteraction();
+      }
       else setPressedKeys(prev => new Set(prev).add(e.key));
     };
     const handleUp = (e: KeyboardEvent) => setPressedKeys(prev => { const n = new Set(prev); n.delete(e.key); return n; });
@@ -327,6 +387,21 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     const details = availableObjects.find(a => a.id === i.itemId);
     return { id: i.itemId, name: details?.name || 'Unknown', imageUrl: resolveMediaUrl(details?.imageUrl), quantity: i.quantity };
   });
+
+  // Calculate current image path
+  const playerImageUrl = useMemo(() => {
+    if (!activePlayerChar) return '';
+    const currentClipName = isMoving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
+    const clip = playerClips.find(c => c.name === currentClipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
+    
+    if (clip && clip.frames.length > 0) {
+      const frame = clip.frames[currentFrameIndex % clip.frames.length];
+      return resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`);
+    }
+    
+    // Fallback
+    return resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${characterDirection}_1.png`);
+  }, [activePlayerChar, isMoving, characterDirection, playerClips, currentFrameIndex]);
 
   if (loading) return <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin mr-2" /> ロード中...</div>;
 
@@ -384,7 +459,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                   zIndex: 10 
                 }}>
                   <Image 
-                    src={resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${characterDirection}_1.png`)} 
+                    src={playerImageUrl} 
                     alt="Player" 
                     width={256} 
                     height={256} 
