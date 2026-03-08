@@ -137,6 +137,12 @@ type NpcState = {
   direction: number;
 };
 
+type CharacterAnimationState = {
+  animationName: string;
+  frameIndex: number;
+  lastFrameUpdateTime: number;
+};
+
 function DialogueBox({
   conversation,
   audioPath,
@@ -182,6 +188,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [activePlayerId, setActivePlayerId] = useState<string>('');
   const [activeCellIndex, setActiveCellIndex] = useState(0);
   const [characterPosition, setCharacterPosition] = useState({x: initialData?.positionX || MAP_WIDTH / 2, y: initialData?.positionY || MAP_HEIGHT / 2});
+  const [targetPosition, setTargetPosition] = useState<{x: number, y: number} | null>(null);
   const [inventory, setInventory] = useState<SavedInventoryItem[]>(initialData?.inventory || []);
   const [gold, setGold] = useState(initialData?.gold || 0);
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
@@ -194,10 +201,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   // Animation State
   const [playerClips, setPlayerClips] = useState<AnimationClip[]>([]);
-  const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
-  const lastFrameUpdateTimeRef = useRef<number>(0);
+  const [animState, setAnimState] = useState<CharacterAnimationState>({
+    animationName: 'idle_down',
+    frameIndex: 0,
+    lastFrameUpdateTime: 0,
+  });
 
   const gameLoopRef = useRef<number>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
 
   const activePlayerChar = useMemo(() => {
@@ -294,6 +305,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
   };
 
+  const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isGamePaused || !mapContainerRef.current) return;
+    const rect = mapContainerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * MAP_WIDTH - CHARACTER_WIDTH / 2;
+    const y = ((e.clientY - rect.top) / rect.height) * MAP_HEIGHT - CHARACTER_HEIGHT / 2;
+    setTargetPosition({ x, y });
+  };
+
   const checkForInteraction = useCallback(() => {
     if (isGamePaused || !activeMapData) return;
     const charCX = characterPosition.x + CHARACTER_WIDTH / 2;
@@ -328,19 +347,37 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       }
 
       let moveX = 0, moveY = 0;
-      if (pressedKeys.has('ArrowUp') || pressedKeys.has('w')) moveY -= 1;
-      if (pressedKeys.has('ArrowDown') || pressedKeys.has('s')) moveY += 1;
-      if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveX -= 1;
-      if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveX += 1;
+      const isKeyPressed = pressedKeys.has('ArrowUp') || pressedKeys.has('w') || pressedKeys.has('ArrowDown') || pressedKeys.has('s') || pressedKeys.has('ArrowLeft') || pressedKeys.has('a') || pressedKeys.has('ArrowRight') || pressedKeys.has('d');
+
+      if (isKeyPressed) {
+        setTargetPosition(null);
+        if (pressedKeys.has('ArrowUp') || pressedKeys.has('w')) moveY -= 1;
+        if (pressedKeys.has('ArrowDown') || pressedKeys.has('s')) moveY += 1;
+        if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveX -= 1;
+        if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveX += 1;
+      } else if (targetPosition) {
+        const dx = targetPosition.x - characterPosition.x;
+        const dy = targetPosition.y - characterPosition.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > CHARACTER_SPEED) {
+          moveX = dx / dist;
+          moveY = dy / dist;
+        } else {
+          setTargetPosition(null);
+        }
+      }
 
       const moving = moveX !== 0 || moveY !== 0;
       setIsMoving(moving);
 
       if (moving) {
-        const newDirection = moveX > 0 ? 'right' : moveX < 0 ? 'left' : moveY > 0 ? 'down' : 'up';
-        if (newDirection !== characterDirection) {
-          setCharacterDirection(newDirection);
-          setCurrentFrameIndex(0);
+        let newDir: CharacterDirection = characterDirection;
+        if (Math.abs(moveX) > Math.abs(moveY)) newDir = moveX > 0 ? 'right' : 'left';
+        else if (moveY !== 0) newDir = moveY > 0 ? 'down' : 'up';
+
+        if (newDir !== characterDirection) {
+          setCharacterDirection(newDir);
+          setAnimState(prev => ({ ...prev, frameIndex: 0 }));
         }
         
         setCharacterPosition(prev => ({
@@ -349,15 +386,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }));
       }
 
-      // Animation Logic
-      const currentClipName = moving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
-      const clip = playerClips.find(c => c.name === currentClipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
+      // Animation Update
+      const clipName = moving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
+      const clip = playerClips.find(c => c.name === clipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
       
       if (clip && clip.frames.length > 0) {
         const frameDuration = 1000 / (clip.fps || 8);
-        if (currentTime - lastFrameUpdateTimeRef.current > frameDuration) {
-          setCurrentFrameIndex(prev => (prev + 1) % clip.frames.length);
-          lastFrameUpdateTimeRef.current = currentTime;
+        if (currentTime - animState.lastFrameUpdateTime > frameDuration) {
+          setAnimState(prev => ({
+            animationName: clipName,
+            frameIndex: (prev.frameIndex + 1) % clip.frames.length,
+            lastFrameUpdateTime: currentTime
+          }));
         }
       }
 
@@ -367,7 +407,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     return () => {
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
     };
-  }, [pressedKeys, isGamePaused, playerClips, characterDirection]);
+  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
@@ -388,20 +428,15 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     return { id: i.itemId, name: details?.name || 'Unknown', imageUrl: resolveMediaUrl(details?.imageUrl), quantity: i.quantity };
   });
 
-  // Calculate current image path
   const playerImageUrl = useMemo(() => {
     if (!activePlayerChar) return '';
-    const currentClipName = isMoving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
-    const clip = playerClips.find(c => c.name === currentClipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
-    
+    const clip = playerClips.find(c => c.name === animState.animationName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
     if (clip && clip.frames.length > 0) {
-      const frame = clip.frames[currentFrameIndex % clip.frames.length];
+      const frame = clip.frames[animState.frameIndex % clip.frames.length];
       return resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`);
     }
-    
-    // Fallback
     return resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${characterDirection}_1.png`);
-  }, [activePlayerChar, isMoving, characterDirection, playerClips, currentFrameIndex]);
+  }, [activePlayerChar, playerClips, animState, characterDirection]);
 
   if (loading) return <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin mr-2" /> ロード中...</div>;
 
@@ -434,7 +469,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           </div>
         </div>
 
-        <div className="relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9]">
+        <div 
+          ref={mapContainerRef}
+          onClick={handleMapClick}
+          className="relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9] cursor-crosshair"
+        >
           {activeMapData && (
             <>
               <Image src={resolveMediaUrl(activeMapData.imageUrl)} alt="" fill className="object-cover" unoptimized priority />
@@ -449,6 +488,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 );
               })}
               
+              {/* Target Indicator */}
+              {targetPosition && (
+                <div 
+                  className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2"
+                  style={{ left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` }}
+                />
+              )}
+
               {/* Player Rendering */}
               {activePlayerChar && (
                 <div style={{ 
