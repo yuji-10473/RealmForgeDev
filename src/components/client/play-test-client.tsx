@@ -35,7 +35,7 @@ const MAP_HEIGHT = 1536;
 const CHARACTER_SPEED = 10;
 const CHARACTER_WIDTH = 256;
 const CHARACTER_HEIGHT = 256;
-const INTERACTION_RADIUS = 50;
+const INTERACTION_RADIUS = 150; // インタラクト判定距離を少し広めに設定
 
 // v1.1.1 Path Resolution
 const resolveMediaUrl = (path: string | undefined) => {
@@ -322,7 +322,28 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       const currentX = npcStates[obj.id]?.x ?? obj.x;
       const dist = Math.sqrt(Math.pow(charCX - (currentX + obj.width / 2), 2) + Math.pow(charCY - (obj.y + obj.height / 2), 2));
 
-      if (dist < INTERACTION_RADIUS + 100) {
+      if (dist < INTERACTION_RADIUS) {
+        // マップ遷移オブジェクトの判定
+        if (obj.transition) {
+          const { targetMapId, targetX, targetY } = obj.transition;
+          
+          // 同じワールド内の別マップか、別のワールド/ルームかを判定
+          const mapIdx = currentWorld?.maps.findIndex(m => m.id === targetMapId);
+          if (mapIdx !== undefined && mapIdx !== -1) {
+            // 同一ワールド内の区画切り替え
+            setActiveCellIndex(mapIdx);
+          } else {
+            // 別のワールドまたはルームへの遷移
+            setSelectedWorldId(targetMapId);
+            setActiveCellIndex(0); // 遷移先では最初のマップを表示
+          }
+          
+          setCharacterPosition({ x: targetX, y: targetY });
+          setTargetPosition(null);
+          toast({ title: "エリア移動", description: "新しい場所へ移動しました。" });
+          return;
+        }
+
         if (obj.eventId) {
           const flow = masterEvents.find(e => e.id === obj.eventId);
           if (flow) {
@@ -337,7 +358,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast]);
 
   useEffect(() => {
     const loop = (currentTime: number) => {
@@ -380,10 +401,54 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setAnimState(prev => ({ ...prev, frameIndex: 0 }));
         }
         
-        setCharacterPosition(prev => ({
-          x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, prev.x + moveX * CHARACTER_SPEED)),
-          y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, prev.y + moveY * CHARACTER_SPEED))
-        }));
+        const nextX = characterPosition.x + moveX * CHARACTER_SPEED;
+        const nextY = characterPosition.y + moveY * CHARACTER_SPEED;
+
+        // マップ境界チェックによる自動遷移
+        if (currentWorld && currentWorld.rows && currentWorld.cols) {
+          const currentRow = Math.floor(activeCellIndex / currentWorld.cols);
+          const currentCol = activeCellIndex % currentWorld.cols;
+          let nextCellIdx = activeCellIndex;
+          let finalX = nextX;
+          let finalY = nextY;
+          let hasTransitioned = false;
+
+          if (nextX < -CHARACTER_WIDTH / 2 && currentCol > 0) {
+            nextCellIdx = activeCellIndex - 1;
+            finalX = MAP_WIDTH - CHARACTER_WIDTH / 2;
+            hasTransitioned = true;
+          } else if (nextX > MAP_WIDTH - CHARACTER_WIDTH / 2 && currentCol + 1 < currentWorld.cols) {
+            nextCellIdx = activeCellIndex + 1;
+            finalX = -CHARACTER_WIDTH / 2;
+            hasTransitioned = true;
+          } else if (nextY < -CHARACTER_HEIGHT / 2 && currentRow > 0) {
+            nextCellIdx = activeCellIndex - currentWorld.cols;
+            finalY = MAP_HEIGHT - CHARACTER_HEIGHT / 2;
+            hasTransitioned = true;
+          } else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT / 2 && currentRow + 1 < currentWorld.rows) {
+            nextCellIdx = activeCellIndex + currentWorld.cols;
+            finalY = -CHARACTER_HEIGHT / 2;
+            hasTransitioned = true;
+          }
+
+          if (hasTransitioned) {
+            setActiveCellIndex(nextCellIdx);
+            setCharacterPosition({ x: finalX, y: finalY });
+            setTargetPosition(null);
+          } else {
+            // 境界内なら通常移動
+            setCharacterPosition({
+              x: Math.max(-CHARACTER_WIDTH / 2, Math.min(MAP_WIDTH - CHARACTER_WIDTH / 2, nextX)),
+              y: Math.max(-CHARACTER_HEIGHT / 2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT / 2, nextY))
+            });
+          }
+        } else {
+          // ワールド情報がない場合はクランプのみ
+          setCharacterPosition({
+            x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)),
+            y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY))
+          });
+        }
       }
 
       // Animation Update
@@ -407,7 +472,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     return () => {
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
     };
-  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState]);
+  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
@@ -446,7 +511,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4">
           <div className="flex items-center gap-2 flex-grow max-w-sm">
             <Label className="whitespace-nowrap text-xs">マップ</Label>
-            <Select value={selectedWorldId} onValueChange={setSelectedWorldId}>
+            <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
             </Select>
