@@ -1,0 +1,2127 @@
+[
+  {
+    "id": "00O78nqTnJMIg8AuxrvC",
+    "type": "海の幸",
+    "name": "トビウオ",
+    "description": "潮風に乗り空を舞うことで知られる海の魚。身は引き締まっており、独特の旨味があります。",
+    "recoveryAmount": 18,
+    "rarity": 1,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_0_1772654854791.jpg"
+  },
+  {
+    "id": "02VLUbqVhFyJ0TJSCBaG",
+    "type": "農作物",
+    "name": "小麦粉",
+    "description": "水を加えてこねると粘り気が出る。",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "imageUrl": "media/images/file_1_1772654854791.jpg"
+  },
+  {
+    "id": "02fiU9EYezAGQWXinbCB",
+    "type": "山の幸",
+    "name": "ヤマユリの球根",
+    "description": "山地にひっそりと咲くユリの根。滋養強壮に良いとされ、古くから食べられてきた。",
+    "recoveryAmount": 11,
+    "rarity": 2,
+    "imageUrl": "media/images/file_2_1772654854791.jpg"
+  },
+  {
+    "id": "0JIOIaKWQG3fWvmBPun5",
+    "imageUrl": "media/images/file_3_1772654854791.jpg",
+    "rarity": 1,
+    "recoveryAmount": 7,
+    "name": "エノキタケ",
+    "description": "木の根元に生える一般的なキノコ。やわらかい食感とほんのりとした甘みがある。",
+    "type": "森の幸"
+  },
+  {
+    "id": "0Lq3inXZ0s65hn8rVh9k",
+    "type": "森の幸",
+    "recoveryAmount": 6,
+    "rarity": 2,
+    "name": "木苺",
+    "description": "日当たりの良い森の端に群生する甘酸っぱい赤い実。摘みたては格別の風味。",
+    "imageUrl": "media/images/file_4_1772654854791.jpg"
+  },
+  {
+    "id": "199WE9uvPmPJh5zNhR41",
+    "imageUrl": "media/images/file_5_1772654854791.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 15,
+    "rarity": 5,
+    "name": "深山黒茸",
+    "description": "深い山の奥でひっそりと育つ、漆黒の希少なキノコ。一口食べれば、疲労が嘘のように回復する。",
+    "type": "山の幸"
+  },
+  {
+    "id": "1IWMi6npiX6xamF5rYPf",
+    "name": "ヤマメ",
+    "description": "清流にのみ生息する美しい魚。その身は引き締まり、川魚特有の風味がある。",
+    "recoveryAmount": 12,
+    "rarity": 3,
+    "type": "川の幸",
+    "imageUrl": "media/images/file_6_1772654854791.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "1MorH0nFSqmSvcRAbTph",
+    "recoveryAmount": 12,
+    "rarity": 2,
+    "name": "穴子",
+    "description": "沿岸の砂泥底に生息する細長い魚で、独特の旨味を持つ白身が特徴。刺身や天ぷらなど様々な料理に使われる。",
+    "type": "海の幸",
+    "imageUrl": "media/images/file_7_1772654854791.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "2H6H30X0wlCBYfbtm2sk",
+    "type": "加工食品",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "name": "味噌",
+    "description": "大豆と米、塩を原料に作られる日本の伝統的な発酵食品。独特の旨味が特徴で、様々な料理の風味付けに使える。",
+    "imageUrl": "media/images/file_8_1772654854791.jpg"
+  },
+  {
+    "id": "2upMWtoj9EbXemBfgmUs",
+    "rarity": 1,
+    "recoveryAmount": 15,
+    "name": "イボキサゴ",
+    "description": "磯の岩場に多く見られる小さな巻貝。潮の香りが強く、栄養価が高いとされています。",
+    "type": "海の幸",
+    "imageUrl": "media/images/file_9_1772654854791.jpg"
+  },
+  {
+    "id": "3SlAFgxVyz8u4zmShWAK",
+    "imageUrl": "media/images/file_10_1772654854791.jpg",
+    "rarity": 3,
+    "recoveryAmount": 7,
+    "name": "ウワミズザクラの実",
+    "description": "山地の高所に育つ桜の木の実。甘酸っぱい味が疲労回復に役立ちます。",
+    "type": "山の幸"
+  },
+  {
+    "id": "3YZfJ2kNdsbpz0GHk0Yz",
+    "rarity": 1,
+    "recoveryAmount": 5,
+    "description": "日陰の湿地に自生する香り高い野草。清涼感のある風味が食欲をそそる。",
+    "name": "ミツバ",
+    "type": "山の幸",
+    "imageUrl": "media/images/file_11_1772654854791.jpg"
+  },
+  {
+    "id": "3YerNFezpn9YOVp7SQwD",
+    "imageUrl": "media/images/file_12_1772654854791.jpg",
+    "type": "加工食品",
+    "name": "酒",
+    "description": "穀物から作られた加工品。わずかに活力を回復させ、気分を高揚させる。",
+    "rarity": 1,
+    "recoveryAmount": 10
+  },
+  {
+    "id": "3jIIklqiteVQC0Ae5qjt",
+    "imageUrl": "media/images/file_13_1772654854791.jpg",
+    "name": "牛蒡",
+    "description": "地中に深く根を張る根菜。独特の香りとシャキシャキとした食感が特徴で、日本の食卓に欠かせない。",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "type": "農作物"
+  },
+  {
+    "id": "4LX5NPVfFizQCUlmXUHE",
+    "imageUrl": "media/images/file_14_1772654854791.jpg",
+    "description": "山の春を告げる若芽。ほろ苦い風味と独特の香りが疲れた体を癒します。",
+    "name": "タラの芽",
+    "rarity": 3,
+    "recoveryAmount": 12,
+    "type": "山の幸"
+  },
+  {
+    "id": "4Lm06zklbNoy3zg6tN1N",
+    "imageUrl": "media/images/file_15_1772654854791.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 12,
+    "rarity": 3,
+    "name": "コウタケ",
+    "description": "独特の香りを放つ山奥のキノコ。秋の味覚として珍重され、優れた滋養を持つ。",
+    "type": "山の幸"
+  },
+  {
+    "id": "4V6R6JwvV7MmD4yfrjVv",
+    "imageUrl": "media/images/file_16_1772654854791.jpg",
+    "type": "山の幸",
+    "recoveryAmount": 10,
+    "rarity": 2,
+    "name": "ヤマニンニク",
+    "description": "山間部に自生する野生のニンニク。強い香りと薬効があり、活力をもたらす。"
+  },
+  {
+    "id": "4th7RhqsWqmT7ZA87sFK",
+    "imageUrl": "media/images/file_17_1772654854791.jpg",
+    "type": "海の幸",
+    "recoveryAmount": 5,
+    "rarity": 1,
+    "description": "海辺で育つ、独特の風味を持つ海藻。そのまま食べたり、料理の素材として広く利用される。",
+    "name": "海苔"
+  },
+  {
+    "id": "53a43XLTHX09uRI9V2Gu",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_18_1772654854791.jpg",
+    "type": "海の幸",
+    "name": "カツオ",
+    "description": "黒潮に乗って回遊する赤身魚。新鮮なものは強い旨味を持つ。",
+    "recoveryAmount": 18,
+    "rarity": 1
+  },
+  {
+    "id": "55j4sJfonG5zFqokqJuc",
+    "name": "アカモク",
+    "description": "日本沿岸の栄養豊富な海域に自生する褐藻類。シャキシャキとした食感が特徴。",
+    "rarity": 2,
+    "recoveryAmount": 15,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_19_1772654854791.jpg"
+  },
+  {
+    "id": "5AZ2gOb0pKEtI0ktdXg5",
+    "imageUrl": "media/images/file_20_1772654854791.jpg",
+    "type": "農作物",
+    "recoveryAmount": 8,
+    "rarity": 1,
+    "description": "シャキシャキとした食感が特徴の野菜。様々な料理の風味付けや薬味として広く使われる。",
+    "name": "葱"
+  },
+  {
+    "id": "5nMtu9gPetWlnwXZ3OBz",
+    "type": "海の幸",
+    "name": "アワビ",
+    "description": "岩礁に張り付いて生息する大型の巻き貝。コリコリとした独特の食感と濃厚な旨味が特徴。",
+    "recoveryAmount": 20,
+    "rarity": 3,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_21_1772654854791.jpg"
+  },
+  {
+    "id": "5picSP9wSIINFrMFi2sI",
+    "description": "独特の網目模様を持つ、森の奥深くでひっそりと育つ貴重なキノコ。その芳醇な香りは多くの美食家を魅了する。",
+    "name": "アミガサタケ",
+    "rarity": 4,
+    "recoveryAmount": 10,
+    "type": "森の幸",
+    "imageUrl": "media/images/file_22_1772654854791.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "6J2RqMvdtc9zTl5mznqg",
+    "name": "モズク",
+    "description": "暖かな海の岩場に生える褐色の海藻。独特のぬめりが体の中から癒やしてくれる。",
+    "recoveryAmount": 12,
+    "rarity": 1,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_23_1772654854791.jpg"
+  },
+  {
+    "id": "6Oj5btY09NS2dZOgV7gq",
+    "type": "山の幸",
+    "rarity": 1,
+    "recoveryAmount": 6,
+    "description": "山道の脇に群生する新芽。苦味が少なく、生で食べても体に優しい。",
+    "name": "わらび",
+    "imageUrl": "media/images/file_24_1772654854791.jpg"
+  },
+  {
+    "id": "6gNrCWH2sVGdCvc8i8UT",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_25_1772654854791.jpg",
+    "type": "海の幸",
+    "name": "本鱈場蟹",
+    "description": "冷たい深海に生息する巨大なカニ。その身は甘く、極上の食材として珍重される。",
+    "rarity": 4,
+    "recoveryAmount": 18
+  },
+  {
+    "id": "7YGHlHIujIZXF6ElsMhL",
+    "type": "海の幸",
+    "name": "甘海老",
+    "description": "冷たい深海に生息する、ほんのり甘みが特徴のエビ。新鮮なものは刺身でも美味。",
+    "recoveryAmount": 10,
+    "rarity": 2,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_26_1772654854791.jpg"
+  },
+  {
+    "id": "7cUxF3cIPMgYNpdd9a7B",
+    "type": "海の幸",
+    "name": "カンパチ",
+    "description": "暖かく流れの速い海域に生息する高級魚。引き締まった白身は上品な旨味があり、疲労回復に効果的。",
+    "recoveryAmount": 22,
+    "rarity": 4,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_27_1772654854791.jpg"
+  },
+  {
+    "id": "7iTiMLHySgBCMa95VVZb",
+    "type": "山の幸",
+    "recoveryAmount": 14,
+    "rarity": 3,
+    "name": "ジネンジョ",
+    "description": "山の斜面に自生する自然薯。強い粘りと深い味わいが特徴で、疲労回復に効果的とされる。",
+    "imageUrl": "media/images/file_28_1772654854791.jpg"
+  },
+  {
+    "id": "7uyfVZsyz6dZmwz4SRYa",
+    "imageUrl": "media/images/file_29_1772654854791.jpg",
+    "rarity": 1,
+    "recoveryAmount": 8,
+    "name": "蓮根",
+    "description": "泥の中から収穫される、シャキシャキとした食感が特徴の根菜。煮物や天ぷらなど幅広い料理に利用できる。",
+    "type": "農作物"
+  },
+  {
+    "id": "8lsKJW8hJWyELJhdNsmj",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_30_1772654854791.jpg",
+    "type": "海の幸",
+    "name": "マダイ",
+    "description": "祝いの席にも珍重される、美しい姿と上品な味わいが特徴の高級魚。深く澄んだ海域で育ち、引き締まった身には豊富な栄養が詰まっている。",
+    "recoveryAmount": 21,
+    "rarity": 3
+  },
+  {
+    "id": "8opkrk9Da3Xv4wp1nDaj",
+    "imageUrl": "media/images/file_31_1772654854791.jpg",
+    "type": "加工食品",
+    "name": "米飴",
+    "description": "米から作られる伝統的な甘味料。疲労した体に素早く活力を与える。",
+    "rarity": 2,
+    "recoveryAmount": 15
+  },
+  {
+    "id": "8rJaUbYCKMEaK3XgWnjj",
+    "imageUrl": "media/images/file_32_1772654854791.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 15,
+    "rarity": 3,
+    "description": "縁起物として珍重される美しい魚。沿岸の岩場に生息し、刺身や塩焼きで美味。",
+    "name": "鯛",
+    "type": "海の幸"
+  },
+  {
+    "id": "8tK4AGGDlgaZI8opXxWy",
+    "imageUrl": "media/images/file_33_1772654854791.jpg",
+    "type": "森の幸",
+    "name": "ヤブマメ",
+    "description": "林縁の日当たりの良い場所に自生する蔓性の植物。地中には小さな豆のような塊茎をつけます。",
+    "rarity": 2,
+    "recoveryAmount": 7
+  },
+  {
+    "id": "91Hx3yUejdXsduLKWRLc",
+    "type": "海の幸",
+    "name": "クエ",
+    "description": "深海の岩礁に棲む、漁師が「幻の魚」と呼ぶ高級魚。とろけるような白身には、極上の旨みが凝縮されている。",
+    "rarity": 5,
+    "recoveryAmount": 25,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_34_1772654854791.jpg"
+  },
+  {
+    "id": "91mQBQaO2ReWMrsGlGrb",
+    "type": "山の幸",
+    "description": "早春の山野に自生する若芽。独特の香りとシャキシャキとした食感が特徴で、軽い疲労回復に役立ちます。",
+    "name": "ウド",
+    "recoveryAmount": 8,
+    "rarity": 1,
+    "imageUrl": "media/images/file_35_1772654854791.jpg"
+  },
+  {
+    "id": "9HaQr21j16tPV4m7pxQk",
+    "imageUrl": "media/images/file_36_1772654854791.jpg",
+    "type": "森の幸",
+    "rarity": 1,
+    "recoveryAmount": 5,
+    "description": "広葉樹の倒木に生える、扇状のきのこ。独特の香りと歯ごたえが特徴で、森の恵みを感じさせる。",
+    "name": "ヒラタケ"
+  },
+  {
+    "id": "9ZaomREB194bbXX9ctdQ",
+    "imageUrl": "media/images/file_37_1772654854791.jpg",
+    "rarity": 1,
+    "recoveryAmount": 12,
+    "name": "川ハゼ",
+    "description": "清らかな川底に潜む小さなハゼ。素揚げにすると美味で、体力を補う。",
+    "type": "川の幸"
+  },
+  {
+    "id": "9qdabd2NBXLPaKEqW4co",
+    "description": "沿岸の海域に生息する回遊魚。栄養豊富で、特に脂の乗った旬のものは美味。",
+    "name": "鯖",
+    "recoveryAmount": 12,
+    "rarity": 2,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_38_1772654854791.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "9wnV1siiWs9sYRjY4b15",
+    "imageUrl": "media/images/file_39_1772654854791.jpg",
+    "type": "農作物",
+    "rarity": 1,
+    "recoveryAmount": 5,
+    "name": "大麦",
+    "description": "タンパク質が多く。そのまま利用されることが多い。"
+  },
+  {
+    "id": "APFNECLzKg5BcIjgI5dI",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_40_1772654854791.jpg",
+    "type": "山の幸",
+    "recoveryAmount": 15,
+    "rarity": 5,
+    "name": "オヤマボクチ",
+    "description": "高山の岩場に自生する希少な山菜。独特の香りと深い味わいが、疲労回復に絶大な効果をもたらします。"
+  },
+  {
+    "id": "Ae3gib4v34ww80ZmVFwC",
+    "type": "森の幸",
+    "name": "ハツタケ",
+    "description": "秋の森に自生する赤褐色のキノコ。深い香りが特徴で、傷ついた体を癒やします。",
+    "rarity": 2,
+    "recoveryAmount": 8,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_41_1772654854791.jpg"
+  },
+  {
+    "id": "Akqcgn0mwmk94nOTnI2j",
+    "type": "川の幸",
+    "description": "清流に生息する、長い腕が特徴の淡水エビ。香ばしく揚げたり焼いたりして食される。",
+    "name": "テナガエビ",
+    "rarity": 2,
+    "recoveryAmount": 12,
+    "imageUrl": "media/images/file_42_1772654854791.jpg"
+  },
+  {
+    "id": "B1mp3GTT3tmFQdJTsf52",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_43_1772654854791.jpg",
+    "type": "川の幸",
+    "description": "清らかな川底に棲む、悠然と泳ぐ大型の淡水魚。生命力に満ちた肉質は、大幅な体力回復をもたらします。",
+    "name": "コイ",
+    "recoveryAmount": 16,
+    "rarity": 4
+  },
+  {
+    "id": "BLnHNplp6ALwn8ztVDym",
+    "imageUrl": "media/images/file_44_1772654854791.jpg",
+    "description": "川底の石の下に隠れる小さな淡水魚。あっさりとした白身が特徴で、唐揚げなどで美味。",
+    "name": "ゴリ",
+    "rarity": 1,
+    "recoveryAmount": 9,
+    "type": "川の幸"
+  },
+  {
+    "id": "BNIS7c62L1aq2JCgNQgT",
+    "imageUrl": "media/images/file_45_1772654854791.jpg",
+    "type": "川の幸",
+    "recoveryAmount": 10,
+    "rarity": 1,
+    "name": "シラウオ",
+    "description": "透き通るような体が特徴の、淡水域に生息する小魚。繊細な味わいが魅力。"
+  },
+  {
+    "id": "Bpay4d6OWtZ30TG5I4YU",
+    "imageUrl": "media/images/file_46_1772654854791.jpg",
+    "type": "山の幸",
+    "rarity": 3,
+    "recoveryAmount": 10,
+    "name": "ツルニンジン",
+    "description": "山地の林縁に生える蔓性植物。根は薬効もあり滋養強壮に良いとされる。"
+  },
+  {
+    "id": "Bw25bk1NW2dTngqTaMBK",
+    "imageUrl": "media/images/file_47_1772654854791.jpg",
+    "isMainIngredient": true,
+    "description": "冷たい海の砂地に潜む大型の貝。身は厚く、甘みと歯ごたえが絶品。",
+    "name": "ホッキ貝",
+    "rarity": 3,
+    "recoveryAmount": 22,
+    "type": "海の幸"
+  },
+  {
+    "id": "C2AuTTVaU58TL2LftfZX",
+    "imageUrl": "media/images/file_48_1772654854791.jpg",
+    "type": "森の幸",
+    "name": "ヤマモモ",
+    "description": "夏の森に自生する甘酸っぱい小さな実。疲労回復に役立ちます。",
+    "rarity": 1,
+    "recoveryAmount": 5
+  },
+  {
+    "id": "CEzy8vMpBthwqw7dGvbC",
+    "imageUrl": "media/images/file_49_1772654854791.jpg",
+    "rarity": 3,
+    "recoveryAmount": 18,
+    "name": "イワシ",
+    "description": "新鮮な沿岸で獲れる、銀色に輝く小魚。豊富な栄養を含み、素早く体力を回復させます。",
+    "type": "海の幸"
+  },
+  {
+    "id": "ChkEloTZ7x61AW5vsotL",
+    "type": "海の幸",
+    "recoveryAmount": 18,
+    "rarity": 4,
+    "name": "勘八",
+    "description": "暖かな海域に生息する高級魚。身は引き締まり、刺身や寿司に珍重される。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_50_1772654854791.jpg"
+  },
+  {
+    "id": "E8SVGwJtAoPyS99y6pJt",
+    "imageUrl": "media/images/file_51_1772654854791.jpg",
+    "type": "山の幸",
+    "recoveryAmount": 12,
+    "rarity": 2,
+    "description": "甘くてみずみずしい果肉が特徴の果物。疲労回復や水分補給に適しています。",
+    "name": "梨"
+  },
+  {
+    "id": "EExCU3KTgaZ074nw8IzK",
+    "imageUrl": "media/images/file_52_1772654854791.jpg",
+    "name": "みりん",
+    "description": "料理にまろやかな甘みと照りを与える、日本の伝統的な調味料。素材の味を引き立てるのに役立つ。",
+    "rarity": 1,
+    "recoveryAmount": 5,
+    "type": "加工食品"
+  },
+  {
+    "id": "EdqQS6nalrQnMdET4fcO",
+    "recoveryAmount": 18,
+    "rarity": 3,
+    "name": "鹿肉",
+    "description": "森に生息する野生の鹿から得られる肉。脂肪が少なく、豊かな風味を持つ赤身が特徴。",
+    "type": "畜産物",
+    "imageUrl": "media/images/file_53_1772654854791.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "Ef2yeNUWRLdnkBgUHZX8",
+    "type": "山の幸",
+    "recoveryAmount": 8,
+    "rarity": 3,
+    "description": "山間の湿った場所にひっそりと生える香味野菜。爽やかな香りが食欲をそそります。",
+    "name": "ミョウガ",
+    "imageUrl": "media/images/file_54_1772654854791.jpg"
+  },
+  {
+    "id": "ExL7XRc43PXwBF0OhXGE",
+    "type": "海の幸",
+    "description": "沿岸の海でよく獲れる、人気の高い魚。焼いたり揚げたり、刺身でも美味しくいただける。",
+    "name": "鯵",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_55_1772654854791.jpg"
+  },
+  {
+    "id": "FLQKZHKJNU0hmciDXybL",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_56_1772654854791.jpg",
+    "type": "海の幸",
+    "description": "岩礁に隠れ住む海の賢者。吸盤の食感が特徴で、噛むほどに旨味が広がる。",
+    "name": "マダコ",
+    "rarity": 2,
+    "recoveryAmount": 20
+  },
+  {
+    "id": "FTLIWUkNSBA5ifsjXU99",
+    "imageUrl": "media/images/file_57_1772654854791.jpg",
+    "rarity": 1,
+    "recoveryAmount": 9,
+    "description": "老木に生える鮮やかなオレンジ色のキノコ。バターのような香りが特徴で、森の恵みを感じさせる。",
+    "name": "マスタケ",
+    "type": "森の幸"
+  },
+  {
+    "id": "FmsEOMKCDPME6MDpUZt4",
+    "name": "カワエビ",
+    "description": "清流の石の下に隠れている小さなエビ。香ばしい風味が特徴で、滋養に富みます。",
+    "rarity": 2,
+    "recoveryAmount": 12,
+    "type": "川の幸",
+    "imageUrl": "media/images/file_58_1772654854791.jpg"
+  },
+  {
+    "id": "GVQglPRJqt6hRfv3EAsE",
+    "type": "森の幸",
+    "name": "クワイチゴ",
+    "description": "森の奥で見つかる野生のイチゴ。甘酸っぱい果肉が、疲労回復と気分転換を促す。",
+    "recoveryAmount": 5,
+    "rarity": 2,
+    "imageUrl": "media/images/file_59_1772654854791.jpg"
+  },
+  {
+    "id": "GYxAN3yTtym288E3BrOf",
+    "rarity": 4,
+    "recoveryAmount": 18,
+    "name": "毛蟹",
+    "description": "冷たい海域に生息する高級食材。甘みが強く濃厚な蟹味噌は絶品。",
+    "type": "海の幸",
+    "imageUrl": "media/images/file_60_1772654854791.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "HNyh78shjeV7iOFqZdPd",
+    "imageUrl": "media/images/file_61_1772654854791.jpg",
+    "type": "森の幸",
+    "rarity": 1,
+    "recoveryAmount": 7,
+    "description": "ナラの倒木などに群生するきのこ。歯切れの良い食感が特徴で、様々な料理に合う。",
+    "name": "ナラタケ"
+  },
+  {
+    "id": "HWoHHDxYrMeOb76mBuKJ",
+    "type": "海の幸",
+    "recoveryAmount": 18,
+    "rarity": 3,
+    "name": "アカザラガイ",
+    "description": "冷たい海の底に生息する二枚貝の一種。引き締まった身には上品な甘みと深い旨味があります。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_62_1772654854791.jpg"
+  },
+  {
+    "id": "INOBrNG4i4yG0jjmXtxm",
+    "type": "山の幸",
+    "description": "道端や山野に自生する野草。爽やかな酸味とシャキシャキとした食感が特徴。",
+    "name": "イタドリ",
+    "rarity": 1,
+    "recoveryAmount": 6,
+    "imageUrl": "media/images/file_63_1772654854791.jpg"
+  },
+  {
+    "id": "Ia5B1VrQwyNnDBPmFQUl",
+    "imageUrl": "media/images/file_64_1772654854791.jpg",
+    "type": "森の幸",
+    "recoveryAmount": 6,
+    "rarity": 2,
+    "name": "クリタケ",
+    "description": "秋にブナなどの倒木に生える茶色のきのこ。旨味が強く、多くの料理に利用される。"
+  },
+  {
+    "id": "IwDnYzIki2yL3JjImUgv",
+    "type": "加工食品",
+    "recoveryAmount": 10,
+    "rarity": 2,
+    "description": "乾燥させた魚を粉末状にしたもの。栄養価が高く、肥料や飼料、または調理の素材として利用されます。",
+    "name": "魚粉",
+    "imageUrl": "media/images/file_65_1772654854791.jpg"
+  },
+  {
+    "id": "JGZQ3ns1WcfsUi56u10y",
+    "imageUrl": "media/images/file_66_1772654854791.jpg",
+    "type": "農作物",
+    "description": "畑で広く栽培される栄養豊富な豆。様々な食材の元となり、タンパク質が豊富で食べごたえがある。",
+    "name": "大豆",
+    "recoveryAmount": 10,
+    "rarity": 1
+  },
+  {
+    "id": "JheQkeYkBGY9Oltg1uen",
+    "imageUrl": "media/images/file_67_1772654854791.jpg",
+    "isMainIngredient": true,
+    "rarity": 4,
+    "recoveryAmount": 22,
+    "description": "縞模様が車輪のように見えることから名付けられた高級エビ。プリプリとした食感と濃厚な甘みが特徴です。",
+    "name": "クルマエビ",
+    "type": "海の幸"
+  },
+  {
+    "id": "K3HsoRoTSk9pgQ51Mv6P",
+    "type": "川の幸",
+    "recoveryAmount": 12,
+    "rarity": 4,
+    "name": "鮎",
+    "description": "清流に生息する香魚。独特の香りと上品な味わいが特徴です。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_68_1772654854791.jpg"
+  },
+  {
+    "id": "K3u8xXSdIOZHktqJ45ZL",
+    "imageUrl": "media/images/file_69_1772654854791.jpg",
+    "rarity": 1,
+    "recoveryAmount": 12,
+    "description": "砂浜に生息する小型の二枚貝。潮の香りが強く、ミネラルが豊富で手軽に摂取できる。",
+    "name": "アサリ",
+    "type": "海の幸"
+  },
+  {
+    "id": "KHT4u4qy72i6VFpJSgXP",
+    "name": "ゴギ",
+    "description": "澄んだ山地の渓流に棲む小型のイワナの一種。捕まえるには熟練の技が必要となる幻の魚。",
+    "recoveryAmount": 18,
+    "rarity": 5,
+    "type": "川の幸",
+    "imageUrl": "media/images/file_70_1772654854791.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "KSu6ExkqHIKpAgRANtGp",
+    "imageUrl": "media/images/file_71_1772654854791.jpg",
+    "type": "海の幸",
+    "rarity": 3,
+    "recoveryAmount": 18,
+    "description": "ニシンの卵巣を塩漬けにしたもの。プチプチとした食感が特徴で、海の香りが凝縮されている。",
+    "name": "鯑"
+  },
+  {
+    "id": "KU5dMDHGiJUmEhv59Kd8",
+    "imageUrl": "media/images/file_72_1772654854791.jpg",
+    "type": "山の幸",
+    "name": "タケノコ",
+    "description": "春先に山で採れる、若々しい竹の芽。シャキシャキとした食感が楽しめ、山の生命力を感じさせる。",
+    "recoveryAmount": 9,
+    "rarity": 1
+  },
+  {
+    "id": "KZpwGqZRFCzr2T34LqAM",
+    "imageUrl": "media/images/file_73_1772654854791.jpg",
+    "description": "土中で育つ栄養豊富な根菜。生で食べるとシャキシャキとした食感が楽しめる。",
+    "name": "人参",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "type": "農作物"
+  },
+  {
+    "id": "KdQ3vQHuC8mwljKkvlHx",
+    "imageUrl": "media/images/file_74_1772654854791.jpg",
+    "type": "農作物",
+    "name": "胡瓜",
+    "description": "夏に収穫される瑞々しい野菜。水分を豊富に含み、のどの渇きを癒します。",
+    "rarity": 1,
+    "recoveryAmount": 6
+  },
+  {
+    "id": "KfC755P2vtX74e1mqqEF",
+    "name": "しいたけ",
+    "description": "湿った枯れ木に生える、香りの良い肉厚なキノコ。森の至る所で見つけることができる。",
+    "recoveryAmount": 5,
+    "rarity": 1,
+    "type": "森の幸",
+    "imageUrl": "media/images/file_75_1772654854791.jpg"
+  },
+  {
+    "id": "KxXIEznaYahIIJFkgquc",
+    "name": "アシタバ",
+    "description": "強い生命力を持つセリ科の植物。独特の香りとほのかな苦味が特徴で、滋養強壮に良い。",
+    "recoveryAmount": 12,
+    "rarity": 2,
+    "type": "森の幸",
+    "imageUrl": "media/images/file_76_1772654854792.jpg"
+  },
+  {
+    "id": "Lj1xwOkAc1gNb2wawV9Y",
+    "type": "山の幸",
+    "description": "腐植土から顔を出す、幽霊のような白い植物。森の神秘を感じさせる。",
+    "name": "ギンリョウソウ",
+    "rarity": 4,
+    "recoveryAmount": 5,
+    "imageUrl": "media/images/file_77_1772654854792.jpg"
+  },
+  {
+    "id": "LpzMvuWeAsR7StGgcsEN",
+    "type": "川の幸",
+    "recoveryAmount": 10,
+    "rarity": 2,
+    "description": "清流の底に棲む小さな巻き貝。独特の風味があり、稀に疲労回復に役立つとされます。",
+    "name": "カワニナ",
+    "imageUrl": "media/images/file_78_1772654854792.jpg"
+  },
+  {
+    "id": "LszMM4SyZFjpoWoexRE5",
+    "type": "森の幸",
+    "rarity": 4,
+    "recoveryAmount": 11,
+    "description": "山地の木々に絡まって自生する小さな果実。熟すと甘酸っぱく、疲れた体に活力を与える。",
+    "name": "さるなし",
+    "imageUrl": "media/images/file_79_1772654854792.jpg"
+  },
+  {
+    "id": "MSC0C2B82g8oK9nGBJbQ",
+    "imageUrl": "media/images/file_80_1772654854792.jpg",
+    "isMainIngredient": true,
+    "name": "イシガイ",
+    "description": "清らかな川底に生息する二枚貝。独特の風味があり、栄養価が高い。",
+    "recoveryAmount": 9,
+    "rarity": 1,
+    "type": "川の幸"
+  },
+  {
+    "id": "MVa9ubYL78SLatGaHLx9",
+    "type": "山の幸",
+    "recoveryAmount": 7,
+    "rarity": 1,
+    "description": "湿り気のある山の斜面で育つ山菜。シャキシャキとした食感で、クセが少ない。",
+    "name": "ミズ",
+    "imageUrl": "media/images/file_81_1772654854792.jpg"
+  },
+  {
+    "id": "Mp12LDJ0zexNYvbSoX4a",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_82_1772654854792.jpg",
+    "type": "海の幸",
+    "description": "秋の味覚を代表する回遊魚。北の海で獲れ、脂が乗った身は食欲をそそる。",
+    "name": "秋刀魚",
+    "rarity": 2,
+    "recoveryAmount": 14
+  },
+  {
+    "id": "Na5fQIOBjz8yEKHAFfKj",
+    "description": "深い森の奥で自生する野生のブドウ。熟した実は甘酸っぱく、疲れた体を癒します。",
+    "name": "ヤマブドウ",
+    "rarity": 2,
+    "recoveryAmount": 7,
+    "type": "森の幸",
+    "imageUrl": "media/images/file_83_1772654854792.jpg"
+  },
+  {
+    "id": "NlA3ftqG96haVqMXPoJy",
+    "imageUrl": "media/images/file_84_1772654854792.jpg",
+    "isMainIngredient": true,
+    "rarity": 3,
+    "recoveryAmount": 18,
+    "name": "バイ貝",
+    "description": "深海の砂泥底に生息する巻貝。独特の旨味があり、コリコリとした食感が特徴。滋養強壮にも良いとされる。",
+    "type": "海の幸"
+  },
+  {
+    "id": "NqXZo9OMLPycRT458F4p",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_85_1772654854792.jpg",
+    "type": "海の幸",
+    "description": "春に旬を迎える高級魚。旨味と脂のバランスが良く、刺身や塩焼きに適している。",
+    "name": "鰆",
+    "rarity": 3,
+    "recoveryAmount": 18
+  },
+  {
+    "id": "Q3azybqvPedx0YPwZWwV",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_86_1772654854792.jpg",
+    "type": "海の幸",
+    "rarity": 3,
+    "recoveryAmount": 18,
+    "name": "アカガイ",
+    "description": "浅い海に生息する赤みがかった二枚貝。独特の甘みと旨味が特徴で、疲れた体を癒す。"
+  },
+  {
+    "id": "QII1opG4qAvKBZOIyZNB",
+    "imageUrl": "media/images/file_87_1772654854792.jpg",
+    "rarity": 1,
+    "recoveryAmount": 12,
+    "name": "ドンコ",
+    "description": "川底に生息する小さな淡水魚。清らかな水質で育ち、独特の風味があります。",
+    "type": "川の幸"
+  },
+  {
+    "id": "Qde2vp3VtXnZuNEvrHjw",
+    "recoveryAmount": 20,
+    "rarity": 2,
+    "name": "潮見カキ",
+    "description": "岩場に付着して育つ二枚貝。潮の満ち引きにより露わになった際に採取できる。海のミネラルを豊富に含む。",
+    "type": "海の幸",
+    "imageUrl": "media/images/file_88_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "QofWhwCVRS8QXVO2aVmY",
+    "type": "海の幸",
+    "recoveryAmount": 12,
+    "rarity": 3,
+    "name": "螺貝",
+    "description": "硬い殻に包まれた大型の巻貝。磯の香りと独特の旨味が特徴で、加熱調理することで美味しく食べられる。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_89_1772654854792.jpg"
+  },
+  {
+    "id": "QpjdWB7cJAEWHkxFUHqE",
+    "type": "川の幸",
+    "name": "ニジマス",
+    "description": "清らかな渓流に生息する美しい魚。程よく脂が乗り、あっさりとした旨味がある。",
+    "recoveryAmount": 14,
+    "rarity": 2,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_90_1772654854792.jpg"
+  },
+  {
+    "id": "QpnNhN1zqMobhst7ajfw",
+    "imageUrl": "media/images/file_91_1772654854792.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 15,
+    "rarity": 2,
+    "name": "鱸",
+    "description": "沿岸や汽水域で広く見られる人気の魚。クセのない白身は様々な料理に利用できる。",
+    "type": "海の幸"
+  },
+  {
+    "id": "QsCfB6qIoSl3LSxiVnq2",
+    "imageUrl": "media/images/file_92_1772654854792.jpg",
+    "type": "生薬",
+    "description": "甘く、薬効を持つ根。古くから生薬として用いられ、体調を整える効果がある。",
+    "name": "甘草",
+    "rarity": 3,
+    "recoveryAmount": 15
+  },
+  {
+    "id": "QsosiuCw2Z429tt50hOh",
+    "imageUrl": "media/images/file_93_1772654854792.jpg",
+    "type": "森の幸",
+    "recoveryAmount": 10,
+    "rarity": 1,
+    "name": "栗",
+    "description": "秋の森で拾える、栄養豊富な木の実。素朴な甘さが空腹を満たし、力を与えてくれます。"
+  },
+  {
+    "id": "QvbhOklRQlLrgqcDNxMx",
+    "imageUrl": "media/images/file_94_1772654854792.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 7,
+    "rarity": 1,
+    "description": "大量に獲れる小魚。群れで行動するため、一度に多くの入手が期待できる。DHAが豊富。",
+    "name": "鰯",
+    "type": "海の幸"
+  },
+  {
+    "id": "RtHyNi8Yt2qfdunlXB1c",
+    "imageUrl": "media/images/file_95_1772654854792.jpg",
+    "type": "生薬",
+    "description": "山野に自生するつる植物の根。古くから滋養強壮や解熱に用いられてきた。",
+    "name": "葛根",
+    "recoveryAmount": 8,
+    "rarity": 2
+  },
+  {
+    "id": "STRvLHjFtu4fDkBHaqut",
+    "imageUrl": "media/images/file_96_1772654854792.jpg",
+    "type": "農作物",
+    "name": "大葉",
+    "description": "爽やかな香りが特徴のハーブ。料理の風味付けや薬味として重宝される。",
+    "rarity": 1,
+    "recoveryAmount": 7
+  },
+  {
+    "id": "Sb7Vit3aEyzI6cURGQly",
+    "imageUrl": "media/images/file_97_1772654854792.jpg",
+    "type": "川の幸",
+    "name": "河鮒",
+    "description": "穏やかな流れや湖沼に生息する身近な魚。淡白ながらも上品な旨味が楽しめる。",
+    "recoveryAmount": 12,
+    "rarity": 3
+  },
+  {
+    "id": "ScO3kvro3uwPiVMkOJbA",
+    "imageUrl": "media/images/file_98_1772654854792.jpg",
+    "type": "森の幸",
+    "description": "卵のような形から成長する、鮮やかな橙色の美しいキノコ。森の湿った土壌にひっそりと生えます。",
+    "name": "タマゴタケ",
+    "rarity": 3,
+    "recoveryAmount": 10
+  },
+  {
+    "id": "TDtHPWfuw76in3vue0g3",
+    "type": "海の幸",
+    "name": "ヒラメ",
+    "description": "砂地に生息する高級魚。上品な白身は刺身で絶品で、疲れた体を優しく癒やす。",
+    "rarity": 4,
+    "recoveryAmount": 20,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_99_1772654854792.jpg"
+  },
+  {
+    "id": "Tg9WJrBRnmpXFmFqMck9",
+    "imageUrl": "media/images/file_100_1772654854792.jpg",
+    "rarity": 2,
+    "recoveryAmount": 6,
+    "name": "蕗",
+    "description": "春先に山野で自生する山菜。独特のほろ苦さが特徴で、様々な料理に利用できる。",
+    "type": "山の幸"
+  },
+  {
+    "id": "TmG7yvtmwbclAGj7yYmE",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_101_1772654854792.jpg",
+    "type": "海の幸",
+    "name": "アオリイカ",
+    "description": "高級食材として珍重される大型のイカ。独特の旨味と甘みがあり、刺身や寿司で人気が高い。",
+    "rarity": 3,
+    "recoveryAmount": 12
+  },
+  {
+    "id": "TtIuFnoQdJ0kVCCD5yqY",
+    "imageUrl": "media/images/file_102_1772654854792.jpg",
+    "type": "森の幸",
+    "recoveryAmount": 8,
+    "rarity": 2,
+    "description": "森の木陰で育つ、甘酸っぱい小さな実。豊富な栄養を含み、疲労回復に役立つ。",
+    "name": "クワの実"
+  },
+  {
+    "id": "U2pqyenkOGMxNAMVeSPC",
+    "rarity": 1,
+    "recoveryAmount": 7,
+    "description": "春の訪れを告げる野草。独特の香りとシャキシャキとした食感が特徴で、疲労回復に役立つ。",
+    "name": "ノビル",
+    "type": "山の幸",
+    "imageUrl": "media/images/file_103_1772654854792.jpg"
+  },
+  {
+    "id": "U8SyliGKVXNG3NXTV5UU",
+    "rarity": 4,
+    "recoveryAmount": 18,
+    "name": "スッポン",
+    "description": "泥の中に潜む、滋養強壮に良いとされる高級食材。生命力が非常に高く、栄養豊富。",
+    "type": "川の幸",
+    "imageUrl": "media/images/file_104_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "Ul66VRbDGDtSeUKb3sH3",
+    "imageUrl": "media/images/file_105_1772654854792.jpg",
+    "type": "山の幸",
+    "recoveryAmount": 8,
+    "rarity": 1,
+    "description": "春の山菜として親しまれる若芽です。シャキシャキとした食感が特徴で、軽い苦味が食欲をそそります。",
+    "name": "コゴミ"
+  },
+  {
+    "id": "VJR7X9xENhaofrvklnfb",
+    "imageUrl": "media/images/file_106_1772654854792.jpg",
+    "type": "山の幸",
+    "rarity": 2,
+    "recoveryAmount": 12,
+    "name": "桃",
+    "description": "甘くジューシーな果肉が特徴の果物。夏に収穫され、疲労回復に役立つ。"
+  },
+  {
+    "id": "VWjfw0RXg0J3HRJABwGo",
+    "description": "磯に群生する緑色の海藻。ミネラル豊富で、シャキシャキとした食感が特徴。",
+    "name": "ワカメ",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_107_1772654854792.jpg"
+  },
+  {
+    "id": "VWspMl7WEOiHJkbw92uA",
+    "imageUrl": "media/images/file_108_1772654854792.jpg",
+    "isMainIngredient": true,
+    "description": "日本の沿岸域に生息するカニ。秋から冬にかけて身が詰まり、特に味噌汁やパスタなどで食される。",
+    "name": "渡り蟹",
+    "recoveryAmount": 12,
+    "rarity": 2,
+    "type": "海の幸"
+  },
+  {
+    "id": "WCbGv9fHKJS2TGPN0fc3",
+    "imageUrl": "media/images/file_109_1772654854792.jpg",
+    "type": "山の幸",
+    "name": "フキノトウ",
+    "description": "雪解けの山に顔を出す早春の山菜。独特の香りとほのかな苦みが特徴で、疲れた体を癒やします。",
+    "recoveryAmount": 9,
+    "rarity": 1
+  },
+  {
+    "id": "WDi24UVaMKuBgr9bYOgH",
+    "imageUrl": "media/images/file_110_1772654854792.jpg",
+    "isMainIngredient": true,
+    "name": "ナマコ",
+    "description": "岩場の海底に生息する独特な海の生物。栄養豊富で、滋養強壮に良いとされています。",
+    "rarity": 2,
+    "recoveryAmount": 18,
+    "type": "海の幸"
+  },
+  {
+    "id": "WErIQIJQe0VjHhc2JSq7",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_111_1772654854792.jpg",
+    "type": "海の幸",
+    "name": "アオヤギ",
+    "description": "浅瀬の砂地に生息する二枚貝。独特の甘みと香りが特徴で、寿司ネタとしても人気。",
+    "rarity": 2,
+    "recoveryAmount": 16
+  },
+  {
+    "id": "WPsLLsG7HQFBIeGHCrDR",
+    "type": "川の幸",
+    "name": "モクズガニ",
+    "description": "河口付近に生息する、藻屑のような毛に覆われた蟹。濃厚な旨味を持つ希少な食材。",
+    "recoveryAmount": 19,
+    "rarity": 4,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_112_1772654854792.jpg"
+  },
+  {
+    "id": "WYCRkhSzHQLtrjpGLmxS",
+    "type": "川の幸",
+    "recoveryAmount": 12,
+    "rarity": 1,
+    "name": "オイカワ",
+    "description": "小川や水路で見かける小さな淡水魚。美しい体色と淡白な身が特徴。",
+    "imageUrl": "media/images/file_113_1772654854792.jpg"
+  },
+  {
+    "id": "XP2ysxstRn327LT7opOy",
+    "imageUrl": "media/images/file_114_1772654854792.jpg",
+    "type": "畜産物",
+    "description": "鳥から採れる栄養豊富な食材。様々な料理の材料として幅広く使われます。",
+    "name": "卵",
+    "recoveryAmount": 10,
+    "rarity": 1
+  },
+  {
+    "id": "XSw2Zr7bVJeNJWzaJW5E",
+    "imageUrl": "media/images/file_115_1772654854792.jpg",
+    "type": "山の幸",
+    "name": "ワサビの根茎",
+    "description": "清らかな沢沿いに自生するワサビの地下茎。独特の辛味と香りが特徴で、少量でも高い薬効を持つ。",
+    "rarity": 4,
+    "recoveryAmount": 15
+  },
+  {
+    "id": "XhkCWADRwNYsGVQBXwVs",
+    "imageUrl": "media/images/file_116_1772654854792.jpg",
+    "recoveryAmount": 3,
+    "rarity": 1,
+    "description": "大豆と小麦を原料に作られた、あらゆる料理に深みと風味を加える万能調味料。日本の食卓には欠かせない。",
+    "name": "醤油",
+    "type": "加工食品"
+  },
+  {
+    "id": "YjzSEzohEDolpVWSad1w",
+    "imageUrl": "media/images/file_117_1772654854792.jpg",
+    "type": "海の幸",
+    "name": "小肌",
+    "description": "沿岸の海域に生息する小型の海水魚。独特の風味を持ち、新鮮なものは寿司ネタや酢の物に適している。",
+    "recoveryAmount": 12,
+    "rarity": 2
+  },
+  {
+    "id": "YzTZxIFZLFuw6Y5NTIab",
+    "type": "海の幸",
+    "description": "岩礁に生息する棘だらけの海の宝。濃厚な旨味が詰まっており、新鮮なものは格別な味わいだ。",
+    "name": "ウニ",
+    "rarity": 4,
+    "recoveryAmount": 20,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_118_1772654854792.jpg"
+  },
+  {
+    "id": "ZG5s4s3JkUO3Txnbx4AH",
+    "imageUrl": "media/images/file_119_1772654854792.jpg",
+    "isMainIngredient": true,
+    "name": "キンキ",
+    "description": "深海の岩礁に生息する幻の高級魚。とろけるような脂と上品な身は、至高の味わい。",
+    "recoveryAmount": 25,
+    "rarity": 5,
+    "type": "海の幸"
+  },
+  {
+    "id": "Zal6r4vOH5DgFXvoEiAv",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_120_1772654854792.jpg",
+    "type": "海の幸",
+    "description": "冬の味覚の王様として珍重される高級食材。深海に生息し、その身は甘みが強く絶品である。",
+    "name": "本ズワイガニ",
+    "recoveryAmount": 20,
+    "rarity": 4
+  },
+  {
+    "id": "ZoynJPNkAS3aA99cWBlX",
+    "imageUrl": "media/images/file_121_1772654854792.jpg",
+    "isMainIngredient": true,
+    "rarity": 3,
+    "recoveryAmount": 20,
+    "name": "紅ズワイガニ",
+    "description": "深海に生息する甘く濃厚な身が特徴のカニ。そのまま食べても美味。",
+    "type": "海の幸"
+  },
+  {
+    "id": "aG2DLeDbxj8mcQuPo09N",
+    "type": "川の幸",
+    "name": "ウナギ",
+    "description": "川の下流域に生息する人気の高い魚。栄養豊富で、特に夏バテ防止に効果がある。",
+    "recoveryAmount": 19,
+    "rarity": 3,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_122_1772654854792.jpg"
+  },
+  {
+    "id": "ayhf7KsubVYlnsXB7nu2",
+    "description": "砂地の海底に生息する小魚。天ぷらにすると絶品で、淡白ながらも上品な味わいが楽しめる。",
+    "name": "鱚",
+    "rarity": 2,
+    "recoveryAmount": 12,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_123_1772654854792.jpg"
+  },
+  {
+    "id": "azmXcyKC3nnAAteW0ZuG",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_124_1772654854792.jpg",
+    "type": "畜産物",
+    "description": "山野に生息するイノシシから獲れる赤身肉。独特の風味があり、調理することで滋味深い味わいが楽しめる。",
+    "name": "猪肉",
+    "rarity": 3,
+    "recoveryAmount": 20
+  },
+  {
+    "id": "b53R1FrZLciIsyr3IE48",
+    "description": "甘い餡の材料となる小さな豆。畑で栽培され、秋に収穫される。",
+    "name": "小豆",
+    "recoveryAmount": 7,
+    "rarity": 1,
+    "type": "農作物",
+    "imageUrl": "media/images/file_125_1772654854792.jpg"
+  },
+  {
+    "id": "bbtEWb7r2m6dfxMIuG9G",
+    "type": "山の幸",
+    "name": "アケビ",
+    "description": "山に自生するつる性の果実。熟すと口の中でとろけるような甘さがあり、秋の恵みを感じさせる。",
+    "recoveryAmount": 8,
+    "rarity": 2,
+    "imageUrl": "media/images/file_126_1772654854792.jpg"
+  },
+  {
+    "id": "bgbEwWpsBdj4FqxSNF6N",
+    "imageUrl": "media/images/file_127_1772654854792.jpg",
+    "type": "森の幸",
+    "rarity": 1,
+    "recoveryAmount": 5,
+    "name": "ナツグミ",
+    "description": "夏の森でひっそりと実る小さな赤い果実。甘酸っぱく、疲れた体に活力を与えます。"
+  },
+  {
+    "id": "c6d73SnxzpbJ7mkCSW3N",
+    "imageUrl": "media/images/file_128_1772654854792.jpg",
+    "type": "山の幸",
+    "recoveryAmount": 6,
+    "rarity": 1,
+    "name": "モミジガサ",
+    "description": "渓流沿いの山中に生える山菜。独特の風味と苦みが特徴で、春の訪れを感じさせる。"
+  },
+  {
+    "id": "cNrfvImIFxNlUonuOjl4",
+    "imageUrl": "media/images/file_129_1772654854792.jpg",
+    "isMainIngredient": true,
+    "name": "花咲蟹",
+    "description": "北海道近海で獲れる高級蟹。茹でると鮮やかな赤色になり、身は甘く濃厚な味わいが特徴。",
+    "recoveryAmount": 20,
+    "rarity": 4,
+    "type": "海の幸"
+  },
+  {
+    "id": "daG2JPApTuWpmSK8rQ6D",
+    "name": "玄米",
+    "description": "精米されていないお米。",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "type": "農作物",
+    "imageUrl": "media/images/file_130_1772654854792.jpg"
+  },
+  {
+    "id": "dao7oaNuuApGd4GLjhPk",
+    "imageUrl": "media/images/file_131_1772654854792.jpg",
+    "type": "山の幸",
+    "rarity": 3,
+    "recoveryAmount": 9,
+    "description": "高山帯の岩場に自生する、小さく赤い実。甘酸っぱい風味が、疲労回復を助けます。",
+    "name": "クマコケモモ"
+  },
+  {
+    "id": "duCiEdQULBf5DsKQAsoe",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_132_1772654854792.jpg",
+    "type": "山の幸",
+    "description": "山奥でひっそりと育つ大型のキノコ。深い香りと旨味があり、非常に珍重される。",
+    "name": "ヤマドリタケ",
+    "rarity": 4,
+    "recoveryAmount": 15
+  },
+  {
+    "id": "e4MS3bAlVhNcZLeW7wC9",
+    "type": "海の幸",
+    "description": "深い海を泳ぎ回る軟体動物。コリコリとした食感が心地よく、疲労回復に良い。",
+    "name": "イカ",
+    "rarity": 1,
+    "recoveryAmount": 15,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_133_1772654854792.jpg"
+  },
+  {
+    "id": "eFmdysNHnI5NAURBTcVF",
+    "description": "磯の岩場に張り付く巻貝。コリコリとした食感と磯の香りが特徴で、漁師たちの貴重な食料。",
+    "name": "サザエ",
+    "rarity": 3,
+    "recoveryAmount": 17,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_134_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "ekntf2Xh1hsYZ1tuo8MH",
+    "recoveryAmount": 8,
+    "rarity": 2,
+    "description": "高地でも育つ生命力の強い穀物。主に粉にして様々な食品に加工される。",
+    "name": "蕎麦",
+    "type": "農作物",
+    "imageUrl": "media/images/file_135_1772654854792.jpg"
+  },
+  {
+    "id": "eq0EJtHCx1J2D2LhuNED",
+    "type": "森の幸",
+    "description": "深い森の湿った土壌に生える、美しい紫色のキノコ。独特の風味があり、煮込み料理によく使われる。",
+    "name": "ムラサキシメジ",
+    "recoveryAmount": 8,
+    "rarity": 2,
+    "imageUrl": "media/images/file_136_1772654854792.jpg"
+  },
+  {
+    "id": "ewW6RNMQxbz1X0c36fAk",
+    "type": "川の幸",
+    "recoveryAmount": 17,
+    "rarity": 3,
+    "name": "清流岩魚",
+    "description": "透明度の高い冷たい清流にのみ生息する。岩陰に潜む姿は発見しづらく、釣り上げるには熟練の技を要する。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_137_1772654854792.jpg"
+  },
+  {
+    "id": "fKUWTZ9jiIuU6v5WNrxy",
+    "imageUrl": "media/images/file_138_1772654854792.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 17,
+    "rarity": 3,
+    "name": "天然鮎",
+    "description": "澄んだ清流にのみ生息する川魚。香りが強く、その場で焼けば絶品。",
+    "type": "川の幸"
+  },
+  {
+    "id": "fRC3hZWb49nVqCeO4xCR",
+    "description": "乾燥させたパンを砕いて作られた、サクサクとした食感が特徴の食材。揚げ物の衣として広く利用される。",
+    "name": "パン粉",
+    "recoveryAmount": 5,
+    "rarity": 1,
+    "type": "加工食品",
+    "imageUrl": "media/images/file_139_1772654854792.jpg"
+  },
+  {
+    "id": "fSHkcEVphnqVVhXHm0XY",
+    "imageUrl": "media/images/file_140_1772654854792.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 12,
+    "rarity": 2,
+    "name": "スルメイカ",
+    "description": "日本近海で多く獲れる食用イカ。新鮮なものはそのまま生食もでき、加工の汎用性も高い。",
+    "type": "海の幸"
+  },
+  {
+    "id": "fTD4pKW8rlT7aRjpnGH0",
+    "rarity": 2,
+    "recoveryAmount": 15,
+    "name": "コンブ",
+    "description": "冷たい海の岩場に育つ大きな海藻。豊富なミネラルを含んでいます。",
+    "type": "海の幸",
+    "imageUrl": "media/images/file_141_1772654854792.jpg"
+  },
+  {
+    "id": "fUawx8VKPRaJ0AHJHyu5",
+    "type": "川の幸",
+    "description": "小さな体ながらも清流を力強く泳ぐ淡水魚。塩焼きにすると香ばしく、疲労回復に役立つ。",
+    "name": "アブラハヤ",
+    "recoveryAmount": 12,
+    "rarity": 1,
+    "imageUrl": "media/images/file_142_1772654854792.jpg"
+  },
+  {
+    "id": "ffyGpRUonWg2Z4LQqKEJ",
+    "imageUrl": "media/images/file_143_1772654854792.jpg",
+    "recoveryAmount": 7,
+    "rarity": 2,
+    "description": "梅は特有の酸味が特徴の果実で、生食よりも梅干しや梅酒などの加工品によく利用されます。夏に収穫されることが多いです。",
+    "name": "梅",
+    "type": "山の幸"
+  },
+  {
+    "id": "gCAL5NtJdRHDkhddjFSb",
+    "type": "海の幸",
+    "rarity": 2,
+    "recoveryAmount": 16,
+    "name": "帆立",
+    "description": "冷たい海域の砂泥底に棲む二枚貝。貝柱は肉厚で甘みが強く、多くの料理で重宝される。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_144_1772654854792.jpg"
+  },
+  {
+    "id": "gbDYgCdGTfnBRSHziTZX",
+    "imageUrl": "media/images/file_145_1772654854792.jpg",
+    "name": "スギタケ",
+    "description": "スギ林の湿った地面に生える、傘がぬるぬるとしたキノコ。独特の香りと歯ごたえが特徴です。",
+    "rarity": 2,
+    "recoveryAmount": 8,
+    "type": "森の幸"
+  },
+  {
+    "id": "h6URDH8Z4IxsYRxoNoFt",
+    "imageUrl": "media/images/file_146_1772654854792.jpg",
+    "type": "森の幸",
+    "rarity": 4,
+    "recoveryAmount": 5,
+    "description": "亜高山帯の森でひっそりと実る、深い藍色のベリー。甘酸っぱい果肉が疲れた体を癒す。",
+    "name": "クロマメノキ"
+  },
+  {
+    "id": "hMdDHGFiLgTceOh0qZOp",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_147_1772654854792.jpg",
+    "type": "川の幸",
+    "recoveryAmount": 15,
+    "rarity": 3,
+    "name": "アマゴ",
+    "description": "清流にのみ生息する美しい斑点を持つマス。その身は上品で、釣り人にとって憧れの的。"
+  },
+  {
+    "id": "hRrafDY8fmMbfzUyfJMI",
+    "imageUrl": "media/images/file_148_1772654854792.jpg",
+    "name": "酢",
+    "description": "料理の風味付けや保存食の作成に用いられる酸性の調味料。少量摂取することで食欲増進効果がある。",
+    "rarity": 1,
+    "recoveryAmount": 5,
+    "type": "加工食品"
+  },
+  {
+    "id": "hSKJktibBcmuntZ8JMBf",
+    "type": "森の幸",
+    "recoveryAmount": 9,
+    "rarity": 2,
+    "name": "きぬがさ茸",
+    "description": "夏の終わりから秋にかけて、竹林や広葉樹林に稀に姿を見せる美しいキノコ。その繊細な姿は「森の女王」とも呼ばれます。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_149_1772654854792.jpg"
+  },
+  {
+    "id": "hjZwcagGSJ5ZqxQ7c7aG",
+    "type": "農作物",
+    "name": "ししとう",
+    "description": "小さな緑色の唐辛子で、わずかな苦味と稀に辛味を持つ。様々な料理に彩りと風味を加える素材となる。",
+    "rarity": 2,
+    "recoveryAmount": 6,
+    "imageUrl": "media/images/file_150_1772654854792.jpg"
+  },
+  {
+    "id": "hszcWFxgiPgsrofAaYd4",
+    "imageUrl": "media/images/file_151_1772654854792.jpg",
+    "rarity": 1,
+    "recoveryAmount": 15,
+    "name": "ひじき",
+    "description": "潮の流れが穏やかな岩場で育つ海藻。ミネラル豊富で、口に含むと磯の香りが広がります。",
+    "type": "海の幸"
+  },
+  {
+    "id": "iAfESxyxyJJThEnvuPQv",
+    "imageUrl": "media/images/file_152_1772654854792.jpg",
+    "type": "農作物",
+    "description": "夏から秋にかけて収穫される代表的な夏野菜。加熱することで独特の風味ととろみが生まれ、様々な料理の素材となる。",
+    "name": "茄子",
+    "recoveryAmount": 5,
+    "rarity": 1
+  },
+  {
+    "id": "iDI8pndoCJuXwBVggmYF",
+    "imageUrl": "media/images/file_153_1772654854792.jpg",
+    "type": "イベント",
+    "rarity": 4,
+    "recoveryAmount": 7,
+    "description": "持っていると良いことが起こりそうな、虹色の石。",
+    "name": "幸運の輝石"
+  },
+  {
+    "id": "iJrOh2eSQn6LQ1DiusvR",
+    "imageUrl": "media/images/file_154_1772654854792.jpg",
+    "isMainIngredient": true,
+    "description": "豊かな森の土壌から顔を出す、香りの良いキノコ。見つけるには少し運が必要。",
+    "name": "ポルチーニ茸",
+    "recoveryAmount": 8,
+    "rarity": 3,
+    "type": "森の幸"
+  },
+  {
+    "id": "iPFKO7B0kNlQyA5SDx6Q",
+    "imageUrl": "media/images/file_155_1772654854792.jpg",
+    "type": "素材",
+    "rarity": 2,
+    "recoveryAmount": 5,
+    "name": "鰹節",
+    "description": "燻製・発酵させて乾燥させたカツオの塊を削ったもの。料理に深いうま味と香りを加える万能な素材。"
+  },
+  {
+    "id": "jLzSFqpHnh9NQ3Y6vvJ0",
+    "imageUrl": "media/images/file_156_1772654854792.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 18,
+    "rarity": 3,
+    "name": "ホウボウ",
+    "description": "鮮やかな胸びれが特徴の美しい魚。身は白く上品な旨味があり、深海に生息します。",
+    "type": "海の幸"
+  },
+  {
+    "id": "jTqpUdOfrQFbGaElicVh",
+    "type": "川の幸",
+    "rarity": 2,
+    "recoveryAmount": 16,
+    "description": "岩陰に潜む川底の魚。身は淡白で上品な味わいがあり、滋養に富む。",
+    "name": "カジカ",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_157_1772654854792.jpg"
+  },
+  {
+    "id": "jYqWUsreHLxSHVkbYIyd",
+    "imageUrl": "media/images/file_158_1772654854792.jpg",
+    "type": "農作物",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "name": "里芋",
+    "description": "独特のねっとりとした食感が特徴の芋。土の中で育ち、煮物など様々な料理に利用されます。"
+  },
+  {
+    "id": "jdx9fcMelTmSWHZkJMw8",
+    "rarity": 3,
+    "recoveryAmount": 20,
+    "name": "鴨肉",
+    "description": "水辺に生息する鴨から取れる、旨味が凝縮されたジューシーな肉。香ばしい香りが食欲をそそる。",
+    "type": "畜産物",
+    "imageUrl": "media/images/file_159_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "jhNVIDFcL2HOafI5Ce7D",
+    "recoveryAmount": 18,
+    "rarity": 4,
+    "name": "雲丹",
+    "description": "岩礁地帯に生息する棘を持つ海の幸。独特の甘みと濃厚な風味で珍重されます。",
+    "type": "海の幸",
+    "imageUrl": "media/images/file_160_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "jhPJ95Mj4PwzbKjq2P0K",
+    "type": "海の幸",
+    "recoveryAmount": 20,
+    "rarity": 4,
+    "description": "高級魚として知られ、白身ながら豊富な脂と旨味が特徴です。深海に生息するため、漁獲量が少なく希少です。",
+    "name": "喉黒",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_161_1772654854792.jpg"
+  },
+  {
+    "id": "jj2NWIjOi5ZgAhHFuBMM",
+    "recoveryAmount": 4,
+    "rarity": 2,
+    "name": "コケモモ",
+    "description": "森の奥深く、苔むした岩場に見られる小さな赤い実。甘酸っぱい風味が疲れた体を癒やす。",
+    "type": "森の幸",
+    "imageUrl": "media/images/file_162_1772654854792.jpg"
+  },
+  {
+    "id": "jkV3zn7J93FVv9gtpTzi",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_163_1772654854792.jpg",
+    "type": "海の幸",
+    "description": "沿岸の岩場に付着する黒い二枚貝。豊かな潮の風味があり、手軽に楽しめる海の幸。",
+    "name": "ムール貝",
+    "rarity": 1,
+    "recoveryAmount": 14
+  },
+  {
+    "id": "jw8VF2tEq0H3XVxsI6wr",
+    "recoveryAmount": 18,
+    "rarity": 3,
+    "description": "美しい姿を持つ海の高級魚。沿岸の岩礁域に生息し、祝いの席など特別な料理に用いられることが多い。",
+    "name": "鯛",
+    "type": "海の幸",
+    "imageUrl": "media/images/file_164_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "kK6YCX8jsbmrrjaniC6W",
+    "type": "海の幸",
+    "description": "温暖な海域の砂泥底に生息する高級食材。甘みが強く、身が引き締まっているのが特徴。",
+    "name": "車海老",
+    "recoveryAmount": 18,
+    "rarity": 4,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_165_1772654854792.jpg"
+  },
+  {
+    "id": "kT2BcR4eInEm3Bjub88A",
+    "type": "森の幸",
+    "recoveryAmount": 9,
+    "rarity": 3,
+    "name": "舞茸",
+    "description": "森の奥深くでひっそりと育つキノコ。独特の歯ごたえと香りが特徴で、傷一つなく新鮮なものは見事な回復力を持つ。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_166_1772654854792.jpg"
+  },
+  {
+    "id": "kTaCWhdVEjhOxsyED1Mq",
+    "imageUrl": "media/images/file_167_1772654854792.jpg",
+    "description": "山地の湿った場所に自生する大きな葉の植物。ほろ苦さが特徴で、体を清める効果がある。",
+    "name": "フキ",
+    "recoveryAmount": 10,
+    "rarity": 2,
+    "type": "山の幸"
+  },
+  {
+    "id": "l6vceU30RZYAXAeTvRbi",
+    "type": "森の幸",
+    "rarity": 2,
+    "recoveryAmount": 8,
+    "name": "ツリガネニンジン",
+    "description": "森の奥深くでひっそりと育つ、釣鐘状の根菜。独特の甘みとほのかな苦みが特徴です。",
+    "imageUrl": "media/images/file_168_1772654854792.jpg"
+  },
+  {
+    "id": "lF4QQv96wuBNKRDqB20h",
+    "name": "ブリ",
+    "description": "荒々しい海を泳ぎ回る青魚の若魚。引き締まった身は栄養豊富で、活力を与える。",
+    "rarity": 2,
+    "recoveryAmount": 17,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_169_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "lQ1ANrDoMdDBREFxEjHc",
+    "imageUrl": "media/images/file_170_1772654854792.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 22,
+    "rarity": 4,
+    "name": "キンメダイ",
+    "description": "深海に棲む、鮮やかな赤い体色の魚。引き締まった白身は栄養価が高く、食べ応えがある。",
+    "type": "海の幸"
+  },
+  {
+    "id": "m0RWeCAbOLq9dyx143hP",
+    "description": "沿岸の浅瀬に生息する細長い魚。身は淡白で上品な味わいを持ち、様々な料理に利用できる。",
+    "name": "細魚",
+    "rarity": 2,
+    "recoveryAmount": 12,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_171_1772654854792.jpg"
+  },
+  {
+    "id": "mEeVslQZA9FcAl2wTspI",
+    "description": "冬に脂が乗る大型の高級魚。大海原を回遊し、その力強い身はスタミナ回復に優れる。",
+    "name": "鰤",
+    "recoveryAmount": 18,
+    "rarity": 3,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_172_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "mQ5aybZclKtqbmhzSNUj",
+    "type": "森の幸",
+    "recoveryAmount": 10,
+    "rarity": 1,
+    "description": "しっかり精米された白米。",
+    "name": "白米",
+    "imageUrl": "media/images/file_173_1772654854792.jpg"
+  },
+  {
+    "id": "mWcCEevlOzp3hN8Onvvt",
+    "imageUrl": "media/images/file_174_1772654854792.jpg",
+    "isMainIngredient": true,
+    "recoveryAmount": 18,
+    "rarity": 3,
+    "description": "冷たい海を回遊し、産卵のために川を遡上する魚。栄養価が高く、生食や焼き物など多様な調理法で楽しめる。",
+    "name": "鮭",
+    "type": "海の幸"
+  },
+  {
+    "id": "mpOuF8k7g2iIastunu7S",
+    "type": "山の幸",
+    "recoveryAmount": 15,
+    "rarity": 5,
+    "name": "イワベンケイ",
+    "description": "高山の岩場に自生する非常に希少な植物。厳しい環境で育まれた根には、生命力を高める不思議な力が宿っています。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_175_1772654854792.jpg"
+  },
+  {
+    "id": "mvPBgXi6O2vw5pjrGoyq",
+    "type": "山の幸",
+    "name": "ぜんまい",
+    "description": "春先に山の斜面で採れる代表的な山菜。あく抜きをしてから調理するのが一般的。",
+    "recoveryAmount": 7,
+    "rarity": 2,
+    "imageUrl": "media/images/file_176_1772654854792.jpg"
+  },
+  {
+    "id": "n30MXiK2fFT63kFyC7sJ",
+    "name": "マサバ",
+    "description": "沖合を回遊する銀色の魚。脂が乗った身は、疲れた体を癒す栄養源となる。",
+    "rarity": 1,
+    "recoveryAmount": 18,
+    "type": "海の幸",
+    "imageUrl": "media/images/file_177_1772654854792.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "n79jw1TKPmBovpp6mwCs",
+    "type": "森の幸",
+    "rarity": 2,
+    "recoveryAmount": 11,
+    "description": "針葉樹林に生える、傘がぬるぬるしたキノコ。独特の食感と旨味がある。",
+    "name": "ヌメリイグチ",
+    "imageUrl": "media/images/file_178_1772654854792.jpg"
+  },
+  {
+    "id": "nA9rpv8b4E8x9ozM7ToH",
+    "name": "クマザサ",
+    "description": "厳しい冬を越す生命力を持つ笹の葉。薬効成分が豊富で、体を健やかに保つ。",
+    "recoveryAmount": 7,
+    "rarity": 1,
+    "type": "森の幸",
+    "imageUrl": "media/images/file_179_1772654854792.jpg"
+  },
+  {
+    "id": "nMgrnREJeZvL24fGVnEg",
+    "imageUrl": "media/images/file_180_1772654854792.jpg",
+    "type": "森の幸",
+    "recoveryAmount": 6,
+    "rarity": 1,
+    "name": "オオバギボウシ",
+    "description": "湿った森に群生する大型の野草。若芽はほのかな苦味があり、山の珍味として珍重される。"
+  },
+  {
+    "id": "nTYH8UomlWnYiuy1g0SP",
+    "imageUrl": "media/images/file_181_1772654854793.jpg",
+    "recoveryAmount": 3,
+    "rarity": 1,
+    "name": "木の子茸",
+    "description": "林床の腐葉土から顔を出す、ごく一般的なキノコ。群生しているため見つけやすい。",
+    "type": "森の幸"
+  },
+  {
+    "id": "o3X103wwJnrXIjXGnaFD",
+    "imageUrl": "media/images/file_182_1772654854793.jpg",
+    "type": "山の幸",
+    "description": "山奥に自生する小さな木の実。香ばしい風味が特徴で、少量でも高い栄養価を誇る。",
+    "name": "ハシバミ",
+    "rarity": 4,
+    "recoveryAmount": 12
+  },
+  {
+    "id": "ox3Yzp87XLY9J2oMfmrj",
+    "imageUrl": "media/images/file_183_1772654854793.jpg",
+    "recoveryAmount": 11,
+    "rarity": 4,
+    "name": "イワタケ",
+    "description": "険しい岩肌に自生する珍しい地衣類。滋味深く、古くから薬効があるとされています。",
+    "type": "山の幸"
+  },
+  {
+    "id": "pUIDeeQEBPZlMmn0b012",
+    "recoveryAmount": 10,
+    "rarity": 1,
+    "name": "シジミ",
+    "description": "淡水に生息する小さな二枚貝。泥抜きをすると旨味が凝縮され、滋養強壮に良いとされる。",
+    "type": "川の幸",
+    "imageUrl": "media/images/file_184_1772654854793.jpg"
+  },
+  {
+    "id": "q1YgYvu86TgXkvml1tDZ",
+    "imageUrl": "media/images/file_185_1772654854793.jpg",
+    "type": "生薬",
+    "recoveryAmount": 8,
+    "rarity": 3,
+    "name": "桂皮",
+    "description": "甘く芳しい香りが特徴の樹皮。薬の材料や料理の風味付けに利用される。"
+  },
+  {
+    "id": "qEjQdCONCbu8vrugZTk0",
+    "imageUrl": "media/images/file_186_1772654854793.jpg",
+    "type": "山の幸",
+    "name": "ユキノシタ",
+    "description": "日陰の湿った岩場に生える可憐な山菜。葉にはわずかな苦みと清涼感があります。",
+    "rarity": 3,
+    "recoveryAmount": 7
+  },
+  {
+    "id": "qSUf2FR0hDHqJojsIESQ",
+    "imageUrl": "media/images/file_187_1772654854793.jpg",
+    "type": "山の幸",
+    "description": "カラマツ林によく発生する、美しいオレンジ色のキノコ。ぬめりがあり、独特の風味を持ちます。",
+    "name": "ハナイグチ",
+    "recoveryAmount": 10,
+    "rarity": 2
+  },
+  {
+    "id": "qeRLNkbtgDSGGdAOuSgm",
+    "type": "海の幸",
+    "recoveryAmount": 12,
+    "rarity": 3,
+    "name": "ホタテ貝",
+    "description": "冷たい海域に生息する大型の二枚貝。身は甘みが強く、焼いても煮ても美味しい貴重な食材。",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_188_1772654854793.jpg"
+  },
+  {
+    "id": "qu3zf52IH65BtjzCacla",
+    "imageUrl": "media/images/file_189_1772654854793.jpg",
+    "type": "森の幸",
+    "name": "ギョウジャニンニク",
+    "description": "森の奥、雪解けの頃に芽吹く強い香りの山菜。滋養に富み、疲労回復に効果があると言われています。",
+    "recoveryAmount": 9,
+    "rarity": 4
+  },
+  {
+    "id": "rH9KDnQSdsW6rNcxFguh",
+    "imageUrl": "media/images/file_190_1772654854793.jpg",
+    "description": "強力な薬効を持つ根茎で、古くから薬として利用されてきた。体内の不不調を整える効果が期待できる。",
+    "name": "大黄",
+    "rarity": 3,
+    "recoveryAmount": 5,
+    "type": "生薬"
+  },
+  {
+    "id": "rYUp7GzbtUfsSzmyiOLN",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_191_1772654854793.jpg",
+    "type": "川の幸",
+    "recoveryAmount": 11,
+    "rarity": 1,
+    "name": "ドジョウ",
+    "description": "田んぼや小川に生息する細長い魚。栄養価が高く、古くから滋養食として親しまれてきた。"
+  },
+  {
+    "id": "raqkjHgjYQO42xjcx3gc",
+    "type": "森の幸",
+    "recoveryAmount": 5,
+    "rarity": 2,
+    "description": "山野に広く自生する植物の若芽。独特の苦みが特徴で、生で食されることもあります。",
+    "name": "アザミ",
+    "imageUrl": "media/images/file_192_1772654854793.jpg"
+  },
+  {
+    "id": "s3xKK81Vr6qJXDjCJ0Yd",
+    "type": "森の幸",
+    "description": "ブナの木から落ちる小さな実。香ばしく栄養価が高く、森の動物たちにも人気がある。",
+    "name": "ブナの実",
+    "rarity": 1,
+    "recoveryAmount": 3,
+    "imageUrl": "media/images/file_193_1772654854793.jpg"
+  },
+  {
+    "id": "sNqnOW5UVPGTxuxasKDH",
+    "imageUrl": "media/images/file_194_1772654854793.jpg",
+    "recoveryAmount": 10,
+    "rarity": 3,
+    "description": "山道の奥深くで見つかる、猫が好む不思議な力を持つ木の実。疲労回復に効果がある。",
+    "name": "マタタビの実",
+    "type": "森の幸"
+  },
+  {
+    "id": "sT07VI0vqwaj6uUObIXs",
+    "description": "透き通った身を持つ小魚。寒い季節に湖や川で群れをなして捕獲される。",
+    "name": "ワカサギ",
+    "rarity": 2,
+    "recoveryAmount": 12,
+    "type": "川の幸",
+    "imageUrl": "media/images/file_195_1772654854793.jpg"
+  },
+  {
+    "id": "sZAJ5kQ5pHxzgCpuYyn9",
+    "type": "森の幸",
+    "name": "シロカノコタケ",
+    "description": "広葉樹林の深奥にひっそりと姿を現す高級キノコ。その芳醇な香りと歯ごたえは、多くの美食家を魅了する。",
+    "recoveryAmount": 10,
+    "rarity": 5,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_196_1772654854793.jpg"
+  },
+  {
+    "id": "szMiwJTebNwCiHgu8Rmh",
+    "rarity": 2,
+    "recoveryAmount": 8,
+    "name": "ヌメリスギタケ",
+    "description": "湿った倒木に群生するキノコ。ぬめりがあり、独特の風味が楽しめる。",
+    "type": "森の幸",
+    "imageUrl": "media/images/file_197_1772654854793.jpg"
+  },
+  {
+    "id": "tE0lMiUUxnl5OBKAgsHD",
+    "rarity": 1,
+    "recoveryAmount": 5,
+    "name": "唐辛子",
+    "description": "独特の辛味を持つ果実。料理の風味付けや保存食の材料として重宝される。",
+    "type": "農作物",
+    "imageUrl": "media/images/file_198_1772654854793.jpg"
+  },
+  {
+    "id": "tblQtSx30FPHOuSB8zZE",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_199_1772654854793.jpg",
+    "type": "海の幸",
+    "description": "岩礁地帯に生息する大型のエビ。その姿は豪華絢爛で、特別な時に食される高級食材。",
+    "name": "伊勢海老",
+    "rarity": 5,
+    "recoveryAmount": 25
+  },
+  {
+    "id": "u0dh8tyTOcLrmu2D8E1M",
+    "imageUrl": "media/images/file_200_1772654854793.jpg",
+    "type": "農作物",
+    "name": "生姜",
+    "description": "独特の辛味と香りが特徴の根菜。体を温める効果があり、様々な料理や薬に使われる。",
+    "recoveryAmount": 5,
+    "rarity": 1
+  },
+  {
+    "id": "u7F2lPUYe6Sq1d5J3UnU",
+    "recoveryAmount": 4,
+    "rarity": 1,
+    "name": "ドクダミ",
+    "description": "薬草として知られる森の植物。独特の香りと強い生命力を持つ。",
+    "type": "森の幸",
+    "imageUrl": "media/images/file_201_1772654854793.jpg"
+  },
+  {
+    "id": "uICtRcEKZrhRUCx7wrjC",
+    "recoveryAmount": 12,
+    "rarity": 1,
+    "description": "飼育された鳥から得られる、一般的な食肉。様々な料理に活用できる万能な食材。",
+    "name": "鶏肉",
+    "type": "畜産物",
+    "imageUrl": "media/images/file_202_1772654854793.jpg",
+    "isMainIngredient": true
+  },
+  {
+    "id": "uOjuSjFZG0WtQmQRj7Kf",
+    "imageUrl": "media/images/file_203_1772654854793.jpg",
+    "type": "森の幸",
+    "rarity": 3,
+    "recoveryAmount": 10,
+    "description": "堅い殻に包まれた森の木の実。香ばしい風味が特徴で、栄養価が高い。",
+    "name": "カヤの実"
+  },
+  {
+    "id": "uTSFIz6bYNyKFQgUg8Nu",
+    "type": "海の幸",
+    "name": "平政",
+    "description": "脂が乗った身が特徴の大型回遊魚。磯や沖合に生息し、引きが強く釣り人には人気の獲物。",
+    "recoveryAmount": 18,
+    "rarity": 4,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_204_1772654854793.jpg"
+  },
+  {
+    "id": "uejC6QExQ6p1m0p2EiS7",
+    "type": "森の幸",
+    "name": "まつたけ",
+    "description": "秋の深山で稀に見つかる高貴な香りのキノコ。その独特の風味は、食べる者に活力を与える。",
+    "rarity": 5,
+    "recoveryAmount": 12,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_205_1772654854793.jpg"
+  },
+  {
+    "id": "ukIJovN3DZCVQkIygNbu",
+    "imageUrl": "media/images/file_206_1772654854793.jpg",
+    "type": "山の幸",
+    "description": "山菜の女王とも呼ばれる、春の訪れを告げる若芽。ほろ苦さと独特の香りが食欲をそそる。",
+    "name": "コシアブラ",
+    "rarity": 2,
+    "recoveryAmount": 7
+  },
+  {
+    "id": "vF0ZJvf6lg98XJMUfAn4",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_207_1772654854793.jpg",
+    "type": "海の幸",
+    "description": "冷たい深海に棲む大型のエビ。とろけるような甘みと濃厚な旨みが特徴。",
+    "name": "牡丹海老",
+    "recoveryAmount": 15,
+    "rarity": 3
+  },
+  {
+    "id": "vOUZWwXq6AXXY06MhGyT",
+    "name": "カワゲラ",
+    "description": "清らかな川の底に生息する昆虫の幼生。高タンパクで、釣り人の間では珍重されます。",
+    "rarity": 4,
+    "recoveryAmount": 9,
+    "type": "川の幸",
+    "imageUrl": "media/images/file_208_1772654854793.jpg"
+  },
+  {
+    "id": "vsMZJ7qXcvbMd4bPa3GE",
+    "type": "加工食品",
+    "name": "菜種油",
+    "description": "菜種から抽出された、料理に幅広く使える食用油。燃料としても利用できる。",
+    "rarity": 1,
+    "recoveryAmount": 8,
+    "imageUrl": "media/images/file_209_1772654854793.jpg"
+  },
+  {
+    "id": "vuaYjQzQxD6vKjm7oCHl",
+    "imageUrl": "media/images/file_210_1772654854793.jpg",
+    "description": "ブナの森で群生する、シャキシャキとした食感のきのこ。一年を通して比較的見つけやすい。",
+    "name": "ぶなしめじ",
+    "rarity": 1,
+    "recoveryAmount": 6,
+    "type": "山の幸"
+  },
+  {
+    "id": "vxnm3yMzMuCn90hHjBGI",
+    "type": "農作物",
+    "rarity": 1,
+    "recoveryAmount": 10,
+    "name": "小麦",
+    "description": "粒が固い。粉に加工されることが多い。",
+    "imageUrl": "media/images/file_211_1772654854793.jpg"
+  },
+  {
+    "id": "wLCxKI7rSfvQABSDmGm1",
+    "imageUrl": "media/images/file_212_1772654854793.jpg",
+    "rarity": 3,
+    "recoveryAmount": 18,
+    "name": "蜂蜜",
+    "description": "花々の蜜から作られた甘い滋養食。森の奥深く、蜂の巣から稀に見つかることがある。",
+    "type": "森の幸"
+  },
+  {
+    "id": "wjNpgsoUGtPWkykXvfyk",
+    "type": "山の幸",
+    "name": "ホンシメジ",
+    "description": "「香りの松茸、味のホンシメジ」と称される幻のキノコ。深い森の奥でひっそりと育ち、見つけるのは至難の業。",
+    "rarity": 5,
+    "recoveryAmount": 14,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_213_1772654854793.jpg"
+  },
+  {
+    "id": "xEAYmyPE8MbIuMYM1s7X",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_214_1772654854793.jpg",
+    "type": "海の幸",
+    "rarity": 4,
+    "recoveryAmount": 18,
+    "description": "暖海域に生息する高級魚。身は引き締まり、刺身や寿司ネタとして珍重される。",
+    "name": "縞鯵"
+  },
+  {
+    "id": "xOA27EPv8LeNdyYfYO02",
+    "type": "海の幸",
+    "recoveryAmount": 18,
+    "rarity": 4,
+    "description": "広大な海を回遊する大型魚。高タンパクで栄養価が高く、調理することで様々な料理に活用できる。",
+    "name": "鮪",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_215_1772654854793.jpg"
+  },
+  {
+    "id": "xkyI6O5y1LzmADlj98uF",
+    "imageUrl": "media/images/file_216_1772654854793.jpg",
+    "recoveryAmount": 7,
+    "rarity": 2,
+    "description": "森の奥深くでひっそりと実る小さな果実。甘酸っぱく、疲れた体を癒します。",
+    "name": "スグリ",
+    "type": "森の幸"
+  },
+  {
+    "id": "xykgWubdzEVxEFdgiVvt",
+    "type": "海の幸",
+    "name": "ミズダコ",
+    "description": "冷たい海域に生息する大型のタコ。身は柔らかく、様々な料理の素材となる。",
+    "recoveryAmount": 18,
+    "rarity": 3,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_217_1772654854793.jpg"
+  },
+  {
+    "id": "yM3qjHb3MURbMEtjE8CB",
+    "imageUrl": "media/images/file_218_1772654854793.jpg",
+    "type": "山の幸",
+    "recoveryAmount": 15,
+    "rarity": 2,
+    "description": "秋に実る甘くて美味しい果物。そのまま食べたり、干し柿に加工したりできる。",
+    "name": "柿"
+  },
+  {
+    "id": "yVUQrvXy1YBunXnBRR1f",
+    "type": "川の幸",
+    "name": "ウグイ",
+    "description": "清らかな川の流れに棲む淡水魚。淡白ながらも滋味豊かな味わいが特徴です。",
+    "rarity": 2,
+    "recoveryAmount": 12,
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_219_1772654854793.jpg"
+  },
+  {
+    "id": "ygkM6FTx6unhf36hd5jz",
+    "isMainIngredient": true,
+    "imageUrl": "media/images/file_220_1772654854793.jpg",
+    "type": "森の幸",
+    "rarity": 4,
+    "recoveryAmount": 11,
+    "description": "針葉樹の根元に稀に生える、白い花のような姿のキノコ。強い香りと独特の食感が特徴。",
+    "name": "ハナビラタケ"
+  },
+  {
+    "id": "z8M5UiMDOHXstbSYrdTg",
+    "type": "山の幸",
+    "recoveryAmount": 12,
+    "rarity": 3,
+    "description": "粘り気が特徴の根菜。山の斜面や森の縁に自生しており、掘り出すには少し手間がかかる。",
+    "name": "山芋",
+    "imageUrl": "media/images/file_221_1772654854793.jpg"
+  },
+  {
+    "id": "zAxz2xd8a2Tu7CYBpEiK",
+    "imageUrl": "media/images/file_222_1772654854793.jpg",
+    "description": "料理の味付けや保存に欠かせない白い結晶。海水から採れるほか、岩塩坑からも得られる。",
+    "name": "塩",
+    "recoveryAmount": 5,
+    "rarity": 1,
+    "type": "素材"
+  },
+  {
+    "id": "zEPdxxs801SQTBTM1BJT",
+    "description": "古木の幹に自生する、硬いキノコ。薬用としても知られ、滋養強壮に良いとされる。",
+    "name": "サルノコシカケ",
+    "recoveryAmount": 8,
+    "rarity": 1,
+    "type": "森の幸",
+    "imageUrl": "media/images/file_223_1772654854793.jpg"
+  },
+  {
+    "id": "zdCf5OXfyAhloTnxmTa6",
+    "type": "海の幸",
+    "rarity": 3,
+    "recoveryAmount": 8,
+    "description": "日本の沿岸で獲れる小さな銀色の魚。独特の風味があり、新鮮なものは食用に適している。",
+    "name": "小鰭",
+    "imageUrl": "media/images/file_224_1772654854793.jpg"
+  },
+  {
+    "id": "zoSSJHt3VcF7YYSm6N7m",
+    "imageUrl": "media/images/file_225_1772654854793.jpg",
+    "type": "農作物",
+    "description": "畑で広く栽培される、みずみずしい根菜。生で食べても、煮込み料理の素材としても万能。",
+    "name": "大根",
+    "recoveryAmount": 5,
+    "rarity": 1
+  }
+]

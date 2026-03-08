@@ -1,0 +1,412 @@
+[
+  {
+    "id": "9Nz9tw4vVX3wGhaau0wx",
+    "plot": "弥三郎が浜で往生している日蓮に出会う",
+    "requiredFlag": "",
+    "nodes": [
+      {
+        "type": "start",
+        "readingText": "どうしたべ〜こんなところで〜",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "どうしたべ〜\nこんなところで〜",
+        "nextStepId": "node-2",
+        "id": "node-1",
+        "speakerName": "弥三郎",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1_1772004584161.wav?alt=media&token=8cbbfb7b-f432-4806-9ef9-d5db0742b56b"
+      },
+      {
+        "content": "どうも、私は日蓮と申すもので、ご存知かも知れませんが、鎌倉から流刑になってやってきたものです。\nお騒がせして、申し訳ありません。どうぞお見知りおきを。",
+        "nextStepId": "node-3",
+        "id": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-2_1772004603595.wav?alt=media&token=95143f18-8dd7-4f6b-a230-6520be5d00ff",
+        "speakerName": "日蓮",
+        "readingText": "どうも、わたしはにちれんともうすもので、ごぞんじかもしれませんが、かまくらからるけいになってやってきたものです。おさわがせして、もうしわけありません。どうぞおみしりおきを。",
+        "type": "story",
+        "speakerId": "A44lygLrpBVZjTZD1EqT"
+      },
+      {
+        "nextStepId": "node-4",
+        "content": "噂には聞いとります。ここには流刑で流れてくるものが多いですけぇ。\nお上に逆らって流刑になるなんて、お前さんもよっぽど辛い目にあったんですか？",
+        "speakerName": "弥三郎",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-3_1772004614687.wav?alt=media&token=ae283bbc-fbdf-4e36-b902-5a7a2f8f3047",
+        "id": "node-3",
+        "readingText": "うわさにはきいとります。ここにはるけいでながれてくるものがおおいですけぇ。おかみにさからってるけいになるなんて、おまえさんもよっぽどつらいめにあったんですか？",
+        "type": "story",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "readingText": "そうですね。なんとせつめいしたらよいものか…こむずかしいはなしかも しれませんが、わたしたちはまっぽうのこうせんるふをたくされたじゆのぼさつなのでほうなんはとうぜんのよろこびとしてうけいれております。ここには、じゃっこうどをきりひらくためにまいりました。ところで…「おまえさん”も”」とおおせられたということは、あなたがたもなにかおかみからふせいなおとがめでもうけたしょうか？",
+        "type": "story",
+        "nextStepId": "node-1771836155813",
+        "content": "そうですね。なんと説明したらよいものか…\n小難しい話かも知れませんが、私達は末法の広宣流布を託された地涌の菩薩なので法難は当然の喜びとして受け入れております。\nここには、寂光土を切り開くために参りました。\nところで…\n「お前さん”も”」と仰られたということは、貴方がたも何かお上から不正なお咎めでも受けたしょうか？",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-4_1772004643738.wav?alt=media&token=7b08fbf2-d7b6-4e5a-84ce-21332fb75c64",
+        "speakerName": "日蓮",
+        "id": "node-4"
+      },
+      {
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "type": "story",
+        "readingText": "しつれい、わたしはやさぶろうともうすものでりょうしをしております。ごぞんじかとおもいますが、りょうしはせっしょうをおこなうふとどきなみぶんとしてさべつされております…",
+        "speakerName": "弥三郎",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771836155813_1772004654264.wav?alt=media&token=69222181-0376-45ba-80f0-e1f0426161c1",
+        "id": "node-1771836155813",
+        "content": "失礼、私は弥三郎と申すもので漁師をしております。\nご存知かと思いますが、漁師は殺生を行う不届きな身分として差別されております…\n",
+        "nextStepId": "node-1771836360486"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "type": "story",
+        "readingText": "そうですか…やはり…われわれがここへきたりゆうはまさにこのもんだいにあるのです。せいじがしゅうきょうをりようし、こくみんをせんのうさせようとしているところにこのくにおおきなざいごうがあるのです。ひとはいきるうえでせっしょうをさけることはできません。ねんぶつしゅうがこんきょとしているほうもんはしゃくもんでとかれたかりのおしえです。しかし、こめをぜいとしてちょうしゅうしたいばくふにとってはこのおしえがひじょうにつごうがよかったのです。ともあれ、りょうしをやってるからといってさげすまれなければならないりゆうなどほとけさまはまったくおっしゃっておりません。ぎゃくにすべてのひとはとうとくたいせつにされるべきそんざいだとおおせっています。ばくふにとってはこちらのほうがつごうがわるいので、わたしがしんげんしたないようをよをまどわすもうげんとだんざいしたのです。",
+        "speakerName": "日蓮",
+        "id": "node-1771836360486",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771836360486_1772004683208.wav?alt=media&token=e2052e78-573b-4998-9c76-4e748a27703b",
+        "nextStepId": "node-1771838477317",
+        "content": "そうですか…やはり…\n我々がここへ来た理由は正にこの問題にあります。\n政治が宗教を利用し、国民を洗脳させようとしているところにこの国の大きな罪業があるのです。\n人は生きる上で殺生を避けることは出来ません。念仏宗が根拠としている法門は迹門で説かれた借りの教えです。しかし、米を税として徴収したい幕府にとってはこの教えが非常に都合が良かったのです。\nともあれ、漁師をやっているからといって蔑まれなければならない理由など仏様は全くおっしゃっておりません。\n逆に全ての人は尊く大切にされるべき存在だと仰っています。\n幕府にとってはこちらの方が都合が悪いので、私が進言した内容を世を惑わす妄言と断罪したのです。\n"
+      },
+      {
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "そうだったんですか〜むずかしいはなしはよくわかりませんが、おでしさんがくるしんでいるようなので、こんなところで のじゅく などせず いえへ おいでなすてくだせえ。",
+        "type": "story",
+        "nextStepId": "node-1771844398745",
+        "content": "そうだったんですか〜\n難しい話はよくわかりませんが、お弟子さんが苦しんでいるようなので、こんなところで野宿などせず家へおいでなすてくだせえ。",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771838477317_1772004693467.wav?alt=media&token=aeea36ec-2e7d-4958-a1bb-b2003305c0b8",
+        "speakerName": "弥三郎",
+        "id": "node-1771838477317"
+      },
+      {
+        "content": "すいません〜\n私は日蓮の弟子の伯耆と申すものです。お恥ずかしいところを見せてしまって…\n",
+        "nextStepId": "node-1771844702316",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771844398745_1772004702293.wav?alt=media&token=1021841a-9ee0-41a0-bdb0-24907924a032",
+        "id": "node-1771844398745",
+        "speakerName": "伯耆",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "type": "story",
+        "readingText": "すいません〜わたしはにちれんのでしのほうきともうすものです。おはずかしいところをみせてしまって…"
+      },
+      {
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "きにせんでよいです。ふなよいでくるしむのはこのちにおとずれるひとのたいはんがそうですけぇ。",
+        "type": "story",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771844702316_1772004710757.wav?alt=media&token=9c8add68-1798-4b05-8777-ee0a746e78bc",
+        "speakerName": "弥三郎",
+        "id": "node-1771844702316",
+        "content": "気にせんでよいです。\n船酔で苦しむのはこの地に訪れる人の大半がそうですけぇ。",
+        "nextStepId": "node-1771844870620"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "type": "story",
+        "readingText": "たすかります。このちにおりたってはじめておあいできたかたがやさぶろうさんでよかった。たいへんもうしわけないですがほうきにのみものとよこになれるばしょをおかしください。",
+        "nextStepId": "node-1771905325350",
+        "content": "助かります。この地に降り立って初めてお会いできた方が弥三郎さんでよかった。\n大変申し訳ないですが伯耆に飲み物と横になれる場所をお貸しください。",
+        "speakerName": "日蓮",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771844870620_1772004722748.wav?alt=media&token=1fbcdc2d-3ca3-4dbb-aac5-d7a19e762f3e",
+        "id": "node-1771844870620"
+      },
+      {
+        "id": "node-1771905325350",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771905325350_1772004729828.wav?alt=media&token=cd05dd39-2d09-493e-ba64-c750a1bcd7cf",
+        "speakerName": "弥三郎",
+        "content": "了解ですじゃ。\nわしについてきてくだせえ。",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "りょうかいですじゃ。わしについてきてくだせえ。",
+        "type": "end"
+      }
+    ],
+    "createdAt": "2026-02-23T08:25:38.585Z",
+    "title": "弥三郎出現"
+  },
+  {
+    "id": "E3kjL45tPNPVO1EBzyLD",
+    "plot": "旅人は、村の入り口で、疲労困憊の様子で自分の畑を見つめる若者、庄助に出会います。庄助は真面目な働き手として評判ですが、今はその顔に絶望の色が浮かんでいます。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、このままでは秋の収穫祭に使う伝統のパンも、厳しい年貢も納められなくなると嘆きます。旅人は庄助を助けるため、どう行動するか選択を迫られます。「森の奥へ薬草を探しに行く」か、「畑の土壌と作物を詳しく調べる」か。森の奥へ薬草を探しに行く場合、旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れます。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めます。畑の土壌と作物を詳しく調べる場合、旅人は庄助の畑で黒いカビに侵された小麦の根元を注意深く観察します。もし「ヤマニンニク」を持っていれば、その強い匂いが土中に潜むカビを媒介する微細な虫を遠ざけ、カビの広がりを食い止めることができます。ヤマニンニクをすり潰して土に混ぜ込むと、カビは勢いを失い、小麦は再び生気を取り戻していきます。どちらの選択肢を選んでも、旅人の尽力により小麦畑は救われます。庄助は心底安堵し、旅人の働きに深く感謝します。収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡すのでした。",
+    "villagerName": "庄助",
+    "nodes": [
+      {
+        "content": "村の入り口で、旅人は疲労困憊の様子で自分の畑を見つめる若者、庄助に出会った。",
+        "nextStepId": "node-2",
+        "id": "node-1",
+        "type": "start"
+      },
+      {
+        "id": "node-2",
+        "type": "story",
+        "content": "庄助は真面目な働き手として評判だったが、今はその顔に絶望が浮かんでいる。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、秋の収穫祭も年貢も危ういという。",
+        "nextStepId": "node-3"
+      },
+      {
+        "content": "庄助を助けるため、どう行動するか？",
+        "choices": [
+          {
+            "nextStepId": "node-4",
+            "text": "森の奥へ薬草を探しに行く"
+          },
+          {
+            "requiredItemId": "4V6R6JwvV7MmD4yfrjVv",
+            "nextStepId": "node-5",
+            "text": "畑の土壌と作物を詳しく調べる"
+          }
+        ],
+        "id": "node-3",
+        "type": "choice"
+      },
+      {
+        "content": "旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れた。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めた。",
+        "nextStepId": "node-6",
+        "id": "node-4",
+        "type": "story"
+      },
+      {
+        "nextStepId": "node-6",
+        "content": "旅人は庄助の畑で黒いカビに侵された小麦の根元を注意深く観察した。持っていたヤマニンニクをすり潰して土に混ぜ込むと、カビは勢いを失い、小麦は再び生気を取り戻していった。",
+        "type": "story",
+        "id": "node-5"
+      },
+      {
+        "type": "story",
+        "id": "node-6",
+        "nextStepId": "node-7",
+        "content": "旅人の尽力により小麦畑は救われた。庄助は心底安堵し、旅人の働きに深く感謝する。"
+      },
+      {
+        "content": "収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡してくれた。",
+        "type": "reward",
+        "reward": {
+          "amount": 110,
+          "itemName": "深山黒茸",
+          "itemId": "199WE9uvPmPJh5zNhR41"
+        },
+        "id": "node-7"
+      },
+      {
+        "type": "end",
+        "id": "node-8",
+        "content": "庄助の畑は豊作を迎え、村は喜びに包まれた。旅人は新たな旅路につく。"
+      }
+    ],
+    "requiredFlag": "",
+    "villagerId": "4OPELhPhTx0RpaQiu0Af",
+    "createdAt": "2026-02-06T19:26:07.932Z",
+    "title": "庄助を襲う黒いカビと豊穣の願い"
+  },
+  {
+    "id": "Ilcs1tgSTI9rhDNpzx5A",
+    "plot": "旅人は村を訪れ、祭りの準備で活気づく中、どこか浮かない顔のおはなに出会う。彼女は、今年の豊作を祝う祭りで欠かせない「幸茸おこわ」の準備が進まず困っているという。話を聞くと、おこわに使う特別な「まつたけ」が、今年は山のどこを探しても見つからないのだ。「このままでは、村の幸運が途絶えてしまうかもしれない…」と、おはなは心配顔でつぶやく。あなたは、おはなの力になりたいと申し出る。おはなは、昔まつたけがよく採れたという、今は獣道と化した奥深い森の隠れた場所を教えてくれる。ここであなたは選択を迫られる。「教えられた場所へまつたけを探しに行く」か、それとも「手持ちのキノコで代用できないかおはなに相談する」か。もし「教えられた場所へまつたけを探しに行く」ことを選べば、あなたは険しい獣道を何時間も進み、時には野生動物に警戒しながら奥地へと向かう。そこで偶然、人里離れた朽ちた大木の根元に、ひっそりと生えた見事な「まつたけ」を発見するだろう。もし「手持ちのキノコで代用できないかおはなに相談する」ことを選んだ場合、おはなは首を傾げながらも、もし旅人が「深山黒茸」のような珍しいキノコを持っているなら、もしかしたら伝統の味に近いものが作れるかもしれないと提案する。もしあなたが「深山黒茸」を持っていれば、それを渡すことでおはなは納得し、そのキノコを使っておこわを仕込み始める。どちらの道を選んだとしても、おはなは無事におこわを完成させ、祭りは盛大に執り行われる。村人たちは皆、おはなの「幸茸おこわ」を喜び、旅人の協力に感謝する。おはなは、お礼に「これを食べれば元気百倍だよ」と言って、滋養強壮に良いとされる貴重な「ジネンジョ」を旅人に手渡すのだった。",
+    "villagerName": "おはな",
+    "requiredFlag": "",
+    "nodes": [
+      {
+        "id": "node-1",
+        "type": "start",
+        "content": "旅人は村を訪れ、祭りの準備で活気づく中、どこか浮かない顔のおはなに出会う。",
+        "nextStepId": "node-2"
+      },
+      {
+        "id": "node-2",
+        "type": "story",
+        "nextStepId": "node-3",
+        "content": "彼女は今年の豊作を祝う祭りで欠かせない「幸茸おこわ」の準備が進まず困っているという。おこわに使う特別な「まつたけ」が、今年は山のどこを探しても見つからないのだ。「このままでは、村の幸運が途絶えてしまうかもしれない…」と、おはなは心配顔でつぶやいた。"
+      },
+      {
+        "content": "あなたはおはなの力になりたいと申し出る。おはなは、昔まつたけがよく採れたという、今は獣道と化した奥深い森の隠れた場所を教えてくれる。どうしますか？",
+        "choices": [
+          {
+            "nextStepId": "node-4",
+            "text": "教えられた場所へまつたけを探しに行く"
+          },
+          {
+            "requiredItemId": "199WE9uvPmPJh5zNhR41",
+            "nextStepId": "node-5",
+            "text": "手持ちのキノコで代用できないかおはなに相談する"
+          }
+        ],
+        "id": "node-3",
+        "type": "choice"
+      },
+      {
+        "id": "node-4",
+        "type": "story",
+        "nextStepId": "node-6",
+        "content": "あなたは険しい獣道を何時間も進み、時には野生動物に警戒しながら奥地へと向かった。そこで偶然、人里離れた朽ちた大木の根元に、ひっそりと生えた見事な「まつたけ」を発見した。"
+      },
+      {
+        "type": "story",
+        "id": "node-5",
+        "nextStepId": "node-6",
+        "content": "あなたが「深山黒茸」を渡すと、おはなは納得し、そのキノコを使っておこわを仕込み始めた。"
+      },
+      {
+        "setFlag": "kinu_flag1",
+        "reward": {
+          "itemId": "7iTiMLHySgBCMa95VVZb",
+          "itemName": "ジネンジョ"
+        },
+        "type": "reward",
+        "content": "おはなは無事におこわを完成させ、祭りは盛大に執り行われた。村人たちは皆、おはなの「幸茸おこわ」を喜び、旅人の協力に感謝する。おはなは、お礼に「これを食べれば元気百倍だよ」と言って、滋養強壮に良いとされる貴重な「ジネンジョ」を旅人に手渡した。",
+        "id": "node-6"
+      },
+      {
+        "id": "node-7",
+        "type": "end",
+        "setFlag": "kinu_flag1",
+        "content": "村の幸運は守られ、祭りの熱気と村人たちの笑顔が、旅人の心にも温かく残った。"
+      }
+    ],
+    "createdAt": "2026-02-06T09:15:27.990Z",
+    "villagerId": "7WVudEcwgprud6DxaSiB",
+    "title": "長老おはなの願い"
+  },
+  {
+    "id": "LsuceXFK7C8OS8AbiFIX",
+    "plot": "旅人であるあなたは、村の薬草師きぬが額に深い皺を刻んでいるのを見かけます。声をかけると、きぬは村の子供たちが原因不明の咳と高熱に苦しんでいると語ります。通常の薬草では効果がなく、昔語りで聞いた「禁断の森の奥深くに生えるツルニンジンこそが、万病に効く秘薬の源」という伝説が脳裏をよぎるが、その森は危険で足を踏み入れる者もいないとため息をつきます。旅人はどうしますか？「伝説のツルニンジンを探しに森へ向かう」か、「きぬから、森に関するもっと詳しい情報を聞き出す」かを選択できます。もし「伝説のツルニンジンを探しに森へ向かう」ことを選んだ場合、旅人は単身、禁断の森へと足を踏み入れます。森は霧深く、道は険しく、狂暴な獣の鳴き声が響き渡ります。旅人は知恵と力で危険を乗り越え、ようやくツルニンジンを見つけ出します。もし「きぬから、森に関するもっと詳しい情報を聞き出す」ことを選んだ場合、きぬは少し考えてから、古い巻物を取り出します。それには「森の番人たる獣は、深山黒茸の香りを嫌う」と記されていました。旅人は森へ行く前に「深山黒茸」を探して手に入れることになります。もし「深山黒茸」を持っていれば、獣を避けて安全に進むことができます。持っていなければ、最初の選択肢を選んだ場合と同じように危険を冒して進むことになります。いずれにせよ、ツルニンジンを持ち帰った旅人に、きぬは深く感謝します。彼女はすぐさまツルニンジンを煎じ、子供たちに与えると、数日のうちに子供たちの病は快方へと向かいます。村に平和が戻り、きぬは旅人の勇気と献身に報いるため、代々伝わる貴重な「幸運の輝石」を報酬として手渡しました。",
+    "villagerName": "きぬ",
+    "createdAt": "2026-02-06T09:07:42.535Z",
+    "villagerId": "6uxZ9UvQDDCAfFi0MplG",
+    "title": "きぬの秘薬と森の試練",
+    "nodes": [
+      {
+        "id": "node-1",
+        "nextStepId": "node-2",
+        "content": "旅人であるあなたは、村の薬草師きぬが額に深い皺を刻んでいるのを見かけました。声をかけると、きぬは村の子供たちが原因不明の咳と高熱に苦しんでいると語ります。通常の薬草では効果がなく、昔語りで聞いた「禁断の森の奥深くに生えるツルニンジンこそが、万病に効く秘薬の源」という伝説が脳裏をよぎるが、その森は危険で足を踏み入れる者もいないとため息をつきます。",
+        "type": "start",
+        "requiredFlag": "kinu_flag1"
+      },
+      {
+        "choices": [
+          {
+            "text": "伝説のツルニンジンを探しに森へ向かう",
+            "nextStepId": "node-3"
+          },
+          {
+            "text": "きぬから、森に関するもっと詳しい情報を聞き出す",
+            "nextStepId": "node-4"
+          }
+        ],
+        "id": "node-2",
+        "type": "choice",
+        "content": "旅人はどうしますか？"
+      },
+      {
+        "content": "あなたは単身、禁断の森へと足を踏み入れました。森は霧深く、道は険しく、狂暴な獣の鳴き声が響き渡ります。しかし、あなたは知恵と力で危険を乗り越え、ついに伝説のツルニンジンを見つけ出すことができました。",
+        "nextStepId": "node-7",
+        "type": "story",
+        "id": "node-3"
+      },
+      {
+        "content": "きぬは少し考えてから、古い巻物を取り出しました。それには「森の番人たる獣は、深山黒茸の香りを嫌う」と記されていました。あなたは森へ行く前に「深山黒茸」を探して手に入れることを考えます。",
+        "nextStepId": "node-5",
+        "id": "node-4",
+        "type": "story"
+      },
+      {
+        "type": "choice",
+        "id": "node-5",
+        "choices": [
+          {
+            "nextStepId": "node-1770369574636",
+            "requiredItemId": "199WE9uvPmPJh5zNhR41_深山黒茸はここだ！確認してね！_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸",
+            "text": "深山黒茸を使って獣を避ける"
+          }
+        ],
+        "content": "禁断の森へと足を踏み入れました。獣の気配が満ちる中、どうしますか？"
+      },
+      {
+        "id": "node-1770369574636",
+        "type": "end",
+        "content": "新しい物語"
+      }
+    ],
+    "requiredFlag": "kinu_flag1"
+  },
+  {
+    "id": "SS3U7Dy8AnkaWyguQqGM",
+    "villagerName": "伯耆",
+    "plot": "浜辺で伯耆と日蓮が談話しています。",
+    "nodes": [
+      {
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-1_1772004057120.wav?alt=media&token=a5ddbe36-fdef-4f9e-b621-2010b3e772ad",
+        "speakerName": "伯耆",
+        "id": "node-1",
+        "content": "う〜ん、苦しいよ〜\n船があんなに揺れるものだとは思っても見なかったよ〜",
+        "nextStepId": "node-2",
+        "expressionName": "苦しい表情",
+        "type": "start",
+        "readingText": "う〜ん、くるしいよ〜ふねがあんなにゆれるものだとはおもってもみなかったよ〜",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "type": "story",
+        "readingText": "ほうきはふねにのったのははじめてだったか。こればっかりはおかのうえにいたのではきたえられないからな。ふなたびになれることもぶつどうしゅぎょうだとおもってしっかりいのりくろうをかみしめておくといいよ。これからさき、ふねにのることもおおくなるかもしれないからね。",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-2_1772004074849.wav?alt=media&token=9bff41fe-dce3-4f01-823f-780453d2fd95",
+        "speakerName": "日蓮",
+        "id": "node-2",
+        "nextStepId": "node-3",
+        "content": "伯耆は船に乗ったのは初めてだったか。\nこればっかりは丘の上にいたのでは鍛えられないからな。\n船旅に慣れることも仏道修行だと思ってしっかり祈り苦労を噛み締めておくといいよ。\nこれから先、船に乗ることも多くなるかも知れないからね。"
+      },
+      {
+        "speakerName": "伯耆",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-3_1772004114317.wav?alt=media&token=fdab82d0-27c6-4ad4-97e1-e07ac283c5f2",
+        "id": "node-3",
+        "content": "そうですね〜\n仏法は厳しいですね〜\nせっかく法難をご一緒し、守り抜く覚悟でお供したのに、いきなり出鼻をくじかれたようで情けないです。",
+        "nextStepId": "node-4",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "type": "story",
+        "expressionName": "苦しい表情",
+        "readingText": "そうですね〜ぶっぽうはきびしいですね〜せっかくほうなんをごいっしょし、まもりぬくかくごでおともしたのに、いきなりでばなをくじかれたようでなさけないです。"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "readingText": "ほうなんをうけとめようとするこころいきだけあればだいじょうぶ。ほうきはまだわかいからすぐにりっぱなにょせつしゅぎょうのぎょうじゃになれるよ。たのしみだな…",
+        "type": "story",
+        "speakerName": "日蓮",
+        "id": "node-4",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-4_1772004124970.wav?alt=media&token=172923aa-45ec-4875-b953-3f3075ac8986",
+        "nextStepId": "node-5",
+        "content": "法難を受け止めようとする心意気だけあれば大丈夫。\n伯耆はまだ若いからすぐに立派な如説修行の行者になれるよ。\n楽しみだな…"
+      },
+      {
+        "expressionName": "苦しい表情",
+        "readingText": "うーん…そういってもらえるのがせめてものすくいですが、いまはなみのおとさえうらめしいです。なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…",
+        "type": "end",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-5",
+        "speakerName": "伯耆",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-5_1772004137874.wav?alt=media&token=69c86044-d70c-4ae4-a960-5d6cc8192279",
+        "content": "う〜ん…\nそう言ってもらえるのがせめてもの救いですが、今は波の音さえ恨めしいです。\n南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…"
+      }
+    ],
+    "requiredFlag": "",
+    "title": "浜辺の少年僧、船路の疲れに伏す",
+    "villagerId": "tTPwcEBQZSA6Bxl7JYcF",
+    "createdAt": "2026-02-23T06:42:27.183Z"
+  },
+  {
+    "id": "k4FQ2Vz6z2hY1OL8ndTu",
+    "plot": "オープニング",
+    "nodes": [
+      {
+        "speakerName": "システム",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fk4FQ2Vz6z2hY1OL8ndTu%2Faudio%2Fnode-1_1772335233664.wav?alt=media&token=797705f0-ac6a-4c96-a747-c8dd0cf336f2",
+        "id": "node-1",
+        "content": " 泉が砂漠をオアシスに変えるように、人間の生命から湧き出る慈悲と英知の泉をもって、この地球を平和の楽園へ、永遠の宝土へと転じゆくヒューマニズムの勝利を、我らは広宣流布と呼ぶ。\nー 新・人間革命6巻",
+        "nextStepId": "node-2",
+        "speakerId": "olCEMKCl0vWKNZOIrj2g",
+        "type": "start",
+        "readingText": "いずみがさばくをおあしすにかえるように、にんげんのせいめいからわきでるじひとえいちのいずみをもって、このちきゅうをへいわのらくえんえ、えいえんのほうどえとてんじゆくひゅーまにずむのしょうりを、われらは、こうせんるふと、よぶ。"
+      },
+      {
+        "id": "node-2",
+        "speakerName": "システム",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fk4FQ2Vz6z2hY1OL8ndTu%2Faudio%2Fnode-2_1772335255103.wav?alt=media&token=8e0add87-8326-4b7e-b876-441dedd8b9d6",
+        "content": "舞台は1261年、伊豆、日蓮は前年の立正安国論の提出を期に他宗の反感を買いこの地へと流罪になった。\nしかし、日蓮はこの流刑地にあって、広宣流布への情熱に燃え盛っていた。\nこの国の隅々にまで信心の火を灯せるチャンスとの想いでこの地に向かったのであった…",
+        "type": "end",
+        "readingText": "ぶたいはせんにひゃくろくじゅういちねん、いず、にちれんはぜんねんのりっしょうあんこくろんのていしゅつをきにたしゅうのはんかんをかいこのちへと、るざいになった。しかし、にちれんわ、このるけいちにあって、こうせんるふへのじょうねつにもえさかっていた。このくにのすみずみにまでしんじんのひをともせるちゃんすとのおもいでこのちにむかったのであった…",
+        "speakerId": "olCEMKCl0vWKNZOIrj2g"
+      }
+    ],
+    "requiredFlag": "",
+    "createdAt": "2026-02-24T05:16:42.633Z",
+    "title": "オープニング説明"
+  }
+]

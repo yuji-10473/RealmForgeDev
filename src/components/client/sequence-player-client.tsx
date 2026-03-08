@@ -1,25 +1,26 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Play, ChevronRight, RotateCcw, AlertCircle, FileJson, Volume2, VolumeX } from "lucide-react";
+import { Loader2, Play, ChevronRight, RotateCcw, AlertCircle, FileJson, Volume2, VolumeX, FolderOpen } from "lucide-react";
 import Image from "next/image";
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '../ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// --- Grand Narrative Data Types (v1.0) ---
+// --- v1.1.1 Data Types ---
 
 type Step = {
   type: "story" | "video";
-  worldId?: string;
   storyId?: string;
   videoTitle?: string;
   videoUrl?: string;
 };
 
-type Sequence = {
+type NarrativeSequence = {
+  id: string;
   title: string;
   description: string;
   steps: Step[];
@@ -29,8 +30,6 @@ type Waypoint = {
   x: number;
   y: number;
   eventId?: string;
-  visible?: boolean;
-  waitCondition?: string;
 };
 
 type SequenceChar = {
@@ -40,6 +39,7 @@ type SequenceChar = {
 };
 
 type StoryData = {
+  id: string;
   name: string;
   mapId: string;
   bgmUrl?: string;
@@ -47,10 +47,10 @@ type StoryData = {
 };
 
 type VillagerData = {
+  id: string;
   name: string;
   imageUrl: string;
   voiceName?: string;
-  expressions?: any[];
 };
 
 type EventNode = {
@@ -58,56 +58,52 @@ type EventNode = {
   type: 'start' | 'story' | 'choice' | 'reward' | 'end';
   content: string;
   nextStepId?: string;
-  audioPath?: string; // v1.0 Voice support
-  choices?: { text: string; nextStepId: string; audioPath?: string }[];
+  audioUrl?: string;
+  choices?: { text: string; nextStepId: string; audioUrl?: string }[];
 };
 
-type EventData = {
+type EventFlow = {
   id: string;
   nodes: EventNode[];
 };
 
-// --- Constants ---
 const CANVAS_WIDTH = 2752;
 const CANVAS_HEIGHT = 1536;
 const CHAR_SIZE = 256;
 
 export function SequencePlayerClient() {
   const { toast } = useToast();
-  const [sequencePath, setSequencePath] = useState('/sequences/demo'); 
-  const [sequence, setSequence] = useState<Sequence | null>(null);
-  const [currentStepIndex, setCurrentStepIndex] = useState(-1);
+  const [projectRoot, setProjectRoot] = useState(''); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Master Data Cache
+  const [masterSequences, setMasterSequences] = useState<NarrativeSequence[]>([]);
+  const [masterStories, setMasterStories] = useState<StoryData[]>([]);
+  const [masterVillagers, setMasterVillagers] = useState<VillagerData[]>([]);
+  const [masterEvents, setMasterEvents] = useState<EventFlow[]>([]);
+
   // Playback State
+  const [selectedSeqId, setSelectedSeqId] = useState<string>('');
+  const [currentStepIndex, setCurrentStepIndex] = useState(-1);
   const [currentMapUrl, setCurrentMapUrl] = useState<string | null>(null);
   const [chars, setChars] = useState<Record<string, { x: number; y: number; data: VillagerData; targetIdx: number; path: Waypoint[]; speed: number }>>({});
-  const [activeEvent, setActiveEvent] = useState<EventData | null>(null);
+  const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
   const [isFinished, setIsFinished] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
 
-  // Audio Elements
   const bgmRef = useRef<HTMLAudioElement | null>(null);
   const voiceRef = useRef<HTMLAudioElement | null>(null);
   const gameLoopRef = useRef<number>(null);
 
-  // Helper to resolve media paths robustly based on v1.0 structure
-  const resolvePath = useCallback((path: string | undefined, defaultDir: string) => {
+  const resolvePath = useCallback((path: string | undefined) => {
     if (!path) return '';
     if (path.startsWith('http') || path.startsWith('/')) return path;
-    
-    // If the path already contains the defaultDir or a 'media/' prefix, 
-    // we assume it's a relative path from the sequence root.
-    // Otherwise, we prepend the defaultDir.
-    const isFullPath = path.startsWith('media/') || path.startsWith('data/') || path.includes('/');
-    const fullPath = isFullPath ? path : `${defaultDir}/${path}`;
-        
-    return `${sequencePath}/${fullPath}`;
-  }, [sequencePath]);
+    const root = projectRoot.endsWith('/') ? projectRoot.slice(0, -1) : projectRoot;
+    return `${root}/${path}`;
+  }, [projectRoot]);
 
-  // Handle BGM
   useEffect(() => {
     if (!bgmRef.current) {
       bgmRef.current = new Audio();
@@ -116,17 +112,34 @@ export function SequencePlayerClient() {
     bgmRef.current.muted = isMuted;
   }, [isMuted]);
 
-  // Sequence Loading
-  const loadSequence = async () => {
+  const loadProject = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${sequencePath}/sequence.json`);
-      if (!res.ok) throw new Error('sequence.json の読み込みに失敗しました。パスが正しいか確認してください。');
-      const data = await res.json();
-      setSequence(data);
+      const fetchData = async (file: string) => {
+        const root = projectRoot.endsWith('/') ? projectRoot.slice(0, -1) : projectRoot;
+        const res = await fetch(`${root}/data/${file}.json`);
+        if (!res.ok) return [];
+        return await res.json();
+      };
+
+      const [seqs, stories, villagers, events] = await Promise.all([
+        fetchData('narrativeSequences'),
+        fetchData('stories'),
+        fetchData('villagers'),
+        fetchData('eventFlows')
+      ]);
+
+      setMasterSequences(seqs);
+      setMasterStories(stories);
+      setMasterVillagers(villagers);
+      setMasterEvents(events);
+
+      if (seqs.length === 0) throw new Error('物語データが見つかりませんでした。パスを確認してください。');
+      
       setCurrentStepIndex(-1);
       setIsFinished(false);
+      toast({ title: 'プロジェクト読み込み完了', description: `${seqs.length}個のシーケンスが見つかりました。` });
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -135,6 +148,7 @@ export function SequencePlayerClient() {
   };
 
   const startStep = useCallback(async (index: number) => {
+    const sequence = masterSequences.find(s => s.id === selectedSeqId);
     if (!sequence) return;
     
     if (index >= sequence.steps.length) {
@@ -146,95 +160,55 @@ export function SequencePlayerClient() {
 
     const step = sequence.steps[index];
     if (step.type === 'story') {
-      await initStoryStep(step);
-    } else if (step.type === 'video') {
+      const story = masterStories.find(s => s.id === step.storyId);
+      if (!story) {
+        toast({ variant: 'destructive', title: 'ストーリーが見つかりません', description: step.storyId });
+        return;
+      }
+
+      if (story.bgmUrl && bgmRef.current) {
+        bgmRef.current.src = resolvePath(story.bgmUrl);
+        bgmRef.current.play().catch(() => {});
+      }
+
+      setCurrentMapUrl(resolvePath(`media/images/${story.mapId}.png`));
+
+      const newChars: Record<string, any> = {};
+      story.characters.forEach(sc => {
+        const vData = masterVillagers.find(v => v.id === sc.objectId);
+        if (vData && sc.path.length > 0) {
+          newChars[sc.objectId] = {
+            x: sc.path[0].x,
+            y: sc.path[0].y,
+            data: vData,
+            targetIdx: 0,
+            path: sc.path,
+            speed: sc.speed || 1
+          };
+        }
+      });
+      setChars(newChars);
+      setActiveEvent(null);
+    } else {
       setChars({});
       setCurrentMapUrl(null);
       if (bgmRef.current) bgmRef.current.pause();
     }
     setCurrentStepIndex(index);
-  }, [sequence, sequencePath]);
-
-  const initStoryStep = async (step: Step) => {
-    try {
-      // 1. Load Story
-      const storyRes = await fetch(`${sequencePath}/data/stories/${step.storyId}.json`);
-      if (!storyRes.ok) throw new Error(`Story data not found: ${step.storyId}`);
-      const story: StoryData = await storyRes.json();
-
-      // 2. Load BGM
-      if (story.bgmUrl && bgmRef.current) {
-        bgmRef.current.src = resolvePath(story.bgmUrl, 'media/bgm');
-        bgmRef.current.play().catch(e => console.warn("BGM play blocked by browser. Interaction required."));
-      }
-
-      // 3. Load Map
-      // If mapId is just 'map_0_0', try to add extension
-      const mapId = story.mapId;
-      const hasExtension = mapId.includes('.');
-      const mapPath = resolvePath(hasExtension ? mapId : `${mapId}.png`, 'media/backgrounds');
-      setCurrentMapUrl(mapPath);
-
-      // 4. Load Villagers and Initial State
-      const newChars: Record<string, any> = {};
-      for (const sc of story.characters) {
-        try {
-          const vRes = await fetch(`${sequencePath}/data/villagers/${sc.objectId}.json`);
-          if (!vRes.ok) continue;
-          const vData: VillagerData = await vRes.json();
-          if (sc.path.length > 0) {
-            newChars[sc.objectId] = {
-              x: sc.path[0].x,
-              y: sc.path[0].y,
-              data: vData,
-              targetIdx: 0,
-              path: sc.path,
-              speed: sc.speed || 1
-            };
-          }
-        } catch (e) {
-          console.warn(`Failed to load villager: ${sc.objectId}`);
-        }
-      }
-      setChars(newChars);
-      setActiveEvent(null);
-    } catch (e: any) {
-      toast({ variant: 'destructive', title: 'ストーリーの初期化に失敗', description: e.message });
-    }
-  };
-
-  // Event Trigger
-  const triggerEvent = async (eventId: string) => {
-    try {
-      const res = await fetch(`${sequencePath}/data/events/${eventId}.json`);
-      if (!res.ok) return;
-      const data: EventData = await res.json();
-      const startNode = data.nodes.find(n => n.type === 'start');
-      if (startNode) {
-        setActiveEvent(data);
-        playNodeVoice(startNode);
-        setCurrentNode(startNode);
-      }
-    } catch (e) {
-      console.error("Event load failed", e);
-    }
-  };
+  }, [masterSequences, selectedSeqId, masterStories, masterVillagers, resolvePath, toast]);
 
   const playNodeVoice = (node: EventNode) => {
-    if (!voiceRef.current) {
-      voiceRef.current = new Audio();
-    }
-    if (node.audioPath) {
-      voiceRef.current.src = resolvePath(node.audioPath, 'media/voices');
+    if (!voiceRef.current) voiceRef.current = new Audio();
+    if (node.audioUrl) {
+      voiceRef.current.src = resolvePath(node.audioUrl);
       voiceRef.current.muted = isMuted;
-      voiceRef.current.play().catch(e => console.warn("Voice play failed", e));
+      voiceRef.current.play().catch(() => {});
     }
   };
 
-  // Game Loop for Movement
   useEffect(() => {
     if (currentStepIndex === -1 || isFinished || activeEvent) return;
-
+    const sequence = masterSequences.find(s => s.id === selectedSeqId);
     const step = sequence?.steps[currentStepIndex];
     if (step?.type !== 'story') return;
 
@@ -258,9 +232,17 @@ export function SequencePlayerClient() {
           if (dist < moveSpeed) {
             next[id] = { ...c, x: target.x, y: target.y, targetIdx: c.targetIdx + 1 };
             if (target.eventId) {
-              triggerEvent(target.eventId);
-              eventTriggered = true;
-              break; 
+              const event = masterEvents.find(e => e.id === target.eventId);
+              if (event) {
+                const startNode = event.nodes.find(n => n.type === 'start');
+                if (startNode) {
+                  setActiveEvent(event);
+                  setCurrentNode(startNode);
+                  playNodeVoice(startNode);
+                  eventTriggered = true;
+                  break;
+                }
+              }
             }
           } else {
             next[id] = { ...c, x: c.x + (dx / dist) * moveSpeed, y: c.y + (dy / dist) * moveSpeed };
@@ -268,24 +250,18 @@ export function SequencePlayerClient() {
         }
 
         if (eventTriggered) return next;
-
         if (!anyMoving && Object.keys(next).length > 0) {
           setTimeout(() => startStep(currentStepIndex + 1), 500);
           return next;
         }
-
         return next;
       });
       gameLoopRef.current = requestAnimationFrame(loop);
     };
 
     gameLoopRef.current = requestAnimationFrame(loop);
-    return () => {
-      if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
-    };
-  }, [currentStepIndex, isFinished, activeEvent, sequence, startStep]);
-
-  const handleNextStep = () => startStep(currentStepIndex + 1);
+    return () => { if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current); };
+  }, [currentStepIndex, isFinished, activeEvent, masterSequences, selectedSeqId, masterEvents, startStep]);
 
   const reset = () => {
     if (bgmRef.current) bgmRef.current.pause();
@@ -297,55 +273,66 @@ export function SequencePlayerClient() {
     setCurrentNode(null);
   };
 
-  if (loading) return <div className="flex flex-col items-center justify-center h-full space-y-4"><Loader2 className="h-12 w-12 animate-spin text-primary" /><p>物語をロード中...</p></div>;
+  if (loading) return <div className="flex flex-col items-center justify-center h-full space-y-4"><Loader2 className="h-12 w-12 animate-spin text-primary" /><p>プロジェクトをロード中...</p></div>;
 
-  if (error) return <Card className="border-destructive max-w-md mx-auto"><CardHeader><CardTitle className="text-destructive flex items-center gap-2"><AlertCircle />エラー</CardTitle><CardDescription>{error}</CardDescription></CardHeader><CardContent><Button onClick={() => setError(null)}>戻る</Button></CardContent></Card>;
+  if (error) return <Card className="border-destructive max-w-md mx-auto"><CardHeader><CardTitle className="text-destructive flex items-center gap-2"><AlertCircle />エラー</CardTitle><CardDescription>{error}</AlertDescription></CardHeader><CardContent><Button onClick={() => setError(null)}>戻る</Button></CardContent></Card>;
 
-  if (!sequence) {
+  if (masterSequences.length === 0) {
     return (
       <Card className="max-w-md mx-auto">
         <CardHeader>
-          <CardTitle>物語をインポート</CardTitle>
-          <CardDescription>配置したデータのディレクトリパスを入力してください。</CardDescription>
+          <CardTitle>プロジェクトをインポート (v1.1.1)</CardTitle>
+          <CardDescription>ZIP解凍後のディレクトリパスを入力してください。</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-2">
-            <Input value={sequencePath} onChange={e => setSequencePath(e.target.value)} placeholder="/sequences/demo" />
-            <Button onClick={loadSequence}><FileJson className="mr-2 h-4 w-4"/>読み込み</Button>
+            <Input value={projectRoot} onChange={e => setProjectRoot(e.target.value)} placeholder="例: /sequences/my-project" />
+            <Button onClick={loadProject}><FolderOpen className="mr-2 h-4 w-4"/>読み込み</Button>
           </div>
           <div className="text-xs text-muted-foreground space-y-1">
-            <p>※ `public/` フォルダ内に配置されたデータを参照します。</p>
-            <p>※ 例: `public/sequences/demo/sequence.json` がある場合、`/sequences/demo` と入力します。</p>
+            <p>※ `public/` 内のパスを指定します（例: `/` ならルート）。</p>
+            <p>※ `data/narrativeSequences.json` 等が存在する必要があります。</p>
           </div>
         </CardContent>
       </Card>
     );
   }
 
-  const step = currentStepIndex >= 0 ? sequence.steps[currentStepIndex] : null;
+  const selectedSeq = masterSequences.find(s => s.id === selectedSeqId);
+  const step = currentStepIndex >= 0 && selectedSeq ? selectedSeq.steps[currentStepIndex] : null;
 
   return (
     <div className="flex flex-col h-full space-y-4">
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border">
+        <div className="flex items-center gap-4">
+          <Select value={selectedSeqId} onValueChange={setSelectedSeqId}>
+            <SelectTrigger className="w-64">
+              <SelectValue placeholder="再生する物語を選択" />
+            </SelectTrigger>
+            <SelectContent>
+              {masterSequences.map(s => <SelectItem key={s.id} value={s.id}>{s.title}</SelectItem>)}
+            </SelectContent>
+          </Select>
+          <Button variant="outline" size="sm" onClick={() => setMasterSequences([])}>
+            プロジェクトを閉じる
+          </Button>
+        </div>
         <Button variant="ghost" size="sm" onClick={() => setIsMuted(!isMuted)}>
           {isMuted ? <VolumeX className="h-4 w-4 mr-2" /> : <Volume2 className="h-4 w-4 mr-2" />}
           {isMuted ? '消音中' : '音声あり'}
         </Button>
       </div>
 
-      {currentStepIndex === -1 && !isFinished && (
+      {currentStepIndex === -1 && !isFinished && selectedSeq && (
         <Card className="max-w-2xl mx-auto">
           <CardHeader>
-            <CardTitle>{sequence.title}</CardTitle>
-            <CardDescription>{sequence.description}</CardDescription>
+            <CardTitle>{selectedSeq.title}</CardTitle>
+            <CardDescription>{selectedSeq.description}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center gap-6">
-            <div className="text-center space-y-2">
-              <p className="text-sm font-medium mb-4">構成: {sequence.steps.length} ステップ</p>
-              <Button size="lg" className="w-48 h-16 text-xl" onClick={() => startStep(0)}>
-                <Play className="mr-2 fill-current" /> 物語を再生
-              </Button>
-            </div>
+            <Button size="lg" className="w-48 h-16 text-xl" onClick={() => startStep(0)}>
+              <Play className="mr-2 fill-current" /> 物語を再生
+            </Button>
           </CardContent>
         </Card>
       )}
@@ -355,22 +342,9 @@ export function SequencePlayerClient() {
           {step?.type === 'story' && (
             <div className="relative w-full h-full">
               {currentMapUrl ? (
-                <Image 
-                  src={currentMapUrl} 
-                  alt="Background" 
-                  layout="fill" 
-                  objectFit="cover" 
-                  unoptimized 
-                  priority 
-                  onError={() => {
-                    // If PNG fails, try JPG as fallback
-                    if (currentMapUrl.endsWith('.png')) {
-                      setCurrentMapUrl(currentMapUrl.replace('.png', '.jpg'));
-                    }
-                  }}
-                />
+                <Image src={currentMapUrl} alt="Map" layout="fill" objectFit="cover" unoptimized priority />
               ) : (
-                <div className="flex items-center justify-center h-full text-white">マップ画像を読み込み中...</div>
+                <div className="flex items-center justify-center h-full text-white">マップロード中...</div>
               )}
               {Object.entries(chars).map(([id, char]) => (
                 <div
@@ -384,13 +358,7 @@ export function SequencePlayerClient() {
                     zIndex: 10
                   }}
                 >
-                  <Image 
-                    src={resolvePath(char.data.imageUrl, 'media/characters')} 
-                    alt={char.data.name} 
-                    layout="fill" 
-                    objectFit="contain" 
-                    unoptimized 
-                  />
+                  <Image src={resolvePath(char.data.imageUrl)} alt={char.data.name} layout="fill" objectFit="contain" unoptimized />
                   <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap border border-white/20">
                     {char.data.name}
                   </div>
@@ -402,63 +370,37 @@ export function SequencePlayerClient() {
           {step?.type === 'video' && (
             <div className="w-full h-full flex flex-col items-center justify-center bg-black p-4">
               <h2 className="text-white text-xl mb-4">{step.videoTitle || 'Movie'}</h2>
-              <div className="relative w-full max-w-4xl aspect-video bg-black flex items-center justify-center">
+              <div className="relative w-full max-w-4xl aspect-video">
                 <video
                   key={step.videoUrl} 
-                  src={resolvePath(step.videoUrl, 'media/videos')}
-                  className="max-w-full max-h-full"
-                  autoPlay
-                  playsInline
-                  controls
-                  onEnded={handleNextStep}
-                  onError={(e) => {
-                    console.error("Video Playback Error:", e);
-                    toast({ 
-                      variant: 'destructive', 
-                      title: '動画の再生に失敗', 
-                      description: `ファイルが見つからないか、形式が非対応です: ${step.videoUrl}` 
-                    });
-                  }}
+                  src={resolvePath(step.videoUrl)}
+                  className="w-full h-full"
+                  autoPlay playsInline controls
+                  onEnded={() => startStep(currentStepIndex + 1)}
                 />
               </div>
-              <Button onClick={handleNextStep} variant="ghost" className="text-white mt-4 hover:bg-white/10">
-                スキップ <ChevronRight className="ml-1 h-4 w-4" />
-              </Button>
+              <Button onClick={() => startStep(currentStepIndex + 1)} variant="ghost" className="text-white mt-4">スキップ <ChevronRight className="ml-1 h-4 w-4" /></Button>
             </div>
           )}
 
           {activeEvent && currentNode && (
             <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-8 z-50">
-              <Card className="w-full max-w-2xl bg-background/95 backdrop-blur shadow-2xl border-primary/40 animate-in slide-in-from-bottom-4 duration-300">
+              <Card className="w-full max-w-2xl bg-background/95 backdrop-blur shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
                 <CardContent className="pt-6 space-y-4">
                   <p className="text-xl leading-relaxed whitespace-pre-wrap font-medium">{currentNode.content}</p>
                   <div className="flex flex-col gap-2">
                     {currentNode.type === 'choice' ? (
                       currentNode.choices?.map((choice, i) => (
-                        <Button key={i} size="lg" className="w-full justify-start text-left h-auto py-3 whitespace-normal" onClick={() => {
+                        <Button key={i} size="lg" className="w-full justify-start text-left h-auto py-3" onClick={() => {
                           const next = activeEvent.nodes.find(n => n.id === choice.nextStepId);
-                          if (next) {
-                            playNodeVoice(next);
-                            setCurrentNode(next);
-                          } else {
-                            setActiveEvent(null);
-                          }
-                        }}>
-                          {choice.text}
-                        </Button>
+                          if (next) { playNodeVoice(next); setCurrentNode(next); } else { setActiveEvent(null); }
+                        }}>{choice.text}</Button>
                       ))
                     ) : (
                       <Button size="lg" className="w-full h-14 text-lg" onClick={() => {
                         const next = activeEvent.nodes.find(n => n.id === currentNode.nextStepId);
-                        if (next) {
-                          playNodeVoice(next);
-                          setCurrentNode(next);
-                        } else {
-                          setActiveEvent(null);
-                        }
-                      }}>
-                        {currentNode.type === 'end' ? '物語を続ける' : '次へ'}
-                      </Button>
+                        if (next) { playNodeVoice(next); setCurrentNode(next); } else { setActiveEvent(null); }
+                      }}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>
                     )}
                   </div>
                 </CardContent>
@@ -470,15 +412,8 @@ export function SequencePlayerClient() {
 
       {isFinished && (
         <Card className="max-w-md mx-auto text-center py-12">
-          <CardHeader>
-            <CardTitle className="text-3xl font-headline">完</CardTitle>
-            <CardDescription>物語はすべて終了しました。</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button size="lg" onClick={reset} variant="outline">
-              <RotateCcw className="mr-2" /> 最初から
-            </Button>
-          </CardContent>
+          <CardHeader><CardTitle className="text-3xl font-headline">完</CardTitle><CardDescription>物語はすべて終了しました。</CardDescription></CardHeader>
+          <CardContent><Button size="lg" onClick={reset} variant="outline"><RotateCcw className="mr-2" /> 最初から</Button></CardContent>
         </Card>
       )}
     </div>

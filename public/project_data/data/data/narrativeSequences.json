@@ -1,0 +1,28 @@
+[
+  {
+    "id": "CMjY4Dv3OfmuddPaTheq",
+    "createdAt": {
+      "nanoseconds": 855000000,
+      "seconds": 1772044673
+    },
+    "title": "新しい物語シーケンス",
+    "description": "複数の街を跨ぐ物語の流れを定義します。",
+    "steps": [
+      {
+        "type": "video",
+        "worldId": "",
+        "videoUrl": "media/videos/file_356_1772654854795.mp4",
+        "storyId": "",
+        "videoTitle": "新しい動画シーン"
+      },
+      {
+        "storyId": "0RAPWAweirKJH2ZAxEvF",
+        "worldId": "Zmzp41TLWlimB3mo6SqB"
+      },
+      {
+        "storyId": "fCRctREgNQAd6VU1v0wl",
+        "worldId": "8cbQhI5KmyB1d9DrvOvM"
+      }
+    ]
+  }
+]

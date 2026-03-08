@@ -1,0 +1,143 @@
+[
+  {
+    "id": "opening_scene1",
+    "worldId": "Zmzp41TLWlimB3mo6SqB",
+    "createdAt": {
+      "nanoseconds": 529000000,
+      "seconds": 1772038533
+    },
+    "characters": [
+      {
+        "path": [
+          {
+            "visibility": "none",
+            "y": 1386,
+            "x": 2577,
+            "eventId": "k4FQ2Vz6z2hY1OL8ndTu"
+          }
+        ],
+        "objectId": "olCEMKCl0vWKNZOIrj2g",
+        "speed": 1,
+        "id": "seq_char_1772044933661"
+      }
+    ],
+    "name": "冒頭の説明",
+    "bgmUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/stories%2FfCRctREgNQAd6VU1v0wl%2Fbgm%2F1772168973247_SUMMER_TRIANGLE.mp3?alt=media&token=c1076eaa-3918-4678-96a2-b779295ba045",
+    "mapId": "map_0_0"
+  },
+  {
+    "id": "opening_scene",
+    "mapId": "map_0_0",
+    "bgmUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/stories%2FfCRctREgNQAd6VU1v0wl%2Fbgm%2F1772168973247_SUMMER_TRIANGLE.mp3?alt=media&token=c1076eaa-3918-4678-96a2-b779295ba045",
+    "name": "新しい物語",
+    "characters": [
+      {
+        "id": "seq_char_1771655133164",
+        "speed": 1,
+        "path": [
+          {
+            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+            "y": 715,
+            "x": 1604
+          },
+          {
+            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+            "visibility": "none",
+            "x": 1605,
+            "y": 1251
+          }
+        ],
+        "objectId": "A44lygLrpBVZjTZD1EqT"
+      },
+      {
+        "objectId": "tTPwcEBQZSA6Bxl7JYcF",
+        "path": [
+          {
+            "eventId": "SS3U7Dy8AnkaWyguQqGM",
+            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+            "y": 768,
+            "x": 1376
+          },
+          {
+            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+            "visibility": "none",
+            "x": 1387,
+            "y": 1329
+          }
+        ],
+        "speed": 1,
+        "id": "seq_char_1771655155105"
+      },
+      {
+        "objectId": "kMEH8wVv0Y7HfbElMrtt",
+        "path": [
+          {
+            "y": 1462,
+            "x": 1525,
+            "visibility": "disappear"
+          },
+          {
+            "visibility": "appear",
+            "x": 1609,
+            "y": 1455,
+            "eventId": ""
+          },
+          {
+            "eventId": "9Nz9tw4vVX3wGhaau0wx",
+            "visibility": "none",
+            "x": 1609,
+            "y": 1038
+          },
+          {
+            "x": 1642,
+            "visibility": "none",
+            "y": 1460
+          }
+        ],
+        "speed": 1,
+        "id": "seq_char_1771903696866"
+      },
+      {
+        "speed": 1,
+        "id": "seq_char_1772037149901",
+        "path": [
+          {
+            "x": 2591,
+            "visibility": "none",
+            "y": 1354,
+            "eventId": "k4FQ2Vz6z2hY1OL8ndTu"
+          }
+        ],
+        "objectId": "olCEMKCl0vWKNZOIrj2g"
+      }
+    ],
+    "createdAt": {
+      "nanoseconds": 195000000,
+      "seconds": 1771655025
+    },
+    "worldId": "8cbQhI5KmyB1d9DrvOvM"
+  },
+  {
+    "id": "opening_scene",
+    "name": "新しい物語",
+    "characters": [
+      {
+        "objectId": "kMEH8wVv0Y7HfbElMrtt",
+        "path": [
+          {
+            "y": 768,
+            "x": 1376
+          }
+        ],
+        "id": "seq_char_1771211070124",
+        "speed": 1
+      }
+    ],
+    "createdAt": {
+      "nanoseconds": 92000000,
+      "seconds": 1771211065
+    },
+    "worldId": "mEnMq0Q9cBhEx1B39RlT",
+    "mapId": "map_0_0"
+  }
+]

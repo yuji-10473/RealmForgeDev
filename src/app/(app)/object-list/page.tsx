@@ -12,22 +12,23 @@ type AvailableObject = {
 
 async function getObjects(): Promise<AvailableObject[]> {
   try {
-    const response = await fetch(`${process.env.APP_URL}/objects.json`, { cache: 'no-store' });
+    const fetchData = async (file: string) => {
+      const response = await fetch(`${process.env.APP_URL}/data/${file}.json`, { cache: 'no-store' });
+      return response.ok ? await response.json() : [];
+    };
     
-    if (!response.ok) {
-        console.error("Failed to fetch object data");
-        return [];
-    }
-    
-    const data = await response.json();
-    return data.objects || [];
+    const [villagers, buildings] = await Promise.all([
+      fetchData('villagers'),
+      fetchData('buildings')
+    ]);
+
+    return [...villagers, ...buildings];
 
   } catch (error) {
     console.error("Error fetching objects:", error);
     return [];
   }
 }
-
 
 export default async function ObjectListPage() {
   const objects = await getObjects();
@@ -36,7 +37,7 @@ export default async function ObjectListPage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-3xl font-bold font-headline">オブジェクトリスト</h1>
-        <p className="text-muted-foreground">ゲームワールドに配置可能なすべてのオブジェクトを閲覧します。</p>
+        <p className="text-muted-foreground">人物図鑑および建物図鑑のデータを一覧表示します。</p>
       </header>
       <div className="sticky top-0 z-10 py-4 bg-background/80 backdrop-blur-sm">
         <Input placeholder="オブジェクトを検索..." className="max-w-sm" />

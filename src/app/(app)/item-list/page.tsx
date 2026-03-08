@@ -13,16 +13,10 @@ type AvailableObject = {
 
 async function getItems(): Promise<AvailableObject[]> {
   try {
-    const response = await fetch(`${process.env.APP_URL}/objects.json`, { cache: 'no-store' });
-    
-    if (!response.ok) {
-        console.error("Failed to fetch object data");
-        return [];
-    }
-    
+    const response = await fetch(`${process.env.APP_URL}/data/items.json`, { cache: 'no-store' });
+    if (!response.ok) return [];
     const data = await response.json();
-    return (data.objects || []).filter((obj: AvailableObject) => obj.type === 'item');
-
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching items:", error);
     return [];
@@ -36,7 +30,7 @@ export default async function ItemListPage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-3xl font-bold font-headline">アイテムリスト</h1>
-        <p className="text-muted-foreground">ゲームワールドに配置または収集可能なすべてのアイテムを閲覧します。</p>
+        <p className="text-muted-foreground">アイテム図鑑のデータを一覧表示します。</p>
       </header>
       <div className="sticky top-0 z-10 py-4 bg-background/80 backdrop-blur-sm">
         <Input placeholder="アイテムを検索..." className="max-w-sm" />
