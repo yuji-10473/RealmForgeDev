@@ -43,3 +43,7 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+
+public/project_data/kamakura.zip
+public/maps/maps.zip
