@@ -1,13 +1,16 @@
 {
   "projectName": "Kamakura Narrative Project",
-  "exportedAt": "2026-03-04T20:10:17.662Z",
-  "version": "1.1.1",
+  "exportedAt": "2026-03-19T17:30:32.704Z",
+  "version": "1.2.0",
   "features": [
     "catalog_images_included",
-    "selective_jpeg_compression_item_dish"
+    "selective_jpeg_compression",
+    "conversation_patterns_included",
+    "collection_points_included",
+    "meeting_places_included"
   ],
   "stats": {
-    "mediaFiles": 357,
-    "dataCollections": 10
+    "mediaFiles": 543,
+    "dataCollections": 13
   }
 }

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "CMjY4Dv3OfmuddPaTheq",
+    "title": "新しい物語シーケンス",
+    "steps": [
+      {
+        "worldId": "",
+        "type": "video",
+        "videoTitle": "新しい動画シーン",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/narrative%2FCMjY4Dv3OfmuddPaTheq%2Fvideos%2F1772170437872_%E6%B3%A2%E6%89%93%E3%81%A1%E9%9A%9B%E3%82%92%E6%AD%A9%E3%81%8F%E3%83%93%E3%83%87%E3%82%AA%E7%94%9F%E6%88%90.mp4?alt=media&token=2a22f378-5f41-4944-a665-1f4bc7f404a5",
+        "storyId": ""
+      },
+      {
+        "worldId": "Zmzp41TLWlimB3mo6SqB",
+        "storyId": "0RAPWAweirKJH2ZAxEvF"
+      },
+      {
+        "storyId": "fCRctREgNQAd6VU1v0wl",
+        "worldId": "8cbQhI5KmyB1d9DrvOvM"
+      }
+    ],
+    "createdAt": {
+      "nanoseconds": 855000000,
+      "seconds": 1772044673
+    },
+    "description": "複数の街を跨ぐ物語の流れを定義します。"
+  }
+]

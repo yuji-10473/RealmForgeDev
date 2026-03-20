@@ -1,0 +1,1379 @@
+[
+  {
+    "id": "2J3y5TlbW7w0PkAEnlAl",
+    "villagerName": "たけ",
+    "title": "畔崩れの頼み",
+    "plot": "「伯耆よ、ちと頼みがあるのだが。」しっかり者のたけが、田仕事の合間に伯耆に声をかける。「この間の長雨で、うちの田の畔が崩れてしもうてな。水が洩れて困っておる。お主の力で、土を運び、畔を補修してはくれぬか。謝礼は米三升出すが、どうじゃ？」たけの言葉に、伯耆は思案する。もし伯耆が承諾するならば：「よし、引き受けよう、たけ殿。この伯耆、力になろう。」伯耆はすぐに田へ向かい、黙々と土を運び、崩れた畔を積み直す。夕暮れには、畔は見違えるほど頑丈に修繕された。たけは深く感謝し、「見事な働きじゃった、伯耆！ おかげで安心した。約束の米三升、どうぞ受け取ってくれ。」と、米俵から丁寧に量り出した米を伯耆に手渡す。伯耆は静かにそれを受け取り、深く頷いた。もし伯耆が拒否するならば：「申し訳ない、たけ殿。実は今日、別の急ぎの用事がございましてな。すぐにその仕事を引き受けることは叶わぬ。」伯耆の言葉に、たけは残念そうな顔をしつつも、「そうか、そりゃあ仕方のないことじゃ。また困り事ができた折には、声をかけるゆえ、その時は頼むぞ。」と理解を示し、伯耆の背を見送るのだった。",
+    "nodes": [
+      {
+        "type": "start",
+        "nextStepId": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F5asS1cZTXS1QAWb1ChYD%2Faudio%2Fnode-1_1773513879759.wav?alt=media&token=04deb845-f061-42f6-81e0-a6ff6ecf18a4",
+        "id": "node-1",
+        "content": "「伯耆よ、ちと頼みがあるのだが。」「この間の長雨で、うちの田の畔が崩れてしもうてな。水が洩れて困っておる。お主の力で、土を運び、畔を補修してはくれぬか。謝礼は米三升出すが、どうじゃ？」",
+        "speakerName": "たけ",
+        "speakerId": "lg6USIozxY3kV8mUtFrv"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "speakerName": "伯耆",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "「よし、引き受けよう、たけ殿。この伯耆、力になろう。」"
+          },
+          {
+            "nextStepId": "node-5",
+            "text": "「申し訳ない、たけ殿。実は今日、別の急ぎの用事がございましてな。すぐにその仕事を引き受けることは叶わぬ。」"
+          }
+        ],
+        "content": "「」",
+        "id": "node-2",
+        "type": "choice"
+      },
+      {
+        "speakerId": "lg6USIozxY3kV8mUtFrv",
+        "reward": {
+          "amount": 300
+        },
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fgnl2n4ybq9MOv4TsVRno%2Faudio%2Fnode-3_1773513890315.wav?alt=media&token=e9ff926a-4359-42c2-b6ed-141df23d3233",
+        "nextStepId": "node-4",
+        "type": "reward",
+        "content": "「見事な働きじゃった、伯耆！ おかげで安心した。約束の米三升、どうぞ受け取ってくれ。」",
+        "speakerName": "たけ"
+      },
+      {
+        "speakerId": "lg6USIozxY3kV8mUtFrv",
+        "type": "end",
+        "id": "node-4",
+        "speakerName": "たけ",
+        "content": "「」"
+      },
+      {
+        "speakerName": "たけ",
+        "content": "「そうか、そりゃあ仕方のないことじゃ。また困り事ができた折には、声をかけるゆえ、その時は頼むぞ。」",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FzuasHrp2MnvZiHDRLOc2%2Faudio%2Fnode-5_1773513900263.wav?alt=media&token=c74f9854-4e7d-46a6-9016-9faa49e08633",
+        "id": "node-5",
+        "speakerId": "lg6USIozxY3kV8mUtFrv"
+      }
+    ],
+    "tags": [
+      "労働力",
+      "たけ"
+    ],
+    "createdAt": "2026-03-14T18:45:02.159Z",
+    "villagerId": "lg6USIozxY3kV8mUtFrv"
+  },
+  {
+    "id": "9DCFvRJHfq6BPgUa9rkW",
+    "villagerName": "いね",
+    "title": "いねの案じと葛根の恵み",
+    "plot": "夕暮れ時、田んぼの土の香りをまとう世話好きないねが、伯耆の庵を訪れた。「伯耆様、お忙しいところ申し訳ございません。どうか、どうかお力をお貸しくださいまし。」いねは息を切らしながら訴える。「いね殿、いかがなされた？そんなに慌てて。」伯耆が問いかけると、いねは目に涙を浮かべた。「それが、うちの権兵衛が…。この暑い盛り、田んぼで働きづめでしたら、どうも風邪を引いたようでして。熱はさほどでもないのですが、首筋から肩にかけて、石のように固まって動かせぬと申します。寒気もすると申して、見ておる方も辛うございます。」いねは身を乗り出して懇願した。「何か、よいお薬はございませんでしょうか。聞けば『葛根』というものが、この様な病には良いと申しまするが…」権兵衛の病状は、夏の酷使で体の内側に邪気が入り込み、首筋の凝りや軽い発熱、寒気として現れているようだ。伯耆は思案する。「ふむ、権兵衛殿が。それは難儀なことじゃな。」伯耆は、いねの言葉の通り葛根が適しているかを考える。もし伯耆が生薬を出すことを承諾すれば、伯耆は「確かに葛根は、そなたの申すような症状にはよかろう。少々ではあるが、持ち合わせがある。煎じて飲ませてやれば、きっと楽になるはずじゃ。」と答え、いねは「おお、まことでございますか！伯耆様、ありがたや。このご恩は決して忘れませぬ。つきましては、お礼に米三升ほど、近いうちに必ずお持ちいたします。」と感謝して生薬を受け取るだろう。数日後、権兵衛の熱も下がり、首筋の痛みもすっかり引いたと、いねは約束の米三升を持って伯耆に深く感謝を述べることだろう。もし伯耆が生薬を出すことを拒否すれば、伯耆は「ううむ、いね殿。そなたの気持ちはよくわかるが、あいにく、今手元にある葛根は僅かでな。権兵衛殿の症状には足りぬかもしれぬ。それに、この症状は葛根だけでは難しいやもしれぬ。」と答えるだろう。いねは肩を落とし、目に涙を浮かべ「さようでございますか…。それでは、うちの権兵衛は…」と落胆する。伯耆は「いや、諦めることはない。まずは温かくして休ませるのじゃ。そして、体の冷えぬよう、生姜湯でも飲ませてやるがよい。わしも、他に手立てがないか、考えてみよう。」と慰め、いねは「はい…。伯耆様、お心遣い、痛み入ります。権兵衛のために、私にできることを精一杯やってみます。ありがとうございました。」と力なく答えることだろう。",
+    "nodes": [
+      {
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fj33o0xxR7xc6JqwZTlIv%2Faudio%2Fnode-1_1773600858134.wav?alt=media&token=1580dbed-8b7c-4311-92ed-963ec60a5169",
+        "id": "node-1",
+        "type": "start",
+        "nextStepId": "node-2",
+        "content": "伯耆様、お忙しいところ申し訳ございません。どうか、どうかお力をお貸しくださいまし。それが、うちの権兵衛が…。この暑い盛り、田んぼで働きづめでしたら、どうも風邪を引いたようでして。熱はさほどでもないのですが、首筋から肩にかけて、石のように固まって動かせぬと申します。寒気もすると申して、見ておる方も辛うございます。何か、よいお薬はございませんでしょうか。聞けば『葛根』というものが、この様な病には良いと申しまするが…",
+        "speakerName": "いね"
+      },
+      {
+        "id": "node-2",
+        "type": "choice",
+        "content": "権兵衛の病状は、夏の酷使で体の内側に邪気が入り込み、首筋の凝りや軽い発熱、寒気として現れているようだ。伯耆は思案する。伯耆は、いねの言葉の通り葛根が適しているかを考える。",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "requiredItemId": "RtHyNi8Yt2qfdunlXB1c",
+            "text": "葛根を渡す"
+          },
+          {
+            "text": "今は持っていない",
+            "nextStepId": "node-5"
+          }
+        ]
+      },
+      {
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "reward": {
+          "itemId": "rice-3-sho",
+          "itemName": "米三升",
+          "amount": 3
+        },
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FbT6zVOm89b0z9bOraSWR%2Faudio%2Fnode-3_1773600868810.wav?alt=media&token=b8dc4a36-6d61-4080-97ab-51d2dd440258",
+        "nextStepId": "node-4",
+        "type": "reward",
+        "content": "おお、まことでございますか！伯耆様、ありがたや。このご恩は決して忘れませぬ。つきましては、お礼に米三升ほど、近いうちに必ずお持ちいたします。",
+        "speakerName": "いね"
+      },
+      {
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FMyrMDehfdG71rJ8JYS96%2Faudio%2Fnode-4_1773600878368.wav?alt=media&token=025b4dca-48e7-493d-9f80-04bb2701e8e7",
+        "id": "node-4",
+        "content": "伯耆様のおかげで、権兵衛の熱も下がり、首筋の痛みもすっかり引きました！本当に、ありがとうございました。約束の米三升でございます。",
+        "speakerName": "いね",
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R"
+      },
+      {
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FgFanOYH3n9VvcI5xjnl5%2Faudio%2Fnode-5_1773600890901.wav?alt=media&token=7611482c-111f-4d1d-995b-70b7ae6ecd40",
+        "id": "node-5",
+        "content": "さようでございますか…。それでは、うちの権兵衛は…はい…。伯耆様、お心遣い、痛み入ります。権兵衛のために、私にできることを精一杯やってみます。ありがとうございました。",
+        "speakerName": "いね"
+      }
+    ],
+    "tags": [
+      "生薬依頼",
+      "いね",
+      "葛根"
+    ],
+    "createdAt": "2026-03-15T18:54:52.865Z",
+    "villagerId": "TFS6nW3oE8YYdiJ21M9R"
+  },
+  {
+    "id": "9Nz9tw4vVX3wGhaau0wx",
+    "requiredFlag": "",
+    "createdAt": "2026-02-23T08:25:38.585Z",
+    "tags": [
+      "メイン"
+    ],
+    "nodes": [
+      {
+        "content": "どうしたべ〜\nこんなところで〜",
+        "speakerName": "弥三郎",
+        "nextStepId": "node-2",
+        "type": "start",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1_1772004584161.wav?alt=media&token=8cbbfb7b-f432-4806-9ef9-d5db0742b56b",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "どうしたべ〜こんなところで〜"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "readingText": "どうも、わたしはにちれんともうすもので、ごぞんじかもしれませんが、かまくらからるけいになってやってきたものです。おさわがせして、もうしわけありません。どうぞおみしりおきを。",
+        "speakerName": "日蓮",
+        "content": "どうも、私は日蓮と申すもので、ご存知かも知れませんが、鎌倉から流刑になってやってきたものです。\nお騒がせして、申し訳ありません。どうぞお見知りおきを。",
+        "nextStepId": "node-3",
+        "type": "story",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-2_1772004603595.wav?alt=media&token=95143f18-8dd7-4f6b-a230-6520be5d00ff",
+        "id": "node-2"
+      },
+      {
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "うわさにはきいとります。ここにはるけいでながれてくるものがおおいですけぇ。おかみにさからってるけいになるなんて、おまえさんもよっぽどつらいめにあったんですか？",
+        "content": "噂には聞いとります。ここには流刑で流れてくるものが多いですけぇ。\nお上に逆らって流刑になるなんて、お前さんもよっぽど辛い目にあったんですか？",
+        "speakerName": "弥三郎",
+        "nextStepId": "node-4",
+        "type": "story",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-3_1772004614687.wav?alt=media&token=ae283bbc-fbdf-4e36-b902-5a7a2f8f3047"
+      },
+      {
+        "readingText": "そうですね。なんとせつめいしたらよいものか…こむずかしいはなしかも しれませんが、わたしたちはまっぽうのこうせんるふをたくされたじゆのぼさつなのでほうなんはとうぜんのよろこびとしてうけいれております。ここには、じゃっこうどをきりひらくためにまいりました。ところで…「おまえさん”も”」とおおせられたということは、あなたがたもなにかおかみからふせいなおとがめでもうけたしょうか？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-4",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-4_1772004643738.wav?alt=media&token=7b08fbf2-d7b6-4e5a-84ce-21332fb75c64",
+        "type": "story",
+        "nextStepId": "node-1771836155813",
+        "speakerName": "日蓮",
+        "content": "そうですね。なんと説明したらよいものか…\n小難しい話かも知れませんが、私達は末法の広宣流布を託された地涌の菩薩なので法難は当然の喜びとして受け入れております。\nここには、寂光土を切り開くために参りました。\nところで…\n「お前さん”も”」と仰られたということは、貴方がたも何かお上から不正なお咎めでも受けたしょうか？"
+      },
+      {
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "しつれい、わたしはやさぶろうともうすものでりょうしをしております。ごぞんじかとおもいますが、りょうしはせっしょうをおこなうふとどきなみぶんとしてさべつされております…",
+        "nextStepId": "node-1771836360486",
+        "type": "story",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771836155813_1772004654264.wav?alt=media&token=69222181-0376-45ba-80f0-e1f0426161c1",
+        "id": "node-1771836155813",
+        "speakerName": "弥三郎",
+        "content": "失礼、私は弥三郎と申すもので漁師をしております。\nご存知かと思いますが、漁師は殺生を行う不届きな身分として差別されております…\n"
+      },
+      {
+        "nextStepId": "node-1771838477317",
+        "type": "story",
+        "id": "node-1771836360486",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771836360486_1772004683208.wav?alt=media&token=e2052e78-573b-4998-9c76-4e748a27703b",
+        "content": "そうですか…やはり…\n我々がここへ来た理由は正にこの問題にあります。\n政治が宗教を利用し、国民を洗脳させようとしているところにこの国の大きな罪業があるのです。\n人は生きる上で殺生を避けることは出来ません。念仏宗が根拠としている法門は迹門で説かれた借りの教えです。しかし、米を税として徴収したい幕府にとってはこの教えが非常に都合が良かったのです。\nともあれ、漁師をやっているからといって蔑まれなければならない理由など仏様は全くおっしゃっておりません。\n逆に全ての人は尊く大切にされるべき存在だと仰っています。\n幕府にとってはこちらの方が都合が悪いので、私が進言した内容を世を惑わす妄言と断罪したのです。\n",
+        "speakerName": "日蓮",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "readingText": "そうですか…やはり…われわれがここへきたりゆうはまさにこのもんだいにあるのです。せいじがしゅうきょうをりようし、こくみんをせんのうさせようとしているところにこのくにおおきなざいごうがあるのです。ひとはいきるうえでせっしょうをさけることはできません。ねんぶつしゅうがこんきょとしているほうもんはしゃくもんでとかれたかりのおしえです。しかし、こめをぜいとしてちょうしゅうしたいばくふにとってはこのおしえがひじょうにつごうがよかったのです。ともあれ、りょうしをやってるからといってさげすまれなければならないりゆうなどほとけさまはまったくおっしゃっておりません。ぎゃくにすべてのひとはとうとくたいせつにされるべきそんざいだとおおせっています。ばくふにとってはこちらのほうがつごうがわるいので、わたしがしんげんしたないようをよをまどわすもうげんとだんざいしたのです。"
+      },
+      {
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771838477317_1772004693467.wav?alt=media&token=aeea36ec-2e7d-4958-a1bb-b2003305c0b8",
+        "id": "node-1771838477317",
+        "type": "story",
+        "nextStepId": "node-1771844398745",
+        "content": "そうだったんですか〜\n難しい話はよくわかりませんが、お弟子さんが苦しんでいるようなので、こんなところで野宿などせず家へおいでなすてくだせえ。",
+        "speakerName": "弥三郎",
+        "readingText": "そうだったんですか〜むずかしいはなしはよくわかりませんが、おでしさんがくるしんでいるようなので、こんなところで のじゅく などせず いえへ おいでなすてくだせえ。",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt"
+      },
+      {
+        "readingText": "すいません〜わたしはにちれんのでしのほうきともうすものです。おはずかしいところをみせてしまって…",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "speakerName": "伯耆",
+        "content": "すいません〜\n私は日蓮の弟子の伯耆と申すものです。お恥ずかしいところを見せてしまって…\n",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771844398745_1772004702293.wav?alt=media&token=1021841a-9ee0-41a0-bdb0-24907924a032",
+        "id": "node-1771844398745",
+        "nextStepId": "node-1771844702316",
+        "type": "story"
+      },
+      {
+        "nextStepId": "node-1771844870620",
+        "type": "story",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771844702316_1772004710757.wav?alt=media&token=9c8add68-1798-4b05-8777-ee0a746e78bc",
+        "id": "node-1771844702316",
+        "speakerName": "弥三郎",
+        "content": "気にせんでよいです。\n船酔で苦しむのはこの地に訪れる人の大半がそうですけぇ。",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "きにせんでよいです。ふなよいでくるしむのはこのちにおとずれるひとのたいはんがそうですけぇ。"
+      },
+      {
+        "speakerName": "日蓮",
+        "content": "助かります。この地に降り立って初めてお会いできた方が弥三郎さんでよかった。\n大変申し訳ないですが伯耆に飲み物と横になれる場所をお貸しください。",
+        "nextStepId": "node-1771905325350",
+        "type": "story",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771844870620_1772004722748.wav?alt=media&token=1fbcdc2d-3ca3-4dbb-aac5-d7a19e762f3e",
+        "id": "node-1771844870620",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "readingText": "たすかります。このちにおりたってはじめておあいできたかたがやさぶろうさんでよかった。たいへんもうしわけないですがほうきにのみものとよこになれるばしょをおかしください。"
+      },
+      {
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9Nz9tw4vVX3wGhaau0wx%2Faudio%2Fnode-1771905325350_1772004729828.wav?alt=media&token=cd05dd39-2d09-493e-ba64-c750a1bcd7cf",
+        "id": "node-1771905325350",
+        "content": "了解ですじゃ。\nわしについてきてくだせえ。",
+        "speakerName": "弥三郎",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "readingText": "りょうかいですじゃ。わしについてきてくだせえ。"
+      }
+    ],
+    "plot": "弥三郎が浜で往生している日蓮に出会う",
+    "title": "弥三郎出現"
+  },
+  {
+    "id": "E3kjL45tPNPVO1EBzyLD",
+    "title": "庄助を襲う黒いカビと豊穣の願い",
+    "villagerName": "庄助",
+    "plot": "旅人は、村の入り口で、疲労困憊の様子で自分の畑を見つめる若者、庄助に出会います。庄助は真面目な働き手として評判ですが、今はその顔に絶望の色が浮かんでいます。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、このままでは秋の収穫祭に使う伝統のパンも、厳しい年貢も納められなくなると嘆きます。旅人は庄助を助けるため、どう行動するか選択を迫られます。「森の奥へ薬草を探しに行く」か、「畑の土壌と作物を詳しく調べる」か。森の奥へ薬草を探しに行く場合、旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れます。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めます。畑の土壌と作物を詳しく調べる場合、旅人は庄助の畑で黒いカビに侵された小麦の根元を注意深く観察します。もし「ヤマニンニク」を持っていれば、その強い匂いが土中に潜むカビを媒介する微細な虫を遠ざけ、カビの広がりを食い止めることができます。ヤマニンニクをすり潰して土に混ぜ込むと、カビは勢いを失い、小麦は再び生気を取り戻していきます。どちらの選択肢を選んでも、旅人の尽力により小麦畑は救われます。庄助は心底安堵し、旅人の働きに深く感謝します。収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡すのでした。",
+    "nodes": [
+      {
+        "nextStepId": "node-2",
+        "type": "start",
+        "id": "node-1",
+        "content": "村の入り口で、旅人は疲労困憊の様子で自分の畑を見つめる若者、庄助に出会った。"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-3",
+        "id": "node-2",
+        "content": "庄助は真面目な働き手として評判だったが、今はその顔に絶望が浮かんでいる。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、秋の収穫祭も年貢も危ういという。"
+      },
+      {
+        "choices": [
+          {
+            "nextStepId": "node-4",
+            "text": "森の奥へ薬草を探しに行く"
+          },
+          {
+            "nextStepId": "node-5",
+            "requiredItemId": "4V6R6JwvV7MmD4yfrjVv",
+            "text": "畑の土壌と作物を詳しく調べる"
+          }
+        ],
+        "content": "庄助を助けるため、どう行動するか？",
+        "id": "node-3",
+        "type": "choice"
+      },
+      {
+        "content": "旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れた。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めた。",
+        "nextStepId": "node-6",
+        "type": "story",
+        "id": "node-4"
+      },
+      {
+        "content": "旅人は庄助の畑で黒いカビに侵された小麦の根元を注意深く観察した。持っていたヤマニンニクをすり潰して土に混ぜ込むと、カビは勢いを失い、小麦は再び生気を取り戻していった。",
+        "id": "node-5",
+        "nextStepId": "node-6",
+        "type": "story"
+      },
+      {
+        "content": "旅人の尽力により小麦畑は救われた。庄助は心底安堵し、旅人の働きに深く感謝する。",
+        "id": "node-6",
+        "nextStepId": "node-7",
+        "type": "story"
+      },
+      {
+        "id": "node-7",
+        "type": "reward",
+        "content": "収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡してくれた。",
+        "reward": {
+          "itemId": "199WE9uvPmPJh5zNhR41",
+          "itemName": "深山黒茸",
+          "amount": 110
+        }
+      },
+      {
+        "id": "node-8",
+        "type": "end",
+        "content": "庄助の畑は豊作を迎え、村は喜びに包まれた。旅人は新たな旅路につく。"
+      }
+    ],
+    "villagerId": "4OPELhPhTx0RpaQiu0Af",
+    "requiredFlag": "",
+    "createdAt": "2026-02-06T19:26:07.932Z"
+  },
+  {
+    "id": "GQFTaTJJE4SO9gsRL6GK",
+    "plot": "畑仕事帰りの伯耆に、つるが声をかけた。「伯耆さんや、ちと良いかえ？母上様が困っておるのです。村の水路が泥で詰まって、畑に水が届きませぬ。このままでは作物が枯れてしまうと。けれど、母上は他の仕事で手が離せぬと仰る…」つるは伯耆を見上げ、眉を下げた。「伯耆さん、どうかこの水路の掃除を手伝ってはくれませぬか？もし引き受けてくだされば、米三升をお礼に差し上げまする！」承諾した場合、伯耆は腕を組み、しばし考えた後、「よし、分かった。見てやろう」と応じた。つるは顔を輝かせ、「おお、まことですか！ありがとうございまする！」と深く頭を下げた。伯耆は早速、水路へ向かい、重い泥を掻き出し、詰まった枯れ草や小石を取り除いた。汗水垂らして働く伯耆の姿につるは感銘を受けた。夕刻には水路は清らかに流れ、畑に水が届き始めた。つるは深く感謝し、約束の米三升を伯耆に手渡した。「伯耆さんのおかげで、村の作物が救われました。母上もさぞ喜ぶことでしょう。まことにありがとうございました！」拒否した場合、伯耆は首を横に振り、「すまぬな、つる。今はこの身にも抱えきれぬ用事がある。他を当たってくれぬか」と答えた。つるは肩を落とし、「さようでございますか…それは残念にございます」と寂しげに呟いたが、すぐに顔を上げ、「いえ、伯耆さんにもご事情がおありでしょう。また別の者を当たってみまする」と伯耆の返事を尊重した。「お話を聞いてくださり、ありがとうございました」と一礼し、踵を返して去っていった。",
+    "title": "つるの水路清掃願い",
+    "villagerName": "つる",
+    "villagerId": "SKGryi77HDknYcHDg0RI",
+    "requiredFlag": "",
+    "createdAt": "2026-03-14T17:42:56.370Z",
+    "tags": [
+      "労働力",
+      "つる"
+    ],
+    "nodes": [
+      {
+        "speakerId": "SKGryi77HDknYcHDg0RI",
+        "speakerName": "つる",
+        "content": "「伯耆さんや、ちと良いかえ？母上様が困っておるのです。村の水路が泥で詰まって、畑に水が届きませぬ。このままでは作物が枯れてしまうと。けれど、母上は他の仕事で手が離せぬと仰る…伯耆さん、どうかこの水路の掃除を手伝ってはくれませぬか？もし引き受けてくだされば、米三升をお礼に差し上げまする！」",
+        "id": "node-1",
+        "type": "start",
+        "nextStepId": "node-2"
+      },
+      {
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "「よし、分かった。見てやろう」"
+          },
+          {
+            "text": "「すまぬな、つる。今はこの身にも抱えきれぬ用事がある。他を当たってくれぬか」",
+            "nextStepId": "node-5"
+          }
+        ],
+        "content": "「…どうしたものか」",
+        "speakerName": "伯耆",
+        "id": "node-2",
+        "type": "choice",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF"
+      },
+      {
+        "content": "「おお、まことですか！ありがとうございまする！伯耆さんのおかげで、村の作物が救われました。母上もさぞ喜ぶことでしょう！」",
+        "speakerName": "つる",
+        "type": "reward",
+        "nextStepId": "node-4",
+        "id": "node-3",
+        "reward": {
+          "amount": 300
+        },
+        "speakerId": "SKGryi77HDknYcHDg0RI"
+      },
+      {
+        "speakerId": "SKGryi77HDknYcHDg0RI",
+        "id": "node-4",
+        "type": "end",
+        "speakerName": "つる",
+        "content": "「まことにありがとうございました！」"
+      },
+      {
+        "speakerId": "SKGryi77HDknYcHDg0RI",
+        "content": "「さようでございますか…それは残念にございます。いえ、伯耆さんにもご事情がおありでしょう。また別の者を当たってみまする。お話を聞いてくださり、ありがとうございました」",
+        "speakerName": "つる",
+        "type": "end",
+        "id": "node-5"
+      }
+    ]
+  },
+  {
+    "id": "HEQmDTl98QeTbOK8VxUO",
+    "title": "水路の石運び、つるの頼み",
+    "villagerName": "つる",
+    "plot": "ある日の午後、畑仕事の手伝いを終え、大人たちの話に耳を傾けていたつるが、村の力自慢である伯耆に声をかけた。「伯耆さま、お頼み申したい儀がございます。先日の長雨で、村の水路脇の石垣が崩れ申した。このままでは田畑へ水が引けず、わたくしらの暮らしが危ううございます。されど、あの重き石、我ら女衆ではどうにもならぬゆえ、伯耆さまのお力添えをいただけぬかと。謝礼は米三升にて、いかがでしょう？」伯耆はつるの真剣な眼差しに応え、決断を迫られる。伯耆が「承知した」と答えると、つるは顔を輝かせ、「ああ、まこと助かります！伯耆さまのおかげでございます！」と感謝を述べた。伯耆は翌日より石垣の修復に取り掛かり、その力強い働きぶりに村人たちは感嘆した。数日後、見事に修復された石垣を前に、つるは深々と頭を下げ、約束の米三升を伯耆に手渡した。「この恩は一生忘れませぬ」と彼女は言い、伯耆も満足げに頷いた。もし伯耆が「誠に申し訳ない。されど、今日は別の働きを仰せつかっておりてな。まことに心苦しき限り」と断ると、つるは「左様でございますか…。残念ではございますが、伯耆さまのお役目もまた重かろう。承知いたしました。他を当たるといたします」と肩を落としつつも、伯耆の事情を汲んで去っていった。",
+    "tags": [
+      "労働力",
+      "つる"
+    ],
+    "nodes": [
+      {
+        "speakerId": "SKGryi77HDknYcHDg0RI",
+        "speakerName": "つる",
+        "content": "「伯耆さま、お頼み申したい儀がございます。先日の長雨で、村の水路脇の石垣が崩れ申した。このままでは田畑へ水が引けず、わたくしらの暮らしが危ううございます。されど、あの重き石、我ら女衆ではどうにもならぬゆえ、伯耆さまのお力添えをいただけぬかと。謝礼は米三升にて、いかがでしょう？」",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FLGqs4ORuZ2tlTOOP88tY%2Faudio%2Fnode-1_1773513334398.wav?alt=media&token=733a9c89-a8c4-4afa-a620-fe75075885d8",
+        "id": "node-1",
+        "nextStepId": "node-2",
+        "type": "start"
+      },
+      {
+        "choices": [
+          {
+            "text": "引き受ける",
+            "nextStepId": "node-3"
+          },
+          {
+            "text": "断る",
+            "nextStepId": "node-5"
+          }
+        ],
+        "speakerName": "伯耆",
+        "content": "「つる殿の仰せ、確かに承った。村の暮らしに関わる一大事、この伯耆、いかに答えるべきか…。」",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FAJTRPBx6xuN0wBZzJg4P%2Faudio%2Fnode-2_1773513343284.wav?alt=media&token=cea1fb4b-4ffb-49d2-a506-1772ad7cd8ba",
+        "id": "node-2",
+        "type": "choice",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF"
+      },
+      {
+        "content": "「ああ、まこと助かります！伯耆さまのおかげでございます！」",
+        "speakerName": "つる",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F7hwBssfXXvlQmIEy7qbE%2Faudio%2Fnode-3_1773513350063.wav?alt=media&token=555aca67-23b4-4b7b-b18a-6884d11b4e73",
+        "id": "node-3",
+        "type": "reward",
+        "nextStepId": "node-4",
+        "speakerId": "SKGryi77HDknYcHDg0RI"
+      },
+      {
+        "speakerId": "SKGryi77HDknYcHDg0RI",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fy908HXkLCNXcOZgZsdy8%2Faudio%2Fnode-4_1773513355057.wav?alt=media&token=2a237c91-0128-427b-a8d5-b3c67420765c",
+        "id": "node-4",
+        "type": "end",
+        "content": "「この恩は一生忘れませぬ」",
+        "speakerName": "つる"
+      },
+      {
+        "content": "「左様でございますか…。残念ではございますが、伯耆さまのお役目もまた重かろう。承知いたしました。他を当たるといたします」",
+        "speakerName": "つる",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FX2H1yCxULFfYzBp9uNom%2Faudio%2Fnode-5_1773513363534.wav?alt=media&token=4f41a772-eaa6-4799-a063-e25c55991af1",
+        "id": "node-5",
+        "type": "end",
+        "speakerId": "SKGryi77HDknYcHDg0RI"
+      }
+    ],
+    "villagerId": "SKGryi77HDknYcHDg0RI",
+    "createdAt": "2026-03-14T18:36:06.145Z"
+  },
+  {
+    "id": "Hq2G7n4Cyy9MYPrLVQ0Q",
+    "plot": "朝早く、井戸端で井戸水を汲むふじが、通りかかった伯耆に声をかける。「伯耆殿、ちと手を貸してはくれぬか。家の裏手の石垣が崩れてのう。川原から大きめの石を三つばかり運び上げたいのだ。骨が折れるであろうが、礼には米三升を出すゆえ、どうか。」伯耆はそれを引き受けるか、断るか選択を迫られる。伯耆が承諾した場合、「承知した。おふじ様のお困りなれば、この伯耆、喜んで。」と応じ、伯耆は重い石を三つ、川原からふじの家まで運び上げる。汗だくになりながらも、その力強い働きぶりにふじは感心し、「おお、伯耆殿、まこと助かった。これにて安心じゃ。約束の米三升、確かに受け取ってくれ。」と感謝の言葉と共に米三升（300K）を支払う。伯耆が拒否した場合、「申し訳ありませぬ、おふじ様。あいにくと今日は別の用事を抱えておりまして。せっかくのお頼み、力になれず申し訳なく存じます。」と告げる。ふじは「そうか、そりゃあ仕方あるまい。伯耆殿にも都合があるわな。すまぬな、無理を言って。また別の機会に頼むとしよう。」と残念がりつつも、伯耆の事情を理解し、快く受け入れる。",
+    "title": "ふじの頼みと川原の石",
+    "villagerName": "ふじ",
+    "villagerId": "wxkrxJkKSXwtiWiURiTf",
+    "createdAt": "2026-03-15T16:54:55.957Z",
+    "tags": [
+      "労働力",
+      "ふじ"
+    ],
+    "nodes": [
+      {
+        "speakerName": "ふじ",
+        "content": "「伯耆殿、ちと手を貸してはくれぬか。家の裏手の石垣が崩れてのう。川原から大きめの石を三つばかり運び上げたいのだ。骨が折れるであろうが、礼には米三升を出すゆえ、どうか。」",
+        "nextStepId": "node-2",
+        "type": "start",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FcyfUd3BKOdzEgrYe84ld%2Faudio%2Fnode-1_1773593666931.wav?alt=media&token=98fec952-f7cb-409e-b4d2-07e06ad4f6b6",
+        "id": "node-1",
+        "speakerId": "wxkrxJkKSXwtiWiURiTf"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fh14LZAFfBJcsbKTOybRG%2Faudio%2Fnode-2_1773593672132.wav?alt=media&token=64d767c9-4f4d-4d6c-99d6-256ac0fd3467",
+        "type": "choice",
+        "speakerName": "伯耆",
+        "choices": [
+          {
+            "text": "引き受ける",
+            "nextStepId": "node-3"
+          },
+          {
+            "nextStepId": "node-5",
+            "text": "断る"
+          }
+        ],
+        "content": "「さて、どうしたものか…」"
+      },
+      {
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fjg1Uiqu6RFrEQCW1jJ7z%2Faudio%2Fnode-3_1773593680580.wav?alt=media&token=5604e14e-2531-4dd5-b56a-d3444ce4b90b",
+        "type": "reward",
+        "nextStepId": "node-4",
+        "speakerName": "ふじ",
+        "content": "「おお、伯耆殿、まこと助かった。これにて安心じゃ。約束の米三升、確かに受け取ってくれ。」",
+        "speakerId": "wxkrxJkKSXwtiWiURiTf"
+      },
+      {
+        "speakerId": "wxkrxJkKSXwtiWiURiTf",
+        "speakerName": "ふじ",
+        "content": "「これで、一件落着じゃな。」",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FMxFxT5LT5wd7yvadWhak%2Faudio%2Fnode-4_1773593685769.wav?alt=media&token=d13b83e0-67cc-4481-b306-5d2af922945c",
+        "id": "node-4"
+      },
+      {
+        "speakerId": "wxkrxJkKSXwtiWiURiTf",
+        "speakerName": "ふじ",
+        "content": "「そうか、そりゃあ仕方あるまい。伯耆殿にも都合があるわな。すまぬな、無理を言って。また別の機会に頼むとしよう。」",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fu6BsXBdIB1xGmtDFJMJP%2Faudio%2Fnode-5_1773593693960.wav?alt=media&token=b91fbc49-4976-405c-b209-827be7050bd8",
+        "id": "node-5",
+        "type": "end"
+      }
+    ]
+  },
+  {
+    "id": "IW8UFDyCP2ln1XzhMLFw",
+    "plot": "「伯耆や、ちと、そなたに頼みがあるんじゃがのう。」村の古株、きぬ婆が、通りかかった伯耆に声をかけた。「わしの薬草畑へ引く水路が、どうにも泥で詰まってしまっての。これでは大事な薬草が枯れてしまう。もし引き受けてくれるなら、礼には米三升を出すが、どうじゃ？」伯耆はきぬ婆の言葉に耳を傾けた。伯耆が承諾する場合:「承知いたしました、きぬ婆。この伯耆が、水路の泥を掻き出して差し上げましょう。」伯耆は力強く答え、早速、水路へと向かった。重い泥を力任せに掻き出し、淀んでいた水路は再び清らかな流れを取り戻した。きぬ婆は満足げに頷き、「おう、伯耆や、見事な働きぶりじゃった！これでわしの薬草も元気に育つじゃろう。約束の米三升じゃ。受け取っておくれ。」と、米俵を差し出した。伯耆は深々と頭を下げ、それを受け取った。伯耆が拒否する場合:「申し訳ございませぬ、きぬ婆。今は、隣の茂兵衛どんの庵の屋根葺きを手伝うておりまして、手が離せませぬ。他の若衆に頼んでくだされ。」きぬ婆は肩を落としつつ、「そうか、そりゃあ仕方がないのう。茂兵衛どんの庵も急ぎじゃろう。残念じゃが、分かった。無理を言うてすまなんだ。」と、寂しげに呟いた。",
+    "villagerName": "きぬ",
+    "title": "薬草畑の水路",
+    "createdAt": "2026-03-14T18:39:42.241Z",
+    "villagerId": "6uxZ9UvQDDCAfFi0MplG",
+    "nodes": [
+      {
+        "speakerId": "6uxZ9UvQDDCAfFi0MplG",
+        "speakerName": "きぬ",
+        "content": "「伯耆や、ちと、そなたに頼みがあるんじゃがのう。わしの薬草畑へ引く水路が、どうにも泥で詰まってしまっての。これでは大事な薬草が枯れてしまう。もし引き受けてくれるなら、礼には米三升を出すが、どうじゃ？」",
+        "type": "start",
+        "nextStepId": "node-2",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FGEjUEwjIiZnmyOQIFFnh%2Faudio%2Fnode-1_1773513551430.wav?alt=media&token=60a9d058-02f3-489d-8424-ded22170e04b"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "引き受ける"
+          },
+          {
+            "nextStepId": "node-5",
+            "text": "断る"
+          }
+        ],
+        "speakerName": "伯耆",
+        "content": "「きぬ婆の頼みか…引き受けるべきか、断るべきか。」",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fuw93jQoZfFp47mHAeL1p%2Faudio%2Fnode-2_1773513557981.wav?alt=media&token=ce70d3a6-447c-4906-ae1d-f76ab294e6d3",
+        "id": "node-2",
+        "type": "choice"
+      },
+      {
+        "reward": {
+          "amount": 300
+        },
+        "speakerId": "6uxZ9UvQDDCAfFi0MplG",
+        "speakerName": "きぬ",
+        "content": "「おう、伯耆や、見事な働きぶりじゃった！これでわしの薬草も元気に育つじゃろう。約束の米三升じゃ。受け取っておくれ。」",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fnim7Ul8jeMnR1cqodaEf%2Faudio%2Fnode-3_1773513565904.wav?alt=media&token=89e88527-e479-4a87-b772-c685a3b3b534",
+        "type": "reward",
+        "nextStepId": "node-4"
+      },
+      {
+        "id": "node-4",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FaP6lmVyY1IM7cq4EgBRP%2Faudio%2Fnode-4_1773513571923.wav?alt=media&token=592e1437-d4e8-426e-80f5-234360b7da50",
+        "type": "end",
+        "content": "「本当に助かったよ、伯耆や。また困ったことがあったら、頼むぞ。」",
+        "speakerName": "きぬ",
+        "speakerId": "6uxZ9UvQDDCAfFi0MplG"
+      },
+      {
+        "speakerId": "6uxZ9UvQDDCAfFi0MplG",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FRivdrucjpsUMxZPKwWoT%2Faudio%2Fnode-5_1773513580523.wav?alt=media&token=3e662c1b-0d7b-45f4-88e9-f7c99b667a3f",
+        "id": "node-5",
+        "speakerName": "きぬ",
+        "content": "「そうか、そりゃあ仕方がないのう。茂兵衛どんの庵も急ぎじゃろう。残念じゃが、分かった。無理を言うてすまなんだ。」"
+      }
+    ],
+    "tags": [
+      "労働力",
+      "きぬ"
+    ]
+  },
+  {
+    "id": "Ilcs1tgSTI9rhDNpzx5A",
+    "plot": "旅人は村を訪れ、祭りの準備で活気づく中、どこか浮かない顔のおはなに出会う。彼女は、今年の豊作を祝う祭りで欠かせない「幸茸おこわ」の準備が進まず困っているという。話を聞くと、おこわに使う特別な「まつたけ」が、今年は山のどこを探しても見つからないのだ。「このままでは、村の幸運が途絶えてしまうかもしれない…」と、おはなは心配顔でつぶやく。あなたは、おはなの力になりたいと申し出る。おはなは、昔まつたけがよく採れたという、今は獣道と化した奥深い森の隠れた場所を教えてくれる。ここであなたは選択を迫られる。「教えられた場所へまつたけを探しに行く」か、それとも「手持ちのキノコで代用できないかおはなに相談する」か。もし「教えられた場所へまつたけを探しに行く」ことを選べば、あなたは険しい獣道を何時間も進み、時には野生動物に警戒しながら奥地へと向かう。そこで偶然、人里離れた朽ちた大木の根元に、ひっそりと生えた見事な「まつたけ」を発見するだろう。もし「手持ちのキノコで代用できないかおはなに相談する」ことを選んだ場合、おはなは首を傾げながらも、もし旅人が「深山黒茸」のような珍しいキノコを持っているなら、もしかしたら伝統の味に近いものが作れるかもしれないと提案する。もしあなたが「深山黒茸」を持っていれば、それを渡すことでおはなは納得し、そのキノコを使っておこわを仕込み始める。どちらの道を選んだとしても、おはなは無事におこわを完成させ、祭りは盛大に執り行われる。村人たちは皆、おはなの「幸茸おこわ」を喜び、旅人の協力に感謝する。おはなは、お礼に「これを食べれば元気百倍だよ」と言って、滋養強壮に良いとされる貴重な「ジネンジョ」を旅人に手渡すのだった。",
+    "villagerName": "おはな",
+    "title": "長老おはなの願い",
+    "createdAt": "2026-02-06T09:15:27.990Z",
+    "villagerId": "7WVudEcwgprud6DxaSiB",
+    "requiredFlag": "",
+    "nodes": [
+      {
+        "content": "旅人は村を訪れ、祭りの準備で活気づく中、どこか浮かない顔のおはなに出会う。",
+        "nextStepId": "node-2",
+        "type": "start",
+        "id": "node-1"
+      },
+      {
+        "id": "node-2",
+        "type": "story",
+        "nextStepId": "node-3",
+        "content": "彼女は今年の豊作を祝う祭りで欠かせない「幸茸おこわ」の準備が進まず困っているという。おこわに使う特別な「まつたけ」が、今年は山のどこを探しても見つからないのだ。「このままでは、村の幸運が途絶えてしまうかもしれない…」と、おはなは心配顔でつぶやいた。"
+      },
+      {
+        "id": "node-3",
+        "type": "choice",
+        "choices": [
+          {
+            "text": "教えられた場所へまつたけを探しに行く",
+            "nextStepId": "node-4"
+          },
+          {
+            "requiredItemId": "199WE9uvPmPJh5zNhR41",
+            "text": "手持ちのキノコで代用できないかおはなに相談する",
+            "nextStepId": "node-5"
+          }
+        ],
+        "content": "あなたはおはなの力になりたいと申し出る。おはなは、昔まつたけがよく採れたという、今は獣道と化した奥深い森の隠れた場所を教えてくれる。どうしますか？"
+      },
+      {
+        "content": "あなたは険しい獣道を何時間も進み、時には野生動物に警戒しながら奥地へと向かった。そこで偶然、人里離れた朽ちた大木の根元に、ひっそりと生えた見事な「まつたけ」を発見した。",
+        "id": "node-4",
+        "nextStepId": "node-6",
+        "type": "story"
+      },
+      {
+        "content": "あなたが「深山黒茸」を渡すと、おはなは納得し、そのキノコを使っておこわを仕込み始めた。",
+        "id": "node-5",
+        "type": "story",
+        "nextStepId": "node-6"
+      },
+      {
+        "setFlag": "kinu_flag1",
+        "reward": {
+          "itemId": "7iTiMLHySgBCMa95VVZb",
+          "itemName": "ジネンジョ"
+        },
+        "id": "node-6",
+        "type": "reward",
+        "content": "おはなは無事におこわを完成させ、祭りは盛大に執り行われた。村人たちは皆、おはなの「幸茸おこわ」を喜び、旅人の協力に感謝する。おはなは、お礼に「これを食べれば元気百倍だよ」と言って、滋養強壮に良いとされる貴重な「ジネンジョ」を旅人に手渡した。"
+      },
+      {
+        "type": "end",
+        "id": "node-7",
+        "setFlag": "kinu_flag1",
+        "content": "村の幸運は守られ、祭りの熱気と村人たちの笑顔が、旅人の心にも温かく残った。"
+      }
+    ]
+  },
+  {
+    "id": "LsuceXFK7C8OS8AbiFIX",
+    "plot": "旅人であるあなたは、村の薬草師きぬが額に深い皺を刻んでいるのを見かけます。声をかけると、きぬは村の子供たちが原因不明の咳と高熱に苦しんでいると語ります。通常の薬草では効果がなく、昔語りで聞いた「禁断の森の奥深くに生えるツルニンジンこそが、万病に効く秘薬の源」という伝説が脳裏をよぎるが、その森は危険で足を踏み入れる者もいないとため息をつきます。旅人はどうしますか？「伝説のツルニンジンを探しに森へ向かう」か、「きぬから、森に関するもっと詳しい情報を聞き出す」かを選択できます。もし「伝説のツルニンジンを探しに森へ向かう」ことを選んだ場合、旅人は単身、禁断の森へと足を踏み入れます。森は霧深く、道は険しく、狂暴な獣の鳴き声が響き渡ります。旅人は知恵と力で危険を乗り越え、ようやくツルニンジンを見つけ出します。もし「きぬから、森に関するもっと詳しい情報を聞き出す」ことを選んだ場合、きぬは少し考えてから、古い巻物を取り出します。それには「森の番人たる獣は、深山黒茸の香りを嫌う」と記されていました。旅人は森へ行く前に「深山黒茸」を探して手に入れることになります。もし「深山黒茸」を持っていれば、獣を避けて安全に進むことができます。持っていなければ、最初の選択肢を選んだ場合と同じように危険を冒して進むことになります。いずれにせよ、ツルニンジンを持ち帰った旅人に、きぬは深く感謝します。彼女はすぐさまツルニンジンを煎じ、子供たちに与えると、数日のうちに子供たちの病は快方へと向かいます。村に平和が戻り、きぬは旅人の勇気と献身に報いるため、代々伝わる貴重な「幸運の輝石」を報酬として手渡しました。",
+    "villagerName": "きぬ",
+    "title": "きぬの秘薬と森の試練",
+    "createdAt": "2026-02-06T09:07:42.535Z",
+    "requiredFlag": "kinu_flag1",
+    "villagerId": "6uxZ9UvQDDCAfFi0MplG",
+    "nodes": [
+      {
+        "type": "start",
+        "nextStepId": "node-2",
+        "requiredFlag": "kinu_flag1",
+        "id": "node-1",
+        "content": "旅人であるあなたは、村の薬草師きぬが額に深い皺を刻んでいるのを見かけました。声をかけると、きぬは村の子供たちが原因不明の咳と高熱に苦しんでいると語ります。通常の薬草では効果がなく、昔語りで聞いた「禁断の森の奥深くに生えるツルニンジンこそが、万病に効く秘薬の源」という伝説が脳裏をよぎるが、その森は危険で足を踏み入れる者もいないとため息をつきます。"
+      },
+      {
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "伝説のツルニンジンを探しに森へ向かう"
+          },
+          {
+            "text": "きぬから、森に関するもっと詳しい情報を聞き出す",
+            "nextStepId": "node-4"
+          }
+        ],
+        "content": "旅人はどうしますか？",
+        "type": "choice",
+        "id": "node-2"
+      },
+      {
+        "nextStepId": "node-7",
+        "type": "story",
+        "id": "node-3",
+        "content": "あなたは単身、禁断の森へと足を踏み入れました。森は霧深く、道は険しく、狂暴な獣の鳴き声が響き渡ります。しかし、あなたは知恵と力で危険を乗り越え、ついに伝説のツルニンジンを見つけ出すことができました。"
+      },
+      {
+        "id": "node-4",
+        "nextStepId": "node-5",
+        "type": "story",
+        "content": "きぬは少し考えてから、古い巻物を取り出しました。それには「森の番人たる獣は、深山黒茸の香りを嫌う」と記されていました。あなたは森へ行く前に「深山黒茸」を探して手に入れることを考えます。"
+      },
+      {
+        "content": "禁断の森へと足を踏み入れました。獣の気配が満ちる中、どうしますか？",
+        "choices": [
+          {
+            "nextStepId": "node-1770369574636",
+            "text": "深山黒茸を使って獣を避ける",
+            "requiredItemId": "199WE9uvPmPJh5zNhR41_深山黒茸はここだ！確認してね！_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸"
+          }
+        ],
+        "type": "choice",
+        "id": "node-5"
+      },
+      {
+        "type": "end",
+        "id": "node-1770369574636",
+        "content": "新しい物語"
+      }
+    ]
+  },
+  {
+    "id": "MOpxC9OXax3go69gSF9M",
+    "villagerId": "0x9QCvl35ETTNNDvBAOg",
+    "createdAt": "2026-03-15T16:56:23.690Z",
+    "tags": [
+      "労働力",
+      "まさ"
+    ],
+    "nodes": [
+      {
+        "content": "「伯耆、ちと良いかや？ 実は困り事がありて、もしや助けてくれぬかと…」",
+        "speakerName": "まさ",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FwIcRcXdURkedYoe3yHqM%2Faudio%2Fnode-1_1773593739551.wav?alt=media&token=1fb40733-6fa8-4186-80a6-94b691267c54",
+        "nextStepId": "node-2",
+        "type": "start",
+        "speakerId": "0x9QCvl35ETTNNDvBAOg"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "type": "choice",
+        "id": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FdugHCIzcejjL4Oy31M1F%2Faudio%2Fnode-2_1773593754545.wav?alt=media&token=cd42e99f-2b6f-446d-8de5-86e1119e5f03",
+        "content": "「まさ殿、何かございましたか？」まさ「ああ、聞いておくれ。このところ、田に引く水路が枯れ枝や泥で詰まり、畔も崩れておるのじゃ。このままでは田植えの前に水が足らぬ。もし伯耆が水路の泥上げと畔の補修をしてくれるならば、礼として米三升（三百K）を渡そうと思うてな。」",
+        "speakerName": "伯耆",
+        "choices": [
+          {
+            "text": "引き受ける",
+            "nextStepId": "node-3"
+          },
+          {
+            "text": "断る",
+            "nextStepId": "node-5"
+          }
+        ]
+      },
+      {
+        "speakerName": "まさ",
+        "content": "「おお、助かるわい！ さすがは伯耆じゃ。では早速、頼むぞ。」",
+        "type": "reward",
+        "nextStepId": "node-4",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FRjs63Rauqwp3zteLClli%2Faudio%2Fnode-3_1773593761850.wav?alt=media&token=bc43b9a1-6d88-46c0-9dd4-6cbc77c9f4bc",
+        "speakerId": "0x9QCvl35ETTNNDvBAOg"
+      },
+      {
+        "speakerId": "0x9QCvl35ETTNNDvBAOg",
+        "id": "node-4",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FNUHEQVSTydwTMEjEakbM%2Faudio%2Fnode-4_1773593769446.wav?alt=media&token=8e91077c-3556-41d3-b3db-7d7354b0aa39",
+        "type": "end",
+        "content": "「見事な働きぶりじゃった！ これで今年の米も心配いらぬ。約束の米三升（三百K）じゃ。受け取ってくれ。」",
+        "speakerName": "まさ"
+      },
+      {
+        "speakerId": "0x9QCvl35ETTNNDvBAOg",
+        "speakerName": "まさ",
+        "content": "「そうか、そうであったか。無理を言ってすまなんだな。そなたが忙しいのは村の皆が知っておる。仕方ない、また他の者に頼んでみることにするよ。だが、また困った時には、頼むぞ。」",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F4iz2dFtrZgYoNRLl2NVY%2Faudio%2Fnode-5_1773593781817.wav?alt=media&token=79c4dee5-f78a-4f25-b2d1-a77f4fb247cc",
+        "id": "node-5"
+      }
+    ],
+    "plot": "まさ「伯耆、ちと良いかや？ 実は困り事がありて、もしや助けてくれぬかと…」伯耆「まさ殿、何かございましたか？」まさ「ああ、聞いておくれ。このところ、田に引く水路が枯れ枝や泥で詰まり、畔も崩れておるのじゃ。このままでは田植えの前に水が足らぬ。もし伯耆が水路の泥上げと畔の補修をしてくれるならば、礼として米三升（三百K）を渡そうと思うてな。」伯耆は考える。もし承諾するならば、「承知いたしました、まさ殿。この伯耆にお任せくだされ。田んぼの恵みは村の命。精一杯努めさせていただきます。」まさ「おお、助かるわい！ さすがは伯耆じゃ。では早速、頼むぞ。」伯耆は言われた通り、水路から泥を掻き出し、崩れた畔をしっかりと修復した。まさはお茶を差し入れながら伯耆の働きぶりを感心して見守った。作業を終えると、まさ「見事な働きぶりじゃった！ これで今年の米も心配いらぬ。約束の米三升（三百K）じゃ。受け取ってくれ。」伯耆は深々と頭を下げ、米を受け取った。もし拒否するならば、「まさ殿、大変申し訳ございませぬ。実はこのところ、別の村の仕事に取りかかっておりまして、すぐに手伝うことが叶いませぬ。せっかくの頼み、この伯耆、心苦しい限りです。」まさ「そうか、そうであったか。無理を言ってすまなんだな。そなたが忙しいのは村の皆が知っておる。仕方ない、また他の者に頼んでみることにするよ。だが、また困った時には、頼むぞ。」伯耆はまさの理解に感謝し、頭を下げた。",
+    "title": "枯れ木と水路、まさの頼み",
+    "villagerName": "まさ"
+  },
+  {
+    "id": "MkxulxdafWr5oTwDebt9",
+    "villagerName": "うめ",
+    "title": "米俵運びと祭り支度",
+    "plot": "うめが伯耆に声をかける。「伯耆殿、ちと手を貸してはくれぬかえ？」「うめ殿、何事じゃ？」「あのな、この度とれた米を田から共同の倉まで運ぶてえ仕事じゃ。なかなか腰が痛うてな。力自慢の伯耆殿に頼む他ないのじゃ。報酬は米三升(300K)出すぞえ。」伯耆は考える。「なるほど、米三升とな。なかなか骨の折れる仕事じゃろうな。」もし伯耆が承諾すれば、伯耆は快く引き受け、汗を流し、力強く米俵を次々と運び終える。うめはその働きぶりに感嘆し、「おお、さすが伯耆殿！これぞ村一番の働きぶりじゃ！約束の米三升(300K)じゃ、受け取っておくれ。これで祭りの酒も旨かろう！」と感謝と共に米を渡すだろう。もし伯耆が拒否すれば、伯耆は「すまぬ、うめ殿。今日は別の急ぎの用がある。そちらを片付けねばならぬ」と告げる。うめは少し残念そうにするが、「そうかえ。それは残念じゃが、伯耆殿にも用があるのは仕方のないこと。無理を言った。他の者に声をかけてみるよ」と理解を示すだろう。",
+    "nodes": [
+      {
+        "speakerId": "wMSjRWzjMW8zmymdIxYk",
+        "content": "「伯耆殿、ちと手を貸してはくれぬかえ？」「あのな、この度とれた米を田から共同の倉まで運ぶてえ仕事じゃ。なかなか腰が痛うてな。力自慢の伯耆殿に頼む他ないのじゃ。報酬は米三升(300K)出すぞえ。」",
+        "speakerName": "うめ",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fff1TFUf5OwBIMyZIr76A%2Faudio%2Fnode-1_1773510570819.wav?alt=media&token=2a1e5efe-fcc0-4ee4-9fca-cd5891b01a8f",
+        "nextStepId": "node-2",
+        "type": "start"
+      },
+      {
+        "content": "「うめ殿、何事じゃ？」「なるほど、米三升とな。なかなか骨の折れる仕事じゃろうな。」",
+        "speakerName": "伯耆",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "快く引き受ける"
+          },
+          {
+            "text": "別の用があると断る",
+            "nextStepId": "node-5"
+          }
+        ],
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fj9VLmC0C0rQay1t1UveM%2Faudio%2Fnode-2_1773510580062.wav?alt=media&token=b2423266-a48a-47bf-93ad-4f6205b461ef",
+        "id": "node-2",
+        "type": "choice",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF"
+      },
+      {
+        "speakerName": "うめ",
+        "content": "「おお、さすが伯耆殿！これぞ村一番の働きぶりじゃ！約束の米三升(300K)じゃ、受け取っておくれ。これで祭りの酒も旨かろう！」",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FLNm1FtH06yfj3QellYHl%2Faudio%2Fnode-3_1773510590402.wav?alt=media&token=d6c1a35d-d62d-447f-84d4-4e0d75b1941d",
+        "type": "reward",
+        "nextStepId": "node-4",
+        "reward": {
+          "amount": 300
+        },
+        "speakerId": "wMSjRWzjMW8zmymdIxYk"
+      },
+      {
+        "speakerId": "wMSjRWzjMW8zmymdIxYk",
+        "id": "node-4",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F3Q102UEjn1DJPOXWG394%2Faudio%2Fnode-4_1773510595612.wav?alt=media&token=a6d3c8f7-55d8-4c9c-906a-ec4d436f129d",
+        "type": "end",
+        "content": "「これで一安心じゃ。」",
+        "speakerName": "うめ"
+      },
+      {
+        "speakerId": "wMSjRWzjMW8zmymdIxYk",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F6iiJ1vCBFzjOOy1Rihg8%2Faudio%2Fnode-5_1773510604717.wav?alt=media&token=edfbc88e-489b-4e39-8631-1098ad90eebe",
+        "id": "node-5",
+        "type": "end",
+        "content": "「そうかえ。それは残念じゃが、伯耆殿にも用があるのは仕方のないこと。無理を言った。他の者に声をかけてみるよ」",
+        "speakerName": "うめ"
+      }
+    ],
+    "tags": [
+      "労働力",
+      "うめ"
+    ],
+    "createdAt": "2026-03-14T17:50:07.767Z",
+    "villagerId": "wMSjRWzjMW8zmymdIxYk"
+  },
+  {
+    "id": "NMW1DpSsJD1kGSWgv4Ev",
+    "plot": "おきぬは、自家の田の畔が崩れかけていることに心を痛めていた。このままでは田に水が溜まらず、作物が危うい。夫は病がちで頼れず、幼子を抱える身では一人で直すこともままならない。ある日、おきぬは村を行き交う伯耆に声をかけた。「伯耆殿、少しばかりお頼み申したい儀がござる。わが家の田の畔が崩れましてな、このままでは水が逃げてしまう。夫は病がちで、わらわ一人ではままならぬゆえ、どうかお力添えを願えませぬか。つきましては、お駄賃として米三升を差し上げとうござるが、いかがじゃろうか？」\n\n伯耆は思案する。\n\n【承諾した場合】\n伯耆は「心得た。おきぬ殿の困り事とあらば、この伯耆、喜んで引き受けよう」と力強く答えた。数日後、伯耆はおきぬの田へと赴き、崩れた畔を丁寧に土で固め、草木を植え直し、見事に修復を成し遂げた。おきぬは深々と頭を下げた。「伯耆殿、おかげで田が救われました。まこと、感謝してもしたりませぬ。約束の米三升、どうぞお納めください」と、安堵と喜びの表情で米を伯耆に手渡した。\n\n【拒否した場合】\n伯耆は「おきぬ殿、まことに申し訳ない。あいにくと、しばらくの間、他に手を貸す約束がござってな。そなたの力になれぬは口惜しいが…」と辞退を申し出た。おきぬは寂しげに頷いた。「さようでござるか。無理を申してしまい、申し訳ござらぬ。伯耆殿にも都合があろう。またの機会にお願いいたすゆえ、どうかご容赦くだされ」と、残念がりつつも伯耆の事情を理解し、静かにその場を後にした。",
+    "title": "崩れし畔、米三升の頼み",
+    "villagerName": "おきぬ",
+    "villagerId": "kTJkUqV6tJjH4Ua06yE5",
+    "createdAt": "2026-03-14T18:25:44.229Z",
+    "tags": [
+      "労働力",
+      "おきぬ"
+    ],
+    "nodes": [
+      {
+        "content": "「伯耆殿、少しばかりお頼み申したい儀がござる。わが家の田の畔が崩れましてな、このままでは水が逃げてしまう。夫は病がちで、わらわ一人ではままならぬゆえ、どうかお力添えを願えませぬか。つきましては、お駄賃として米三升を差し上げとうござるが、いかがじゃろうか？」",
+        "speakerName": "おきぬ",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FjuUsM679w99J9MM3XSsr%2Faudio%2Fnode-1_1773512712557.wav?alt=media&token=f548e193-0032-4d8f-b587-999d6eb2822e",
+        "id": "node-1",
+        "type": "start",
+        "nextStepId": "node-2",
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5"
+      },
+      {
+        "choices": [
+          {
+            "text": "引き受ける",
+            "nextStepId": "node-3"
+          },
+          {
+            "text": "断る",
+            "nextStepId": "node-5"
+          }
+        ],
+        "speakerName": "伯耆",
+        "content": "「さて、どうするべきか…」",
+        "type": "choice",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FUulAd5G8PhMR0gaoA3GW%2Faudio%2Fnode-2_1773512717613.wav?alt=media&token=5b1bc225-6419-47c9-bc2a-2746817b6233",
+        "id": "node-2",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF"
+      },
+      {
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F4qnGKzsHwgXwydT1pTGx%2Faudio%2Fnode-3_1773512726364.wav?alt=media&token=92b8c007-ad59-409c-a0bb-7c7141d195d0",
+        "nextStepId": "node-4",
+        "type": "reward",
+        "content": "「伯耆殿、おかげで田が救われました。まこと、感謝してもしたりませぬ。約束の米三升、どうぞお納めください」",
+        "speakerName": "おきぬ",
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5"
+      },
+      {
+        "content": "「誠にありがとうございました。」",
+        "speakerName": "おきぬ",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Foyo5n3q6PeqC1TXGbZXK%2Faudio%2Fnode-4_1773512730992.wav?alt=media&token=d358f36f-b332-4752-85f2-1025566585c6",
+        "id": "node-4",
+        "type": "end",
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5"
+      },
+      {
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5",
+        "speakerName": "おきぬ",
+        "content": "「さようでござるか。無理を申してしまい、申し訳ござらぬ。伯耆殿にも都合があろう。またの機会にお願いいたすゆえ、どうかご容赦くだされ」",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F9DBgbOx7JR7MyfWN6ns8%2Faudio%2Fnode-5_1773512741993.wav?alt=media&token=668a4a29-9d64-41bc-96cc-21ed2e9ae70b",
+        "id": "node-5",
+        "type": "end"
+      }
+    ]
+  },
+  {
+    "id": "SS3U7Dy8AnkaWyguQqGM",
+    "plot": "浜辺で伯耆と日蓮が談話しています。",
+    "title": "浜辺の少年僧、船路の疲れに伏す",
+    "villagerName": "伯耆",
+    "villagerId": "tTPwcEBQZSA6Bxl7JYcF",
+    "requiredFlag": "",
+    "createdAt": "2026-02-23T06:42:27.183Z",
+    "tags": [
+      "メイン"
+    ],
+    "nodes": [
+      {
+        "speakerName": "伯耆",
+        "type": "start",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "readingText": "う〜ん、くるしいよ〜ふねがあんなにゆれるものだとはおもってもみなかったよ〜",
+        "content": "う〜ん、苦しいよ〜\n船があんなに揺れるものだとは思っても見なかったよ〜",
+        "nextStepId": "node-2",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-1_1772004057120.wav?alt=media&token=a5ddbe36-fdef-4f9e-b621-2010b3e772ad",
+        "expressionName": "苦しい表情"
+      },
+      {
+        "readingText": "ほうきはふねにのったのははじめてだったか。こればっかりはおかのうえにいたのではきたえられないからな。ふなたびになれることもぶつどうしゅぎょうだとおもってしっかりいのりくろうをかみしめておくといいよ。これからさき、ふねにのることもおおくなるかもしれないからね。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "伯耆は船に乗ったのは初めてだったか。\nこればっかりは丘の上にいたのでは鍛えられないからな。\n船旅に慣れることも仏道修行だと思ってしっかり祈り苦労を噛み締めておくといいよ。\nこれから先、船に乗ることも多くなるかも知れないからね。",
+        "speakerName": "日蓮",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-2_1772004074849.wav?alt=media&token=9bff41fe-dce3-4f01-823f-780453d2fd95",
+        "id": "node-2",
+        "nextStepId": "node-3",
+        "type": "story"
+      },
+      {
+        "expressionName": "苦しい表情",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-3_1772004114317.wav?alt=media&token=fdab82d0-27c6-4ad4-97e1-e07ac283c5f2",
+        "nextStepId": "node-4",
+        "content": "そうですね〜\n仏法は厳しいですね〜\nせっかく法難をご一緒し、守り抜く覚悟でお供したのに、いきなり出鼻をくじかれたようで情けないです。",
+        "readingText": "そうですね〜ぶっぽうはきびしいですね〜せっかくほうなんをごいっしょし、まもりぬくかくごでおともしたのに、いきなりでばなをくじかれたようでなさけないです。",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "type": "story",
+        "speakerName": "伯耆"
+      },
+      {
+        "content": "法難を受け止めようとする心意気だけあれば大丈夫。\n伯耆はまだ若いからすぐに立派な如説修行の行者になれるよ。\n楽しみだな…",
+        "speakerName": "日蓮",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-4_1772004124970.wav?alt=media&token=172923aa-45ec-4875-b953-3f3075ac8986",
+        "id": "node-4",
+        "type": "story",
+        "nextStepId": "node-5",
+        "readingText": "ほうなんをうけとめようとするこころいきだけあればだいじょうぶ。ほうきはまだわかいからすぐにりっぱなにょせつしゅぎょうのぎょうじゃになれるよ。たのしみだな…",
+        "speakerId": "A44lygLrpBVZjTZD1EqT"
+      },
+      {
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FSS3U7Dy8AnkaWyguQqGM%2Faudio%2Fnode-5_1772004137874.wav?alt=media&token=69c86044-d70c-4ae4-a960-5d6cc8192279",
+        "id": "node-5",
+        "content": "う〜ん…\nそう言ってもらえるのがせめてもの救いですが、今は波の音さえ恨めしいです。\n南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…",
+        "speakerName": "伯耆",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "expressionName": "苦しい表情",
+        "readingText": "うーん…そういってもらえるのがせめてものすくいですが、いまはなみのおとさえうらめしいです。なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…"
+      }
+    ]
+  },
+  {
+    "id": "ZflenG2LTwBRsk3ARCYv",
+    "plot": "しずは田んぼの畔で休む伯耆を見つけ、ゆっくりと近づいた。「伯耆や、ちと頼みがあるんじゃが、耳を傾けてくれぬか？」しずの顔には困りごとの影が差していた。「この長雨続きで、村の溜池が泥で埋まってしもうた。稲に水を引くには泥上げせねばならぬが、わしゃ腰を痛めてしもうてのぅ…あんたのその力、貸してくれぬか？」と、しずは言った。続けて、「礼には米三升（300K）、必ず出すぞえ。」と申し出た。承諾した場合: 伯耆は腕を組み、力強く頷いた。「承知仕った！村の溜池の泥上げ、この伯耆にお任せあれ！」伯耆は数日をかけ、冷たい池水に身を入れ、重い泥を黙々と掻き上げた。その働きぶりに、しずは目を細めていた。作業を終えた伯耆に、しずは深々と頭を下げた。「いやはや、見事な働きぶりじゃった！これできっと今年も良い米が穫れるじゃろう。約束の米三升、受け取ってくれ。」伯耆は米俵を受け取り、しずの感謝の言葉に静かに応じた。拒否した場合: 伯耆は少し考えた後、申し訳なさそうな顔で言った。「申し訳ござらん、しず様。今は別の用事があり、手が空きませぬゆえ。」しずは寂しげに目を伏せたが、すぐに顔を上げた。「そうか…やむを得ぬな。無理強いはできん。残念じゃが、分かったよ。また機会があれば頼むわい。」しずは肩を落としつつも伯耆の事情を理解し、他の村人を探しに行った。伯耆は、しずの背中を見送りながら、僅かな後悔の念を覚えた。",
+    "villagerName": "しず",
+    "title": "溜池の泥上げ",
+    "createdAt": "2026-03-14T18:44:03.363Z",
+    "villagerId": "Aqs3Annh4ru5uRixSgho",
+    "nodes": [
+      {
+        "speakerId": "Aqs3Annh4ru5uRixSgho",
+        "speakerName": "しず",
+        "content": "「伯耆や、ちと頼みがあるんじゃが、耳を傾けてくれぬか？この長雨続きで、村の溜池が泥で埋まってしもうた。稲に水を引くには泥上げせねばならぬが、わしゃ腰を痛めてしもうてのぅ…あんたのその力、貸してくれぬか？礼には米三升（300K）、必ず出すぞえ。」",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FzAY091FZwZ2UZ0u30S75%2Faudio%2Fnode-1_1773513809188.wav?alt=media&token=0a2eb8d1-8f34-473e-adc2-f62c53914874",
+        "type": "start",
+        "nextStepId": "node-2"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FaeMZGshef8KpjkiEWUZB%2Faudio%2Fnode-2_1773513815673.wav?alt=media&token=f1eed313-d4c8-4827-8a24-cfef2faf9c33",
+        "type": "choice",
+        "speakerName": "伯耆",
+        "choices": [
+          {
+            "text": "引き受ける",
+            "nextStepId": "node-3"
+          },
+          {
+            "text": "断る",
+            "nextStepId": "node-5"
+          }
+        ],
+        "content": "「しず様のお話、承知いたしました。この力、貸すべきか…」"
+      },
+      {
+        "speakerId": "Aqs3Annh4ru5uRixSgho",
+        "reward": {
+          "amount": 300
+        },
+        "type": "reward",
+        "nextStepId": "node-4",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fcc8S2DBmlLaCTJsRr4dE%2Faudio%2Fnode-3_1773513826059.wav?alt=media&token=89a28193-22e4-4576-8cce-399dcf6bb115",
+        "speakerName": "しず",
+        "content": "「いやはや、見事な働きぶりじゃった！これできっと今年も良い米が穫れるじゃろう。約束の米三升、受け取ってくれ。」"
+      },
+      {
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FL33l1OtKUqbbcYxJ9rFQ%2Faudio%2Fnode-4_1773513833152.wav?alt=media&token=a3034cdd-5185-46d4-a6d1-1cbd0933b946",
+        "id": "node-4",
+        "speakerName": "しず",
+        "content": "「本当に助かったよ、伯耆や。また何か困ったことがあれば、いつでも声をかけておくれ。」",
+        "speakerId": "Aqs3Annh4ru5uRixSgho"
+      },
+      {
+        "type": "end",
+        "id": "node-5",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Ftky8t4kP4Pg2KoNrLnxC%2Faudio%2Fnode-5_1773513841429.wav?alt=media&token=177ef1af-9574-4955-b1ea-91a1f983a53e",
+        "content": "「そうか…やむを得ぬな。無理強いはできん。残念じゃが、分かったよ。また機会があれば頼むわい。」",
+        "speakerName": "しず",
+        "speakerId": "Aqs3Annh4ru5uRixSgho"
+      }
+    ],
+    "tags": [
+      "労働力",
+      "しず"
+    ]
+  },
+  {
+    "id": "aqIMZ9oU7jzhEfJG4FhR",
+    "nodes": [
+      {
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FF57wNoqBGFltJewlu9dl%2Faudio%2Fnode-1_1773512622752.wav?alt=media&token=5a941fb1-139e-4dad-8f27-5135b740ff13",
+        "type": "start",
+        "nextStepId": "node-2",
+        "speakerName": "いね",
+        "content": "「伯耆どん、ちと困りごとがのうて。わしの田の畔が崩れかけておる。このままでは水が逃げてしまう。このままでは夏の苦労も水の泡じゃ。もしよろしければ、あの畔を直してはくれまいか。手間賃には米三升（300K）を出すが、どうじゃ？」"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FIueuHM0G8PusoGAPxUs6%2Faudio%2Fnode-2_1773512628495.wav?alt=media&token=a4ad816b-2e38-4f11-a7de-60f58f723984",
+        "id": "node-2",
+        "type": "choice",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "「承知した、いねさん。田は村の命。この伯耆にお任せあれ」"
+          },
+          {
+            "text": "「申し訳ない、いねさん。あいにくと別の頼まれ事を引き受けておりまして、そちらを先に片付けねばならぬ。今回は力になれませぬ」",
+            "nextStepId": "node-5"
+          }
+        ],
+        "speakerName": "伯耆",
+        "content": "「どうするべきか... いねさんの困りごとか」"
+      },
+      {
+        "reward": {
+          "amount": 300
+        },
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "content": "「おかげで田も安堵したわい。本当に助かった、ありがとうな。約束の米三升じゃ、受け取っておくれ」",
+        "speakerName": "いね",
+        "nextStepId": "node-4",
+        "type": "reward",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FqB6Fne8PlNbJs9chzkSc%2Faudio%2Fnode-3_1773512637758.wav?alt=media&token=b85a848b-5099-49b9-91bc-ac6009d3ed11"
+      },
+      {
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "id": "node-4",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FIaXjzVeRLCfyMxTwVP16%2Faudio%2Fnode-4_1773512644626.wav?alt=media&token=4a6a6cf5-1cda-4084-a934-8ed3101dd24b",
+        "type": "end",
+        "speakerName": "いね",
+        "content": "「本当に助かったわい。また何かあれば頼むぞ」"
+      },
+      {
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "type": "end",
+        "id": "node-5",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FvFXP4jiPrOB6sGKiL4l8%2Faudio%2Fnode-5_1773512653308.wav?alt=media&token=ca44503e-fecb-4ba4-9dba-290ebe94f257",
+        "speakerName": "いね",
+        "content": "「そうかいな。仕方がないのう。無理を言って悪かったわい。また今度、頼むこともあるやもしれん。その時は頼むぞ」"
+      }
+    ],
+    "tags": [
+      "労働力",
+      "いね"
+    ],
+    "createdAt": "2026-03-14T18:24:15.054Z",
+    "villagerId": "TFS6nW3oE8YYdiJ21M9R",
+    "villagerName": "いね",
+    "title": "畔の恵み",
+    "plot": "いねが、汗を拭う伯耆に声をかけた。「伯耆どん、ちと困りごとがのうて。わしの田の畔が崩れかけておる。このままでは水が逃げてしまう。このままでは夏の苦労も水の泡じゃ。もしよろしければ、あの畔を直してはくれまいか。手間賃には米三升（300K）を出すが、どうじゃ？」と、真剣な眼差しで伯耆を見つめた。承諾時：伯耆が「承知した、いねさん。田は村の命。この伯耆にお任せあれ」と答えると、いねは安堵の息を漏らした。翌日、伯耆は泥まみれになりながら、崩れかけた畔を丹念に修復した。いねは「おかげで田も安堵したわい。本当に助かった、ありがとうな。約束の米三升じゃ、受け取っておくれ」と、感謝と共に米俵を手渡した。伯耆は重い米俵を肩に担ぎ、夕焼けを眺めながら家路についた。拒否時：伯耆が「申し訳ない、いねさん。あいにくと別の頼まれ事を引き受けておりまして、そちらを先に片付けねばならぬ。今回は力になれませぬ」と頭を下げると、いねは少し残念そうな顔をしたが、「そうかいな。仕方がないのう。無理を言って悪かったわい。また今度、頼むこともあるやもしれん。その時は頼むぞ」と、伯耆の事情を汲み取った。いねは、自らの手で畔を直すべく、泥田へと向かっていった。"
+  },
+  {
+    "id": "e8DmFw2mhh5wmSrfU3a9",
+    "villagerName": "まつ",
+    "title": "老いたる畑の開墾",
+    "plot": "まつが伯耆に声をかけた。「伯耆や、ちと頼みがあるんじゃがの。わしの所の荒れた土地、このままでは勿体ない。石を拾い、耕し直してくれぬか。働きに応じて、米三升（300K）は出すぞ。」伯耆は考える。「ほう、三升でござるか。」\n\n【承諾時】\n伯耆:「承知仕った。この伯耆、腕によりをかけて働き申そう。」\n伯耆は数日をかけて、荒れ放題であった土地を鍬で深く耕し、いくつもの大きな石や小石を取り除いた。汗水流して働く伯耆の姿に、まつは何度も労いの言葉をかけた。数日後、見事に生まれ変わった畑を見て、まつは満面の笑みを浮かべた。\nまつ:「おお、見違えるようだ！これでまた作物が植えられる。感謝するぞ、伯耆や。約束の米三升、受け取ってくれ。」\n伯耆:「ありがたき幸せ。」\n\n【拒否時】\n伯耆:「申し訳ござらぬ。今は別の仕事に取り掛かっておりまして、手が空きませぬ。」\nまつ:「そうか、それは残念じゃが、仕方あるまい。無理は言えぬの。またの機会じゃな。」\n伯耆:「まことに申し訳ござらぬ。」",
+    "nodes": [
+      {
+        "content": "伯耆や、ちと頼みがあるんじゃがの。わしの所の荒れた土地、このままでは勿体ない。石を拾い、耕し直してくれぬか。働きに応じて、米三升（300K）は出すぞ。",
+        "speakerName": "まつ",
+        "type": "start",
+        "nextStepId": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FYZpXJlyYOjCZSx8h2raR%2Faudio%2Fnode-1_1773593883366.wav?alt=media&token=5af69c5c-cd57-4ef1-8d38-d25c8336d9e1",
+        "id": "node-1",
+        "speakerId": "gh9gg9PoOv89NWEg3vry"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "choices": [
+          {
+            "text": "引き受ける",
+            "nextStepId": "node-3"
+          },
+          {
+            "nextStepId": "node-5",
+            "text": "断る"
+          }
+        ],
+        "content": "ほう、三升でござるか。",
+        "speakerName": "伯耆",
+        "type": "choice",
+        "id": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FsWAsEKUV7hUtogfXxfto%2Faudio%2Fnode-2_1773593889865.wav?alt=media&token=c4deedb4-6267-42e6-a4c1-839d92e65e28"
+      },
+      {
+        "content": "おお、見違えるようだ！これでまた作物が植えられる。感謝するぞ、伯耆や。約束の米三升、受け取ってくれ。",
+        "speakerName": "まつ",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FMnamVVDpjhkZdOnWeL58%2Faudio%2Fnode-3_1773593898297.wav?alt=media&token=a84bfd16-ec9e-4b59-bf9a-a1af52a4072f",
+        "id": "node-3",
+        "type": "reward",
+        "nextStepId": "node-4",
+        "speakerId": "gh9gg9PoOv89NWEg3vry"
+      },
+      {
+        "speakerName": "まつ",
+        "content": "うむ、これで一件落着じゃな。また何かあったら声をかけてくれ。",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FsP0ol0EmyolnaUOVLoyR%2Faudio%2Fnode-4_1773593905209.wav?alt=media&token=efe1a3f2-c64d-4cc5-a904-b6a2362ac006",
+        "id": "node-4",
+        "speakerId": "gh9gg9PoOv89NWEg3vry"
+      },
+      {
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Ft2yMaQ0coC0cZvGKYQY9%2Faudio%2Fnode-5_1773593911871.wav?alt=media&token=ae927eb4-87bd-43ba-a00f-879940796d16",
+        "id": "node-5",
+        "speakerName": "まつ",
+        "content": "そうか、それは残念じゃが、仕方あるまい。無理は言えぬの。またの機会じゃな。",
+        "speakerId": "gh9gg9PoOv89NWEg3vry"
+      }
+    ],
+    "tags": [
+      "労働力",
+      "まつ"
+    ],
+    "createdAt": "2026-03-15T16:58:33.758Z",
+    "villagerId": "gh9gg9PoOv89NWEg3vry"
+  },
+  {
+    "id": "fbOkXKsztVI7PxuVNe6w",
+    "villagerId": "ABDKMNns8Z9trb49L0eI",
+    "createdAt": "2026-03-14T18:30:43.888Z",
+    "tags": [
+      "労働力",
+      "さち"
+    ],
+    "nodes": [
+      {
+        "speakerId": "ABDKMNns8Z9trb49L0eI",
+        "type": "start",
+        "nextStepId": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FB9md74Yg7COrXqKWMhTf%2Faudio%2Fnode-1_1773513015271.wav?alt=media&token=98ff23ff-a8dc-4ef2-9fcd-64c92facb07a",
+        "id": "node-1",
+        "content": "「伯耆さま、お頼み申します！畑の苗が、また雀に食い荒らされておりまして…どうか、一日、畑の見張りをしていただけませぬか？報酬は米三升でございます！」",
+        "speakerName": "さち"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "speakerName": "伯耆",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "「承知いたしました。お引き受けしましょう。」"
+          },
+          {
+            "text": "「すまぬが、今日は他に見るべきものがある。」",
+            "nextStepId": "node-5"
+          }
+        ],
+        "content": "「米三升か…雀どもは賢いからな、骨の折れる仕事よ。」",
+        "id": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FT8k2EQISI0QboQbPTxXR%2Faudio%2Fnode-2_1773513022761.wav?alt=media&token=59bdf590-7314-4721-bd8c-3c085e816440",
+        "type": "choice"
+      },
+      {
+        "speakerId": "ABDKMNns8Z9trb49L0eI",
+        "reward": {
+          "amount": 300
+        },
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fy5rb7PMNVYPRAqstzAut%2Faudio%2Fnode-3_1773513029310.wav?alt=media&token=d3f603f3-9bca-444d-b621-9c2fafda320a",
+        "nextStepId": "node-4",
+        "type": "reward",
+        "content": "「伯耆さま、まことにありがとうございました。これで村も安堵いたしまする！」",
+        "speakerName": "さち"
+      },
+      {
+        "speakerId": "ABDKMNns8Z9trb49L0eI",
+        "speakerName": "さち",
+        "content": "「本当に助かりました！感謝いたします。」",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F62fuNdIK7bJ1kANyb0qp%2Faudio%2Fnode-4_1773513035239.wav?alt=media&token=6f18b52b-45e1-49d6-875d-171a5c992d74",
+        "id": "node-4"
+      },
+      {
+        "speakerId": "ABDKMNns8Z9trb49L0eI",
+        "type": "end",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fp6I2MVW0RzQfS4jqdOS0%2Faudio%2Fnode-5_1773513042179.wav?alt=media&token=3e794daa-e20d-43d8-a65c-186821162906",
+        "id": "node-5",
+        "content": "「さようでございますか…伯耆さまには伯耆さまのお考えがあるのでしょう。承知いたしました。」",
+        "speakerName": "さち"
+      }
+    ],
+    "plot": "村の少女さちが、畑の苗を食い荒らす雀に困り果て、伯耆に助けを求める。「伯耆さま、お頼み申します！畑の苗が、また雀に食い荒らされておりまして…どうか、一日、畑の見張りをしていただけませぬか？報酬は米三升でございます！」伯耆は、さちの真剣な眼差しに一瞬考え込む。「米三升か…雀どもは賢いからな、骨の折れる仕事よ。」さちはさらに懇願する。「お願いでございます！伯耆さまの力添えなくしては、今年の収穫が危ぶまれまする。」もし伯耆がこの依頼を承諾すれば、伯耆は一日中、日差しの中で畑を見張り、雀を追い払う。夕暮れ時、さちは感謝と共に約束の米三升を伯耆に渡し、「伯耆さま、まことにありがとうございました。これで村も安堵いたしまする！」と深く頭を下げる。もし伯耆が依頼を拒否すれば、「すまぬが、今日は他に見るべきものがある。雀追いは、誰か別の者に頼むと良い。」と告げる。さちは残念そうに俯きながらも、「さようでございますか…伯耆さまには伯耆さまのお考えがあるのでしょう。承知いたしました。」と理解を示し、別の手を探すために立ち去る。",
+    "title": "米三升と雀追い",
+    "villagerName": "さち"
+  },
+  {
+    "id": "k4FQ2Vz6z2hY1OL8ndTu",
+    "plot": "オープニング",
+    "title": "オープニング説明",
+    "requiredFlag": "",
+    "createdAt": "2026-02-24T05:16:42.633Z",
+    "tags": [
+      "メイン"
+    ],
+    "nodes": [
+      {
+        "speakerName": "システム",
+        "content": " 泉が砂漠をオアシスに変えるように、人間の生命から湧き出る慈悲と英知の泉をもって、この地球を平和の楽園へ、永遠の宝土へと転じゆくヒューマニズムの勝利を、我らは広宣流布と呼ぶ。\nー 新・人間革命6巻",
+        "type": "start",
+        "nextStepId": "node-2",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fk4FQ2Vz6z2hY1OL8ndTu%2Faudio%2Fnode-1_1772335233664.wav?alt=media&token=797705f0-ac6a-4c96-a747-c8dd0cf336f2",
+        "id": "node-1",
+        "speakerId": "olCEMKCl0vWKNZOIrj2g",
+        "readingText": "いずみがさばくをおあしすにかえるように、にんげんのせいめいからわきでるじひとえいちのいずみをもって、このちきゅうをへいわのらくえんえ、えいえんのほうどえとてんじゆくひゅーまにずむのしょうりを、われらは、こうせんるふと、よぶ。"
+      },
+      {
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fk4FQ2Vz6z2hY1OL8ndTu%2Faudio%2Fnode-2_1772335255103.wav?alt=media&token=8e0add87-8326-4b7e-b876-441dedd8b9d6",
+        "id": "node-2",
+        "type": "end",
+        "content": "舞台は1261年、伊豆、日蓮は前年の立正安国論の提出を期に他宗の反感を買いこの地へと流罪になった。\nしかし、日蓮はこの流刑地にあって、広宣流布への情熱に燃え盛っていた。\nこの国の隅々にまで信心の火を灯せるチャンスとの想いでこの地に向かったのであった…",
+        "speakerName": "システム",
+        "readingText": "ぶたいはせんにひゃくろくじゅういちねん、いず、にちれんはぜんねんのりっしょうあんこくろんのていしゅつをきにたしゅうのはんかんをかいこのちへと、るざいになった。しかし、にちれんわ、このるけいちにあって、こうせんるふへのじょうねつにもえさかっていた。このくにのすみずみにまでしんじんのひをともせるちゃんすとのおもいでこのちにむかったのであった…",
+        "speakerId": "olCEMKCl0vWKNZOIrj2g"
+      }
+    ]
+  },
+  {
+    "id": "p9uoN6BavnZyQRK1TRtL",
+    "tags": [
+      "労働力",
+      "おきぬ"
+    ],
+    "nodes": [
+      {
+        "content": "「伯耆よ、少しばかり頼みがあるのだがのう。この時分、村の水路が泥で詰まり気味でな。わしら年寄りには難儀な仕事じゃ。あんたの若い力で、水路の泥を掻き出してはくれぬか。礼はきちんとさせてもらう。米三升、これでどうじゃ。」",
+        "speakerName": "おきぬ",
+        "id": "node-1",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2F3pSFEdrlilZWXLRz51oi%2Faudio%2Fnode-1_1773512776764.wav?alt=media&token=99e6b878-b459-43de-998b-a00d9295e9b7",
+        "nextStepId": "node-2",
+        "type": "start",
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9"
+      },
+      {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FmsLfr1hxFH2B0Wa0GKFQ%2Faudio%2Fnode-2_1773512783016.wav?alt=media&token=81abbb17-3204-4d5e-872a-df76cdcad317",
+        "id": "node-2",
+        "type": "choice",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "引き受ける"
+          },
+          {
+            "text": "断る",
+            "nextStepId": "node-5"
+          }
+        ],
+        "speakerName": "伯耆",
+        "content": "「この依頼、受けるべきか、断るべきか…」"
+      },
+      {
+        "content": "「ああ、見事な働きぶりじゃった。水路も清らかになった。これで田も潤うじゃろう。約束の米三升、受け取ってくだされ。」",
+        "nextStepId": "node-4",
+        "id": "node-3",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FxIyO9oJ7ocSBKWmlSqP7%2Faudio%2Fnode-3_1773512791357.wav?alt=media&token=a3ff7080-87d6-4484-bcf7-9ac8dfec7b33",
+        "choices": [
+          {
+            "nextStepId": "node-3",
+            "text": "承諾する"
+          },
+          {
+            "nextStepId": "node-5",
+            "text": "断る"
+          }
+        ],
+        "speakerName": "おきぬ",
+        "type": "reward",
+        "reward": {
+          "amount": 300
+        },
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9"
+      },
+      {
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2Fx8efwMhnpzGZQSPywxnU%2Faudio%2Fnode-4_1773512797402.wav?alt=media&token=3930f93c-54d2-484e-8e56-6afb7db391d5",
+        "id": "node-4",
+        "nextStepId": "node-4",
+        "type": "end",
+        "speakerName": "おきぬ",
+        "content": "「本当に助かったよ、伯耆。村のために、ありがとう。」"
+      },
+      {
+        "content": "「そうか、それは仕方あるまい。あんたにもあんたの都合がある。無理を言うてすまなんだな。またいずれ、頼むかもしれん。その時は、どうか頼むぞ。」",
+        "speakerName": "おきぬ",
+        "audioUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/events%2FjT1VN9H8mjZkwiYdpUgF%2Faudio%2Fnode-5_1773512806038.wav?alt=media&token=2e249795-9182-4edf-842d-d8b9f63ab24d",
+        "id": "node-5",
+        "type": "end",
+        "nextStepId": "node-5",
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9"
+      }
+    ],
+    "villagerId": "pT0EsE1BMBpKRUZSjUb9",
+    "createdAt": "2026-03-14T18:26:47.737Z",
+    "title": "水路の泥掻い",
+    "villagerName": "おきぬ",
+    "plot": "村の長老、世話好きなおきぬが伯耆に声をかけた。「伯耆よ、少しばかり頼みがあるのだがのう。この時分、村の水路が泥で詰まり気味でな。わしら年寄りには難儀な仕事じゃ。あんたの若い力で、水路の泥を掻い出してはくれぬか。礼はきちんとさせてもらう。米三升、これでどうじゃ。」伯耆は考える。この依頼を受けるか、断るか。\n\n【承諾した場合】\n伯耆はきっぱりと答えた。「承知いたしました。おきぬ殿の頼みとあらば、この伯耆、喜んで引き受けましょう。」伯耆は日中、水路に入り、重たい泥と藻を掻き出した。夕刻には水路は清らかになり、水は勢いよく流れた。おきぬは満足げに頷き、伯耆に深々と頭を下げた。「ああ、見事な働きぶりじゃった。水路も清らかになった。これで田も潤うじゃろう。約束の米三升、受け取ってくだされ。」伯耆は米を受け取り、一礼して家路についた。\n\n【拒否した場合】\n伯耆は申し訳なさそうに言った。「申し訳ござらん、おきぬ殿。生憎と今は別の急ぎの用がございまして、この伯耆、手を貸すことが叶いませぬ。」おきぬは寂しげに目を伏せたが、すぐに顔を上げた。「そうか、それは仕方あるまい。あんたにもあんたの都合がある。無理を言うてすまなんだな。またいずれ、頼むかもしれん。その時は、どうか頼むぞ。」伯耆は申し訳なく思いながらも、その場を辞した。"
+  }
+]

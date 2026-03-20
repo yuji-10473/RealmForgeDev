@@ -1,44 +1,47 @@
 [
   {
     "id": "opening_scene1",
+    "bgmUrl": "media/audios/file_450_1773941048785.mp3",
     "worldId": "Zmzp41TLWlimB3mo6SqB",
+    "name": "冒頭の説明",
+    "characters": [
+      {
+        "objectId": "olCEMKCl0vWKNZOIrj2g",
+        "id": "seq_char_1772044933661",
+        "path": [
+          {
+            "y": 1386,
+            "x": 2577,
+            "visibility": "none",
+            "eventId": "k4FQ2Vz6z2hY1OL8ndTu"
+          }
+        ],
+        "speed": 1
+      }
+    ],
     "createdAt": {
       "nanoseconds": 529000000,
       "seconds": 1772038533
     },
-    "characters": [
-      {
-        "path": [
-          {
-            "visibility": "none",
-            "y": 1386,
-            "x": 2577,
-            "eventId": "k4FQ2Vz6z2hY1OL8ndTu"
-          }
-        ],
-        "objectId": "olCEMKCl0vWKNZOIrj2g",
-        "speed": 1,
-        "id": "seq_char_1772044933661"
-      }
-    ],
-    "name": "冒頭の説明",
-    "bgmUrl": "media/audios/file_337_1772654854794.mp3",
     "mapId": "map_0_0"
   },
   {
     "id": "opening_scene",
-    "mapId": "map_0_0",
-    "bgmUrl": "media/audios/file_337_1772654854794.mp3",
-    "name": "新しい物語",
+    "worldId": "8cbQhI5KmyB1d9DrvOvM",
+    "bgmUrl": "media/audios/file_450_1773941048785.mp3",
+    "createdAt": {
+      "nanoseconds": 195000000,
+      "seconds": 1771655025
+    },
     "characters": [
       {
+        "objectId": "A44lygLrpBVZjTZD1EqT",
         "id": "seq_char_1771655133164",
-        "speed": 1,
         "path": [
           {
+            "x": 1604,
             "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
-            "y": 715,
-            "x": 1604
+            "y": 715
           },
           {
             "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
@@ -47,82 +50,79 @@
             "y": 1251
           }
         ],
-        "objectId": "A44lygLrpBVZjTZD1EqT"
+        "speed": 1
       },
       {
-        "objectId": "tTPwcEBQZSA6Bxl7JYcF",
         "path": [
           {
+            "x": 1376,
             "eventId": "SS3U7Dy8AnkaWyguQqGM",
             "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
-            "y": 768,
-            "x": 1376
+            "y": 768
           },
           {
+            "y": 1329,
             "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
             "visibility": "none",
-            "x": 1387,
-            "y": 1329
+            "x": 1387
           }
         ],
         "speed": 1,
-        "id": "seq_char_1771655155105"
+        "id": "seq_char_1771655155105",
+        "objectId": "tTPwcEBQZSA6Bxl7JYcF"
       },
       {
         "objectId": "kMEH8wVv0Y7HfbElMrtt",
+        "id": "seq_char_1771903696866",
         "path": [
           {
             "y": 1462,
-            "x": 1525,
-            "visibility": "disappear"
+            "visibility": "disappear",
+            "x": 1525
           },
           {
-            "visibility": "appear",
             "x": 1609,
-            "y": 1455,
-            "eventId": ""
+            "eventId": "",
+            "visibility": "appear",
+            "y": 1455
           },
           {
+            "y": 1038,
             "eventId": "9Nz9tw4vVX3wGhaau0wx",
             "visibility": "none",
-            "x": 1609,
-            "y": 1038
+            "x": 1609
           },
           {
+            "y": 1460,
             "x": 1642,
-            "visibility": "none",
-            "y": 1460
+            "visibility": "none"
           }
         ],
-        "speed": 1,
-        "id": "seq_char_1771903696866"
+        "speed": 1
       },
       {
         "speed": 1,
-        "id": "seq_char_1772037149901",
         "path": [
           {
             "x": 2591,
+            "eventId": "k4FQ2Vz6z2hY1OL8ndTu",
             "visibility": "none",
-            "y": 1354,
-            "eventId": "k4FQ2Vz6z2hY1OL8ndTu"
+            "y": 1354
           }
         ],
-        "objectId": "olCEMKCl0vWKNZOIrj2g"
+        "objectId": "olCEMKCl0vWKNZOIrj2g",
+        "id": "seq_char_1772037149901"
       }
     ],
-    "createdAt": {
-      "nanoseconds": 195000000,
-      "seconds": 1771655025
-    },
-    "worldId": "8cbQhI5KmyB1d9DrvOvM"
+    "name": "新しい物語",
+    "mapId": "map_0_0"
   },
   {
     "id": "opening_scene",
-    "name": "新しい物語",
+    "mapId": "map_0_0",
     "characters": [
       {
-        "objectId": "kMEH8wVv0Y7HfbElMrtt",
+        "speed": 1,
         "path": [
           {
             "y": 768,
@@ -130,14 +130,14 @@
           }
         ],
         "id": "seq_char_1771211070124",
-        "speed": 1
+        "objectId": "kMEH8wVv0Y7HfbElMrtt"
       }
     ],
     "createdAt": {
       "nanoseconds": 92000000,
       "seconds": 1771211065
     },
-    "worldId": "mEnMq0Q9cBhEx1B39RlT",
-    "mapId": "map_0_0"
+    "name": "新しい物語",
+    "worldId": "mEnMq0Q9cBhEx1B39RlT"
   }
 ]

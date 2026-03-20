@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// --- v1.1.1 Data Types ---
+// --- v1.2.0 Data Types ---
 
 type Step = {
   type: "story" | "video";
@@ -43,6 +43,7 @@ type StoryData = {
   id: string;
   name: string;
   mapId: string;
+  worldId?: string;
   bgmUrl?: string;
   characters: SequenceChar[];
 };
@@ -51,6 +52,32 @@ type VillagerData = {
   id: string;
   name: string;
   imageUrl: string;
+  first_encounter?: { audioUrl?: string };
+  greeting?: { audioUrl?: string };
+  daily_life?: { audioUrl?: string };
+  rumors?: { audioUrl?: string };
+  confide?: { audioUrl?: string };
+};
+
+type MapData = {
+  id: string;
+  name: string;
+  imageUrl?: string;
+};
+
+type WorldData = {
+  id: string;
+  name: string;
+  bgmUrl?: string;
+  audioUrl?: string;
+  maps?: MapData[];
+};
+
+type CatalogData = {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  audioUrl?: string;
 };
 
 type EventNode = {
@@ -82,6 +109,14 @@ export function SequencePlayerClient() {
   const [masterStories, setMasterStories] = useState<StoryData[]>([]);
   const [masterVillagers, setMasterVillagers] = useState<VillagerData[]>([]);
   const [masterEvents, setMasterEvents] = useState<EventFlow[]>([]);
+  const [masterWorlds, setMasterWorlds] = useState<WorldData[]>([]);
+  const [masterCollectionPoints, setMasterCollectionPoints] = useState<CatalogData[]>([]);
+  const [masterMeetingPlaces, setMasterMeetingPlaces] = useState<CatalogData[]>([]);
+  const [masterItems, setMasterItems] = useState<CatalogData[]>([]);
+  const [masterMonsters, setMasterMonsters] = useState<CatalogData[]>([]);
+  const [masterDishes, setMasterDishes] = useState<CatalogData[]>([]);
+  const [masterBuildings, setMasterBuildings] = useState<CatalogData[]>([]);
+  const [masterShops, setMasterShops] = useState<CatalogData[]>([]);
 
   // Playback State
   const [selectedSeqId, setSelectedSeqId] = useState<string>('');
@@ -97,7 +132,7 @@ export function SequencePlayerClient() {
   const voiceRef = useRef<HTMLAudioElement | null>(null);
   const gameLoopRef = useRef<number>(null);
 
-  // v1.1.1 Path Resolution
+  // v1.2.0 Path Resolution
   const resolvePath = useCallback((path: string | undefined, type: 'image' | 'audio' | 'video') => {
     if (!path) return '';
     if (path.startsWith('http') || path.startsWith('/')) return path;
@@ -134,17 +169,33 @@ export function SequencePlayerClient() {
         return await res.json();
       };
 
-      const [seqs, stories, villagers, events] = await Promise.all([
+      const [seqs, stories, villagers, events, worlds, collectionPoints, meetingPlaces, items, monsters, dishes, buildings, shops] = await Promise.all([
         fetchData('narrativeSequences'),
         fetchData('stories'),
         fetchData('villagers'),
-        fetchData('eventFlows')
+        fetchData('eventFlows'),
+        fetchData('worlds'),
+        fetchData('collectionPoints'),
+        fetchData('meetingPlaces'),
+        fetchData('items'),
+        fetchData('monsters'),
+        fetchData('dishes'),
+        fetchData('buildings'),
+        fetchData('shops')
       ]);
 
       setMasterSequences(seqs);
       setMasterStories(stories);
       setMasterVillagers(villagers);
       setMasterEvents(events);
+      setMasterWorlds(worlds || []);
+      setMasterCollectionPoints(collectionPoints || []);
+      setMasterMeetingPlaces(meetingPlaces || []);
+      setMasterItems(items || []);
+      setMasterMonsters(monsters || []);
+      setMasterDishes(dishes || []);
+      setMasterBuildings(buildings || []);
+      setMasterShops(shops || []);
 
       if (seqs.length === 0) throw new Error('物語データが見つかりませんでした。');
       
@@ -177,12 +228,28 @@ export function SequencePlayerClient() {
         return;
       }
 
-      if (story.bgmUrl && bgmRef.current) {
-        bgmRef.current.src = resolvePath(story.bgmUrl, 'audio');
-        bgmRef.current.play().catch(() => {});
+      const world = masterWorlds.find(w => w.id === (story.worldId || story.mapId));
+      const mapData = world?.maps?.find(m => m.id === story.mapId);
+
+      if (mapData?.imageUrl) {
+        setCurrentMapUrl(resolvePath(mapData.imageUrl, 'image'));
+      } else {
+        setCurrentMapUrl(resolvePath(`${story.mapId}.png`, 'image'));
       }
 
-      setCurrentMapUrl(resolvePath(`${story.mapId}.png`, 'image'));
+      const targetBgm = story.bgmUrl || world?.bgmUrl || world?.audioUrl;
+      if (targetBgm && bgmRef.current) {
+        const resolvedBgm = resolvePath(targetBgm, 'audio');
+        if (bgmRef.current.getAttribute('src') !== resolvedBgm) {
+          bgmRef.current.setAttribute('src', resolvedBgm);
+          bgmRef.current.play().catch(() => {});
+        } else if (bgmRef.current.paused) {
+          bgmRef.current.play().catch(() => {});
+        }
+      } else if (!targetBgm && bgmRef.current) {
+        bgmRef.current.pause();
+        bgmRef.current.removeAttribute('src');
+      }
 
       const newChars: Record<string, any> = {};
       story.characters.forEach(sc => {
@@ -250,6 +317,14 @@ export function SequencePlayerClient() {
                   break;
                 }
               }
+            } else {
+              // イベントが無い場合、挨拶音声等のプレビュー再生を試みる
+              if (c.data?.greeting?.audioUrl && !activeEvent) {
+                if (!voiceRef.current) voiceRef.current = new Audio();
+                voiceRef.current.src = resolvePath(c.data.greeting.audioUrl, 'audio');
+                voiceRef.current.muted = isMuted;
+                voiceRef.current.play().catch(() => {});
+              }
             }
           } else {
             next[id] = { ...c, x: c.x + (dx / dist) * moveSpeed, y: c.y + (dy / dist) * moveSpeed };
@@ -287,7 +362,7 @@ export function SequencePlayerClient() {
   if (masterSequences.length === 0) {
     return (
       <Card className="max-w-md mx-auto">
-        <CardHeader><CardTitle>プロジェクト読込 (v1.1.1)</CardTitle></CardHeader>
+        <CardHeader><CardTitle>プロジェクト読込 (v1.2.0)</CardTitle></CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-2">
             <Input value={projectRoot} onChange={e => setProjectRoot(e.target.value)} placeholder="例: /sequences/demo" />

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "UZeJDSSkM4ahjQ6ilTgB",
+    "shopType": "diner",
+    "dishIds": [
+      "JwZX5uOJ7ImaHMMtRywJ",
+      "h6xq7ql0jtwtWf4lWb3l"
+    ],
+    "name": "うめの飯屋",
+    "createdAt": "2026-03-15T20:00:26.757Z",
+    "itemIds": [],
+    "ownerId": "wMSjRWzjMW8zmymdIxYk",
+    "description": "うめが運営する飯屋"
+  },
+  {
+    "id": "leNTiskpyzvZGcYMjGpq",
+    "name": "農作物いね",
+    "createdAt": "2026-03-12T06:38:27.785Z",
+    "itemIds": [
+      "KfC755P2vtX74e1mqqEF",
+      "hjZwcagGSJ5ZqxQ7c7aG"
+    ],
+    "ownerId": "TFS6nW3oE8YYdiJ21M9R",
+    "description": "いねが販売する農作物"
+  }
+]

@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '../ui/select';
 import {Button} from '../ui/button';
+import {Slider} from '@/components/ui/slider';
 import { MenuIcon } from '@/components/icons/MenuIcon';
 import {
   Sheet,
@@ -86,6 +87,8 @@ type AvailableObject = {
   width?: number;
   height?: number;
   type?: 'person' | 'door' | 'item';
+  itemIds?: string[];
+  description?: string;
 };
 
 type PlayerCharacter = {
@@ -104,6 +107,8 @@ type MapCell = {
 type WorldData = {
   id: string;
   name: string;
+  bgmUrl?: string;
+  audioUrl?: string;
   rows: number;
   cols: number;
   maps: MapCell[];
@@ -230,6 +235,20 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
   const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
 
+  const [isMuted, setIsMuted] = useState(initialData?.isMuted ?? false);
+  const [volume, setVolume] = useState(initialData?.volume ?? 0.5);
+  const bgmRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (!bgmRef.current) {
+      bgmRef.current = new Audio();
+      bgmRef.current.loop = true;
+    }
+    bgmRef.current.muted = isMuted;
+    bgmRef.current.volume = volume;
+  }, [isMuted, volume]);
+
+
   // Animation State
   const [playerClips, setPlayerClips] = useState<AnimationClip[]>([]);
   const [animState, setAnimState] = useState<CharacterAnimationState>({
@@ -252,6 +271,25 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null;
 
   useEffect(() => {
+    if (!currentWorld) return;
+    const targetBgm = currentWorld.bgmUrl || currentWorld.audioUrl;
+    if (targetBgm && bgmRef.current) {
+      const resolved = resolveMediaUrl(targetBgm);
+      if (bgmRef.current.getAttribute('src') !== resolved) {
+        bgmRef.current.setAttribute('src', resolved);
+        const p = bgmRef.current.play();
+        if (p !== undefined) p.catch(() => console.warn('Autoplay prevented. Please interact with the screen.'));
+      } else if (bgmRef.current.paused) {
+        const p = bgmRef.current.play();
+        if (p !== undefined) p.catch(() => {});
+      }
+    } else if (!targetBgm && bgmRef.current) {
+      bgmRef.current.pause();
+      bgmRef.current.removeAttribute('src');
+    }
+  }, [currentWorld]);
+
+  useEffect(() => {
     const init = async () => {
       try {
         setLoading(true);
@@ -262,12 +300,17 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return Array.isArray(data) ? data : (data.worlds || data.events || []);
         };
 
-        const [worldIndex, villagers, items, buildings, events, playerListRes] = await Promise.all([
+        const [worldIndex, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes] = await Promise.all([
           fetchData('worlds'),
           fetchData('villagers'),
           fetchData('items'),
           fetchData('buildings'),
           fetchData('eventFlows'),
+          fetchData('collectionPoints'),
+          fetchData('meetingPlaces'),
+          fetchData('monsters'),
+          fetchData('dishes'),
+          fetchData('shops'),
           fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] })
         ]);
 
@@ -283,7 +326,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }));
 
         setMasterWorlds(fullWorlds);
-        setAvailableObjects([...villagers, ...items, ...buildings]);
+        setAvailableObjects([...villagers, ...items, ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...dishes, ...shops]);
         setMasterEvents(events);
         setPlayerCharacters(playerListRes.characters || []);
 
@@ -350,6 +393,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       positionY: characterPosition.y,
       inventory,
       gold,
+      volume,
+      isMuted,
       updatedAt: serverTimestamp(),
     };
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
@@ -357,6 +402,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   };
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (bgmRef.current && bgmRef.current.paused && bgmRef.current.getAttribute('src')) {
+      bgmRef.current.play().catch(() => {});
+    }
+
     if (isGamePaused || !mapContainerRef.current) return;
     const rect = mapContainerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * MAP_WIDTH - CHARACTER_WIDTH / 2;
@@ -374,6 +423,21 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       const dist = Math.sqrt(Math.pow(charCX - (currentX + obj.width / 2), 2) + Math.pow(charCY - (obj.y + obj.height / 2), 2));
 
       if (dist < INTERACTION_RADIUS) {
+        const asset = availableObjects.find(a => a.id === obj.objectId);
+        if (asset?.itemIds && asset.itemIds.length > 0) {
+          const randomItemId = asset.itemIds[Math.floor(Math.random() * asset.itemIds.length)];
+          const gatheredItem = availableObjects.find(a => a.id === randomItemId);
+          if (gatheredItem) {
+            setInventory(prev => {
+              const existing = prev.find(i => i.itemId === randomItemId);
+              if (existing) return prev.map(i => i.itemId === randomItemId ? { ...i, quantity: i.quantity + 1 } : i);
+              return [...prev, { itemId: randomItemId, quantity: 1 }];
+            });
+            toast({ title: "採集完了", description: `${asset.name} から「${gatheredItem.name}」を手に入れた！` });
+          }
+          return;
+        }
+
         if (obj.transition) {
           const { targetMapId, targetX, targetY } = obj.transition;
           
@@ -405,7 +469,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects]);
 
   useEffect(() => {
     const loop = (currentTime: number) => {
@@ -522,6 +586,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
+      if (bgmRef.current && bgmRef.current.paused && bgmRef.current.getAttribute('src')) {
+        bgmRef.current.play().catch(() => {});
+      }
+
       if ([' ', 'Enter'].includes(e.key)) {
         e.preventDefault();
         checkForInteraction();
@@ -573,8 +641,24 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </Select>
           </div>
 
-          <div className="flex gap-2 shrink-0">
-            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary">{gold} K</div>
+          <div className="flex gap-2 shrink-0 items-center">
+            <div className="flex items-center gap-2 bg-background/50 border rounded-lg px-2 py-1">
+              <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => setIsMuted(!isMuted)}>
+                {isMuted || volume === 0 ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+              </Button>
+              <div className="w-20 sm:w-24 pr-2">
+                <Slider 
+                  value={[isMuted ? 0 : volume * 100]} 
+                  max={100} 
+                  step={1} 
+                  onValueChange={(vals) => {
+                    setVolume(vals[0] / 100);
+                    if (vals[0] > 0 && isMuted) setIsMuted(false);
+                  }} 
+                />
+              </div>
+            </div>
+            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center">{gold} K</div>
             <Button size="icon" variant="outline" onClick={handleSave}><Save className="h-4 w-4"/></Button>
             <SheetTrigger asChild><Button size="icon" variant="outline"><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
@@ -590,11 +674,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               <Image src={resolveMediaUrl(activeMapData.imageUrl)} alt="" fill className="object-cover" unoptimized priority />
               {activeMapData.objects.map(obj => {
                 const asset = availableObjects.find(a => a.id === obj.objectId);
-                if (!asset) return null;
+                if (!asset || !asset.imageUrl) return null;
                 const curX = npcStates[obj.id]?.x ?? obj.x;
+                const imgUrl = resolveMediaUrl(asset.imageUrl);
+                if (!imgUrl) return null;
+
                 return (
                   <div key={obj.id} style={{ left: `${(curX / MAP_WIDTH) * 100}%`, top: `${(obj.y / MAP_HEIGHT) * 100}%`, width: `${(obj.width / MAP_WIDTH) * 100}%`, position: 'absolute' }}>
-                    <Image src={resolveMediaUrl(asset.imageUrl)} alt="" layout="responsive" width={asset.width || 256} height={asset.height || 256} unoptimized />
+                    <Image src={imgUrl} alt="" layout="responsive" width={asset.width || 256} height={asset.height || 256} unoptimized />
                   </div>
                 );
               })}

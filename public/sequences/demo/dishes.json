@@ -1,0 +1,1831 @@
+[
+  {
+    "id": "2SHl9vPaAWszftM720sc",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2F2SHl9vPaAWszftM720sc.png?alt=media&token=3756cb15-6896-4c41-bfe4-bf2f9452e160",
+    "rarity": 5,
+    "name": "昇竜ホウボウと松茸の雅蒸し",
+    "createdAt": "2026-03-03T18:30:36.053Z",
+    "description": "金色の鱗輝くホウボウを、清らかな出汁とみりんで丁寧に蒸し上げた一品。その上に、気高き香りの松茸、優美なきぬがさ茸、そして海の恵みたる濃厚な雲丹を添える。一口頬張れば、深淵なる海の幸と山の恵みが織りなす至高の風味が、心身を癒すであろう。",
+    "recoveryAmount": 160,
+    "ingredients": [
+      {
+        "name": "ホウボウ",
+        "id": "jLzSFqpHnh9NQ3Y6vvJ0"
+      },
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK"
+      },
+      {
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "ウニ",
+        "id": "YzTZxIFZLFuw6Y5NTIab"
+      }
+    ]
+  },
+  {
+    "id": "2aoSaYoDjoS6QDn8qH7L",
+    "ingredients": [
+      {
+        "name": "秋刀魚",
+        "id": "Mp12LDJ0zexNYvbSoX4a"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "ししとう",
+        "id": "hjZwcagGSJ5ZqxQ7c7aG"
+      },
+      {
+        "name": "柿",
+        "id": "yM3qjHb3MURbMEtjE8CB"
+      },
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      }
+    ],
+    "recoveryAmount": 120,
+    "description": "脂の乗った秋刀魚を丁寧に炙り、香ばしい焦げ目を付け、秋の恵みであるししとうとしいたけと共に焼き上げた一品。甘く熟した柿が、焼魚の風味に奥深さと季節の彩りを添え、口の中に広がる豊かな味わいは、まるで錦に染まる秋の山々を思わせる。",
+    "name": "錦秋の秋刀魚彩り焼き",
+    "createdAt": "2026-03-03T18:37:46.865Z",
+    "rarity": 3,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2F2aoSaYoDjoS6QDn8qH7L.png?alt=media&token=4910f566-cf51-4568-b8a0-1e13126cee85"
+  },
+  {
+    "id": "3lIeyoKU4ixPE3DHXonw",
+    "ingredients": [
+      {
+        "name": "マダイ",
+        "id": "8lsKJW8hJWyELJhdNsmj"
+      },
+      {
+        "name": "ホンシメジ",
+        "id": "wjNpgsoUGtPWkykXvfyk"
+      },
+      {
+        "name": "大根",
+        "id": "zoSSJHt3VcF7YYSm6N7m"
+      },
+      {
+        "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg"
+      },
+      {
+        "name": "味噌",
+        "id": "2H6H30X0wlCBYfbtm2sk"
+      }
+    ],
+    "recoveryAmount": 150,
+    "description": "深き山々で育まれしホンシメジの香りと、清き海より獲れし真鯛の旨味が溶け合う、清らかな蒸し料理。口に含めば、山芋のとろみが舌を包み込み、大根の清涼な風味が後を追う。鯛と茸を酒と少量の味噌で蒸し上げ、素材本来の味わいを最大限に引き出した逸品なり。",
+    "name": "真鯛とホンシメジの深山の恵み蒸し",
+    "createdAt": "2026-03-03T18:31:51.562Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2F3lIeyoKU4ixPE3DHXonw.png?alt=media&token=c2fde8cf-33cd-432c-b086-11cd57d4b11f"
+  },
+  {
+    "id": "5nqKHCGpKQy8gIb3KV1v",
+    "name": "紅玉蟹と磯宝の姿蒸し",
+    "createdAt": "2026-03-03T18:37:28.735Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2F5nqKHCGpKQy8gIb3KV1v.png?alt=media&token=1757e218-ff3f-4b5e-a1c0-dfc8b83df6cf",
+    "ingredients": [
+      {
+        "name": "紅ズワイガニ",
+        "id": "ZoynJPNkAS3aA99cWBlX"
+      },
+      {
+        "name": "サザエ",
+        "id": "eFmdysNHnI5NAURBTcVF"
+      },
+      {
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "name": "イワタケ",
+        "id": "ox3Yzp87XLY9J2oMfmrj"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      }
+    ],
+    "recoveryAmount": 160,
+    "description": "深海の紅玉たる紅ズワイガニを中心に、磯の恵みであるサザエとホタテ、そして秘境に息づくイワタケ、香豊かな葱を贅沢に盛り込み、優しく蒸し上げた逸品。立ち上る湯気と共に海の香が広がり、一口含めば、カニの甘みと磯の旨味が口いっぱいに満ち、滋味深いイワタケと葱の香りが繊細な風味を添える。素材の持ち味を最大限に引き出すため、新鮮なまま、少量の酒と共に蒸篭でじっくりと蒸し上げました。"
+  },
+  {
+    "id": "679F8NUB7m1UrPPAUYkh",
+    "name": "潮風薫る平政の彩り造り",
+    "createdAt": "2026-03-03T18:33:04.523Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2F679F8NUB7m1UrPPAUYkh.png?alt=media&token=181d9a6c-68df-4232-b39d-caeb3be24244",
+    "recoveryAmount": 150,
+    "ingredients": [
+      {
+        "name": "平政",
+        "id": "uTSFIz6bYNyKFQgUg8Nu"
+      },
+      {
+        "name": "縞鯵",
+        "id": "xEAYmyPE8MbIuMYM1s7X"
+      },
+      {
+        "name": "アカガイ",
+        "id": "Q3azybqvPedx0YPwZWwV"
+      },
+      {
+        "name": "ワカメ",
+        "id": "VWjfw0RXg0J3HRJABwGo"
+      },
+      {
+        "name": "ミツバ",
+        "id": "3YZfJ2kNdsbpz0GHk0Yz"
+      }
+    ],
+    "description": "厳選された平政と縞鯵を薄造りにし、瑞々しいアカガイと磯の香豊かなワカメ、そして清々しいミツバと共に美しく盛り付けた逸品。口に運べば、海の恵みが織りなす繊細な旨味が広がり、潮風のような爽やかさが心身を癒すでしょう。新鮮な魚介を丁寧に捌き、彩り豊かに盛り付けただけの、素材の持ち味を最大限に引き出した逸品です。"
+  },
+  {
+    "id": "7otQpn8ugYoYb3uOInb6",
+    "recoveryAmount": 130,
+    "ingredients": [
+      {
+        "name": "イカ",
+        "id": "e4MS3bAlVhNcZLeW7wC9"
+      },
+      {
+        "name": "味噌",
+        "id": "2H6H30X0wlCBYfbtm2sk"
+      },
+      {
+        "name": "大根",
+        "id": "zoSSJHt3VcF7YYSm6N7m"
+      },
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "アカザラガイ",
+        "id": "HWoHHDxYrMeOb76mBuKJ"
+      }
+    ],
+    "description": "濃厚な味噌の香りが食欲をそそる一品。柔らかく煮込まれたイカと、歯ごたえ豊かなアカザラガイの旨味が、染み込んだ大根としいたけと共に口いっぱいに広がる。海の恵みを贅沢に使い、特製の味噌だれでじっくりと煮込んだ逸品である。",
+    "name": "深海の恵み、潮騒の具足煮",
+    "createdAt": "2026-03-03T17:17:11.745Z",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2F7otQpn8ugYoYb3uOInb6.png?alt=media&token=a07e19ba-c3e6-4943-9812-e03397aef605",
+    "rarity": 4
+  },
+  {
+    "id": "AntZxvj090mN75tOrCdG",
+    "createdAt": "2026-03-03T17:42:29.859Z",
+    "name": "潮騒の恵み、五宝の海山焼き",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FAntZxvj090mN75tOrCdG.png?alt=media&token=d1e07f40-67b1-4d9f-886c-0f4fe95ebd40",
+    "recoveryAmount": 180,
+    "ingredients": [
+      {
+        "name": "カツオ",
+        "id": "53a43XLTHX09uRI9V2Gu"
+      },
+      {
+        "name": "ワサビの根茎",
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      },
+      {
+        "name": "ホンシメジ",
+        "id": "wjNpgsoUGtPWkykXvfyk"
+      },
+      {
+        "name": "サザエ",
+        "id": "eFmdysNHnI5NAURBTcVF"
+      },
+      {
+        "name": "タケノコ",
+        "id": "KU5dMDHGiJUmEhv59Kd8"
+      }
+    ],
+    "description": "黒潮に揉まれた新鮮なカツオを豪快に炙り、磯の香豊かなサザエ、清らかな山の恵みであるホンシメジとタケノコを添えました。薬味のワサビが素材の旨味を一層引き立て、口いっぱいに海と山の恵みが広がる逸品です。これらの食材は、焚き火で丁寧に炙られ、その香ばしさが格別の味わいを生み出します。"
+  },
+  {
+    "id": "BfFpaD8TiXkSzYjPXvu3",
+    "rarity": 3,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FBfFpaD8TiXkSzYjPXvu3.png?alt=media&token=658c2793-44d3-416f-9255-9e08500f9baf",
+    "name": "清流カジカの滋養汁",
+    "createdAt": "2026-03-03T17:43:27.712Z",
+    "description": "清らかな川で獲れたカジカを主役に、土の恵みと海の幸が溶け合う滋味深い汁物。生姜が魚の風味を引き立て、牛蒡と大豆が深みと食感を加え、ワカメが磯の香りを添える。全ての具材を丁寧に煮込み、心身を温める一品に仕上げた。",
+    "ingredients": [
+      {
+        "name": "カジカ",
+        "id": "jTqpUdOfrQFbGaElicVh"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "牛蒡",
+        "id": "3jIIklqiteVQC0Ae5qjt"
+      },
+      {
+        "name": "大豆",
+        "id": "JGZQ3ns1WcfsUi56u10y"
+      },
+      {
+        "name": "ワカメ",
+        "id": "VWjfw0RXg0J3HRJABwGo"
+      }
+    ],
+    "recoveryAmount": 120
+  },
+  {
+    "id": "DmfWXWEGPtMUp1RdXaw7",
+    "ingredients": [
+      {
+        "name": "伊勢海老",
+        "id": "tblQtSx30FPHOuSB8zZE"
+      },
+      {
+        "name": "コンブ",
+        "id": "fTD4pKW8rlT7aRjpnGH0"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      }
+    ],
+    "recoveryAmount": 3000,
+    "description": "瑞々しい伊勢海老を贅沢に丸ごと使い、昆布出汁と生姜の香る特製煮汁でじっくりと煮込んだ逸品。米飴と醤油で調えた琥珀色の餡が伊勢海老の旨味を包み込み、口に運べば至福の甘辛さが広がる。その豪華な見た目は、まさに宝船の如し。",
+    "name": "宝船伊勢海老の旨煮",
+    "createdAt": "2026-03-03T13:42:41.724Z",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FDmfWXWEGPtMUp1RdXaw7.png?alt=media&token=17f44f50-c370-4a91-a3f1-c94ad5530ef6"
+  },
+  {
+    "id": "HMMrY0M5cAodUAFh9D0R",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FHMMrY0M5cAodUAFh9D0R.png?alt=media&token=a456400f-361b-4698-8117-1f15c453e5e1",
+    "rarity": 5,
+    "name": "昇龍海老と山海の寿汁",
+    "createdAt": "2026-03-03T18:38:15.092Z",
+    "description": "駿河湾の深き恵み、車海老が昇り立つが如く姿を現し、古き森の霊気宿る松茸、春告げるタラの芽、香り高きミツバ、そして土の滋味を宿す里芋と共に、澄んだ出汁で丁寧に仕立てた椀物。それぞれの食材が持つ風味を最大限に引き出すべく、静かに温められた清らかな出汁へと加えられ、海と山の恵みが織りなす至福の香りが心身を深く癒すだろう。",
+    "recoveryAmount": 143,
+    "ingredients": [
+      {
+        "name": "車海老",
+        "id": "kK6YCX8jsbmrrjaniC6W"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "タラの芽",
+        "id": "4LX5NPVfFizQCUlmXUHE"
+      },
+      {
+        "name": "ミツバ",
+        "id": "3YZfJ2kNdsbpz0GHk0Yz"
+      },
+      {
+        "name": "里芋",
+        "id": "jYqWUsreHLxSHVkbYIyd"
+      }
+    ]
+  },
+  {
+    "id": "Hcm8OC1TGp7PdEpk039R",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FHcm8OC1TGp7PdEpk039R.png?alt=media&token=e2dbbe6e-73d5-419f-8f41-8a4c3fa69d48",
+    "name": "深海王キンキの昇龍煮",
+    "createdAt": "2026-03-03T17:43:02.230Z",
+    "description": "深紅に輝くキンキの身に、漆黒の深山黒茸が添えられ、食欲をそそる香りが立ち込める。口に含むと、キンキの濃厚な脂と深山黒茸の奥深い旨味が合わさり、極上の滋味をもたらす。清らかな水で煮込んだキンキに、深山黒茸、葱、そして秘伝の醤油と味噌を加え、じっくりと火にかけることで、素材の魂が一つとなる。",
+    "recoveryAmount": 150,
+    "ingredients": [
+      {
+        "name": "キンキ",
+        "id": "ZG5s4s3JkUO3Txnbx4AH"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "深山黒茸",
+        "id": "199WE9uvPmPJh5zNhR41"
+      },
+      {
+        "name": "味噌",
+        "id": "2H6H30X0wlCBYfbtm2sk"
+      }
+    ]
+  },
+  {
+    "id": "IwSsGjuvzS8W9pPKml2N",
+    "createdAt": "2026-03-03T17:43:58.277Z",
+    "name": "海神の祝宴鍋",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FIwSsGjuvzS8W9pPKml2N.png?alt=media&token=1b8b5d97-a613-449d-8838-2a4a83bf7e01",
+    "recoveryAmount": 220,
+    "ingredients": [
+      {
+        "name": "クエ",
+        "id": "91Hx3yUejdXsduLKWRLc"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "ウニ",
+        "id": "YzTZxIFZLFuw6Y5NTIab"
+      },
+      {
+        "name": "アワビ",
+        "id": "5nMtu9gPetWlnwXZ3OBz"
+      },
+      {
+        "name": "アカモク",
+        "id": "55j4sJfonG5zFqokqJuc"
+      }
+    ],
+    "description": "深海の王者クエを主役に、磯の香豊かなウニとアワビ、海の滋味たるアカモク、そして至高の香りのまつたけを贅沢に配した鍋料理。とろける身と濃厚な出汁が五臓六腑に染み渡り、疲弊した魂さえ癒す。清らかな泉の水と昆布で食材の旨味を最大限に引き出し、丁寧に炊き上げることで完成する、まさに海神が授けし逸品である。"
+  },
+  {
+    "id": "J0lxP9CqhpXut7eXU1U7",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FJ0lxP9CqhpXut7eXU1U7.png?alt=media&token=c32880c5-8d41-436e-998c-355656b5ceb1",
+    "name": "瑞獣蟹宝珠",
+    "createdAt": "2026-03-03T18:33:18.438Z",
+    "description": "白く輝く本ズワイガニの身と、海の恵みであるホタテ貝が織りなす極上の逸品。しいたけの芳醇な香りとジネンジョの滑らかなとろみが、ひじきの磯の香りと共に口いっぱいに広がる。全ての食材を丁寧に蒸し上げ、特製の出汁で優しく煮込んだ後、とろりとした餡をかけて仕上げる、高貴な味わいの滋養料理。",
+    "ingredients": [
+      {
+        "name": "本ズワイガニ",
+        "id": "Zal6r4vOH5DgFXvoEiAv"
+      },
+      {
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "ジネンジョ",
+        "id": "7iTiMLHySgBCMa95VVZb"
+      },
+      {
+        "name": "ひじき",
+        "id": "hszcWFxgiPgsrofAaYd4"
+      }
+    ],
+    "recoveryAmount": 160
+  },
+  {
+    "id": "JwZX5uOJ7ImaHMMtRywJ",
+    "description": "伊勢海老の鮮やかな赤と松茸の芳醇な香りが食欲をそそる、贅を尽くした一品。ぷりぷりの伊勢海老を醤油と米飴で照り焼きにし、香ばしく焼き上げた松茸と共に供する。生姜の爽やかな風味が海の恵みと山の幸を見事に結びつけ、一口食べれば月光のように輝く至福の味わいが広がる。",
+    "ingredients": [
+      {
+        "name": "伊勢海老",
+        "id": "tblQtSx30FPHOuSB8zZE"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      }
+    ],
+    "recoveryAmount": 950,
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FJwZX5uOJ7ImaHMMtRywJ.png?alt=media&token=f54325a3-c105-4130-9341-b73f49cbbdaf",
+    "name": "伊勢海老と松茸の月光焼き",
+    "createdAt": "2026-03-03T13:50:38.624Z"
+  },
+  {
+    "id": "LdY92GiFVPu6O7Wxd5MY",
+    "recoveryAmount": 70,
+    "ingredients": [
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK"
+      },
+      {
+        "name": "タケノコ",
+        "id": "KU5dMDHGiJUmEhv59Kd8"
+      },
+      {
+        "name": "人参",
+        "id": "KZpwGqZRFCzr2T34LqAM"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK"
+      },
+      {
+        "name": "本ズワイガニ",
+        "id": "Zal6r4vOH5DgFXvoEiAv"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "春巻きの皮",
+        "id": "manual"
+      },
+      {
+        "name": "胡椒",
+        "id": "manual"
+      },
+      {
+        "name": "水",
+        "id": "manual"
+      }
+    ],
+    "description": "黄金色に揚げられた皮はサクサクと軽やかで、一口食べれば本ズワイガニの豊かな旨味と筍の歯ごたえが口いっぱいに広がる。生姜と椎茸の香りが食欲をそそる逸品だ。",
+    "name": "蟹春巻き",
+    "createdAt": "2026-03-14T12:54:11.953Z",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FLdY92GiFVPu6O7Wxd5MY.png?alt=media&token=3c90a0cd-d023-4c83-86d4-a5a773f98035",
+    "rarity": 4
+  },
+  {
+    "id": "LzNDYjloaoumHY0OO3Nb",
+    "name": "昇竜海山の絢爛五味",
+    "createdAt": "2026-03-03T18:30:24.589Z",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FLzNDYjloaoumHY0OO3Nb.png?alt=media&token=bd3b5a00-ff15-4d85-8f4e-c3494b22ea04",
+    "rarity": 5,
+    "recoveryAmount": 220,
+    "ingredients": [
+      {
+        "name": "ブリ",
+        "id": "lF4QQv96wuBNKRDqB20h"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "ホッキ貝",
+        "id": "Bw25bk1NW2dTngqTaMBK"
+      },
+      {
+        "name": "ハナビラタケ",
+        "id": "ygkM6FTx6unhf36hd5jz"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      }
+    ],
+    "description": "黄金色に焼き上げられた鰤を主役に、芳醇な香りの松茸、甘み豊かな北寄貝、海の宝石たる車海老、そして神秘的な花弁茸が彩りを添える。これらの山海の恵みを、秘伝の技で最高の状態に引き出し、一口食べれば昇竜の如く力が湧き上がる、まさに至高の御膳である。"
+  },
+  {
+    "id": "MUpfnB3pd8xYvx5ut6gO",
+    "ingredients": [
+      {
+        "name": "マサバ",
+        "id": "n30MXiK2fFT63kFyC7sJ"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "ひじき",
+        "id": "hszcWFxgiPgsrofAaYd4"
+      },
+      {
+        "name": "牛蒡",
+        "id": "3jIIklqiteVQC0Ae5qjt"
+      },
+      {
+        "name": "舞茸",
+        "id": "kT2BcR4eInEm3Bjub88A"
+      }
+    ],
+    "recoveryAmount": 140,
+    "description": "潮風香るマサバと、大地の恵みである生姜、ひじき、牛蒡、舞茸を丁寧に煮込んだ滋養あふれる一品。とろけるような鯖の旨味と、各食材が織りなす奥深い味わいが口いっぱいに広がり、疲れた体に活力を与えるでしょう。まずは鯖を清めて下処理を施し、千切りにした生姜と共に鍋へ。水と調味料を加え、ひじき、牛蒡、舞茸を加えて、それぞれの食材が持つ滋味を最大限に引き出すよう、ゆっくりと煮含めました。",
+    "name": "銀鱗滋養煮",
+    "createdAt": "2026-03-03T18:31:32.208Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FMUpfnB3pd8xYvx5ut6gO.png?alt=media&token=a8b97ab2-8775-4aad-9fe8-3e5433dfaea6"
+  },
+  {
+    "id": "MhCCZhdvSUZhJkWsAcjz",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FMhCCZhdvSUZhJkWsAcjz.png?alt=media&token=a1485575-dea7-4851-8596-b8c839fafe6c",
+    "rarity": 4,
+    "name": "海底の宝玉煮",
+    "createdAt": "2026-03-03T18:32:06.516Z",
+    "description": "紺碧の深海に潜む宝の如く、ミズダコは柔らかく、車海老は甘く、アカガイは磯の香を放つ。これらを秘伝の出汁で丁寧に煮込み、山芋の優しいとろみときぬがさ茸の繊細な風味で仕上げた一品。一口含めば、海の底から湧き上がるような生命力が心身に満ち渡る。",
+    "recoveryAmount": 195,
+    "ingredients": [
+      {
+        "name": "ミズダコ",
+        "id": "xykgWubdzEVxEFdgiVvt"
+      },
+      {
+        "name": "車海老",
+        "id": "kK6YCX8jsbmrrjaniC6W"
+      },
+      {
+        "name": "アカガイ",
+        "id": "Q3azybqvPedx0YPwZWwV"
+      },
+      {
+        "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg"
+      },
+      {
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      }
+    ]
+  },
+  {
+    "id": "N0VbbBrG33XPlPy9ToIj",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FN0VbbBrG33XPlPy9ToIj.png?alt=media&token=f6f25599-9477-43bf-a8cd-4e81a8ebd6aa",
+    "createdAt": "2026-03-03T13:49:35.471Z",
+    "name": "深山猪肉の米飴照り煮",
+    "description": "山深い森で育った猪肉を主役に、稀少なホンシメジと共に米飴と醤油でじっくりと照り煮にした一品。艶やかな琥珀色に輝く猪肉は、口にすればとろけるような柔らかさで、奥深い旨味が広がります。ホンシメジの芳醇な香りと生姜の清涼感が、猪肉の滋味を一層引き立て、心身に活力を与えるでしょう。猪肉の表面を焼き固めてから、米飴、醤油、酒、おろし生姜を加えて、ホンシメジと共にゆっくりと煮含めることで、深い味わいととろけるような食感を生み出します。",
+    "recoveryAmount": 480,
+    "ingredients": [
+      {
+        "name": "イノシシ肉",
+        "id": "azmXcyKC3nnAAteW0ZuG"
+      },
+      {
+        "name": "ホンシメジ",
+        "id": "wjNpgsoUGtPWkykXvfyk"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      }
+    ]
+  },
+  {
+    "id": "NuF9cKJ4jk6PzGYkANfF",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FNuF9cKJ4jk6PzGYkANfF.png?alt=media&token=7d80814f-c3f8-46e7-9b11-12824bd76511",
+    "name": "黄金蟹茸宝珠蒸し",
+    "createdAt": "2026-03-03T18:34:03.135Z",
+    "description": "深紅の毛蟹が黄金色の雲丹と稀少な茸を抱き、秘伝の出汁で蒸し上げた逸品。口に含めば、磯の香りと大地の恵みが織りなす至福の甘みが広がり、心身に活力が満ちるだろう。活きの良い毛蟹とモクズガニを丁寧に捌き、雲丹と香り高きシロカノコタケ、ポルチーニ茸と共に器に盛り、酒と少量の塩で調えた出汁を張って、強火で一気に蒸し上げる。",
+    "recoveryAmount": 200,
+    "ingredients": [
+      {
+        "name": "毛蟹",
+        "id": "GYxAN3yTtym288E3BrOf"
+      },
+      {
+        "name": "雲丹",
+        "id": "jhNVIDFcL2HOafI5Ce7D"
+      },
+      {
+        "name": "シロカノコタケ",
+        "id": "sZAJ5kQ5pHxzgCpuYyn9"
+      },
+      {
+        "name": "ポルチーニ茸",
+        "id": "iJrOh2eSQn6LQ1DiusvR"
+      },
+      {
+        "name": "モクズガニ",
+        "id": "WPsLLsG7HQFBIeGHCrDR"
+      }
+    ]
+  },
+  {
+    "id": "NuPxdXSrdEtWDHqVCd09",
+    "recoveryAmount": 120,
+    "ingredients": [
+      {
+        "name": "アオリイカ",
+        "id": "TmG7yvtmwbclAGj7yYmE"
+      },
+      {
+        "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg"
+      },
+      {
+        "name": "アサリ",
+        "id": "K3u8xXSdIOZHktqJ45ZL"
+      },
+      {
+        "name": "大根",
+        "id": "zoSSJHt3VcF7YYSm6N7m"
+      },
+      {
+        "name": "コウタケ",
+        "id": "4Lm06zklbNoy3zg6tN1N"
+      }
+    ],
+    "description": "透き通るようなアオリイカの身と、海の旨味を凝縮したアサリが織りなす磯の香りに、コウタケの深い土の香りが重なる逸品。やわらかな大根と山芋が、それぞれの出汁を吸い込み、滋味あふれる味わいを生み出す。これらの食材を丁寧に煮込み、心身を癒す豊かな恵みとした。",
+    "name": "烏賊と山の幸、潮の恵み煮",
+    "createdAt": "2026-03-03T17:01:58.226Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FNuPxdXSrdEtWDHqVCd09.png?alt=media&token=de0acde0-ea3d-4f75-b363-a8c0ee34405c"
+  },
+  {
+    "id": "RGZIfsCPX63iAUMRuOej",
+    "name": "深海黄金雲丹飯",
+    "createdAt": "2026-03-03T17:43:13.553Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FRGZIfsCPX63iAUMRuOej.png?alt=media&token=6abd1cdb-a69f-417c-9cf6-c3f2e5806836",
+    "recoveryAmount": 150,
+    "ingredients": [
+      {
+        "name": "ウニ",
+        "id": "YzTZxIFZLFuw6Y5NTIab"
+      },
+      {
+        "name": "白米",
+        "id": "mQ5aybZclKtqbmhzSNUj"
+      },
+      {
+        "name": "ゴギ",
+        "id": "KHT4u4qy72i6VFpJSgXP"
+      },
+      {
+        "name": "ミョウガ",
+        "id": "Ef2yeNUWRLdnkBgUHZX8"
+      },
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK"
+      }
+    ],
+    "description": "この料理は、深海の宝である黄金色の雲丹と、清らかな渓流に住まう神秘の魚ゴギが織りなす絶妙な一品です。熱々の白米の上に、みりんを軽く刷毛で塗ったゴギの切り身と、とろけるような甘さの雲丹を贅沢に盛り付け、最後に清涼感あふれるミョウガを添えました。一口頬張れば、海の恵みと大地の香りが口いっぱいに広がり、至福の時をもたらすでしょう。"
+  },
+  {
+    "id": "Rowbg1aH0MmVlM7i8WbB",
+    "description": "透き通るような甘みを持つ牡丹海老を主役に、海の幸と山の恵みが織りなす豪華な一皿。新鮮な牡丹海老は姿造りに、鮪と清流岩魚は薄切りに、とろろ仕立ての山芋ときぬがさ茸と共に、四季折々の彩りを添えて盛り付けられた、鎌倉の武士も唸るであろう贅を尽くした逸品。",
+    "recoveryAmount": 180,
+    "ingredients": [
+      {
+        "name": "牡丹海老",
+        "id": "vF0ZJvf6lg98XJMUfAn4"
+      },
+      {
+        "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg"
+      },
+      {
+        "name": "鮪",
+        "id": "xOA27EPv8LeNdyYfYO02"
+      },
+      {
+        "name": "清流岩魚",
+        "id": "ewW6RNMQxbz1X0c36fAk"
+      },
+      {
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      }
+    ],
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FRowbg1aH0MmVlM7i8WbB.png?alt=media&token=c9425c01-a9cb-4f18-8843-b54eca95ed34",
+    "rarity": 4,
+    "name": "牡丹海老の錦重ね",
+    "createdAt": "2026-03-03T18:34:14.750Z"
+  },
+  {
+    "id": "US2KjG0047LZSKBG16N8",
+    "name": "豊穣の海幸山幸和え",
+    "createdAt": "2026-03-03T18:37:16.702Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FUS2KjG0047LZSKBG16N8.png?alt=media&token=1a35458b-d03c-4ac1-ab6b-09fca6e6b05e",
+    "recoveryAmount": 135,
+    "ingredients": [
+      {
+        "name": "甘海老",
+        "id": "7YGHlHIujIZXF6ElsMhL"
+      },
+      {
+        "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg"
+      },
+      {
+        "name": "胡瓜",
+        "id": "KdQ3vQHuC8mwljKkvlHx"
+      },
+      {
+        "name": "ひじき",
+        "id": "hszcWFxgiPgsrofAaYd4"
+      },
+      {
+        "name": "ハナビラタケ",
+        "id": "ygkM6FTx6unhf36hd5jz"
+      }
+    ],
+    "description": "透き通る甘海老と、彩り豊かな山の幸、海の恵みが盛り付けられた、まるで絵画のような一品。口に含むと、甘海老の濃厚な甘みが広がり、山芋のとろける舌触り、胡瓜の清涼な歯ごたえ、ひじきとハナビラタケの奥深い香りが絶妙な調和を生み出す。甘海老は丁寧に殻を剥き、新鮮な山芋を擦りおろし、胡瓜とひじきは薄切りにして軽く和える。仕上げに香り高きハナビラタケを添えれば、天地の恵みが織りなす極上の味わいが完成する。"
+  },
+  {
+    "id": "Uj7Yt4Grq0bktIdb7WDi",
+    "name": "幽玄深海鮑茸蒸し",
+    "createdAt": "2026-03-03T17:03:53.963Z",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FUj7Yt4Grq0bktIdb7WDi.png?alt=media&token=7351453b-9925-4080-abcd-4482cc7c80b6",
+    "recoveryAmount": 190,
+    "ingredients": [
+      {
+        "name": "アワビ",
+        "id": "5nMtu9gPetWlnwXZ3OBz"
+      },
+      {
+        "name": "深山黒茸",
+        "id": "199WE9uvPmPJh5zNhR41"
+      },
+      {
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      },
+      {
+        "name": "ひじき",
+        "id": "hszcWFxgiPgsrofAaYd4"
+      },
+      {
+        "name": "ツルニンジン",
+        "id": "Bpay4d6OWtZ30TG5I4YU"
+      }
+    ],
+    "description": "深山の奥で育まれた幻の深山黒茸と、海の宝である鮑が織りなす、幽玄なる一品。柔らかな鮑の旨味と、深山黒茸の芳醇な香りが口いっぱいに広がり、きぬがさ茸の繊細な食感が舌を楽しませる。ひじきの磯の香りとツルニンジンのほのかな苦味が深みを加え、滋味あふれる味わいとなっている。鮑を秘伝の出汁で蒸し上げ、茸とひじき、ツルニンジンを添え、深き森と海の恵みを閉じ込めた逸品である。"
+  },
+  {
+    "id": "XrIR6ZhpeJkXpABRJiY5",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FXrIR6ZhpeJkXpABRJiY5.png?alt=media&token=98c0e46b-cfe0-4398-9e2c-29aed17a1494",
+    "rarity": 4,
+    "name": "海老天",
+    "createdAt": "2026-03-03T13:14:07.059Z",
+    "description": "黄金色の衣をまとった車海老は、見る者を惹きつけ、一口食べればプリッとした食感と海老本来の甘みが口いっぱいに広がる。添えられたししとうが、清涼な苦味で味を引き締める逸品。",
+    "recoveryAmount": 75,
+    "ingredients": [
+      {
+        "name": "ししとう",
+        "id": "hjZwcagGSJ5ZqxQ7c7aG"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK"
+      },
+      {
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "車海老",
+        "id": "kK6YCX8jsbmrrjaniC6W"
+      },
+      {
+        "name": "水",
+        "id": "manual"
+      }
+    ]
+  },
+  {
+    "id": "YUQq7lyLSjggvfZEWjFR",
+    "name": "瑞祥 勘八と海宝の重ね蒸し",
+    "createdAt": "2026-03-03T18:32:39.091Z",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FYUQq7lyLSjggvfZEWjFR.png?alt=media&token=037ec9f4-0fa8-4a70-b398-ec52e56b3445",
+    "rarity": 5,
+    "recoveryAmount": 250,
+    "ingredients": [
+      {
+        "name": "勘八",
+        "id": "ChkEloTZ7x61AW5vsotL"
+      },
+      {
+        "name": "伊勢海老",
+        "id": "tblQtSx30FPHOuSB8zZE"
+      },
+      {
+        "name": "アワビ",
+        "id": "5nMtu9gPetWlnwXZ3OBz"
+      },
+      {
+        "name": "コウタケ",
+        "id": "4Lm06zklbNoy3zg6tN1N"
+      },
+      {
+        "name": "ジネンジョ",
+        "id": "7iTiMLHySgBCMa95VVZb"
+      }
+    ],
+    "description": "透き通るような勘八の身に、磯の香豊かな伊勢海老と柔らかな鮑を添え、滋味深きコウタケと粘り強きジネンジョが彩りを加える。全ての食材を丁寧に蒸し上げ、素材本来の旨味を凝縮させた、一口食べれば昇天するような至福の逸品。海原の恵みが織りなす、滋養溢れる饗宴である。"
+  },
+  {
+    "id": "YwU0qRUwjjLm4H2jt7Wa",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FYwU0qRUwjjLm4H2jt7Wa.png?alt=media&token=6d5c790c-f7b0-4156-9ecf-c2c96ecb61a4",
+    "createdAt": "2026-03-03T18:32:52.085Z",
+    "name": "清流鮎の山菜包み焼き",
+    "description": "清らかな流れに育まれた天然鮎を、香り豊かなししとう、滋味深いツルニンジン、ぜんまい、クリタケと共に香ばしく包み焼きにした逸品。鮎独特の香りと山菜のほろ苦さが絶妙に調和し、炭火でじっくり焼き上げることで、素材本来の旨味が凝縮された奥深い味わいが口いっぱいに広がる。",
+    "recoveryAmount": 110,
+    "ingredients": [
+      {
+        "name": "天然鮎",
+        "id": "fKUWTZ9jiIuU6v5WNrxy"
+      },
+      {
+        "name": "ししとう",
+        "id": "hjZwcagGSJ5ZqxQ7c7aG"
+      },
+      {
+        "name": "ツルニンジン",
+        "id": "Bpay4d6OWtZ30TG5I4YU"
+      },
+      {
+        "name": "ぜんまい",
+        "id": "mvPBgXi6O2vw5pjrGoyq"
+      },
+      {
+        "name": "クリタケ",
+        "id": "Ia5B1VrQwyNnDBPmFQUl"
+      }
+    ]
+  },
+  {
+    "id": "fB5WLz9I54RN9YyIlVHe",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FfB5WLz9I54RN9YyIlVHe.png?alt=media&token=6549d8a3-ab3e-4853-b420-b35fb5a55ff7",
+    "rarity": 4,
+    "name": "海幸山幸の宝蒸し",
+    "createdAt": "2026-03-03T18:34:48.078Z",
+    "description": "広大な海で育った渡り蟹と陸の恵みを一つにした贅沢な逸品。蒸篭から立ち上る湯気はまるで雲海の如く、その中には渡り蟹の甘みとホタテ貝の旨味が凝縮されています。ギョウジャニンニクとタマゴタケが香りを添え、ウドの歯応えが絶妙な調和を生み出します。全ての食材を丁寧に蒸し上げ、素材本来の味が際立つよう仕上げた、滋味深い一皿です。",
+    "recoveryAmount": 115,
+    "ingredients": [
+      {
+        "name": "渡り蟹",
+        "id": "VWspMl7WEOiHJkbw92uA"
+      },
+      {
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "name": "ギョウジャニンニク",
+        "id": "qu3zf52IH65BtjzCacla"
+      },
+      {
+        "name": "タマゴタケ",
+        "id": "ScO3kvro3uwPiVMkOJbA"
+      },
+      {
+        "name": "ウド",
+        "id": "91mQBQaO2ReWMrsGlGrb"
+      }
+    ]
+  },
+  {
+    "id": "fKFAW4i5t7d550wQDE4P",
+    "recoveryAmount": 180,
+    "ingredients": [
+      {
+        "name": "ホッキ貝",
+        "id": "Bw25bk1NW2dTngqTaMBK"
+      },
+      {
+        "name": "本鱈場蟹",
+        "id": "6gNrCWH2sVGdCvc8i8UT"
+      },
+      {
+        "name": "アワビ",
+        "id": "5nMtu9gPetWlnwXZ3OBz"
+      },
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "大葉",
+        "id": "STRvLHjFtu4fDkBHaqut"
+      }
+    ],
+    "description": "肉厚なホッキ貝と本鱈場蟹、アワビといった海の至宝が織りなす磯の香りは、見目麗しく、食欲をそそる。しいたけの芳醇な旨味と大葉の清涼感が加わり、口に運べば至福の波が押し寄せるだろう。これらの厳選素材を丁寧に酒蒸しにすることで、各々の持つ甘みと旨味が凝縮され、最高の調和を生み出す。",
+    "createdAt": "2026-03-03T18:31:09.773Z",
+    "name": "北海の恵み 豪華蒸し物",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FfKFAW4i5t7d550wQDE4P.png?alt=media&token=5dc90148-d9ce-4d56-bc68-34e58e38ca15"
+  },
+  {
+    "id": "h6xq7ql0jtwtWf4lWb3l",
+    "recoveryAmount": 750,
+    "ingredients": [
+      {
+        "name": "伊勢海老",
+        "id": "tblQtSx30FPHOuSB8zZE"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "蜂蜜",
+        "id": "wLCxKI7rSfvQABSDmGm1"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "ワサビの根茎",
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      }
+    ],
+    "description": "深き海の恵み、伊勢海老を主役に据えた、贅沢なる一品。醤油と蜂蜜を秘伝の割合で調合した特製だれを纏わせ、炭火でじっくりと炙り焼きにすることで、香ばしくも濃厚な甘みが引き立つ。仕上げにすりおろした生姜と、清らかな沢で育ちしワサビの根茎を添えれば、その芳醇な香りと辛味が、伊勢海老本来の旨味を一層際立たせる。見た目も鮮やかな琥珀色に輝き、一口食べれば至福が広がる。",
+    "createdAt": "2026-03-03T15:27:31.671Z",
+    "name": "伊勢海老の秘伝蜜照り焼き",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fh6xq7ql0jtwtWf4lWb3l.png?alt=media&token=9d855654-2f85-40e7-8789-b805eca77155"
+  },
+  {
+    "id": "idflavzpqBdgvsMBaTbm",
+    "recoveryAmount": 190,
+    "ingredients": [
+      {
+        "name": "ウナギ",
+        "id": "aG2DLeDbxj8mcQuPo09N"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "アカモク",
+        "id": "55j4sJfonG5zFqokqJuc"
+      }
+    ],
+    "description": "深海の秘宝たる車海老と磯の香漂うアカモク、そして山の神が宿る松茸と滋味深き椎茸を、見事なまでに照り焼きにされた昇龍鰻と共に漆塗りの重箱へと美しく盛り付けた。一口食せば、海の恵みと大地の息吹が渾然一体となり、至高の美味が五臓六腑に染み渡り、疲弊した身体に新たな活力を与えるだろう。鰻は特製の甘辛いタレで幾度も焼き上げられ、他の厳選素材もそれぞれが最高の風味を引き出されるよう丁寧に調理された後、美しく盛り付けられる。",
+    "createdAt": "2026-03-03T17:42:14.927Z",
+    "name": "昇龍鰻の極み膳",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FidflavzpqBdgvsMBaTbm.png?alt=media&token=3dbe532c-1064-47f3-8f4d-b6d21d2bf428"
+  },
+  {
+    "id": "iw0KrZc4PUHo7yjmNK9a",
+    "name": "エビフライ",
+    "createdAt": "2026-03-01T18:08:16.680Z",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fiw0KrZc4PUHo7yjmNK9a.png?alt=media&token=bac7dd94-4852-4c06-81a9-82e9c7275916",
+    "recoveryAmount": 650,
+    "ingredients": [
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "パン粉",
+        "id": "fRC3hZWb49nVqCeO4xCR"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK"
+      },
+      {
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "水",
+        "id": "manual"
+      },
+      {
+        "name": "胡椒",
+        "id": "manual"
+      }
+    ],
+    "description": "黄金色に揚がった衣はサクサクと軽快な音を立て、一口噛めば、プリプリとした海老の旨みが口いっぱいに広がる至福の一品。"
+  },
+  {
+    "id": "j26bd4xGNnVIxSxckFu4",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fj26bd4xGNnVIxSxckFu4.png?alt=media&token=23559a5c-eef0-4c0e-b7fb-d1d311393dfc",
+    "rarity": 4,
+    "name": "海老春巻き",
+    "createdAt": "2026-03-14T12:49:13.405Z",
+    "description": "黄金色に揚げられた衣はパリッと香ばしく、中からはプリプリの海老と滋味深い野菜が詰まった熱々の餡がとろけ出します。一口頬張れば、豊かな磯の香りと山海の恵みが織りなす極上の風味に、心ゆくまで酔いしれることでしょう。",
+    "recoveryAmount": 65,
+    "ingredients": [
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "タケノコ",
+        "id": "KU5dMDHGiJUmEhv59Kd8"
+      },
+      {
+        "name": "人参",
+        "id": "KZpwGqZRFCzr2T34LqAM"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK"
+      },
+      {
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "春巻きの皮",
+        "id": "manual"
+      },
+      {
+        "name": "水",
+        "id": "manual"
+      }
+    ]
+  },
+  {
+    "id": "jX1Bs3T27sZSojFtvgQJ",
+    "createdAt": "2026-03-03T18:30:08.190Z",
+    "name": "清流虹鱒の山幸包み焼き",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FjX1Bs3T27sZSojFtvgQJ.png?alt=media&token=f85a4b8d-0a93-4725-befc-5b8aa6a3069c",
+    "recoveryAmount": 130,
+    "ingredients": [
+      {
+        "name": "ニジマス",
+        "id": "QpjdWB7cJAEWHkxFUHqE"
+      },
+      {
+        "name": "イワタケ",
+        "id": "ox3Yzp87XLY9J2oMfmrj"
+      },
+      {
+        "name": "ギョウジャニンニク",
+        "id": "qu3zf52IH65BtjzCacla"
+      },
+      {
+        "name": "カヤの実",
+        "id": "uOjuSjFZG0WtQmQRj7Kf"
+      },
+      {
+        "name": "さるなし",
+        "id": "LszMM4SyZFjpoWoexRE5"
+      }
+    ],
+    "description": "清流で獲れた虹鱒を主役に、山の恵みであるイワタケ、ギョウジャニンニク、カヤの実、さるなしを丁寧に包み込み、炭火でじっくりと焼き上げた一品。虹鱒のふっくらとした身から溢れる旨味と、野性味溢れる山の幸が織りなす香ばしさと爽やかな酸味が口いっぱいに広がり、至福のひとときを約束する。"
+  },
+  {
+    "id": "kKtg5SVEcLc9MhcDL4oz",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FkKtg5SVEcLc9MhcDL4oz.png?alt=media&token=3d85dcf6-ab69-49c8-93c7-57ef08ce48f5",
+    "name": "深山の清流蟹鍋",
+    "createdAt": "2026-03-03T18:32:23.402Z",
+    "description": "深山の清流に育まれたモクズガニを主役に、清らかなシジミとカジカで深い旨味の出汁を取り、きぬがさ茸と秘伝の酒で風味豊かに仕上げた逸品。これらの食材を土鍋でじっくりと煮込むことで、琥珀色の汁は滋味深く、身はとろけるような甘さとなり、一口食べれば山河の恵みが身体に満ち渡る。",
+    "ingredients": [
+      {
+        "name": "モクズガニ",
+        "id": "WPsLLsG7HQFBIeGHCrDR"
+      },
+      {
+        "name": "シジミ",
+        "id": "pUIDeeQEBPZlMmn0b012"
+      },
+      {
+        "name": "カジカ",
+        "id": "jTqpUdOfrQFbGaElicVh"
+      },
+      {
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      },
+      {
+        "name": "酒",
+        "id": "3YerNFezpn9YOVp7SQwD"
+      }
+    ],
+    "recoveryAmount": 150
+  },
+  {
+    "id": "kMjUutzTwVXMpdewKMzu",
+    "description": "透き通るような薄皮に包まれたプリプリの海老と、旬の野菜の旨味が凝縮された一品。口に入れた瞬間、海老の甘みと香りが広がり、至福の時をもたらします。",
+    "ingredients": [
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "タケノコ",
+        "id": "KU5dMDHGiJUmEhv59Kd8"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK"
+      },
+      {
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "酒",
+        "id": "3YerNFezpn9YOVp7SQwD"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "水",
+        "id": "manual"
+      },
+      {
+        "name": "にんにく",
+        "id": "manual"
+      },
+      {
+        "name": "ごま油",
+        "id": "manual"
+      },
+      {
+        "name": "胡椒",
+        "id": "manual"
+      }
+    ],
+    "recoveryAmount": 65,
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FkMjUutzTwVXMpdewKMzu.png?alt=media&token=b4370ee5-9464-4d49-9308-35e4599a9509",
+    "name": "海老餃子",
+    "createdAt": "2026-03-14T12:51:12.084Z"
+  },
+  {
+    "id": "n2keSakkXYm1dZHVuQ3g",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fn2keSakkXYm1dZHVuQ3g.png?alt=media&token=ecfade5a-c423-4159-8da0-114185e1ddfe",
+    "rarity": 5,
+    "name": "神亀螺貝の潮霊煮込み",
+    "createdAt": "2026-03-03T18:38:30.908Z",
+    "description": "深海の神秘を宿す螺貝と、長寿の象徴たるスッポンを、稀なるシロカノコタケと滋味豊かなジネンジョ、そして潮の恵みシジミと共に、時間をかけてじっくりと煮込んだ逸品。琥珀色の汁は滋養に満ち、一口含めば芳醇な磯の香りと大地の恵みが口いっぱいに広がり、心身を深く癒すだろう。",
+    "recoveryAmount": 160,
+    "ingredients": [
+      {
+        "name": "螺貝",
+        "id": "QofWhwCVRS8QXVO2aVmY"
+      },
+      {
+        "name": "シロカノコタケ",
+        "id": "sZAJ5kQ5pHxzgCpuYyn9"
+      },
+      {
+        "name": "スッポン",
+        "id": "U8SyliGKVXNG3NXTV5UU"
+      },
+      {
+        "name": "ジネンジョ",
+        "id": "7iTiMLHySgBCMa95VVZb"
+      },
+      {
+        "name": "シジミ",
+        "id": "pUIDeeQEBPZlMmn0b012"
+      }
+    ]
+  },
+  {
+    "id": "nAwCpoDZU8rRaVY9pWIN",
+    "name": "絶海の恵み、九絵の蒸し宝珠",
+    "createdAt": "2026-03-03T15:23:25.249Z",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FnAwCpoDZU8rRaVY9pWIN.png?alt=media&token=d027af89-5336-4c3f-9804-310780e0565f",
+    "recoveryAmount": 480,
+    "ingredients": [
+      {
+        "name": "クエ",
+        "id": "91Hx3yUejdXsduLKWRLc"
+      },
+      {
+        "name": "コンブ",
+        "id": "fTD4pKW8rlT7aRjpnGH0"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      }
+    ],
+    "description": "深海の王たる九絵を贅沢に厚切りにし、昆布でとった清らかな出汁と米飴、醤油で調えた餡と共に丁寧に蒸し上げた逸品。九絵の引き締まった身はしっとりと上品な旨味を湛え、葱の香りが食欲をそそる。口に含めば、海の恵みが舌の上でとろけ、心身を満たすだろう。"
+  },
+  {
+    "id": "o4zVyCJI570seTWgQdEM",
+    "createdAt": "2026-03-03T18:34:30.005Z",
+    "name": "潮見の宝玉蒸し",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fo4zVyCJI570seTWgQdEM.png?alt=media&token=3fdbb703-ad92-42c8-aa1a-120e33525678",
+    "recoveryAmount": 180,
+    "ingredients": [
+      {
+        "name": "潮見カキ",
+        "id": "Qde2vp3VtXnZuNEvrHjw"
+      },
+      {
+        "name": "帆立",
+        "id": "gCAL5NtJdRHDkhddjFSb"
+      },
+      {
+        "name": "毛蟹",
+        "id": "GYxAN3yTtym288E3BrOf"
+      },
+      {
+        "name": "大根",
+        "id": "zoSSJHt3VcF7YYSm6N7m"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      }
+    ],
+    "description": "磯の香りを閉じ込めた潮見カキと帆立、そして甘美な毛蟹の身を、柔らかな大根と共に蒸し上げ、米飴を忍ばせた出汁で仕上げた贅沢な逸品。口に含めば、海原の恵みが舌の上でとろけ合う、至福の味わいが広がります。"
+  },
+  {
+    "id": "pg0aKa0YdOsby0wvtSen",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fpg0aKa0YdOsby0wvtSen.png?alt=media&token=50de77b0-e566-44f4-98fb-61c4c20317c9",
+    "rarity": 5,
+    "name": "深海の幸 絢爛蒸し",
+    "createdAt": "2026-03-03T18:33:31.813Z",
+    "description": "深海の至宝、喉黒とクエを贅沢に使い、芳醇なアミガサタケと共に酒と大葉で香り高く蒸し上げた逸品。白身魚の繊細な旨味が凝縮され、口に含めば海の恵みが舌の上で花開く。新鮮な魚を丁寧に下処理し、酒と大葉を敷いた蒸し器で、アミガサタケと共にふっくらと蒸し上げる。",
+    "recoveryAmount": 190,
+    "ingredients": [
+      {
+        "name": "喉黒",
+        "id": "jhPJ95Mj4PwzbKjq2P0K"
+      },
+      {
+        "name": "クエ",
+        "id": "91Hx3yUejdXsduLKWRLc"
+      },
+      {
+        "name": "アミガサタケ",
+        "id": "5picSP9wSIINFrMFi2sI"
+      },
+      {
+        "name": "酒",
+        "id": "3YerNFezpn9YOVp7SQwD"
+      },
+      {
+        "name": "大葉",
+        "id": "STRvLHjFtu4fDkBHaqut"
+      }
+    ]
+  },
+  {
+    "id": "qZovUJBPl2hlZc4pxZ3g",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FqZovUJBPl2hlZc4pxZ3g.png?alt=media&token=ff044de5-b170-4057-b5ca-be16b476e46a",
+    "createdAt": "2026-03-03T18:30:56.073Z",
+    "name": "潮音の宝蒸し",
+    "description": "黄金色の出汁に浮かぶは、透明な身を湛えた平目と錦鯛の艶姿。松茸の芳醇な香りが立ち上り、きぬがさ茸が潮の旨味を吸い込み、口にすれば雅な海の幸が広がる逸品である。海から汲んだ清らかな水で蒸し上げ、深き旨味を引き出した。",
+    "recoveryAmount": 180,
+    "ingredients": [
+      {
+        "name": "ヒラメ",
+        "id": "TDtHPWfuw76in3vue0g3"
+      },
+      {
+        "name": "キンメダイ",
+        "id": "lQ1ANrDoMdDBREFxEjHc"
+      },
+      {
+        "name": "アサリ",
+        "id": "K3u8xXSdIOZHktqJ45ZL"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      }
+    ]
+  },
+  {
+    "id": "uu3tJQRIep50qUwDr4It",
+    "ingredients": [
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "モクズガニ",
+        "id": "WPsLLsG7HQFBIeGHCrDR"
+      },
+      {
+        "name": "帆立",
+        "id": "gCAL5NtJdRHDkhddjFSb"
+      },
+      {
+        "name": "深山黒茸",
+        "id": "199WE9uvPmPJh5zNhR41"
+      },
+      {
+        "name": "ヤマドリタケ",
+        "id": "duCiEdQULBf5DsKQAsoe"
+      }
+    ],
+    "recoveryAmount": 220,
+    "description": "煌めくクルマエビとモクズガニが山海の恵みを抱き、深山黒茸とヤマドリタケの芳醇な香りが立ち上る、まるで龍が昇るがごとき豪華な一品。口に含むと、海老と帆立の甘みが溢れ、濃厚な蟹の旨味が深山茸の深い香りと見事に調和します。捕れたての新鮮な海の幸と清らかな山の恵みを丁寧に捌き、酒と僅かな塩で味を整えた後、蒸籠にてじっくりと蒸し上げました。",
+    "name": "昇龍海山蒸し",
+    "createdAt": "2026-03-03T17:44:13.531Z",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fuu3tJQRIep50qUwDr4It.png?alt=media&token=2d3a20ab-88a4-4154-86a8-a69c6937f80b"
+  },
+  {
+    "id": "uvtAPtB2C6TO72IwS0D1",
+    "description": "深山の恵みたる黒茸の芳醇な香りが、とろけるように煮込まれた穴子の上品な旨味と見事に溶け合う逸品。米飴と秘伝の醤油で甘辛く煮詰め、香り高い葱と鰹節を添えれば、一口ごとに滋味深い味わいが広がり、深い山の情景が目に浮かぶだろう。",
+    "recoveryAmount": 150,
+    "ingredients": [
+      {
+        "name": "穴子",
+        "id": "1MorH0nFSqmSvcRAbTph"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "鰹節",
+        "id": "iPFKO7B0kNlQyA5SDx6Q"
+      },
+      {
+        "name": "深山黒茸",
+        "id": "199WE9uvPmPJh5zNhR41"
+      }
+    ],
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FuvtAPtB2C6TO72IwS0D1.png?alt=media&token=a568e3ea-582a-4d5d-8df7-865bb0e44b69",
+    "name": "深山黒茸と穴子の甘露煮",
+    "createdAt": "2026-03-03T18:38:01.119Z"
+  },
+  {
+    "id": "v57WMJaXTUFLvTaemn7e",
+    "recoveryAmount": 200,
+    "ingredients": [
+      {
+        "name": "キンメダイ",
+        "id": "lQ1ANrDoMdDBREFxEjHc"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      },
+      {
+        "name": "イワタケ",
+        "id": "ox3Yzp87XLY9J2oMfmrj"
+      },
+      {
+        "name": "ジネンジョ",
+        "id": "7iTiMLHySgBCMa95VVZb"
+      }
+    ],
+    "description": "深海の恵み、黄金の鱗を持つ錦鯛を主役に、磯の香り豊かなクルマエビ、岩間にひっそりと息づくイワタケ、そして幻のきぬがさ茸、滋養溢れるジネンジョを丁寧に蒸し上げた、まさに海の宝玉たる一品。澄んだ出汁が素材本来の旨味を最大限に引き出し、口に含めば、潮風と大地の恵みが織りなす極上の調和が広がります。",
+    "createdAt": "2026-03-03T17:43:43.711Z",
+    "name": "黄金鱗の錦蒸し",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fv57WMJaXTUFLvTaemn7e.png?alt=media&token=f5bc8671-7cd1-44ad-985c-f909542253f1"
+  },
+  {
+    "id": "wgQSfUjnjrJeOCVUJ5oI",
+    "description": "白く輝くホタテ貝と、脂の乗った喉黒、そして甘美な毛蟹の身が織りなす、海からの贈り物。紫色のムラサキシメジが彩りを添え、瑞々しいミツバの香りがふわりと立ち上る。これらの海の幸と山の恵みを丁寧に蒸し上げ、素材本来の旨味を最大限に引き出した逸品。一口頬張れば、深海の恵みが身体中に満ち渡り、至福の時を味わえるだろう。",
+    "ingredients": [
+      {
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "name": "喉黒",
+        "id": "jhPJ95Mj4PwzbKjq2P0K"
+      },
+      {
+        "name": "毛蟹",
+        "id": "GYxAN3yTtym288E3BrOf"
+      },
+      {
+        "name": "ムラサキシメジ",
+        "id": "eq0EJtHCx1J2D2LhuNED"
+      },
+      {
+        "name": "ミツバ",
+        "id": "3YZfJ2kNdsbpz0GHk0Yz"
+      }
+    ],
+    "recoveryAmount": 160,
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FwgQSfUjnjrJeOCVUJ5oI.png?alt=media&token=68d76eb7-1d83-4b88-99e7-bd3fd62f0cf6",
+    "name": "海神の宝玉蒸し",
+    "createdAt": "2026-03-03T18:31:20.553Z"
+  },
+  {
+    "id": "xgRDJFnUJG0AVoFghEJ8",
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FxgRDJFnUJG0AVoFghEJ8.png?alt=media&token=b1874a7a-54d4-468c-8f06-07d3942bfa23",
+    "name": "海鮮ラーメン",
+    "createdAt": "2026-03-14T12:52:59.761Z",
+    "description": "芳醇な海の香りが立ち上る、透き通る黄金色のスープに、選び抜かれた海の幸が豪華に彩りを添える。一口すすれば、磯の旨味が口いっぱいに広がり、心身を満たす至福の一杯。",
+    "recoveryAmount": 75,
+    "ingredients": [
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK"
+      },
+      {
+        "name": "アオリイカ",
+        "id": "TmG7yvtmwbclAGj7yYmE"
+      },
+      {
+        "name": "アワビ",
+        "id": "5nMtu9gPetWlnwXZ3OBz"
+      },
+      {
+        "name": "コンブ",
+        "id": "fTD4pKW8rlT7aRjpnGH0"
+      },
+      {
+        "name": "タケノコ",
+        "id": "KU5dMDHGiJUmEhv59Kd8"
+      },
+      {
+        "name": "ワカメ",
+        "id": "VWjfw0RXg0J3HRJABwGo"
+      },
+      {
+        "name": "伊勢海老",
+        "id": "tblQtSx30FPHOuSB8zZE"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK"
+      },
+      {
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "name": "帆立",
+        "id": "gCAL5NtJdRHDkhddjFSb"
+      },
+      {
+        "name": "海苔",
+        "id": "4th7RhqsWqmT7ZA87sFK"
+      },
+      {
+        "name": "潮見カキ",
+        "id": "Qde2vp3VtXnZuNEvrHjw"
+      },
+      {
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "螺貝",
+        "id": "QofWhwCVRS8QXVO2aVmY"
+      },
+      {
+        "name": "酒",
+        "id": "3YerNFezpn9YOVp7SQwD"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "魚粉",
+        "id": "IwDnYzIki2yL3JjImUgv"
+      },
+      {
+        "name": "鰹節",
+        "id": "iPFKO7B0kNlQyA5SDx6Q"
+      },
+      {
+        "name": "水",
+        "id": "manual"
+      },
+      {
+        "name": "かん水",
+        "id": "manual"
+      },
+      {
+        "name": "胡椒",
+        "id": "manual"
+      }
+    ]
+  },
+  {
+    "id": "xrSvwgt1dLVGON46fq9z",
+    "createdAt": "2026-03-01T18:12:12.209Z",
+    "name": "天丼（海老、里芋、大葉、茄子）",
+    "rarity": 4,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FxrSvwgt1dLVGON46fq9z.png?alt=media&token=a28f95e4-af19-443a-ba96-5a55472594a4",
+    "ingredients": [
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK"
+      },
+      {
+        "name": "大葉",
+        "id": "STRvLHjFtu4fDkBHaqut"
+      },
+      {
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "name": "白米",
+        "id": "mQ5aybZclKtqbmhzSNUj"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      },
+      {
+        "name": "茄子",
+        "id": "iAfESxyxyJJThEnvuPQv"
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "酒",
+        "id": "3YerNFezpn9YOVp7SQwD"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "里芋",
+        "id": "jYqWUsreHLxSHVkbYIyd"
+      },
+      {
+        "name": "鰹節",
+        "id": "iPFKO7B0kNlQyA5SDx6Q"
+      },
+      {
+        "name": "水",
+        "id": "manual"
+      }
+    ],
+    "recoveryAmount": 750,
+    "description": "黄金色の衣をまとった海老や旬の野菜が、秘伝の甘辛いタレを吸い込み、ご飯と共に至福の味わいを奏でる。一口食べれば、衣の軽やかな食感と素材の旨みが口いっぱいに広がる絶品丼。"
+  },
+  {
+    "id": "y4CRZ6xZUGj9fQyF2jdl",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2Fy4CRZ6xZUGj9fQyF2jdl.png?alt=media&token=25efc8fb-e4ca-476f-8f5c-d16e0f9b89a6",
+    "rarity": 5,
+    "name": "黄金海鮮の宝蒸し",
+    "createdAt": "2026-03-03T18:33:47.604Z",
+    "description": "黄金色の本鱈場蟹と紅に輝くクルマエビを主役に、素朴な里芋と清々しい葱、そして香るミョウガと共に、秘伝の出汁でじっくりと蒸し上げた逸品。口に含めば、海の幸の甘みが広がり、滋味深い里芋と薬味の香りが優雅に調和する。まさに食する宝玉、心身を癒す至高の膳なり。",
+    "recoveryAmount": 180,
+    "ingredients": [
+      {
+        "name": "本鱈場蟹",
+        "id": "6gNrCWH2sVGdCvc8i8UT"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
+      },
+      {
+        "name": "里芋",
+        "id": "jYqWUsreHLxSHVkbYIyd"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "ミョウガ",
+        "id": "Ef2yeNUWRLdnkBgUHZX8"
+      }
+    ]
+  },
+  {
+    "id": "zP5dnw643dSeozsi8N6Q",
+    "description": "荒波の恵みたるカンパチを主役に、深山黒茸とイワベンケイの土の香、そして甘美なホタテ貝とアカザラガイの潮の香を共に蒸し上げた逸品。琥珀色に輝くカンパチの身は舌の上でとろけ、秘められた海の滋味と山の恵みが五臓六腑に染み渡る。素材の旨味を最大限に引き出すため、熱した石と薬草で包み込み、ゆっくりと蒸し上げられた。",
+    "recoveryAmount": 210,
+    "ingredients": [
+      {
+        "name": "カンパチ",
+        "id": "7cUxF3cIPMgYNpdd9a7B"
+      },
+      {
+        "name": "深山黒茸",
+        "id": "199WE9uvPmPJh5zNhR41"
+      },
+      {
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "name": "イワベンケイ",
+        "id": "mpOuF8k7g2iIastunu7S"
+      },
+      {
+        "name": "アカザラガイ",
+        "id": "HWoHHDxYrMeOb76mBuKJ"
+      }
+    ],
+    "rarity": 5,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FzP5dnw643dSeozsi8N6Q.png?alt=media&token=a39f9816-34cc-415b-990c-f86a5a4131e6",
+    "name": "琥珀潮騒蒸し",
+    "createdAt": "2026-03-03T17:42:48.197Z"
+  },
+  {
+    "id": "zjQNFRS26122J5AgHhd3",
+    "name": "深山松茸鹿肉の雅焼き 秘伝山葵餡添え",
+    "createdAt": "2026-03-03T14:09:39.934Z",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/dishes%2FzjQNFRS26122J5AgHhd3.png?alt=media&token=cccd9a7f-3024-4b4e-80af-2210d61f4f82",
+    "rarity": 5,
+    "recoveryAmount": 950,
+    "ingredients": [
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7"
+      },
+      {
+        "name": "鹿肉",
+        "id": "EdqQS6nalrQnMdET4fcO"
+      },
+      {
+        "name": "ワサビの根茎",
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      }
+    ],
+    "description": "深山の恵み、香り高き松茸と滋味あふれる鹿肉を、秘伝の醤油と米飴で甘辛く艶やかに焼き上げた逸品。仕上げには、すりおろした山葵の根茎で作る特製の餡を添え、その芳醇な香りと共に、口いっぱいに広がる旨味と爽やかな辛みが絶妙な調和を奏でる。体力失せし旅人の気力をたちまち回復させる、まさに仙境の味。"
+  }
+]

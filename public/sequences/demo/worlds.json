@@ -1,0 +1,466 @@
+[
+  {
+    "id": "3Y4CxzTFVhWAmcgCNrUU",
+    "maps": [
+      {
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F3Y4CxzTFVhWAmcgCNrUU%2Fmap_0_0.png?alt=media&token=5ec13a14-714f-49e0-9a3f-ec9f0f3f0739",
+        "id": "map_0_0",
+        "name": "北西区画",
+        "objects": [
+          {
+            "y": 494,
+            "width": 760,
+            "objectId": "kY4q0QP01Anm6gzNFJLC",
+            "x": 543,
+            "id": "1773817282918",
+            "height": 760,
+            "conversation": ""
+          }
+        ]
+      },
+      {
+        "objects": [],
+        "name": "北東区画",
+        "id": "map_0_1",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F3Y4CxzTFVhWAmcgCNrUU%2Fmap_0_1.png?alt=media&token=35ee43f4-8710-4779-83e7-18054030faf0"
+      },
+      {
+        "objects": [],
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F3Y4CxzTFVhWAmcgCNrUU%2Fmap_1_0.png?alt=media&token=7f679c2a-f3b7-4be9-a146-a4be54cf39c1",
+        "name": "南西区画",
+        "id": "map_1_0"
+      },
+      {
+        "objects": [],
+        "name": "南東区画",
+        "id": "map_1_1",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F3Y4CxzTFVhWAmcgCNrUU%2Fmap_1_1.png?alt=media&token=ed388a13-35cd-4a66-940f-e35879f9f0db"
+      }
+    ],
+    "name": "屋敷",
+    "createdAt": {
+      "seconds": 1773817000,
+      "nanoseconds": 821000000
+    },
+    "cols": 2,
+    "bgmUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/stories%2FfCRctREgNQAd6VU1v0wl%2Fbgm%2F1772168973247_SUMMER_TRIANGLE.mp3?alt=media&token=c1076eaa-3918-4678-96a2-b779295ba045",
+    "rows": 2
+  },
+  {
+    "id": "8cbQhI5KmyB1d9DrvOvM",
+    "rows": 2,
+    "cols": 1,
+    "createdAt": {
+      "seconds": 1771303511,
+      "nanoseconds": 596000000
+    },
+    "name": "夜海岸",
+    "maps": [
+      {
+        "objects": [
+          {
+            "width": 150,
+            "y": 665,
+            "conversation": "",
+            "height": 150,
+            "id": "1771654000857",
+            "objectId": "A44lygLrpBVZjTZD1EqT",
+            "eventId": "LsuceXFK7C8OS8AbiFIX",
+            "x": 1495
+          },
+          {
+            "y": 683,
+            "width": 150,
+            "height": 150,
+            "conversation": "",
+            "eventId": "SS3U7Dy8AnkaWyguQqGM",
+            "x": 1255,
+            "objectId": "tTPwcEBQZSA6Bxl7JYcF",
+            "id": "1771654004375"
+          }
+        ],
+        "name": "北海岸夜",
+        "id": "map_0_0",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F8cbQhI5KmyB1d9DrvOvM%2Fmap_0_0.jpg?alt=media&token=8409bfbc-522e-436f-8c99-3d35672437c2"
+      },
+      {
+        "id": "map_1_0",
+        "name": "弥三郎家前夜",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2F8cbQhI5KmyB1d9DrvOvM%2Fmap_1_0.jpg?alt=media&token=6a5b0758-690c-45dd-b18d-808380880589",
+        "objects": [
+          {
+            "id": "1771542185220",
+            "x": 507,
+            "objectId": "kY4q0QP01Anm6gzNFJLC",
+            "height": 300,
+            "conversation": "",
+            "width": 300,
+            "y": 495
+          },
+          {
+            "x": 368,
+            "objectId": "kY4q0QP01Anm6gzNFJLC",
+            "id": "1771542187556",
+            "height": 300,
+            "conversation": "",
+            "y": 791,
+            "width": 300
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "L4cp7idBKu3JzNv0Tmlb",
+    "maps": [
+      {
+        "objects": [
+          {
+            "y": 1263,
+            "width": 300,
+            "objectId": "TOaCR0LSZkuilCOzI2CA",
+            "transition": {
+              "targetY": 763,
+              "targetX": 607,
+              "targetMapId": "map_0_0",
+              "targetWorldId": "Zmzp41TLWlimB3mo6SqB"
+            },
+            "x": 775,
+            "id": "reciprocal_1773904569541",
+            "conversation": "「海岸」へ戻ります。",
+            "height": 300
+          }
+        ],
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FoGptoJIHnGp7QNyi4Ec3%2Fmap_0_0.jpg?alt=media&token=8821c1c9-3644-411a-8360-b81c415a5bac",
+        "name": "北西区画",
+        "id": "map_0_0"
+      }
+    ],
+    "createdAt": {
+      "nanoseconds": 738000000,
+      "seconds": 1773609504
+    },
+    "cols": 1,
+    "name": "家1",
+    "rows": 1
+  },
+  {
+    "id": "X92jEts0FixiB0A167dI",
+    "maps": [
+      {
+        "objects": [],
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FoGptoJIHnGp7QNyi4Ec3%2Fmap_0_0.jpg?alt=media&token=8821c1c9-3644-411a-8360-b81c415a5bac",
+        "name": "北西区画",
+        "id": "map_0_0"
+      }
+    ],
+    "rows": 1,
+    "createdAt": {
+      "nanoseconds": 675000000,
+      "seconds": 1773627123
+    },
+    "cols": 1,
+    "name": "家2"
+  },
+  {
+    "id": "Zmzp41TLWlimB3mo6SqB",
+    "maps": [
+      {
+        "objects": [
+          {
+            "width": 550,
+            "y": 475,
+            "id": "1771562476026",
+            "x": 1573,
+            "objectId": "NeU3W8egDLjgpE6ufm5L",
+            "height": 400,
+            "conversation": ""
+          },
+          {
+            "height": 260,
+            "conversation": "",
+            "id": "1771562586728",
+            "x": 467,
+            "transition": {
+              "targetY": 100,
+              "targetMapId": "map_0_0",
+              "targetX": 100,
+              "targetWorldId": "L4cp7idBKu3JzNv0Tmlb"
+            },
+            "objectId": "kY4q0QP01Anm6gzNFJLC",
+            "width": 280,
+            "y": 633
+          },
+          {
+            "id": "1773901331645",
+            "objectId": "AMxmmO2ubzDXqAYK4HMN",
+            "x": 1546,
+            "conversation": "",
+            "height": 400,
+            "width": 400,
+            "y": 114
+          },
+          {
+            "conversation": "",
+            "height": 400,
+            "id": "1773901362354",
+            "objectId": "afdk1TH16au9Bb0kCDly",
+            "x": 1647,
+            "width": 400,
+            "y": 1057
+          },
+          {
+            "y": 288,
+            "width": 400,
+            "objectId": "TIEiwBqSFTskvFWJ5xt3",
+            "x": 874,
+            "id": "1773907665719",
+            "height": 400,
+            "conversation": ""
+          },
+          {
+            "y": 929,
+            "width": 150,
+            "x": 509,
+            "objectId": "6uxZ9UvQDDCAfFi0MplG",
+            "eventId": "LsuceXFK7C8OS8AbiFIX",
+            "id": "1773908194316",
+            "height": 150,
+            "conversation": ""
+          },
+          {
+            "y": 773,
+            "width": 400,
+            "x": 842,
+            "objectId": "8XjmcRjkRcWnBLV6ZJeO",
+            "id": "1773908946070",
+            "height": 400,
+            "conversation": ""
+          }
+        ],
+        "name": "海岸1",
+        "id": "map_0_0",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4"
+      },
+      {
+        "name": "海岸2",
+        "id": "map_1_0",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4",
+        "objects": []
+      },
+      {
+        "objects": [],
+        "name": "海岸3",
+        "id": "map_2_0",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4"
+      },
+      {
+        "objects": [],
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FZmzp41TLWlimB3mo6SqB%2Fmap_0_0.jpg?alt=media&token=3e8187af-959e-456c-8d16-2a2250304df4",
+        "id": "map_3_0",
+        "name": "海岸4"
+      }
+    ],
+    "createdAt": {
+      "seconds": 1770976164,
+      "nanoseconds": 183000000
+    },
+    "cols": 1,
+    "name": "海岸",
+    "rows": 4
+  },
+  {
+    "id": "mEnMq0Q9cBhEx1B39RlT",
+    "maps": [
+      {
+        "objects": [
+          {
+            "width": 128,
+            "y": 1047,
+            "id": "1770979231537",
+            "x": 1277,
+            "objectId": "villager_man",
+            "conversation": "",
+            "height": 128
+          },
+          {
+            "height": 250,
+            "conversation": "",
+            "x": 661,
+            "objectId": "2umyLRvZA5ZnBHTJwYkZ",
+            "id": "1771149674671",
+            "y": 225,
+            "width": 300
+          },
+          {
+            "width": 350,
+            "y": 645,
+            "conversation": "",
+            "height": 120,
+            "id": "1771149679090",
+            "x": 728,
+            "objectId": "LRLTlq0cmEvIbn3DiFDK"
+          },
+          {
+            "width": 350,
+            "y": 1060,
+            "conversation": "",
+            "height": 120,
+            "id": "1771149701869",
+            "x": 538,
+            "objectId": "LRLTlq0cmEvIbn3DiFDK"
+          },
+          {
+            "id": "1771149705962",
+            "x": 1023,
+            "objectId": "O8Gn16ToFKJgf956ofpI",
+            "conversation": "",
+            "height": 350,
+            "width": 550,
+            "y": 1042
+          },
+          {
+            "y": 823,
+            "width": 450,
+            "x": 1701,
+            "objectId": "cceWOLOqU11720QvGRME",
+            "id": "1771149708332",
+            "conversation": "",
+            "height": 200
+          },
+          {
+            "width": 400,
+            "y": 759,
+            "conversation": "",
+            "height": 400,
+            "id": "1773816984419",
+            "x": 983,
+            "objectId": "UZeJDSSkM4ahjQ6ilTgB"
+          },
+          {
+            "x": 1799,
+            "objectId": "leNTiskpyzvZGcYMjGpq",
+            "id": "1773816990435",
+            "height": 400,
+            "conversation": "",
+            "y": 276,
+            "width": 400
+          }
+        ],
+        "id": "map_0_0",
+        "name": "北西区画",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3"
+      },
+      {
+        "name": "北東区画",
+        "id": "map_0_1",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3",
+        "objects": []
+      },
+      {
+        "objects": [],
+        "name": "区画 (0,2)",
+        "id": "map_0_2",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3"
+      },
+      {
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3",
+        "id": "map_1_0",
+        "name": "南西区画",
+        "objects": []
+      },
+      {
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3",
+        "name": "南東区画",
+        "id": "map_1_1",
+        "objects": []
+      },
+      {
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3",
+        "id": "map_1_2",
+        "name": "区画 (1,2)",
+        "objects": []
+      },
+      {
+        "objects": [],
+        "id": "map_2_0",
+        "name": "区画 (2,0)",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3"
+      },
+      {
+        "name": "区画 (2,1)",
+        "id": "map_2_1",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3",
+        "objects": []
+      },
+      {
+        "objects": [],
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FmEnMq0Q9cBhEx1B39RlT%2Fmap_0_0.jpg?alt=media&token=da95b95f-dae5-48d5-a87d-abc0b35587c3",
+        "name": "区画 (2,2)",
+        "id": "map_2_2"
+      }
+    ],
+    "rows": 3,
+    "cols": 3,
+    "name": "広場",
+    "createdAt": {
+      "seconds": 1770979197,
+      "nanoseconds": 401000000
+    }
+  },
+  {
+    "id": "oGptoJIHnGp7QNyi4Ec3",
+    "cols": 1,
+    "createdAt": {
+      "seconds": 1771563048,
+      "nanoseconds": 711000000
+    },
+    "name": "家の中",
+    "bgmUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FoGptoJIHnGp7QNyi4Ec3%2Fbgm%2F1773107751870_%E3%81%8A%E3%82%84%E3%81%99%E3%81%BFDay.mp3?alt=media&token=ef60c1b8-9552-4d5c-8987-78b19857dc3e",
+    "rows": 1,
+    "maps": [
+      {
+        "objects": [],
+        "name": "部屋",
+        "id": "map_0_0",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FoGptoJIHnGp7QNyi4Ec3%2Fmap_0_0.jpg?alt=media&token=8821c1c9-3644-411a-8360-b81c415a5bac"
+      }
+    ]
+  },
+  {
+    "id": "sGXh5APG0cYta0I8oBkA",
+    "maps": [
+      {
+        "name": "北西区画",
+        "id": "map_0_0",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FsGXh5APG0cYta0I8oBkA%2Fmap_0_0.png?alt=media&token=8ddaa7bf-b86a-4594-98c1-4f07d4506c1b",
+        "objects": []
+      },
+      {
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FsGXh5APG0cYta0I8oBkA%2Fmap_0_0.png?alt=media&token=8ddaa7bf-b86a-4594-98c1-4f07d4506c1b",
+        "name": "北東区画",
+        "id": "map_0_1",
+        "objects": []
+      },
+      {
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FsGXh5APG0cYta0I8oBkA%2Fmap_0_0.png?alt=media&token=8ddaa7bf-b86a-4594-98c1-4f07d4506c1b",
+        "id": "map_1_0",
+        "name": "南西区画",
+        "objects": []
+      },
+      {
+        "name": "南東区画",
+        "id": "map_1_1",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/striped-proxy-187410.firebasestorage.app/o/worlds%2FsGXh5APG0cYta0I8oBkA%2Fmap_0_0.png?alt=media&token=8ddaa7bf-b86a-4594-98c1-4f07d4506c1b",
+        "objects": []
+      }
+    ],
+    "rows": 2,
+    "name": "森",
+    "createdAt": {
+      "seconds": 1773607776,
+      "nanoseconds": 2000000
+    },
+    "cols": 2
+  }
+]
