@@ -1,7 +1,8 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   SidebarProvider,
   Sidebar,
@@ -34,6 +35,10 @@ import { AuthButton } from "@/components/client/auth-button";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 import { StoryEditorIcon } from "@/components/icons/StoryEditorIcon";
 import { SequencePlayerIcon } from "@/components/icons/SequencePlayerIcon";
+import { useUser, useFirestore, useDoc, useMemoFirebase } from "@/firebase";
+import { doc } from "firebase/firestore";
+import { LandingScreen } from "@/components/client/landing-screen";
+import { Loader2 } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -54,50 +59,94 @@ const navItems = [
   { href: "/export", label: "ゲームをエクスポート", icon: ExportIcon },
 ];
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const version = packageJson.version;
+  const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
+
+  // Admin status check
+  const adminDocRef = useMemoFirebase(() => {
+    if (!user) return null;
+    return doc(firestore, 'admin', user.uid);
+  }, [user, firestore]);
+
+  const { data: adminData, isLoading: isAdminLoading } = useDoc(adminDocRef);
+  const isAdmin = !!adminData?.isAdmin;
+
+  // Access guard logic: Non-admins are redirected to /play-test if they try to access other routes
+  useEffect(() => {
+    if (!isUserLoading && !isAdminLoading && user && !isAdmin && pathname !== '/play-test') {
+      router.push('/play-test');
+    }
+  }, [user, isAdmin, isUserLoading, isAdminLoading, pathname, router]);
+
+  // Loading state
+  if (isUserLoading || (user && isAdminLoading)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  // Show landing screen if not logged in
+  if (!user) {
+    return <LandingScreen />;
+  }
+
+  // Filter navigation items based on permissions
+  const filteredNavItems = isAdmin 
+    ? navItems 
+    : navItems.filter(item => item.href === '/play-test');
 
   return (
+    <SidebarProvider>
+      <Sidebar>
+        <SidebarHeader>
+          <div className="flex items-center justify-between p-2">
+            <Button variant="ghost" className="h-10 justify-start px-2">
+              <RealmforgeLogo className="h-6 w-6 text-primary" />
+              <span className="font-headline text-lg font-bold ml-2">RealmForge</span>
+            </Button>
+            <AuthButton />
+          </div>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarMenu>
+            {filteredNavItems.map((item) => (
+              <SidebarMenuItem key={item.href}>
+                <Link href={item.href} passHref>
+                  <SidebarMenuButton
+                    isActive={pathname === item.href}
+                    tooltip={item.label}
+                  >
+                    <item.icon className="h-5 w-5" />
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarContent>
+        <SidebarFooter>
+          <div className="text-center text-xs text-muted-foreground p-2">
+            Ver {version}
+          </div>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset>
+        <main className="min-h-screen p-4 sm:p-6 lg:p-8">{children}</main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+
+export default function AppLayout({ children }: { children: React.ReactNode }) {
+  return (
     <FirebaseClientProvider>
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarHeader>
-            <div className="flex items-center justify-between p-2">
-              <Button variant="ghost" className="h-10 justify-start px-2">
-                <RealmforgeLogo className="h-6 w-6 text-primary" />
-                <span className="font-headline text-lg font-bold ml-2">RealmForge</span>
-              </Button>
-              <AuthButton />
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <Link href={item.href} passHref>
-                    <SidebarMenuButton
-                      isActive={pathname === item.href}
-                      tooltip={item.label}
-                    >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.label}</span>
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarContent>
-          <SidebarFooter>
-            <div className="text-center text-xs text-muted-foreground p-2">
-              Ver {version}
-            </div>
-          </SidebarFooter>
-        </Sidebar>
-        <SidebarInset>
-          <main className="min-h-screen p-4 sm:p-6 lg:p-8">{children}</main>
-        </SidebarInset>
-      </SidebarProvider>
+      <AppShell>{children}</AppShell>
     </FirebaseClientProvider>
   );
 }
