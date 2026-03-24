@@ -217,11 +217,11 @@
       },
       "description": "Stores public user profile information."
     },
-    "/admin/{userId}": {
+    "/admins/{userId}": {
       "schema": {
         "$ref": "#/entities/AdminUser"
       },
-      "description": "Stores administrative status for users. If a document exists for a userId, that user is considered an admin."
+      "description": "Stores administrative status for users. If a document exists for a userId in this collection, that user is considered an admin."
     },
     "/playtestSaves/{userId}": {
       "schema": {

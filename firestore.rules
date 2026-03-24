@@ -17,7 +17,7 @@ service cloud.firestore {
     }
     
     // Users can read their own admin status.
-    match /admin/{userId} {
+    match /admins/{userId} {
       allow read: if isOwner(userId);
     }
     

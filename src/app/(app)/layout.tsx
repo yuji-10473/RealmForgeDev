@@ -66,10 +66,10 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
 
-  // Admin status check
+  // Admin status check - updated to 'admins' collection
   const adminDocRef = useMemoFirebase(() => {
     if (!user) return null;
-    return doc(firestore, 'admin', user.uid);
+    return doc(firestore, 'admins', user.uid);
   }, [user, firestore]);
 
   const { data: adminData, isLoading: isAdminLoading } = useDoc(adminDocRef);
