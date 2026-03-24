@@ -15,12 +15,10 @@ function LoadScreen({
   saveData,
   isSaveLoading,
   onContinue,
-  onNewGame
 }: {
   saveData: any,
   isSaveLoading: boolean,
   onContinue: () => void,
-  onNewGame: () => void,
 }) {
   const lastSaved = saveData?.updatedAt?.toDate();
 
@@ -29,7 +27,9 @@ function LoadScreen({
        <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-3xl font-headline">プレイテスト</CardTitle>
-          <CardDescription>ゲームを開始する方法を選択してください。</CardDescription>
+          <CardDescription>
+            {saveData ? "保存されたデータから冒険を再開します。" : "保存されたデータが見つかりません。"}
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Button
@@ -41,17 +41,8 @@ function LoadScreen({
             {isSaveLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              "つづきから"
+              "ロード"
             )}
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="w-full"
-            onClick={onNewGame}
-            disabled={isSaveLoading}
-          >
-            はじめから
           </Button>
         </CardContent>
         {lastSaved && (
@@ -145,7 +136,6 @@ export default function PlayTestPage() {
       saveData={saveData}
       isSaveLoading={isSaveLoading || isUserLoading}
       onContinue={handleContinue}
-      onNewGame={handleNewGame}
     />
   );
 }
