@@ -1,3 +1,4 @@
+
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -66,14 +67,18 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
 
-  // Admin status check - updated to 'admins' collection
+  // Admin status check - based on existence of document in 'admins' collection
   const adminDocRef = useMemoFirebase(() => {
     if (!user) return null;
     return doc(firestore, 'admins', user.uid);
   }, [user, firestore]);
 
   const { data: adminData, isLoading: isAdminLoading } = useDoc(adminDocRef);
-  const isAdmin = !!adminData?.isAdmin;
+  
+  // Robust admin check: 
+  // 1. Must have document data (not null)
+  // 2. If 'isAdmin' field exists, it must not be explicitly false
+  const isAdmin = !!adminData && (adminData.isAdmin !== false);
 
   // Access guard logic: Non-admins are redirected to /play-test if they try to access other routes
   useEffect(() => {
