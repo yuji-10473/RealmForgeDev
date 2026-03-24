@@ -16,6 +16,11 @@ service cloud.firestore {
       allow read, write: if isOwner(userId);
     }
     
+    // Users can read their own admin status.
+    match /admin/{userId} {
+      allow read: if isOwner(userId);
+    }
+    
     // Users can only read and write their own playtest save data.
     match /playtestSaves/{userId} {
       allow read, write: if isOwner(userId);
