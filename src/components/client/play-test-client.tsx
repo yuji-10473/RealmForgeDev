@@ -4,7 +4,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -24,6 +24,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
 import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
 import { useFirestore } from '@/firebase';
@@ -283,8 +290,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [cutsceneChars, setCutsceneChars] = useState<Record<string, { x: number; y: number; data: AvailableObject; targetIdx: number; path: Waypoint[]; speed: number }>>({});
   const [originalPlayerState, setOriginalPlayerState] = useState<{ worldId: string, cellIndex: number, pos: {x: number, y: number} } | null>(null);
 
+  // Audio State
   const [isMuted, setIsMuted] = useState(initialData?.isMuted ?? false);
-  const [volume, setVolume] = useState(initialData?.volume ?? 0.5);
+  const [bgmVolume, setBgmVolume] = useState(initialData?.bgmVolume ?? initialData?.volume ?? 0.5);
+  const [voiceVolume, setVoiceVolume] = useState(initialData?.voiceVolume ?? initialData?.volume ?? 0.5);
+  
   const bgmRef = useRef<HTMLAudioElement | null>(null);
   const voiceRef = useRef<HTMLAudioElement | null>(null);
 
@@ -294,14 +304,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       bgmRef.current.loop = true;
     }
     bgmRef.current.muted = isMuted;
-    bgmRef.current.volume = volume;
+    bgmRef.current.volume = bgmVolume;
 
     if (!voiceRef.current) {
       voiceRef.current = new Audio();
     }
     voiceRef.current.muted = isMuted;
-    voiceRef.current.volume = volume;
-  }, [isMuted, volume]);
+    voiceRef.current.volume = voiceVolume;
+  }, [isMuted, bgmVolume, voiceVolume]);
 
 
   // Animation State
@@ -452,7 +462,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       positionY: characterPosition.y,
       inventory,
       gold,
-      volume,
+      bgmVolume,
+      voiceVolume,
       isMuted,
       updatedAt: serverTimestamp(),
     };
@@ -480,10 +491,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     if (node.audioUrl) {
       voiceRef.current.src = resolveMediaUrl(node.audioUrl);
       voiceRef.current.muted = isMuted;
-      voiceRef.current.volume = volume;
+      voiceRef.current.volume = voiceVolume;
       voiceRef.current.play().catch(() => {});
     }
-  }, [isMuted, volume]);
+  }, [isMuted, voiceVolume]);
 
   const startCutsceneStep = useCallback(async (sequence: NarrativeSequence, index: number) => {
     if (index >= sequence.steps.length) {
@@ -860,21 +871,59 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           </div>
 
           <div className="flex gap-2 shrink-0 items-center">
-            <div className="flex items-center gap-2 bg-background/50 border rounded-lg px-2 py-1">
-              <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => setIsMuted(!isMuted)}>
-                {isMuted || volume === 0 ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-              </Button>
-              <div className="w-20 sm:w-24 pr-2">
-                <Slider 
-                  value={[isMuted ? 0 : volume * 100]} 
-                  max={100} 
-                  step={1} 
-                  onValueChange={(vals) => {
-                    setVolume(vals[0] / 100);
-                    if (vals[0] > 0 && isMuted) setIsMuted(false);
-                  }} 
-                />
-              </div>
+            <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-10">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button size="icon" variant="ghost" className="h-full w-10 rounded-none border-r">
+                    {isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-64 p-4 shadow-xl">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-bold">全体消音</Label>
+                      <Switch checked={isMuted} onCheckedChange={setIsMuted} />
+                    </div>
+                    <Separator />
+                    <div className="space-y-3">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Music className="h-3 w-3 text-muted-foreground" />
+                          <Label className="text-[10px] uppercase font-bold tracking-wider">BGM 音量</Label>
+                          <span className="text-[10px] font-mono ml-auto">{Math.round(bgmVolume * 100)}%</span>
+                        </div>
+                        <Slider 
+                          value={[bgmVolume * 100]} 
+                          max={100} 
+                          step={1} 
+                          onValueChange={(vals) => {
+                            setBgmVolume(vals[0] / 100);
+                            if (vals[0] > 0 && isMuted) setIsMuted(false);
+                          }} 
+                          disabled={isMuted}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Volume2 className="h-3 w-3 text-muted-foreground" />
+                          <Label className="text-[10px] uppercase font-bold tracking-wider">ボイス 音量</Label>
+                          <span className="text-[10px] font-mono ml-auto">{Math.round(voiceVolume * 100)}%</span>
+                        </div>
+                        <Slider 
+                          value={[voiceVolume * 100]} 
+                          max={100} 
+                          step={1} 
+                          onValueChange={(vals) => {
+                            setVoiceVolume(vals[0] / 100);
+                            if (vals[0] > 0 && isMuted) setIsMuted(false);
+                          }} 
+                          disabled={isMuted}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center">{gold} K</div>
             <Button size="icon" variant="outline" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
