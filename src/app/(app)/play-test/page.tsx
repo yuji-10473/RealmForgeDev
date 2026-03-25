@@ -28,7 +28,9 @@ function LoadScreen({
         <CardHeader>
           <CardTitle className="text-3xl font-headline">プレイテスト</CardTitle>
           <CardDescription>
-            {saveData ? "保存されたデータから冒険を再開します。" : "保存されたデータが見つかりません。"}
+            {saveData 
+              ? "保存されたデータから冒険を再開します。" 
+              : "保存されたデータが見つかりません。新しい冒険を始めましょう。"}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -36,7 +38,7 @@ function LoadScreen({
             size="lg"
             className="w-full"
             onClick={onContinue}
-            disabled={isSaveLoading || !saveData}
+            disabled={isSaveLoading}
           >
             {isSaveLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -84,10 +86,9 @@ export default function PlayTestPage() {
 
 
   const handleContinue = () => {
-    if (saveData) {
-      setInitialSave(saveData);
-      setGameState('playing');
-    }
+    // We set whatever data we have (could be null) and start playing
+    setInitialSave(saveData);
+    setGameState('playing');
   };
 
   const handleNewGame = () => {
