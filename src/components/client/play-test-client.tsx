@@ -1,9 +1,10 @@
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -44,6 +45,45 @@ const resolveMediaUrl = (path: string | undefined) => {
   if (path.startsWith('http') || path.startsWith('/')) return path;
   return `/${path}`;
 };
+
+// --- Cutscene Types ---
+type Waypoint = {
+  x: number;
+  y: number;
+  eventId?: string;
+};
+
+type SequenceChar = {
+  id: string; // instance id
+  objectId: string;
+  speed: number;
+  path: Waypoint[];
+};
+
+type StoryData = {
+  id: string;
+  name: string;
+  mapId: string;
+  worldId?: string;
+  bgmUrl?: string;
+  characters: SequenceChar[];
+};
+
+type CutsceneStep = {
+  type: "story" | "video";
+  storyId?: string;
+  videoTitle?: string;
+  videoUrl?: string;
+};
+
+type NarrativeSequence = {
+  id: string;
+  title: string;
+  description: string;
+  steps: CutsceneStep[];
+};
+
+// --- End Cutscene Types ---
 
 type AnimationFrame = {
   id: string;
@@ -148,12 +188,6 @@ type CharacterAnimationState = {
   lastFrameUpdateTime: number;
 };
 
-type NarrativeSequence = {
-  id: string;
-  title: string;
-  description: string;
-};
-
 function DialogueBox({
   conversation,
   audioPath,
@@ -182,7 +216,6 @@ function DialogueBox({
   );
 }
 
-// MiniMap Component to help visualize transitions
 function MiniMap({ world, activeIndex }: { world: WorldData | undefined, activeIndex: number }) {
   if (!world || !world.rows || !world.cols) return null;
 
@@ -224,6 +257,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [masterEvents, setMasterEvents] = useState<EventFlow[]>([]);
   const [playerCharacters, setPlayerCharacters] = useState<PlayerCharacter[]>([]);
   const [masterSequences, setMasterSequences] = useState<NarrativeSequence[]>([]);
+  const [masterStories, setMasterStories] = useState<StoryData[]>([]);
 
   // State
   const [loading, setLoading] = useState(true);
@@ -241,6 +275,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
   const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
+
+  // Cutscene State
+  const [activeCutscene, setActiveCutscene] = useState<NarrativeSequence | null>(null);
+  const [currentCutsceneStepIndex, setCurrentCutsceneStepIndex] = useState(-1);
+  const [cutsceneChars, setCutsceneChars] = useState<Record<string, { x: number; y: number; data: AvailableObject; targetIdx: number; path: Waypoint[]; speed: number }>>({});
+  const [originalPlayerState, setOriginalPlayerState] = useState<{ worldId: string, cellIndex: number, pos: {x: number, y: number} } | null>(null);
 
   const [isMuted, setIsMuted] = useState(initialData?.isMuted ?? false);
   const [volume, setVolume] = useState(initialData?.volume ?? 0.5);
@@ -275,7 +315,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
   const activeMapData = currentWorld?.maps[activeCellIndex];
-  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null;
+  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null;
 
   useEffect(() => {
     if (!currentWorld) return;
@@ -304,10 +344,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const res = await fetch(`/data/${file}.json`);
           if (!res.ok) return [];
           const data = await res.json();
-          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || []);
+          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || []);
         };
 
-        const [worldIndex, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences] = await Promise.all([
+        const [worldIndex, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences, stories] = await Promise.all([
           fetchData('worlds'),
           fetchData('villagers'),
           fetchData('items'),
@@ -319,7 +359,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           fetchData('dishes'),
           fetchData('shops'),
           fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] }),
-          fetchData('narrativeSequences')
+          fetchData('narrativeSequences'),
+          fetchData('stories')
         ]);
 
         const fullWorlds = await Promise.all(worldIndex.map(async (w: any) => {
@@ -338,6 +379,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setMasterEvents(events);
         setPlayerCharacters(playerListRes.characters || []);
         setMasterSequences(sequences);
+        setMasterStories(stories);
 
         if (playerListRes.characters?.length > 0 && !activePlayerId) {
           setActivePlayerId(playerListRes.characters[0].id);
@@ -409,6 +451,81 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
     toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
   };
+
+  // --- Cutscene Methods ---
+
+  const endCutscene = useCallback(() => {
+    if (originalPlayerState) {
+      setSelectedWorldId(originalPlayerState.worldId);
+      setActiveCellIndex(originalPlayerState.cellIndex);
+      setCharacterPosition(originalPlayerState.pos);
+    }
+    setActiveCutscene(null);
+    setCurrentCutsceneStepIndex(-1);
+    setCutsceneChars({});
+    setOriginalPlayerState(null);
+    toast({ title: "物語終了", description: "ゲームに戻ります。" });
+  }, [originalPlayerState, toast]);
+
+  const startCutsceneStep = useCallback(async (sequence: NarrativeSequence, index: number) => {
+    if (index >= sequence.steps.length) {
+      endCutscene();
+      return;
+    }
+
+    const step = sequence.steps[index];
+    setCurrentCutsceneStepIndex(index);
+
+    if (step.type === 'story') {
+      const story = masterStories.find(s => s.id === step.storyId);
+      if (story) {
+        const world = masterWorlds.find(w => w.id === (story.worldId || story.mapId));
+        const mapIdx = world?.maps?.findIndex(m => m.id === story.mapId);
+        
+        if (world && mapIdx !== undefined && mapIdx !== -1) {
+          setSelectedWorldId(world.id);
+          setActiveCellIndex(mapIdx);
+        }
+
+        const newCutChars: Record<string, any> = {};
+        story.characters.forEach(sc => {
+          const vData = availableObjects.find(v => v.id === sc.objectId);
+          if (vData && sc.path.length > 0) {
+            newCutChars[sc.id || `cut_${sc.objectId}`] = {
+              x: sc.path[0].x,
+              y: sc.path[0].y,
+              data: vData,
+              targetIdx: 0,
+              path: sc.path,
+              speed: sc.speed || 1
+            };
+          }
+        });
+        setCutsceneChars(newCutChars);
+      }
+    } else if (step.type === 'video') {
+      setCutsceneChars({});
+    }
+  }, [masterStories, masterWorlds, availableObjects, endCutscene]);
+
+  const handlePlaySequence = (sequenceId: string) => {
+    const seq = masterSequences.find(s => s.id === sequenceId);
+    if (!seq) return;
+
+    setIsMenuOpen(false);
+    
+    // Save original state
+    setOriginalPlayerState({
+      worldId: selectedWorldId,
+      cellIndex: activeCellIndex,
+      pos: { ...characterPosition }
+    });
+
+    setActiveCutscene(seq);
+    startCutsceneStep(seq, 0);
+  };
+
+  // --- End Cutscene Methods ---
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (bgmRef.current && bgmRef.current.paused && bgmRef.current.getAttribute('src')) {
@@ -482,106 +599,152 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   useEffect(() => {
     const loop = (currentTime: number) => {
-      if (isGamePaused) {
-        gameLoopRef.current = requestAnimationFrame(loop);
-        return;
-      }
+      // 1. Cutscene Character Movement (Runs even if player is paused)
+      if (activeCutscene && currentCutsceneStepIndex >= 0) {
+        const step = activeCutscene.steps[currentCutsceneStepIndex];
+        if (step.type === 'story' && !activeEvent) {
+          setCutsceneChars(prev => {
+            const next = { ...prev };
+            let anyMoving = false;
+            let eventTriggered = false;
 
-      let moveX = 0, moveY = 0;
-      const isKeyPressed = pressedKeys.has('ArrowUp') || pressedKeys.has('w') || pressedKeys.has('ArrowDown') || pressedKeys.has('s') || pressedKeys.has('ArrowLeft') || pressedKeys.has('a') || pressedKeys.has('ArrowRight') || pressedKeys.has('d');
+            for (const id in next) {
+              const c = next[id];
+              if (c.targetIdx >= c.path.length) continue;
 
-      if (isKeyPressed) {
-        setTargetPosition(null);
-        if (pressedKeys.has('ArrowUp') || pressedKeys.has('w')) moveY -= 1;
-        if (pressedKeys.has('ArrowDown') || pressedKeys.has('s')) moveY += 1;
-        if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveX -= 1;
-        if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveX += 1;
-      } else if (targetPosition) {
-        const dx = targetPosition.x - characterPosition.x;
-        const dy = targetPosition.y - characterPosition.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist > CHARACTER_SPEED) {
-          moveX = dx / dist;
-          moveY = dy / dist;
-        } else {
-          setTargetPosition(null);
-        }
-      }
+              anyMoving = true;
+              const target = c.path[c.targetIdx];
+              const dx = target.x - c.x;
+              const dy = target.y - c.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              const moveSpeed = (c.speed || 1) * 5;
 
-      const moving = moveX !== 0 || moveY !== 0;
-      setIsMoving(moving);
+              if (dist < moveSpeed) {
+                next[id] = { ...c, x: target.x, y: target.y, targetIdx: c.targetIdx + 1 };
+                if (target.eventId) {
+                  const event = masterEvents.find(e => e.id === target.eventId);
+                  if (event) {
+                    const startNode = event.nodes.find(n => n.type === 'start');
+                    if (startNode) {
+                      setActiveEvent(event);
+                      setCurrentNode(startNode);
+                      eventTriggered = true;
+                      break;
+                    }
+                  }
+                }
+              } else {
+                next[id] = { ...c, x: c.x + (dx / dist) * moveSpeed, y: c.y + (dy / dist) * moveSpeed };
+              }
+            }
 
-      if (moving) {
-        let newDir: CharacterDirection = characterDirection;
-        if (Math.abs(moveX) > Math.abs(moveY)) newDir = moveX > 0 ? 'right' : 'left';
-        else if (moveY !== 0) newDir = moveY > 0 ? 'down' : 'up';
-
-        if (newDir !== characterDirection) {
-          setCharacterDirection(newDir);
-          setAnimState(prev => ({ ...prev, frameIndex: 0 }));
-        }
-        
-        const nextX = characterPosition.x + moveX * CHARACTER_SPEED;
-        const nextY = characterPosition.y + moveY * CHARACTER_SPEED;
-
-        if (currentWorld && currentWorld.rows && currentWorld.cols) {
-          const currentRow = Math.floor(activeCellIndex / currentWorld.cols);
-          const currentCol = activeCellIndex % currentWorld.cols;
-          let nextCellIdx = activeCellIndex;
-          let finalX = nextX;
-          let finalY = nextY;
-          let hasTransitioned = false;
-
-          const EDGE_THRESHOLD = 50;
-
-          if (nextX < -EDGE_THRESHOLD && currentCol > 0) {
-            nextCellIdx = activeCellIndex - 1;
-            finalX = MAP_WIDTH - CHARACTER_WIDTH + EDGE_THRESHOLD;
-            hasTransitioned = true;
-          } else if (nextX > MAP_WIDTH - CHARACTER_WIDTH + EDGE_THRESHOLD && currentCol + 1 < currentWorld.cols) {
-            nextCellIdx = activeCellIndex + 1;
-            finalX = -EDGE_THRESHOLD;
-            hasTransitioned = true;
-          } else if (nextY < -EDGE_THRESHOLD && currentRow > 0) {
-            nextCellIdx = activeCellIndex - currentWorld.cols;
-            finalY = MAP_HEIGHT - CHARACTER_HEIGHT + EDGE_THRESHOLD;
-            hasTransitioned = true;
-          } else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + EDGE_THRESHOLD && currentRow + 1 < currentWorld.rows) {
-            nextCellIdx = activeCellIndex + currentWorld.cols;
-            finalY = -EDGE_THRESHOLD;
-            hasTransitioned = true;
-          }
-
-          if (hasTransitioned) {
-            setActiveCellIndex(nextCellIdx);
-            setCharacterPosition({ x: finalX, y: finalY });
-            setTargetPosition(null);
-          } else {
-            setCharacterPosition({
-              x: Math.max(-CHARACTER_WIDTH / 2, Math.min(MAP_WIDTH - CHARACTER_WIDTH / 2, nextX)),
-              y: Math.max(-CHARACTER_HEIGHT / 2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT / 2, nextY))
-            });
-          }
-        } else {
-          setCharacterPosition({
-            x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)),
-            y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY))
+            if (!anyMoving && Object.keys(next).length > 0 && !eventTriggered) {
+              // Advance step after a small delay to feel more natural
+              setTimeout(() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1), 500);
+            }
+            return next;
           });
         }
       }
 
-      // Animation Update
-      const clipName = moving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
-      const clip = playerClips.find(c => c.name === clipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
-      
-      if (clip && clip.frames.length > 0) {
-        const frameDuration = 1000 / (clip.fps || 8);
-        if (currentTime - animState.lastFrameUpdateTime > frameDuration) {
-          setAnimState(prev => ({
-            animationName: clipName,
-            frameIndex: (prev.frameIndex + 1) % clip.frames.length,
-            lastFrameUpdateTime: currentTime
-          }));
+      // 2. Player Movement Logic (Only if NOT paused)
+      if (!isGamePaused) {
+        let moveX = 0, moveY = 0;
+        const isKeyPressed = pressedKeys.has('ArrowUp') || pressedKeys.has('w') || pressedKeys.has('ArrowDown') || pressedKeys.has('s') || pressedKeys.has('ArrowLeft') || pressedKeys.has('a') || pressedKeys.has('ArrowRight') || pressedKeys.has('d');
+
+        if (isKeyPressed) {
+          setTargetPosition(null);
+          if (pressedKeys.has('ArrowUp') || pressedKeys.has('w')) moveY -= 1;
+          if (pressedKeys.has('ArrowDown') || pressedKeys.has('s')) moveY += 1;
+          if (pressedKeys.has('ArrowLeft') || pressedKeys.has('a')) moveX -= 1;
+          if (pressedKeys.has('ArrowRight') || pressedKeys.has('d')) moveX += 1;
+        } else if (targetPosition) {
+          const dx = targetPosition.x - characterPosition.x;
+          const dy = targetPosition.y - characterPosition.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > CHARACTER_SPEED) {
+            moveX = dx / dist;
+            moveY = dy / dist;
+          } else {
+            setTargetPosition(null);
+          }
+        }
+
+        const moving = moveX !== 0 || moveY !== 0;
+        setIsMoving(moving);
+
+        if (moving) {
+          let newDir: CharacterDirection = characterDirection;
+          if (Math.abs(moveX) > Math.abs(moveY)) newDir = moveX > 0 ? 'right' : 'left';
+          else if (moveY !== 0) newDir = moveY > 0 ? 'down' : 'up';
+
+          if (newDir !== characterDirection) {
+            setCharacterDirection(newDir);
+            setAnimState(prev => ({ ...prev, frameIndex: 0 }));
+          }
+          
+          const nextX = characterPosition.x + moveX * CHARACTER_SPEED;
+          const nextY = characterPosition.y + moveY * CHARACTER_SPEED;
+
+          if (currentWorld && currentWorld.rows && currentWorld.cols) {
+            const currentRow = Math.floor(activeCellIndex / currentWorld.cols);
+            const currentCol = activeCellIndex % currentWorld.cols;
+            let nextCellIdx = activeCellIndex;
+            let finalX = nextX;
+            let finalY = nextY;
+            let hasTransitioned = false;
+
+            const EDGE_THRESHOLD = 50;
+
+            if (nextX < -EDGE_THRESHOLD && currentCol > 0) {
+              nextCellIdx = activeCellIndex - 1;
+              finalX = MAP_WIDTH - CHARACTER_WIDTH + EDGE_THRESHOLD;
+              hasTransitioned = true;
+            } else if (nextX > MAP_WIDTH - CHARACTER_WIDTH + EDGE_THRESHOLD && currentCol + 1 < currentWorld.cols) {
+              nextCellIdx = activeCellIndex + 1;
+              finalX = -EDGE_THRESHOLD;
+              hasTransitioned = true;
+            } else if (nextY < -EDGE_THRESHOLD && currentRow > 0) {
+              nextCellIdx = activeCellIndex - currentWorld.cols;
+              finalY = MAP_HEIGHT - CHARACTER_HEIGHT + EDGE_THRESHOLD;
+              hasTransitioned = true;
+            } else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + EDGE_THRESHOLD && currentRow + 1 < currentWorld.rows) {
+              nextCellIdx = activeCellIndex + currentWorld.cols;
+              finalY = -EDGE_THRESHOLD;
+              hasTransitioned = true;
+            }
+
+            if (hasTransitioned) {
+              setActiveCellIndex(nextCellIdx);
+              setCharacterPosition({ x: finalX, y: finalY });
+              setTargetPosition(null);
+            } else {
+              setCharacterPosition({
+                x: Math.max(-CHARACTER_WIDTH / 2, Math.min(MAP_WIDTH - CHARACTER_WIDTH / 2, nextX)),
+                y: Math.max(-CHARACTER_HEIGHT / 2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT / 2, nextY))
+              });
+            }
+          } else {
+            setCharacterPosition({
+              x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)),
+              y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY))
+            });
+          }
+        }
+
+        // Animation Update
+        const clipName = moving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
+        const clip = playerClips.find(c => c.name === clipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
+        
+        if (clip && clip.frames.length > 0) {
+          const frameDuration = 1000 / (clip.fps || 8);
+          if (currentTime - animState.lastFrameUpdateTime > frameDuration) {
+            setAnimState(prev => ({
+              animationName: clipName,
+              frameIndex: (prev.frameIndex + 1) % clip.frames.length,
+              lastFrameUpdateTime: currentTime
+            }));
+          }
         }
       }
 
@@ -591,7 +754,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     return () => {
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
     };
-  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld]);
+  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, masterEvents, startCutsceneStep]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
@@ -603,13 +766,15 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         e.preventDefault();
         checkForInteraction();
       }
-      else setPressedKeys(prev => new Set(prev).add(e.key));
+      else if (!isGamePaused) {
+        setPressedKeys(prev => new Set(prev).add(e.key));
+      }
     };
     const handleUp = (e: KeyboardEvent) => setPressedKeys(prev => { const n = new Set(prev); n.delete(e.key); return n; });
     window.addEventListener('keydown', handleDown);
     window.addEventListener('keyup', handleUp);
     return () => { window.removeEventListener('keydown', handleDown); window.removeEventListener('keyup', handleUp); };
-  }, [checkForInteraction]);
+  }, [checkForInteraction, isGamePaused]);
 
   const displayInventory: DisplayInventoryItem[] = inventory.map(i => {
     const details = availableObjects.find(a => a.id === i.itemId);
@@ -621,15 +786,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     title: s.title,
     description: s.description
   }));
-
-  const handlePlaySequence = (sequenceId: string) => {
-    setIsMenuOpen(false);
-    toast({
-      title: "物語の再生を開始します",
-      description: `シーケンスID: ${sequenceId} (次のフェーズで実装)`,
-    });
-    // TODO: Phase 2 - Integrate Cutscene Engine logic here
-  };
 
   const playerImageUrl = useMemo(() => {
     if (!activePlayerChar) return '';
@@ -649,7 +805,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4 z-10">
           <div className="flex items-center gap-2 flex-grow max-w-sm">
             <Label className="whitespace-nowrap text-xs">マップ</Label>
-            <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }}>
+            <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }} disabled={activeCutscene !== null}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
             </Select>
@@ -657,7 +813,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
           <div className="flex items-center gap-2 flex-grow max-w-sm">
             <UserIcon className="h-4 w-4 text-muted-foreground" />
-            <Select value={activePlayerId} onValueChange={setActivePlayerId}>
+            <Select value={activePlayerId} onValueChange={setActivePlayerId} disabled={activeCutscene !== null}>
               <SelectTrigger><SelectValue placeholder="プレイヤー選択" /></SelectTrigger>
               <SelectContent>
                 {playerCharacters.map(pc => <SelectItem key={pc.id} value={pc.id}>{pc.name}</SelectItem>)}
@@ -683,19 +839,24 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               </div>
             </div>
             <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center">{gold} K</div>
-            <Button size="icon" variant="outline" onClick={handleSave}><Save className="h-4 w-4"/></Button>
-            <SheetTrigger asChild><Button size="icon" variant="outline"><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
+            <Button size="icon" variant="outline" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
+            <SheetTrigger asChild><Button size="icon" variant="outline" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
         </div>
 
         <div 
           ref={mapContainerRef}
           onClick={handleMapClick}
-          className="relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9] cursor-crosshair"
+          className={cn(
+            "relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9]",
+            isGamePaused ? "cursor-default" : "cursor-crosshair"
+          )}
         >
           {activeMapData ? (
             <>
               <Image src={resolveMediaUrl(activeMapData.imageUrl)} alt="" fill className="object-cover" unoptimized priority />
+              
+              {/* Normal Map Objects */}
               {activeMapData.objects.map(obj => {
                 const asset = availableObjects.find(a => a.id === obj.objectId);
                 if (!asset || !asset.imageUrl) return null;
@@ -710,9 +871,35 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 );
               })}
               
+              {/* Cutscene Characters */}
+              {Object.entries(cutsceneChars).map(([id, char]) => (
+                <div 
+                  key={id} 
+                  className="absolute -translate-x-1/2 -translate-y-full" 
+                  style={{ 
+                    left: `${(char.x / MAP_WIDTH) * 100}%`, 
+                    top: `${(char.y / MAP_HEIGHT) * 100}%`, 
+                    width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
+                    aspectRatio: '1/1',
+                    zIndex: 15
+                  }}
+                >
+                  <Image 
+                    src={resolveMediaUrl(char.data.imageUrl)} 
+                    alt={char.data.name} 
+                    fill 
+                    className="object-contain" 
+                    unoptimized 
+                  />
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap">
+                    {char.data.name}
+                  </div>
+                </div>
+              ))}
+              
               <MiniMap world={currentWorld} activeIndex={activeCellIndex} />
 
-              {targetPosition && (
+              {!isGamePaused && targetPosition && (
                 <div 
                   className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2"
                   style={{ left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` }}
@@ -725,7 +912,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                   top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`, 
                   width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
                   position: 'absolute', 
-                  zIndex: 10 
+                  zIndex: 10,
+                  opacity: activeCutscene ? 0.5 : 1 // Dim player during cutscene if not explicitly moving
                 }}>
                   <Image 
                     src={playerImageUrl} 
@@ -745,7 +933,54 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </div>
           )}
 
+          {/* Video Overlay */}
+          {activeCutscene && currentCutsceneStepIndex >= 0 && activeCutscene.steps[currentCutsceneStepIndex].type === 'video' && (
+            <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center">
+              <video 
+                key={activeCutscene.steps[currentCutsceneStepIndex].videoUrl}
+                src={resolveMediaUrl(activeCutscene.steps[currentCutsceneStepIndex].videoUrl)} 
+                className="w-full h-full" 
+                autoPlay 
+                playsInline 
+                controls 
+                onEnded={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)} 
+              />
+              <Button 
+                variant="ghost" 
+                className="absolute top-4 right-4 text-white hover:bg-white/20"
+                onClick={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)}
+              >
+                Skip
+              </Button>
+            </div>
+          )}
+
           {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
+          
+          {activeEvent && currentNode && (
+            <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-8 z-50">
+              <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4 shadow-2xl">
+                <CardContent className="pt-6 space-y-4">
+                  <p className="text-xl font-medium whitespace-pre-wrap">{currentNode.content}</p>
+                  <div className="flex flex-col gap-2">
+                    {currentNode.type === 'choice' ? (
+                      currentNode.choices?.map((choice, i) => (
+                        <Button key={i} size="lg" className="w-full justify-start h-auto py-3" onClick={() => {
+                          const next = activeEvent.nodes.find(n => n.id === choice.nextStepId);
+                          if (next) { setCurrentNode(next); } else { setActiveEvent(null); }
+                        }}>{choice.text}</Button>
+                      ))
+                    ) : (
+                      <Button size="lg" className="w-full" onClick={() => {
+                        const next = activeEvent.nodes.find(n => n.id === currentNode.nextStepId);
+                        if (next) { setCurrentNode(next); } else { setActiveEvent(null); }
+                      }}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </div>
       <SheetContent className="sm:max-w-xl">
