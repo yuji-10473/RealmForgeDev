@@ -1,18 +1,27 @@
+
 'use client';
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { useAuth, useFirestore } from "@/firebase";
+import { useAuth, useFirestore, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc } from "firebase/firestore";
 import { setDocumentNonBlocking } from "@/firebase/non-blocking-updates";
-import { Map, Users, Sparkles, Sword } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function LandingScreen() {
   const auth = useAuth();
   const firestore = useFirestore();
 
-  const handleSignIn = async () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
@@ -29,6 +38,16 @@ export function LandingScreen() {
     } catch (error) {
       console.error('Google sign-in error:', error);
     }
+  };
+
+  const handleEmailSignIn = () => {
+    if (!email || !password) return;
+    initiateEmailSignIn(auth, email, password);
+  };
+
+  const handleEmailSignUp = () => {
+    if (!email || !password) return;
+    initiateEmailSignUp(auth, email, password);
   };
 
   return (
@@ -79,17 +98,65 @@ export function LandingScreen() {
           </div>
         </div>
 
-        <div className="pt-8 space-y-6">
-          <Button 
-            size="lg" 
-            className="h-14 px-10 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all"
-            onClick={handleSignIn}
-          >
-            <Users className="mr-2 h-6 w-6" />
-            Google でログインしてプレイを開始
-          </Button>
+        <div className="pt-8 max-w-sm mx-auto">
+          <Tabs defaultValue="google" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="google">Google ログイン</TabsTrigger>
+              <TabsTrigger value="email">メールアドレス</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="google">
+              <Button 
+                size="lg" 
+                className="w-full h-14 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all"
+                onClick={handleGoogleSignIn}
+              >
+                <Users className="mr-2 h-6 w-6" />
+                Google でログイン
+              </Button>
+            </TabsContent>
+            
+            <TabsContent value="email" className="space-y-4 text-left">
+              <Card className="bg-card/50 backdrop-blur-sm">
+                <CardContent className="pt-6 space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">メールアドレス</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="example@mail.com" 
+                        className="pl-10" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password">パスワード</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="password" 
+                        type="password" 
+                        placeholder="••••••••" 
+                        className="pl-10" 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <Button onClick={handleEmailSignIn} className="flex-1">ログイン</Button>
+                    <Button onClick={handleEmailSignUp} variant="outline" className="flex-1">新規登録</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
           
-          <div className="flex flex-col items-center gap-2">
+          <div className="mt-8 flex flex-col items-center gap-2">
             <p className="text-xs text-muted-foreground">
               ログインすることで、当社の
               <a href="#" className="underline hover:text-primary mx-1">利用規約</a>
