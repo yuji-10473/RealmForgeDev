@@ -4,7 +4,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -37,7 +37,8 @@ import { useFirestore } from '@/firebase';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
-import { Card, CardContent } from '../ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '../ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
@@ -51,6 +52,23 @@ const resolveMediaUrl = (path: string | undefined) => {
   if (!path) return '';
   if (path.startsWith('http') || path.startsWith('/')) return path;
   return `/${path}`;
+};
+
+// --- Shop Types ---
+type ShopItem = {
+  itemId: string;
+};
+
+type ShopData = {
+  id: string;
+  name: string;
+  items: ShopItem[];
+};
+
+type CollectionPointData = {
+  id: string;
+  name: string;
+  itemIds: string[];
 };
 
 // --- Cutscene Types ---
@@ -136,6 +154,7 @@ type AvailableObject = {
   type?: 'person' | 'door' | 'item';
   itemIds?: string[];
   description?: string;
+  recoveryAmount?: number; // Used as price
 };
 
 type PlayerCharacter = {
@@ -266,6 +285,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [playerCharacters, setPlayerCharacters] = useState<PlayerCharacter[]>([]);
   const [masterSequences, setMasterSequences] = useState<NarrativeSequence[]>([]);
   const [masterStories, setMasterStories] = useState<StoryData[]>([]);
+  const [masterShops, setMasterShops] = useState<ShopData[]>([]);
+  const [masterCollectionPoints, setMasterCollectionPoints] = useState<CollectionPointData[]>([]);
 
   // State
   const [loading, setLoading] = useState(true);
@@ -283,6 +304,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
   const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
   const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
+  const [activeShop, setActiveShop] = useState<ShopData | null>(null);
 
   // Cutscene State
   const [activeCutscene, setActiveCutscene] = useState<NarrativeSequence | null>(null);
@@ -333,7 +355,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
   const activeMapData = currentWorld?.maps[activeCellIndex];
-  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null;
+  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null;
 
   useEffect(() => {
     if (!currentWorld || activeCutscene) return; // In cutscene, bgm is handled by startCutsceneStep
@@ -362,7 +384,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const res = await fetch(`/data/${file}.json`);
           if (!res.ok) return [];
           const data = await res.json();
-          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || []);
+          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || []);
         };
 
         const [worldIndex, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences, stories] = await Promise.all([
@@ -398,6 +420,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setPlayerCharacters(playerListRes.characters || []);
         setMasterSequences(sequences);
         setMasterStories(stories);
+        setMasterShops(shops);
+        setMasterCollectionPoints(collectionPoints);
 
         if (playerListRes.characters?.length > 0 && !activePlayerId) {
           setActivePlayerId(playerListRes.characters[0].id);
@@ -579,6 +603,21 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     setTargetPosition({ x, y });
   };
 
+  const handleBuyItem = (item: AvailableObject) => {
+    const price = item.recoveryAmount || 0;
+    if (gold < price) {
+      toast({ variant: "destructive", title: "所持金不足", description: "ゴールドが足りません。" });
+      return;
+    }
+    setGold(prev => prev - price);
+    setInventory(prev => {
+      const existing = prev.find(i => i.itemId === item.id);
+      if (existing) return prev.map(i => i.itemId === item.id ? { ...i, quantity: i.quantity + 1 } : i);
+      return [...prev, { itemId: item.id, quantity: 1 }];
+    });
+    toast({ title: "購入完了", description: `${item.name} を購入しました。` });
+  };
+
   const checkForInteraction = useCallback(() => {
     if (isGamePaused || !activeMapData) return;
     const charCX = characterPosition.x + CHARACTER_WIDTH / 2;
@@ -589,9 +628,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       const dist = Math.sqrt(Math.pow(charCX - (currentX + obj.width / 2), 2) + Math.pow(charCY - (obj.y + obj.height / 2), 2));
 
       if (dist < INTERACTION_RADIUS) {
-        const asset = availableObjects.find(a => a.id === obj.objectId);
-        if (asset?.itemIds && asset.itemIds.length > 0) {
-          const randomItemId = asset.itemIds[Math.floor(Math.random() * asset.itemIds.length)];
+        // 1. Check for Collection Points (Random items)
+        const cp = masterCollectionPoints.find(c => c.id === obj.objectId);
+        if (cp && cp.itemIds.length > 0) {
+          const randomItemId = cp.itemIds[Math.floor(Math.random() * cp.itemIds.length)];
           const gatheredItem = availableObjects.find(a => a.id === randomItemId);
           if (gatheredItem) {
             setInventory(prev => {
@@ -599,11 +639,20 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               if (existing) return prev.map(i => i.itemId === randomItemId ? { ...i, quantity: i.quantity + 1 } : i);
               return [...prev, { itemId: randomItemId, quantity: 1 }];
             });
-            toast({ title: "採集完了", description: `${asset.name} から「${gatheredItem.name}」を手に入れた！` });
+            toast({ title: "発見！", description: `${cp.name} から「${gatheredItem.name}」を手に入れた！` });
           }
           return;
         }
 
+        // 2. Check for Shops
+        const shopId = obj.eventId?.startsWith('shop:') ? obj.eventId.split(':')[1] : obj.objectId;
+        const shop = masterShops.find(s => s.id === shopId);
+        if (shop) {
+          setActiveShop(shop);
+          return;
+        }
+
+        // 3. Check for Transitions
         if (obj.transition) {
           const { targetMapId, targetX, targetY } = obj.transition;
           
@@ -621,6 +670,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return;
         }
 
+        // 4. Check for Event Flows
         if (obj.eventId) {
           const flow = masterEvents.find(e => e.id === obj.eventId);
           if (flow) {
@@ -631,13 +681,15 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             return;
           }
         }
+
+        // 5. Fallback Conversation
         if (obj.conversation) {
           setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
           return;
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
@@ -1070,6 +1122,58 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           )}
         </div>
       </div>
+
+      {/* Shop Dialog */}
+      <Dialog open={activeShop !== null} onOpenChange={(open) => !open && setActiveShop(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <div className="flex items-center gap-2">
+              <ShoppingCart className="h-5 w-5 text-primary" />
+              <DialogTitle>{activeShop?.name}</DialogTitle>
+            </div>
+            <DialogDescription>
+              必要なアイテムをゴールドで購入してください。
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 max-h-[60vh] overflow-y-auto">
+            {activeShop?.items.map((shopItem) => {
+              const itemDetails = availableObjects.find(a => a.id === shopItem.itemId);
+              if (!itemDetails) return null;
+              const price = itemDetails.recoveryAmount || 0;
+              return (
+                <Card key={shopItem.itemId} className="flex flex-col">
+                  <CardHeader className="p-3 pb-0">
+                    <div className="aspect-square relative bg-muted rounded-md mb-2">
+                      <Image src={resolveMediaUrl(itemDetails.imageUrl)} alt={itemDetails.name} fill className="object-contain p-2" unoptimized />
+                    </div>
+                    <CardTitle className="text-sm truncate">{itemDetails.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-3 flex-grow">
+                    <p className="text-[10px] text-muted-foreground line-clamp-2">{itemDetails.description}</p>
+                  </CardContent>
+                  <CardFooter className="p-3 pt-0">
+                    <Button 
+                      className="w-full h-8 text-xs" 
+                      variant={gold >= price ? "default" : "secondary"}
+                      disabled={gold < price}
+                      onClick={() => handleBuyItem(itemDetails)}
+                    >
+                      {price} K
+                    </Button>
+                  </CardFooter>
+                </Card>
+              );
+            })}
+          </div>
+          <DialogFooter className="flex items-center justify-between border-t pt-4">
+            <div className="text-sm font-bold">
+              所持金: <span className="text-primary">{gold} K</span>
+            </div>
+            <Button variant="outline" onClick={() => setActiveShop(null)}>店を出る</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <SheetContent className="sm:max-w-xl">
         <SheetHeader>
           <SheetTitle>ゲームメニュー</SheetTitle>
