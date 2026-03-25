@@ -23,7 +23,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MenuSimulatorClient, type DisplayInventoryItem } from './menu-simulator-client';
+import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
 import { useFirestore } from '@/firebase';
 import { doc, serverTimestamp } from 'firebase/firestore';
@@ -148,6 +148,12 @@ type CharacterAnimationState = {
   lastFrameUpdateTime: number;
 };
 
+type NarrativeSequence = {
+  id: string;
+  title: string;
+  description: string;
+};
+
 function DialogueBox({
   conversation,
   audioPath,
@@ -217,6 +223,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [availableObjects, setAvailableObjects] = useState<AvailableObject[]>([]);
   const [masterEvents, setMasterEvents] = useState<EventFlow[]>([]);
   const [playerCharacters, setPlayerCharacters] = useState<PlayerCharacter[]>([]);
+  const [masterSequences, setMasterSequences] = useState<NarrativeSequence[]>([]);
 
   // State
   const [loading, setLoading] = useState(true);
@@ -297,10 +304,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const res = await fetch(`/data/${file}.json`);
           if (!res.ok) return [];
           const data = await res.json();
-          return Array.isArray(data) ? data : (data.worlds || data.events || []);
+          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || []);
         };
 
-        const [worldIndex, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes] = await Promise.all([
+        const [worldIndex, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences] = await Promise.all([
           fetchData('worlds'),
           fetchData('villagers'),
           fetchData('items'),
@@ -311,7 +318,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           fetchData('monsters'),
           fetchData('dishes'),
           fetchData('shops'),
-          fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] })
+          fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] }),
+          fetchData('narrativeSequences')
         ]);
 
         const fullWorlds = await Promise.all(worldIndex.map(async (w: any) => {
@@ -329,6 +337,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setAvailableObjects([...villagers, ...items, ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...dishes, ...shops]);
         setMasterEvents(events);
         setPlayerCharacters(playerListRes.characters || []);
+        setMasterSequences(sequences);
 
         if (playerListRes.characters?.length > 0 && !activePlayerId) {
           setActivePlayerId(playerListRes.characters[0].id);
@@ -607,6 +616,21 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     return { id: i.itemId, name: details?.name || 'Unknown', imageUrl: resolveMediaUrl(details?.imageUrl), quantity: i.quantity };
   });
 
+  const displaySequences: DisplaySequence[] = masterSequences.map(s => ({
+    id: s.id,
+    title: s.title,
+    description: s.description
+  }));
+
+  const handlePlaySequence = (sequenceId: string) => {
+    setIsMenuOpen(false);
+    toast({
+      title: "物語の再生を開始します",
+      description: `シーケンスID: ${sequenceId} (次のフェーズで実装)`,
+    });
+    // TODO: Phase 2 - Integrate Cutscene Engine logic here
+  };
+
   const playerImageUrl = useMemo(() => {
     if (!activePlayerChar) return '';
     const clip = playerClips.find(c => c.name === animState.animationName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
@@ -724,7 +748,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
         </div>
       </div>
-      <SheetContent><MenuSimulatorClient inventoryItems={displayInventory} /></SheetContent>
+      <SheetContent className="sm:max-w-xl">
+        <SheetHeader>
+          <SheetTitle>ゲームメニュー</SheetTitle>
+        </SheetHeader>
+        <div className="mt-4">
+          <MenuSimulatorClient 
+            inventoryItems={displayInventory} 
+            sequences={displaySequences}
+            onPlaySequence={handlePlaySequence}
+          />
+        </div>
+      </SheetContent>
     </Sheet>
   );
 }
