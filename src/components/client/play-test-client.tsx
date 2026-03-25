@@ -166,7 +166,8 @@ export type EventNode = {
   type: 'start' | 'story' | 'choice' | 'reward' | 'end';
   content: string;
   nextStepId?: string;
-  choices?: { text: string; nextStepId: string }[];
+  audioUrl?: string;
+  choices?: { text: string; nextStepId: string; audioUrl?: string }[];
 };
 
 export type EventFlow = {
@@ -285,6 +286,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [isMuted, setIsMuted] = useState(initialData?.isMuted ?? false);
   const [volume, setVolume] = useState(initialData?.volume ?? 0.5);
   const bgmRef = useRef<HTMLAudioElement | null>(null);
+  const voiceRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (!bgmRef.current) {
@@ -293,6 +295,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     }
     bgmRef.current.muted = isMuted;
     bgmRef.current.volume = volume;
+
+    if (!voiceRef.current) {
+      voiceRef.current = new Audio();
+    }
+    voiceRef.current.muted = isMuted;
+    voiceRef.current.volume = volume;
   }, [isMuted, volume]);
 
 
@@ -318,7 +326,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null;
 
   useEffect(() => {
-    if (!currentWorld) return;
+    if (!currentWorld || activeCutscene) return; // In cutscene, bgm is handled by startCutsceneStep
     const targetBgm = currentWorld.bgmUrl || currentWorld.audioUrl;
     if (targetBgm && bgmRef.current) {
       const resolved = resolveMediaUrl(targetBgm);
@@ -334,7 +342,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       bgmRef.current.pause();
       bgmRef.current.removeAttribute('src');
     }
-  }, [currentWorld]);
+  }, [currentWorld, activeCutscene]);
 
   useEffect(() => {
     const init = async () => {
@@ -467,6 +475,16 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     toast({ title: "物語終了", description: "ゲームに戻ります。" });
   }, [originalPlayerState, toast]);
 
+  const playNodeVoice = useCallback((node: EventNode) => {
+    if (!voiceRef.current) voiceRef.current = new Audio();
+    if (node.audioUrl) {
+      voiceRef.current.src = resolveMediaUrl(node.audioUrl);
+      voiceRef.current.muted = isMuted;
+      voiceRef.current.volume = volume;
+      voiceRef.current.play().catch(() => {});
+    }
+  }, [isMuted, volume]);
+
   const startCutsceneStep = useCallback(async (sequence: NarrativeSequence, index: number) => {
     if (index >= sequence.steps.length) {
       endCutscene();
@@ -487,6 +505,16 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setActiveCellIndex(mapIdx);
         }
 
+        // BGM切り替え
+        const targetBgm = story.bgmUrl || world?.bgmUrl || world?.audioUrl;
+        if (targetBgm && bgmRef.current) {
+          const resolved = resolveMediaUrl(targetBgm);
+          if (bgmRef.current.getAttribute('src') !== resolved) {
+            bgmRef.current.src = resolved;
+            bgmRef.current.play().catch(() => {});
+          }
+        }
+
         const newCutChars: Record<string, any> = {};
         story.characters.forEach(sc => {
           const vData = availableObjects.find(v => v.id === sc.objectId);
@@ -505,6 +533,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       }
     } else if (step.type === 'video') {
       setCutsceneChars({});
+      if (bgmRef.current) bgmRef.current.pause();
     }
   }, [masterStories, masterWorlds, availableObjects, endCutscene]);
 
@@ -585,7 +614,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const flow = masterEvents.find(e => e.id === obj.eventId);
           if (flow) {
             setActiveEvent(flow);
-            setCurrentNode(flow.nodes.find(n => n.type === 'start') || null);
+            const startNode = flow.nodes.find(n => n.type === 'start');
+            setCurrentNode(startNode || null);
+            if (startNode) playNodeVoice(startNode);
             return;
           }
         }
@@ -595,9 +626,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice]);
 
   useEffect(() => {
+    let nextStepTimeout: NodeJS.Timeout | null = null;
+
     const loop = (currentTime: number) => {
       // 1. Cutscene Character Movement (Runs even if player is paused)
       if (activeCutscene && currentCutsceneStepIndex >= 0) {
@@ -628,6 +661,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                     if (startNode) {
                       setActiveEvent(event);
                       setCurrentNode(startNode);
+                      playNodeVoice(startNode);
                       eventTriggered = true;
                       break;
                     }
@@ -638,9 +672,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               }
             }
 
-            if (!anyMoving && Object.keys(next).length > 0 && !eventTriggered) {
+            if (!anyMoving && Object.keys(next).length > 0 && !eventTriggered && !nextStepTimeout) {
               // Advance step after a small delay to feel more natural
-              setTimeout(() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1), 500);
+              nextStepTimeout = setTimeout(() => {
+                startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1);
+                nextStepTimeout = null;
+              }, 500);
             }
             return next;
           });
@@ -753,8 +790,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     gameLoopRef.current = requestAnimationFrame(loop);
     return () => {
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
+      if (nextStepTimeout) clearTimeout(nextStepTimeout);
     };
-  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, masterEvents, startCutsceneStep]);
+  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, masterEvents, startCutsceneStep, playNodeVoice]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
@@ -967,13 +1005,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                       currentNode.choices?.map((choice, i) => (
                         <Button key={i} size="lg" className="w-full justify-start h-auto py-3" onClick={() => {
                           const next = activeEvent.nodes.find(n => n.id === choice.nextStepId);
-                          if (next) { setCurrentNode(next); } else { setActiveEvent(null); }
+                          if (next) { setCurrentNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
                         }}>{choice.text}</Button>
                       ))
                     ) : (
                       <Button size="lg" className="w-full" onClick={() => {
                         const next = activeEvent.nodes.find(n => n.id === currentNode.nextStepId);
-                        if (next) { setCurrentNode(next); } else { setActiveEvent(null); }
+                        if (next) { setCurrentNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
                       }}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>
                     )}
                   </div>
