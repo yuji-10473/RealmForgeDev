@@ -48,13 +48,17 @@ export function MenuSimulatorClient({
                   <Card key={item.id} className="overflow-hidden relative hover:shadow-lg transition-shadow">
                     <CardContent className="p-0">
                       <div className="aspect-square w-full bg-muted flex items-center justify-center relative p-4">
-                        <Image 
-                          src={item.imageUrl} 
-                          alt={item.name}
-                          layout="fill"
-                          objectFit="contain"
-                          unoptimized
-                        />
+                        {item.imageUrl ? (
+                          <Image 
+                            src={item.imageUrl} 
+                            alt={item.name}
+                            layout="fill"
+                            objectFit="contain"
+                            unoptimized
+                          />
+                        ) : (
+                          <div className="text-muted-foreground text-[10px] text-center">画像なし</div>
+                        )}
                       </div>
                     </CardContent>
                     <CardFooter className="p-2 border-t flex justify-between items-center">
