@@ -405,10 +405,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           if (!res.ok) return [];
           const data = await res.json();
           // worlds.json, events.json etc might be wrapped in { worlds: [...] }
-          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || data.rooms || data.meetingPlaces || []);
+          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || data.rooms || data.meetingPlaces || data.villagers || data.items || data.buildings || data.monsters || data.dishes || []);
         };
 
-        const [worldIndex, roomsRes, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences, stories] = await Promise.all([
+        const [worldIndex, roomsRes, rawVillagers, rawItems, buildings, events, collectionPoints, meetingPlaces, monsters, rawDishes, shops, playerListRes, sequences, stories] = await Promise.all([
           fetchData('worlds'),
           fetchData('rooms'),
           fetchData('villagers'),
@@ -446,6 +446,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }));
 
         const mergedWorlds = [...fullWorlds, ...roomWorlds];
+
+        // Ensure proper types for filtering later (person for villagers, item for items/dishes)
+        const villagers = rawVillagers.map((v: any) => ({ ...v, type: 'person' }));
+        const items = rawItems.map((i: any) => ({ ...i, type: 'item' }));
+        const dishes = rawDishes.map((d: any) => ({ ...d, type: 'item' }));
 
         setMasterWorlds(mergedWorlds);
         setAvailableObjects([...villagers, ...items, ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...dishes, ...shops]);
