@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -68,6 +68,12 @@ type CollectionPointData = {
   id: string;
   name: string;
   itemIds: string[];
+};
+
+type MeetingPlaceData = {
+  id: string;
+  name: string;
+  eventIds: string[];
 };
 
 // --- Cutscene Types ---
@@ -195,6 +201,7 @@ export type EventNode = {
 
 export type EventFlow = {
   id: string;
+  title: string;
   nodes: EventNode[];
 };
 
@@ -284,6 +291,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [masterStories, setMasterStories] = useState<StoryData[]>([]);
   const [masterShops, setMasterShops] = useState<ShopData[]>([]);
   const [masterCollectionPoints, setMasterCollectionPoints] = useState<CollectionPointData[]>([]);
+  const [masterMeetingPlaces, setMasterMeetingPlaces] = useState<MeetingPlaceData[]>([]);
 
   // State
   const [loading, setLoading] = useState(true);
@@ -306,6 +314,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [currentNode, setCurrentEventNode] = useState<EventNode | null>(null);
   const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
   const [activeShop, setActiveShop] = useState<ShopData | null>(null);
+  const [activeMeetingPlace, setActiveMeetingPlace] = useState<MeetingPlaceData | null>(null);
 
   // Cutscene State
   const [activeCutscene, setActiveCutscene] = useState<NarrativeSequence | null>(null);
@@ -356,7 +365,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
   const activeMapData = currentWorld?.maps[activeCellIndex];
-  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null;
+  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null || activeMeetingPlace !== null;
 
   useEffect(() => {
     if (!currentWorld || activeCutscene) return;
@@ -386,7 +395,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           if (!res.ok) return [];
           const data = await res.json();
           // worlds.json, events.json etc might be wrapped in { worlds: [...] }
-          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || data.rooms || []);
+          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || data.rooms || data.meetingPlaces || []);
         };
 
         const [worldIndex, roomsRes, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences, stories] = await Promise.all([
@@ -436,6 +445,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setMasterStories(stories);
         setMasterShops(shops);
         setMasterCollectionPoints(collectionPoints);
+        setMasterMeetingPlaces(meetingPlaces);
 
         if (playerListRes.characters?.length > 0 && !activePlayerId) {
           setActivePlayerId(playerListRes.characters[0].id);
@@ -732,7 +742,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return;
         }
 
-        // 4. Check for Event Flows
+        // 4. Check for Meeting Places
+        const meetingPlace = masterMeetingPlaces.find(m => m.id === obj.objectId);
+        if (meetingPlace) {
+          setActiveMeetingPlace(meetingPlace);
+          return;
+        }
+
+        // 5. Check for Event Flows
         if (obj.eventId) {
           const flow = masterEvents.find(e => e.id === obj.eventId);
           if (flow) {
@@ -744,14 +761,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           }
         }
 
-        // 5. Fallback Conversation
+        // 6. Fallback Conversation
         if (obj.conversation) {
           setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
           return;
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, hp, hunger]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, hunger]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
@@ -1120,9 +1137,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                     className="object-contain" 
                     unoptimized 
                   />
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap">
-                    {char.data.name}
-                  </div>
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap">{char.data.name}</div>
                 </div>
               ))}
               
@@ -1258,6 +1273,54 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               所持金: <span className="text-primary">{gold} K</span>
             </div>
             <Button variant="outline" onClick={() => setActiveShop(null)}>店を出る</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={activeMeetingPlace !== null} onOpenChange={(open) => !open && setActiveMeetingPlace(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <div className="flex items-center gap-2">
+              <MessageCircle className="h-5 w-5 text-primary" />
+              <DialogTitle>{activeMeetingPlace?.name}</DialogTitle>
+            </div>
+            <DialogDescription>
+              参加するイベントを選択してください。
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-4">
+            {activeMeetingPlace?.eventIds.map((eventId) => {
+              const eventFlow = masterEvents.find(e => e.id === eventId);
+              return (
+                <Button 
+                  key={eventId}
+                  variant="outline"
+                  className="w-full justify-start h-auto py-4 px-6 text-left group hover:border-primary"
+                  onClick={() => {
+                    if (eventFlow) {
+                      setActiveEvent(eventFlow);
+                      const startNode = eventFlow.nodes.find(n => n.type === 'start');
+                      setCurrentEventNode(startNode || null);
+                      if (startNode) playNodeVoice(startNode);
+                      setActiveMeetingPlace(null);
+                    } else {
+                      toast({ variant: "destructive", title: "イベントが見つかりません", description: `ID: ${eventId}` });
+                    }
+                  }}
+                >
+                  <div className="flex items-center gap-4 w-full">
+                    <BookOpen className="h-5 w-5 text-muted-foreground group-hover:text-primary shrink-0" />
+                    <span className="font-semibold text-lg">{eventFlow?.title || eventId}</span>
+                  </div>
+                </Button>
+              );
+            })}
+            {activeMeetingPlace?.eventIds.length === 0 && (
+              <p className="text-center text-muted-foreground py-8">現在参加できるイベントはありません。</p>
+            )}
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setActiveMeetingPlace(null)}>閉じる</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
