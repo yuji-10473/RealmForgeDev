@@ -207,6 +207,7 @@ export type EventNode = {
 export type EventFlow = {
   id: string;
   title: string;
+  tags?: string[];
   nodes: EventNode[];
 };
 
@@ -550,6 +551,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     if (node.type === 'reward' && node.reward) {
       const { itemId, itemName, amount } = node.reward;
       
+      // Labor Logic: consume 1/10 HP if event has "労働力" tag
+      const isLaborEvent = activeEvent?.tags?.includes('労働力');
+      if (isLaborEvent && amount) {
+        const hpCost = Math.floor(amount / 10);
+        setHp(prev => Math.max(0, prev - hpCost));
+        toast({ 
+          variant: "destructive", 
+          title: "体力を消耗した", 
+          description: `労働により HP が ${hpCost} 減少しました。` 
+        });
+      }
+
       if (amount) {
         setGold(prev => prev + amount);
         toast({ title: "報酬獲得！", description: `${amount} K を手に入れた。` });
@@ -566,7 +579,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         toast({ title: "アイテム獲得！", description: `「${itemName}」を手に入れた。` });
       }
     }
-  }, [playNodeVoice, toast]);
+  }, [playNodeVoice, toast, activeEvent]);
 
   // --- Cutscene Methods ---
 
