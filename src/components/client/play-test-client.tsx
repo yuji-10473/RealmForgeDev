@@ -629,11 +629,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       return;
     }
 
-    if (hunger >= maxHunger) {
+    // New restriction: Prevent usage if it would exceed max satiety (100)
+    if (hunger + recovery > maxHunger) {
       toast({ 
         variant: "destructive",
         title: "お腹がいっぱいです", 
-        description: "これ以上は食べたり飲んだりできません。" 
+        description: `これを使用すると満腹度制限(${maxHunger})を超えてしまいます。` 
       });
       return;
     }
