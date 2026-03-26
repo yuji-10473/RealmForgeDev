@@ -385,11 +385,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const res = await fetch(`/data/${file}.json`);
           if (!res.ok) return [];
           const data = await res.json();
-          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || []);
+          // worlds.json, events.json etc might be wrapped in { worlds: [...] }
+          return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || data.rooms || []);
         };
 
-        const [worldIndex, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences, stories] = await Promise.all([
+        const [worldIndex, roomsRes, villagers, items, buildings, events, collectionPoints, meetingPlaces, monsters, dishes, shops, playerListRes, sequences, stories] = await Promise.all([
           fetchData('worlds'),
+          fetchData('rooms'),
           fetchData('villagers'),
           fetchData('items'),
           fetchData('buildings'),
@@ -415,7 +417,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return w;
         }));
 
-        setMasterWorlds(fullWorlds);
+        // Convert rooms to pseudo-worlds for the player
+        const roomWorlds = roomsRes.map((r: any) => ({
+          id: r.id,
+          name: r.name,
+          rows: 1,
+          cols: 1,
+          maps: [r]
+        }));
+
+        const mergedWorlds = [...fullWorlds, ...roomWorlds];
+
+        setMasterWorlds(mergedWorlds);
         setAvailableObjects([...villagers, ...items, ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...dishes, ...shops]);
         setMasterEvents(events);
         setPlayerCharacters(playerListRes.characters || []);
@@ -428,8 +441,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setActivePlayerId(playerListRes.characters[0].id);
         }
 
-        if (fullWorlds.length > 0 && !selectedWorldId) {
-          setSelectedWorldId(fullWorlds[0].id);
+        if (mergedWorlds.length > 0 && !selectedWorldId) {
+          setSelectedWorldId(mergedWorlds[0].id);
         }
       } catch (e: any) {
         console.error("Initialization error:", e);
@@ -629,7 +642,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       return;
     }
 
-    // New restriction: Prevent usage if it would exceed max satiety (100)
     if (hunger + recovery > maxHunger) {
       toast({ 
         variant: "destructive",
@@ -701,10 +713,15 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         if (obj.transition) {
           const { targetMapId, targetX, targetY } = obj.transition;
           
-          const mapIdx = currentWorld?.maps.findIndex(m => m.id === targetMapId);
-          if (mapIdx !== undefined && mapIdx !== -1) {
-            setActiveCellIndex(mapIdx);
+          // Logic to find if the targetMapId belongs to any world or room
+          const worldWithMap = masterWorlds.find(w => w.id === targetMapId || w.maps?.some(m => m.id === targetMapId));
+          
+          if (worldWithMap) {
+            setSelectedWorldId(worldWithMap.id);
+            const mapIdx = worldWithMap.maps.findIndex(m => m.id === targetMapId);
+            setActiveCellIndex(mapIdx !== -1 ? mapIdx : 0);
           } else {
+            // Fallback
             setSelectedWorldId(targetMapId);
             setActiveCellIndex(0);
           }
@@ -734,7 +751,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, hp, hunger]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, hp, hunger]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
