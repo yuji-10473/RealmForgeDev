@@ -1,9 +1,10 @@
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -15,6 +16,7 @@ import {
 } from '../ui/select';
 import {Button} from '../ui/button';
 import {Slider} from '@/components/ui/slider';
+import { Progress } from '@/components/ui/progress';
 import { MenuIcon } from '@/components/icons/MenuIcon';
 import {
   Sheet,
@@ -45,6 +47,7 @@ const CHARACTER_SPEED = 12;
 const CHARACTER_WIDTH = 256;
 const CHARACTER_HEIGHT = 256;
 const INTERACTION_RADIUS = 150;
+const HP_COLLECTION_COST = 10;
 
 // v1.1.1 Path Resolution
 const resolveMediaUrl = (path: string | undefined) => {
@@ -57,7 +60,7 @@ const resolveMediaUrl = (path: string | undefined) => {
 type ShopData = {
   id: string;
   name: string;
-  itemIds: string[]; // Changed from items: { itemId: string }[]
+  itemIds: string[];
 };
 
 type CollectionPointData = {
@@ -103,8 +106,6 @@ type NarrativeSequence = {
   steps: CutsceneStep[];
 };
 
-// --- End Cutscene Types ---
-
 type AnimationFrame = {
   id: string;
   image: string;
@@ -149,7 +150,7 @@ type AvailableObject = {
   type?: 'person' | 'door' | 'item';
   itemIds?: string[];
   description?: string;
-  recoveryAmount?: number; // Used as price
+  recoveryAmount?: number;
 };
 
 type PlayerCharacter = {
@@ -292,6 +293,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [targetPosition, setTargetPosition] = useState<{x: number, y: number} | null>(null);
   const [inventory, setInventory] = useState<SavedInventoryItem[]>(initialData?.inventory || []);
   const [gold, setGold] = useState(initialData?.gold || 0);
+  const [hp, setHp] = useState(initialData?.hp ?? 100);
+  const [maxHp, setMaxHp] = useState(initialData?.maxHp ?? 100);
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
   const [isMoving, setIsMoving] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -353,7 +356,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null;
 
   useEffect(() => {
-    if (!currentWorld || activeCutscene) return; // In cutscene, bgm is handled by startCutsceneStep
+    if (!currentWorld || activeCutscene) return;
     const targetBgm = currentWorld.bgmUrl || currentWorld.audioUrl;
     if (targetBgm && bgmRef.current) {
       const resolved = resolveMediaUrl(targetBgm);
@@ -434,7 +437,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     init();
   }, []);
 
-  // Fetch animations.json and preload frames when active player changes
   useEffect(() => {
     if (!activePlayerChar) return;
     const fetchAnims = async () => {
@@ -445,7 +447,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const clips = data.clips || [];
           setPlayerClips(clips);
 
-          // Preload all frames
           clips.forEach((clip: AnimationClip) => {
             clip.frames.forEach((frame) => {
               const img = new (window as any).Image();
@@ -479,6 +480,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       mapId: selectedWorldId,
       positionX: characterPosition.x,
       positionY: characterPosition.y,
+      hp,
+      maxHp,
       inventory,
       gold,
       bgmVolume,
@@ -535,7 +538,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setActiveCellIndex(mapIdx);
         }
 
-        // BGM切り替え
         const targetBgm = story.bgmUrl || world?.bgmUrl || world?.audioUrl;
         if (targetBgm && bgmRef.current) {
           const resolved = resolveMediaUrl(targetBgm);
@@ -573,7 +575,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
     setIsMenuOpen(false);
     
-    // Save original state
     setOriginalPlayerState({
       worldId: selectedWorldId,
       cellIndex: activeCellIndex,
@@ -626,15 +627,21 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         // 1. Check for Collection Points (Random items)
         const cp = masterCollectionPoints.find(c => c.id === obj.objectId);
         if (cp && cp.itemIds.length > 0) {
+          if (hp < HP_COLLECTION_COST) {
+            toast({ variant: "destructive", title: "体力が足りません", description: "休憩して体力を回復しましょう。" });
+            return;
+          }
+
           const randomItemId = cp.itemIds[Math.floor(Math.random() * cp.itemIds.length)];
           const gatheredItem = availableObjects.find(a => a.id === randomItemId);
           if (gatheredItem) {
+            setHp(prev => Math.max(0, prev - HP_COLLECTION_COST));
             setInventory(prev => {
               const existing = prev.find(i => i.itemId === randomItemId);
               if (existing) return prev.map(i => i.itemId === randomItemId ? { ...i, quantity: i.quantity + 1 } : i);
               return [...prev, { itemId: randomItemId, quantity: 1 }];
             });
-            toast({ title: "発見！", description: `${cp.name} から「${gatheredItem.name}」を手に入れた！` });
+            toast({ title: "発見！", description: `${cp.name} から「${gatheredItem.name}」を手に入れた！ (HP-${HP_COLLECTION_COST})` });
           }
           return;
         }
@@ -684,13 +691,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, hp]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
 
     const loop = (currentTime: number) => {
-      // 1. Cutscene Character Movement (Runs even if player is paused)
       if (activeCutscene && currentCutsceneStepIndex >= 0) {
         const step = activeCutscene.steps[currentCutsceneStepIndex];
         if (step.type === 'story' && !activeEvent) {
@@ -731,7 +737,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             }
 
             if (!anyMoving && Object.keys(next).length > 0 && !eventTriggered && !nextStepTimeout) {
-              // Advance step after a small delay to feel more natural
               nextStepTimeout = setTimeout(() => {
                 startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1);
                 nextStepTimeout = null;
@@ -742,7 +747,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
 
-      // 2. Player Movement Logic (Only if NOT paused)
       if (!isGamePaused) {
         let moveX = 0, moveY = 0;
         const isKeyPressed = pressedKeys.has('ArrowUp') || pressedKeys.has('w') || pressedKeys.has('ArrowDown') || pressedKeys.has('s') || pressedKeys.has('ArrowLeft') || pressedKeys.has('a') || pressedKeys.has('ArrowRight') || pressedKeys.has('d');
@@ -827,7 +831,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           }
         }
 
-        // Animation Update
         const clipName = moving ? `walk_${characterDirection}` : `idle_${characterDirection}`;
         const clip = playerClips.find(c => c.name === clipName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
         
@@ -918,6 +921,15 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           </div>
 
           <div className="flex gap-2 shrink-0 items-center">
+            {/* HP Gauge */}
+            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-32 md:w-40">
+              <Heart className={cn("h-4 w-4 shrink-0", hp < 20 ? "text-destructive animate-pulse" : "text-red-500")} />
+              <div className="flex flex-col flex-grow min-w-0">
+                <Progress value={(hp / maxHp) * 100} className="h-2" />
+                <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span>
+              </div>
+            </div>
+
             <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-10">
               <Button 
                 size="icon" 
@@ -1000,7 +1012,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             <>
               <Image src={resolveMediaUrl(activeMapData.imageUrl)} alt="" fill className="object-cover" unoptimized priority />
               
-              {/* Normal Map Objects */}
               {activeMapData.objects.map(obj => {
                 const asset = availableObjects.find(a => a.id === obj.objectId);
                 if (!asset || !asset.imageUrl) return null;
@@ -1015,7 +1026,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 );
               })}
               
-              {/* Cutscene Characters */}
               {Object.entries(cutsceneChars).map(([id, char]) => (
                 <div 
                   key={id} 
@@ -1057,7 +1067,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                   width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
                   position: 'absolute', 
                   zIndex: 10,
-                  opacity: activeCutscene ? 0.5 : 1 // Dim player during cutscene if not explicitly moving
+                  opacity: activeCutscene ? 0.5 : 1
                 }}>
                   <Image 
                     src={playerImageUrl} 
@@ -1077,7 +1087,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </div>
           )}
 
-          {/* Video Overlay */}
           {activeCutscene && currentCutsceneStepIndex >= 0 && activeCutscene.steps[currentCutsceneStepIndex].type === 'video' && (
             <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center">
               <video 
@@ -1128,7 +1137,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         </div>
       </div>
 
-      {/* Shop Dialog */}
       <Dialog open={activeShop !== null} onOpenChange={(open) => !open && setActiveShop(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>

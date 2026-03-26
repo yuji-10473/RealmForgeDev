@@ -60,6 +60,14 @@
           "type": "number",
           "description": "Character's Y position."
         },
+        "hp": {
+          "type": "number",
+          "description": "Player's current health points."
+        },
+        "maxHp": {
+          "type": "number",
+          "description": "Player's maximum health points."
+        },
         "gold": {
           "type": "number",
           "description": "The player's current amount of gold."
