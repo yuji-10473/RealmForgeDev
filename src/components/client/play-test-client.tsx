@@ -753,6 +753,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return;
         }
 
+        // 0.5. Check for "仏壇" (Pray)
+        if (asset?.name === '仏壇') {
+          setHp(prev => Math.min(maxHp, prev + 20));
+          setHunger(10);
+          toast({ title: "お祈り", description: "静かに祈りを捧げた。体力が少し回復したが、お腹が空いた...（HP+20、空腹度は10になりました）" });
+          return;
+        }
+
         // 1. Check for Collection Points (Random items)
         const cp = masterCollectionPoints.find(c => c.id === obj.objectId);
         if (cp && cp.itemIds.length > 0) {
