@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -32,7 +31,7 @@ import {
 } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence } from './menu-simulator-client';
+import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence, type DisplayAffection } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
 import { useFirestore } from '@/firebase';
 import { doc, serverTimestamp } from 'firebase/firestore';
@@ -1074,6 +1073,19 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     description: s.description
   }));
 
+  const displayAffection: DisplayAffection[] = useMemo(() => {
+    // Filter villagers from availableObjects and map them with current affection points
+    return availableObjects
+      .filter(obj => obj.type === 'person')
+      .map(v => ({
+        id: v.id,
+        name: v.name,
+        imageUrl: resolveMediaUrl(v.imageUrl),
+        points: affection[v.id] || 0
+      }))
+      .sort((a, b) => b.points - a.points); // Sort by highest affection
+  }, [availableObjects, affection]);
+
   const playerImageUrl = useMemo(() => {
     if (!activePlayerChar) return '';
     const clip = playerClips.find(c => c.name === animState.animationName) || playerClips.find(c => c.name === `idle_${characterDirection}`);
@@ -1437,6 +1449,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           <MenuSimulatorClient 
             inventoryItems={displayInventory} 
             sequences={displaySequences}
+            characterAffection={displayAffection}
             onPlaySequence={handlePlaySequence}
             onUseItem={handleUseItem}
           />
