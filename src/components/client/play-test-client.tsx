@@ -614,6 +614,36 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     toast({ title: "購入完了", description: `${item.name} を購入しました。` });
   };
 
+  const handleUseItem = (itemId: string) => {
+    const itemDetails = availableObjects.find(a => a.id === itemId);
+    if (!itemDetails) return;
+
+    const recovery = itemDetails.recoveryAmount || 0;
+    if (recovery <= 0) {
+      toast({ title: "使用できません", description: "このアイテムは使用できません。" });
+      return;
+    }
+
+    if (hp >= maxHp) {
+      toast({ title: "回復不要", description: "体力はすでに満タンです。" });
+      return;
+    }
+
+    setHp(prev => Math.min(maxHp, prev + recovery));
+    setInventory(prev => {
+      const existing = prev.find(i => i.itemId === itemId);
+      if (existing && existing.quantity > 1) {
+        return prev.map(i => i.itemId === itemId ? { ...i, quantity: i.quantity - 1 } : i);
+      }
+      return prev.filter(i => i.itemId !== itemId);
+    });
+
+    toast({ 
+      title: "アイテムを使用", 
+      description: `${itemDetails.name} を使用して HP が ${recovery} 回復した！` 
+    });
+  };
+
   const checkForInteraction = useCallback(() => {
     if (isGamePaused || !activeMapData) return;
     const charCX = characterPosition.x + CHARACTER_WIDTH / 2;
@@ -877,7 +907,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   const displayInventory: DisplayInventoryItem[] = inventory.map(i => {
     const details = availableObjects.find(a => a.id === i.itemId);
-    return { id: i.itemId, name: details?.name || 'Unknown', imageUrl: resolveMediaUrl(details?.imageUrl), quantity: i.quantity };
+    return { 
+      id: i.itemId, 
+      name: details?.name || 'Unknown', 
+      imageUrl: resolveMediaUrl(details?.imageUrl), 
+      quantity: i.quantity,
+      canUse: (details?.recoveryAmount || 0) > 0
+    };
   });
 
   const displaySequences: DisplaySequence[] = masterSequences.map(s => ({
@@ -1196,6 +1232,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             inventoryItems={displayInventory} 
             sequences={displaySequences}
             onPlaySequence={handlePlaySequence}
+            onUseItem={handleUseItem}
           />
         </div>
       </SheetContent>

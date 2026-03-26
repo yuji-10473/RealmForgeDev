@@ -11,6 +11,7 @@ export type DisplayInventoryItem = {
   name: string;
   imageUrl: string;
   quantity: number;
+  canUse?: boolean;
 };
 
 export type DisplaySequence = {
@@ -22,11 +23,13 @@ export type DisplaySequence = {
 export function MenuSimulatorClient({ 
   inventoryItems = [], 
   sequences = [],
-  onPlaySequence
+  onPlaySequence,
+  onUseItem
 }: { 
   inventoryItems?: DisplayInventoryItem[];
   sequences?: DisplaySequence[];
   onPlaySequence?: (sequenceId: string) => void;
+  onUseItem?: (itemId: string) => void;
 }) {
   return (
     <Tabs defaultValue="items" className="w-full">
@@ -45,8 +48,8 @@ export function MenuSimulatorClient({
             {inventoryItems.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {inventoryItems.map((item) => (
-                  <Card key={item.id} className="overflow-hidden relative hover:shadow-lg transition-shadow">
-                    <CardContent className="p-0">
+                  <Card key={item.id} className="overflow-hidden relative hover:shadow-lg transition-shadow flex flex-col">
+                    <CardContent className="p-0 flex-grow">
                       <div className="aspect-square w-full bg-muted flex items-center justify-center relative p-4">
                         {item.imageUrl ? (
                           <Image 
@@ -61,9 +64,21 @@ export function MenuSimulatorClient({
                         )}
                       </div>
                     </CardContent>
-                    <CardFooter className="p-2 border-t flex justify-between items-center">
-                      <p className="text-sm font-medium truncate">{item.name}</p>
-                      <p className="text-sm text-muted-foreground font-mono">x{item.quantity}</p>
+                    <CardFooter className="p-2 border-t flex flex-col gap-2">
+                      <div className="flex justify-between items-center w-full">
+                        <p className="text-sm font-medium truncate">{item.name}</p>
+                        <p className="text-sm text-muted-foreground font-mono">x{item.quantity}</p>
+                      </div>
+                      {item.canUse && (
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="w-full h-7 text-xs"
+                          onClick={() => onUseItem?.(item.id)}
+                        >
+                          使用する
+                        </Button>
+                      )}
                     </CardFooter>
                   </Card>
                 ))}
