@@ -1,46 +1,46 @@
 [
   {
     "id": "CMjY4Dv3OfmuddPaTheq",
-    "steps": [
-      {
-        "type": "video",
-        "storyId": "",
-        "worldId": "",
-        "videoUrl": "media/videos/file_622_1774467694331.mp4",
-        "videoTitle": "新しい動画シーン"
-      },
-      {
-        "type": "story",
-        "worldId": "Zmzp41TLWlimB3mo6SqB",
-        "storyId": "0RAPWAweirKJH2ZAxEvF"
-      },
-      {
-        "type": "story",
-        "storyId": "fCRctREgNQAd6VU1v0wl",
-        "worldId": "8cbQhI5KmyB1d9DrvOvM"
-      }
-    ],
     "title": "新しい物語シーケンス",
     "createdAt": {
       "nanoseconds": 855000000,
       "seconds": 1772044673
     },
+    "steps": [
+      {
+        "worldId": "",
+        "videoTitle": "新しい動画シーン",
+        "storyId": "",
+        "videoUrl": "media/videos/file_628_1774525724113.mp4",
+        "type": "video"
+      },
+      {
+        "worldId": "Zmzp41TLWlimB3mo6SqB",
+        "storyId": "0RAPWAweirKJH2ZAxEvF",
+        "type": "story"
+      },
+      {
+        "storyId": "fCRctREgNQAd6VU1v0wl",
+        "worldId": "8cbQhI5KmyB1d9DrvOvM",
+        "type": "story"
+      }
+    ],
     "description": "複数の街を跨ぐ物語の流れを定義します。"
   },
   {
     "id": "XWUmEWG6AIyK03AbDdyd",
-    "description": "複数の街を跨ぐ物語の流れを定義します。",
-    "createdAt": {
-      "seconds": 1774405410,
-      "nanoseconds": 363000000
-    },
     "title": "新しい物語シーケンス",
+    "createdAt": {
+      "nanoseconds": 363000000,
+      "seconds": 1774405410
+    },
     "steps": [
       {
-        "type": "story",
+        "worldId": "L4cp7idBKu3JzNv0Tmlb",
         "storyId": "qxNCsj2amJGDSYdiAOIh",
-        "worldId": "L4cp7idBKu3JzNv0Tmlb"
+        "type": "story"
       }
-    ]
+    ],
+    "description": "複数の街を跨ぐ物語の流れを定義します。"
   }
 ]

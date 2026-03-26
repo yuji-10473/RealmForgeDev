@@ -1,7 +1,8 @@
 [
   {
     "id": "8XjmcRjkRcWnBLV6ZJeO",
-    "createdAt": "2026-03-19T08:25:37.456Z",
+    "description": "朝まだき、鍬や鎌を肩にした男たちが集い、日雇いの仕事を探す声が響く。村の長や地主が人手を募り、それぞれの暮らしの糧を見出す活気ある寄り合いの場なり。",
+    "imageUrl": "media/images/file_632_1774525724113.png",
     "name": "労働力用寄合所",
     "eventIds": [
       "e8DmFw2mhh5wmSrfU3a9",
@@ -18,7 +19,6 @@
       "MkxulxdafWr5oTwDebt9",
       "GQFTaTJJE4SO9gsRL6GK"
     ],
-    "description": "朝まだき、鍬や鎌を肩にした男たちが集い、日雇いの仕事を探す声が響く。村の長や地主が人手を募り、それぞれの暮らしの糧を見出す活気ある寄り合いの場なり。",
-    "imageUrl": "media/images/file_626_1774467694331.png"
+    "createdAt": "2026-03-19T08:25:37.456Z"
   }
 ]

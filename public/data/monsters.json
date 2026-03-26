@@ -1,32 +1,32 @@
 [
   {
     "id": "LBsOuOfTRQ2jE2egjpQQ",
-    "motif": "Gemini_Generated_Image_jkzcbyjkzcbyjkzc",
-    "stats": {
-      "defense": 45,
-      "hp": 150,
-      "attack": 20,
-      "mp": 80,
-      "magic": 20
-    },
+    "name": "キチット",
+    "story": "キチットは、真面目な性格がかわいらしい小さなモンスターです。いつも周囲をきちんと整頓しています。",
     "attribute": "土",
     "personality": "真面目",
-    "name": "キチット",
-    "story": "キチットは、真面目な性格がかわいらしい小さなモンスターです。いつも周囲をきちんと整頓しています。"
+    "motif": "Gemini_Generated_Image_jkzcbyjkzcbyjkzc",
+    "stats": {
+      "attack": 20,
+      "defense": 45,
+      "hp": 150,
+      "mp": 80,
+      "magic": 20
+    }
   },
   {
     "id": "LyzRfPCePkacCnaG4TwI",
+    "motif": "Gemini_Generated_Image_ani0n7ani0n7ani0",
     "stats": {
       "magic": 20,
       "mp": 80,
-      "attack": 25,
       "defense": 45,
-      "hp": 180
+      "hp": 180,
+      "attack": 25
     },
-    "motif": "Gemini_Generated_Image_ani0n7ani0n7ani0",
     "personality": "粘り強い",
     "attribute": "土",
-    "name": "ネバリッチ",
-    "story": "ネバリッチは、一度決めたことは決して諦めない粘り強いモンスターです。ぷるぷる震えながらも、目標に向かってひたすら進み続けます。"
+    "story": "ネバリッチは、一度決めたことは決して諦めない粘り強いモンスターです。ぷるぷる震えながらも、目標に向かってひたすら進み続けます。",
+    "name": "ネバリッチ"
   }
 ]

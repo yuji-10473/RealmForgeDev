@@ -1,8 +1,13 @@
 [
   {
     "id": "UZeJDSSkM4ahjQ6ilTgB",
-    "name": "うめの飯屋",
     "ownerId": "wMSjRWzjMW8zmymdIxYk",
+    "description": "うめの飯屋は、鎌倉の辻に立つ、武士や行商人が立ち寄る活気あるめし処である。粗食ながらも腹を満たす温かい飯と汁物が、往来の者たちの疲れを癒やし、再び道へ向かう力を与えている。",
+    "itemIds": [],
+    "imageUrl": "media/images/file_449_1774525724111.png",
+    "name": "うめの飯屋",
+    "createdAt": "2026-03-15T20:00:26.757Z",
+    "shopType": "diner",
     "dishIds": [
       "JwZX5uOJ7ImaHMMtRywJ",
       "h6xq7ql0jtwtWf4lWb3l",
@@ -22,18 +27,13 @@
       "j26bd4xGNnVIxSxckFu4",
       "kMjUutzTwVXMpdewKMzu",
       "xgRDJFnUJG0AVoFghEJ8"
-    ],
-    "createdAt": "2026-03-15T20:00:26.757Z",
-    "itemIds": [],
-    "imageUrl": "media/images/file_447_1774467694329.png",
-    "shopType": "diner",
-    "description": "うめの飯屋は、鎌倉の辻に立つ、武士や行商人が立ち寄る活気あるめし処である。粗食ながらも腹を満たす温かい飯と汁物が、往来の者たちの疲れを癒やし、再び道へ向かう力を与えている。"
+    ]
   },
   {
     "id": "leNTiskpyzvZGcYMjGpq",
+    "ownerId": "TFS6nW3oE8YYdiJ21M9R",
     "description": "「農作物いね」には、肥沃な大地が育んだ米や麦、季節の野菜が山と積まれ、市を訪れる武士や農民たちが日々の糧を求めて活発に品定めをする。力強い商人の声が響く店先は、いつも活気に満ち溢れ、鎌倉の暮らしを支える要であった。",
-    "shopType": "retail",
-    "imageUrl": "media/images/file_448_1774467694329.png",
+    "imageUrl": "media/images/file_450_1774525724111.png",
     "itemIds": [
       "KfC755P2vtX74e1mqqEF",
       "hjZwcagGSJ5ZqxQ7c7aG",
@@ -69,9 +69,9 @@
       "zEPdxxs801SQTBTM1BJT",
       "kT2BcR4eInEm3Bjub88A"
     ],
-    "createdAt": "2026-03-12T06:38:27.785Z",
-    "dishIds": [],
     "name": "農作物いね",
-    "ownerId": "TFS6nW3oE8YYdiJ21M9R"
+    "createdAt": "2026-03-12T06:38:27.785Z",
+    "shopType": "retail",
+    "dishIds": []
   }
 ]

@@ -743,6 +743,16 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       const dist = Math.sqrt(Math.pow(charCX - (currentX + obj.width / 2), 2) + Math.pow(charCY - (obj.y + obj.height / 2), 2));
 
       if (dist < INTERACTION_RADIUS) {
+        const asset = availableObjects.find(a => a.id === obj.objectId);
+
+        // 0. Check for "布団" (Sleep)
+        if (asset?.name === '布団') {
+          setHp(100);
+          setHunger(50);
+          toast({ title: "休息", description: "ぐっすり眠って、体力が回復した！（空腹度は50になりました）" });
+          return;
+        }
+
         // 1. Check for Collection Points (Random items)
         const cp = masterCollectionPoints.find(c => c.id === obj.objectId);
         if (cp && cp.itemIds.length > 0) {
