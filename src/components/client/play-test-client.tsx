@@ -197,6 +197,11 @@ export type EventNode = {
   nextStepId?: string;
   audioUrl?: string;
   choices?: { text: string; nextStepId: string; audioUrl?: string }[];
+  reward?: {
+    itemId?: string;
+    itemName?: string;
+    amount?: number;
+  };
 };
 
 export type EventFlow = {
@@ -521,6 +526,48 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
   };
 
+  const playNodeVoice = useCallback((node: EventNode) => {
+    if (!voiceRef.current) voiceRef.current = new Audio();
+    if (node.audioUrl) {
+      voiceRef.current.src = resolveMediaUrl(node.audioUrl);
+      voiceRef.current.muted = isMuted;
+      voiceRef.current.volume = voiceVolume;
+      voiceRef.current.play().catch(() => {});
+    }
+  }, [isMuted, voiceVolume]);
+
+  const transitionToNode = useCallback((node: EventNode | null | undefined) => {
+    if (!node) {
+      setActiveEvent(null);
+      setCurrentEventNode(null);
+      return;
+    }
+
+    setCurrentEventNode(node);
+    playNodeVoice(node);
+
+    // Process Rewards
+    if (node.type === 'reward' && node.reward) {
+      const { itemId, itemName, amount } = node.reward;
+      
+      if (amount) {
+        setGold(prev => prev + amount);
+        toast({ title: "報酬獲得！", description: `${amount} K を手に入れた。` });
+      }
+
+      if (itemId && itemName) {
+        setInventory(prev => {
+          const existing = prev.find(i => i.itemId === itemId);
+          if (existing) {
+            return prev.map(i => i.itemId === itemId ? { ...i, quantity: i.quantity + 1 } : i);
+          }
+          return [...prev, { itemId, quantity: 1 }];
+        });
+        toast({ title: "アイテム獲得！", description: `「${itemName}」を手に入れた。` });
+      }
+    }
+  }, [playNodeVoice, toast]);
+
   // --- Cutscene Methods ---
 
   const endCutscene = useCallback(() => {
@@ -535,16 +582,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     setOriginalPlayerState(null);
     toast({ title: "物語終了", description: "ゲームに戻ります。" });
   }, [originalPlayerState, toast]);
-
-  const playNodeVoice = useCallback((node: EventNode) => {
-    if (!voiceRef.current) voiceRef.current = new Audio();
-    if (node.audioUrl) {
-      voiceRef.current.src = resolveMediaUrl(node.audioUrl);
-      voiceRef.current.muted = isMuted;
-      voiceRef.current.volume = voiceVolume;
-      voiceRef.current.play().catch(() => {});
-    }
-  }, [isMuted, voiceVolume]);
 
   const startCutsceneStep = useCallback(async (sequence: NarrativeSequence, index: number) => {
     if (index >= sequence.steps.length) {
@@ -755,8 +792,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           if (flow) {
             setActiveEvent(flow);
             const startNode = flow.nodes.find(n => n.type === 'start');
-            setCurrentEventNode(startNode || null);
-            if (startNode) playNodeVoice(startNode);
+            transitionToNode(startNode || null);
             return;
           }
         }
@@ -768,7 +804,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, hunger]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, hunger, transitionToNode]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
@@ -801,8 +837,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                     const startNode = event.nodes.find(n => n.type === 'start');
                     if (startNode) {
                       setActiveEvent(event);
-                      setCurrentEventNode(startNode);
-                      playNodeVoice(startNode);
+                      transitionToNode(startNode);
                       eventTriggered = true;
                       break;
                     }
@@ -930,7 +965,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
       if (nextStepTimeout) clearTimeout(nextStepTimeout);
     };
-  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, masterEvents, startCutsceneStep, playNodeVoice]);
+  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, masterEvents, startCutsceneStep, transitionToNode]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
@@ -1210,13 +1245,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                       currentNode.choices?.map((choice, i) => (
                         <Button key={i} size="lg" className="w-full justify-start h-auto py-3" onClick={() => {
                           const next = activeEvent.nodes.find(n => n.id === choice.nextStepId);
-                          if (next) { setCurrentEventNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
+                          transitionToNode(next);
                         }}>{choice.text}</Button>
                       ))
                     ) : (
                       <Button size="lg" className="w-full" onClick={() => {
                         const next = activeEvent.nodes.find(n => n.id === currentNode.nextStepId);
-                        if (next) { setCurrentEventNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
+                        transitionToNode(next);
                       }}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>
                     )}
                   </div>
@@ -1300,8 +1335,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                     if (eventFlow) {
                       setActiveEvent(eventFlow);
                       const startNode = eventFlow.nodes.find(n => n.type === 'start');
-                      setCurrentEventNode(startNode || null);
-                      if (startNode) playNodeVoice(startNode);
+                      transitionToNode(startNode || null);
                       setActiveMeetingPlace(null);
                     } else {
                       toast({ variant: "destructive", title: "イベントが見つかりません", description: `ID: ${eventId}` });
