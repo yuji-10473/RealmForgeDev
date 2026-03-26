@@ -1,3 +1,4 @@
+
 {
   "entities": {
     "UserProfile": {
@@ -79,6 +80,13 @@
           "type": "number",
           "description": "The player's current amount of gold."
         },
+        "affection": {
+          "type": "object",
+          "description": "Affection points for each villager. Key is villagerId, value is points.",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
         "bgmVolume": {
           "type": "number",
           "description": "Volume for background music (0.0 to 1.0)."
@@ -152,6 +160,10 @@
         },
         "requiredFlag": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
         },
         "nodes": {
           "type": "array",

@@ -1,3 +1,4 @@
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -208,6 +209,8 @@ export type EventNode = {
 export type EventFlow = {
   id: string;
   title: string;
+  villagerId?: string;
+  villagerName?: string;
   tags?: string[];
   nodes: EventNode[];
 };
@@ -309,6 +312,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [targetPosition, setTargetPosition] = useState<{x: number, y: number} | null>(null);
   const [inventory, setInventory] = useState<SavedInventoryItem[]>(initialData?.inventory || []);
   const [gold, setGold] = useState(initialData?.gold || 0);
+  const [affection, setAffection] = useState<Record<string, number>>(initialData?.affection || {});
   const [hp, setHp] = useState(initialData?.hp ?? 100);
   const [maxHp, setMaxHp] = useState(initialData?.maxHp ?? 100);
   const [hunger, setHunger] = useState(initialData?.hunger ?? 100);
@@ -519,6 +523,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       maxHunger,
       inventory,
       gold,
+      affection,
       bgmVolume,
       voiceVolume,
       isMuted,
@@ -571,6 +576,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (amount) {
         setGold(prev => prev + amount);
         toast({ title: "報酬獲得！", description: `${amount} K を手に入れた。` });
+
+        // Affection Logic: increment affection if villagerId is present
+        if (activeEvent?.villagerId) {
+          setAffection(prev => ({
+            ...prev,
+            [activeEvent.villagerId!]: (prev[activeEvent.villagerId!] || 0) + amount
+          }));
+          toast({ 
+            title: "好感度アップ！", 
+            description: `${activeEvent.villagerName || '村人'}との絆が深まった。` 
+          });
+        }
       }
 
       if (itemId && itemName) {
