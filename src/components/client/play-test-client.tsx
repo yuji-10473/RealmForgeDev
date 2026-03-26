@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -1136,7 +1135,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </DialogDescription>
           </DialogHeader>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 max-h-[60vh] overflow-y-auto">
-            {activeShop?.items.map((shopItem) => {
+            {activeShop?.items?.map((shopItem) => {
               const itemDetails = availableObjects.find(a => a.id === shopItem.itemId);
               if (!itemDetails) return null;
               const price = itemDetails.recoveryAmount || 0;
