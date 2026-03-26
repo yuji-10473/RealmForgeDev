@@ -1,4 +1,3 @@
-
 {
   "entities": {
     "UserProfile": {
@@ -67,6 +66,14 @@
         "maxHp": {
           "type": "number",
           "description": "Player's maximum health points."
+        },
+        "hunger": {
+          "type": "number",
+          "description": "Player's current hunger points (0 to maxHunger)."
+        },
+        "maxHunger": {
+          "type": "number",
+          "description": "Player's maximum hunger points."
         },
         "gold": {
           "type": "number",

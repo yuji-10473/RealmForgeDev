@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -47,6 +47,7 @@ const CHARACTER_WIDTH = 256;
 const CHARACTER_HEIGHT = 256;
 const INTERACTION_RADIUS = 150;
 const HP_COLLECTION_COST = 10;
+const HUNGER_COLLECTION_COST = 5;
 
 // v1.1.1 Path Resolution
 const resolveMediaUrl = (path: string | undefined) => {
@@ -295,12 +296,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [gold, setGold] = useState(initialData?.gold || 0);
   const [hp, setHp] = useState(initialData?.hp ?? 100);
   const [maxHp, setMaxHp] = useState(initialData?.maxHp ?? 100);
+  const [hunger, setHunger] = useState(initialData?.hunger ?? 100);
+  const [maxHunger, setMaxHunger] = useState(initialData?.maxHunger ?? 100);
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
   const [isMoving, setIsMoving] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
   const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
-  const [currentNode, setCurrentNode] = useState<EventNode | null>(null);
+  const [currentNode, setCurrentEventNode] = useState<EventNode | null>(null);
   const [npcStates, setNpcStates] = useState<Record<string, NpcState>>({});
   const [activeShop, setActiveShop] = useState<ShopData | null>(null);
 
@@ -482,6 +485,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       positionY: characterPosition.y,
       hp,
       maxHp,
+      hunger,
+      maxHunger,
       inventory,
       gold,
       bgmVolume,
@@ -624,12 +629,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       return;
     }
 
-    if (hp >= maxHp) {
-      toast({ title: "回復不要", description: "体力はすでに満タンです。" });
+    if (hunger >= maxHunger) {
+      toast({ 
+        variant: "destructive",
+        title: "お腹がいっぱいです", 
+        description: "これ以上は食べたり飲んだりできません。" 
+      });
       return;
     }
 
     setHp(prev => Math.min(maxHp, prev + recovery));
+    setHunger(prev => Math.min(maxHunger, prev + recovery));
+    
     setInventory(prev => {
       const existing = prev.find(i => i.itemId === itemId);
       if (existing && existing.quantity > 1) {
@@ -640,7 +651,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
     toast({ 
       title: "アイテムを使用", 
-      description: `${itemDetails.name} を使用して HP が ${recovery} 回復した！` 
+      description: `${itemDetails.name} を使用して HP と空腹度が ${recovery} 回復した！` 
     });
   };
 
@@ -666,12 +677,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const gatheredItem = availableObjects.find(a => a.id === randomItemId);
           if (gatheredItem) {
             setHp(prev => Math.max(0, prev - HP_COLLECTION_COST));
+            setHunger(prev => Math.max(0, prev - HUNGER_COLLECTION_COST));
             setInventory(prev => {
               const existing = prev.find(i => i.itemId === randomItemId);
               if (existing) return prev.map(i => i.itemId === randomItemId ? { ...i, quantity: i.quantity + 1 } : i);
               return [...prev, { itemId: randomItemId, quantity: 1 }];
             });
-            toast({ title: "発見！", description: `${cp.name} から「${gatheredItem.name}」を手に入れた！ (HP-${HP_COLLECTION_COST})` });
+            toast({ title: "発見！", description: `${cp.name} から「${gatheredItem.name}」を手に入れた！ (HP-${HP_COLLECTION_COST}, 空腹度-${HUNGER_COLLECTION_COST})` });
           }
           return;
         }
@@ -708,7 +720,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           if (flow) {
             setActiveEvent(flow);
             const startNode = flow.nodes.find(n => n.type === 'start');
-            setCurrentNode(startNode || null);
+            setCurrentEventNode(startNode || null);
             if (startNode) playNodeVoice(startNode);
             return;
           }
@@ -721,7 +733,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, hp]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, currentWorld, toast, availableObjects, playNodeVoice, masterShops, masterCollectionPoints, hp, hunger]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
@@ -754,7 +766,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                     const startNode = event.nodes.find(n => n.type === 'start');
                     if (startNode) {
                       setActiveEvent(event);
-                      setCurrentNode(startNode);
+                      setCurrentEventNode(startNode);
                       playNodeVoice(startNode);
                       eventTriggered = true;
                       break;
@@ -958,11 +970,20 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
           <div className="flex gap-2 shrink-0 items-center">
             {/* HP Gauge */}
-            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-32 md:w-40">
+            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32">
               <Heart className={cn("h-4 w-4 shrink-0", hp < 20 ? "text-destructive animate-pulse" : "text-red-500")} />
               <div className="flex flex-col flex-grow min-w-0">
                 <Progress value={(hp / maxHp) * 100} className="h-2" />
                 <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span>
+              </div>
+            </div>
+
+            {/* Hunger Gauge */}
+            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32">
+              <Utensils className={cn("h-4 w-4 shrink-0", hunger < 20 ? "text-destructive animate-pulse" : "text-orange-500")} />
+              <div className="flex flex-col flex-grow min-w-0">
+                <Progress value={(hunger / maxHunger) * 100} className="h-2" />
+                <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hunger)}/{maxHunger}</span>
               </div>
             </div>
 
@@ -1030,7 +1051,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 </PopoverContent>
               </Popover>
             </div>
-            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center">{gold} K</div>
+            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center shrink-0">{gold} K</div>
             <Button size="icon" variant="outline" onClick={handleSave} disabled={activeCutscene !== null} title="保存"><Save className="h-4 w-4"/></Button>
             <SheetTrigger asChild><Button size="icon" variant="outline" disabled={activeCutscene !== null} title="メニュー"><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
@@ -1156,13 +1177,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                       currentNode.choices?.map((choice, i) => (
                         <Button key={i} size="lg" className="w-full justify-start h-auto py-3" onClick={() => {
                           const next = activeEvent.nodes.find(n => n.id === choice.nextStepId);
-                          if (next) { setCurrentNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
+                          if (next) { setCurrentEventNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
                         }}>{choice.text}</Button>
                       ))
                     ) : (
                       <Button size="lg" className="w-full" onClick={() => {
                         const next = activeEvent.nodes.find(n => n.id === currentNode.nextStepId);
-                        if (next) { setCurrentNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
+                        if (next) { setCurrentEventNode(next); playNodeVoice(next); } else { setActiveEvent(null); }
                       }}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>
                     )}
                   </div>
