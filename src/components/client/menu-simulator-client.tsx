@@ -65,7 +65,7 @@ export function MenuSimulatorClient({
                         {item.imageUrl ? (
                           <Image 
                             src={item.imageUrl} 
-                            alt={item.name}
+                            alt={item.name || 'Item'}
                             layout="fill"
                             objectFit="contain"
                             unoptimized
@@ -118,7 +118,7 @@ export function MenuSimulatorClient({
                       {char.imageUrl ? (
                         <Image 
                           src={char.imageUrl} 
-                          alt={char.name}
+                          alt={char.name || 'Character'}
                           layout="fill"
                           objectFit="contain"
                           unoptimized

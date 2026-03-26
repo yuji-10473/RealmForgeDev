@@ -29,7 +29,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Switch } from "@/components/ui/switch";
+import { Switch } from "@/switch";
 import { Separator } from "@/components/ui/separator";
 import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence, type DisplayAffection } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
@@ -1235,7 +1235,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
                 return (
                   <div key={obj.id} style={{ left: `${(curX / MAP_WIDTH) * 100}%`, top: `${(obj.y / MAP_HEIGHT) * 100}%`, width: `${(obj.width / MAP_WIDTH) * 100}%`, position: 'absolute' }}>
-                    <Image src={imgUrl} alt="" layout="responsive" width={asset.width || 256} height={asset.height || 256} unoptimized />
+                    <Image src={imgUrl} alt={asset.name || 'Object'} layout="responsive" width={asset.width || 256} height={asset.height || 256} unoptimized />
                   </div>
                 );
               })}
@@ -1254,7 +1254,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 >
                   <Image 
                     src={resolveMediaUrl(char.data.imageUrl)} 
-                    alt={char.data.name} 
+                    alt={char.data.name || 'Character'} 
                     fill 
                     className="object-contain" 
                     unoptimized 
@@ -1369,7 +1369,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 <Card key={shopItemId} className="flex flex-col">
                   <CardHeader className="p-3 pb-0">
                     <div className="aspect-square relative bg-muted rounded-md mb-2">
-                      <Image src={resolveMediaUrl(itemDetails.imageUrl)} alt={itemDetails.name} fill className="object-contain p-2" unoptimized />
+                      <Image src={resolveMediaUrl(itemDetails.imageUrl)} alt={itemDetails.name || 'Item'} fill className="object-contain p-2" unoptimized />
                     </div>
                     <CardTitle className="text-sm truncate">{itemDetails.name}</CardTitle>
                   </CardHeader>
