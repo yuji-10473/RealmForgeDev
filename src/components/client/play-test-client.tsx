@@ -138,6 +138,7 @@ type PlacedObject = {
   width: number;
   height: number;
   transition?: {
+    targetWorldId?: string;
     targetMapId: string;
     targetX: number;
     targetY: number;
@@ -775,17 +776,34 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
         // 3. Check for Transitions
         if (obj.transition) {
-          const { targetMapId, targetX, targetY } = obj.transition;
+          const { targetWorldId, targetMapId, targetX, targetY } = obj.transition;
           
-          // Logic to find if the targetMapId belongs to any world or room
-          const worldWithMap = masterWorlds.find(w => w.id === targetMapId || w.maps?.some(m => m.id === targetMapId));
+          let targetWorld = null;
+          let targetCellIdx = 0;
+
+          // Priority 1: targetWorldId
+          if (targetWorldId) {
+            targetWorld = masterWorlds.find(w => w.id === targetWorldId);
+            if (targetWorld) {
+              targetCellIdx = targetWorld.maps?.findIndex(m => m.id === targetMapId) ?? 0;
+              if (targetCellIdx === -1) targetCellIdx = 0;
+            }
+          }
+
+          // Priority 2: mapId lookup fallback
+          if (!targetWorld) {
+            targetWorld = masterWorlds.find(w => w.id === targetMapId || w.maps?.some(m => m.id === targetMapId));
+            if (targetWorld) {
+              targetCellIdx = targetWorld.maps.findIndex(m => m.id === targetMapId);
+              if (targetCellIdx === -1) targetCellIdx = 0;
+            }
+          }
           
-          if (worldWithMap) {
-            setSelectedWorldId(worldWithMap.id);
-            const mapIdx = worldWithMap.maps.findIndex(m => m.id === targetMapId);
-            setActiveCellIndex(mapIdx !== -1 ? mapIdx : 0);
+          if (targetWorld) {
+            setSelectedWorldId(targetWorld.id);
+            setActiveCellIndex(targetCellIdx);
           } else {
-            // Fallback
+            // Ultimate fallback
             setSelectedWorldId(targetMapId);
             setActiveCellIndex(0);
           }

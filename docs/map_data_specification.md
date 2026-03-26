@@ -111,6 +111,7 @@ public/
     "range": 150
   },
   "transition": {
+    "targetWorldId": "world2",
     "targetMapId": "room_elder_house",
     "targetX": 300,
     "targetY": 800
@@ -130,5 +131,6 @@ public/
         *   `type` (string): `"stationary"` (静止) または `"patrol-h"` (水平巡回)。
         *   `range` (number, optional): `patrol-h` の場合の移動範囲 (px)。
     *   `transition` (object, optional): ドアオブジェクトなどで使用されるマップ遷移を定義します。
-        *   `targetMapId` (string): 遷移先のマップID (ワールドマップのIDまたはルームID)。
+        *   `targetWorldId` (string, optional): 遷移先のワールドID（`worlds.json` で定義されている `id`）。
+        *   `targetMapId` (string): 遷移先のマップID (ワールドマップ内の各セルのIDまたはルームID)。
         *   `targetX`, `targetY` (number): 遷移先マップでのプレイヤーの出現座標。
