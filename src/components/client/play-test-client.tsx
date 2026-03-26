@@ -54,14 +54,10 @@ const resolveMediaUrl = (path: string | undefined) => {
 };
 
 // --- Shop Types ---
-type ShopItem = {
-  itemId: string;
-};
-
 type ShopData = {
   id: string;
   name: string;
-  items: ShopItem[];
+  itemIds: string[]; // Changed from items: { itemId: string }[]
 };
 
 type CollectionPointData = {
@@ -1145,12 +1141,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </DialogDescription>
           </DialogHeader>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 max-h-[60vh] overflow-y-auto">
-            {activeShop?.items?.map((shopItem) => {
-              const itemDetails = availableObjects.find(a => a.id === shopItem.itemId);
+            {activeShop?.itemIds?.map((shopItemId) => {
+              const itemDetails = availableObjects.find(a => a.id === shopItemId);
               if (!itemDetails) return null;
               const price = itemDetails.recoveryAmount || 0;
               return (
-                <Card key={shopItem.itemId} className="flex flex-col">
+                <Card key={shopItemId} className="flex flex-col">
                   <CardHeader className="p-3 pb-0">
                     <div className="aspect-square relative bg-muted rounded-md mb-2">
                       <Image src={resolveMediaUrl(itemDetails.imageUrl)} alt={itemDetails.name} fill className="object-contain p-2" unoptimized />

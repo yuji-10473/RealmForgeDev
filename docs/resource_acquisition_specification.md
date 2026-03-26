@@ -8,6 +8,18 @@
 
 ### 2.1. データ参照
 - **インデックス**: `public/data/shops.json`
+- **構造例**:
+  ```json
+  {
+    "shops": [
+      {
+        "id": "store_01",
+        "name": "始まりの道具屋",
+        "itemIds": ["potion_01", "herb_01"]
+      }
+    ]
+  }
+  ```
 - **アイテム詳細**: `public/data/items.json`
 
 ### 2.2. 購入ロジック

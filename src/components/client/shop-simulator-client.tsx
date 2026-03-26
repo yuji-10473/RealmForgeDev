@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
@@ -22,17 +21,13 @@ type AvailableObject = {
   height: number;
   type?: 'person' | 'door' | 'item';
   baseValue?: number;
-};
-
-type ShopItem = {
-  itemId: string;
-  price: number;
+  recoveryAmount?: number;
 };
 
 type Shop = {
   id: string;
   name: string;
-  items: ShopItem[];
+  itemIds: string[]; // Changed from items: { itemId: string; price: number }[]
 };
 
 type PlayerInventoryItem = {
@@ -70,10 +65,10 @@ export function ShopSimulatorClient() {
         const shopsData = await shopsResponse.json();
         const objectsData = await objectsResponse.json();
 
-        setShops(shopsData.shops);
+        setShops(shopsData.shops || []);
         setAllItems((objectsData.objects || []).filter((obj: AvailableObject) => obj.type === 'item'));
         
-        if (shopsData.shops.length > 0) {
+        if (shopsData.shops?.length > 0) {
           setSelectedShopId(shopsData.shops[0].id);
         }
       } catch (err: any) {
@@ -88,21 +83,24 @@ export function ShopSimulatorClient() {
   const selectedShop = useMemo(() => shops.find(s => s.id === selectedShopId), [shops, selectedShopId]);
 
   const buyableItems = useMemo(() => {
-    if (!selectedShop) return [];
-    return selectedShop.items.map(shopItem => {
-      const itemDetails = allItems.find(item => item.id === shopItem.itemId);
-      return { ...shopItem, ...itemDetails };
+    if (!selectedShop || !selectedShop.itemIds) return [];
+    return selectedShop.itemIds.map(shopItemId => {
+      const itemDetails = allItems.find(item => item.id === shopItemId);
+      // Derive price from recoveryAmount as per spec
+      const price = itemDetails?.recoveryAmount || 0;
+      return { itemId: shopItemId, ...itemDetails, price };
     }).filter(item => item.name);
   }, [selectedShop, allItems]);
 
   const sellableItems = useMemo(() => {
     return playerInventory.map(invItem => {
       const itemDetails = allItems.find(item => item.id === invItem.itemId);
-      // If baseValue is defined in objects.json, use it. Otherwise, fall back to a calculated value.
-      const sellPrice = itemDetails?.baseValue ?? Math.floor((buyableItems.find(bi => bi.itemId === invItem.itemId)?.price || 10) / 2);
+      // Sell price is half of recoveryAmount or baseValue
+      const basePrice = itemDetails?.recoveryAmount || 10;
+      const sellPrice = itemDetails?.baseValue ?? Math.floor(basePrice / 2);
       return { ...invItem, ...itemDetails, sellPrice };
     }).filter(item => item.name);
-  }, [playerInventory, allItems, buyableItems]);
+  }, [playerInventory, allItems]);
   
   const handleBuy = (itemId: string, price: number) => {
     if (playerGold < price) {
@@ -145,18 +143,18 @@ export function ShopSimulatorClient() {
   const renderItemCard = (item: any, action: 'buy' | 'sell') => {
     const price = action === 'buy' ? item.price : item.sellPrice;
     return (
-      <Card key={item.id} className="overflow-hidden">
+      <Card key={item.itemId} className="overflow-hidden">
         <CardContent className="p-0">
-          <div className="aspect-square w-full bg-muted flex items-center justify-center p-4">
+          <div className="aspect-square w-full bg-muted flex items-center justify-center p-4 relative">
             {item.imageUrl && (
-              <Image src={item.imageUrl} alt={item.name} width={64} height={64} objectFit="contain" unoptimized />
+              <Image src={item.imageUrl} alt={item.name} layout="fill" objectFit="contain" className="p-2" unoptimized />
             )}
           </div>
         </CardContent>
         <CardFooter className="flex-col items-start p-3 text-sm">
           <div className="w-full flex justify-between">
             <p className="font-medium truncate">{item.name}</p>
-            {item.quantity && <p className="text-muted-foreground font-mono">x{item.quantity}</p>}
+            {action === 'sell' && item.quantity && <p className="text-muted-foreground font-mono">x{item.quantity}</p>}
           </div>
           <div className="w-full mt-2">
             <Button
@@ -267,7 +265,9 @@ export function ShopSimulatorClient() {
                 {sellableItems.map(item => (
                   <div key={item.itemId} className="flex items-center justify-between p-2 rounded-md bg-muted/50">
                     <div className="flex items-center gap-2">
-                      <Image src={item.imageUrl || ''} alt={item.name || ''} width={32} height={32} unoptimized/>
+                      <div className="w-8 h-8 relative bg-background rounded-sm">
+                        {item.imageUrl && <Image src={item.imageUrl} alt={item.name || ''} layout="fill" objectFit="contain" unoptimized/>}
+                      </div>
                       <span className="truncate">{item.name}</span>
                     </div>
                     <span className="font-mono text-sm">x{item.quantity}</span>
