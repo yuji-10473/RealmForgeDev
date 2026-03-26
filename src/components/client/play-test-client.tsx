@@ -911,7 +911,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </Select>
           </div>
 
-          <div className="flex items-center gap-2 flex-grow max-w-sm">
+          <div className="flex items-center gap-2 flex-grow max-sm:hidden">
             <UserIcon className="h-4 w-4 text-muted-foreground" />
             <Select value={activePlayerId} onValueChange={setActivePlayerId} disabled={activeCutscene !== null}>
               <SelectTrigger><SelectValue placeholder="プレイヤー選択" /></SelectTrigger>
@@ -923,9 +923,19 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
           <div className="flex gap-2 shrink-0 items-center">
             <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-10">
+              <Button 
+                size="icon" 
+                variant="ghost" 
+                className="h-full w-10 rounded-none border-r hover:bg-accent/20"
+                onClick={() => checkForInteraction()}
+                disabled={activeCutscene !== null || isGamePaused}
+                title="アクション (Space/Enter)"
+              >
+                <Sparkles className="h-4 w-4 text-accent" />
+              </Button>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button size="icon" variant="ghost" className="h-full w-10 rounded-none border-r">
+                  <Button size="icon" variant="ghost" className="h-full w-10 rounded-none">
                     {isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}
                   </Button>
                 </PopoverTrigger>
@@ -977,8 +987,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               </Popover>
             </div>
             <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center">{gold} K</div>
-            <Button size="icon" variant="outline" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
-            <SheetTrigger asChild><Button size="icon" variant="outline" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
+            <Button size="icon" variant="outline" onClick={handleSave} disabled={activeCutscene !== null} title="保存"><Save className="h-4 w-4"/></Button>
+            <SheetTrigger asChild><Button size="icon" variant="outline" disabled={activeCutscene !== null} title="メニュー"><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
         </div>
 
