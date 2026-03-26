@@ -27,7 +27,8 @@ type AvailableObject = {
 type Shop = {
   id: string;
   name: string;
-  itemIds: string[]; // Changed from items: { itemId: string; price: number }[]
+  itemIds?: string[];
+  dishIds?: string[];
 };
 
 type PlayerInventoryItem = {
@@ -54,19 +55,21 @@ export function ShopSimulatorClient() {
       try {
         setLoading(true);
         setError(null);
-        const [shopsResponse, objectsResponse] = await Promise.all([
-          fetch('/shops.json'),
-          fetch('/objects.json'),
+        const [shopsResponse, objectsResponse, dishesResponse] = await Promise.all([
+          fetch('/data/shops.json'),
+          fetch('/data/items.json'),
+          fetch('/data/dishes.json').catch(() => null),
         ]);
 
         if (!shopsResponse.ok) throw new Error('ショップデータ(shops.json)の読み込みに失敗しました。');
-        if (!objectsResponse.ok) throw new Error('オブジェクトデータ(objects.json)の読み込みに失敗しました。');
+        if (!objectsResponse.ok) throw new Error('アイテムデータ(items.json)の読み込みに失敗しました。');
 
         const shopsData = await shopsResponse.json();
-        const objectsData = await objectsResponse.json();
+        const itemsData = await objectsResponse.json();
+        const dishesData = dishesResponse && dishesResponse.ok ? await dishesResponse.json() : [];
 
         setShops(shopsData.shops || []);
-        setAllItems((objectsData.objects || []).filter((obj: AvailableObject) => obj.type === 'item'));
+        setAllItems([...(itemsData || []), ...(dishesData || [])]);
         
         if (shopsData.shops?.length > 0) {
           setSelectedShopId(shopsData.shops[0].id);
@@ -83,10 +86,10 @@ export function ShopSimulatorClient() {
   const selectedShop = useMemo(() => shops.find(s => s.id === selectedShopId), [shops, selectedShopId]);
 
   const buyableItems = useMemo(() => {
-    if (!selectedShop || !selectedShop.itemIds) return [];
-    return selectedShop.itemIds.map(shopItemId => {
+    if (!selectedShop) return [];
+    const ids = [...(selectedShop.itemIds || []), ...(selectedShop.dishIds || [])];
+    return ids.map(shopItemId => {
       const itemDetails = allItems.find(item => item.id === shopItemId);
-      // Derive price from recoveryAmount as per spec
       const price = itemDetails?.recoveryAmount || 0;
       return { itemId: shopItemId, ...itemDetails, price };
     }).filter(item => item.name);
@@ -95,7 +98,6 @@ export function ShopSimulatorClient() {
   const sellableItems = useMemo(() => {
     return playerInventory.map(invItem => {
       const itemDetails = allItems.find(item => item.id === invItem.itemId);
-      // Sell price is half of recoveryAmount or baseValue
       const basePrice = itemDetails?.recoveryAmount || 10;
       const sellPrice = itemDetails?.baseValue ?? Math.floor(basePrice / 2);
       return { ...invItem, ...itemDetails, sellPrice };

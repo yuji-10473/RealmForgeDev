@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
@@ -60,7 +59,8 @@ const resolveMediaUrl = (path: string | undefined) => {
 type ShopData = {
   id: string;
   name: string;
-  itemIds: string[];
+  itemIds?: string[];
+  dishIds?: string[];
 };
 
 type CollectionPointData = {
@@ -1149,7 +1149,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </DialogDescription>
           </DialogHeader>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 max-h-[60vh] overflow-y-auto">
-            {activeShop?.itemIds?.map((shopItemId) => {
+            {[...(activeShop?.itemIds || []), ...(activeShop?.dishIds || [])].map((shopItemId) => {
               const itemDetails = availableObjects.find(a => a.id === shopItemId);
               if (!itemDetails) return null;
               const price = itemDetails.recoveryAmount || 0;
