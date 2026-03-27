@@ -4,9 +4,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { Play, Heart, User } from "lucide-react";
+import { Play, Heart, User, Info } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 export type DisplayInventoryItem = {
   id: string;
@@ -44,175 +51,246 @@ export function MenuSimulatorClient({
   onPlaySequence?: (sequenceId: string) => void;
   onUseItem?: (itemId: string) => void;
 }) {
+  const [selectedDetail, setSelectedDetail] = useState<{
+    title: string;
+    description?: string;
+    imageUrl?: string;
+    type: 'item' | 'character';
+    extra?: string;
+  } | null>(null);
+
   return (
-    <Tabs defaultValue="items" className="w-full">
-      <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="items">所持アイテム</TabsTrigger>
-        <TabsTrigger value="characters">人物</TabsTrigger>
-        <TabsTrigger value="story">物語</TabsTrigger>
-      </TabsList>
-      
-      <TabsContent value="items" className="mt-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>所持アイテム</CardTitle>
-            <CardDescription>現在プレイヤーが所持しているアイテムの一覧です。</CardDescription>
-          </CardHeader>
-          <CardContent className="p-0">
-            <ScrollArea className="h-[60vh] px-6 pb-6">
-              {inventoryItems.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {inventoryItems.map((item) => (
-                    <Card key={item.id} className="overflow-hidden relative hover:shadow-lg transition-shadow flex flex-col">
-                      <CardContent className="p-0 flex-grow">
-                        <div className="aspect-square w-full bg-muted flex items-center justify-center relative p-4">
-                          {item.imageUrl ? (
+    <div className="w-full">
+      <Tabs defaultValue="items" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="items">所持アイテム</TabsTrigger>
+          <TabsTrigger value="characters">人物</TabsTrigger>
+          <TabsTrigger value="story">物語</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="items" className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>所持アイテム</CardTitle>
+              <CardDescription>現在プレイヤーが所持しているアイテムの一覧です。</CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <ScrollArea className="h-[60vh] px-6 pb-6">
+                {inventoryItems.length > 0 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {inventoryItems.map((item) => (
+                      <Card key={item.id} className="overflow-hidden relative hover:shadow-lg transition-shadow flex flex-col">
+                        <CardContent className="p-0 flex-grow">
+                          <div className="aspect-square w-full bg-muted flex items-center justify-center relative p-4">
+                            {item.imageUrl ? (
+                              <Image 
+                                src={item.imageUrl} 
+                                alt={item.name || 'Item'}
+                                fill
+                                className="object-contain p-4"
+                                unoptimized
+                              />
+                            ) : (
+                              <div className="text-muted-foreground text-[10px] text-center">画像なし</div>
+                            )}
+                          </div>
+                        </CardContent>
+                        <CardFooter className="p-2 border-t flex flex-col gap-2">
+                          <div className="flex justify-between items-center w-full min-w-0">
+                            <p className="text-sm font-bold truncate">{item.name}</p>
+                            <p className="text-xs text-muted-foreground font-mono shrink-0">x{item.quantity}</p>
+                          </div>
+                          <div className="grid grid-cols-2 gap-1 w-full">
+                            <Button 
+                              size="sm" 
+                              variant="secondary" 
+                              className="h-7 text-[10px]"
+                              onClick={() => setSelectedDetail({
+                                title: item.name,
+                                description: item.description,
+                                imageUrl: item.imageUrl,
+                                type: 'item',
+                                extra: `所持数: ${item.quantity}`
+                              })}
+                            >
+                              <Info className="mr-1 h-3 w-3" />
+                              詳細
+                            </Button>
+                            {item.canUse && (
+                              <Button 
+                                size="sm" 
+                                variant="outline" 
+                                className="h-7 text-[10px]"
+                                onClick={() => onUseItem?.(item.id)}
+                              >
+                                使用
+                              </Button>
+                            )}
+                          </div>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-muted-foreground">
+                    <p>所持アイテムはありません。</p>
+                  </div>
+                )}
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="characters" className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>人物名鑑</CardTitle>
+              <CardDescription>これまでに出会った人々との絆（好感度）を確認できます。</CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <ScrollArea className="h-[60vh] px-6 pb-6">
+                {characterAffection.length > 0 ? (
+                  <div className="grid grid-cols-1 gap-4">
+                    {characterAffection.map((char) => (
+                      <Card key={char.id} className="flex overflow-hidden hover:bg-muted/30 transition-colors">
+                        <div className="w-24 h-24 bg-muted flex-shrink-0 relative border-r">
+                          {char.imageUrl ? (
                             <Image 
-                              src={item.imageUrl} 
-                              alt={item.name || 'Item'}
+                              src={char.imageUrl} 
+                              alt={char.name || 'Character'}
                               fill
-                              className="object-contain p-4"
+                              className="object-contain"
                               unoptimized
                             />
                           ) : (
-                            <div className="text-muted-foreground text-[10px] text-center">画像なし</div>
+                            <div className="flex items-center justify-center h-full"><User className="text-muted-foreground" /></div>
                           )}
                         </div>
-                      </CardContent>
-                      <CardFooter className="p-2 border-t flex flex-col gap-2">
-                        <div className="flex justify-between items-center w-full min-w-0">
-                          <p className="text-sm font-bold truncate">{item.name}</p>
-                          <p className="text-xs text-muted-foreground font-mono shrink-0">x{item.quantity}</p>
+                        <div className="p-3 flex-grow flex flex-col justify-center gap-2 min-w-0">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h3 className="font-bold truncate">{char.name}</h3>
+                              <Button 
+                                variant="link" 
+                                size="sm" 
+                                className="h-auto p-0 text-[10px] text-muted-foreground hover:text-primary"
+                                onClick={() => setSelectedDetail({
+                                  title: char.name,
+                                  description: char.description,
+                                  imageUrl: char.imageUrl,
+                                  type: 'character',
+                                  extra: `絆レベル: ${Math.floor(char.points / 100) + 1} (${char.points}pt)`
+                                })}
+                              >
+                                <Info className="mr-1 h-3 w-3" />
+                                詳細を見る
+                              </Button>
+                            </div>
+                            <div className="flex items-center gap-1 text-red-500 shrink-0">
+                              <Heart className="h-4 w-4 fill-current" />
+                              <span className="font-mono text-sm font-bold">{char.points}</span>
+                            </div>
+                          </div>
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-tighter">
+                              <span>Affection</span>
+                              <span>Lv.{Math.floor(char.points / 100) + 1}</span>
+                            </div>
+                            <Progress value={char.points % 100} className="h-1.5" />
+                          </div>
                         </div>
-                        {item.description && (
-                          <p className="text-[10px] text-muted-foreground line-clamp-2 w-full italic">
-                            {item.description}
-                          </p>
-                        )}
-                        {item.canUse && (
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-muted-foreground">
+                    <p>絆を深めた人はまだいません。</p>
+                    <p className="text-xs mt-2">依頼をこなして報酬を得ると、好感度が上がります。</p>
+                  </div>
+                )}
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="story" className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>物語の記憶</CardTitle>
+              <CardDescription>これまでの冒険や、紐解かれた物語を再生します。</CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <ScrollArea className="h-[60vh] px-6 pb-6">
+                {sequences.length > 0 ? (
+                  <div className="space-y-4">
+                    {sequences.map((seq) => (
+                      <Card key={seq.id} className="overflow-hidden hover:bg-muted/30 transition-colors">
+                        <CardHeader className="p-4 pb-2">
+                          <CardTitle className="text-lg">{seq.title}</CardTitle>
+                          <CardDescription>{seq.description}</CardDescription>
+                        </CardHeader>
+                        <CardFooter className="p-4 pt-0">
                           <Button 
                             size="sm" 
-                            variant="outline" 
-                            className="w-full h-7 text-xs"
-                            onClick={() => onUseItem?.(item.id)}
+                            className="w-full sm:w-auto"
+                            onClick={() => onPlaySequence?.(seq.id)}
                           >
-                            使用する
+                            <Play className="mr-2 h-4 w-4" />
+                            物語を再生する
                           </Button>
-                        )}
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12 text-muted-foreground">
-                  <p>所持アイテムはありません。</p>
-                </div>
-              )}
-            </ScrollArea>
-          </CardContent>
-        </Card>
-      </TabsContent>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-muted-foreground">
+                    <p>再生可能な物語がありません。</p>
+                  </div>
+                )}
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
-      <TabsContent value="characters" className="mt-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>人物名鑑</CardTitle>
-            <CardDescription>これまでに出会った人々との絆（好感度）を確認できます。</CardDescription>
-          </CardHeader>
-          <CardContent className="p-0">
-            <ScrollArea className="h-[60vh] px-6 pb-6">
-              {characterAffection.length > 0 ? (
-                <div className="grid grid-cols-1 gap-4">
-                  {characterAffection.map((char) => (
-                    <Card key={char.id} className="flex overflow-hidden hover:bg-muted/30 transition-colors">
-                      <div className="w-24 h-24 bg-muted flex-shrink-0 relative border-r">
-                        {char.imageUrl ? (
-                          <Image 
-                            src={char.imageUrl} 
-                            alt={char.name || 'Character'}
-                            fill
-                            className="object-contain"
-                            unoptimized
-                          />
-                        ) : (
-                          <div className="flex items-center justify-center h-full"><User className="text-muted-foreground" /></div>
-                        )}
-                      </div>
-                      <div className="p-3 flex-grow flex flex-col justify-center gap-2 min-w-0">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="font-bold truncate">{char.name}</h3>
-                            {char.description && (
-                              <p className="text-[10px] text-muted-foreground line-clamp-1 italic mt-0.5">
-                                {char.description}
-                              </p>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-1 text-red-500 shrink-0">
-                            <Heart className="h-4 w-4 fill-current" />
-                            <span className="font-mono text-sm font-bold">{char.points}</span>
-                          </div>
-                        </div>
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-tighter">
-                            <span>Affection</span>
-                            <span>Lv.{Math.floor(char.points / 100) + 1}</span>
-                          </div>
-                          <Progress value={char.points % 100} className="h-1.5" />
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
+      {/* Detail Dialog */}
+      <Dialog open={!!selectedDetail} onOpenChange={(open) => !open && setSelectedDetail(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-headline">{selectedDetail?.title}</DialogTitle>
+            {selectedDetail?.extra && (
+              <p className="text-xs font-mono text-muted-foreground bg-muted w-fit px-2 py-0.5 rounded">
+                {selectedDetail.extra}
+              </p>
+            )}
+          </DialogHeader>
+          <div className="space-y-6 py-4">
+            <div className="aspect-square relative bg-muted rounded-xl border overflow-hidden mx-auto w-48 shadow-inner">
+              {selectedDetail?.imageUrl ? (
+                <Image 
+                  src={selectedDetail.imageUrl} 
+                  alt={selectedDetail.title} 
+                  fill 
+                  className="object-contain p-4" 
+                  unoptimized
+                />
               ) : (
-                <div className="text-center py-12 text-muted-foreground">
-                  <p>絆を深めた人はまだいません。</p>
-                  <p className="text-xs mt-2">依頼をこなして報酬を得ると、好感度が上がります。</p>
+                <div className="flex items-center justify-center h-full">
+                  <User className="h-12 w-12 text-muted-foreground/20" />
                 </div>
               )}
-            </ScrollArea>
-          </CardContent>
-        </Card>
-      </TabsContent>
-
-      <TabsContent value="story" className="mt-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>物語の記憶</CardTitle>
-            <CardDescription>これまでの冒険や、紐解かれた物語を再生します。</CardDescription>
-          </CardHeader>
-          <CardContent className="p-0">
-            <ScrollArea className="h-[60vh] px-6 pb-6">
-              {sequences.length > 0 ? (
-                <div className="space-y-4">
-                  {sequences.map((seq) => (
-                    <Card key={seq.id} className="overflow-hidden hover:bg-muted/30 transition-colors">
-                      <CardHeader className="p-4 pb-2">
-                        <CardTitle className="text-lg">{seq.title}</CardTitle>
-                        <CardDescription>{seq.description}</CardDescription>
-                      </CardHeader>
-                      <CardFooter className="p-4 pt-0">
-                        <Button 
-                          size="sm" 
-                          className="w-full sm:w-auto"
-                          onClick={() => onPlaySequence?.(seq.id)}
-                        >
-                          <Play className="mr-2 h-4 w-4" />
-                          物語を再生する
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12 text-muted-foreground">
-                  <p>再生可能な物語がありません。</p>
-                </div>
-              )}
-            </ScrollArea>
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
+            </div>
+            <div className="bg-secondary/30 p-4 rounded-lg border border-border/50">
+              <p className="text-sm leading-relaxed whitespace-pre-wrap italic">
+                {selectedDetail?.description || "詳しい説明はありません。"}
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <Button onClick={() => setSelectedDetail(null)}>閉じる</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
