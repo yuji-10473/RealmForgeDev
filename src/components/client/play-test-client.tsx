@@ -356,6 +356,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     voiceRef.current.volume = voiceVolume;
   }, [isMuted, bgmVolume, voiceVolume]);
 
+  // Migration logic: If maxHp is using the old default (100 or undefined), bump it to 1000
+  useEffect(() => {
+    if (maxHp <= 100) {
+      setMaxHp(1000);
+      setHp(prev => prev <= 100 ? prev * 10 : prev); // Scale up current HP if it was also low
+    }
+  }, [maxHp]);
+
 
   // Animation State
   const [playerClips, setPlayerClips] = useState<AnimationClip[]>([]);
