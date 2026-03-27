@@ -163,6 +163,11 @@ type AvailableObject = {
   rarity?: number;
   itemType?: string; // Captured from items.json "type"
   ingredients?: { name: string; id: string }[];
+  // Villager fields
+  personality?: string;
+  age?: number;
+  gender?: string;
+  introduction?: string;
 };
 
 type PlayerCharacter = {
@@ -460,7 +465,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         const mergedWorlds = [...fullWorlds, ...roomWorlds];
 
         // Process data with internal type identification
-        const villagers = rawVillagers.map((v: any) => ({ ...v, type: 'person' }));
+        const villagers = rawVillagers.map((v: any) => ({ 
+          ...v, 
+          type: 'person',
+          description: v.introduction || v.description // Prefer introduction for bio
+        }));
         const items = rawItems.map((i: any) => ({ 
           ...i, 
           type: 'item',
@@ -1114,7 +1123,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         name: v.name || 'Unknown',
         imageUrl: resolveMediaUrl(v.imageUrl),
         points: affection[v.id] || 0,
-        description: v.description
+        description: v.description,
+        personality: v.personality,
+        age: v.age,
+        gender: v.gender,
+        introduction: v.introduction
       }))
       .filter(char => char.points > 0)
       .sort((a, b) => b.points - a.points);

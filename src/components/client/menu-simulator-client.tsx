@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { Play, Heart, User, Info, Star, Utensils, Tag } from "lucide-react";
+import { Play, Heart, User, Info, Star, Utensils, Tag, UserRound } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
 
 export type DisplayInventoryItem = {
   id: string;
@@ -41,6 +42,10 @@ export type DisplayAffection = {
   imageUrl: string;
   points: number;
   description?: string;
+  personality?: string;
+  age?: number;
+  gender?: string;
+  introduction?: string;
 };
 
 export function MenuSimulatorClient({ 
@@ -66,6 +71,10 @@ export function MenuSimulatorClient({
     itemType?: string;
     recoveryAmount?: number;
     ingredients?: { name: string; id: string }[];
+    personality?: string;
+    age?: number;
+    gender?: string;
+    introduction?: string;
   } | null>(null);
 
   const renderRarity = (rarity: number) => {
@@ -199,10 +208,14 @@ export function MenuSimulatorClient({
                                 className="h-auto p-0 text-[10px] text-muted-foreground hover:text-primary"
                                 onClick={() => setSelectedDetail({
                                   title: char.name,
-                                  description: char.description,
+                                  description: char.introduction || char.description,
                                   imageUrl: char.imageUrl,
                                   type: 'character',
-                                  extra: `絆レベル: ${Math.floor(char.points / 100) + 1} (${char.points}pt)`
+                                  extra: `絆レベル: ${Math.floor(char.points / 100) + 1} (${char.points}pt)`,
+                                  personality: char.personality,
+                                  age: char.age,
+                                  gender: char.gender,
+                                  introduction: char.introduction
                                 })}
                               >
                                 <Info className="mr-1 h-3 w-3" />
@@ -322,6 +335,20 @@ export function MenuSimulatorClient({
                       <span className="text-muted-foreground">{selectedDetail.recoveryAmount} HP</span>
                     </div>
                   )}
+                </div>
+              )}
+
+              {selectedDetail?.type === 'character' && (
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-2">
+                    {selectedDetail.gender && <Badge variant="outline">{selectedDetail.gender}</Badge>}
+                    {selectedDetail.age !== undefined && <Badge variant="outline">{selectedDetail.age} 歳</Badge>}
+                    {selectedDetail.personality && <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">{selectedDetail.personality}</Badge>}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground font-semibold uppercase tracking-wider">
+                    <UserRound className="h-3 w-3" />
+                    <span>人物紹介</span>
+                  </div>
                 </div>
               )}
 
