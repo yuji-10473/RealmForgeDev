@@ -14,6 +14,7 @@ export type DisplayInventoryItem = {
   imageUrl: string;
   quantity: number;
   canUse?: boolean;
+  description?: string;
 };
 
 export type DisplaySequence = {
@@ -27,6 +28,7 @@ export type DisplayAffection = {
   name: string;
   imageUrl: string;
   points: number;
+  description?: string;
 };
 
 export function MenuSimulatorClient({ 
@@ -79,9 +81,14 @@ export function MenuSimulatorClient({
                       </CardContent>
                       <CardFooter className="p-2 border-t flex flex-col gap-2">
                         <div className="flex justify-between items-center w-full min-w-0">
-                          <p className="text-sm font-medium truncate">{item.name}</p>
-                          <p className="text-sm text-muted-foreground font-mono shrink-0">x{item.quantity}</p>
+                          <p className="text-sm font-bold truncate">{item.name}</p>
+                          <p className="text-xs text-muted-foreground font-mono shrink-0">x{item.quantity}</p>
                         </div>
+                        {item.description && (
+                          <p className="text-[10px] text-muted-foreground line-clamp-2 w-full italic">
+                            {item.description}
+                          </p>
+                        )}
                         {item.canUse && (
                           <Button 
                             size="sm" 
@@ -133,7 +140,14 @@ export function MenuSimulatorClient({
                       </div>
                       <div className="p-3 flex-grow flex flex-col justify-center gap-2 min-w-0">
                         <div className="flex justify-between items-start">
-                          <h3 className="font-bold truncate">{char.name}</h3>
+                          <div>
+                            <h3 className="font-bold truncate">{char.name}</h3>
+                            {char.description && (
+                              <p className="text-[10px] text-muted-foreground line-clamp-1 italic mt-0.5">
+                                {char.description}
+                              </p>
+                            )}
+                          </div>
                           <div className="flex items-center gap-1 text-red-500 shrink-0">
                             <Heart className="h-4 w-4 fill-current" />
                             <span className="font-mono text-sm font-bold">{char.points}</span>

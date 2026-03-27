@@ -464,6 +464,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setMasterWorlds(mergedWorlds);
         setAvailableObjects([...villagers, ...items, ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...dishes, ...shops]);
         setMasterEvents(events);
+        playerCharacters; // Use already declared state if needed
         setPlayerCharacters(playerListRes.characters || []);
         setMasterSequences(sequences);
         setMasterStories(stories);
@@ -1080,7 +1081,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       name: details?.name || 'Unknown', 
       imageUrl: resolveMediaUrl(details?.imageUrl), 
       quantity: i.quantity,
-      canUse: (details?.recoveryAmount || 0) > 0
+      canUse: (details?.recoveryAmount || 0) > 0,
+      description: details?.description
     };
   });
 
@@ -1098,7 +1100,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         id: v.id,
         name: v.name || 'Unknown',
         imageUrl: resolveMediaUrl(v.imageUrl),
-        points: affection[v.id] || 0
+        points: affection[v.id] || 0,
+        description: v.description
       }))
       .filter(char => char.points > 0) // Hide characters with 0 affection
       .sort((a, b) => b.points - a.points); // Sort by highest affection
