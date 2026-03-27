@@ -76,6 +76,14 @@
           "type": "number",
           "description": "Player's maximum hunger points."
         },
+        "level": {
+          "type": "number",
+          "description": "Player's current level."
+        },
+        "xp": {
+          "type": "number",
+          "description": "Player's current experience points."
+        },
         "gold": {
           "type": "number",
           "description": "The player's current amount of gold."

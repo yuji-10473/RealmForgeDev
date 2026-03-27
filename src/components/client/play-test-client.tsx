@@ -1,9 +1,10 @@
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -46,8 +47,14 @@ const CHARACTER_SPEED = 12;
 const CHARACTER_WIDTH = 256;
 const CHARACTER_HEIGHT = 256;
 const INTERACTION_RADIUS = 150;
-const HP_COLLECTION_COST = 10;
-const HUNGER_COLLECTION_COST = 5;
+const HP_COLLECTION_COST_BASE = 10;
+const HUNGER_COLLECTION_COST_BASE = 5;
+
+// Level System Coefficients (Quadric formula: a*L^2 + b*L + c)
+const LEVEL_COEFF_A = 10;
+const LEVEL_COEFF_B = 50;
+const LEVEL_COEFF_C = 1000;
+const BONUS_PER_LEVEL = 0.05;
 
 // v1.1.1 Path Resolution
 const resolveMediaUrl = (path: string | undefined) => {
@@ -161,9 +168,8 @@ type AvailableObject = {
   recoveryAmount?: number;
   isDish?: boolean;
   rarity?: number;
-  itemType?: string; // Captured from items.json "type"
+  itemType?: string; 
   ingredients?: { name: string; id: string }[];
-  // Villager fields
   personality?: string;
   age?: number;
   gender?: string;
@@ -325,6 +331,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [maxHp, setMaxHp] = useState(initialData?.maxHp ?? 1000);
   const [hunger, setHunger] = useState(initialData?.hunger ?? 100);
   const [maxHunger, setMaxHunger] = useState(initialData?.maxHunger ?? 100);
+  
+  // Level State
+  const [level, setLevel] = useState(initialData?.level ?? 1);
+  const [xp, setXp] = useState(initialData?.xp ?? 0);
+
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
   const [isMoving, setIsMoving] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -364,11 +375,38 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     voiceRef.current.volume = voiceVolume;
   }, [isMuted, bgmVolume, voiceVolume]);
 
+  // Level Logic Helpers
+  const getNextXp = useCallback((lvl: number) => LEVEL_COEFF_A * (lvl ** 2) + LEVEL_COEFF_B * lvl + LEVEL_COEFF_C, []);
+  const getLevelBonus = useCallback((lvl: number) => 1.0 + (lvl - 1) * BONUS_PER_LEVEL, []);
+
+  const gainXp = useCallback((amount: number) => {
+    setXp(prevXp => {
+      let newXp = prevXp + amount;
+      let newLevel = level;
+      let requiredXp = getNextXp(newLevel);
+
+      while (newXp >= requiredXp) {
+        newXp -= requiredXp;
+        newLevel += 1;
+        requiredXp = getNextXp(newLevel);
+      }
+
+      if (newLevel !== level) {
+        setLevel(newLevel);
+        toast({
+          title: "Level Up!",
+          description: `レベル ${newLevel} に到達。活動効率が5%向上した！`,
+        });
+      }
+      return newXp;
+    });
+  }, [level, getNextXp, toast]);
+
   // Migration logic: If maxHp is using the old default (100 or undefined), bump it to 1000
   useEffect(() => {
     if (maxHp <= 100) {
       setMaxHp(1000);
-      setHp(prev => prev <= 100 ? prev * 10 : prev); // Scale up current HP if it was also low
+      setHp(prev => prev <= 100 ? prev * 10 : prev);
     }
   }, [maxHp]);
 
@@ -421,7 +459,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const res = await fetch(`/data/${file}.json`);
           if (!res.ok) return [];
           const data = await res.json();
-          // worlds.json, events.json etc might be wrapped in { worlds: [...] }
           return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || data.rooms || data.meetingPlaces || data.villagers || data.items || data.buildings || data.monsters || data.dishes || []);
         };
 
@@ -453,7 +490,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return w;
         }));
 
-        // Convert rooms to pseudo-worlds for the player
         const roomWorlds = roomsRes.map((r: any) => ({
           id: r.id,
           name: r.name,
@@ -464,16 +500,15 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
         const mergedWorlds = [...fullWorlds, ...roomWorlds];
 
-        // Process data with internal type identification
         const villagers = rawVillagers.map((v: any) => ({ 
           ...v, 
           type: 'person',
-          description: v.introduction || v.description // Prefer introduction for bio
+          description: v.introduction || v.description 
         }));
         const items = rawItems.map((i: any) => ({ 
           ...i, 
           type: 'item',
-          itemType: i.type // Store user's specific type (e.g. "山の幸")
+          itemType: i.type 
         }));
         const dishes = rawDishes.map((d: any) => ({ 
           ...d, 
@@ -554,6 +589,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       maxHp,
       hunger,
       maxHunger,
+      level,
+      xp,
       inventory,
       gold,
       affection,
@@ -586,23 +623,22 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     setCurrentEventNode(node);
     playNodeVoice(node);
 
-    // Process Rewards
     if (node.type === 'reward' && node.reward) {
       const { itemId, itemName, amount } = node.reward;
       
-      // Labor Logic: consume HP and Hunger if event has "労働力" tag
       const isLaborEvent = activeEvent?.tags?.includes('労働力');
       if (isLaborEvent && amount) {
         const hpCost = Math.floor(amount / 10);
-        const hungerCost = Math.floor(amount / 20); // 1/20 of amount, rounded down
+        const hungerCost = Math.floor(amount / 20);
         
         setHp(prev => Math.max(0, prev - hpCost));
         setHunger(prev => Math.max(0, prev - hungerCost));
+        gainXp(hpCost); // HP loss becomes XP gain
         
         toast({ 
           variant: "destructive", 
           title: "労働による消耗", 
-          description: `労働により HP が ${hpCost}、空腹度が ${hungerCost} 減少しました。` 
+          description: `労働により HP が ${hpCost}、空腹度が ${hungerCost} 減少しました。(+${hpCost} XP)` 
         });
       }
 
@@ -610,7 +646,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         setGold(prev => prev + amount);
         toast({ title: "報酬獲得！", description: `${amount} K を手に入れた。` });
 
-        // Affection Logic: increment affection if villagerId is present
         if (activeEvent?.villagerId) {
           setAffection(prev => ({
             ...prev,
@@ -634,9 +669,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         toast({ title: "アイテム獲得！", description: `「${itemName}」を手に入れた。` });
       }
     }
-  }, [playNodeVoice, toast, activeEvent]);
-
-  // --- Cutscene Methods ---
+  }, [playNodeVoice, toast, activeEvent, gainXp]);
 
   const endCutscene = useCallback(() => {
     if (originalPlayerState) {
@@ -718,8 +751,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     startCutsceneStep(seq, 0);
   };
 
-  // --- End Cutscene Methods ---
-
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (bgmRef.current && bgmRef.current.paused && bgmRef.current.getAttribute('src')) {
       bgmRef.current.play().catch(() => {});
@@ -751,14 +782,17 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     const itemDetails = availableObjects.find(a => a.id === itemId);
     if (!itemDetails) return;
 
-    const recovery = itemDetails.recoveryAmount || 0;
-    if (recovery <= 0) {
+    const baseRecovery = itemDetails.recoveryAmount || 0;
+    if (baseRecovery <= 0) {
       toast({ title: "使用できません", description: "このアイテムは使用できません。" });
       return;
     }
 
-    // Dish special rule: hunger recovery is 1/10 of recoveryAmount
-    const hungerRecovery = itemDetails.isDish ? Math.floor(recovery / 10) : recovery;
+    // Apply Level Bonus
+    const bonus = getLevelBonus(level);
+    const recovery = Math.floor(baseRecovery * bonus);
+
+    const hungerRecovery = itemDetails.isDish ? Math.floor(baseRecovery / 10) : baseRecovery;
 
     if (hunger + hungerRecovery > maxHunger) {
       toast({ 
@@ -782,7 +816,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
     toast({ 
       title: "アイテムを使用", 
-      description: `${itemDetails.name} を使用して HP が ${recovery}、空腹度が ${hungerRecovery} 回復した！` 
+      description: `${itemDetails.name} を使用して HP が ${recovery}、空腹度が ${hungerRecovery} 回復した！ (ボーナス: ${Math.round((bonus - 1) * 100)}%)` 
     });
   };
 
@@ -798,7 +832,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (dist < INTERACTION_RADIUS) {
         const asset = availableObjects.find(a => a.id === obj.objectId);
 
-        // 0. Check for "布団" (Sleep)
         if (asset?.name === '布団') {
           setHp(maxHp);
           setHunger(50);
@@ -806,7 +839,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return;
         }
 
-        // 0.5. Check for "仏壇" (Pray)
         if (asset?.name === '仏壇') {
           setHp(prev => Math.min(maxHp, prev + 20));
           setHunger(10);
@@ -814,10 +846,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return;
         }
 
-        // 1. Check for Collection Points (Random items)
         const cp = masterCollectionPoints.find(c => c.id === obj.objectId);
         if (cp && cp.itemIds.length > 0) {
-          if (hp < HP_COLLECTION_COST) {
+          // Apply Level Bonus to Cost (Reduction)
+          const bonus = getLevelBonus(level);
+          const hpCost = Math.floor(HP_COLLECTION_COST_BASE / bonus);
+          const hungerCost = Math.floor(HUNGER_COLLECTION_COST_BASE);
+
+          if (hp < hpCost) {
             toast({ variant: "destructive", title: "体力が足りません", description: "休憩して体力を回復しましょう。" });
             return;
           }
@@ -825,19 +861,20 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const randomItemId = cp.itemIds[Math.floor(Math.random() * cp.itemIds.length)];
           const gatheredItem = availableObjects.find(a => a.id === randomItemId);
           if (gatheredItem) {
-            setHp(prev => Math.max(0, prev - HP_COLLECTION_COST));
-            setHunger(prev => Math.max(0, prev - HUNGER_COLLECTION_COST));
+            setHp(prev => Math.max(0, prev - hpCost));
+            setHunger(prev => Math.max(0, prev - hungerCost));
+            gainXp(hpCost); // Consumption becomes XP
+            
             setInventory(prev => {
               const existing = prev.find(i => i.itemId === randomItemId);
               if (existing) return prev.map(i => i.itemId === randomItemId ? { ...i, quantity: i.quantity + 1 } : i);
               return [...prev, { itemId: randomItemId, quantity: 1 }];
             });
-            toast({ title: "発見！", description: `${cp.name} から「${gatheredItem.name}」を手に入れた！ (HP-${HP_COLLECTION_COST}, 空腹度-${HUNGER_COLLECTION_COST})` });
+            toast({ title: "発見！", description: `${cp.name} から「${gatheredItem.name}」を手に入れた！ (HP-${hpCost}, 空腹度-${hungerCost}, +${hpCost} XP)` });
           }
           return;
         }
 
-        // 2. Check for Shops
         const shopId = obj.eventId?.startsWith('shop:') ? obj.eventId.split(':')[1] : obj.objectId;
         const shop = masterShops.find(s => s.id === shopId);
         if (shop) {
@@ -845,14 +882,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return;
         }
 
-        // 3. Check for Transitions
         if (obj.transition) {
           const { targetWorldId, targetMapId, targetX, targetY } = obj.transition;
-          
           let targetWorld = null;
           let targetCellIdx = 0;
 
-          // Priority 1: targetWorldId
           if (targetWorldId) {
             targetWorld = masterWorlds.find(w => w.id === targetWorldId);
             if (targetWorld) {
@@ -861,7 +895,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             }
           }
 
-          // Priority 2: mapId lookup fallback
           if (!targetWorld) {
             targetWorld = masterWorlds.find(w => w.id === targetMapId || w.maps?.some(m => m.id === targetMapId));
             if (targetWorld) {
@@ -874,7 +907,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             setSelectedWorldId(targetWorld.id);
             setActiveCellIndex(targetCellIdx);
           } else {
-            // Ultimate fallback
             setSelectedWorldId(targetMapId);
             setActiveCellIndex(0);
           }
@@ -885,14 +917,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return;
         }
 
-        // 4. Check for Meeting Places
         const meetingPlace = masterMeetingPlaces.find(m => m.id === obj.objectId);
         if (meetingPlace) {
           setActiveMeetingPlace(meetingPlace);
           return;
         }
 
-        // 5. Check for Event Flows
         if (obj.eventId) {
           const flow = masterEvents.find(e => e.id === obj.eventId);
           if (flow) {
@@ -903,14 +933,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           }
         }
 
-        // 6. Fallback Conversation
         if (obj.conversation) {
           setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath });
           return;
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, hunger, transitionToNode, maxHp]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, hunger, transitionToNode, maxHp, level, getLevelBonus, gainXp]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
@@ -1143,31 +1172,45 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     return resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${characterDirection}_1.png`);
   }, [activePlayerChar, playerClips, animState, characterDirection]);
 
+  const requiredXp = getNextXp(level);
+
   if (loading) return <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin mr-2" /> ロード中...</div>;
 
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div className="flex flex-col h-full gap-4 relative">
-        <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4 z-10">
-          <div className="flex items-center gap-2 flex-grow max-w-sm">
+        <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4 z-10 flex-wrap">
+          <div className="flex items-center gap-2 flex-grow max-w-[200px]">
             <Label className="whitespace-nowrap text-xs">マップ</Label>
             <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }} disabled={activeCutscene !== null}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger className="h-8"><SelectValue /></SelectTrigger>
               <SelectContent>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
             </Select>
           </div>
 
-          <div className="flex items-center gap-2 flex-grow max-sm:hidden">
+          <div className="flex items-center gap-2 flex-grow max-w-[150px] max-sm:hidden">
             <UserIcon className="h-4 w-4 text-muted-foreground" />
             <Select value={activePlayerId} onValueChange={setActivePlayerId} disabled={activeCutscene !== null}>
-              <SelectTrigger><SelectValue placeholder="プレイヤー選択" /></SelectTrigger>
+              <SelectTrigger className="h-8"><SelectValue placeholder="プレイヤー" /></SelectTrigger>
               <SelectContent>
                 {playerCharacters.map(pc => <SelectItem key={pc.id} value={pc.id}>{pc.name}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
 
-          <div className="flex gap-2 shrink-0 items-center">
+          <div className="flex gap-2 shrink-0 items-center flex-wrap">
+            {/* Level & XP Gauge */}
+            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-36">
+              <Star className="h-4 w-4 shrink-0 text-yellow-500 fill-current" />
+              <div className="flex flex-col flex-grow min-w-0">
+                <div className="flex justify-between items-baseline mb-0.5">
+                  <span className="text-[10px] font-bold">Lv.{level}</span>
+                  <span className="text-[8px] font-mono text-muted-foreground">{Math.floor(xp)}/{requiredXp}</span>
+                </div>
+                <Progress value={(xp / requiredXp) * 100} className="h-1.5" />
+              </div>
+            </div>
+
             {/* HP Gauge */}
             <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32">
               <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} />
@@ -1250,9 +1293,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 </PopoverContent>
               </Popover>
             </div>
-            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center shrink-0">{gold} K</div>
-            <Button size="icon" variant="outline" onClick={handleSave} disabled={activeCutscene !== null} title="保存"><Save className="h-4 w-4"/></Button>
-            <SheetTrigger asChild><Button size="icon" variant="outline" disabled={activeCutscene !== null} title="メニュー"><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
+            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center shrink-0 h-10">{gold} K</div>
+            <Button size="icon" variant="outline" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null} title="保存"><Save className="h-4 w-4"/></Button>
+            <SheetTrigger asChild><Button size="icon" variant="outline" className="h-10 w-10" disabled={activeCutscene !== null} title="メニュー"><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
         </div>
 
