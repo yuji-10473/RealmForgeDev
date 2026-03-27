@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { Play, Heart, User, Info } from "lucide-react";
+import { Play, Heart, User, Info, Star, Utensils, Tag } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export type DisplayInventoryItem = {
   id: string;
@@ -22,6 +23,10 @@ export type DisplayInventoryItem = {
   quantity: number;
   canUse?: boolean;
   description?: string;
+  rarity?: number;
+  itemType?: string;
+  recoveryAmount?: number;
+  ingredients?: { name: string; id: string }[];
 };
 
 export type DisplaySequence = {
@@ -57,7 +62,21 @@ export function MenuSimulatorClient({
     imageUrl?: string;
     type: 'item' | 'character';
     extra?: string;
+    rarity?: number;
+    itemType?: string;
+    recoveryAmount?: number;
+    ingredients?: { name: string; id: string }[];
   } | null>(null);
+
+  const renderRarity = (rarity: number) => {
+    return (
+      <div className="flex gap-0.5 text-yellow-500">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className={cn("h-3 w-3", i < rarity ? "fill-current" : "text-muted")} />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="w-full">
@@ -110,7 +129,11 @@ export function MenuSimulatorClient({
                                 description: item.description,
                                 imageUrl: item.imageUrl,
                                 type: 'item',
-                                extra: `所持数: ${item.quantity}`
+                                extra: `所持数: ${item.quantity}`,
+                                rarity: item.rarity,
+                                itemType: item.itemType,
+                                recoveryAmount: item.recoveryAmount,
+                                ingredients: item.ingredients
                               })}
                             >
                               <Info className="mr-1 h-3 w-3" />
@@ -255,14 +278,17 @@ export function MenuSimulatorClient({
 
       {/* Detail Dialog */}
       <Dialog open={!!selectedDetail} onOpenChange={(open) => !open && setSelectedDetail(null)}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-headline">{selectedDetail?.title}</DialogTitle>
-            {selectedDetail?.extra && (
-              <p className="text-xs font-mono text-muted-foreground bg-muted w-fit px-2 py-0.5 rounded">
-                {selectedDetail.extra}
-              </p>
-            )}
+            <div className="flex flex-wrap gap-2 mt-2">
+              {selectedDetail?.extra && (
+                <p className="text-xs font-mono text-muted-foreground bg-muted w-fit px-2 py-0.5 rounded">
+                  {selectedDetail.extra}
+                </p>
+              )}
+              {selectedDetail?.rarity !== undefined && renderRarity(selectedDetail.rarity)}
+            </div>
           </DialogHeader>
           <div className="space-y-6 py-4">
             <div className="aspect-square relative bg-muted rounded-xl border overflow-hidden mx-auto w-48 shadow-inner">
@@ -280,13 +306,49 @@ export function MenuSimulatorClient({
                 </div>
               )}
             </div>
-            <div className="bg-secondary/30 p-4 rounded-lg border border-border/50">
-              <p className="text-sm leading-relaxed whitespace-pre-wrap italic">
-                {selectedDetail?.description || "詳しい説明はありません。"}
-              </p>
+
+            <div className="grid grid-cols-1 gap-4">
+              {selectedDetail?.type === 'item' && (
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Tag className="h-4 w-4 text-accent" />
+                    <span className="font-bold">種類:</span>
+                    <span className="text-muted-foreground">{selectedDetail.itemType || "不明"}</span>
+                  </div>
+                  {selectedDetail.recoveryAmount !== undefined && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <Heart className="h-4 w-4 text-red-500" />
+                      <span className="font-bold">回復量:</span>
+                      <span className="text-muted-foreground">{selectedDetail.recoveryAmount} HP</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="bg-secondary/30 p-4 rounded-lg border border-border/50">
+                <p className="text-sm leading-relaxed whitespace-pre-wrap italic">
+                  {selectedDetail?.description || "詳しい説明はありません。"}
+                </p>
+              </div>
+
+              {selectedDetail?.ingredients && selectedDetail.ingredients.length > 0 && (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-sm font-bold">
+                    <Utensils className="h-4 w-4 text-accent" />
+                    <span>主な材料:</span>
+                  </div>
+                  <ul className="grid grid-cols-2 gap-1 px-2">
+                    {selectedDetail.ingredients.map((ing, idx) => (
+                      <li key={idx} className="text-xs text-muted-foreground list-disc list-inside">
+                        {ing.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end pt-2 border-t">
             <Button onClick={() => setSelectedDetail(null)}>閉じる</Button>
           </div>
         </DialogContent>

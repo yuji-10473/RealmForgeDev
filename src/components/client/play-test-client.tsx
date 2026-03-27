@@ -33,7 +33,7 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence, type DisplayAffection } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
-import { useFirestore } from '@/firebase';
+import { useUser, useFirestore } from '@/firebase';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
@@ -155,11 +155,14 @@ type AvailableObject = {
   imageUrl: string;
   width?: number;
   height?: number;
-  type?: 'person' | 'door' | 'item';
+  type?: 'person' | 'door' | 'item' | 'building' | 'monster' | 'shop';
   itemIds?: string[];
   description?: string;
   recoveryAmount?: number;
   isDish?: boolean;
+  rarity?: number;
+  itemType?: string; // Captured from items.json "type"
+  ingredients?: { name: string; id: string }[];
 };
 
 type PlayerCharacter = {
@@ -456,15 +459,22 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
         const mergedWorlds = [...fullWorlds, ...roomWorlds];
 
-        // Ensure proper types for filtering later (person for villagers, item for items/dishes)
+        // Process data with internal type identification
         const villagers = rawVillagers.map((v: any) => ({ ...v, type: 'person' }));
-        const items = rawItems.map((i: any) => ({ ...i, type: 'item' }));
-        const dishes = rawDishes.map((d: any) => ({ ...d, type: 'item', isDish: true }));
+        const items = rawItems.map((i: any) => ({ 
+          ...i, 
+          type: 'item',
+          itemType: i.type // Store user's specific type (e.g. "山の幸")
+        }));
+        const dishes = rawDishes.map((d: any) => ({ 
+          ...d, 
+          type: 'item', 
+          isDish: true 
+        }));
 
         setMasterWorlds(mergedWorlds);
         setAvailableObjects([...villagers, ...items, ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...dishes, ...shops]);
         setMasterEvents(events);
-        playerCharacters; // Use already declared state if needed
         setPlayerCharacters(playerListRes.characters || []);
         setMasterSequences(sequences);
         setMasterStories(stories);
@@ -1082,7 +1092,11 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       imageUrl: resolveMediaUrl(details?.imageUrl), 
       quantity: i.quantity,
       canUse: (details?.recoveryAmount || 0) > 0,
-      description: details?.description
+      description: details?.description,
+      rarity: details?.rarity,
+      itemType: details?.itemType,
+      recoveryAmount: details?.recoveryAmount,
+      ingredients: details?.ingredients
     };
   });
 
@@ -1093,7 +1107,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   }));
 
   const displayAffection: DisplayAffection[] = useMemo(() => {
-    // Filter villagers from availableObjects, map affection, and filter out those with 0 points
     return availableObjects
       .filter(obj => obj.type === 'person')
       .map(v => ({
@@ -1103,8 +1116,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         points: affection[v.id] || 0,
         description: v.description
       }))
-      .filter(char => char.points > 0) // Hide characters with 0 affection
-      .sort((a, b) => b.points - a.points); // Sort by highest affection
+      .filter(char => char.points > 0)
+      .sort((a, b) => b.points - a.points);
   }, [availableObjects, affection]);
 
   const playerImageUrl = useMemo(() => {
