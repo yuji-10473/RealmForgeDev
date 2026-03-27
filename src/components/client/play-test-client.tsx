@@ -1079,7 +1079,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   }));
 
   const displayAffection: DisplayAffection[] = useMemo(() => {
-    // Filter villagers from availableObjects and map them with current affection points
+    // Filter villagers from availableObjects, map affection, and filter out those with 0 points
     return availableObjects
       .filter(obj => obj.type === 'person')
       .map(v => ({
@@ -1088,6 +1088,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         imageUrl: resolveMediaUrl(v.imageUrl),
         points: affection[v.id] || 0
       }))
+      .filter(char => char.points > 0) // Hide characters with 0 affection
       .sort((a, b) => b.points - a.points); // Sort by highest affection
   }, [availableObjects, affection]);
 
