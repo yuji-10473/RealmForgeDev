@@ -159,6 +159,7 @@ type AvailableObject = {
   itemIds?: string[];
   description?: string;
   recoveryAmount?: number;
+  isDish?: boolean;
 };
 
 type PlayerCharacter = {
@@ -450,7 +451,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         // Ensure proper types for filtering later (person for villagers, item for items/dishes)
         const villagers = rawVillagers.map((v: any) => ({ ...v, type: 'person' }));
         const items = rawItems.map((i: any) => ({ ...i, type: 'item' }));
-        const dishes = rawDishes.map((d: any) => ({ ...d, type: 'item' }));
+        const dishes = rawDishes.map((d: any) => ({ ...d, type: 'item', isDish: true }));
 
         setMasterWorlds(mergedWorlds);
         setAvailableObjects([...villagers, ...items, ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...dishes, ...shops]);
@@ -728,7 +729,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       return;
     }
 
-    if (hunger + recovery > maxHunger) {
+    // Dish special rule: hunger recovery is 1/10 of recoveryAmount
+    const hungerRecovery = itemDetails.isDish ? Math.floor(recovery / 10) : recovery;
+
+    if (hunger + hungerRecovery > maxHunger) {
       toast({ 
         variant: "destructive",
         title: "お腹がいっぱいです", 
@@ -738,7 +742,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     }
 
     setHp(prev => Math.min(maxHp, prev + recovery));
-    setHunger(prev => Math.min(maxHunger, prev + recovery));
+    setHunger(prev => Math.min(maxHunger, prev + hungerRecovery));
     
     setInventory(prev => {
       const existing = prev.find(i => i.itemId === itemId);
@@ -750,7 +754,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
     toast({ 
       title: "アイテムを使用", 
-      description: `${itemDetails.name} を使用して HP と空腹度が ${recovery} 回復した！` 
+      description: `${itemDetails.name} を使用して HP が ${recovery}、空腹度が ${hungerRecovery} 回復した！` 
     });
   };
 
