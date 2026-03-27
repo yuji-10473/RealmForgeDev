@@ -313,8 +313,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [inventory, setInventory] = useState<SavedInventoryItem[]>(initialData?.inventory || []);
   const [gold, setGold] = useState(initialData?.gold || 0);
   const [affection, setAffection] = useState<Record<string, number>>(initialData?.affection || {});
-  const [hp, setHp] = useState(initialData?.hp ?? 100);
-  const [maxHp, setMaxHp] = useState(initialData?.maxHp ?? 100);
+  const [hp, setHp] = useState(initialData?.hp ?? 1000);
+  const [maxHp, setMaxHp] = useState(initialData?.maxHp ?? 1000);
   const [hunger, setHunger] = useState(initialData?.hunger ?? 100);
   const [maxHunger, setMaxHunger] = useState(initialData?.maxHunger ?? 100);
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
@@ -772,7 +772,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
         // 0. Check for "布団" (Sleep)
         if (asset?.name === '布団') {
-          setHp(100);
+          setHp(maxHp);
           setHunger(50);
           toast({ title: "休息", description: "ぐっすり眠って、体力が回復した！（空腹度は50になりました）" });
           return;
@@ -882,7 +882,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         }
       }
     }
-  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, hunger, transitionToNode]);
+  }, [activeMapData, characterPosition, npcStates, masterEvents, isGamePaused, masterWorlds, currentWorld, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, hunger, transitionToNode, maxHp]);
 
   useEffect(() => {
     let nextStepTimeout: NodeJS.Timeout | null = null;
@@ -1088,7 +1088,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       .filter(obj => obj.type === 'person')
       .map(v => ({
         id: v.id,
-        name: v.name,
+        name: v.name || 'Unknown',
         imageUrl: resolveMediaUrl(v.imageUrl),
         points: affection[v.id] || 0
       }))
@@ -1133,7 +1133,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           <div className="flex gap-2 shrink-0 items-center">
             {/* HP Gauge */}
             <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32">
-              <Heart className={cn("h-4 w-4 shrink-0", hp < 20 ? "text-destructive animate-pulse" : "text-red-500")} />
+              <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} />
               <div className="flex flex-col flex-grow min-w-0">
                 <Progress value={(hp / maxHp) * 100} className="h-2" />
                 <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span>
@@ -1142,7 +1142,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
             {/* Hunger Gauge */}
             <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32">
-              <Utensils className={cn("h-4 w-4 shrink-0", hunger < 20 ? "text-destructive animate-pulse" : "text-orange-500")} />
+              <Utensils className={cn("h-4 w-4 shrink-0", hunger < (maxHunger * 0.2) ? "text-destructive animate-pulse" : "text-orange-500")} />
               <div className="flex flex-col flex-grow min-w-0">
                 <Progress value={(hunger / maxHunger) * 100} className="h-2" />
                 <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hunger)}/{maxHunger}</span>
