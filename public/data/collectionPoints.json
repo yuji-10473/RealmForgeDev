@@ -1,8 +1,9 @@
 [
   {
     "id": "AMxmmO2ubzDXqAYK4HMN",
+    "createdAt": "2026-03-19T06:19:06.342Z",
     "description": "潮の香りが満ちる入り江の奥、波静かなる場所に木と縄とで組まれた囲いが見える。水面下には、珍しき海の幸が悠々と泳ぎ、あるいは隠れ潜む気配に、胸が高鳴るだろう。",
-    "name": "海生簀",
+    "imageUrl": "media/images/file_639_1774650294606.png",
     "itemIds": [
       "WErIQIJQe0VjHhc2JSq7",
       "TmG7yvtmwbclAGj7yYmE",
@@ -24,12 +25,66 @@
       "mWcCEevlOzp3hN8Onvvt",
       "NqXZo9OMLPycRT458F4p"
     ],
-    "imageUrl": "media/images/file_629_1774525724113.png",
     "rarity": 4,
-    "createdAt": "2026-03-19T06:19:06.342Z"
+    "name": "海生簀"
+  },
+  {
+    "id": "GFonvuhu9uLsO4rBhlLJ",
+    "name": "生薬採集",
+    "rarity": 4,
+    "imageUrl": "media/images/file_640_1774650294606.png",
+    "itemIds": [
+      "tXG9t3M2BkKXAVlZ1Dyy",
+      "3M1GPi2V3dbX9xp5SCq2",
+      "wkQLI7CvYmqozKVvDNYt",
+      "rH9KDnQSdsW6rNcxFguh",
+      "eXBaUhPGV5khMnAdBTKp",
+      "Bn4PtNN8kokN3q5GiVQJ",
+      "7MUuPTvoWesR3JZmZuHs",
+      "fnN0qh0yS4BTIb7Xytkn",
+      "q1YgYvu86TgXkvml1tDZ",
+      "iQu0mXilQGKmnkG3OJyo",
+      "QsCfB6qIoSl3LSxiVnq2",
+      "v1mte6iRkvDkpPS80RtL",
+      "im6bAqK8rdAGdWJsbzXQ",
+      "RCAcJkxcYnSkIj3yjP6U",
+      "RtHyNi8Yt2qfdunlXB1c",
+      "0Rkk4heLhY6shjYRUbJP",
+      "2RVeXHWWwUMHEn5SDpaL"
+    ],
+    "description": "寺院の裏山に続く、人知れぬ細道。朝露に濡れた草木は、かすかな苦味と清涼な香りを放ち、古文書に記された秘薬の材料が見つかるかもしれない。",
+    "createdAt": "2026-03-27T19:39:31.193Z"
+  },
+  {
+    "id": "Hzr1J5uxAihJNWu295xD",
+    "imageUrl": "media/images/file_641_1774650294606.png",
+    "itemIds": [
+      "53a43XLTHX09uRI9V2Gu",
+      "7cUxF3cIPMgYNpdd9a7B",
+      "ZG5s4s3JkUO3Txnbx4AH",
+      "lQ1ANrDoMdDBREFxEjHc",
+      "91Hx3yUejdXsduLKWRLc"
+    ],
+    "description": "波穏やかな入り江に、木柵と網で囲われた海生簀。陽光が揺れる水面には、生きたまま運び込まれた海の幸が跳ね、豊かな潮の香りが辺りに満ちる。",
+    "name": "海生簀（中）",
+    "rarity": 3,
+    "createdAt": "2026-03-27T16:52:49.605Z"
+  },
+  {
+    "id": "O2TSx6eCvQxoFuIU0YME",
+    "imageUrl": "media/images/file_642_1774650294606.png",
+    "itemIds": [
+      "7cUxF3cIPMgYNpdd9a7B"
+    ],
+    "description": "波穏やかな入り江の奥、木柵で囲われた広大な生簀が広がる。潮の香りと活きの良い魚の跳ねる音が響き、海の恵みが満ちる場所。珍しい魚介が群れをなしているやもしれぬ。",
+    "name": "海生簀（大）",
+    "rarity": 4,
+    "createdAt": "2026-03-27T17:04:03.290Z"
   },
   {
     "id": "TIEiwBqSFTskvFWJ5xt3",
+    "createdAt": "2026-03-19T06:08:21.047Z",
+    "description": "深い森の奥、陽光が木漏れ日となって降り注ぐ苔むした古道の脇。ひっそりと清流が流れ、湿り気を帯びた土からは春の息吹を感じさせる若菜が顔を覗かせている。その奥ゆかしい香りは、野趣あふれる恵みの豊かさを物語るだろう。",
     "itemIds": [
       "hjZwcagGSJ5ZqxQ7c7aG",
       "KfC755P2vtX74e1mqqEF",
@@ -37,22 +92,35 @@
       "LszMM4SyZFjpoWoexRE5",
       "hSKJktibBcmuntZ8JMBf"
     ],
-    "imageUrl": "media/images/file_630_1774525724113.png",
-    "name": "山菜",
-    "description": "深い森の奥、陽光が木漏れ日となって降り注ぐ苔むした古道の脇。ひっそりと清流が流れ、湿り気を帯びた土からは春の息吹を感じさせる若菜が顔を覗かせている。その奥ゆかしい香りは、野趣あふれる恵みの豊かさを物語るだろう。",
-    "createdAt": "2026-03-19T06:08:21.047Z",
-    "rarity": 4
+    "imageUrl": "media/images/file_643_1774650294606.png",
+    "rarity": 4,
+    "name": "山菜"
   },
   {
     "id": "afdk1TH16au9Bb0kCDly",
-    "name": "海草",
+    "createdAt": "2026-03-19T06:11:12.872Z",
     "itemIds": [
       "hszcWFxgiPgsrofAaYd4",
       "55j4sJfonG5zFqokqJuc"
     ],
-    "imageUrl": "media/images/file_631_1774525724113.png",
+    "imageUrl": "media/images/file_644_1774650294606.png",
     "description": "陽光きらめく磯辺に広がる、潮の香馥郁たる藻場。波打ち際では、碧く透きとおる海草がゆらゆらと揺れ、海の恵みを豊かに語りかけてくる。",
-    "createdAt": "2026-03-19T06:11:12.872Z",
+    "name": "海草",
     "rarity": 4
+  },
+  {
+    "id": "ujEQX8tKL7yJWzM8D2Qt",
+    "name": "海生簀（貝）",
+    "rarity": 4,
+    "imageUrl": "media/images/file_645_1774650294606.png",
+    "itemIds": [
+      "K3u8xXSdIOZHktqJ45ZL",
+      "Q3azybqvPedx0YPwZWwV",
+      "5nMtu9gPetWlnwXZ3OBz",
+      "HWoHHDxYrMeOb76mBuKJ",
+      "WErIQIJQe0VjHhc2JSq7"
+    ],
+    "description": "潮の満ち引きを利用し、石垣で囲われた静かな入り江にひっそりと佇む天然の生簀。波打ち際の岩陰に隠され、汐の香りと共に、滋味深い貝たちの息吹が満ちている。",
+    "createdAt": "2026-03-27T17:06:26.245Z"
   }
 ]

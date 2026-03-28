@@ -1,8 +1,8 @@
 [
   {
     "id": "8XjmcRjkRcWnBLV6ZJeO",
+    "imageUrl": "media/images/file_646_1774650294606.png",
     "description": "朝まだき、鍬や鎌を肩にした男たちが集い、日雇いの仕事を探す声が響く。村の長や地主が人手を募り、それぞれの暮らしの糧を見出す活気ある寄り合いの場なり。",
-    "imageUrl": "media/images/file_632_1774525724113.png",
     "name": "労働力用寄合所",
     "eventIds": [
       "e8DmFw2mhh5wmSrfU3a9",
@@ -20,5 +20,22 @@
       "GQFTaTJJE4SO9gsRL6GK"
     ],
     "createdAt": "2026-03-19T08:25:37.456Z"
+  },
+  {
+    "id": "WyaKkWMwAnwnwq81QQZa",
+    "eventIds": [
+      "FgDGjdKugGRSU8Wl9fZb",
+      "UFB3Bm2RC24Hz2cT8FD4",
+      "U13HJgFxUvfSKN4OEf3I",
+      "R1NLPP5QuvNxYiMtuCZN",
+      "EUov85Kr91AgakTnjzsh",
+      "pGVyvTa7B4dk2Hk03lK8",
+      "LELg8kdQvYd041DJTpjH",
+      "xTP2qpPddEbfWUlaWpIP"
+    ],
+    "createdAt": "2026-03-27T19:40:28.378Z",
+    "description": "病や傷を抱えた村人が藁座に身を寄せ、薬草の香りが漂う診療寄合所。古老の知識と温かい手が、人々の苦しみを和らげ、癒しを分かち合う寄り合いの場であった。",
+    "imageUrl": "media/images/file_647_1774650294606.png",
+    "name": "診療寄合所"
   }
 ]
