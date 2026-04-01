@@ -1,7 +1,7 @@
 
 'use client';
 
-import {useState, useEffect, useCallback, useRef, useMemo} from 'react';
+import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star} from 'lucide-react';
@@ -62,6 +62,95 @@ const resolveMediaUrl = (path: string | undefined) => {
   if (path.startsWith('http') || path.startsWith('/')) return path;
   return `/${path}`;
 };
+
+// --- Sub-components for Optimization ---
+
+/** 背景マップレイヤー (メモ化により再描画を抑制) */
+const MapLayer = memo(({ imageUrl }: { imageUrl: string }) => (
+  <Image 
+    src={resolveMediaUrl(imageUrl)} 
+    alt="" 
+    fill 
+    className="object-cover" 
+    unoptimized 
+    priority 
+  />
+));
+MapLayer.displayName = 'MapLayer';
+
+/** オブジェクトレイヤー (メモ化により再描画を抑制) */
+const ObjectsLayer = memo(({ objects, npcStates, availableObjects }: { 
+  objects: PlacedObject[], 
+  npcStates: Record<string, NpcState>, 
+  availableObjects: AvailableObject[] 
+}) => (
+  <>
+    {objects.map(obj => {
+      const asset = availableObjects.find(a => a.id === obj.objectId);
+      if (!asset || !asset.imageUrl) return null;
+      const curX = npcStates[obj.id]?.x ?? obj.x;
+      const imgUrl = resolveMediaUrl(asset.imageUrl);
+      if (!imgUrl) return null;
+
+      return (
+        <div key={obj.id} style={{ left: `${(curX / MAP_WIDTH) * 100}%`, top: `${(obj.y / MAP_HEIGHT) * 100}%`, width: `${(obj.width / MAP_WIDTH) * 100}%`, position: 'absolute' }}>
+          <Image src={imgUrl} alt={asset.name || 'Object'} layout="responsive" width={asset.width || 256} height={asset.height || 256} unoptimized />
+        </div>
+      );
+    })}
+  </>
+));
+ObjectsLayer.displayName = 'ObjectsLayer';
+
+/** プレイヤーレイヤー */
+const PlayerLayer = ({ x, y, imageUrl, activeCutscene }: { x: number, y: number, imageUrl: string, activeCutscene: boolean }) => (
+  <div style={{ 
+    left: `${(x / MAP_WIDTH) * 100}%`, 
+    top: `${(y / MAP_HEIGHT) * 100}%`, 
+    width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
+    position: 'absolute', 
+    zIndex: 10,
+    opacity: activeCutscene ? 0.5 : 1
+  }}>
+    <Image 
+      src={imageUrl} 
+      alt="Player" 
+      width={256} 
+      height={256} 
+      className="w-full h-auto"
+      unoptimized 
+    />
+  </div>
+);
+
+/** カットシーンキャラレイヤー */
+const CutsceneLayer = memo(({ cutsceneChars }: { cutsceneChars: Record<string, any> }) => (
+  <>
+    {Object.entries(cutsceneChars).map(([id, char]) => (
+      <div 
+        key={id} 
+        className="absolute -translate-x-1/2 -translate-y-full" 
+        style={{ 
+          left: `${(char.x / MAP_WIDTH) * 100}%`, 
+          top: `${(char.y / MAP_HEIGHT) * 100}%`, 
+          width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
+          aspectRatio: '1/1',
+          zIndex: 15
+        }}
+      >
+        <Image 
+          src={resolveMediaUrl(char.data.imageUrl)} 
+          alt={char.data.name || 'Character'} 
+          fill 
+          className="object-contain" 
+          unoptimized 
+        />
+        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap">{char.data.name}</div>
+      </div>
+    ))}
+  </>
+));
+CutsceneLayer.displayName = 'CutsceneLayer';
 
 // --- Shop Types ---
 type ShopData = {
@@ -1310,44 +1399,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         >
           {activeMapData ? (
             <>
-              <Image src={resolveMediaUrl(activeMapData.imageUrl)} alt="" fill className="object-cover" unoptimized priority />
+              {/* 背景レイヤー (メモ化済み) */}
+              <MapLayer imageUrl={activeMapData.imageUrl} />
               
-              {activeMapData.objects.map(obj => {
-                const asset = availableObjects.find(a => a.id === obj.objectId);
-                if (!asset || !asset.imageUrl) return null;
-                const curX = npcStates[obj.id]?.x ?? obj.x;
-                const imgUrl = resolveMediaUrl(asset.imageUrl);
-                if (!imgUrl) return null;
-
-                return (
-                  <div key={obj.id} style={{ left: `${(curX / MAP_WIDTH) * 100}%`, top: `${(obj.y / MAP_HEIGHT) * 100}%`, width: `${(obj.width / MAP_WIDTH) * 100}%`, position: 'absolute' }}>
-                    <Image src={imgUrl} alt={asset.name || 'Object'} layout="responsive" width={asset.width || 256} height={asset.height || 256} unoptimized />
-                  </div>
-                );
-              })}
+              {/* オブジェクトレイヤー (メモ化済み) */}
+              <ObjectsLayer 
+                objects={activeMapData.objects} 
+                npcStates={npcStates} 
+                availableObjects={availableObjects} 
+              />
               
-              {Object.entries(cutsceneChars).map(([id, char]) => (
-                <div 
-                  key={id} 
-                  className="absolute -translate-x-1/2 -translate-y-full" 
-                  style={{ 
-                    left: `${(char.x / MAP_WIDTH) * 100}%`, 
-                    top: `${(char.y / MAP_HEIGHT) * 100}%`, 
-                    width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
-                    aspectRatio: '1/1',
-                    zIndex: 15
-                  }}
-                >
-                  <Image 
-                    src={resolveMediaUrl(char.data.imageUrl)} 
-                    alt={char.data.name || 'Character'} 
-                    fill 
-                    className="object-contain" 
-                    unoptimized 
-                  />
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-2 py-0.5 rounded text-[10px] whitespace-nowrap">{char.data.name}</div>
-                </div>
-              ))}
+              {/* カットシーンキャラレイヤー (メモ化済み) */}
+              <CutsceneLayer cutsceneChars={cutsceneChars} />
               
               <MiniMap world={currentWorld} activeIndex={activeCellIndex} />
 
@@ -1359,23 +1422,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               )}
 
               {activePlayerChar && (
-                <div style={{ 
-                  left: `${(characterPosition.x / MAP_WIDTH) * 100}%`, 
-                  top: `${(characterPosition.y / MAP_HEIGHT) * 100}%`, 
-                  width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
-                  position: 'absolute', 
-                  zIndex: 10,
-                  opacity: activeCutscene ? 0.5 : 1
-                }}>
-                  <Image 
-                    src={playerImageUrl} 
-                    alt="Player" 
-                    width={256} 
-                    height={256} 
-                    className="w-full h-auto"
-                    unoptimized 
-                  />
-                </div>
+                <PlayerLayer 
+                  x={characterPosition.x} 
+                  y={characterPosition.y} 
+                  imageUrl={playerImageUrl} 
+                  activeCutscene={!!activeCutscene} 
+                />
               )}
             </>
           ) : (
