@@ -946,13 +946,6 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     let nextStepTimeout: NodeJS.Timeout | null = null;
 
     const loop = (currentTime: number) => {
-      // 10FPS (100ms interval) check for performance testing
-      if (currentTime - lastUpdateTimeRef.current < 100) {
-        gameLoopRef.current = requestAnimationFrame(loop);
-        return;
-      }
-      lastUpdateTimeRef.current = currentTime;
-
       if (activeCutscene && currentCutsceneStepIndex >= 0) {
         const step = activeCutscene.steps[currentCutsceneStepIndex];
         if (step.type === 'story' && !activeEvent) {
