@@ -1,6 +1,6 @@
 # Firebase Studio
 
-Ver 0.1.14
+Ver 0.1.15
 
 This is a NextJS starter in Firebase Studio.
 
