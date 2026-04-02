@@ -632,7 +632,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             if (nextX < -THR && currentCol > 0) { nextCellIdx = activeCellIndex - 1; finalX = MAP_WIDTH - CHARACTER_WIDTH + THR; transitioned = true; }
             else if (nextX > MAP_WIDTH - CHARACTER_WIDTH + THR && currentCol + 1 < currentWorld.cols) { nextCellIdx = activeCellIndex + 1; finalX = -THR; transitioned = true; }
             else if (nextY < -THR && currentRow > 0) { nextCellIdx = activeCellIndex - currentWorld.cols; finalY = MAP_HEIGHT - CHARACTER_HEIGHT + THR; transitioned = true; }
-            else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + currentRow + 1 < currentWorld.rows) { nextCellIdx = activeCellIndex + currentWorld.cols; finalY = -THR; transitioned = true; }
+            else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + THR && currentRow + 1 < currentWorld.rows) { nextCellIdx = activeCellIndex + currentWorld.cols; finalY = -THR; transitioned = true; }
             if (transitioned) { setActiveCellIndex(nextCellIdx); setCharacterPosition({ x: finalX, y: finalY }); setTargetPosition(null); }
             else setCharacterPosition({ x: Math.max(-CHARACTER_WIDTH/2, Math.min(MAP_WIDTH - CHARACTER_WIDTH/2, nextX)), y: Math.max(-CHARACTER_HEIGHT/2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT/2, nextY)) });
           } else setCharacterPosition({ x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)), y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY)) });
