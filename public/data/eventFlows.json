@@ -1,18 +1,29 @@
 [
   {
     "id": "0Vi84otwD7RQpcZ4YV9z",
+    "tags": [
+      "労働力",
+      "いね"
+    ],
+    "plot": "【あらすじ】村の奥にある聖なる井戸から、日に一度、清らかな水を汲んで私の家まで運んで欲しい。\n\n【詳細】\n[依頼のセリフ]: 「まことに恐縮ではござりまするが、そなたにひとつ、お頼み申したき儀がござりまする。この村の奥深きにございまする聖なる井戸より、日に一度、清らかな水を汲み、このいねが家まで運んでいただきたく存じまする。その謝礼としましては、米三升五合を進ぜましょう。なにとぞ、お力添えをお願い申しまする。」\n[プレイヤーの反応]: 「聖なる井戸の水を汲み、いね殿の家まで運ぶと申すか。村の奥深きにあるゆえ、日々の往来は骨の折れる仕事なれど、米三升五合とは、まことに破格の謝礼にて候。日々の糧に事欠くこの身には、聞き流すには惜しき話。されど、たゆまぬ勤めとなれば、いかに…。」\n[承諾ボタン]: 「かたじけなし。この役目、謹んで引き受け申す。」\n[拒否ボタン]: 「まことに申し訳ござりませぬが、おいそれとは引き受けかね申す。」\n[報酬授与のセリフ]: 「おお、伯耆殿、ご苦労でござりました。日々の聖水、まことに助けられ申した。これ、約定の米三升五合にて候。なにとぞ、お納めくだされかし。」\n[成功の結び]: 「伯耆殿、まことにありがとうございました。この度の御縁、わたくしにとりましては、まことに深きものと存じます。願わくば、これからも末永く、よきご縁を大切に育みたく候。」\n[拒否の結び]: 「さようでござりまするか。まことに残念にて候えど、無理を申すも本意ではござりませぬ。またの機会、なにとぞお力添えをば、お頼み申したく存じまする。」\n",
+    "requiredFlag": "",
     "nodes": [
       {
-        "audioUrl": "media/audios/file_490_1774650294605.wav",
-        "nextStepId": "node-2",
-        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
-        "content": "「まことに恐縮ではござりまするが、そなたにひとつ、お頼み申したき儀がござりまする。この村の奥深きにございまする聖なる井戸より、日に一度、清らかな水を汲み、このいねが家まで運んでいただきたく存じまする。その謝礼としましては、米三升五合を進ぜましょう。なにとぞ、お力添えをお願い申しまする。」",
         "speakerName": "いね",
+        "content": "「まことに恐縮ではござりまするが、そなたにひとつ、お頼み申したき儀がござりまする。この村の奥深きにございまする聖なる井戸より、日に一度、清らかな水を汲み、このいねが家まで運んでいただきたく存じまする。その謝礼としましては、米三升五合を進ぜましょう。なにとぞ、お力添えをお願い申しまする。」",
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "id": "node-1",
+        "audioUrl": "media/audios/file_498_1775122200417.wav",
         "type": "start",
-        "id": "node-1"
+        "nextStepId": "node-2"
       },
       {
+        "id": "node-2",
+        "content": "「聖なる井戸の水を汲み、いね殿の家まで運ぶと申すか。村の奥深きにあるゆえ、日々の往来は骨の折れる仕事なれど、米三升五合とは、まことに破格の謝礼にて候。日々の糧に事欠くこの身には、聞き流すには惜しき話。されど、たゆまぬ勤めとなれば、いかに…。」",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
         "speakerName": "伯耆",
+        "type": "choice",
+        "audioUrl": "media/audios/file_499_1775122200417.wav",
         "choices": [
           {
             "nextStepId": "node-3",
@@ -22,477 +33,463 @@
             "nextStepId": "node-5",
             "text": "「まことに申し訳ござりませぬが、おいそれとは引き受けかね申す。」"
           }
-        ],
-        "id": "node-2",
-        "type": "choice",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "audioUrl": "media/audios/file_491_1774650294605.wav",
-        "content": "「聖なる井戸の水を汲み、いね殿の家まで運ぶと申すか。村の奥深きにあるゆえ、日々の往来は骨の折れる仕事なれど、米三升五合とは、まことに破格の謝礼にて候。日々の糧に事欠くこの身には、聞き流すには惜しき話。されど、たゆまぬ勤めとなれば、いかに…。」"
+        ]
       },
       {
-        "id": "node-3",
+        "reward": {
+          "amount": 350
+        },
+        "audioUrl": "media/audios/file_500_1775122200417.wav",
+        "nextStepId": "node-4",
         "type": "reward",
         "speakerName": "いね",
         "content": "「おお、伯耆殿、ご苦労でござりました。日々の聖水、まことに助けられ申した。これ、約定の米三升五合にて候。なにとぞ、お納めくだされかし。」",
         "speakerId": "TFS6nW3oE8YYdiJ21M9R",
-        "nextStepId": "node-4",
-        "audioUrl": "media/audios/file_492_1774650294605.wav",
-        "reward": {
-          "amount": 350
-        }
-      },
-      {
-        "audioUrl": "media/audios/file_493_1774650294605.wav",
-        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
-        "content": "「伯耆殿、まことにありがとうございました。この度の御縁、わたくしにとりましては、まことに深きものと存じます。願わくば、これからも末永く、よきご縁を大切に育みたく候。」",
-        "speakerName": "いね",
-        "type": "end",
-        "id": "node-4"
-      },
-      {
-        "content": "「さようでござりまするか。まことに残念にて候えど、無理を申すも本意ではござりませぬ。またの機会、なにとぞお力添えをば、お頼み申したく存じまする。」",
-        "audioUrl": "media/audios/file_494_1774650294605.wav",
-        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
-        "type": "end",
-        "id": "node-5",
-        "speakerName": "いね"
-      }
-    ],
-    "villagerId": "TFS6nW3oE8YYdiJ21M9R",
-    "plot": "【あらすじ】村の奥にある聖なる井戸から、日に一度、清らかな水を汲んで私の家まで運んで欲しい。\n\n【詳細】\n[依頼のセリフ]: 「まことに恐縮ではござりまするが、そなたにひとつ、お頼み申したき儀がござりまする。この村の奥深きにございまする聖なる井戸より、日に一度、清らかな水を汲み、このいねが家まで運んでいただきたく存じまする。その謝礼としましては、米三升五合を進ぜましょう。なにとぞ、お力添えをお願い申しまする。」\n[プレイヤーの反応]: 「聖なる井戸の水を汲み、いね殿の家まで運ぶと申すか。村の奥深きにあるゆえ、日々の往来は骨の折れる仕事なれど、米三升五合とは、まことに破格の謝礼にて候。日々の糧に事欠くこの身には、聞き流すには惜しき話。されど、たゆまぬ勤めとなれば、いかに…。」\n[承諾ボタン]: 「かたじけなし。この役目、謹んで引き受け申す。」\n[拒否ボタン]: 「まことに申し訳ござりませぬが、おいそれとは引き受けかね申す。」\n[報酬授与のセリフ]: 「おお、伯耆殿、ご苦労でござりました。日々の聖水、まことに助けられ申した。これ、約定の米三升五合にて候。なにとぞ、お納めくだされかし。」\n[成功の結び]: 「伯耆殿、まことにありがとうございました。この度の御縁、わたくしにとりましては、まことに深きものと存じます。願わくば、これからも末永く、よきご縁を大切に育みたく候。」\n[拒否の結び]: 「さようでござりまするか。まことに残念にて候えど、無理を申すも本意ではござりませぬ。またの機会、なにとぞお力添えをば、お頼み申したく存じまする。」\n",
-    "requiredFlag": "",
-    "title": "遠き井戸からの水運び",
-    "villagerName": "いね",
-    "createdAt": "2026-03-27T12:13:49.339Z",
-    "tags": [
-      "労働力",
-      "いね"
-    ]
-  },
-  {
-    "id": "9Nz9tw4vVX3wGhaau0wx",
-    "nodes": [
-      {
-        "speakerName": "弥三郎",
-        "type": "start",
-        "id": "node-1",
-        "audioUrl": "media/audios/file_495_1774650294605.wav",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-2",
-        "content": "どうしたべ〜\nこんなところで〜",
-        "readingText": "どうしたべ〜こんなところで〜"
-      },
-      {
-        "content": "どうも、私は日蓮と申すもので、ご存知かも知れませんが、鎌倉から流刑になってやってきたものです。\nお騒がせして、申し訳ありません。どうぞお見知りおきを。",
-        "readingText": "どうも、わたしはにちれんともうすもので、ごぞんじかもしれませんが、かまくらからるけいになってやってきたものです。おさわがせして、もうしわけありません。どうぞおみしりおきを。",
-        "audioUrl": "media/audios/file_496_1774650294605.wav",
-        "nextStepId": "node-3",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "type": "story",
-        "id": "node-2",
-        "speakerName": "日蓮"
-      },
-      {
-        "audioUrl": "media/audios/file_497_1774650294605.wav",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-4",
-        "readingText": "うわさにはきいとります。ここにはるけいでながれてくるものがおおいですけぇ。おかみにさからってるけいになるなんて、おまえさんもよっぽどつらいめにあったんですか？",
-        "content": "噂には聞いとります。ここには流刑で流れてくるものが多いですけぇ。\nお上に逆らって流刑になるなんて、お前さんもよっぽど辛い目にあったんですか？",
-        "speakerName": "弥三郎",
-        "type": "story",
         "id": "node-3"
       },
       {
-        "id": "node-4",
-        "type": "story",
-        "speakerName": "日蓮",
-        "readingText": "そうですね。なんとせつめいしたらよいものか…こむずかしいはなしかも しれませんが、わたしたちはまっぽうのこうせんるふをたくされたじゆのぼさつなのでほうなんはとうぜんのよろこびとしてうけいれております。ここには、じゃっこうどをきりひらくためにまいりました。ところで…「おまえさん”も”」とおおせられたということは、あなたがたもなにかおかみからふせいなおとがめでもうけたしょうか？",
-        "content": "そうですね。なんと説明したらよいものか…\n小難しい話かも知れませんが、私達は末法の広宣流布を託された地涌の菩薩なので法難は当然の喜びとして受け入れております。\nここには、寂光土を切り開くために参りました。\nところで…\n「お前さん”も”」と仰られたということは、貴方がたも何かお上から不正なお咎めでも受けたしょうか？",
-        "nextStepId": "node-1771836155813",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_498_1774650294605.wav"
+        "audioUrl": "media/audios/file_501_1775122200417.wav",
+        "type": "end",
+        "speakerName": "いね",
+        "content": "「伯耆殿、まことにありがとうございました。この度の御縁、わたくしにとりましては、まことに深きものと存じます。願わくば、これからも末永く、よきご縁を大切に育みたく候。」",
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "id": "node-4"
       },
       {
-        "content": "失礼、私は弥三郎と申すもので漁師をしております。\nご存知かと思いますが、漁師は殺生を行う不届きな身分として差別されております…\n",
-        "readingText": "しつれい、わたしはやさぶろうともうすものでりょうしをしております。ごぞんじかとおもいますが、りょうしはせっしょうをおこなうふとどきなみぶんとしてさべつされております…",
-        "audioUrl": "media/audios/file_499_1774650294605.wav",
+        "audioUrl": "media/audios/file_502_1775122200417.wav",
+        "type": "end",
+        "speakerName": "いね",
+        "id": "node-5",
+        "content": "「さようでござりまするか。まことに残念にて候えど、無理を申すも本意ではござりませぬ。またの機会、なにとぞお力添えをば、お頼み申したく存じまする。」",
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R"
+      }
+    ],
+    "createdAt": "2026-03-27T12:13:49.339Z",
+    "villagerName": "いね",
+    "villagerId": "TFS6nW3oE8YYdiJ21M9R",
+    "title": "遠き井戸からの水運び"
+  },
+  {
+    "id": "9Nz9tw4vVX3wGhaau0wx",
+    "title": "弥三郎出現",
+    "tags": [
+      "メイン"
+    ],
+    "plot": "弥三郎が浜で往生している日蓮に出会う",
+    "requiredFlag": "",
+    "nodes": [
+      {
+        "id": "node-1",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "どうしたべ〜\nこんなところで〜",
+        "readingText": "どうしたべ〜こんなところで〜",
+        "speakerName": "弥三郎",
+        "nextStepId": "node-2",
+        "type": "start",
+        "audioUrl": "media/audios/file_503_1775122200417.wav"
+      },
+      {
+        "audioUrl": "media/audios/file_504_1775122200417.wav",
+        "nextStepId": "node-3",
+        "type": "story",
+        "speakerName": "日蓮",
+        "readingText": "どうも、わたしはにちれんともうすもので、ごぞんじかもしれませんが、かまくらからるけいになってやってきたものです。おさわがせして、もうしわけありません。どうぞおみしりおきを。",
+        "id": "node-2",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "どうも、私は日蓮と申すもので、ご存知かも知れませんが、鎌倉から流刑になってやってきたものです。\nお騒がせして、申し訳ありません。どうぞお見知りおきを。"
+      },
+      {
+        "audioUrl": "media/audios/file_505_1775122200417.wav",
+        "nextStepId": "node-4",
+        "type": "story",
+        "speakerName": "弥三郎",
+        "readingText": "うわさにはきいとります。ここにはるけいでながれてくるものがおおいですけぇ。おかみにさからってるけいになるなんて、おまえさんもよっぽどつらいめにあったんですか？",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "噂には聞いとります。ここには流刑で流れてくるものが多いですけぇ。\nお上に逆らって流刑になるなんて、お前さんもよっぽど辛い目にあったんですか？",
+        "id": "node-3"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1771836155813",
+        "audioUrl": "media/audios/file_506_1775122200417.wav",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "そうですね。なんと説明したらよいものか…\n小難しい話かも知れませんが、私達は末法の広宣流布を託された地涌の菩薩なので法難は当然の喜びとして受け入れております。\nここには、寂光土を切り開くために参りました。\nところで…\n「お前さん”も”」と仰られたということは、貴方がたも何かお上から不正なお咎めでも受けたしょうか？",
+        "id": "node-4",
+        "readingText": "そうですね。なんとせつめいしたらよいものか…こむずかしいはなしかも しれませんが、わたしたちはまっぽうのこうせんるふをたくされたじゆのぼさつなのでほうなんはとうぜんのよろこびとしてうけいれております。ここには、じゃっこうどをきりひらくためにまいりました。ところで…「おまえさん”も”」とおおせられたということは、あなたがたもなにかおかみからふせいなおとがめでもうけたしょうか？",
+        "speakerName": "日蓮"
+      },
+      {
         "nextStepId": "node-1771836360486",
         "type": "story",
+        "audioUrl": "media/audios/file_507_1775122200417.wav",
         "id": "node-1771836155813",
-        "speakerName": "弥三郎"
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "失礼、私は弥三郎と申すもので漁師をしております。\nご存知かと思いますが、漁師は殺生を行う不届きな身分として差別されております…\n",
+        "speakerName": "弥三郎",
+        "readingText": "しつれい、わたしはやさぶろうともうすものでりょうしをしております。ごぞんじかとおもいますが、りょうしはせっしょうをおこなうふとどきなみぶんとしてさべつされております…"
       },
       {
-        "speakerName": "日蓮",
-        "id": "node-1771836360486",
-        "type": "story",
-        "nextStepId": "node-1771838477317",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_500_1774650294605.wav",
         "readingText": "そうですか…やはり…われわれがここへきたりゆうはまさにこのもんだいにあるのです。せいじがしゅうきょうをりようし、こくみんをせんのうさせようとしているところにこのくにおおきなざいごうがあるのです。ひとはいきるうえでせっしょうをさけることはできません。ねんぶつしゅうがこんきょとしているほうもんはしゃくもんでとかれたかりのおしえです。しかし、こめをぜいとしてちょうしゅうしたいばくふにとってはこのおしえがひじょうにつごうがよかったのです。ともあれ、りょうしをやってるからといってさげすまれなければならないりゆうなどほとけさまはまったくおっしゃっておりません。ぎゃくにすべてのひとはとうとくたいせつにされるべきそんざいだとおおせっています。ばくふにとってはこちらのほうがつごうがわるいので、わたしがしんげんしたないようをよをまどわすもうげんとだんざいしたのです。",
-        "content": "そうですか…やはり…\n我々がここへ来た理由は正にこの問題にあります。\n政治が宗教を利用し、国民を洗脳させようとしているところにこの国の大きな罪業があるのです。\n人は生きる上で殺生を避けることは出来ません。念仏宗が根拠としている法門は迹門で説かれた借りの教えです。しかし、米を税として徴収したい幕府にとってはこの教えが非常に都合が良かったのです。\nともあれ、漁師をやっているからといって蔑まれなければならない理由など仏様は全くおっしゃっておりません。\n逆に全ての人は尊く大切にされるべき存在だと仰っています。\n幕府にとってはこちらの方が都合が悪いので、私が進言した内容を世を惑わす妄言と断罪したのです。\n"
+        "speakerName": "日蓮",
+        "content": "そうですか…やはり…\n我々がここへ来た理由は正にこの問題にあります。\n政治が宗教を利用し、国民を洗脳させようとしているところにこの国の大きな罪業があるのです。\n人は生きる上で殺生を避けることは出来ません。念仏宗が根拠としている法門は迹門で説かれた借りの教えです。しかし、米を税として徴収したい幕府にとってはこの教えが非常に都合が良かったのです。\nともあれ、漁師をやっているからといって蔑まれなければならない理由など仏様は全くおっしゃっておりません。\n逆に全ての人は尊く大切にされるべき存在だと仰っています。\n幕府にとってはこちらの方が都合が悪いので、私が進言した内容を世を惑わす妄言と断罪したのです。\n",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1771836360486",
+        "audioUrl": "media/audios/file_508_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1771838477317"
       },
       {
-        "type": "story",
-        "id": "node-1771838477317",
         "speakerName": "弥三郎",
         "readingText": "そうだったんですか〜むずかしいはなしはよくわかりませんが、おでしさんがくるしんでいるようなので、こんなところで のじゅく などせず いえへ おいでなすてくだせえ。",
-        "content": "そうだったんですか〜\n難しい話はよくわかりませんが、お弟子さんが苦しんでいるようなので、こんなところで野宿などせず家へおいでなすてくだせえ。",
-        "audioUrl": "media/audios/file_501_1774650294605.wav",
-        "nextStepId": "node-1771844398745",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt"
-      },
-      {
-        "speakerName": "伯耆",
-        "type": "story",
-        "id": "node-1771844398745",
-        "audioUrl": "media/audios/file_502_1774650294605.wav",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "nextStepId": "node-1771844702316",
-        "content": "すいません〜\n私は日蓮の弟子の伯耆と申すものです。お恥ずかしいところを見せてしまって…\n",
-        "readingText": "すいません〜わたしはにちれんのでしのほうきともうすものです。おはずかしいところをみせてしまって…"
-      },
-      {
-        "speakerName": "弥三郎",
-        "type": "story",
-        "id": "node-1771844702316",
-        "audioUrl": "media/audios/file_503_1774650294605.wav",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "そうだったんですか〜\n難しい話はよくわかりませんが、お弟子さんが苦しんでいるようなので、こんなところで野宿などせず家へおいでなすてくだせえ。",
+        "id": "node-1771838477317",
+        "audioUrl": "media/audios/file_509_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1771844398745"
+      },
+      {
+        "readingText": "すいません〜わたしはにちれんのでしのほうきともうすものです。おはずかしいところをみせてしまって…",
+        "speakerName": "伯耆",
+        "content": "すいません〜\n私は日蓮の弟子の伯耆と申すものです。お恥ずかしいところを見せてしまって…\n",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-1771844398745",
+        "audioUrl": "media/audios/file_510_1775122200417.wav",
+        "nextStepId": "node-1771844702316",
+        "type": "story"
+      },
+      {
         "nextStepId": "node-1771844870620",
+        "type": "story",
+        "audioUrl": "media/audios/file_511_1775122200417.wav",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
         "content": "気にせんでよいです。\n船酔で苦しむのはこの地に訪れる人の大半がそうですけぇ。",
+        "id": "node-1771844702316",
+        "speakerName": "弥三郎",
         "readingText": "きにせんでよいです。ふなよいでくるしむのはこのちにおとずれるひとのたいはんがそうですけぇ。"
       },
       {
         "speakerName": "日蓮",
-        "id": "node-1771844870620",
-        "type": "story",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1771905325350",
-        "audioUrl": "media/audios/file_504_1774650294605.wav",
         "readingText": "たすかります。このちにおりたってはじめておあいできたかたがやさぶろうさんでよかった。たいへんもうしわけないですがほうきにのみものとよこになれるばしょをおかしください。",
-        "content": "助かります。この地に降り立って初めてお会いできた方が弥三郎さんでよかった。\n大変申し訳ないですが伯耆に飲み物と横になれる場所をお貸しください。"
+        "content": "助かります。この地に降り立って初めてお会いできた方が弥三郎さんでよかった。\n大変申し訳ないですが伯耆に飲み物と横になれる場所をお貸しください。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1771844870620",
+        "audioUrl": "media/audios/file_512_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1771905325350"
       },
       {
-        "audioUrl": "media/audios/file_505_1774650294605.wav",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "readingText": "りょうかいですじゃ。わしについてきてくだせえ。",
         "content": "了解ですじゃ。\nわしについてきてくだせえ。",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "id": "node-1771905325350",
         "speakerName": "弥三郎",
+        "readingText": "りょうかいですじゃ。わしについてきてくだせえ。",
         "type": "end",
-        "id": "node-1771905325350"
+        "audioUrl": "media/audios/file_513_1775122200417.wav"
       }
     ],
-    "requiredFlag": "",
-    "plot": "弥三郎が浜で往生している日蓮に出会う",
-    "title": "弥三郎出現",
-    "createdAt": "2026-02-23T08:25:38.585Z",
-    "tags": [
-      "メイン"
-    ]
+    "createdAt": "2026-02-23T08:25:38.585Z"
   },
   {
     "id": "9aYqFJJl6fP5mD9Wp3QS",
-    "nodes": [
-      {
-        "readingText": "わぁ〜。なにしてるの？",
-        "content": "わぁ〜。なにしてるの？",
-        "audioUrl": "media/audios/file_506_1774650294605.wav",
-        "nextStepId": "node-2",
-        "speakerId": "ABDKMNns8Z9trb49L0eI",
-        "type": "start",
-        "id": "node-1",
-        "speakerName": "さち"
-      },
-      {
-        "type": "story",
-        "id": "node-2",
-        "speakerName": "日蓮",
-        "content": "今日からここで料理屋を開こうと思ってね。皆はお腹は空いていないかな？",
-        "readingText": "きょうからここでりょうりやをひらこうとおもってね。みんなはおなかはすいていないかな？",
-        "audioUrl": "media/audios/file_507_1774650294605.wav",
-        "nextStepId": "node-3",
-        "speakerId": "A44lygLrpBVZjTZD1EqT"
-      },
-      {
-        "speakerName": "つる",
-        "type": "story",
-        "id": "node-3",
-        "audioUrl": "media/audios/file_508_1774650294605.wav",
-        "speakerId": "SKGryi77HDknYcHDg0RI",
-        "nextStepId": "node-1774644858547-plpyx",
-        "readingText": "すいている",
-        "content": "空いている"
-      },
-      {
-        "nextStepId": "node-1774644881533-oyxth",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_509_1774650294605.wav",
-        "readingText": "おすしというものをたべたことはあるかい？",
-        "content": "お寿司というものを食べたことはあるかい？",
-        "speakerName": "日蓮",
-        "id": "node-1774644858547-plpyx",
-        "type": "story"
-      },
-      {
-        "speakerId": "h9JJrqBaH2EBgbHAoF0Y",
-        "nextStepId": "node-1774644916739-m9rbx",
-        "audioUrl": "media/audios/file_510_1774650294605.wav",
-        "content": "無いけど、聞いたことはあるよ。都で流行っている食べ物なんでしょ！",
-        "readingText": "ないけど、きいたことはあるよ。みやこではやっているたべものなんでしょ！",
-        "speakerName": "小太郎",
-        "id": "node-1774644881533-oyxth",
-        "type": "story"
-      },
-      {
-        "nextStepId": "node-1774646654799-o09vo",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_511_1774650294605.wav",
-        "content": "おぉ、偉いね、よく知っているね〜\n",
-        "readingText": "おぉ、えらいね、よくしっているね〜",
-        "speakerName": "日蓮",
-        "id": "node-1774644916739-m9rbx",
-        "type": "story"
-      },
-      {
-        "type": "story",
-        "id": "node-1774646654799-o09vo",
-        "speakerName": "小次郎",
-        "content": "俺も知っているよ。生魚なんでしょ、美味しいの？",
-        "readingText": "おれもしっているよ。なまざかななんでしょ、おいしいの？",
-        "audioUrl": "media/audios/file_512_1774650294605.wav",
-        "speakerId": "24eDzCK3Nl01uq4k1nW1",
-        "nextStepId": "node-1774646713434-8rbdz"
-      },
-      {
-        "speakerName": "日蓮",
-        "id": "node-1774646713434-8rbdz",
-        "type": "story",
-        "nextStepId": "node-1774646885389-hmg9b",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_513_1774650294605.wav",
-        "readingText": "とってもおいしいよ。しんせんななまさかならば、くさみもすくなく、しょうゆにつけてたべれば、いくらでもたべられるよ。そのしょうこに、なまさかまでもねこはとってもおいしそうにたべるでしょ。",
-        "content": "とっても美味しいよ。新鮮な生魚であれば、臭みも少なく、醤油につけて食べれば、いくらでも食べられるよ。\nその証拠に、生魚でも猫はとっても美味しそうに食べるでしょ。"
-      },
-      {
-        "speakerName": "野良猫",
-        "type": "story",
-        "id": "node-1774646885389-hmg9b",
-        "speakerId": "ByroZjVr97HcRtM5X1XD",
-        "nextStepId": "node-1774647232230-axg6t",
-        "content": "にゃ〜",
-        "readingText": "にゃ〜"
-      },
-      {
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774647277466-l12hc",
-        "audioUrl": "media/audios/file_514_1774650294605.wav",
-        "content": "さっそく、嗅ぎつけてやってきたね。最初のお客さんだ。君たちも食べてみるかい？",
-        "readingText": "さっそく、かぎつけてやってきたね。さいしょのおきゃくさんだ。きみたちもたべてみるかい？",
-        "speakerName": "日蓮",
-        "id": "node-1774647232230-axg6t",
-        "type": "story"
-      },
-      {
-        "id": "node-1774647277466-l12hc",
-        "type": "story",
-        "speakerName": "つる",
-        "content": "いいの？",
-        "readingText": "いいの？",
-        "nextStepId": "node-1774647297706-p7yn6",
-        "speakerId": "SKGryi77HDknYcHDg0RI",
-        "audioUrl": "media/audios/file_515_1774650294605.wav"
-      },
-      {
-        "speakerName": "日蓮",
-        "type": "story",
-        "id": "node-1774647297706-p7yn6",
-        "audioUrl": "media/audios/file_516_1774650294605.wav",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774647357918-cxdia",
-        "readingText": "いいよ。そのかわりに、このわりふをわたしておくから、またたべたくなったら、おとうさんやおかあさんをつれてきてくれるかな？",
-        "content": "いいよ。そのかわりに、この割符を渡しておくから、また食べたくなったら、お父さんやお母さんをつれて来てくれるかな？"
-      },
-      {
-        "id": "node-1774647357918-cxdia",
-        "type": "story",
-        "speakerName": "さち",
-        "content": "わかった、約束する。",
-        "readingText": "わかった、やくそくする。",
-        "nextStepId": "node-1774647403584-ygz68",
-        "speakerId": "ABDKMNns8Z9trb49L0eI",
-        "audioUrl": "media/audios/file_517_1774650294605.wav"
-      },
-      {
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774647436128-bphh0",
-        "audioUrl": "media/audios/file_518_1774650294605.wav",
-        "content": "はい、どうぞ、美味しいかな？",
-        "readingText": "はい、どうぞ、おいしいかな？",
-        "speakerName": "日蓮",
-        "id": "node-1774647403584-ygz68",
-        "type": "story"
-      },
-      {
-        "content": "うん、とっても美味しいよ！",
-        "readingText": "うん、とってもおいしいよ！",
-        "nextStepId": "node-1774647454241-kaxp6",
-        "speakerId": "24eDzCK3Nl01uq4k1nW1",
-        "audioUrl": "media/audios/file_519_1774650294605.wav",
-        "id": "node-1774647436128-bphh0",
-        "type": "story",
-        "speakerName": "小次郎"
-      },
-      {
-        "id": "node-1774647454241-kaxp6",
-        "type": "story",
-        "speakerName": "小次郎",
-        "content": "父ちゃんや、母ちゃんにも食べさせてあげたいや！",
-        "readingText": "とうちゃんや、かあちゃんにもたべさせてあげたいや！",
-        "nextStepId": "node-1774647497218-bqq8b",
-        "speakerId": "24eDzCK3Nl01uq4k1nW1",
-        "audioUrl": "media/audios/file_520_1774650294605.wav"
-      },
-      {
-        "id": "node-1774647497218-bqq8b",
-        "type": "story",
-        "speakerName": "日蓮",
-        "readingText": "そうか、それはよかった、ぜひ、つれてきておくれ。",
-        "content": "そうか、それはよかった、是非、連れてきておくれ。",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774647524570-tqgo4",
-        "audioUrl": "media/audios/file_521_1774650294605.wav"
-      },
-      {
-        "content": "うん！絶対連れてくるね！！",
-        "readingText": "うん！ぜったいつれてくるね！！",
-        "nextStepId": "node-1774647575571-zjl1s",
-        "speakerId": "ABDKMNns8Z9trb49L0eI",
-        "audioUrl": "media/audios/file_522_1774650294605.wav",
-        "id": "node-1774647524570-tqgo4",
-        "type": "story",
-        "speakerName": "さち"
-      },
-      {
-        "readingText": "かずにはかぎりがあるから、はやめにつれてくることをおすすめするよ。",
-        "content": "数には限りがあるから、早めに連れてくることをおすすめするよ。",
-        "audioUrl": "media/audios/file_523_1774650294605.wav",
-        "nextStepId": "node-1774647630797-92ibs",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "type": "story",
-        "id": "node-1774647575571-zjl1s",
-        "speakerName": "日蓮"
-      },
-      {
-        "id": "node-1774647630797-92ibs",
-        "type": "story",
-        "speakerName": "つる",
-        "content": "それは大変！早く連れてこなくっちゃ！",
-        "readingText": "それはたいへん！はやくつれてこなくっちゃ！",
-        "nextStepId": "node-1774647680070-3q0lw",
-        "speakerId": "SKGryi77HDknYcHDg0RI",
-        "audioUrl": "media/audios/file_524_1774650294605.wav"
-      },
-      {
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774647818190-9woih",
-        "audioUrl": "media/audios/file_525_1774650294605.wav",
-        "content": "雨の日以外はここでやっているから、それほど慌てなくても大丈夫だよ。皆にお寿司の美味しさを伝えてくれたら、また食べさせて上げるからね。",
-        "readingText": "あめのひいがいについてはここでやっているから、それほどあわてなくてもだいじょうぶだよ。みんなにおすしのおいしさをつたえてくれたら、またたべさせてあげるからね。",
-        "speakerName": "日蓮",
-        "id": "node-1774647680070-3q0lw",
-        "type": "story"
-      },
-      {
-        "readingText": "やった〜、じゃあ、さっそくいってくるね！",
-        "content": "やった〜、じゃあ早速いってくるね！",
-        "audioUrl": "media/audios/file_526_1774650294605.wav",
-        "speakerId": "24eDzCK3Nl01uq4k1nW1",
-        "nextStepId": "node-4",
-        "type": "story",
-        "id": "node-1774647818190-9woih",
-        "speakerName": "小次郎"
-      },
-      {
-        "id": "node-4",
-        "type": "end",
-        "speakerName": "野良猫",
-        "content": "にゃ〜、にゃ〜",
-        "readingText": "にゃ〜、にゃ〜、にゃ〜ん",
-        "speakerId": "ByroZjVr97HcRtM5X1XD",
-        "audioUrl": "media/audios/file_527_1774650294605.wav"
-      }
-    ],
-    "villagerId": null,
-    "requiredFlag": "",
-    "plot": "子供たちとの交流",
     "title": "子供の賑わいと交流",
-    "createdAt": "2026-03-27T20:48:58.253Z",
     "villagerName": null,
-    "tags": [
-      "メイン"
-    ]
-  },
-  {
-    "id": "E3kjL45tPNPVO1EBzyLD",
-    "createdAt": "2026-02-06T19:26:07.932Z",
-    "villagerName": "庄助",
-    "villagerId": "4OPELhPhTx0RpaQiu0Af",
+    "villagerId": null,
     "nodes": [
       {
+        "audioUrl": "media/audios/file_514_1775122200417.wav",
         "nextStepId": "node-2",
         "type": "start",
-        "content": "村の入り口で、旅人は疲労困憊の様子で自分の畑を見つめる若者、庄助に出会った。",
+        "readingText": "わぁ〜。なにしてるの？",
+        "speakerName": "さち",
+        "speakerId": "ABDKMNns8Z9trb49L0eI",
+        "content": "わぁ〜。なにしてるの？",
         "id": "node-1"
       },
       {
+        "id": "node-2",
+        "content": "今日からここで料理屋を開こうと思ってね。皆はお腹は空いていないかな？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
+        "readingText": "きょうからここでりょうりやをひらこうとおもってね。みんなはおなかはすいていないかな？",
         "nextStepId": "node-3",
         "type": "story",
-        "id": "node-2",
-        "content": "庄助は真面目な働き手として評判だったが、今はその顔に絶望が浮かんでいる。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、秋の収穫祭も年貢も危ういという。"
+        "audioUrl": "media/audios/file_515_1775122200417.wav"
       },
       {
-        "content": "庄助を助けるため、どう行動するか？",
+        "type": "story",
+        "nextStepId": "node-1774644858547-plpyx",
+        "audioUrl": "media/audios/file_516_1775122200417.wav",
+        "content": "空いている",
+        "speakerId": "SKGryi77HDknYcHDg0RI",
         "id": "node-3",
-        "type": "choice",
+        "readingText": "すいている",
+        "speakerName": "つる"
+      },
+      {
+        "audioUrl": "media/audios/file_517_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1774644881533-oyxth",
+        "readingText": "おすしというものをたべたことはあるかい？",
+        "speakerName": "日蓮",
+        "content": "お寿司というものを食べたことはあるかい？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774644858547-plpyx"
+      },
+      {
+        "speakerName": "小太郎",
+        "readingText": "ないけど、きいたことはあるよ。みやこではやっているたべものなんでしょ！",
+        "id": "node-1774644881533-oyxth",
+        "speakerId": "h9JJrqBaH2EBgbHAoF0Y",
+        "content": "無いけど、聞いたことはあるよ。都で流行っている食べ物なんでしょ！",
+        "audioUrl": "media/audios/file_518_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1774644916739-m9rbx"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1774646654799-o09vo",
+        "audioUrl": "media/audios/file_519_1775122200417.wav",
+        "id": "node-1774644916739-m9rbx",
+        "content": "おぉ、偉いね、よく知っているね〜\n",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
+        "readingText": "おぉ、えらいね、よくしっているね〜"
+      },
+      {
+        "speakerId": "24eDzCK3Nl01uq4k1nW1",
+        "content": "俺も知っているよ。生魚なんでしょ、美味しいの？",
+        "id": "node-1774646654799-o09vo",
+        "speakerName": "小次郎",
+        "readingText": "おれもしっているよ。なまざかななんでしょ、おいしいの？",
+        "nextStepId": "node-1774646713434-8rbdz",
+        "type": "story",
+        "audioUrl": "media/audios/file_520_1775122200417.wav"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "とっても美味しいよ。新鮮な生魚であれば、臭みも少なく、醤油につけて食べれば、いくらでも食べられるよ。\nその証拠に、生魚でも猫はとっても美味しそうに食べるでしょ。",
+        "id": "node-1774646713434-8rbdz",
+        "readingText": "とってもおいしいよ。しんせんななまさかならば、くさみもすくなく、しょうゆにつけてたべれば、いくらでもたべられるよ。そのしょうこに、なまさかまでもねこはとってもおいしそうにたべるでしょ。",
+        "speakerName": "日蓮",
+        "type": "story",
+        "nextStepId": "node-1774646885389-hmg9b",
+        "audioUrl": "media/audios/file_521_1775122200417.wav"
+      },
+      {
+        "nextStepId": "node-1774647232230-axg6t",
+        "type": "story",
+        "id": "node-1774646885389-hmg9b",
+        "speakerId": "ByroZjVr97HcRtM5X1XD",
+        "content": "にゃ〜",
+        "speakerName": "野良猫",
+        "readingText": "にゃ〜"
+      },
+      {
+        "id": "node-1774647232230-axg6t",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "さっそく、嗅ぎつけてやってきたね。最初のお客さんだ。君たちも食べてみるかい？",
+        "speakerName": "日蓮",
+        "readingText": "さっそく、かぎつけてやってきたね。さいしょのおきゃくさんだ。きみたちもたべてみるかい？",
+        "nextStepId": "node-1774647277466-l12hc",
+        "type": "story",
+        "audioUrl": "media/audios/file_522_1775122200417.wav"
+      },
+      {
+        "id": "node-1774647277466-l12hc",
+        "speakerId": "SKGryi77HDknYcHDg0RI",
+        "content": "いいの？",
+        "speakerName": "つる",
+        "readingText": "いいの？",
+        "type": "story",
+        "nextStepId": "node-1774647297706-p7yn6",
+        "audioUrl": "media/audios/file_523_1775122200417.wav"
+      },
+      {
+        "readingText": "いいよ。そのかわりに、このわりふをわたしておくから、またたべたくなったら、おとうさんやおかあさんをつれてきてくれるかな？",
+        "speakerName": "日蓮",
+        "content": "いいよ。そのかわりに、この割符を渡しておくから、また食べたくなったら、お父さんやお母さんをつれて来てくれるかな？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774647297706-p7yn6",
+        "audioUrl": "media/audios/file_524_1775122200417.wav",
+        "nextStepId": "node-1774647357918-cxdia",
+        "type": "story"
+      },
+      {
+        "audioUrl": "media/audios/file_525_1775122200417.wav",
+        "nextStepId": "node-1774647403584-ygz68",
+        "type": "story",
+        "speakerName": "さち",
+        "readingText": "わかった、やくそくする。",
+        "content": "わかった、約束する。",
+        "speakerId": "ABDKMNns8Z9trb49L0eI",
+        "id": "node-1774647357918-cxdia"
+      },
+      {
+        "audioUrl": "media/audios/file_526_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1774647436128-bphh0",
+        "speakerName": "日蓮",
+        "readingText": "はい、どうぞ、おいしいかな？",
+        "id": "node-1774647403584-ygz68",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "はい、どうぞ、美味しいかな？"
+      },
+      {
+        "id": "node-1774647436128-bphh0",
+        "content": "うん、とっても美味しいよ！",
+        "speakerId": "24eDzCK3Nl01uq4k1nW1",
+        "speakerName": "小次郎",
+        "readingText": "うん、とってもおいしいよ！",
+        "type": "story",
+        "nextStepId": "node-1774647454241-kaxp6",
+        "audioUrl": "media/audios/file_527_1775122200417.wav"
+      },
+      {
+        "audioUrl": "media/audios/file_528_1775122200417.wav",
+        "nextStepId": "node-1774647497218-bqq8b",
+        "type": "story",
+        "speakerName": "小次郎",
+        "readingText": "とうちゃんや、かあちゃんにもたべさせてあげたいや！",
+        "speakerId": "24eDzCK3Nl01uq4k1nW1",
+        "content": "父ちゃんや、母ちゃんにも食べさせてあげたいや！",
+        "id": "node-1774647454241-kaxp6"
+      },
+      {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "そうか、それはよかった、是非、連れてきておくれ。",
+        "id": "node-1774647497218-bqq8b",
+        "readingText": "そうか、それはよかった、ぜひ、つれてきておくれ。",
+        "speakerName": "日蓮",
+        "nextStepId": "node-1774647524570-tqgo4",
+        "type": "story",
+        "audioUrl": "media/audios/file_529_1775122200417.wav"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1774647575571-zjl1s",
+        "audioUrl": "media/audios/file_530_1775122200417.wav",
+        "id": "node-1774647524570-tqgo4",
+        "speakerId": "ABDKMNns8Z9trb49L0eI",
+        "content": "うん！絶対連れてくるね！！",
+        "speakerName": "さち",
+        "readingText": "うん！ぜったいつれてくるね！！"
+      },
+      {
+        "readingText": "かずにはかぎりがあるから、はやめにつれてくることをおすすめするよ。",
+        "speakerName": "日蓮",
+        "content": "数には限りがあるから、早めに連れてくることをおすすめするよ。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774647575571-zjl1s",
+        "audioUrl": "media/audios/file_531_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1774647630797-92ibs"
+      },
+      {
+        "audioUrl": "media/audios/file_532_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-1774647680070-3q0lw",
+        "speakerName": "つる",
+        "readingText": "それはたいへん！はやくつれてこなくっちゃ！",
+        "id": "node-1774647630797-92ibs",
+        "content": "それは大変！早く連れてこなくっちゃ！",
+        "speakerId": "SKGryi77HDknYcHDg0RI"
+      },
+      {
+        "nextStepId": "node-1774647818190-9woih",
+        "type": "story",
+        "audioUrl": "media/audios/file_533_1775122200417.wav",
+        "id": "node-1774647680070-3q0lw",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "雨の日以外はここでやっているから、それほど慌てなくても大丈夫だよ。皆にお寿司の美味しさを伝えてくれたら、また食べさせて上げるからね。",
+        "speakerName": "日蓮",
+        "readingText": "あめのひいがいについてはここでやっているから、それほどあわてなくてもだいじょうぶだよ。みんなにおすしのおいしさをつたえてくれたら、またたべさせてあげるからね。"
+      },
+      {
+        "readingText": "やった〜、じゃあ、さっそくいってくるね！",
+        "speakerName": "小次郎",
+        "id": "node-1774647818190-9woih",
+        "speakerId": "24eDzCK3Nl01uq4k1nW1",
+        "content": "やった〜、じゃあ早速いってくるね！",
+        "audioUrl": "media/audios/file_534_1775122200417.wav",
+        "type": "story",
+        "nextStepId": "node-4"
+      },
+      {
+        "type": "end",
+        "audioUrl": "media/audios/file_535_1775122200417.wav",
+        "id": "node-4",
+        "speakerId": "ByroZjVr97HcRtM5X1XD",
+        "content": "にゃ〜、にゃ〜",
+        "speakerName": "野良猫",
+        "readingText": "にゃ〜、にゃ〜、にゃ〜ん"
+      }
+    ],
+    "createdAt": "2026-03-27T20:48:58.253Z",
+    "tags": [
+      "メイン"
+    ],
+    "plot": "子供たちとの交流",
+    "requiredFlag": ""
+  },
+  {
+    "id": "E3kjL45tPNPVO1EBzyLD",
+    "nodes": [
+      {
+        "content": "村の入り口で、旅人は疲労困憊の様子で自分の畑を見つめる若者、庄助に出会った。",
+        "nextStepId": "node-2",
+        "type": "start",
+        "id": "node-1"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-3",
+        "content": "庄助は真面目な働き手として評判だったが、今はその顔に絶望が浮かんでいる。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、秋の収穫祭も年貢も危ういという。",
+        "id": "node-2"
+      },
+      {
         "choices": [
           {
             "nextStepId": "node-4",
             "text": "森の奥へ薬草を探しに行く"
           },
           {
+            "requiredItemId": "4V6R6JwvV7MmD4yfrjVv",
             "nextStepId": "node-5",
-            "text": "畑の土壌と作物を詳しく調べる",
-            "requiredItemId": "4V6R6JwvV7MmD4yfrjVv"
+            "text": "畑の土壌と作物を詳しく調べる"
           }
-        ]
+        ],
+        "content": "庄助を助けるため、どう行動するか？",
+        "type": "choice",
+        "id": "node-3"
+      },
+      {
+        "id": "node-4",
+        "nextStepId": "node-6",
+        "content": "旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れた。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めた。",
+        "type": "story"
       },
       {
         "type": "story",
-        "content": "旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れた。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めた。",
-        "id": "node-4",
-        "nextStepId": "node-6"
-      },
-      {
-        "nextStepId": "node-6",
-        "id": "node-5",
         "content": "旅人は庄助の畑で黒いカビに侵された小麦の根元を注意深く観察した。持っていたヤマニンニクをすり潰して土に混ぜ込むと、カビは勢いを失い、小麦は再び生気を取り戻していった。",
-        "type": "story"
+        "nextStepId": "node-6",
+        "id": "node-5"
       },
       {
-        "nextStepId": "node-7",
-        "content": "旅人の尽力により小麦畑は救われた。庄助は心底安堵し、旅人の働きに深く感謝する。",
         "id": "node-6",
+        "content": "旅人の尽力により小麦畑は救われた。庄助は心底安堵し、旅人の働きに深く感謝する。",
+        "nextStepId": "node-7",
         "type": "story"
       },
       {
-        "reward": {
-          "amount": 110,
-          "itemId": "199WE9uvPmPJh5zNhR41",
-          "itemName": "深山黒茸"
-        },
+        "content": "収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡してくれた。",
         "type": "reward",
         "id": "node-7",
-        "content": "収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡してくれた。"
+        "reward": {
+          "itemId": "199WE9uvPmPJh5zNhR41",
+          "itemName": "深山黒茸",
+          "amount": 110
+        }
       },
       {
         "type": "end",
@@ -500,824 +497,825 @@
         "id": "node-8"
       }
     ],
-    "title": "庄助を襲う黒いカビと豊穣の願い",
+    "createdAt": "2026-02-06T19:26:07.932Z",
+    "plot": "旅人は、村の入り口で、疲労困憊の様子で自分の畑を見つめる若者、庄助に出会います。庄助は真面目な働き手として評判ですが、今はその顔に絶望の色が浮かんでいます。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、このままでは秋の収穫祭に使う伝統のパンも、厳しい年貢も納められなくなると嘆きます。旅人は庄助を助けるため、どう行動するか選択を迫られます。「森の奥へ薬草を探しに行く」か、「畑の土壌と作物を詳しく調べる」か。森の奥へ薬草を探しに行く場合、旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れます。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めます。畑の土壌と作物を詳しく調べる場合、旅人は庄助の畑で黒いカビに侵された小麦の根元を注意深く観察します。もし「ヤマニンニク」を持っていれば、その強い匂いが土中に潜むカビを媒介する微細な虫を遠ざけ、カビの広がりを食い止めることができます。ヤマニンニクをすり潰して土に混ぜ込むと、カビは勢いを失い、小麦は再び生気を取り戻していきます。どちらの選択肢を選んでも、旅人の尽力により小麦畑は救われます。庄助は心底安堵し、旅人の働きに深く感謝します。収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡すのでした。",
     "requiredFlag": "",
-    "plot": "旅人は、村の入り口で、疲労困憊の様子で自分の畑を見つめる若者、庄助に出会います。庄助は真面目な働き手として評判ですが、今はその顔に絶望の色が浮かんでいます。話を聞くと、収穫間近の小麦畑に原因不明の「黒いカビ」が蔓延し、このままでは秋の収穫祭に使う伝統のパンも、厳しい年貢も納められなくなると嘆きます。旅人は庄助を助けるため、どう行動するか選択を迫られます。「森の奥へ薬草を探しに行く」か、「畑の土壌と作物を詳しく調べる」か。森の奥へ薬草を探しに行く場合、旅人は古くから伝わる薬草の知識を頼りに、カビに効くと言われる「甘草」を求めて森の奥深くへと足を踏み入れます。甘草を見つけ出し、それを煎じて畑に撒くと、カビの進行は緩やかになり、枯れかけた小麦も少しずつ回復し始めます。畑の土壌と作物を詳しく調べる場合、旅人は庄助の畑で黒いカビに侵された小麦の根元を注意深く観察します。もし「ヤマニンニク」を持っていれば、その強い匂いが土中に潜むカビを媒介する微細な虫を遠ざけ、カビの広がりを食い止めることができます。ヤマニンニクをすり潰して土に混ぜ込むと、カビは勢いを失い、小麦は再び生気を取り戻していきます。どちらの選択肢を選んでも、旅人の尽力により小麦畑は救われます。庄助は心底安堵し、旅人の働きに深く感謝します。収穫祭が無事に迎えられると確信し、喜びのあまり涙を流しながら、お礼として「深山黒茸」を旅人に手渡すのでした。"
+    "title": "庄助を襲う黒いカビと豊穣の願い",
+    "villagerName": "庄助",
+    "villagerId": "4OPELhPhTx0RpaQiu0Af"
   },
   {
     "id": "EUov85Kr91AgakTnjzsh",
+    "villagerId": "pT0EsE1BMBpKRUZSjUb9",
+    "villagerName": "おきぬ",
+    "title": "芍薬を求める旅",
+    "plot": "【あらすじ】村娘おきぬは、高熱にうなされ痙攣を繰り返す幼い弟のため、旅の薬師である伯耆に、熱を鎮める効能があるという幻の生薬「芍薬」の探索を懇願する。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方様、どうか、お慈悲を…！ 幼き弟が、この数日高熱に苛まれ、身を震わせるばかり。命脈も尽きようかというほどにございます。かの熱を鎮める効能があると聞く幻の生薬『芍薬』、もしお持ちでしたら、このおきぬめに、どうか分け与えてはいただけませぬでしょうか。何卒、弟の命をお救いくださいませ！」\n[プレイヤーの反応]: この娘の嘆き、心に深く突き刺さる。されど、幻とまで謳われし芍薬、その効能は万能にあらず。幼子が高熱に苛まれるは、ただの熱にあらずやも知れぬ。もし病の本質を見誤れば、かえって命取りとなることすらある。この伯耆、果たしてこの薬を渡すべきか否か…いや、まずはこの目で、童の病状を確かめるべきか。\n[承諾ボタン]: 「心得たり。この伯耆、確かに芍薬を所持しておる。おぬしの弟御のため、惜しみなく分け与えん。」\n[拒否ボタン]: 「娘御よ、お気持ちは察する。されど、あいにく今はその芍薬を持ち合わせぬ。」\n[報酬授与のセリフ]: 「ああ、伯耆様、まことにありがたき幸せにございます！ 弟の命を救っていただき、恐悦至極に存じます。このおきぬめ、何とお礼を申し上げればよいか…。これはまことに粗末なものなれど、せめてものお礼としまして、家の米櫃より、二升ばかりの米を…どうか、お納めくださいませ。」\n[成功の結び]: 伯耆様、まことに、まことにありがとうございます。弟はこのまま息を吹き返すに違いございませぬ。伯耆様のご恩、このおきぬめ、生涯忘れはせぬでしょう。道中、どうぞご無事で、良き旅をなされますよう、心よりお祈り申し上げます。\n[拒否の結び]: 「左様でございますか…。なれば、このおきぬめ、自らが野山を巡り、その芍薬とやらを探し出すより他ありませぬ。この命に代えましても、弟をお救い申しましょう。もし叶わずとも、これもまた天命と…」\n",
     "tags": [
       "生薬依頼",
       "おきぬ",
       "芍薬"
     ],
-    "villagerName": "おきぬ",
     "createdAt": "2026-03-27T13:09:27.585Z",
-    "plot": "【あらすじ】村娘おきぬは、高熱にうなされ痙攣を繰り返す幼い弟のため、旅の薬師である伯耆に、熱を鎮める効能があるという幻の生薬「芍薬」の探索を懇願する。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方様、どうか、お慈悲を…！ 幼き弟が、この数日高熱に苛まれ、身を震わせるばかり。命脈も尽きようかというほどにございます。かの熱を鎮める効能があると聞く幻の生薬『芍薬』、もしお持ちでしたら、このおきぬめに、どうか分け与えてはいただけませぬでしょうか。何卒、弟の命をお救いくださいませ！」\n[プレイヤーの反応]: この娘の嘆き、心に深く突き刺さる。されど、幻とまで謳われし芍薬、その効能は万能にあらず。幼子が高熱に苛まれるは、ただの熱にあらずやも知れぬ。もし病の本質を見誤れば、かえって命取りとなることすらある。この伯耆、果たしてこの薬を渡すべきか否か…いや、まずはこの目で、童の病状を確かめるべきか。\n[承諾ボタン]: 「心得たり。この伯耆、確かに芍薬を所持しておる。おぬしの弟御のため、惜しみなく分け与えん。」\n[拒否ボタン]: 「娘御よ、お気持ちは察する。されど、あいにく今はその芍薬を持ち合わせぬ。」\n[報酬授与のセリフ]: 「ああ、伯耆様、まことにありがたき幸せにございます！ 弟の命を救っていただき、恐悦至極に存じます。このおきぬめ、何とお礼を申し上げればよいか…。これはまことに粗末なものなれど、せめてものお礼としまして、家の米櫃より、二升ばかりの米を…どうか、お納めくださいませ。」\n[成功の結び]: 伯耆様、まことに、まことにありがとうございます。弟はこのまま息を吹き返すに違いございませぬ。伯耆様のご恩、このおきぬめ、生涯忘れはせぬでしょう。道中、どうぞご無事で、良き旅をなされますよう、心よりお祈り申し上げます。\n[拒否の結び]: 「左様でございますか…。なれば、このおきぬめ、自らが野山を巡り、その芍薬とやらを探し出すより他ありませぬ。この命に代えましても、弟をお救い申しましょう。もし叶わずとも、これもまた天命と…」\n",
-    "title": "芍薬を求める旅",
     "nodes": [
       {
-        "content": "「旅のお方様、どうか、お慈悲を…！ 幼き弟が、この数日高熱に苛まれ、身を震わせるばかり。命脈も尽きようかというほどにございます。かの熱を鎮める効能があると聞く幻の生薬『芍薬』、もしお持ちでしたら、このおきぬめに、どうか分け与えてはいただけませぬでしょうか。何卒、弟の命をお救いくださいませ！」",
-        "audioUrl": "media/audios/file_528_1774650294605.wav",
-        "nextStepId": "node-2",
-        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
-        "type": "start",
         "id": "node-1",
-        "speakerName": "おきぬ"
+        "content": "「旅のお方様、どうか、お慈悲を…！ 幼き弟が、この数日高熱に苛まれ、身を震わせるばかり。命脈も尽きようかというほどにございます。かの熱を鎮める効能があると聞く幻の生薬『芍薬』、もしお持ちでしたら、このおきぬめに、どうか分け与えてはいただけませぬでしょうか。何卒、弟の命をお救いくださいませ！」",
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
+        "speakerName": "おきぬ",
+        "type": "start",
+        "nextStepId": "node-2",
+        "audioUrl": "media/audios/file_536_1775122200417.wav"
       },
       {
-        "type": "choice",
-        "id": "node-2",
-        "content": "この娘の嘆き、心に深く突き刺さる。されど、幻とまで謳われし芍薬、その効能は万能にあらず。幼子が高熱に苛まれるは、ただの熱にあらずやも知れぬ。もし病の本質を見誤れば、かえって命取りとなることすらある。この伯耆、果たしてこの薬を渡すべきか否か…いや、まずはこの目で、童の病状を確かめるべきか。",
         "choices": [
           {
-            "lockedText": "「芍薬」を持っていない...",
-            "requiredItemId": "im6bAqK8rdAGdWJsbzXQ",
             "nextStepId": "node-3",
-            "text": "「心得たり。この伯耆、確かに芍薬を所持しておる。おぬしの弟御のため、惜しみなく分け与えん。」"
+            "text": "「心得たり。この伯耆、確かに芍薬を所持しておる。おぬしの弟御のため、惜しみなく分け与えん。」",
+            "lockedText": "「芍薬」を持っていない...",
+            "requiredItemId": "im6bAqK8rdAGdWJsbzXQ"
           },
           {
             "nextStepId": "node-5",
             "text": "「娘御よ、お気持ちは察する。されど、あいにく今はその芍薬を持ち合わせぬ。」"
           }
-        ]
-      },
-      {
-        "content": "「ああ、伯耆様、まことにありがたき幸せにございます！ 弟の命を救っていただき、恐悦至極に存じます。このおきぬめ、何とお礼を申し上げればよいか…。これはまことに粗末なものなれど、せめてものお礼としまして、家の米櫃より、二升ばかりの米を…どうか、お納めくださいませ。」",
-        "reward": {
-          "amount": 200
-        },
-        "audioUrl": "media/audios/file_529_1774650294605.wav",
-        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
-        "nextStepId": "node-4",
-        "type": "reward",
-        "id": "node-3",
-        "speakerName": "おきぬ"
-      },
-      {
-        "type": "end",
-        "id": "node-4",
-        "speakerName": "おきぬ",
-        "content": "伯耆様、まことに、まことにありがとうございます。弟はこのまま息を吹き返すに違いございませぬ。伯耆様のご恩、このおきぬめ、生涯忘れはせぬでしょう。道中、どうぞご無事で、良き旅をなされますよう、心よりお祈り申し上げます。",
-        "audioUrl": "media/audios/file_530_1774650294605.wav",
-        "speakerId": "pT0EsE1BMBpKRUZSjUb9"
-      },
-      {
-        "speakerName": "おきぬ",
-        "type": "end",
-        "id": "node-5",
-        "audioUrl": "media/audios/file_531_1774650294605.wav",
-        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
-        "content": "「左様でございますか…。なれば、このおきぬめ、自らが野山を巡り、その芍薬とやらを探し出すより他ありませぬ。この命に代えましても、弟をお救い申しましょう。もし叶わずとも、これもまた天命と…」"
-      }
-    ],
-    "villagerId": "pT0EsE1BMBpKRUZSjUb9"
-  },
-  {
-    "id": "EWd5roYMWNIsFh1DjLKi",
-    "title": "弥三郎の家での話",
-    "requiredFlag": "",
-    "plot": "日蓮が初めて弥三郎の家に訪れた時の話",
-    "villagerId": null,
-    "nodes": [
-      {
-        "content": "何もないところですが、ゆっくりしていってくだせぇ。",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-2",
-        "audioUrl": "media/audios/file_532_1774650294605.wav",
-        "id": "node-1",
-        "type": "start",
-        "speakerName": "弥三郎"
-      },
-      {
-        "audioUrl": "media/audios/file_533_1774650294605.wav",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-3",
-        "content": "大変に助かります。しかし、私は罪人です。ご迷惑になる前に伯耆を残して行かせてもらおうかと思っております。",
-        "speakerName": "日蓮",
-        "type": "story",
+        ],
+        "content": "この娘の嘆き、心に深く突き刺さる。されど、幻とまで謳われし芍薬、その効能は万能にあらず。幼子が高熱に苛まれるは、ただの熱にあらずやも知れぬ。もし病の本質を見誤れば、かえって命取りとなることすらある。この伯耆、果たしてこの薬を渡すべきか否か…いや、まずはこの目で、童の病状を確かめるべきか。",
+        "type": "choice",
         "id": "node-2"
       },
       {
-        "speakerName": "伯耆",
+        "nextStepId": "node-4",
+        "type": "reward",
+        "audioUrl": "media/audios/file_537_1775122200417.wav",
+        "reward": {
+          "amount": 200
+        },
         "id": "node-3",
-        "type": "story",
-        "nextStepId": "node-1774411730210",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "audioUrl": "media/audios/file_534_1774650294605.wav",
-        "content": "先生！先生が行かれるなら、私もお供させていただきます！！\nうぅ〜"
+        "content": "「ああ、伯耆様、まことにありがたき幸せにございます！ 弟の命を救っていただき、恐悦至極に存じます。このおきぬめ、何とお礼を申し上げればよいか…。これはまことに粗末なものなれど、せめてものお礼としまして、家の米櫃より、二升ばかりの米を…どうか、お納めくださいませ。」",
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
+        "speakerName": "おきぬ"
       },
       {
+        "audioUrl": "media/audios/file_538_1775122200417.wav",
+        "type": "end",
+        "speakerName": "おきぬ",
+        "id": "node-4",
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
+        "content": "伯耆様、まことに、まことにありがとうございます。弟はこのまま息を吹き返すに違いございませぬ。伯耆様のご恩、このおきぬめ、生涯忘れはせぬでしょう。道中、どうぞご無事で、良き旅をなされますよう、心よりお祈り申し上げます。"
+      },
+      {
+        "speakerName": "おきぬ",
+        "content": "「左様でございますか…。なれば、このおきぬめ、自らが野山を巡り、その芍薬とやらを探し出すより他ありませぬ。この命に代えましても、弟をお救い申しましょう。もし叶わずとも、これもまた天命と…」",
+        "speakerId": "pT0EsE1BMBpKRUZSjUb9",
+        "id": "node-5",
+        "audioUrl": "media/audios/file_539_1775122200417.wav",
+        "type": "end"
+      }
+    ]
+  },
+  {
+    "id": "EWd5roYMWNIsFh1DjLKi",
+    "nodes": [
+      {
+        "type": "start",
+        "nextStepId": "node-2",
+        "audioUrl": "media/audios/file_540_1775122200417.wav",
+        "content": "何もないところですが、ゆっくりしていってくだせぇ。",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774411751762",
-        "audioUrl": "media/audios/file_535_1774650294605.wav",
-        "content": "まぁ、まぁ、お二人とも。ここでゆっくりなさってください。\n我々は漁師、もともと阻害されている見ですけぇ…\n実際、罪人をかくまったことも何度かあります。",
-        "speakerName": "弥三郎",
-        "id": "node-1774411730210",
-        "type": "story"
+        "id": "node-1",
+        "speakerName": "弥三郎"
       },
       {
+        "audioUrl": "media/audios/file_541_1775122200418.wav",
         "type": "story",
-        "id": "node-1774411751762",
+        "nextStepId": "node-3",
         "speakerName": "日蓮",
-        "content": "大変に助かります。しかし、お世話になるなら、せめて何かお礼でもさせてください。\n何かお困り事などございますでしょうか？",
-        "audioUrl": "media/audios/file_536_1774650294605.wav",
-        "nextStepId": "node-1774412061529",
-        "speakerId": "A44lygLrpBVZjTZD1EqT"
+        "id": "node-2",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "大変に助かります。しかし、私は罪人です。ご迷惑になる前に伯耆を残して行かせてもらおうかと思っております。"
       },
       {
-        "speakerName": "弥三郎",
-        "id": "node-1774412061529",
+        "id": "node-3",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "content": "先生！先生が行かれるなら、私もお供させていただきます！！\nうぅ〜",
+        "speakerName": "伯耆",
+        "nextStepId": "node-1774411730210",
         "type": "story",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774412159070",
-        "audioUrl": "media/audios/file_537_1774650294605.wav",
-        "readingText": "じつは、せんじつからむすこのたろうがねつをだしておりまして。もし、かのうであればみてやってもらえませんか？たいしたやまいではないかとおもいますが、つまがしんぱいしておりまして。",
-        "content": "実は、先日から息子の太郎が熱を出しておりまして。もし、可能であれば診てやってもらえませんか？\n大した病ではないかと思いますが、妻が心配しておりまして。"
+        "audioUrl": "media/audios/file_542_1775122200418.wav"
       },
       {
-        "speakerName": "凪咲",
-        "id": "node-1774412159070",
+        "type": "story",
+        "nextStepId": "node-1774411751762",
+        "audioUrl": "media/audios/file_543_1775122200418.wav",
+        "content": "まぁ、まぁ、お二人とも。ここでゆっくりなさってください。\n我々は漁師、もともと阻害されている見ですけぇ…\n実際、罪人をかくまったことも何度かあります。",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "id": "node-1774411730210",
+        "speakerName": "弥三郎"
+      },
+      {
+        "audioUrl": "media/audios/file_544_1775122200418.wav",
+        "nextStepId": "node-1774412061529",
+        "type": "story",
+        "speakerName": "日蓮",
+        "id": "node-1774411751762",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "大変に助かります。しかし、お世話になるなら、せめて何かお礼でもさせてください。\n何かお困り事などございますでしょうか？"
+      },
+      {
+        "nextStepId": "node-1774412159070",
+        "type": "story",
+        "audioUrl": "media/audios/file_545_1775122200418.wav",
+        "id": "node-1774412061529",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "実は、先日から息子の太郎が熱を出しておりまして。もし、可能であれば診てやってもらえませんか？\n大した病ではないかと思いますが、妻が心配しておりまして。",
+        "speakerName": "弥三郎",
+        "readingText": "じつは、せんじつからむすこのたろうがねつをだしておりまして。もし、かのうであればみてやってもらえませんか？たいしたやまいではないかとおもいますが、つまがしんぱいしておりまして。"
+      },
+      {
         "type": "story",
         "nextStepId": "node-1774412459940",
+        "audioUrl": "media/audios/file_546_1775122200418.wav",
+        "content": "そんな事言って、お前さんも心配だから僧侶の方をお連れになったんでしょう？",
         "speakerId": "7H41aASWF8ULMczjdf8s",
-        "audioUrl": "media/audios/file_538_1774650294605.wav",
-        "content": "そんな事言って、お前さんも心配だから僧侶の方をお連れになったんでしょう？"
-      },
-      {
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774412757477",
-        "audioUrl": "media/audios/file_539_1774650294605.wav",
-        "content": "ま、まあ、とにかく診てもらえますと助かります。",
-        "speakerName": "弥三郎",
-        "id": "node-1774412459940",
-        "type": "story"
-      },
-      {
-        "type": "story",
-        "id": "node-1774412757477",
-        "speakerName": "日蓮",
-        "content": "分かりました。出来うる限りの事をさせていただきます。\n奥方様、おかゆを一杯ご用意いただけますか？",
-        "audioUrl": "media/audios/file_540_1774650294605.wav",
-        "nextStepId": "node-1774412833924",
-        "speakerId": "A44lygLrpBVZjTZD1EqT"
-      },
-      {
-        "content": "はい、しかしあまり食欲は無いようで…",
-        "nextStepId": "node-1774412877925",
-        "speakerId": "7H41aASWF8ULMczjdf8s",
-        "audioUrl": "media/audios/file_541_1774650294605.wav",
-        "id": "node-1774412833924",
-        "type": "story",
+        "id": "node-1774412159070",
         "speakerName": "凪咲"
       },
       {
-        "content": "少しだけ、解熱効果のある石膏を煎じるのでそれを口にできるだけで大丈夫です。",
-        "nextStepId": "node-1774412962019",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_542_1774650294605.wav",
-        "id": "node-1774412877925",
+        "id": "node-1774412459940",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "ま、まあ、とにかく診てもらえますと助かります。",
+        "speakerName": "弥三郎",
+        "nextStepId": "node-1774412757477",
         "type": "story",
-        "speakerName": "日蓮"
+        "audioUrl": "media/audios/file_547_1775122200418.wav"
       },
       {
+        "speakerName": "日蓮",
+        "id": "node-1774412757477",
+        "content": "分かりました。出来うる限りの事をさせていただきます。\n奥方様、おかゆを一杯ご用意いただけますか？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "audioUrl": "media/audios/file_548_1775122200418.wav",
+        "nextStepId": "node-1774412833924",
+        "type": "story"
+      },
+      {
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "content": "はい、しかしあまり食欲は無いようで…",
+        "id": "node-1774412833924",
+        "speakerName": "凪咲",
+        "nextStepId": "node-1774412877925",
         "type": "story",
-        "id": "node-1774412962019",
+        "audioUrl": "media/audios/file_549_1775122200418.wav"
+      },
+      {
+        "audioUrl": "media/audios/file_550_1775122200418.wav",
+        "nextStepId": "node-1774412962019",
+        "type": "story",
+        "speakerName": "日蓮",
+        "id": "node-1774412877925",
+        "content": "少しだけ、解熱効果のある石膏を煎じるのでそれを口にできるだけで大丈夫です。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT"
+      },
+      {
+        "audioUrl": "media/audios/file_551_1775122200418.wav",
+        "nextStepId": "node-1774413023131",
+        "type": "story",
         "speakerName": "太郎",
         "content": "う、うぅ…\nく、くすりはまずい？",
-        "audioUrl": "media/audios/file_543_1774650294605.wav",
-        "nextStepId": "node-1774413023131",
-        "speakerId": "PSPsScqd9sszs3rThPA2"
+        "speakerId": "PSPsScqd9sszs3rThPA2",
+        "id": "node-1774412962019"
       },
       {
+        "id": "node-1774413023131",
         "content": "大丈夫かい？太郎くん。\n薬は美味しくはないけど、不味いと言うほどではないよ。少しだけ口にして、ダメだったら出してもいいからゆっくりお飲み。",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
         "nextStepId": "node-1774413154089",
-        "audioUrl": "media/audios/file_544_1774650294605.wav",
-        "id": "node-1774413023131",
         "type": "story",
-        "speakerName": "日蓮"
+        "audioUrl": "media/audios/file_552_1775122200418.wav"
       },
       {
-        "content": "わかった。頑張って飲んでみる。",
-        "nextStepId": "node-1774413186787",
-        "speakerId": "PSPsScqd9sszs3rThPA2",
-        "audioUrl": "media/audios/file_545_1774650294605.wav",
-        "id": "node-1774413154089",
         "type": "story",
+        "nextStepId": "node-1774413186787",
+        "audioUrl": "media/audios/file_553_1775122200418.wav",
+        "speakerId": "PSPsScqd9sszs3rThPA2",
+        "content": "わかった。頑張って飲んでみる。",
+        "id": "node-1774413154089",
         "speakerName": "太郎"
       },
       {
-        "content": "それほど、重い病では無さそうですが、しばらくは横にさせて、熱が下がるのを待ちましょう。",
-        "readingText": "それほど、おもいやまいではなさそうですが、しばらくはよこにさせて、ねつがさがるのをまちましょう。",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "type": "story",
         "nextStepId": "node-1774413298705",
-        "audioUrl": "media/audios/file_546_1774650294605.wav",
+        "audioUrl": "media/audios/file_554_1775122200418.wav",
         "id": "node-1774413186787",
-        "type": "story",
-        "speakerName": "日蓮"
-      },
-      {
-        "type": "story",
-        "id": "node-1774413298705",
-        "speakerName": "弥三郎",
-        "readingText": "にちれんさんはいじゅつのこころえが？わたしはてっきりきとうでなおしていただけるものかとおもっておりました。",
-        "content": "日蓮さんは医術の心得が？私はてっきり祈祷で治して頂けるものかと思っておりました。",
-        "audioUrl": "media/audios/file_547_1774650294605.wav",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774413376693"
-      },
-      {
-        "id": "node-1774413376693",
-        "type": "story",
-        "speakerName": "日蓮",
-        "content": "う〜ん、また難しい話になってしまいますが…\n祈る事は大事です。しかし、病を克服するのは彼の生命力に頼るしかありません。それは、薬があっても同じことです。\n彼の生命力を高めるために祈り、薬を与えもしますが、根本的には彼が生きようとする生命力が病を克服するのです。",
-        "readingText": "う〜ん、またむずかしいはなしになってしまいますが…いのることはだいじです。しかし、やまいをこくふくするのはかれのせいめいりょくにたよるしかありません。それは、くすりがあってもおなじことです。かれのせいめいりょくをたかめるためにいのり、くすりをあたえもしますが、こんぽんてきにはかれがいきようとするせいめいりょくがやまいをこくふくするのです。",
-        "nextStepId": "node-1774413748017",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_548_1774650294605.wav"
+        "content": "それほど、重い病では無さそうですが、しばらくは横にさせて、熱が下がるのを待ちましょう。",
+        "speakerName": "日蓮",
+        "readingText": "それほど、おもいやまいではなさそうですが、しばらくはよこにさせて、ねつがさがるのをまちましょう。"
       },
       {
-        "content": "は、はぁ…………………",
-        "readingText": "は、はぁ…………………",
-        "nextStepId": "node-1774413097252",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "audioUrl": "media/audios/file_549_1774650294605.wav",
-        "id": "node-1774413748017",
         "type": "story",
+        "nextStepId": "node-1774413376693",
+        "audioUrl": "media/audios/file_555_1775122200418.wav",
+        "id": "node-1774413298705",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "日蓮さんは医術の心得が？私はてっきり祈祷で治して頂けるものかと思っておりました。",
+        "readingText": "にちれんさんはいじゅつのこころえが？わたしはてっきりきとうでなおしていただけるものかとおもっておりました。",
         "speakerName": "弥三郎"
       },
       {
         "speakerName": "日蓮",
-        "type": "story",
-        "id": "node-1774413097252",
-        "audioUrl": "media/audios/file_550_1774650294605.wav",
-        "nextStepId": "node-1774415681660",
+        "readingText": "う〜ん、またむずかしいはなしになってしまいますが…いのることはだいじです。しかし、やまいをこくふくするのはかれのせいめいりょくにたよるしかありません。それは、くすりがあってもおなじことです。かれのせいめいりょくをたかめるためにいのり、くすりをあたえもしますが、こんぽんてきにはかれがいきようとするせいめいりょくがやまいをこくふくするのです。",
+        "content": "う〜ん、また難しい話になってしまいますが…\n祈る事は大事です。しかし、病を克服するのは彼の生命力に頼るしかありません。それは、薬があっても同じことです。\n彼の生命力を高めるために祈り、薬を与えもしますが、根本的には彼が生きようとする生命力が病を克服するのです。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774413376693",
+        "audioUrl": "media/audios/file_556_1775122200418.wav",
+        "nextStepId": "node-1774413748017",
+        "type": "story"
+      },
+      {
+        "speakerName": "弥三郎",
+        "readingText": "は、はぁ…………………",
+        "id": "node-1774413748017",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "は、はぁ…………………",
+        "audioUrl": "media/audios/file_557_1775122200418.wav",
+        "nextStepId": "node-1774413097252",
+        "type": "story"
+      },
+      {
+        "speakerName": "日蓮",
+        "readingText": "まあ、ものはためし、いっしょにいのってみましょう！やさぶろうさんが、むすこをおもういちねんがわたしをここにつれてきたのだとしたら、そのおもいを「なんみょうほうれんげきょう」にのせていのれば、きしもじんをうごかさないわけがありません。",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
         "content": "まぁ、ものは試し、一緒に祈ってみましょう！\n弥三郎さんが、息子を想う一念が私をここに連れてきたのだとしたら、その想いを「南無妙法蓮華経」に乗せて祈れば、鬼子母神を動かさないわけがありません。\n",
-        "readingText": "まあ、ものはためし、いっしょにいのってみましょう！やさぶろうさんが、むすこをおもういちねんがわたしをここにつれてきたのだとしたら、そのおもいを「なんみょうほうれんげきょう」にのせていのれば、きしもじんをうごかさないわけがありません。"
+        "id": "node-1774413097252",
+        "audioUrl": "media/audios/file_558_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774415681660"
       },
       {
-        "content": "私がお経を！？\nなんだか、恥ずかしいですじゃ…",
-        "audioUrl": "media/audios/file_551_1774650294605.wav",
         "nextStepId": "node-1774415836528",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
         "type": "story",
+        "audioUrl": "media/audios/file_559_1775122200418.wav",
         "id": "node-1774415681660",
-        "speakerName": "弥三郎"
-      },
-      {
-        "content": "皆で祈りましょう！\n奥方様もお祈りになりますか？\n",
-        "audioUrl": "media/audios/file_552_1774650294605.wav",
-        "nextStepId": "node-1774415959625",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "type": "story",
-        "id": "node-1774415836528",
-        "speakerName": "日蓮"
-      },
-      {
-        "content": "私は息子が元気になるならやってみます。\nあんたもやりなよ。減るもんじゃないし。",
-        "speakerId": "7H41aASWF8ULMczjdf8s",
-        "nextStepId": "node-1774416023641",
-        "audioUrl": "media/audios/file_553_1774650294605.wav",
-        "id": "node-1774415959625",
-        "type": "story",
-        "speakerName": "凪咲"
-      },
-      {
-        "speakerName": "弥三郎",
-        "type": "story",
-        "id": "node-1774416023641",
-        "audioUrl": "media/audios/file_554_1774650294605.wav",
+        "content": "私がお経を！？\nなんだか、恥ずかしいですじゃ…",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774416072579",
-        "content": "わ、わかりました…\nど、どうしたら、いいのでしょうか？"
+        "speakerName": "弥三郎"
       },
       {
         "speakerName": "日蓮",
-        "id": "node-1774416072579",
-        "type": "story",
-        "nextStepId": "node-1774416297034",
+        "content": "皆で祈りましょう！\n奥方様もお祈りになりますか？\n",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_555_1774650294605.wav",
-        "content": "そんなにかしこまらなくても大丈夫ですよ。\n息子さんの回復を想いながら、「南無妙法蓮華経」と私に続いて唱えればいいだけです。きっと良くなる、と信じて祈れば必ず良くなります。\nそれではいきますよ！\n「南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…」",
-        "readingText": "そんなにかしこまらなくてもだいじょうぶですよ。むすこさんのかいふくをおもいながら、「なんみょうほうれんげきょう」とわたしにつづいてとなえればいいだけです。きっとよくなる、としんじていのればかならずよくなります。それではいきますよ！「なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…」"
+        "id": "node-1774415836528",
+        "audioUrl": "media/audios/file_560_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774415959625"
       },
       {
-        "content": "「南無妙法蓮華経、南無妙法蓮華経、南無妙法蓮華経、…」",
-        "readingText": "なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…",
+        "audioUrl": "media/audios/file_561_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774416023641",
+        "speakerName": "凪咲",
+        "content": "私は息子が元気になるならやってみます。\nあんたもやりなよ。減るもんじゃないし。",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "id": "node-1774415959625"
+      },
+      {
+        "speakerName": "弥三郎",
+        "content": "わ、わかりました…\nど、どうしたら、いいのでしょうか？",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "id": "node-1774416023641",
+        "audioUrl": "media/audios/file_562_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774416072579"
+      },
+      {
+        "speakerName": "日蓮",
+        "readingText": "そんなにかしこまらなくてもだいじょうぶですよ。むすこさんのかいふくをおもいながら、「なんみょうほうれんげきょう」とわたしにつづいてとなえればいいだけです。きっとよくなる、としんじていのればかならずよくなります。それではいきますよ！「なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…」",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "そんなにかしこまらなくても大丈夫ですよ。\n息子さんの回復を想いながら、「南無妙法蓮華経」と私に続いて唱えればいいだけです。きっと良くなる、と信じて祈れば必ず良くなります。\nそれではいきますよ！\n「南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…」",
+        "id": "node-1774416072579",
+        "audioUrl": "media/audios/file_563_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774416297034"
+      },
+      {
+        "type": "story",
         "nextStepId": "node-1774416357213",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "id": "node-1774416297034",
-        "type": "story",
-        "speakerName": "弥三郎"
-      },
-      {
-        "id": "node-1774416357213",
-        "type": "story",
-        "speakerName": "凪咲",
         "content": "「南無妙法蓮華経、南無妙法蓮華経、南無妙法蓮華経、…」",
-        "readingText": "なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…",
-        "nextStepId": "node-1774416397380",
-        "speakerId": "7H41aASWF8ULMczjdf8s",
-        "audioUrl": "media/audios/file_556_1774650294605.mp3"
+        "id": "node-1774416297034",
+        "speakerName": "弥三郎",
+        "readingText": "なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…"
       },
       {
+        "readingText": "なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…",
+        "speakerName": "凪咲",
+        "id": "node-1774416357213",
+        "content": "「南無妙法蓮華経、南無妙法蓮華経、南無妙法蓮華経、…」",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "audioUrl": "media/audios/file_564_1775122200418.mp3",
+        "type": "story",
+        "nextStepId": "node-1774416397380"
+      },
+      {
+        "nextStepId": "node-1774416435943",
+        "type": "story",
+        "readingText": "じゅっぷんご",
         "speakerName": "システム",
         "id": "node-1774416397380",
-        "type": "story",
-        "nextStepId": "node-1774416435943",
         "speakerId": "olCEMKCl0vWKNZOIrj2g",
-        "readingText": "じゅっぷんご",
         "content": "１０分後"
       },
       {
-        "id": "node-1774416435943",
-        "type": "story",
-        "speakerName": "日蓮",
-        "content": "「南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…」\n今日は、これくらいにしておきましょう。\nどうだい、太郎くん。お父さんとお母さんの祈りは届いたかな？\n",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "audioUrl": "media/audios/file_565_1775122200418.wav",
         "nextStepId": "node-1774416719303",
-        "audioUrl": "media/audios/file_557_1774650294605.wav"
+        "type": "story",
+        "speakerName": "日蓮",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "「南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…」\n今日は、これくらいにしておきましょう。\nどうだい、太郎くん。お父さんとお母さんの祈りは届いたかな？\n",
+        "id": "node-1774416435943"
       },
       {
-        "audioUrl": "media/audios/file_558_1774650294605.wav",
-        "speakerId": "PSPsScqd9sszs3rThPA2",
-        "nextStepId": "node-1774416765921",
+        "id": "node-1774416719303",
         "content": "う〜ん、よくわかんないけど、オラのために皆が祈ってくれるのは嬉しいよ。",
-        "speakerName": "太郎",
-        "type": "story",
-        "id": "node-1774416719303"
-      },
-      {
-        "nextStepId": "node-1774416870448",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_559_1774650294605.wav",
-        "content": "そうか、君もよくなったらお父さんとお母さんに感謝の祈りを捧げるんだよ。\nだから早く良くなるんだよ。",
-        "speakerName": "日蓮",
-        "id": "node-1774416765921",
-        "type": "story"
-      },
-      {
-        "id": "node-1774416870448",
-        "type": "story",
-        "speakerName": "太郎",
-        "content": "うん、わかった。\nオラも早くよくなる。",
-        "nextStepId": "node-1774416895312",
         "speakerId": "PSPsScqd9sszs3rThPA2",
-        "audioUrl": "media/audios/file_560_1774650294605.wav"
+        "speakerName": "太郎",
+        "nextStepId": "node-1774416765921",
+        "type": "story",
+        "audioUrl": "media/audios/file_566_1775122200418.wav"
       },
       {
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "そうか、君もよくなったらお父さんとお母さんに感謝の祈りを捧げるんだよ。\nだから早く良くなるんだよ。",
+        "id": "node-1774416765921",
         "speakerName": "日蓮",
+        "type": "story",
+        "nextStepId": "node-1774416870448",
+        "audioUrl": "media/audios/file_567_1775122200418.wav"
+      },
+      {
+        "audioUrl": "media/audios/file_568_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774416895312",
+        "speakerName": "太郎",
+        "id": "node-1774416870448",
+        "content": "うん、わかった。\nオラも早くよくなる。",
+        "speakerId": "PSPsScqd9sszs3rThPA2"
+      },
+      {
         "id": "node-1774416895312",
-        "type": "story",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774417053625",
-        "audioUrl": "media/audios/file_561_1774650294605.wav",
-        "content": "頼もしいお子さんをお持ちですね。"
-      },
-      {
-        "speakerName": "弥三郎",
-        "id": "node-1774417053625",
-        "type": "story",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774417256796",
-        "audioUrl": "media/audios/file_562_1774650294605.wav",
-        "content": "…………\n先生、もしよければ、幾日でもここにいてください。\n我々漁師がこんなにも良くしてもらったのは初めてです。"
-      },
-      {
-        "nextStepId": "node-1774417411735",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_563_1774650294605.wav",
-        "content": "う〜ん、私はまだ何もしておりません。",
+        "content": "頼もしいお子さんをお持ちですね。",
         "speakerName": "日蓮",
-        "id": "node-1774417256796",
-        "type": "story"
+        "type": "story",
+        "nextStepId": "node-1774417053625",
+        "audioUrl": "media/audios/file_569_1775122200418.wav"
       },
       {
-        "nextStepId": "node-1774417682702",
+        "content": "…………\n先生、もしよければ、幾日でもここにいてください。\n我々漁師がこんなにも良くしてもらったのは初めてです。",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "audioUrl": "media/audios/file_564_1774650294605.wav",
+        "id": "node-1774417053625",
+        "speakerName": "弥三郎",
+        "type": "story",
+        "nextStepId": "node-1774417256796",
+        "audioUrl": "media/audios/file_570_1775122200418.wav"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1774417411735",
+        "audioUrl": "media/audios/file_571_1775122200418.wav",
+        "content": "う〜ん、私はまだ何もしておりません。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774417256796",
+        "speakerName": "日蓮"
+      },
+      {
+        "id": "node-1774417411735",
         "content": "いいえ、僧侶に診てもらえるなんて初めてのことなんです。\n坊主たちにはいつも吐き捨てるように見られてきた私達です。\n本当は先生も私達を下に見ているのではないかと思っておりました。",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
         "readingText": "いいえ、そうりょにみてもらえるなんてはじめてのことなんです。ぼうずたちにはいつもはきすてるようにみられてきたわたしたちです。ほんとうはせんせいもわたしたちをしたにみているのではないかとおもっておりました。",
         "speakerName": "弥三郎",
-        "id": "node-1774417411735",
-        "type": "story"
+        "nextStepId": "node-1774417682702",
+        "type": "story",
+        "audioUrl": "media/audios/file_572_1775122200418.wav"
       },
       {
-        "speakerName": "日蓮",
-        "type": "story",
-        "id": "node-1774417682702",
-        "audioUrl": "media/audios/file_565_1774650294605.wav",
-        "nextStepId": "node-1774417777777",
+        "content": "そうですか…それは大変につらい思いをされましたね。\nですが、ここでお世話になるなら、せめて少しだけ恩返しをさせてください。",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "content": "そうですか…それは大変につらい思いをされましたね。\nですが、ここでお世話になるなら、せめて少しだけ恩返しをさせてください。"
+        "id": "node-1774417682702",
+        "speakerName": "日蓮",
+        "nextStepId": "node-1774417777777",
+        "type": "story",
+        "audioUrl": "media/audios/file_573_1775122200418.wav"
       },
       {
-        "type": "story",
-        "id": "node-1774417777777",
         "speakerName": "弥三郎",
+        "id": "node-1774417777777",
         "content": "まだ何かしていただけるので？",
-        "audioUrl": "media/audios/file_566_1774650294605.wav",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "audioUrl": "media/audios/file_574_1775122200418.wav",
+        "type": "story",
         "nextStepId": "node-1774417862549"
       },
       {
         "speakerName": "日蓮",
-        "id": "node-1774417862549",
-        "type": "story",
-        "nextStepId": "node-1774418223073",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_567_1774650294605.wav",
+        "readingText": "あしたはいちばでりょうりやをやろうかとおもっております。やさぶろうさんをいちりゅうのりょうしとみこんでおねがいなのですが、しんせんなさかなをごよういいただけないでしょうか？",
         "content": "明日は市場で料理屋をやろうかと思っております。\n弥三郎さんを一流の漁師と見込んでお願いなのですが、新鮮な魚をご用意いただけないでしょうか？",
-        "readingText": "あしたはいちばでりょうりやをやろうかとおもっております。やさぶろうさんをいちりゅうのりょうしとみこんでおねがいなのですが、しんせんなさかなをごよういいただけないでしょうか？"
-      },
-      {
-        "type": "story",
-        "id": "node-1774418223073",
-        "speakerName": "弥三郎",
-        "content": "魚を取ってくることくらいは朝飯前ですが、魚の料理屋を始めるので？\nここの人たちは魚料理を簡単には口にしてくれませんよ。",
-        "audioUrl": "media/audios/file_568_1774650294605.wav",
-        "nextStepId": "node-1774418475630",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt"
-      },
-      {
-        "readingText": "ごぞんじかもしれませんごん、みやこではりょうしをさべつしつつもさかなりょうりはこうきゅうりょうりとしてぐうされています。りょうしにふぐうをあたえつつみずからのしふくをこやしているぼうずたちがいるからです。さかなりょうりにたいするていこうをのりこえ、くちにさえしてくれれば、このちでもぜったいにおいしいとおもってくれるひとはたくさんいるはずです。",
-        "content": "ご存知かも知れませんが、都では漁師を差別しつつも魚料理は高級料理として遇されています。\n漁師に不遇を与えつつ自らの私腹を肥やしている坊主たちがいるからです。\n魚料理に対する抵抗を乗り越え、口にさえしてくれれば、この地でも絶対に美味しいと思ってくれる人は沢山いるはずです。\n",
-        "audioUrl": "media/audios/file_569_1774650294605.wav",
-        "nextStepId": "node-1774418753154",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774417862549",
+        "audioUrl": "media/audios/file_575_1775122200418.wav",
         "type": "story",
-        "id": "node-1774418475630",
-        "speakerName": "日蓮"
+        "nextStepId": "node-1774418223073"
       },
       {
-        "audioUrl": "media/audios/file_570_1774650294605.wav",
+        "id": "node-1774418223073",
+        "content": "魚を取ってくることくらいは朝飯前ですが、魚の料理屋を始めるので？\nここの人たちは魚料理を簡単には口にしてくれませんよ。",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774419110121",
-        "content": "都でのことは存じ上げてないわけではありませんが…\nそう簡単にはいかないと思いますが、できる限りの協力はさせていただきます。",
+        "speakerName": "弥三郎",
+        "nextStepId": "node-1774418475630",
+        "type": "story",
+        "audioUrl": "media/audios/file_576_1775122200418.wav"
+      },
+      {
+        "audioUrl": "media/audios/file_577_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774418753154",
+        "speakerName": "日蓮",
+        "readingText": "ごぞんじかもしれませんごん、みやこではりょうしをさべつしつつもさかなりょうりはこうきゅうりょうりとしてぐうされています。りょうしにふぐうをあたえつつみずからのしふくをこやしているぼうずたちがいるからです。さかなりょうりにたいするていこうをのりこえ、くちにさえしてくれれば、このちでもぜったいにおいしいとおもってくれるひとはたくさんいるはずです。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "ご存知かも知れませんが、都では漁師を差別しつつも魚料理は高級料理として遇されています。\n漁師に不遇を与えつつ自らの私腹を肥やしている坊主たちがいるからです。\n魚料理に対する抵抗を乗り越え、口にさえしてくれれば、この地でも絶対に美味しいと思ってくれる人は沢山いるはずです。\n",
+        "id": "node-1774418475630"
+      },
+      {
         "readingText": "みやこでのことはぞんじあげてないわけではありませんが…そうかんたんにはいかないとおもいますが、できるかぎりのきょうりょくはさせていただきます。",
         "speakerName": "弥三郎",
+        "id": "node-1774418753154",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "都でのことは存じ上げてないわけではありませんが…\nそう簡単にはいかないと思いますが、できる限りの協力はさせていただきます。",
+        "audioUrl": "media/audios/file_578_1775122200418.wav",
         "type": "story",
-        "id": "node-1774418753154"
+        "nextStepId": "node-1774419110121"
       },
       {
-        "content": "ご協力ありがとうございます。\nそれでは、すぐにでも「海生簀」を用意するので、弥三郎さんが取ってきた魚の中から、余ったものでいいので入れていってください。\n私達はそれらの中から活きのいいものを見繕って「寿司」にして、「寿司屋」をやります。\n弥三郎さんは「寿司」をご存知で？",
-        "readingText": "ごきょうりょくありがとうございます。それでは、すぐにでも「うみいけす」をよういするので、やさぶろうさんがとってきたさかなのなかから、あまったものでいいのでいれていってください。わたしたちはそれらのなかからいきのいいものをみつくろって「すし」にして、「すしや」をやります。やさぶろうさんは「すし」をごぞんじで？",
-        "nextStepId": "node-1774419665497",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_571_1774650294605.wav",
-        "id": "node-1774419110121",
         "type": "story",
+        "nextStepId": "node-1774419665497",
+        "audioUrl": "media/audios/file_579_1775122200418.wav",
+        "content": "ご協力ありがとうございます。\nそれでは、すぐにでも「海生簀」を用意するので、弥三郎さんが取ってきた魚の中から、余ったものでいいので入れていってください。\n私達はそれらの中から活きのいいものを見繕って「寿司」にして、「寿司屋」をやります。\n弥三郎さんは「寿司」をご存知で？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774419110121",
+        "readingText": "ごきょうりょくありがとうございます。それでは、すぐにでも「うみいけす」をよういするので、やさぶろうさんがとってきたさかなのなかから、あまったものでいいのでいれていってください。わたしたちはそれらのなかからいきのいいものをみつくろって「すし」にして、「すしや」をやります。やさぶろうさんは「すし」をごぞんじで？",
         "speakerName": "日蓮"
       },
       {
-        "speakerName": "弥三郎",
-        "type": "story",
-        "id": "node-1774419665497",
-        "audioUrl": "media/audios/file_572_1774650294605.wav",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774419794704",
         "readingText": "なまざかなとすめしをにぎったものですよね？なまざかなだとなおさらていこうをもっているひとがいるかもしれません。",
-        "content": "生魚と酢飯を握ったものですよね？\n生魚だとなおさら抵抗を持っている人がいるかも知れません。"
+        "speakerName": "弥三郎",
+        "id": "node-1774419665497",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "content": "生魚と酢飯を握ったものですよね？\n生魚だとなおさら抵抗を持っている人がいるかも知れません。",
+        "audioUrl": "media/audios/file_580_1775122200418.wav",
+        "nextStepId": "node-1774419794704",
+        "type": "story"
       },
       {
-        "audioUrl": "media/audios/file_573_1774650294605.wav",
+        "id": "node-1774419794704",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774419945077",
         "content": "だからこそ、好機なんですよ。\n生魚を口にしたことがない人も多いのでは？\n捕れたての魚の美味しさを知ったらその美味しさに魅了される人は結構多いはずです。",
         "speakerName": "日蓮",
+        "nextStepId": "node-1774419945077",
         "type": "story",
-        "id": "node-1774419794704"
+        "audioUrl": "media/audios/file_581_1775122200418.wav"
       },
       {
         "nextStepId": "node-1774420099667",
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "audioUrl": "media/audios/file_574_1774650294605.wav",
+        "type": "story",
+        "audioUrl": "media/audios/file_582_1775122200418.wav",
         "content": "我々、漁師からしたらごもっともなことなんですが、それでも抵抗を持つものの方が圧倒的に多いかと思います。",
-        "speakerName": "弥三郎",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
         "id": "node-1774419945077",
-        "type": "story"
+        "speakerName": "弥三郎"
       },
       {
-        "speakerName": "日蓮",
-        "id": "node-1774420099667",
-        "type": "story",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
         "nextStepId": "node-1774420413807",
-        "audioUrl": "media/audios/file_575_1774650294605.wav",
+        "type": "story",
+        "audioUrl": "media/audios/file_583_1775122200418.wav",
         "content": "そこは偏見の少ない子どもたちに協力してもらおうかと思っています…\n我々が行商人として市場で寿司をタダで配れば、大人たちは偏見を持っていても、子供たちは飛びつかずにはいられないのではないでしょうか？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774420099667",
+        "speakerName": "日蓮",
         "readingText": "そこはへんけんのすくないこどもたちにきょうりょくしてもらおうかとおもっています…われわれがぎょうしょうにんとしていちばですしをただでくばれば、おとなたちはへんけんをもっていても、こどもたちはとびつかずにはいられないのではないでしょうか？"
       },
       {
-        "id": "node-1774420413807",
+        "nextStepId": "node-1774420461199",
         "type": "story",
-        "speakerName": "弥三郎",
+        "audioUrl": "media/audios/file_584_1775122200418.wav",
+        "id": "node-1774420413807",
         "content": "はぁ…、それはそうかもしれませんが…子供たちに配っても収益を得ることは出来ないのでは？",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774420461199",
-        "audioUrl": "media/audios/file_576_1774650294605.wav"
+        "speakerName": "弥三郎"
       },
       {
-        "audioUrl": "media/audios/file_577_1774650294605.wav",
-        "nextStepId": "node-1774420655410",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
         "content": "そこで、割符（借金）を使うのです。子供たちに配ったものを回収するためにも大人たちを連れてきてもらうのです。\n子供たちの舌を唸らせることが出来れば、大人たちも偏見を超えて寿司を口にし始めると思います。",
+        "id": "node-1774420461199",
         "readingText": "そこで、わりふをつかうのです。こどもたちにくばったものをかいしゅうするためにもおとなたちをつれてきてもらうのです。こどもたちのしたをうならせることができれば、おとなたちもへんけんをこえてすしをくちにしはじめるとおもいます。",
         "speakerName": "日蓮",
         "type": "story",
-        "id": "node-1774420461199"
+        "nextStepId": "node-1774420655410",
+        "audioUrl": "media/audios/file_585_1775122200418.wav"
       },
       {
-        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
         "nextStepId": "node-1774420722792",
-        "audioUrl": "media/audios/file_578_1774650294605.wav",
-        "content": "う〜ん、面白い発想ですが、僧侶の方が子供に借金を背負わせるなんて、なんだか悪いことをしているような気がしてきます…",
-        "speakerName": "弥三郎",
-        "id": "node-1774420655410",
-        "type": "story"
-      },
-      {
-        "nextStepId": "node-1774420819988",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_579_1774650294605.wav",
-        "content": "もちろん、子供に取り立てをしたりはしませんので、回収できない投資もあるでしょうが、十分必要経費として計上できると思います。",
-        "speakerName": "日蓮",
-        "id": "node-1774420722792",
-        "type": "story"
-      },
-      {
+        "type": "story",
+        "audioUrl": "media/audios/file_586_1775122200418.wav",
         "speakerId": "kMEH8wVv0Y7HfbElMrtt",
-        "nextStepId": "node-1774420992683",
-        "audioUrl": "media/audios/file_580_1774650294605.wav",
-        "content": "う〜ん、難しい話になってきましたね。でも、魚を美味しいと口にしてくれる人が増えるなら、なんだか希望が湧いてきます。",
+        "content": "う〜ん、面白い発想ですが、僧侶の方が子供に借金を背負わせるなんて、なんだか悪いことをしているような気がしてきます…",
+        "id": "node-1774420655410",
+        "speakerName": "弥三郎"
+      },
+      {
+        "audioUrl": "media/audios/file_587_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774420819988",
+        "speakerName": "日蓮",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "もちろん、子供に取り立てをしたりはしませんので、回収できない投資もあるでしょうが、十分必要経費として計上できると思います。",
+        "id": "node-1774420722792"
+      },
+      {
         "speakerName": "弥三郎",
         "id": "node-1774420819988",
+        "content": "う〜ん、難しい話になってきましたね。でも、魚を美味しいと口にしてくれる人が増えるなら、なんだか希望が湧いてきます。",
+        "speakerId": "kMEH8wVv0Y7HfbElMrtt",
+        "audioUrl": "media/audios/file_588_1775122200418.wav",
+        "nextStepId": "node-1774420992683",
         "type": "story"
       },
       {
-        "type": "story",
-        "id": "node-1774420992683",
         "speakerName": "日蓮",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
         "content": "まぁ、見ていてください。弥三郎さんが希望を持ってくれるなら、私は「寿司」がこの地で受け入れられることを確信いたしました。\n\n伯耆、すまないが、明日から早速、忙しくなりそうだよ。何とか、船酔いから立ち直っておくれよ。",
-        "audioUrl": "media/audios/file_581_1774650294605.wav",
+        "id": "node-1774420992683",
+        "audioUrl": "media/audios/file_589_1775122200418.wav",
         "nextStepId": "node-1774421241938",
-        "speakerId": "A44lygLrpBVZjTZD1EqT"
+        "type": "story"
       },
       {
-        "audioUrl": "media/audios/file_582_1774650294605.wav",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "nextStepId": "node-1774421710816",
-        "content": "うぅ〜。わかりました。覚悟は出来ております。\n「南無妙法蓮華経、南無妙法蓮華経、南無妙法蓮華経、…」",
-        "readingText": "うぅ〜。わかりました。かくごはできております。「なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう、…」",
         "speakerName": "伯耆",
+        "readingText": "うぅ〜。わかりました。かくごはできております。「なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう、…」",
+        "id": "node-1774421241938",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "content": "うぅ〜。わかりました。覚悟は出来ております。\n「南無妙法蓮華経、南無妙法蓮華経、南無妙法蓮華経、…」",
+        "audioUrl": "media/audios/file_590_1775122200418.wav",
         "type": "story",
-        "id": "node-1774421241938"
+        "nextStepId": "node-1774421710816"
       },
       {
-        "audioUrl": "media/audios/file_583_1774650294605.wav",
-        "speakerId": "olCEMKCl0vWKNZOIrj2g",
         "nextStepId": "node-4",
+        "type": "story",
+        "audioUrl": "media/audios/file_591_1775122200418.wav",
+        "id": "node-1774421710816",
+        "speakerId": "olCEMKCl0vWKNZOIrj2g",
         "content": "「料理屋」を利用可能になりました。\n「日蓮」を「寿司屋」にセットして収益を得ていきましょう。\n「寿司屋」は魚などのアイテムを補充することで収益を増やすことが出来ます。\nアイテムは拾ったり買ったりして、手に入れましょう。\n買うための元手は寄合所に行って依頼をこなすことで得ることも出来ます。\n寄合所で依頼をこなしたり、料理屋で収益を上げると好感度の高い人間が出てきます。\n好感度の高い人を見つけたら勧誘して一緒に広宣流布の輪を広げていきましょう。",
         "readingText": "「りょうりや」をりようかのうになりました。「にちれん」を「すしや」にせっとしてしゅうえきをえていきましょう。「すしや」はさかななどのあいてむをほじゅうすることでしゅうえきをふやすことができます。あいてむはひろったりかったりして、てにいれましょう。かうためのもとではよりあいしょにいっていらいをこなすことでえることもできます。よりあいしょでいらいをこなしたり、りょうりやでしゅうえきをあげるとこうかんどのたかいにんげんがでてきます。こうかんどのたかいひとをみつけたらかんゆうして、いっしょにこうせんるふのわをひろげていきましょう。",
-        "speakerName": "システム",
-        "type": "story",
-        "id": "node-1774421710816"
+        "speakerName": "システム"
       },
       {
         "speakerName": "システム",
         "id": "node-4",
-        "type": "end",
         "speakerId": "olCEMKCl0vWKNZOIrj2g",
-        "audioUrl": "media/audios/file_584_1774650294605.wav",
-        "content": "それでは、伊豆流罪物語のはじまり、はじまり。"
+        "content": "それでは、伊豆流罪物語のはじまり、はじまり。",
+        "audioUrl": "media/audios/file_592_1775122200418.wav",
+        "type": "end"
       }
     ],
+    "createdAt": "2026-03-25T03:38:38.313Z",
     "tags": [
       "メイン"
     ],
+    "requiredFlag": "",
+    "plot": "日蓮が初めて弥三郎の家に訪れた時の話",
+    "title": "弥三郎の家での話",
     "villagerName": null,
-    "createdAt": "2026-03-25T03:38:38.313Z"
+    "villagerId": null
   },
   {
     "id": "FgDGjdKugGRSU8Wl9fZb",
-    "villagerName": "かず子",
-    "createdAt": "2026-03-27T13:17:15.568Z",
     "tags": [
       "生薬依頼",
       "かず子",
       "陳皮"
     ],
-    "villagerId": "NEntrh0jYY62zYGD6gnK",
+    "plot": "【あらすじ】村のかず子の幼い子が、長引く咳とひどい痰で苦しんでいた。村にはない生薬「陳皮」がその病に効くと聞き、通りがかった旅人・伯耆に救いを求める。\n\n【詳細】\n[依頼のセリフ]: 「お旅の方、まことに恐れ入りますが、どうかお助けくださいませ。わたくしの幼い子が、久しく続く咳とひどい痰に苦しんでおり、このままでは命も危ういかと案じております。この病には、そちらがお持ちの『陳皮』という生薬が効くと聞き及びまして…どうか、どうか、いくばくかでもお恵みいただけませぬか。」\n[プレイヤーの反応]: 旅路はまだ遠く、我が身の備えも限らるる。されど、幼子の命の灯火、今にも消えなんとするを見るは、まことに忍び難きこと。この陳皮を分け与えるべきか、否か、伯耆の心はしばし千々に乱れた。\n[承諾ボタン]: 「幼子の命の灯火、消えんとするを見過ごすは、まことに忍びがたし。持てる限りにてはござるが、この陳皮、そなたにお分けいたそう。」\n[拒否ボタン]: 「まことに忍びなきことなれど、この旅路、我が身の備えも限りありて、そなたにお分け申すは叶わぬ。」\n[報酬授与のセリフ]: 「ああ、まことにありがたき御慈悲、身に余る光栄に存じ奉りまする！この御恩、いかばかりかお礼を申し上げたく、ささやかながらではございますが、これ、わずかばかりの米二升にてございます。どうか、旅路の足しにでも、お納めくださいませ。」\n[成功の結び]: 「伯耆様のおかげにて、この子も必ずや息災を取り戻すことと存じます。まことにありがたき御慈悲、生涯忘れることはございませぬ。どうぞ、この先もご無事で、良き旅路をお続けくださいませ。いつかまた、どこかでお目にかかれましたら幸いにて。」\n[拒否の結び]: 「さようにございますか…まことに、まことに忍びなきことにござりまする。なれば、この子の命運、天に任せるより他、術もござりませぬ。されど、母とて、ただ手をこまねいては居られませぬ。いかようにも、この子を救う道を探し求めん。それこそが、我が努めと存じまする。」\n",
     "nodes": [
       {
-        "speakerName": "かず子",
         "id": "node-1",
-        "type": "start",
         "speakerId": "NEntrh0jYY62zYGD6gnK",
+        "content": "「お旅の方、まことに恐れ入りますが、どうかお助けくださいませ。わたくしの幼い子が、久しく続く咳とひどい痰に苦しんでおり、このままでは命も危ういかと案じております。この病には、そちらがお持ちの『陳皮』という生薬が効くと聞き及びまして…どうか、どうか、いくばくかでもお恵みいただけませぬか。」",
+        "speakerName": "かず子",
+        "type": "start",
         "nextStepId": "node-2",
-        "audioUrl": "media/audios/file_585_1774650294605.wav",
-        "content": "「お旅の方、まことに恐れ入りますが、どうかお助けくださいませ。わたくしの幼い子が、久しく続く咳とひどい痰に苦しんでおり、このままでは命も危ういかと案じております。この病には、そちらがお持ちの『陳皮』という生薬が効くと聞き及びまして…どうか、どうか、いくばくかでもお恵みいただけませぬか。」"
+        "audioUrl": "media/audios/file_593_1775122200418.wav"
       },
       {
+        "id": "node-2",
+        "type": "choice",
+        "content": "旅路はまだ遠く、我が身の備えも限らるる。されど、幼子の命の灯火、今にも消えなんとするを見るは、まことに忍び難きこと。この陳皮を分け与えるべきか、否か、伯耆の心はしばし千々に乱れた。",
         "choices": [
           {
-            "lockedText": "「陳皮」を持っていない...",
             "requiredItemId": "2RVeXHWWwUMHEn5SDpaL",
-            "nextStepId": "node-3",
-            "text": "「幼子の命の灯火、消えんとするを見過ごすは、まことに忍びがたし。持てる限りにてはござるが、この陳皮、そなたにお分けいたそう。」"
+            "lockedText": "「陳皮」を持っていない...",
+            "text": "「幼子の命の灯火、消えんとするを見過ごすは、まことに忍びがたし。持てる限りにてはござるが、この陳皮、そなたにお分けいたそう。」",
+            "nextStepId": "node-3"
           },
           {
             "nextStepId": "node-5",
             "text": "「まことに忍びなきことなれど、この旅路、我が身の備えも限りありて、そなたにお分け申すは叶わぬ。」"
           }
-        ],
-        "content": "旅路はまだ遠く、我が身の備えも限らるる。されど、幼子の命の灯火、今にも消えなんとするを見るは、まことに忍び難きこと。この陳皮を分け与えるべきか、否か、伯耆の心はしばし千々に乱れた。",
-        "id": "node-2",
-        "type": "choice"
+        ]
       },
       {
-        "type": "reward",
-        "id": "node-3",
         "speakerName": "かず子",
         "content": "「ああ、まことにありがたき御慈悲、身に余る光栄に存じ奉りまする！この御恩、いかばかりかお礼を申し上げたく、ささやかながらではございますが、これ、わずかばかりの米二升にてございます。どうか、旅路の足しにでも、お納めくださいませ。」",
+        "speakerId": "NEntrh0jYY62zYGD6gnK",
+        "id": "node-3",
         "reward": {
           "amount": 200
         },
-        "audioUrl": "media/audios/file_586_1774650294605.wav",
-        "speakerId": "NEntrh0jYY62zYGD6gnK",
+        "audioUrl": "media/audios/file_594_1775122200418.wav",
+        "type": "reward",
         "nextStepId": "node-4"
       },
       {
-        "speakerName": "かず子",
+        "audioUrl": "media/audios/file_595_1775122200418.wav",
         "type": "end",
-        "id": "node-4",
-        "audioUrl": "media/audios/file_587_1774650294605.wav",
+        "speakerName": "かず子",
+        "content": "「伯耆様のおかげにて、この子も必ずや息災を取り戻すことと存じます。まことにありがたき御慈悲、生涯忘れることはございませぬ。どうぞ、この先もご無事で、良き旅路をお続けくださいませ。いつかまた、どこかでお目にかかれましたら幸いにて。」",
         "speakerId": "NEntrh0jYY62zYGD6gnK",
-        "content": "「伯耆様のおかげにて、この子も必ずや息災を取り戻すことと存じます。まことにありがたき御慈悲、生涯忘れることはございませぬ。どうぞ、この先もご無事で、良き旅路をお続けくださいませ。いつかまた、どこかでお目にかかれましたら幸いにて。」"
+        "id": "node-4"
       },
       {
         "speakerName": "かず子",
-        "type": "end",
-        "id": "node-5",
-        "audioUrl": "media/audios/file_588_1774650294605.wav",
         "speakerId": "NEntrh0jYY62zYGD6gnK",
-        "content": "「さようにございますか…まことに、まことに忍びなきことにござりまする。なれば、この子の命運、天に任せるより他、術もござりませぬ。されど、母とて、ただ手をこまねいては居られませぬ。いかようにも、この子を救う道を探し求めん。それこそが、我が努めと存じまする。」"
+        "content": "「さようにございますか…まことに、まことに忍びなきことにござりまする。なれば、この子の命運、天に任せるより他、術もござりませぬ。されど、母とて、ただ手をこまねいては居られませぬ。いかようにも、この子を救う道を探し求めん。それこそが、我が努めと存じまする。」",
+        "id": "node-5",
+        "audioUrl": "media/audios/file_596_1775122200418.wav",
+        "type": "end"
       }
     ],
-    "title": "陳皮を求めて",
-    "plot": "【あらすじ】村のかず子の幼い子が、長引く咳とひどい痰で苦しんでいた。村にはない生薬「陳皮」がその病に効くと聞き、通りがかった旅人・伯耆に救いを求める。\n\n【詳細】\n[依頼のセリフ]: 「お旅の方、まことに恐れ入りますが、どうかお助けくださいませ。わたくしの幼い子が、久しく続く咳とひどい痰に苦しんでおり、このままでは命も危ういかと案じております。この病には、そちらがお持ちの『陳皮』という生薬が効くと聞き及びまして…どうか、どうか、いくばくかでもお恵みいただけませぬか。」\n[プレイヤーの反応]: 旅路はまだ遠く、我が身の備えも限らるる。されど、幼子の命の灯火、今にも消えなんとするを見るは、まことに忍び難きこと。この陳皮を分け与えるべきか、否か、伯耆の心はしばし千々に乱れた。\n[承諾ボタン]: 「幼子の命の灯火、消えんとするを見過ごすは、まことに忍びがたし。持てる限りにてはござるが、この陳皮、そなたにお分けいたそう。」\n[拒否ボタン]: 「まことに忍びなきことなれど、この旅路、我が身の備えも限りありて、そなたにお分け申すは叶わぬ。」\n[報酬授与のセリフ]: 「ああ、まことにありがたき御慈悲、身に余る光栄に存じ奉りまする！この御恩、いかばかりかお礼を申し上げたく、ささやかながらではございますが、これ、わずかばかりの米二升にてございます。どうか、旅路の足しにでも、お納めくださいませ。」\n[成功の結び]: 「伯耆様のおかげにて、この子も必ずや息災を取り戻すことと存じます。まことにありがたき御慈悲、生涯忘れることはございませぬ。どうぞ、この先もご無事で、良き旅路をお続けくださいませ。いつかまた、どこかでお目にかかれましたら幸いにて。」\n[拒否の結び]: 「さようにございますか…まことに、まことに忍びなきことにござりまする。なれば、この子の命運、天に任せるより他、術もござりませぬ。されど、母とて、ただ手をこまねいては居られませぬ。いかようにも、この子を救う道を探し求めん。それこそが、我が努めと存じまする。」\n"
+    "createdAt": "2026-03-27T13:17:15.568Z",
+    "villagerName": "かず子",
+    "villagerId": "NEntrh0jYY62zYGD6gnK",
+    "title": "陳皮を求めて"
   },
   {
     "id": "Ilcs1tgSTI9rhDNpzx5A",
+    "villagerName": "おはな",
+    "villagerId": "7WVudEcwgprud6DxaSiB",
+    "title": "長老おはなの願い",
     "plot": "旅人は村を訪れ、祭りの準備で活気づく中、どこか浮かない顔のおはなに出会う。彼女は、今年の豊作を祝う祭りで欠かせない「幸茸おこわ」の準備が進まず困っているという。話を聞くと、おこわに使う特別な「まつたけ」が、今年は山のどこを探しても見つからないのだ。「このままでは、村の幸運が途絶えてしまうかもしれない…」と、おはなは心配顔でつぶやく。あなたは、おはなの力になりたいと申し出る。おはなは、昔まつたけがよく採れたという、今は獣道と化した奥深い森の隠れた場所を教えてくれる。ここであなたは選択を迫られる。「教えられた場所へまつたけを探しに行く」か、それとも「手持ちのキノコで代用できないかおはなに相談する」か。もし「教えられた場所へまつたけを探しに行く」ことを選べば、あなたは険しい獣道を何時間も進み、時には野生動物に警戒しながら奥地へと向かう。そこで偶然、人里離れた朽ちた大木の根元に、ひっそりと生えた見事な「まつたけ」を発見するだろう。もし「手持ちのキノコで代用できないかおはなに相談する」ことを選んだ場合、おはなは首を傾げながらも、もし旅人が「深山黒茸」のような珍しいキノコを持っているなら、もしかしたら伝統の味に近いものが作れるかもしれないと提案する。もしあなたが「深山黒茸」を持っていれば、それを渡すことでおはなは納得し、そのキノコを使っておこわを仕込み始める。どちらの道を選んだとしても、おはなは無事におこわを完成させ、祭りは盛大に執り行われる。村人たちは皆、おはなの「幸茸おこわ」を喜び、旅人の協力に感謝する。おはなは、お礼に「これを食べれば元気百倍だよ」と言って、滋養強壮に良いとされる貴重な「ジネンジョ」を旅人に手渡すのだった。",
     "requiredFlag": "",
-    "title": "長老おはなの願い",
     "nodes": [
       {
+        "id": "node-1",
         "nextStepId": "node-2",
         "type": "start",
-        "id": "node-1",
         "content": "旅人は村を訪れ、祭りの準備で活気づく中、どこか浮かない顔のおはなに出会う。"
       },
       {
-        "nextStepId": "node-3",
         "type": "story",
         "content": "彼女は今年の豊作を祝う祭りで欠かせない「幸茸おこわ」の準備が進まず困っているという。おこわに使う特別な「まつたけ」が、今年は山のどこを探しても見つからないのだ。「このままでは、村の幸運が途絶えてしまうかもしれない…」と、おはなは心配顔でつぶやいた。",
+        "nextStepId": "node-3",
         "id": "node-2"
       },
       {
-        "id": "node-3",
-        "content": "あなたはおはなの力になりたいと申し出る。おはなは、昔まつたけがよく採れたという、今は獣道と化した奥深い森の隠れた場所を教えてくれる。どうしますか？",
-        "type": "choice",
         "choices": [
           {
             "nextStepId": "node-4",
             "text": "教えられた場所へまつたけを探しに行く"
           },
           {
-            "text": "手持ちのキノコで代用できないかおはなに相談する",
             "nextStepId": "node-5",
+            "text": "手持ちのキノコで代用できないかおはなに相談する",
             "requiredItemId": "199WE9uvPmPJh5zNhR41"
           }
-        ]
+        ],
+        "type": "choice",
+        "content": "あなたはおはなの力になりたいと申し出る。おはなは、昔まつたけがよく採れたという、今は獣道と化した奥深い森の隠れた場所を教えてくれる。どうしますか？",
+        "id": "node-3"
       },
       {
-        "type": "story",
-        "id": "node-4",
         "content": "あなたは険しい獣道を何時間も進み、時には野生動物に警戒しながら奥地へと向かった。そこで偶然、人里離れた朽ちた大木の根元に、ひっそりと生えた見事な「まつたけ」を発見した。",
-        "nextStepId": "node-6"
-      },
-      {
-        "content": "あなたが「深山黒茸」を渡すと、おはなは納得し、そのキノコを使っておこわを仕込み始めた。",
-        "id": "node-5",
         "type": "story",
-        "nextStepId": "node-6"
+        "nextStepId": "node-6",
+        "id": "node-4"
       },
       {
-        "setFlag": "kinu_flag1",
+        "id": "node-5",
+        "content": "あなたが「深山黒茸」を渡すと、おはなは納得し、そのキノコを使っておこわを仕込み始めた。",
+        "nextStepId": "node-6",
+        "type": "story"
+      },
+      {
         "type": "reward",
-        "id": "node-6",
+        "setFlag": "kinu_flag1",
         "reward": {
           "itemId": "7iTiMLHySgBCMa95VVZb",
           "itemName": "ジネンジョ"
         },
-        "content": "おはなは無事におこわを完成させ、祭りは盛大に執り行われた。村人たちは皆、おはなの「幸茸おこわ」を喜び、旅人の協力に感謝する。おはなは、お礼に「これを食べれば元気百倍だよ」と言って、滋養強壮に良いとされる貴重な「ジネンジョ」を旅人に手渡した。"
+        "content": "おはなは無事におこわを完成させ、祭りは盛大に執り行われた。村人たちは皆、おはなの「幸茸おこわ」を喜び、旅人の協力に感謝する。おはなは、お礼に「これを食べれば元気百倍だよ」と言って、滋養強壮に良いとされる貴重な「ジネンジョ」を旅人に手渡した。",
+        "id": "node-6"
       },
       {
         "type": "end",
-        "setFlag": "kinu_flag1",
+        "content": "村の幸運は守られ、祭りの熱気と村人たちの笑顔が、旅人の心にも温かく残った。",
         "id": "node-7",
-        "content": "村の幸運は守られ、祭りの熱気と村人たちの笑顔が、旅人の心にも温かく残った。"
+        "setFlag": "kinu_flag1"
       }
     ],
-    "villagerId": "7WVudEcwgprud6DxaSiB",
-    "createdAt": "2026-02-06T09:15:27.990Z",
-    "villagerName": "おはな"
+    "createdAt": "2026-02-06T09:15:27.990Z"
   },
   {
     "id": "LELg8kdQvYd041DJTpjH",
-    "plot": "【あらすじ】村人うめの幼子が止まらぬ咳と熱に苦しんでおり、村の医は、山の奥に自生する稀なる生薬「薄荷」のみがその苦痛を和らげると告げた。うめは、偶然通りかかった旅の行商人伯耆に、我が子の命を救うため薄荷を探してほしいと懇願する。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方、どうか、どうかお聞き入れくださいませ。わたくしめの幼子が、数日来、息も絶え絶えの咳に身を震わせ、高熱にうなされ、命の灯が消え入りそうでございます。里の薬師が申されますには、この病には、山の奥深くに生ずる稀有な生薬『薄荷』あるのみ、と。伯耆様、と尊きお名を伺いました。何卒、このわらべの命を救わんと、かの薄荷を、どうか、どうかお恵みいただけませぬか。」\n[プレイヤーの反応]: さても、この女人の懇願、まことに哀れなり。されど、深山の奥なる薄荷を尋ねるは、険しき道行きなれば、我が身の危険も顧みぬ覚悟を要す。この伯耆、行くべきか、留まるべきか、いかにせん。\n[承諾ボタン]: 「心得たり。そなたが子の命、この伯耆、見捨ておけぬ。深山に分け入り、薄荷、必ずや探し出してみせようぞ。」\n[拒否ボタン]: 「まことに心苦しきことなれど、深山の奥なる薄荷を尋ねるは、今の伯耆には叶わぬこと。」\n[報酬授与のセリフ]: 「ああ、伯耆様！この薄荷、まことにありがたき幸せにございます！おかげにて、わらべの命、救われ申した…この恩、いかばかりか。つきましては、ささやかではございますが、この米二升、心ばかりの御礼に、どうかお納めくださいませ。」\n[成功の結び]: 「ああ、伯耆様、この度のご恩、かたじけなく存じ奉りまする。わらべも、薄荷の妙薬のおかげにて、日増しに息災を取り戻し、いずれは健やかなる姿を見せてくれることと存じます。伯耆様の道中、くれぐれもご無事で、良き縁に恵まれんことを、心よりお祈り申し上げまする。どうぞ、お気をつけてお立ちくださいませ。」\n[拒否の結び]: 「ああ、さようにございますか。まことに心苦しきことなれど、伯耆様には、これ以上のお願いは叶いますまい。されど、このわらべの命、母として見捨て申すわけには参りませぬ。いかなる難儀が待つとも、この身を顧みず、自ら薄荷を尋ねに参る所存。これもまた、わたくしめの定めにて候か。ただ、我が子の命、どうか、消えぬよう…」\n",
-    "title": "伯耆と薄荷の願い",
     "nodes": [
       {
-        "speakerName": "うめ",
-        "type": "start",
-        "id": "node-1",
-        "audioUrl": "media/audios/file_589_1774650294605.wav",
+        "audioUrl": "media/audios/file_597_1775122200418.wav",
         "nextStepId": "node-2",
+        "type": "start",
+        "speakerName": "うめ",
+        "content": "「旅のお方、どうか、どうかお聞き入れくださいませ。わたくしめの幼子が、数日来、息も絶え絶えの咳に身を震わせ、高熱にうなされ、命の灯が消え入りそうでございます。里の薬師が申されますには、この病には、山の奥深くに生ずる稀有な生薬『薄荷』あるのみ、と。伯耆様、と尊きお名を伺いました。何卒、このわらべの命を救わんと、かの薄荷を、どうか、どうかお恵みいただけませぬか。」",
         "speakerId": "wMSjRWzjMW8zmymdIxYk",
-        "content": "「旅のお方、どうか、どうかお聞き入れくださいませ。わたくしめの幼子が、数日来、息も絶え絶えの咳に身を震わせ、高熱にうなされ、命の灯が消え入りそうでございます。里の薬師が申されますには、この病には、山の奥深くに生ずる稀有な生薬『薄荷』あるのみ、と。伯耆様、と尊きお名を伺いました。何卒、このわらべの命を救わんと、かの薄荷を、どうか、どうかお恵みいただけませぬか。」"
+        "id": "node-1"
       },
       {
-        "content": "さても、この女人の懇願、まことに哀れなり。されど、深山の奥なる薄荷を尋ねるは、険しき道行きなれば、我が身の危険も顧みぬ覚悟を要す。この伯耆、行くべきか、留まるべきか、いかにせん。",
-        "id": "node-2",
-        "type": "choice",
         "choices": [
           {
-            "nextStepId": "node-3",
-            "text": "「心得たり。そなたが子の命、この伯耆、見捨ておけぬ。深山に分け入り、薄荷、必ずや探し出してみせようぞ。」",
+            "requiredItemId": "0Rkk4heLhY6shjYRUbJP",
             "lockedText": "「薄荷」を持っていない...",
-            "requiredItemId": "0Rkk4heLhY6shjYRUbJP"
+            "text": "「心得たり。そなたが子の命、この伯耆、見捨ておけぬ。深山に分け入り、薄荷、必ずや探し出してみせようぞ。」",
+            "nextStepId": "node-3"
           },
           {
             "nextStepId": "node-5",
             "text": "「まことに心苦しきことなれど、深山の奥なる薄荷を尋ねるは、今の伯耆には叶わぬこと。」"
           }
-        ]
+        ],
+        "type": "choice",
+        "content": "さても、この女人の懇願、まことに哀れなり。されど、深山の奥なる薄荷を尋ねるは、険しき道行きなれば、我が身の危険も顧みぬ覚悟を要す。この伯耆、行くべきか、留まるべきか、いかにせん。",
+        "id": "node-2"
       },
       {
-        "content": "「ああ、伯耆様！この薄荷、まことにありがたき幸せにございます！おかげにて、わらべの命、救われ申した…この恩、いかばかりか。つきましては、ささやかではございますが、この米二升、心ばかりの御礼に、どうかお納めくださいませ。」",
-        "nextStepId": "node-4",
+        "id": "node-3",
         "speakerId": "wMSjRWzjMW8zmymdIxYk",
-        "audioUrl": "media/audios/file_590_1774650294605.wav",
+        "content": "「ああ、伯耆様！この薄荷、まことにありがたき幸せにございます！おかげにて、わらべの命、救われ申した…この恩、いかばかりか。つきましては、ささやかではございますが、この米二升、心ばかりの御礼に、どうかお納めくださいませ。」",
+        "speakerName": "うめ",
+        "type": "reward",
+        "nextStepId": "node-4",
+        "audioUrl": "media/audios/file_598_1775122200418.wav",
         "reward": {
           "amount": 200
-        },
-        "id": "node-3",
-        "type": "reward",
-        "speakerName": "うめ"
+        }
       },
       {
-        "speakerName": "うめ",
+        "type": "end",
+        "audioUrl": "media/audios/file_599_1775122200418.wav",
+        "content": "「ああ、伯耆様、この度のご恩、かたじけなく存じ奉りまする。わらべも、薄荷の妙薬のおかげにて、日増しに息災を取り戻し、いずれは健やかなる姿を見せてくれることと存じます。伯耆様の道中、くれぐれもご無事で、良き縁に恵まれんことを、心よりお祈り申し上げまする。どうぞ、お気をつけてお立ちくださいませ。」",
+        "speakerId": "wMSjRWzjMW8zmymdIxYk",
         "id": "node-4",
-        "type": "end",
-        "speakerId": "wMSjRWzjMW8zmymdIxYk",
-        "audioUrl": "media/audios/file_591_1774650294605.wav",
-        "content": "「ああ、伯耆様、この度のご恩、かたじけなく存じ奉りまする。わらべも、薄荷の妙薬のおかげにて、日増しに息災を取り戻し、いずれは健やかなる姿を見せてくれることと存じます。伯耆様の道中、くれぐれもご無事で、良き縁に恵まれんことを、心よりお祈り申し上げまする。どうぞ、お気をつけてお立ちくださいませ。」"
+        "speakerName": "うめ"
       },
       {
-        "content": "「ああ、さようにございますか。まことに心苦しきことなれど、伯耆様には、これ以上のお願いは叶いますまい。されど、このわらべの命、母として見捨て申すわけには参りませぬ。いかなる難儀が待つとも、この身を顧みず、自ら薄荷を尋ねに参る所存。これもまた、わたくしめの定めにて候か。ただ、我が子の命、どうか、消えぬよう…」",
-        "speakerId": "wMSjRWzjMW8zmymdIxYk",
-        "audioUrl": "media/audios/file_592_1774650294605.wav",
         "id": "node-5",
+        "speakerId": "wMSjRWzjMW8zmymdIxYk",
+        "content": "「ああ、さようにございますか。まことに心苦しきことなれど、伯耆様には、これ以上のお願いは叶いますまい。されど、このわらべの命、母として見捨て申すわけには参りませぬ。いかなる難儀が待つとも、この身を顧みず、自ら薄荷を尋ねに参る所存。これもまた、わたくしめの定めにて候か。ただ、我が子の命、どうか、消えぬよう…」",
+        "speakerName": "うめ",
         "type": "end",
-        "speakerName": "うめ"
+        "audioUrl": "media/audios/file_600_1775122200418.wav"
       }
     ],
-    "villagerId": "wMSjRWzjMW8zmymdIxYk",
+    "createdAt": "2026-03-27T13:05:48.378Z",
     "tags": [
       "生薬依頼",
       "うめ",
       "薄荷"
     ],
-    "createdAt": "2026-03-27T13:05:48.378Z",
-    "villagerName": "うめ"
+    "plot": "【あらすじ】村人うめの幼子が止まらぬ咳と熱に苦しんでおり、村の医は、山の奥に自生する稀なる生薬「薄荷」のみがその苦痛を和らげると告げた。うめは、偶然通りかかった旅の行商人伯耆に、我が子の命を救うため薄荷を探してほしいと懇願する。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方、どうか、どうかお聞き入れくださいませ。わたくしめの幼子が、数日来、息も絶え絶えの咳に身を震わせ、高熱にうなされ、命の灯が消え入りそうでございます。里の薬師が申されますには、この病には、山の奥深くに生ずる稀有な生薬『薄荷』あるのみ、と。伯耆様、と尊きお名を伺いました。何卒、このわらべの命を救わんと、かの薄荷を、どうか、どうかお恵みいただけませぬか。」\n[プレイヤーの反応]: さても、この女人の懇願、まことに哀れなり。されど、深山の奥なる薄荷を尋ねるは、険しき道行きなれば、我が身の危険も顧みぬ覚悟を要す。この伯耆、行くべきか、留まるべきか、いかにせん。\n[承諾ボタン]: 「心得たり。そなたが子の命、この伯耆、見捨ておけぬ。深山に分け入り、薄荷、必ずや探し出してみせようぞ。」\n[拒否ボタン]: 「まことに心苦しきことなれど、深山の奥なる薄荷を尋ねるは、今の伯耆には叶わぬこと。」\n[報酬授与のセリフ]: 「ああ、伯耆様！この薄荷、まことにありがたき幸せにございます！おかげにて、わらべの命、救われ申した…この恩、いかばかりか。つきましては、ささやかではございますが、この米二升、心ばかりの御礼に、どうかお納めくださいませ。」\n[成功の結び]: 「ああ、伯耆様、この度のご恩、かたじけなく存じ奉りまする。わらべも、薄荷の妙薬のおかげにて、日増しに息災を取り戻し、いずれは健やかなる姿を見せてくれることと存じます。伯耆様の道中、くれぐれもご無事で、良き縁に恵まれんことを、心よりお祈り申し上げまする。どうぞ、お気をつけてお立ちくださいませ。」\n[拒否の結び]: 「ああ、さようにございますか。まことに心苦しきことなれど、伯耆様には、これ以上のお願いは叶いますまい。されど、このわらべの命、母として見捨て申すわけには参りませぬ。いかなる難儀が待つとも、この身を顧みず、自ら薄荷を尋ねに参る所存。これもまた、わたくしめの定めにて候か。ただ、我が子の命、どうか、消えぬよう…」\n",
+    "title": "伯耆と薄荷の願い",
+    "villagerName": "うめ",
+    "villagerId": "wMSjRWzjMW8zmymdIxYk"
   },
   {
     "id": "LsuceXFK7C8OS8AbiFIX",
-    "createdAt": "2026-02-06T09:07:42.535Z",
-    "villagerName": "きぬ",
     "plot": "旅人であるあなたは、村の薬草師きぬが額に深い皺を刻んでいるのを見かけます。声をかけると、きぬは村の子供たちが原因不明の咳と高熱に苦しんでいると語ります。通常の薬草では効果がなく、昔語りで聞いた「禁断の森の奥深くに生えるツルニンジンこそが、万病に効く秘薬の源」という伝説が脳裏をよぎるが、その森は危険で足を踏み入れる者もいないとため息をつきます。旅人はどうしますか？「伝説のツルニンジンを探しに森へ向かう」か、「きぬから、森に関するもっと詳しい情報を聞き出す」かを選択できます。もし「伝説のツルニンジンを探しに森へ向かう」ことを選んだ場合、旅人は単身、禁断の森へと足を踏み入れます。森は霧深く、道は険しく、狂暴な獣の鳴き声が響き渡ります。旅人は知恵と力で危険を乗り越え、ようやくツルニンジンを見つけ出します。もし「きぬから、森に関するもっと詳しい情報を聞き出す」ことを選んだ場合、きぬは少し考えてから、古い巻物を取り出します。それには「森の番人たる獣は、深山黒茸の香りを嫌う」と記されていました。旅人は森へ行く前に「深山黒茸」を探して手に入れることになります。もし「深山黒茸」を持っていれば、獣を避けて安全に進むことができます。持っていなければ、最初の選択肢を選んだ場合と同じように危険を冒して進むことになります。いずれにせよ、ツルニンジンを持ち帰った旅人に、きぬは深く感謝します。彼女はすぐさまツルニンジンを煎じ、子供たちに与えると、数日のうちに子供たちの病は快方へと向かいます。村に平和が戻り、きぬは旅人の勇気と献身に報いるため、代々伝わる貴重な「幸運の輝石」を報酬として手渡しました。",
     "requiredFlag": "kinu_flag1",
-    "title": "きぬの秘薬と森の試練",
+    "createdAt": "2026-02-06T09:07:42.535Z",
     "nodes": [
       {
-        "content": "旅人であるあなたは、村の薬草師きぬが額に深い皺を刻んでいるのを見かけました。声をかけると、きぬは村の子供たちが原因不明の咳と高熱に苦しんでいると語ります。通常の薬草では効果がなく、昔語りで聞いた「禁断の森の奥深くに生えるツルニンジンこそが、万病に効く秘薬の源」という伝説が脳裏をよぎるが、その森は危険で足を踏み入れる者もいないとため息をつきます。",
-        "nextStepId": "node-2",
         "id": "node-1",
-        "type": "start",
-        "requiredFlag": "kinu_flag1"
+        "content": "旅人であるあなたは、村の薬草師きぬが額に深い皺を刻んでいるのを見かけました。声をかけると、きぬは村の子供たちが原因不明の咳と高熱に苦しんでいると語ります。通常の薬草では効果がなく、昔語りで聞いた「禁断の森の奥深くに生えるツルニンジンこそが、万病に効く秘薬の源」という伝説が脳裏をよぎるが、その森は危険で足を踏み入れる者もいないとため息をつきます。",
+        "requiredFlag": "kinu_flag1",
+        "nextStepId": "node-2",
+        "type": "start"
       },
       {
         "choices": [
@@ -1330,33 +1328,33 @@
             "nextStepId": "node-4"
           }
         ],
-        "id": "node-2",
+        "type": "choice",
         "content": "旅人はどうしますか？",
-        "type": "choice"
+        "id": "node-2"
       },
       {
+        "id": "node-3",
         "type": "story",
         "content": "あなたは単身、禁断の森へと足を踏み入れました。森は霧深く、道は険しく、狂暴な獣の鳴き声が響き渡ります。しかし、あなたは知恵と力で危険を乗り越え、ついに伝説のツルニンジンを見つけ出すことができました。",
-        "id": "node-3",
         "nextStepId": "node-7"
       },
       {
-        "id": "node-4",
         "content": "きぬは少し考えてから、古い巻物を取り出しました。それには「森の番人たる獣は、深山黒茸の香りを嫌う」と記されていました。あなたは森へ行く前に「深山黒茸」を探して手に入れることを考えます。",
         "type": "story",
-        "nextStepId": "node-5"
+        "nextStepId": "node-5",
+        "id": "node-4"
       },
       {
+        "id": "node-5",
+        "type": "choice",
+        "content": "禁断の森へと足を踏み入れました。獣の気配が満ちる中、どうしますか？",
         "choices": [
           {
-            "nextStepId": "node-1770369574636",
+            "requiredItemId": "199WE9uvPmPJh5zNhR41_深山黒茸はここだ！確認してね！_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸",
             "text": "深山黒茸を使って獣を避ける",
-            "requiredItemId": "199WE9uvPmPJh5zNhR41_深山黒茸はここだ！確認してね！_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸_199WE9uvPmPJh5zNhR41_深山黒茸"
+            "nextStepId": "node-1770369574636"
           }
-        ],
-        "type": "choice",
-        "id": "node-5",
-        "content": "禁断の森へと足を踏み入れました。獣の気配が満ちる中、どうしますか？"
+        ]
       },
       {
         "type": "end",
@@ -1364,17 +1362,141 @@
         "id": "node-1770369574636"
       }
     ],
-    "villagerId": "6uxZ9UvQDDCAfFi0MplG"
+    "villagerId": "6uxZ9UvQDDCAfFi0MplG",
+    "villagerName": "きぬ",
+    "title": "きぬの秘薬と森の試練"
+  },
+  {
+    "id": "My9zoBRQs9KJp0msGhir",
+    "tags": [
+      "サブ"
+    ],
+    "plot": "凪咲のお願い。\n波恵の悩みを聞いてあげて欲しい。",
+    "requiredFlag": "",
+    "nodes": [
+      {
+        "audioUrl": "media/audios/file_601_1775122200418.wav",
+        "nextStepId": "node-2",
+        "type": "start",
+        "speakerName": "凪咲",
+        "readingText": "本日は晴天なり、せんせい、きょうは、おりいってごそうだんが、あるんですが…",
+        "content": "先生、今日はおりいってご相談が、あるんですが…",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "id": "node-1"
+      },
+      {
+        "readingText": "どうかされたのですか？あらたまって…",
+        "speakerName": "日蓮",
+        "id": "node-2",
+        "content": "どうかされたのですか？改まって…",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "audioUrl": "media/audios/file_602_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-3"
+      },
+      {
+        "id": "node-3",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "content": "はい…\n実は先日から隣の波恵さんがひどく、気を落としていまして…",
+        "readingText": "はい…じつはせんじつからとなりのなみえさんがひどく、きを、おとしていまして…",
+        "speakerName": "凪咲",
+        "nextStepId": "node-1775110578807-wqmuj",
+        "type": "story",
+        "audioUrl": "media/audios/file_603_1775122200418.wav"
+      },
+      {
+        "audioUrl": "media/audios/file_604_1775122200418.wav",
+        "nextStepId": "node-1775110622399-h6fgg",
+        "type": "story",
+        "speakerName": "日蓮",
+        "readingText": "それは、どうして、また…",
+        "content": "それは、どうして、また…",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1775110578807-wqmuj"
+      },
+      {
+        "speakerName": "凪咲",
+        "readingText": "と、いいますのも、なみえさんはせんげつ、はやりやまいでむすこさんをなくされまして…",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "content": "と、言いますのも、波恵さんは先月、流行病で息子さんをなくされまして…\n",
+        "id": "node-1775110622399-h6fgg",
+        "audioUrl": "media/audios/file_605_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1775110660255-xkln7"
+      },
+      {
+        "nextStepId": "node-1775110833759-jhzde",
+        "type": "story",
+        "audioUrl": "media/audios/file_606_1775122200418.wav",
+        "id": "node-1775110660255-xkln7",
+        "content": "そうだったんですか…それは、お辛いですね…\n私にどこまで出来るかはわかりませんが、是非、ご供養させていただきたい。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
+        "readingText": "そうだったんですか…それは、おつらいですね…わたしにどこまでできるかはわかりませんが、ぜひ、ごくようさせていただきたい。"
+      },
+      {
+        "id": "node-1775110833759-jhzde",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "content": "ありがとうございます。波恵さんも息子さんの成仏について、かなり悩んでいたようなので…\n先生にお話を聞いていただきたいのです。",
+        "speakerName": "凪咲",
+        "readingText": "ありがとうございます。なみえさんもむすこさんのじょうぶつについて、かなりなやんでいたようなので…せんせいにおはなしをきいていただきたいのです。",
+        "type": "story",
+        "nextStepId": "node-1775111064674-ijfyi",
+        "audioUrl": "media/audios/file_607_1775122200418.wav"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1775111209414-4hkhv",
+        "audioUrl": "media/audios/file_608_1775122200418.wav",
+        "id": "node-1775111064674-ijfyi",
+        "content": "わかりました。波恵さんは今日はご自宅にいらっしゃるかな？\n",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
+        "readingText": "わかりました。なみえさんはきょうはごじたくにいらっしゃるかな？"
+      },
+      {
+        "readingText": "いるとおもいます。さいきんは、ほとんどそとにでることもなく、いえのなかでふさぎこんでいるのです。",
+        "speakerName": "凪咲",
+        "content": "いると思います。最近は、ほとんど外に出ることもなく、家の中で塞ぎ込んでいるのです。",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "id": "node-1775111209414-4hkhv",
+        "audioUrl": "media/audios/file_609_1775122200418.wav",
+        "nextStepId": "node-4",
+        "type": "story"
+      },
+      {
+        "type": "end",
+        "audioUrl": "media/audios/file_610_1775122200418.wav",
+        "id": "node-4",
+        "content": "そうですか、それでは早速お伺いしましょう。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
+        "readingText": "そうですか、それではさっそくおうかがいしましょう。"
+      }
+    ],
+    "createdAt": "2026-04-02T06:07:58.696Z",
+    "villagerName": null,
+    "villagerId": null,
+    "title": "凪咲のお願い"
   },
   {
     "id": "R1NLPP5QuvNxYiMtuCZN",
+    "villagerName": "おしげ",
+    "villagerId": "kPqAriSaRwp4bUg4tbS9",
+    "title": "甘草を求むおしげの願い",
+    "tags": [
+      "生薬依頼",
+      "おしげ",
+      "甘草"
+    ],
+    "plot": "【あらすじ】村人おしげの幼子が乳離れの折からか、止まらぬ激しい咳に苦しんでおり、薬師より甘草がその苦しみを和らげる妙薬と聞き、旅路を行く伯耆に懇願した。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方様、まこと恐れ入ります。これなる幼子が乳離れの折からか、止まらぬ激しい咳に苦しんでおりまして、薬師様より甘草こそがその苦しみを和らげる妙薬と聞き及びました。もしや、お持ちでございませぬか。なにとぞ、このおしげが幼子をお救いくださりませ。」\n[プレイヤーの反応]: 「これなる甘草は、わしが道中にてもしもの備えとせしもの。されど、斯くも哀れなる母の願い、幼子の命を前にしては…いかがあらん。」\n[承諾ボタン]: 「哀れなるかな、この甘草、幼子の命を繋ぐものとならば、惜しむべからず。受け取られよ。」\n[拒否ボタン]: 「まことに申し訳なし。あいにくと、持ち合わせがござらぬ。」\n[報酬授与のセリフ]: 「おお、まことにありがたき幸せ。この甘草、わが子の命の恩人にて候。なにとぞ、つまらぬものにてはございまするが、せめてものお礼に、この米二升をお受け取りくだされませ。まこと、まこと、感謝の念に堪えませぬ。」\n[成功の結び]: 「この甘草のお陰にて、きっとわが子も息災を取り戻し、健やかに育ちましょう。旅のお方様、この度はお心の施し、まことにありがたき幸せにございます。なにとぞ、道中ご無事に。いずれまたお目にかかることもあるやもしれませぬ。まこと、まことにありがとうございました。」\n[拒否の結び]: 「さようでございますか…まことに、このおしげ、力及ばず、情けなき限り。されど、我が子の命、いかでか諦められましょう。この道なき世にて、いかなる手立てを尽くそうとも、この子のために、この母、歩みを止めはいたしませぬ。」\n",
     "nodes": [
       {
-        "content": "「旅のお方様、まこと恐れ入ります。これなる幼子が乳離れの折からか、止まらぬ激しい咳に苦しんでおりまして、薬師様より甘草こそがその苦しみを和らげる妙薬と聞き及びました。もしや、お持ちでございませぬか。なにとぞ、このおしげが幼子をお救いくださりませ。」",
-        "audioUrl": "media/audios/file_593_1774650294605.wav",
-        "nextStepId": "node-2",
-        "speakerId": "kPqAriSaRwp4bUg4tbS9",
         "type": "start",
+        "nextStepId": "node-2",
+        "audioUrl": "media/audios/file_611_1775122200418.wav",
+        "speakerId": "kPqAriSaRwp4bUg4tbS9",
+        "content": "「旅のお方様、まこと恐れ入ります。これなる幼子が乳離れの折からか、止まらぬ激しい咳に苦しんでおりまして、薬師様より甘草こそがその苦しみを和らげる妙薬と聞き及びました。もしや、お持ちでございませぬか。なにとぞ、このおしげが幼子をお救いくださりませ。」",
         "id": "node-1",
         "speakerName": "おしげ"
       },
@@ -1391,142 +1513,135 @@
             "text": "「まことに申し訳なし。あいにくと、持ち合わせがござらぬ。」"
           }
         ],
+        "type": "choice",
         "content": "「これなる甘草は、わしが道中にてもしもの備えとせしもの。されど、斯くも哀れなる母の願い、幼子の命を前にしては…いかがあらん。」",
-        "id": "node-2",
-        "type": "choice"
+        "id": "node-2"
       },
       {
+        "id": "node-3",
+        "content": "「おお、まことにありがたき幸せ。この甘草、わが子の命の恩人にて候。なにとぞ、つまらぬものにてはございまするが、せめてものお礼に、この米二升をお受け取りくだされませ。まこと、まこと、感謝の念に堪えませぬ。」",
+        "speakerId": "kPqAriSaRwp4bUg4tbS9",
         "speakerName": "おしげ",
         "type": "reward",
-        "id": "node-3",
-        "audioUrl": "media/audios/file_594_1774650294605.wav",
+        "nextStepId": "node-4",
+        "audioUrl": "media/audios/file_612_1775122200418.wav",
         "reward": {
           "amount": 200
-        },
-        "speakerId": "kPqAriSaRwp4bUg4tbS9",
-        "nextStepId": "node-4",
-        "content": "「おお、まことにありがたき幸せ。この甘草、わが子の命の恩人にて候。なにとぞ、つまらぬものにてはございまするが、せめてものお礼に、この米二升をお受け取りくだされませ。まこと、まこと、感謝の念に堪えませぬ。」"
+        }
       },
       {
-        "speakerId": "kPqAriSaRwp4bUg4tbS9",
-        "audioUrl": "media/audios/file_595_1774650294605.wav",
-        "content": "「この甘草のお陰にて、きっとわが子も息災を取り戻し、健やかに育ちましょう。旅のお方様、この度はお心の施し、まことにありがたき幸せにございます。なにとぞ、道中ご無事に。いずれまたお目にかかることもあるやもしれませぬ。まこと、まことにありがとうございました。」",
-        "speakerName": "おしげ",
-        "id": "node-4",
-        "type": "end"
-      },
-      {
-        "audioUrl": "media/audios/file_596_1774650294605.wav",
-        "speakerId": "kPqAriSaRwp4bUg4tbS9",
-        "content": "「さようでございますか…まことに、このおしげ、力及ばず、情けなき限り。されど、我が子の命、いかでか諦められましょう。この道なき世にて、いかなる手立てを尽くそうとも、この子のために、この母、歩みを止めはいたしませぬ。」",
-        "speakerName": "おしげ",
+        "audioUrl": "media/audios/file_613_1775122200418.wav",
         "type": "end",
-        "id": "node-5"
+        "speakerName": "おしげ",
+        "content": "「この甘草のお陰にて、きっとわが子も息災を取り戻し、健やかに育ちましょう。旅のお方様、この度はお心の施し、まことにありがたき幸せにございます。なにとぞ、道中ご無事に。いずれまたお目にかかることもあるやもしれませぬ。まこと、まことにありがとうございました。」",
+        "speakerId": "kPqAriSaRwp4bUg4tbS9",
+        "id": "node-4"
+      },
+      {
+        "speakerName": "おしげ",
+        "id": "node-5",
+        "content": "「さようでございますか…まことに、このおしげ、力及ばず、情けなき限り。されど、我が子の命、いかでか諦められましょう。この道なき世にて、いかなる手立てを尽くそうとも、この子のために、この母、歩みを止めはいたしませぬ。」",
+        "speakerId": "kPqAriSaRwp4bUg4tbS9",
+        "audioUrl": "media/audios/file_614_1775122200418.wav",
+        "type": "end"
       }
     ],
-    "villagerId": "kPqAriSaRwp4bUg4tbS9",
-    "plot": "【あらすじ】村人おしげの幼子が乳離れの折からか、止まらぬ激しい咳に苦しんでおり、薬師より甘草がその苦しみを和らげる妙薬と聞き、旅路を行く伯耆に懇願した。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方様、まこと恐れ入ります。これなる幼子が乳離れの折からか、止まらぬ激しい咳に苦しんでおりまして、薬師様より甘草こそがその苦しみを和らげる妙薬と聞き及びました。もしや、お持ちでございませぬか。なにとぞ、このおしげが幼子をお救いくださりませ。」\n[プレイヤーの反応]: 「これなる甘草は、わしが道中にてもしもの備えとせしもの。されど、斯くも哀れなる母の願い、幼子の命を前にしては…いかがあらん。」\n[承諾ボタン]: 「哀れなるかな、この甘草、幼子の命を繋ぐものとならば、惜しむべからず。受け取られよ。」\n[拒否ボタン]: 「まことに申し訳なし。あいにくと、持ち合わせがござらぬ。」\n[報酬授与のセリフ]: 「おお、まことにありがたき幸せ。この甘草、わが子の命の恩人にて候。なにとぞ、つまらぬものにてはございまするが、せめてものお礼に、この米二升をお受け取りくだされませ。まこと、まこと、感謝の念に堪えませぬ。」\n[成功の結び]: 「この甘草のお陰にて、きっとわが子も息災を取り戻し、健やかに育ちましょう。旅のお方様、この度はお心の施し、まことにありがたき幸せにございます。なにとぞ、道中ご無事に。いずれまたお目にかかることもあるやもしれませぬ。まこと、まことにありがとうございました。」\n[拒否の結び]: 「さようでございますか…まことに、このおしげ、力及ばず、情けなき限り。されど、我が子の命、いかでか諦められましょう。この道なき世にて、いかなる手立てを尽くそうとも、この子のために、この母、歩みを止めはいたしませぬ。」\n",
-    "title": "甘草を求むおしげの願い",
-    "villagerName": "おしげ",
-    "createdAt": "2026-03-27T13:11:10.345Z",
-    "tags": [
-      "生薬依頼",
-      "おしげ",
-      "甘草"
-    ]
+    "createdAt": "2026-03-27T13:11:10.345Z"
   },
   {
     "id": "SS3U7Dy8AnkaWyguQqGM",
-    "nodes": [
-      {
-        "type": "start",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "readingText": "う〜ん、くるしいよ〜ふねがあんなにゆれるものだとはおもってもみなかったよ〜",
-        "speakerName": "伯耆",
-        "id": "node-1",
-        "expressionName": "苦しい表情",
-        "audioUrl": "media/audios/file_597_1774650294605.wav",
-        "nextStepId": "node-2",
-        "content": "う〜ん、苦しいよ〜\n船があんなに揺れるものだとは思っても見なかったよ〜"
-      },
-      {
-        "speakerName": "日蓮",
-        "type": "story",
-        "id": "node-2",
-        "audioUrl": "media/audios/file_598_1774650294605.wav",
-        "nextStepId": "node-3",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "readingText": "ほうきはふねにのったのははじめてだったか。こればっかりはおかのうえにいたのではきたえられないからな。ふなたびになれることもぶつどうしゅぎょうだとおもってしっかりいのりくろうをかみしめておくといいよ。これからさき、ふねにのることもおおくなるかもしれないからね。",
-        "content": "伯耆は船に乗ったのは初めてだったか。\nこればっかりは丘の上にいたのでは鍛えられないからな。\n船旅に慣れることも仏道修行だと思ってしっかり祈り苦労を噛み締めておくといいよ。\nこれから先、船に乗ることも多くなるかも知れないからね。"
-      },
-      {
-        "content": "そうですね〜\n仏法は厳しいですね〜\nせっかく法難をご一緒し、守り抜く覚悟でお供したのに、いきなり出鼻をくじかれたようで情けないです。",
-        "nextStepId": "node-4",
-        "audioUrl": "media/audios/file_599_1774650294605.wav",
-        "expressionName": "苦しい表情",
-        "id": "node-3",
-        "speakerName": "伯耆",
-        "readingText": "そうですね〜ぶっぽうはきびしいですね〜せっかくほうなんをごいっしょし、まもりぬくかくごでおともしたのに、いきなりでばなをくじかれたようでなさけないです。",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "type": "story"
-      },
-      {
-        "speakerName": "日蓮",
-        "type": "story",
-        "id": "node-4",
-        "audioUrl": "media/audios/file_600_1774650294605.wav",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-5",
-        "readingText": "ほうなんをうけとめようとするこころいきだけあればだいじょうぶ。ほうきはまだわかいからすぐにりっぱなにょせつしゅぎょうのぎょうじゃになれるよ。たのしみだな…",
-        "content": "法難を受け止めようとする心意気だけあれば大丈夫。\n伯耆はまだ若いからすぐに立派な如説修行の行者になれるよ。\n楽しみだな…"
-      },
-      {
-        "speakerName": "伯耆",
-        "id": "node-5",
-        "expressionName": "苦しい表情",
-        "type": "end",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "audioUrl": "media/audios/file_601_1774650294605.wav",
-        "readingText": "うーん…そういってもらえるのがせめてものすくいですが、いまはなみのおとさえうらめしいです。なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…",
-        "content": "う〜ん…\nそう言ってもらえるのがせめてもの救いですが、今は波の音さえ恨めしいです。\n南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…"
-      }
-    ],
-    "villagerId": "tTPwcEBQZSA6Bxl7JYcF",
-    "requiredFlag": "",
-    "plot": "浜辺で伯耆と日蓮が談話しています。",
-    "title": "浜辺の少年僧、船路の疲れに伏す",
-    "villagerName": "伯耆",
-    "createdAt": "2026-02-23T06:42:27.183Z",
     "tags": [
       "メイン"
-    ]
+    ],
+    "plot": "浜辺で伯耆と日蓮が談話しています。",
+    "requiredFlag": "",
+    "nodes": [
+      {
+        "nextStepId": "node-2",
+        "audioUrl": "media/audios/file_615_1775122200418.wav",
+        "expressionName": "苦しい表情",
+        "content": "う〜ん、苦しいよ〜\n船があんなに揺れるものだとは思っても見なかったよ〜",
+        "type": "start",
+        "id": "node-1",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "readingText": "う〜ん、くるしいよ〜ふねがあんなにゆれるものだとはおもってもみなかったよ〜",
+        "speakerName": "伯耆"
+      },
+      {
+        "id": "node-2",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "伯耆は船に乗ったのは初めてだったか。\nこればっかりは丘の上にいたのでは鍛えられないからな。\n船旅に慣れることも仏道修行だと思ってしっかり祈り苦労を噛み締めておくといいよ。\nこれから先、船に乗ることも多くなるかも知れないからね。",
+        "readingText": "ほうきはふねにのったのははじめてだったか。こればっかりはおかのうえにいたのではきたえられないからな。ふなたびになれることもぶつどうしゅぎょうだとおもってしっかりいのりくろうをかみしめておくといいよ。これからさき、ふねにのることもおおくなるかもしれないからね。",
+        "speakerName": "日蓮",
+        "nextStepId": "node-3",
+        "type": "story",
+        "audioUrl": "media/audios/file_616_1775122200418.wav"
+      },
+      {
+        "type": "story",
+        "readingText": "そうですね〜ぶっぽうはきびしいですね〜せっかくほうなんをごいっしょし、まもりぬくかくごでおともしたのに、いきなりでばなをくじかれたようでなさけないです。",
+        "speakerName": "伯耆",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-3",
+        "expressionName": "苦しい表情",
+        "audioUrl": "media/audios/file_617_1775122200418.wav",
+        "nextStepId": "node-4",
+        "content": "そうですね〜\n仏法は厳しいですね〜\nせっかく法難をご一緒し、守り抜く覚悟でお供したのに、いきなり出鼻をくじかれたようで情けないです。"
+      },
+      {
+        "id": "node-4",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "法難を受け止めようとする心意気だけあれば大丈夫。\n伯耆はまだ若いからすぐに立派な如説修行の行者になれるよ。\n楽しみだな…",
+        "readingText": "ほうなんをうけとめようとするこころいきだけあればだいじょうぶ。ほうきはまだわかいからすぐにりっぱなにょせつしゅぎょうのぎょうじゃになれるよ。たのしみだな…",
+        "speakerName": "日蓮",
+        "type": "story",
+        "nextStepId": "node-5",
+        "audioUrl": "media/audios/file_618_1775122200418.wav"
+      },
+      {
+        "expressionName": "苦しい表情",
+        "audioUrl": "media/audios/file_619_1775122200418.wav",
+        "type": "end",
+        "readingText": "うーん…そういってもらえるのがせめてものすくいですが、いまはなみのおとさえうらめしいです。なんみょうほうれんげきょう、なんみょうほうれんげきょう、なんみょうほうれんげきょう…",
+        "speakerName": "伯耆",
+        "content": "う〜ん…\nそう言ってもらえるのがせめてもの救いですが、今は波の音さえ恨めしいです。\n南妙法蓮華経、南妙法蓮華経、南妙法蓮華経…",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-5"
+      }
+    ],
+    "createdAt": "2026-02-23T06:42:27.183Z",
+    "villagerName": "伯耆",
+    "villagerId": "tTPwcEBQZSA6Bxl7JYcF",
+    "title": "浜辺の少年僧、船路の疲れに伏す"
   },
   {
     "id": "SdDuQUIJOPQ39uVSNt9L",
+    "villagerId": "wMSjRWzjMW8zmymdIxYk",
+    "villagerName": "うめ",
+    "title": "うめの頼み事：薪割り手伝い",
+    "plot": "【あらすじ】寒くなる前に、庭に積まれた木材を割って薪にする手伝いを頼む。\n\n【詳細】\n[依頼のセリフ]: 「そなたに頼みがある。冬の訪れは早う、庭に積みし木材をこのままにしては忍びない。寒くなる前に、これを割って薪にする手伝いを願いたい。まこと恐縮なれど、その労には米三升を差し上げよう。」\n[プレイヤーの反応]: うめの申し出に、伯耆はしばし思案に沈んだ。冬を越すには薪は欠かせぬもの。しかして、あの木材を割り、薪とするは骨の折れる仕事なれど、米三升とはありがたき申し出。寒き季節を前にして、これは見過ごせぬ助けとなろう。「承りましょう。」\n[承諾ボタン]: 「謹んでお受けいたしましょう。」\n[拒否ボタン]: 「まことに申し訳ござりませぬが、この度はご辞退申し上げまする。」\n[報酬授与のセリフ]: 「伯耆殿、よくぞこの難儀を成し遂げてくださった。まことに助かり申した。約束の米三升、確かにお納めくだされ。」\n[成功の結び]: 「伯耆殿、この度の御働き、まことに心より感謝申し上げます。今後とも、何かと頼み事もあるかと存じますれば、どうぞ、この縁をお見限りなきよう、よろしくお願い申し上げまする。」\n[拒否の結び]: 「左様でござりまするか。それは残念なれど、そなたにも何がしかの事情がおありと見え申す。またの機会に、このうめを助けてくだされ。」\n",
+    "requiredFlag": "",
     "tags": [
       "労働力",
       "うめ"
     ],
     "createdAt": "2026-03-27T12:15:21.123Z",
-    "villagerName": "うめ",
-    "title": "うめの頼み事：薪割り手伝い",
-    "plot": "【あらすじ】寒くなる前に、庭に積まれた木材を割って薪にする手伝いを頼む。\n\n【詳細】\n[依頼のセリフ]: 「そなたに頼みがある。冬の訪れは早う、庭に積みし木材をこのままにしては忍びない。寒くなる前に、これを割って薪にする手伝いを願いたい。まこと恐縮なれど、その労には米三升を差し上げよう。」\n[プレイヤーの反応]: うめの申し出に、伯耆はしばし思案に沈んだ。冬を越すには薪は欠かせぬもの。しかして、あの木材を割り、薪とするは骨の折れる仕事なれど、米三升とはありがたき申し出。寒き季節を前にして、これは見過ごせぬ助けとなろう。「承りましょう。」\n[承諾ボタン]: 「謹んでお受けいたしましょう。」\n[拒否ボタン]: 「まことに申し訳ござりませぬが、この度はご辞退申し上げまする。」\n[報酬授与のセリフ]: 「伯耆殿、よくぞこの難儀を成し遂げてくださった。まことに助かり申した。約束の米三升、確かにお納めくだされ。」\n[成功の結び]: 「伯耆殿、この度の御働き、まことに心より感謝申し上げます。今後とも、何かと頼み事もあるかと存じますれば、どうぞ、この縁をお見限りなきよう、よろしくお願い申し上げまする。」\n[拒否の結び]: 「左様でござりまするか。それは残念なれど、そなたにも何がしかの事情がおありと見え申す。またの機会に、このうめを助けてくだされ。」\n",
-    "requiredFlag": "",
-    "villagerId": "wMSjRWzjMW8zmymdIxYk",
     "nodes": [
       {
-        "nextStepId": "node-2",
+        "id": "node-1",
         "speakerId": "wMSjRWzjMW8zmymdIxYk",
-        "audioUrl": "media/audios/file_602_1774650294605.wav",
         "content": "「そなたに頼みがある。冬の訪れは早う、庭に積みし木材をこのままにしては忍びない。寒くなる前に、これを割って薪にする手伝いを願いたい。まこと恐縮なれど、その労には米三升を差し上げよう。」",
         "speakerName": "うめ",
-        "id": "node-1",
-        "type": "start"
+        "nextStepId": "node-2",
+        "type": "start",
+        "audioUrl": "media/audios/file_620_1775122200418.wav"
       },
       {
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "content": "うめの申し出に、伯耆はしばし思案に沈んだ。冬を越すには薪は欠かせぬもの。しかして、あの木材を割り、薪とするは骨の折れる仕事なれど、米三升とはありがたき申し出。寒き季節を前にして、これは見過ごせぬ助けとなろう。「承りましょう。」",
         "id": "node-2",
-        "type": "choice",
         "speakerName": "伯耆",
+        "type": "choice",
         "choices": [
           {
             "nextStepId": "node-3",
@@ -1537,57 +1652,261 @@
             "text": "「まことに申し訳ござりませぬが、この度はご辞退申し上げまする。」"
           }
         ],
-        "content": "うめの申し出に、伯耆はしばし思案に沈んだ。冬を越すには薪は欠かせぬもの。しかして、あの木材を割り、薪とするは骨の折れる仕事なれど、米三升とはありがたき申し出。寒き季節を前にして、これは見過ごせぬ助けとなろう。「承りましょう。」",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "audioUrl": "media/audios/file_603_1774650294605.wav"
+        "audioUrl": "media/audios/file_621_1775122200418.wav"
       },
       {
-        "nextStepId": "node-4",
-        "speakerId": "wMSjRWzjMW8zmymdIxYk",
-        "audioUrl": "media/audios/file_604_1774650294605.wav",
+        "audioUrl": "media/audios/file_622_1775122200418.wav",
         "reward": {
           "amount": 300
         },
-        "content": "「伯耆殿、よくぞこの難儀を成し遂げてくださった。まことに助かり申した。約束の米三升、確かにお納めくだされ。」",
+        "type": "reward",
+        "nextStepId": "node-4",
         "speakerName": "うめ",
         "id": "node-3",
-        "type": "reward"
+        "content": "「伯耆殿、よくぞこの難儀を成し遂げてくださった。まことに助かり申した。約束の米三升、確かにお納めくだされ。」",
+        "speakerId": "wMSjRWzjMW8zmymdIxYk"
       },
       {
         "id": "node-4",
-        "type": "end",
-        "speakerName": "うめ",
-        "content": "「伯耆殿、この度の御働き、まことに心より感謝申し上げます。今後とも、何かと頼み事もあるかと存じますれば、どうぞ、この縁をお見限りなきよう、よろしくお願い申し上げまする。」",
         "speakerId": "wMSjRWzjMW8zmymdIxYk",
-        "audioUrl": "media/audios/file_605_1774650294605.wav"
+        "content": "「伯耆殿、この度の御働き、まことに心より感謝申し上げます。今後とも、何かと頼み事もあるかと存じますれば、どうぞ、この縁をお見限りなきよう、よろしくお願い申し上げまする。」",
+        "speakerName": "うめ",
+        "type": "end",
+        "audioUrl": "media/audios/file_623_1775122200418.wav"
       },
       {
-        "type": "end",
         "id": "node-5",
-        "speakerName": "うめ",
+        "speakerId": "wMSjRWzjMW8zmymdIxYk",
         "content": "「左様でござりまするか。それは残念なれど、そなたにも何がしかの事情がおありと見え申す。またの機会に、このうめを助けてくだされ。」",
-        "audioUrl": "media/audios/file_606_1774650294605.wav",
-        "speakerId": "wMSjRWzjMW8zmymdIxYk"
+        "speakerName": "うめ",
+        "type": "end",
+        "audioUrl": "media/audios/file_624_1775122200418.wav"
       }
     ]
   },
   {
-    "id": "U13HJgFxUvfSKN4OEf3I",
-    "villagerId": "0qRyop1RAw8TsEnICzbm",
+    "id": "TAlqjpEUdteTzTWXZ61u",
+    "title": "波恵の悩み",
+    "createdAt": "2026-04-02T07:26:07.887Z",
+    "plot": "息子を亡くされた、波恵さんの悩み。\n",
     "nodes": [
       {
-        "id": "node-1",
         "type": "start",
-        "speakerName": "おとみ",
-        "content": "「旅のお方様、どうかお聞き届けくだされ。わらべが深き傷を負い、その傷口は膿み爛れて熱に浮かされ、今にも息絶えんとしております。聞けば、伯耆様は山梔子という薬草の効能を知るとか。どうか、どうかその霊験あらたかなる山梔子を、この哀れなる母に、譲っていただけませぬか。わらべの命、ひとえに伯耆様のお慈悲にかかっております。どうか、お慈悲を賜りたく、心よりお願い奉りまする。」",
         "nextStepId": "node-2",
-        "speakerId": "0qRyop1RAw8TsEnICzbm",
-        "audioUrl": "media/audios/file_607_1774650294605.wav"
+        "audioUrl": "media/audios/file_625_1775122200418.wav",
+        "content": "こんにちは、波恵さん。私は先日から弥三郎さんのところでお世話になっている。日蓮と申す、僧です。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "readingText": "こんにちは、はえさん。わたしはせんじつからやさぶろうさんのところでおせわになっている。にちれんともうす、そうです。",
+        "speakerName": "日蓮",
+        "id": "node-1"
       },
       {
-        "content": "この切なる願いを退けるは、人の道に外れよう。旅路の安寧もまた大事なれど、幼き命には代えがたし。我が持ちし山梔子、この子にこそ必要であろう。",
-        "id": "node-2",
-        "type": "choice",
+        "type": "story",
+        "nextStepId": "node-3",
+        "audioUrl": "media/audios/file_626_1775122200418.wav",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "content": "波恵ちゃん、今日はちゃんとご飯を食べたのかい？\nお前さんがあんまりにも落ち込んでいるから、心配で、日蓮さんに来てもらったんだよ。\n息子さんのことは残念だったけど、早く、元気を出してほしくってね。",
+        "readingText": "なえちゃん、きょうはちゃんとごはんをたべたのかい？おまえさんがあんまりにもおちこんでいるから、しんぱいで、にちれんさんにきてもらったんだよ。むすこさんのことはざんねんだったけど、はやく、げんきをだしてほしくってね。",
+        "speakerName": "凪咲",
+        "id": "node-2"
+      },
+      {
+        "id": "node-3",
+        "speakerName": "浪恵",
+        "readingText": "………………",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl",
+        "content": "………………",
+        "audioUrl": "media/audios/file_627_1775122200418.wav",
+        "nextStepId": "node-1775115292926-at06y",
+        "type": "story"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1775115324004-6ya37",
+        "audioUrl": "media/audios/file_628_1775122200418.wav",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "content": "ご飯くらいはちゃんと食べないとダメだよ。",
+        "speakerName": "凪咲",
+        "readingText": "ごはんくらいはちゃんとたべないとだめだよ。",
+        "id": "node-1775115292926-at06y"
+      },
+      {
+        "id": "node-1775115324004-6ya37",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl",
+        "content": "ありがとう。でも、食欲がなくって…",
+        "speakerName": "浪恵",
+        "readingText": "本日は晴天なり、ありがとう。でも、しょくよくがなくって…",
+        "audioUrl": "media/audios/file_629_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1775115348302-81pc8"
+      },
+      {
+        "id": "node-1775115348302-81pc8",
+        "content": "………\n先生、波恵ちゃんは、この通り、なかなか元気を出せなくてね。\n私も子を持つ親として、気持ちはわからないではないのだけどね…",
+        "speakerId": "7H41aASWF8ULMczjdf8s",
+        "readingText": "せんせい、なみえちゃんは、このとおり、なかなかげんきをだせなくてね。わたしもこをもつおやとして、きもちはわからないではないのだけどね…",
+        "speakerName": "凪咲",
+        "audioUrl": "media/audios/file_630_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1775115454418-larnr"
+      },
+      {
+        "id": "node-1775115454418-larnr",
+        "content": "波恵さん、凪咲さんからご子息を亡くされたと、お伺いしました。\n大変にお悔やみ申し上げます。是非ともご供養させていただければと思うのですが、いかがでしょうか？",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
+        "readingText": "なえさん、なぎささんからごしそくをなくされたと、おうかがいしました。たいへんにおくやみもうしあげます。ぜひともごくようさせていただければとおもうのですが、いかがでしょうか？",
+        "audioUrl": "media/audios/file_631_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1775115752257-xj4aq"
+      },
+      {
+        "nextStepId": "node-1775115896698-i6ilt",
+        "type": "story",
+        "audioUrl": "media/audios/file_632_1775122200418.wav",
+        "readingText": "むすこは、むすこはどうなったのでしょうか？",
+        "speakerName": "浪恵",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl",
+        "content": "息子は、息子はどうなったのでしょうか？",
+        "id": "node-1775115752257-xj4aq"
+      },
+      {
+        "nextStepId": "node-1775115918662-nt5q4",
+        "type": "story",
+        "id": "node-1775115896698-i6ilt",
+        "readingText": "！？",
+        "speakerName": "日蓮",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "！？"
+      },
+      {
+        "audioUrl": "media/audios/file_633_1775122200418.wav",
+        "nextStepId": "node-1775116113691-d6w86",
+        "type": "story",
+        "id": "node-1775115918662-nt5q4",
+        "readingText": "ねんぶつしゅうのかたから、りょうしのこはじょうぶつできない、じごくにおちるといわれました。ほんとうにそうなのでしょうか？うぅ…ぅ…",
+        "speakerName": "浪恵",
+        "content": "念仏宗の方から、漁師の子は成仏できない、地獄に堕ちると言われました。\n本当にそうなのでしょうか？\nうぅ…ぅ…",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1775116406809-ayt4c",
+        "audioUrl": "media/audios/file_634_1775122200418.wav",
+        "content": "絶対にそんな事はありません！！\n子を想う母の祈りが子供を成仏に導かないわけがありません。波恵さんがこんなにも子供の死を悲しんでいるのなら、私は息子さんの成仏を確信できます。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "readingText": "ぜったいにそんなことはありません！！こをおもうははのいのりがこどもをじょうぶつにみちびかないわけがありません。なみえさんがこんなにもこどものしをかなしんでいるのなら、わたしはむすこさんのじょうぶつをかくしんできます。",
+        "speakerName": "日蓮",
+        "id": "node-1775116113691-d6w86"
+      },
+      {
+        "id": "node-1775116406809-ayt4c",
+        "content": "で、でも、私には、息子が成仏できていないように思えて…\nうぅ…ぅ…",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl",
+        "readingText": "で、でも、わたしには、むすこがじょうぶつできていないようにおもえて…うぅ…ぅ…",
+        "speakerName": "浪恵",
+        "audioUrl": "media/audios/file_635_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1775116531661-r1sfw"
+      },
+      {
+        "nextStepId": "node-1775117184884-0zbaq",
+        "type": "story",
+        "audioUrl": "media/audios/file_636_1775122200418.wav",
+        "readingText": "それは、とてもつらいですね。ねんぶつしゅうはじぶんたちのきょうぎのしんぴょうせいをたかめるために、しょうすうじゃくしゃのしをふそんなものとしているのです。だまされてはいけません。ひとのしのそんげんはみぶんやたちばできまるものではけっしてありません。ぎゃくにえらそうなぼうずほどみずからのしがけっしてじょうぶつにはつうじないと、こころのおくそこにあるからこそ、じゃくしゃをいたぶってじぶんをなっとくさせているのです。そんなひれつなげろうのことばにみみをかたむけて、かなしんでしまうのであれば、むすこさんのためにもなりません。どうか、かおをあげ、げんきをだしてください。",
+        "speakerName": "日蓮",
+        "content": "それは、とても辛いですね。念仏宗は自分たちの教義の信憑性を高めるために、少数弱者の死を不遜なものとしているのです。\n騙されてはいけません。人の死の尊厳は身分や立場で決まるものでは決してありません。\n逆に偉そうな坊主ほど自らの死が決して成仏には通じないと、心の奥底にあるからこそ、弱者をいたぶって自分を納得させているのです。\nそんな卑劣な下郎の言葉に耳を傾けて、悲しんでしまうのであれば、息子さんのためにもなりません。\nどうか、顔を上げ、元気を出してください。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1775116531661-r1sfw"
+      },
+      {
+        "audioUrl": "media/audios/file_637_1775122200418.wav",
+        "type": "story",
+        "id": "node-1775117184884-0zbaq",
+        "readingText": "で、でも、わたしは……わたしは……むすこにあいたい…うぅ…ぅ…",
+        "speakerName": "浪恵",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl",
+        "content": "で、でも、私は……私は……息子に会いたい…\nうぅ…ぅ…"
+      },
+      {
+        "readingText": "ひとにとってのしはまぬかれがたいしゅくごうですが、よりおおきなしてんにたってじぶんたちをふかんしてみることができるなら、われわれはりょうじゅせんというところで、いつでも、だれとでも、あいまみえることができます。わたしもあにをなくしていますが、わたしのいのりがあにをじょうぶつへとみちびくことができ、りょうじゅせんでいつでもあにをかんじることができます。",
+        "speakerName": "日蓮",
+        "content": "人にとっての死は免れがたい宿業ですが、より大きな視点に立って自分たちを俯瞰して観ることが出来るなら、我々は霊鷲山というところで、いつでも、誰とでも、相まみえることが出来ます。\n私も兄を亡くしていますが、私の祈りが兄を成仏へと導くことが出来、霊鷲山でいつでも兄を観じる事ができます。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1775116233124-9deng",
+        "nextStepId": "node-1775117396166-we9gi",
+        "type": "story",
+        "audioUrl": "media/audios/file_638_1775122200418.wav"
+      },
+      {
+        "id": "node-1775117396166-we9gi",
+        "readingText": "わたしもおさなきころ、ちちをなくしました。しかし、「なむみょうほうれんげきょう」のいのりとともにちちをかんじることができました。かんたんには、のりこえられないかなしみですが、ぜひ、わたしどものいのりとともにかなしみをのりこえさせていただけないでしょうか？",
+        "speakerName": "伯耆",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "content": "私も幼き頃、父をなくしました。しかし、「南無妙法蓮華経」の祈りと共に父を観じる事が出来ました。簡単には、乗り越えられない悲しみですが、是非、私共の祈りと共に悲しみを乗り越えさせていただけないでしょうか？",
+        "audioUrl": "media/audios/file_639_1775122200418.wav",
+        "nextStepId": "node-1775118507073-idy5j",
+        "type": "story"
+      },
+      {
+        "type": "story",
+        "audioUrl": "media/audios/file_640_1775122200418.wav",
+        "readingText": "わ、わかりました。では、むすこのはかにくようしてやってください。",
+        "speakerName": "浪恵",
+        "content": "わ、わかりました。では、息子の墓に供養してやってください。",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl",
+        "id": "node-1775118507073-idy5j"
+      },
+      {
+        "readingText": "では、さっそくむかいましょう。",
+        "speakerName": "日蓮",
+        "content": "では、早速向かいましょう。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1775118374577-rwgqi",
+        "nextStepId": "node-4",
+        "type": "story",
+        "audioUrl": "media/audios/file_641_1775122200418.wav"
+      },
+      {
+        "id": "node-4",
+        "speakerName": "浪恵",
+        "readingText": "よろしくおねがいします。",
+        "content": "よろしくおねがいします。",
+        "speakerId": "aFKX7xVf5xHVhBt0uDxl",
+        "audioUrl": "media/audios/file_642_1775122200418.wav",
+        "type": "end"
+      }
+    ],
+    "villagerName": null,
+    "villagerId": null,
+    "tags": [
+      "サブ"
+    ],
+    "requiredFlag": ""
+  },
+  {
+    "id": "U13HJgFxUvfSKN4OEf3I",
+    "villagerId": "0qRyop1RAw8TsEnICzbm",
+    "villagerName": "おとみ",
+    "title": "伯耆と山梔子の傷薬",
+    "plot": "【あらすじ】村娘おとみの幼き子が深き傷を負い、その傷口は膿み爛れて熱を発しております。旅人伯耆は山梔子の薬効を知ると聞き、おとみは子を救うため、その生薬を探す旅に出るよう懇願します。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方様、どうかお聞き届けくだされ。わらべが深き傷を負い、その傷口は膿み爛れて熱に浮かされ、今にも息絶えんとしております。聞けば、伯耆様は山梔子という薬草の効能を知るとか。どうか、どうかその霊験あらたかなる山梔子を、この哀れなる母に、譲っていただけませぬか。わらべの命、ひとえに伯耆様のお慈悲にかかっております。どうか、お慈悲を賜りたく、心よりお願い奉りまする。」\n[プレイヤーの反応]: この切なる願いを退けるは、人の道に外れよう。旅路の安寧もまた大事なれど、幼き命には代えがたし。我が持ちし山梔子、この子にこそ必要であろう。\n[承諾ボタン]: 「心得たり、母御よ。この山梔子、授け申そう。」\n[拒否ボタン]: 「あいにくと、今は持ち合わせぬ。まことに心苦しきことなれど…」\n[報酬授与のセリフ]: 「ああ、伯耆様！この身に余るお慈悲、まことに、まことにありがたき幸せにございます。わらべの命を救い給うたこのご恩、いかようにお返し申すべきか…。つきましては、まことに粗末なものなれど、心ばかりの御礼として、この米二升、どうかお受け取りくだされ。これしきばかりでは、ご恩の万分の一にも及び申さぬが…。」\n[成功の結び]: 「ああ、伯耆様。この山梔子のおかげにて、わらべが息を吹き返す日も遠くなかろうと存じます。これもひとえに、伯耆様のお慈悲ゆえ。わらべともども、このご恩、生涯忘れはせぬ。伯耆様も道中ご無事で、またいずれ、どこかでお目にかかることもありましょうや。その折には、このご恩、改めて御礼申し上げとうございます。まことに、まことにありがとうございました。神仏のご加護、伯耆様にもあらんことを。」\n[拒否の結び]: 「さようでございますか…。まことに心苦しきことと存じまする。されど、このわらべの命、母たるこの身が、いかようになろうとも、自ら探し求めるより他ございませぬ。これもまた、わらべの運命（さだめ）にございますか…。」\n",
+    "tags": [
+      "生薬依頼",
+      "おとみ",
+      "山梔子"
+    ],
+    "createdAt": "2026-03-27T13:12:59.917Z",
+    "nodes": [
+      {
+        "audioUrl": "media/audios/file_643_1775122200418.wav",
+        "type": "start",
+        "nextStepId": "node-2",
+        "speakerName": "おとみ",
+        "speakerId": "0qRyop1RAw8TsEnICzbm",
+        "content": "「旅のお方様、どうかお聞き届けくだされ。わらべが深き傷を負い、その傷口は膿み爛れて熱に浮かされ、今にも息絶えんとしております。聞けば、伯耆様は山梔子という薬草の効能を知るとか。どうか、どうかその霊験あらたかなる山梔子を、この哀れなる母に、譲っていただけませぬか。わらべの命、ひとえに伯耆様のお慈悲にかかっております。どうか、お慈悲を賜りたく、心よりお願い奉りまする。」",
+        "id": "node-1"
+      },
+      {
         "choices": [
           {
             "text": "「心得たり、母御よ。この山梔子、授け申そう。」",
@@ -1599,72 +1918,69 @@
             "nextStepId": "node-5",
             "text": "「あいにくと、今は持ち合わせぬ。まことに心苦しきことなれど…」"
           }
-        ]
+        ],
+        "type": "choice",
+        "content": "この切なる願いを退けるは、人の道に外れよう。旅路の安寧もまた大事なれど、幼き命には代えがたし。我が持ちし山梔子、この子にこそ必要であろう。",
+        "id": "node-2"
       },
       {
-        "id": "node-3",
-        "type": "reward",
-        "speakerName": "おとみ",
-        "content": "「ああ、伯耆様！この身に余るお慈悲、まことに、まことにありがたき幸せにございます。わらべの命を救い給うたこのご恩、いかようにお返し申すべきか…。つきましては、まことに粗末なものなれど、心ばかりの御礼として、この米二升、どうかお受け取りくだされ。これしきばかりでは、ご恩の万分の一にも及び申さぬが…。」",
-        "nextStepId": "node-4",
-        "speakerId": "0qRyop1RAw8TsEnICzbm",
-        "audioUrl": "media/audios/file_608_1774650294605.wav",
+        "audioUrl": "media/audios/file_644_1775122200418.wav",
         "reward": {
           "amount": 200
-        }
+        },
+        "nextStepId": "node-4",
+        "type": "reward",
+        "speakerName": "おとみ",
+        "id": "node-3",
+        "content": "「ああ、伯耆様！この身に余るお慈悲、まことに、まことにありがたき幸せにございます。わらべの命を救い給うたこのご恩、いかようにお返し申すべきか…。つきましては、まことに粗末なものなれど、心ばかりの御礼として、この米二升、どうかお受け取りくだされ。これしきばかりでは、ご恩の万分の一にも及び申さぬが…。」",
+        "speakerId": "0qRyop1RAw8TsEnICzbm"
+      },
+      {
+        "type": "end",
+        "audioUrl": "media/audios/file_645_1775122200418.wav",
+        "content": "「ああ、伯耆様。この山梔子のおかげにて、わらべが息を吹き返す日も遠くなかろうと存じます。これもひとえに、伯耆様のお慈悲ゆえ。わらべともども、このご恩、生涯忘れはせぬ。伯耆様も道中ご無事で、またいずれ、どこかでお目にかかることもありましょうや。その折には、このご恩、改めて御礼申し上げとうございます。まことに、まことにありがとうございました。神仏のご加護、伯耆様にもあらんことを。」",
+        "speakerId": "0qRyop1RAw8TsEnICzbm",
+        "id": "node-4",
+        "speakerName": "おとみ"
       },
       {
         "speakerName": "おとみ",
-        "id": "node-4",
-        "type": "end",
-        "speakerId": "0qRyop1RAw8TsEnICzbm",
-        "audioUrl": "media/audios/file_609_1774650294605.wav",
-        "content": "「ああ、伯耆様。この山梔子のおかげにて、わらべが息を吹き返す日も遠くなかろうと存じます。これもひとえに、伯耆様のお慈悲ゆえ。わらべともども、このご恩、生涯忘れはせぬ。伯耆様も道中ご無事で、またいずれ、どこかでお目にかかることもありましょうや。その折には、このご恩、改めて御礼申し上げとうございます。まことに、まことにありがとうございました。神仏のご加護、伯耆様にもあらんことを。」"
-      },
-      {
-        "content": "「さようでございますか…。まことに心苦しきことと存じまする。されど、このわらべの命、母たるこの身が、いかようになろうとも、自ら探し求めるより他ございませぬ。これもまた、わらべの運命（さだめ）にございますか…。」",
-        "speakerId": "0qRyop1RAw8TsEnICzbm",
-        "audioUrl": "media/audios/file_610_1774650294605.wav",
         "id": "node-5",
-        "type": "end",
-        "speakerName": "おとみ"
+        "speakerId": "0qRyop1RAw8TsEnICzbm",
+        "content": "「さようでございますか…。まことに心苦しきことと存じまする。されど、このわらべの命、母たるこの身が、いかようになろうとも、自ら探し求めるより他ございませぬ。これもまた、わらべの運命（さだめ）にございますか…。」",
+        "audioUrl": "media/audios/file_646_1775122200418.wav",
+        "type": "end"
       }
-    ],
-    "title": "伯耆と山梔子の傷薬",
-    "plot": "【あらすじ】村娘おとみの幼き子が深き傷を負い、その傷口は膿み爛れて熱を発しております。旅人伯耆は山梔子の薬効を知ると聞き、おとみは子を救うため、その生薬を探す旅に出るよう懇願します。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方様、どうかお聞き届けくだされ。わらべが深き傷を負い、その傷口は膿み爛れて熱に浮かされ、今にも息絶えんとしております。聞けば、伯耆様は山梔子という薬草の効能を知るとか。どうか、どうかその霊験あらたかなる山梔子を、この哀れなる母に、譲っていただけませぬか。わらべの命、ひとえに伯耆様のお慈悲にかかっております。どうか、お慈悲を賜りたく、心よりお願い奉りまする。」\n[プレイヤーの反応]: この切なる願いを退けるは、人の道に外れよう。旅路の安寧もまた大事なれど、幼き命には代えがたし。我が持ちし山梔子、この子にこそ必要であろう。\n[承諾ボタン]: 「心得たり、母御よ。この山梔子、授け申そう。」\n[拒否ボタン]: 「あいにくと、今は持ち合わせぬ。まことに心苦しきことなれど…」\n[報酬授与のセリフ]: 「ああ、伯耆様！この身に余るお慈悲、まことに、まことにありがたき幸せにございます。わらべの命を救い給うたこのご恩、いかようにお返し申すべきか…。つきましては、まことに粗末なものなれど、心ばかりの御礼として、この米二升、どうかお受け取りくだされ。これしきばかりでは、ご恩の万分の一にも及び申さぬが…。」\n[成功の結び]: 「ああ、伯耆様。この山梔子のおかげにて、わらべが息を吹き返す日も遠くなかろうと存じます。これもひとえに、伯耆様のお慈悲ゆえ。わらべともども、このご恩、生涯忘れはせぬ。伯耆様も道中ご無事で、またいずれ、どこかでお目にかかることもありましょうや。その折には、このご恩、改めて御礼申し上げとうございます。まことに、まことにありがとうございました。神仏のご加護、伯耆様にもあらんことを。」\n[拒否の結び]: 「さようでございますか…。まことに心苦しきことと存じまする。されど、このわらべの命、母たるこの身が、いかようになろうとも、自ら探し求めるより他ございませぬ。これもまた、わらべの運命（さだめ）にございますか…。」\n",
-    "villagerName": "おとみ",
-    "createdAt": "2026-03-27T13:12:59.917Z",
-    "tags": [
-      "生薬依頼",
-      "おとみ",
-      "山梔子"
     ]
   },
   {
     "id": "UFB3Bm2RC24Hz2cT8FD4",
-    "title": "幼子の命、大黄に懸けて",
+    "tags": [
+      "生薬依頼",
+      "おはな",
+      "大黄"
+    ],
     "plot": "【あらすじ】村人おはなの幼子が、高熱と激しい腹痛に苦しみ、何日も便秘が続き、村の薬師も匙を投げた。遠方の地にある生薬「大黄」のみが、子の命を救う力を持つと知り、おはなは通りがかった旅人伯耆に、その薬草を探し求めてくれるよう、涙ながらに懇願した。\n\n【詳細】\n[依頼のセリフ]: 「旅のお方、もしや仏様の御使いにておわすか。わが幼子が、幾日も高熱にうなされ、腹の底より湧きあがる痛みに悶え苦しみ、便りもなく、見る間に衰えゆくばかり。村の薬師も、もはや為す術なしと匙を投げ申しました。されど、遥か彼方の地に『大黄』という霊薬があるとか。かの薬草のみが、この子の命を繋ぎとめる力を持つと聞きまする。旅のお方、もしやその『大黄』をば、少しばかりなりともお持ちではございませぬか。どうか、どうか、この母の最後の願いにございます。わが子の命を救うため、ひとえに、その霊薬をばお譲りくだされませ。」\n[プレイヤーの反応]: この女の哀れな嘆き、わが胸を深くえぐる。この大黄は、遠き道のりにて得た貴重な薬なれど、目の前の幼子の命、まこと風前の灯火。仏の道に背くことなきや。心、千々に乱れるばかりなり。\n[承諾ボタン]: 「仏の御心、さだめし慈悲にあらん。この大黄、幼子の命を救うため、受け取られよ。」\n[拒否ボタン]: 「あなや、まことに心苦しきことなれど、この大黄、今は渡すこと叶わず。」\n[報酬授与のセリフ]: 「あなや、かたじけのうございます。まことに、まことに、このご恩、いかでか忘れましょう。仏の御心にて、わが子の命を救いくだされしこと、まことにありがたき幸せにございます。つまらぬものにてはございますが、せめてものお礼に、この米二升ばかりをば、どうぞお受け取りくだされ。」\n[成功の結び]: 「旅のお方、この深き慈悲、いかばかりか。大黄の霊験にて、わが子きっと息を吹き返し、やがては健やかに育ちましょう。これもひとえに、旅のお方のおかげにございます。道中の安寧を心よりお祈り申し上げる。どうぞ、くれぐれもお気をつけて。」\n[拒否の結び]: 「あなや、さだめしこれこそが、わが子の運命にて候いましょうか。されど、母の心、いまだ諦めきれませぬ。この身を削りてでも、かの大黄をば探し求め、わが子の命、繋ぎとめてみせましょう。旅のお方、これ以上のお頼みは叶わぬこと。どうぞ、お気をつけて旅を続けられませ。」\n",
-    "villagerId": "7WVudEcwgprud6DxaSiB",
     "nodes": [
       {
-        "content": "「旅のお方、もしや仏様の御使いにておわすか。わが幼子が、幾日も高熱にうなされ、腹の底より湧きあがる痛みに悶え苦しみ、便りもなく、見る間に衰えゆくばかり。村の薬師も、もはや為す術なしと匙を投げ申しました。されど、遥か彼方の地に『大黄』という霊薬があるとか。かの薬草のみが、この子の命を繋ぎとめる力を持つと聞きまする。旅のお方、もしやその『大黄』をば、少しばかりなりともお持ちではございませぬか。どうか、どうか、この母の最後の願いにございます。わが子の命を救うため、ひとえに、その霊薬をばお譲りくだされませ。」",
         "nextStepId": "node-2",
-        "speakerId": "7WVudEcwgprud6DxaSiB",
-        "audioUrl": "media/audios/file_611_1774650294605.wav",
-        "id": "node-1",
         "type": "start",
+        "audioUrl": "media/audios/file_647_1775122200418.wav",
+        "id": "node-1",
+        "speakerId": "7WVudEcwgprud6DxaSiB",
+        "content": "「旅のお方、もしや仏様の御使いにておわすか。わが幼子が、幾日も高熱にうなされ、腹の底より湧きあがる痛みに悶え苦しみ、便りもなく、見る間に衰えゆくばかり。村の薬師も、もはや為す術なしと匙を投げ申しました。されど、遥か彼方の地に『大黄』という霊薬があるとか。かの薬草のみが、この子の命を繋ぎとめる力を持つと聞きまする。旅のお方、もしやその『大黄』をば、少しばかりなりともお持ちではございませぬか。どうか、どうか、この母の最後の願いにございます。わが子の命を救うため、ひとえに、その霊薬をばお譲りくだされませ。」",
         "speakerName": "おはな"
       },
       {
         "type": "choice",
-        "id": "node-2",
         "content": "この女の哀れな嘆き、わが胸を深くえぐる。この大黄は、遠き道のりにて得た貴重な薬なれど、目の前の幼子の命、まこと風前の灯火。仏の道に背くことなきや。心、千々に乱れるばかりなり。",
+        "id": "node-2",
         "choices": [
           {
-            "requiredItemId": "rH9KDnQSdsW6rNcxFguh",
-            "lockedText": "「大黄」を持っていない...",
+            "nextStepId": "node-3",
             "text": "「仏の御心、さだめし慈悲にあらん。この大黄、幼子の命を救うため、受け取られよ。」",
-            "nextStepId": "node-3"
+            "lockedText": "「大黄」を持っていない...",
+            "requiredItemId": "rH9KDnQSdsW6rNcxFguh"
           },
           {
             "nextStepId": "node-5",
@@ -1673,342 +1989,409 @@
         ]
       },
       {
+        "speakerName": "おはな",
+        "id": "node-3",
         "content": "「あなや、かたじけのうございます。まことに、まことに、このご恩、いかでか忘れましょう。仏の御心にて、わが子の命を救いくだされしこと、まことにありがたき幸せにございます。つまらぬものにてはございますが、せめてものお礼に、この米二升ばかりをば、どうぞお受け取りくだされ。」",
+        "speakerId": "7WVudEcwgprud6DxaSiB",
+        "audioUrl": "media/audios/file_648_1775122200418.wav",
         "reward": {
           "amount": 200
         },
-        "audioUrl": "media/audios/file_612_1774650294605.wav",
-        "speakerId": "7WVudEcwgprud6DxaSiB",
         "nextStepId": "node-4",
-        "type": "reward",
-        "id": "node-3",
-        "speakerName": "おはな"
+        "type": "reward"
       },
       {
         "speakerName": "おはな",
-        "type": "end",
         "id": "node-4",
-        "audioUrl": "media/audios/file_613_1774650294605.wav",
         "speakerId": "7WVudEcwgprud6DxaSiB",
-        "content": "「旅のお方、この深き慈悲、いかばかりか。大黄の霊験にて、わが子きっと息を吹き返し、やがては健やかに育ちましょう。これもひとえに、旅のお方のおかげにございます。道中の安寧を心よりお祈り申し上げる。どうぞ、くれぐれもお気をつけて。」"
+        "content": "「旅のお方、この深き慈悲、いかばかりか。大黄の霊験にて、わが子きっと息を吹き返し、やがては健やかに育ちましょう。これもひとえに、旅のお方のおかげにございます。道中の安寧を心よりお祈り申し上げる。どうぞ、くれぐれもお気をつけて。」",
+        "audioUrl": "media/audios/file_649_1775122200418.wav",
+        "type": "end"
       },
       {
-        "type": "end",
-        "id": "node-5",
         "speakerName": "おはな",
+        "speakerId": "7WVudEcwgprud6DxaSiB",
         "content": "「あなや、さだめしこれこそが、わが子の運命にて候いましょうか。されど、母の心、いまだ諦めきれませぬ。この身を削りてでも、かの大黄をば探し求め、わが子の命、繋ぎとめてみせましょう。旅のお方、これ以上のお頼みは叶わぬこと。どうぞ、お気をつけて旅を続けられませ。」",
-        "audioUrl": "media/audios/file_614_1774650294605.wav",
-        "speakerId": "7WVudEcwgprud6DxaSiB"
+        "id": "node-5",
+        "audioUrl": "media/audios/file_650_1775122200418.wav",
+        "type": "end"
       }
     ],
-    "tags": [
-      "生薬依頼",
-      "おはな",
-      "大黄"
-    ],
+    "createdAt": "2026-03-27T13:15:17.790Z",
     "villagerName": "おはな",
-    "createdAt": "2026-03-27T13:15:17.790Z"
+    "villagerId": "7WVudEcwgprud6DxaSiB",
+    "title": "幼子の命、大黄に懸けて"
   },
   {
     "id": "hewHWkNa9vQZPiSyxdZ4",
+    "villagerId": null,
+    "villagerName": null,
+    "title": "新しい一歩",
+    "requiredFlag": "",
+    "plot": "日蓮と伯耆が伊豆の地で初めて起こす物語",
     "tags": [
       "メイン"
     ],
     "createdAt": "2026-03-27T19:54:23.905Z",
-    "villagerName": null,
-    "title": "新しい一歩",
-    "plot": "日蓮と伯耆が伊豆の地で初めて起こす物語",
-    "requiredFlag": "",
-    "villagerId": null,
     "nodes": [
       {
+        "speakerName": "日蓮",
         "readingText": "ほうきや、このあたりでみせをかまえることにしよう。",
+        "id": "node-1",
         "content": "伯耆や、この辺りで店を構えることにしよう。",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-2",
-        "audioUrl": "media/audios/file_615_1774650294605.wav",
-        "id": "node-1",
+        "audioUrl": "media/audios/file_651_1775122200418.wav",
         "type": "start",
-        "speakerName": "日蓮"
+        "nextStepId": "node-2"
       },
       {
-        "content": "思ったよりも賑わっていますね。これなら、十分、収益を上げられそうですね。",
-        "readingText": "おもったよりもにぎわっていますね。これなら、じゅうぶん、しゅうえきをあげられそうですね。",
-        "audioUrl": "media/audios/file_616_1774650294605.wav",
+        "audioUrl": "media/audios/file_652_1775122200418.wav",
         "nextStepId": "node-3",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
         "type": "story",
-        "id": "node-2",
-        "speakerName": "伯耆"
-      },
-      {
-        "readingText": "これこれ、しゅうえきのことばかりかんがえていてはだめだよ。このちには、こうせんるふをひらきにきたのだから、うりあげはすくなくても、まずはひととのこころのかべをとりはらうことにぜんりょくをつくそうよ。それが、さいしゅうてきなりえきにもつながるからね。",
-        "content": "これこれ、収益のことばかり考えていてはダメだよ。この地には、広宣流布を開きに来たのだから、売上は少なくても、まずは人との心の壁を取り払うことに全力を尽くそうよ。それが、最終的な利益にも繋がるからね。",
-        "nextStepId": "node-1774641773168-gngoz",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_617_1774650294605.wav",
-        "id": "node-3",
-        "type": "story",
-        "speakerName": "日蓮"
-      },
-      {
-        "nextStepId": "node-1774641789062-pioln",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "audioUrl": "media/audios/file_618_1774650294605.wav",
-        "content": "そうですね。私としたことが、まだまだ仏道修行が足りてなかったです。",
-        "readingText": "そうですね。わたしとしたことが、まだまだぶつどうしゅぎょうがたりてなかったです。",
+        "readingText": "おもったよりもにぎわっていますね。これなら、じゅうぶん、しゅうえきをあげられそうですね。",
         "speakerName": "伯耆",
+        "id": "node-2",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "content": "思ったよりも賑わっていますね。これなら、十分、収益を上げられそうですね。"
+      },
+      {
+        "type": "story",
+        "nextStepId": "node-1774641773168-gngoz",
+        "audioUrl": "media/audios/file_653_1775122200418.wav",
+        "id": "node-3",
+        "content": "これこれ、収益のことばかり考えていてはダメだよ。この地には、広宣流布を開きに来たのだから、売上は少なくても、まずは人との心の壁を取り払うことに全力を尽くそうよ。それが、最終的な利益にも繋がるからね。",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "speakerName": "日蓮",
+        "readingText": "これこれ、しゅうえきのことばかりかんがえていてはだめだよ。このちには、こうせんるふをひらきにきたのだから、うりあげはすくなくても、まずはひととのこころのかべをとりはらうことにぜんりょくをつくそうよ。それが、さいしゅうてきなりえきにもつながるからね。"
+      },
+      {
+        "speakerName": "伯耆",
+        "readingText": "そうですね。わたしとしたことが、まだまだぶつどうしゅぎょうがたりてなかったです。",
+        "content": "そうですね。私としたことが、まだまだ仏道修行が足りてなかったです。",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
         "id": "node-1774641773168-gngoz",
+        "audioUrl": "media/audios/file_654_1775122200418.wav",
+        "nextStepId": "node-1774641789062-pioln",
         "type": "story"
       },
       {
         "speakerName": "日蓮",
-        "id": "node-1774641789062-pioln",
-        "type": "story",
-        "nextStepId": "node-1774641861309-m00d5",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_619_1774650294605.wav",
         "readingText": "りゅうけいちとしてみぎもひだりもわからないじょうきょうだから、むりもないことかもしれないけれど、あんちょくなあんていをもとめてきたのではけっしてないということだけはわすれてはならないよ。",
-        "content": "流刑地として右も左もわからない状況だから、無理もないことかも知れないけれど、安直な安定を求めて来たのでは決してないということだけは忘れてはならないよ。"
+        "id": "node-1774641789062-pioln",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "流刑地として右も左もわからない状況だから、無理もないことかも知れないけれど、安直な安定を求めて来たのでは決してないということだけは忘れてはならないよ。",
+        "audioUrl": "media/audios/file_655_1775122200418.wav",
+        "type": "story",
+        "nextStepId": "node-1774641861309-m00d5"
       },
       {
-        "readingText": "まったく、おはずかしいかぎりです。ふあんなきもちにまけないようにしょうじんさせていただきます。なんみょうほうれんげきょう、なんみょうほうれんげきょう。ところで…これだけのじゅんびがよくすぐにできましたね。",
+        "id": "node-1774641861309-m00d5",
         "content": "全く、お恥ずかしい限りです。不安な気持ちに負けないように精進させていただきます。\n南無妙法蓮華経、南無妙法蓮華経\nところで…\nこれだけの準備がよくすぐに出来ましたね。",
         "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "readingText": "まったく、おはずかしいかぎりです。ふあんなきもちにまけないようにしょうじんさせていただきます。なんみょうほうれんげきょう、なんみょうほうれんげきょう。ところで…これだけのじゅんびがよくすぐにできましたね。",
+        "speakerName": "伯耆",
+        "type": "story",
         "nextStepId": "node-1774645082068-iht9w",
-        "audioUrl": "media/audios/file_620_1774650294605.wav",
-        "id": "node-1774641861309-m00d5",
-        "type": "story",
-        "speakerName": "伯耆"
+        "audioUrl": "media/audios/file_656_1775122200418.wav"
       },
       {
-        "readingText": "すこししゃっきんをしたからね。ゆいいつしのばせてもちこむことができたこばんをもとでにいっせきぶんのしゃっきんをしている。ひりつはたかくないけどきんをこめにかえてくれるぎょうしょうにんがいてよかった。やさぶろうさんといいこのちについて、いいめぐりあわせがあってよかったよ。",
-        "content": "少し借金をしたからね。唯一忍ばせて持ち込むことが出来た小判を元手に一石分の借金をしている。比率は高くないけど金を米に変えてくれる行商人がいてよかった。\n弥三郎さんといいこの地について、いいめぐり合わせがあってよかったよ。",
-        "audioUrl": "media/audios/file_621_1774650294605.wav",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "audioUrl": "media/audios/file_657_1775122200418.wav",
+        "type": "story",
         "nextStepId": "node-1774645665297-w1rpa",
-        "type": "story",
-        "id": "node-1774645082068-iht9w",
-        "speakerName": "日蓮"
-      },
-      {
-        "id": "node-1774645665297-w1rpa",
-        "type": "story",
-        "speakerName": "伯耆",
-        "readingText": "あのこばん、もうてばなしちゃったんですか？あれはきんごさんがごくようしてくださった、たいせつなものだったのに…",
-        "content": "あの小判、もう手放しちゃったんですか？\nあれは金吾さんがご供養してくださった、大切なものだったのに…",
-        "nextStepId": "node-1774646142789-i8jy5",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "audioUrl": "media/audios/file_622_1774650294605.wav"
-      },
-      {
-        "type": "story",
-        "id": "node-1774646142789-i8jy5",
         "speakerName": "日蓮",
-        "readingText": "きんごもこういうときのためにたくしてくれたとおもうけど、かれのまごころにこたえるためにもはやくとりもどしたいところだね。だいじょうぶ、すぐにかいしゅうできるとおもうよ。",
-        "content": "金吾もこういうときのために託してくれたと思うけど、彼の真心に応えるためにも早く取り戻したいところだね。\n大丈夫、すぐに回収できると思うよ。",
-        "audioUrl": "media/audios/file_623_1774650294605.wav",
+        "readingText": "すこししゃっきんをしたからね。ゆいいつしのばせてもちこむことができたこばんをもとでにいっせきぶんのしゃっきんをしている。ひりつはたかくないけどきんをこめにかえてくれるぎょうしょうにんがいてよかった。やさぶろうさんといいこのちについて、いいめぐりあわせがあってよかったよ。",
+        "id": "node-1774645082068-iht9w",
         "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "nextStepId": "node-1774646223066-m54an"
+        "content": "少し借金をしたからね。唯一忍ばせて持ち込むことが出来た小判を元手に一石分の借金をしている。比率は高くないけど金を米に変えてくれる行商人がいてよかった。\n弥三郎さんといいこの地について、いいめぐり合わせがあってよかったよ。"
       },
       {
+        "readingText": "あのこばん、もうてばなしちゃったんですか？あれはきんごさんがごくようしてくださった、たいせつなものだったのに…",
         "speakerName": "伯耆",
+        "content": "あの小判、もう手放しちゃったんですか？\nあれは金吾さんがご供養してくださった、大切なものだったのに…",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-1774645665297-w1rpa",
+        "audioUrl": "media/audios/file_658_1775122200418.wav",
+        "nextStepId": "node-1774646142789-i8jy5",
+        "type": "story"
+      },
+      {
+        "nextStepId": "node-1774646223066-m54an",
+        "type": "story",
+        "audioUrl": "media/audios/file_659_1775122200418.wav",
+        "id": "node-1774646142789-i8jy5",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "content": "金吾もこういうときのために託してくれたと思うけど、彼の真心に応えるためにも早く取り戻したいところだね。\n大丈夫、すぐに回収できると思うよ。",
+        "speakerName": "日蓮",
+        "readingText": "きんごもこういうときのためにたくしてくれたとおもうけど、かれのまごころにこたえるためにもはやくとりもどしたいところだね。だいじょうぶ、すぐにかいしゅうできるとおもうよ。"
+      },
+      {
         "type": "story",
         "nextStepId": "node-1774642035569-s4h65",
+        "audioUrl": "media/audios/file_660_1775122200418.wav",
         "id": "node-1774646223066-m54an",
-        "audioUrl": "media/audios/file_624_1774650294605.wav",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
         "content": "我々は多くの人に護られながら、この場所にいるんですね。\n法難の中にあっても、必ず護られると確信できますね！",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "speakerName": "伯耆",
         "readingText": "われわれはおおくのひとにまもられながら、このばしょにいるんですね。ほうなんのなかにあっても、かならずまもられるとかくしんできますね！"
       },
       {
-        "content": "その通りだ！\nそれでは、まずは、人を集めるために演奏をしよう。真心を込めて演奏すれば、きっと皆の心を開いてくれるはずだよ。\n",
-        "readingText": "そのとおりだ！それでは、まずは、ひとをあつめるためにえんそうをしよう。まごころをこめてえんそうすれば、きっとみんなのこころをひらいてくれるはずだよ。",
-        "nextStepId": "node-4",
-        "speakerId": "A44lygLrpBVZjTZD1EqT",
-        "audioUrl": "media/audios/file_625_1774650294605.wav",
-        "id": "node-1774642035569-s4h65",
+        "audioUrl": "media/audios/file_661_1775122200418.wav",
         "type": "story",
-        "speakerName": "日蓮"
+        "nextStepId": "node-4",
+        "speakerName": "日蓮",
+        "readingText": "そのとおりだ！それでは、まずは、ひとをあつめるためにえんそうをしよう。まごころをこめてえんそうすれば、きっとみんなのこころをひらいてくれるはずだよ。",
+        "content": "その通りだ！\nそれでは、まずは、人を集めるために演奏をしよう。真心を込めて演奏すれば、きっと皆の心を開いてくれるはずだよ。\n",
+        "speakerId": "A44lygLrpBVZjTZD1EqT",
+        "id": "node-1774642035569-s4h65"
       },
       {
-        "audioUrl": "media/audios/file_626_1774650294605.wav",
-        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
-        "readingText": "わかりました、せんせい、こころをこめてえんそうさせていただきます。",
-        "content": "分かりました、先生、心を込めて演奏させていただきます。",
-        "speakerName": "伯耆",
         "type": "end",
-        "id": "node-4"
+        "audioUrl": "media/audios/file_662_1775122200418.wav",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "content": "分かりました、先生、心を込めて演奏させていただきます。",
+        "id": "node-4",
+        "speakerName": "伯耆",
+        "readingText": "わかりました、せんせい、こころをこめてえんそうさせていただきます。"
       }
     ]
   },
   {
     "id": "k4FQ2Vz6z2hY1OL8ndTu",
-    "tags": [
-      "メイン"
-    ],
-    "createdAt": "2026-02-24T05:16:42.633Z",
-    "requiredFlag": "",
-    "plot": "オープニング",
     "title": "オープニング説明",
+    "createdAt": "2026-02-24T05:16:42.633Z",
     "nodes": [
       {
         "content": " 泉が砂漠をオアシスに変えるように、人間の生命から湧き出る慈悲と英知の泉をもって、この地球を平和の楽園へ、永遠の宝土へと転じゆくヒューマニズムの勝利を、我らは広宣流布と呼ぶ。\nー 新・人間革命6巻",
-        "readingText": "いずみがさばくをおあしすにかえるように、にんげんのせいめいからわきでるじひとえいちのいずみをもって、このちきゅうをへいわのらくえんえ、えいえんのほうどえとてんじゆくひゅーまにずむのしょうりを、われらは、こうせんるふと、よぶ。",
-        "nextStepId": "node-2",
         "speakerId": "olCEMKCl0vWKNZOIrj2g",
-        "audioUrl": "media/audios/file_627_1774650294605.wav",
         "id": "node-1",
+        "readingText": "いずみがさばくをおあしすにかえるように、にんげんのせいめいからわきでるじひとえいちのいずみをもって、このちきゅうをへいわのらくえんえ、えいえんのほうどえとてんじゆくひゅーまにずむのしょうりを、われらは、こうせんるふと、よぶ。",
+        "speakerName": "システム",
         "type": "start",
-        "speakerName": "システム"
+        "nextStepId": "node-2",
+        "audioUrl": "media/audios/file_663_1775122200418.wav"
       },
       {
-        "speakerId": "olCEMKCl0vWKNZOIrj2g",
-        "audioUrl": "media/audios/file_628_1774650294605.wav",
-        "content": "舞台は1261年、伊豆、日蓮は前年の立正安国論の提出を期に他宗の反感を買いこの地へと流罪になった。\nしかし、日蓮はこの流刑地にあって、広宣流布への情熱に燃え盛っていた。\nこの国の隅々にまで信心の火を灯せるチャンスとの想いでこの地に向かったのであった…",
-        "readingText": "ぶたいはせんにひゃくろくじゅういちねん、いず、にちれんはぜんねんのりっしょうあんこくろんのていしゅつをきにたしゅうのはんかんをかいこのちへと、るざいになった。しかし、にちれんわ、このるけいちにあって、こうせんるふへのじょうねつにもえさかっていた。このくにのすみずみにまでしんじんのひをともせるちゃんすとのおもいでこのちにむかったのであった…",
-        "speakerName": "システム",
         "id": "node-2",
-        "type": "end"
+        "speakerId": "olCEMKCl0vWKNZOIrj2g",
+        "content": "舞台は1261年、伊豆、日蓮は前年の立正安国論の提出を期に他宗の反感を買いこの地へと流罪になった。\nしかし、日蓮はこの流刑地にあって、広宣流布への情熱に燃え盛っていた。\nこの国の隅々にまで信心の火を灯せるチャンスとの想いでこの地に向かったのであった…",
+        "speakerName": "システム",
+        "readingText": "ぶたいはせんにひゃくろくじゅういちねん、いず、にちれんはぜんねんのりっしょうあんこくろんのていしゅつをきにたしゅうのはんかんをかいこのちへと、るざいになった。しかし、にちれんわ、このるけいちにあって、こうせんるふへのじょうねつにもえさかっていた。このくにのすみずみにまでしんじんのひをともせるちゃんすとのおもいでこのちにむかったのであった…",
+        "type": "end",
+        "audioUrl": "media/audios/file_664_1775122200418.wav"
       }
+    ],
+    "requiredFlag": "",
+    "plot": "オープニング",
+    "tags": [
+      "メイン"
     ]
   },
   {
     "id": "pGVyvTa7B4dk2Hk03lK8",
+    "villagerName": "おきぬ",
+    "villagerId": "kTJkUqV6tJjH4Ua06yE5",
+    "title": "幼子の命を繋ぐ大黄の願い",
     "tags": [
       "生薬依頼",
       "おきぬ",
       "大黄"
     ],
-    "villagerName": "おきぬ",
-    "createdAt": "2026-03-27T13:07:39.323Z",
     "plot": "【あらすじ】村人おきぬの幼子が、熱と激しい便秘に苦しみ、命の危険に瀕していた。旅の薬師である伯耆に、便通を促し熱を下げる唯一の望みである生薬「大黄」を求め助けを請うのであった。\n\n【詳細】\n[依頼のセリフ]: 「ああ、旅の薬師様、どうかお助けくだされ！ 私がおきぬと申します。幼子が熱にうなされ、幾日も便が出ぬまま、このままでは命が危ううございます。聞けば、大黄という生薬のみが、この苦しみを和らげ、熱を下げると申します。どうか、どうか、その大黄を少しばかりでもお譲りくださいませぬか。この命にかえても、子を救いとうございます。」\n[プレイヤーの反応]: おきぬと申す女の、子を案じる切なる声、耳に残る。この大黄、旅路の備えには貴重なれど、目の前の幼き命を見捨てるは、薬師の道にあらずや。いかなる決断をすべきか…\n[承諾ボタン]: 「案ずるな、おきぬ。子を救うは薬師の道。大黄、与えようぞ。」\n[拒否ボタン]: 「すまぬ。この大黄、旅路の備えには肝要なれば、今は分け与えられぬ。」\n[報酬授与のセリフ]: 「ああ、薬師様！ 仏様か観音様かのよう。これでこの子の命が繋がりまする。感謝の言葉もございませぬ。せめてものお礼に、粗末ではございますが、この米二升をどうかお受け取りくだされ。これほどの恩は、この身を以てしても返しきれませぬ。」\n[成功の結び]: 「薬師様、まことにありがとうございました。この大黄のおかげで、子の熱も引き、便通も整い始めました。これにて、この子の命、長らえしことと存じます。どうか、ご道中、くれぐれもご無事で。いつの日か、この恩をお返しできる日が来ることを、心より願っております。」\n[拒否の結び]: 「さようにございますか…。なれば、致し方ございませぬ。旅の薬師様にも、さぞや大切なもの、おありなればこそ。されど、我が子の命、見捨てるは親としてできませぬ。このおきぬ、いかなる手立てを用いようとも、必ずや、この子を救い出してみせまする。天がご覧あらば、きっと…」\n",
-    "title": "幼子の命を繋ぐ大黄の願い",
     "nodes": [
       {
-        "type": "start",
-        "id": "node-1",
         "speakerName": "おきぬ",
+        "id": "node-1",
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5",
         "content": "「ああ、旅の薬師様、どうかお助けくだされ！ 私がおきぬと申します。幼子が熱にうなされ、幾日も便が出ぬまま、このままでは命が危ううございます。聞けば、大黄という生薬のみが、この苦しみを和らげ、熱を下げると申します。どうか、どうか、その大黄を少しばかりでもお譲りくださいませぬか。この命にかえても、子を救いとうございます。」",
-        "audioUrl": "media/audios/file_629_1774650294605.wav",
-        "nextStepId": "node-2",
-        "speakerId": "kTJkUqV6tJjH4Ua06yE5"
-      },
-      {
-        "id": "node-2",
-        "content": "おきぬと申す女の、子を案じる切なる声、耳に残る。この大黄、旅路の備えには貴重なれど、目の前の幼き命を見捨てるは、薬師の道にあらずや。いかなる決断をすべきか…",
-        "type": "choice",
-        "choices": [
-          {
-            "nextStepId": "node-3",
-            "text": "「案ずるな、おきぬ。子を救うは薬師の道。大黄、与えようぞ。」",
-            "lockedText": "「大黄」を持っていない...",
-            "requiredItemId": "rH9KDnQSdsW6rNcxFguh"
-          },
-          {
-            "nextStepId": "node-5",
-            "text": "「すまぬ。この大黄、旅路の備えには肝要なれば、今は分け与えられぬ。」"
-          }
-        ]
-      },
-      {
-        "id": "node-3",
-        "type": "reward",
-        "speakerName": "おきぬ",
-        "content": "「ああ、薬師様！ 仏様か観音様かのよう。これでこの子の命が繋がりまする。感謝の言葉もございませぬ。せめてものお礼に、粗末ではございますが、この米二升をどうかお受け取りくだされ。これほどの恩は、この身を以てしても返しきれませぬ。」",
-        "speakerId": "kTJkUqV6tJjH4Ua06yE5",
-        "nextStepId": "node-4",
-        "audioUrl": "media/audios/file_630_1774650294605.wav",
-        "reward": {
-          "amount": 200
-        }
-      },
-      {
-        "type": "end",
-        "id": "node-4",
-        "speakerName": "おきぬ",
-        "content": "「薬師様、まことにありがとうございました。この大黄のおかげで、子の熱も引き、便通も整い始めました。これにて、この子の命、長らえしことと存じます。どうか、ご道中、くれぐれもご無事で。いつの日か、この恩をお返しできる日が来ることを、心より願っております。」",
-        "audioUrl": "media/audios/file_631_1774650294605.wav",
-        "speakerId": "kTJkUqV6tJjH4Ua06yE5"
-      },
-      {
-        "audioUrl": "media/audios/file_632_1774650294605.wav",
-        "speakerId": "kTJkUqV6tJjH4Ua06yE5",
-        "content": "「さようにございますか…。なれば、致し方ございませぬ。旅の薬師様にも、さぞや大切なもの、おありなればこそ。されど、我が子の命、見捨てるは親としてできませぬ。このおきぬ、いかなる手立てを用いようとも、必ずや、この子を救い出してみせまする。天がご覧あらば、きっと…」",
-        "speakerName": "おきぬ",
-        "type": "end",
-        "id": "node-5"
-      }
-    ],
-    "villagerId": "kTJkUqV6tJjH4Ua06yE5"
-  },
-  {
-    "id": "xTP2qpPddEbfWUlaWpIP",
-    "villagerName": "いね",
-    "createdAt": "2026-03-27T13:03:49.326Z",
-    "tags": [
-      "生薬依頼",
-      "いね",
-      "半夏"
-    ],
-    "nodes": [
-      {
+        "audioUrl": "media/audios/file_665_1775122200418.wav",
         "type": "start",
-        "id": "node-1",
-        "speakerName": "いね",
-        "content": "「お旅の方…！恐れながら、しばしお耳を傾けてくだされませぬか。このいね、幾日も、幾夜も、数刻と止まらぬ激しい咳に身を苛まれ、日に日に弱り果てておりまする。もはや、この命、風前の灯火…。されど、聞くところによれば、古より万病の咳を鎮めると伝わる「半夏」という尊き生薬があるとか。もしや、旅のお方様ならば、その所在をご存じではございませぬか…？どうか、どうか、このいねに、その半夏を譲り与え、この命を救ってくだされ…！伏してお願い申し上げまする…！」",
-        "audioUrl": "media/audios/file_633_1774650294605.wav",
-        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
         "nextStepId": "node-2"
       },
       {
         "choices": [
           {
-            "text": "「うむ、その苦痛、いと痛ましきかな。我が懐の半夏、汝に授けん。」",
-            "nextStepId": "node-3",
+            "requiredItemId": "rH9KDnQSdsW6rNcxFguh",
+            "lockedText": "「大黄」を持っていない...",
+            "text": "「案ずるな、おきぬ。子を救うは薬師の道。大黄、与えようぞ。」",
+            "nextStepId": "node-3"
+          },
+          {
+            "nextStepId": "node-5",
+            "text": "「すまぬ。この大黄、旅路の備えには肝要なれば、今は分け与えられぬ。」"
+          }
+        ],
+        "id": "node-2",
+        "content": "おきぬと申す女の、子を案じる切なる声、耳に残る。この大黄、旅路の備えには貴重なれど、目の前の幼き命を見捨てるは、薬師の道にあらずや。いかなる決断をすべきか…",
+        "type": "choice"
+      },
+      {
+        "type": "reward",
+        "nextStepId": "node-4",
+        "reward": {
+          "amount": 200
+        },
+        "audioUrl": "media/audios/file_666_1775122200418.wav",
+        "content": "「ああ、薬師様！ 仏様か観音様かのよう。これでこの子の命が繋がりまする。感謝の言葉もございませぬ。せめてものお礼に、粗末ではございますが、この米二升をどうかお受け取りくだされ。これほどの恩は、この身を以てしても返しきれませぬ。」",
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5",
+        "id": "node-3",
+        "speakerName": "おきぬ"
+      },
+      {
+        "speakerName": "おきぬ",
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5",
+        "content": "「薬師様、まことにありがとうございました。この大黄のおかげで、子の熱も引き、便通も整い始めました。これにて、この子の命、長らえしことと存じます。どうか、ご道中、くれぐれもご無事で。いつの日か、この恩をお返しできる日が来ることを、心より願っております。」",
+        "id": "node-4",
+        "audioUrl": "media/audios/file_667_1775122200418.wav",
+        "type": "end"
+      },
+      {
+        "audioUrl": "media/audios/file_668_1775122200418.wav",
+        "type": "end",
+        "speakerName": "おきぬ",
+        "id": "node-5",
+        "speakerId": "kTJkUqV6tJjH4Ua06yE5",
+        "content": "「さようにございますか…。なれば、致し方ございませぬ。旅の薬師様にも、さぞや大切なもの、おありなればこそ。されど、我が子の命、見捨てるは親としてできませぬ。このおきぬ、いかなる手立てを用いようとも、必ずや、この子を救い出してみせまする。天がご覧あらば、きっと…」"
+      }
+    ],
+    "createdAt": "2026-03-27T13:07:39.323Z"
+  },
+  {
+    "id": "xTP2qpPddEbfWUlaWpIP",
+    "villagerName": "いね",
+    "villagerId": "TFS6nW3oE8YYdiJ21M9R",
+    "title": "いねの咳と半夏",
+    "tags": [
+      "生薬依頼",
+      "いね",
+      "半夏"
+    ],
+    "plot": "【あらすじ】村娘いねは、数刻も止まらぬ激しい咳に苦しみ、日に日に衰弱していた。旅人伯耆に、古より咳を鎮めると伝わる生薬「半夏」の所在を尋ね、その命を救ってほしいと懇願した。\n\n【詳細】\n[依頼のセリフ]: 「お旅の方…！恐れながら、しばしお耳を傾けてくだされませぬか。このいね、幾日も、幾夜も、数刻と止まらぬ激しい咳に身を苛まれ、日に日に弱り果てておりまする。もはや、この命、風前の灯火…。されど、聞くところによれば、古より万病の咳を鎮めると伝わる「半夏」という尊き生薬があるとか。もしや、旅のお方様ならば、その所在をご存じではございませぬか…？どうか、どうか、このいねに、その半夏を譲り与え、この命を救ってくだされ…！伏してお願い申し上げまする…！」\n[プレイヤーの反応]: 斯様にも縋る眼差し、いと痛ましきかな。されど、我が懐に抱く半夏とて、遠き道のりを越えるには、いざという時の備え。はたして、この娘に与え、我が身に欠けること、如何なる報いをもたらすや。人の命の儚きこと、世の習いとは知りつつも、この哀れな訴えを退けるは、心苦しき限りなり。\n[承諾ボタン]: 「うむ、その苦痛、いと痛ましきかな。我が懐の半夏、汝に授けん。」\n[拒否ボタン]: 「あいにく、我が懐には、今は半夏を持たぬ。」\n[報酬授与のセリフ]: 「ああ、ありがたき幸せ！このいねの命、まことに救われ申した…！これほど尊き半夏を、見ず知らずのわたくしめに分け与えてくださるとは…旅のお方様の御心、仏の慈悲にも勝るものにて候。ささやかではございまするが、心ばかりにて、これ、米二升ほど。どうか、道中の足しにと、お納めくだされませ。このご恩、いね、生涯忘れまじ…！」\n[成功の結び]: 「ああ、旅のお方様、まことにありがとうございました。この尊き半夏のおかげにて、きっとこの身も癒え、再び健やかなる日々を取り戻せることと存じまする。旅のお方様の慈悲深き御心、いね、生涯忘るまじ。どうぞ道中、くれぐれもご無事で、良き旅路をお続けなされませ。いつかまた、この鎌倉の地にてお目にかかれる日を、心より願っておりまする。」\n[拒否の結び]: 「あぁ、さようなりましょうか…。いねの願い、空しきかな。されど、これもまた、定めの業と受け入れるより他ございませぬ。この身の苦しみ、いつまで続くか計り知れぬとも、この命ある限り、半夏を求めん道を、己が足で進む所存。もしかなわずとも、いと悲しきこの身の運命、静かに見届けん。旅のお方様は、どうぞご無事にて。」\n",
+    "nodes": [
+      {
+        "audioUrl": "media/audios/file_669_1775122200418.wav",
+        "type": "start",
+        "nextStepId": "node-2",
+        "speakerName": "いね",
+        "content": "「お旅の方…！恐れながら、しばしお耳を傾けてくだされませぬか。このいね、幾日も、幾夜も、数刻と止まらぬ激しい咳に身を苛まれ、日に日に弱り果てておりまする。もはや、この命、風前の灯火…。されど、聞くところによれば、古より万病の咳を鎮めると伝わる「半夏」という尊き生薬があるとか。もしや、旅のお方様ならば、その所在をご存じではございませぬか…？どうか、どうか、このいねに、その半夏を譲り与え、この命を救ってくだされ…！伏してお願い申し上げまする…！」",
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "id": "node-1"
+      },
+      {
+        "choices": [
+          {
+            "lockedText": "「半夏」を持っていない...",
             "requiredItemId": "tXG9t3M2BkKXAVlZ1Dyy",
-            "lockedText": "「半夏」を持っていない..."
+            "nextStepId": "node-3",
+            "text": "「うむ、その苦痛、いと痛ましきかな。我が懐の半夏、汝に授けん。」"
           },
           {
             "nextStepId": "node-5",
             "text": "「あいにく、我が懐には、今は半夏を持たぬ。」"
           }
         ],
-        "type": "choice",
         "id": "node-2",
-        "content": "斯様にも縋る眼差し、いと痛ましきかな。されど、我が懐に抱く半夏とて、遠き道のりを越えるには、いざという時の備え。はたして、この娘に与え、我が身に欠けること、如何なる報いをもたらすや。人の命の儚きこと、世の習いとは知りつつも、この哀れな訴えを退けるは、心苦しき限りなり。"
+        "content": "斯様にも縋る眼差し、いと痛ましきかな。されど、我が懐に抱く半夏とて、遠き道のりを越えるには、いざという時の備え。はたして、この娘に与え、我が身に欠けること、如何なる報いをもたらすや。人の命の儚きこと、世の習いとは知りつつも、この哀れな訴えを退けるは、心苦しき限りなり。",
+        "type": "choice"
       },
       {
-        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
         "nextStepId": "node-4",
+        "type": "reward",
         "reward": {
           "amount": 200
         },
-        "audioUrl": "media/audios/file_634_1774650294605.wav",
+        "audioUrl": "media/audios/file_670_1775122200418.wav",
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
         "content": "「ああ、ありがたき幸せ！このいねの命、まことに救われ申した…！これほど尊き半夏を、見ず知らずのわたくしめに分け与えてくださるとは…旅のお方様の御心、仏の慈悲にも勝るものにて候。ささやかではございまするが、心ばかりにて、これ、米二升ほど。どうか、道中の足しにと、お納めくだされませ。このご恩、いね、生涯忘れまじ…！」",
-        "speakerName": "いね",
         "id": "node-3",
-        "type": "reward"
+        "speakerName": "いね"
       },
       {
-        "id": "node-4",
-        "type": "end",
         "speakerName": "いね",
+        "id": "node-4",
         "content": "「ああ、旅のお方様、まことにありがとうございました。この尊き半夏のおかげにて、きっとこの身も癒え、再び健やかなる日々を取り戻せることと存じまする。旅のお方様の慈悲深き御心、いね、生涯忘るまじ。どうぞ道中、くれぐれもご無事で、良き旅路をお続けなされませ。いつかまた、この鎌倉の地にてお目にかかれる日を、心より願っておりまする。」",
         "speakerId": "TFS6nW3oE8YYdiJ21M9R",
-        "audioUrl": "media/audios/file_635_1774650294605.wav"
+        "audioUrl": "media/audios/file_671_1775122200418.wav",
+        "type": "end"
       },
       {
-        "content": "「あぁ、さようなりましょうか…。いねの願い、空しきかな。されど、これもまた、定めの業と受け入れるより他ございませぬ。この身の苦しみ、いつまで続くか計り知れぬとも、この命ある限り、半夏を求めん道を、己が足で進む所存。もしかなわずとも、いと悲しきこの身の運命、静かに見届けん。旅のお方様は、どうぞご無事にて。」",
-        "audioUrl": "media/audios/file_636_1774650294605.wav",
-        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "audioUrl": "media/audios/file_672_1775122200418.wav",
         "type": "end",
-        "id": "node-5",
-        "speakerName": "いね"
+        "speakerName": "いね",
+        "speakerId": "TFS6nW3oE8YYdiJ21M9R",
+        "content": "「あぁ、さようなりましょうか…。いねの願い、空しきかな。されど、これもまた、定めの業と受け入れるより他ございませぬ。この身の苦しみ、いつまで続くか計り知れぬとも、この命ある限り、半夏を求めん道を、己が足で進む所存。もしかなわずとも、いと悲しきこの身の運命、静かに見届けん。旅のお方様は、どうぞご無事にて。」",
+        "id": "node-5"
       }
     ],
-    "villagerId": "TFS6nW3oE8YYdiJ21M9R",
-    "plot": "【あらすじ】村娘いねは、数刻も止まらぬ激しい咳に苦しみ、日に日に衰弱していた。旅人伯耆に、古より咳を鎮めると伝わる生薬「半夏」の所在を尋ね、その命を救ってほしいと懇願した。\n\n【詳細】\n[依頼のセリフ]: 「お旅の方…！恐れながら、しばしお耳を傾けてくだされませぬか。このいね、幾日も、幾夜も、数刻と止まらぬ激しい咳に身を苛まれ、日に日に弱り果てておりまする。もはや、この命、風前の灯火…。されど、聞くところによれば、古より万病の咳を鎮めると伝わる「半夏」という尊き生薬があるとか。もしや、旅のお方様ならば、その所在をご存じではございませぬか…？どうか、どうか、このいねに、その半夏を譲り与え、この命を救ってくだされ…！伏してお願い申し上げまする…！」\n[プレイヤーの反応]: 斯様にも縋る眼差し、いと痛ましきかな。されど、我が懐に抱く半夏とて、遠き道のりを越えるには、いざという時の備え。はたして、この娘に与え、我が身に欠けること、如何なる報いをもたらすや。人の命の儚きこと、世の習いとは知りつつも、この哀れな訴えを退けるは、心苦しき限りなり。\n[承諾ボタン]: 「うむ、その苦痛、いと痛ましきかな。我が懐の半夏、汝に授けん。」\n[拒否ボタン]: 「あいにく、我が懐には、今は半夏を持たぬ。」\n[報酬授与のセリフ]: 「ああ、ありがたき幸せ！このいねの命、まことに救われ申した…！これほど尊き半夏を、見ず知らずのわたくしめに分け与えてくださるとは…旅のお方様の御心、仏の慈悲にも勝るものにて候。ささやかではございまするが、心ばかりにて、これ、米二升ほど。どうか、道中の足しにと、お納めくだされませ。このご恩、いね、生涯忘れまじ…！」\n[成功の結び]: 「ああ、旅のお方様、まことにありがとうございました。この尊き半夏のおかげにて、きっとこの身も癒え、再び健やかなる日々を取り戻せることと存じまする。旅のお方様の慈悲深き御心、いね、生涯忘るまじ。どうぞ道中、くれぐれもご無事で、良き旅路をお続けなされませ。いつかまた、この鎌倉の地にてお目にかかれる日を、心より願っておりまする。」\n[拒否の結び]: 「あぁ、さようなりましょうか…。いねの願い、空しきかな。されど、これもまた、定めの業と受け入れるより他ございませぬ。この身の苦しみ、いつまで続くか計り知れぬとも、この命ある限り、半夏を求めん道を、己が足で進む所存。もしかなわずとも、いと悲しきこの身の運命、静かに見届けん。旅のお方様は、どうぞご無事にて。」\n",
-    "title": "いねの咳と半夏"
+    "createdAt": "2026-03-27T13:03:49.326Z"
+  },
+  {
+    "id": "zo72n67CdVWbJPhCZI6z",
+    "villagerId": "NEntrh0jYY62zYGD6gnK",
+    "villagerName": "かず子",
+    "title": "かず子の料理人への道",
+    "requiredFlag": "",
+    "plot": "かず子が料理に興味を持つところから始まる。\n",
+    "tags": [
+      "料理依頼",
+      "かず子",
+      "握り寿司（ヒラメ）"
+    ],
+    "createdAt": "2026-04-01T07:06:47.555Z",
+    "nodes": [
+      {
+        "id": "node-1",
+        "content": "伯耆さん、私もお寿司に興味があるのですが、料理の手ほどきのほどお願いできますでしょうか？",
+        "speakerId": "NEntrh0jYY62zYGD6gnK",
+        "speakerName": "かず子",
+        "type": "start",
+        "nextStepId": "node-2"
+      },
+      {
+        "choices": [
+          {
+            "requiredItemId": "E68T1AfXiIo3hNaQu0BU",
+            "lockedText": "「握り寿司（ヒラメ）」を持っていない...",
+            "text": "十貫盛を渡す",
+            "nextStepId": "node-3"
+          },
+          {
+            "nextStepId": "node-5",
+            "text": "手持ちを用意しに戻る"
+          }
+        ],
+        "type": "choice",
+        "speakerName": "伯耆",
+        "content": "もちろん、かず子さんが料理に興味を持ってくれることはとっても嬉しいよ。\nまずは、お寿司を食してみるところからだね。\nさて…手持ちのお寿司は…\n\n",
+        "speakerId": "tTPwcEBQZSA6Bxl7JYcF",
+        "id": "node-2"
+      },
+      {
+        "nextStepId": "node-4",
+        "type": "reward",
+        "reward": {
+          "amount": 410
+        },
+        "id": "node-3",
+        "content": "ありがとうございます。とっても美味しいです！",
+        "speakerId": "NEntrh0jYY62zYGD6gnK",
+        "speakerName": "かず子"
+      },
+      {
+        "type": "end",
+        "audioUrl": "media/audios/file_673_1775122200418.wav",
+        "speakerId": "NEntrh0jYY62zYGD6gnK",
+        "content": "「ああ、まことに…！この御恩、わたくし、終生忘れはいたしませぬ。そなた様のおかげで、夫はきっと息を吹き返しましょう。この御縁、なにとぞ、この先も大切にいたしたく存じまする。まことに、かたじけのうございました。」",
+        "id": "node-4",
+        "speakerName": "かず子"
+      },
+      {
+        "speakerName": "かず子",
+        "id": "node-5",
+        "speakerId": "NEntrh0jYY62zYGD6gnK",
+        "content": "「ああ…さようでございますか…。まことに残念にございまする。されど、夫の命を救う道、わたくし、必ず見つけとうございます。またの機会に、この願いが叶うことを、心より願っておりまする。」",
+        "audioUrl": "media/audios/file_674_1775122200418.wav",
+        "type": "end"
+      }
+    ]
   }
 ]
