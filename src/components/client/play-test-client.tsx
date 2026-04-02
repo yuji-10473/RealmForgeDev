@@ -1,3 +1,4 @@
+
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
@@ -42,7 +43,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
-const BASE_SPEED = 12;
+const BASE_SPEED = 12; // Base speed fixed to 12 as requested
 const CHARACTER_WIDTH = 256;
 const CHARACTER_HEIGHT = 256;
 const INTERACTION_RADIUS = 150;

@@ -7,7 +7,7 @@ import {
 } from '@/firebase';
 import {
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
   signOut,
 } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
@@ -21,30 +21,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogIn, LogOut } from 'lucide-react';
-import { doc, setDoc } from 'firebase/firestore';
-import { useFirestore } from '@/firebase';
-import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
-
 
 export function AuthButton() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
-  const firestore = useFirestore();
 
   const handleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      
-      // Create a user profile in Firestore if it doesn't exist
-      const userRef = doc(firestore, 'users', user.uid);
-      setDocumentNonBlocking(userRef, {
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-      }, { merge: true });
-
+      // Switched to Redirect method as requested
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error('Google sign-in error:', error);
     }

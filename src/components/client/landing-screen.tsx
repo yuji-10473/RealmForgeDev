@@ -4,10 +4,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { useAuth, useFirestore, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { doc } from "firebase/firestore";
-import { setDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
+import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 import { Map, Users, Sparkles, Sword, Mail, Lock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +14,6 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export function LandingScreen() {
   const auth = useAuth();
-  const firestore = useFirestore();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,17 +21,8 @@ export function LandingScreen() {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      
-      // Create a user profile in Firestore if it doesn't exist
-      const userRef = doc(firestore, 'users', user.uid);
-      setDocumentNonBlocking(userRef, {
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-      }, { merge: true });
-
+      // Switched to Redirect method as requested
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error('Google sign-in error:', error);
     }
