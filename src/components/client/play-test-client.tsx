@@ -555,7 +555,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         const shop = masterShops.find(s => s.id === (obj.eventId?.startsWith('shop:') ? obj.eventId.split(':')[1] : obj.objectId));
         if (shop) { setActiveShop(shop); return; }
 
-        // Meeting Place Logic (Restored)
+        // Meeting Place Logic
         const mp = masterMeetingPlaces.find(m => m.id === obj.objectId);
         if (mp && mp.eventIds.length > 0) {
           const randomEventId = mp.eventIds[Math.floor(Math.random() * mp.eventIds.length)];
