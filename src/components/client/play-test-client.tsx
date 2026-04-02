@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
@@ -43,7 +42,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
-const CHARACTER_SPEED = 12;
+const BASE_SPEED = 12;
 const CHARACTER_WIDTH = 256;
 const CHARACTER_HEIGHT = 256;
 const INTERACTION_RADIUS = 150;
@@ -1086,6 +1085,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
       if (!isGamePaused) {
         let moveX = 0, moveY = 0;
+        const currentSpeed = BASE_SPEED + level;
         const isKeyPressed = pressedKeys.has('ArrowUp') || pressedKeys.has('w') || pressedKeys.has('ArrowDown') || pressedKeys.has('s') || pressedKeys.has('ArrowLeft') || pressedKeys.has('a') || pressedKeys.has('ArrowRight') || pressedKeys.has('d');
 
         if (isKeyPressed) {
@@ -1098,7 +1098,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const dx = targetPosition.x - characterPosition.x;
           const dy = targetPosition.y - characterPosition.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist > CHARACTER_SPEED) {
+          if (dist > currentSpeed) {
             moveX = dx / dist;
             moveY = dy / dist;
           } else {
@@ -1119,8 +1119,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             setAnimState(prev => ({ ...prev, frameIndex: 0 }));
           }
           
-          const nextX = characterPosition.x + moveX * CHARACTER_SPEED;
-          const nextY = characterPosition.y + moveY * CHARACTER_SPEED;
+          const nextX = characterPosition.x + moveX * currentSpeed;
+          const nextY = characterPosition.y + moveY * currentSpeed;
 
           if (currentWorld && currentWorld.rows && currentWorld.cols) {
             const currentRow = Math.floor(activeCellIndex / currentWorld.cols);
@@ -1190,7 +1190,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
       if (nextStepTimeout) clearTimeout(nextStepTimeout);
     };
-  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, masterEvents, startCutsceneStep, transitionToNode]);
+  }, [pressedKeys, targetPosition, isGamePaused, playerClips, characterDirection, characterPosition, animState, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, masterEvents, startCutsceneStep, transitionToNode, level]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
