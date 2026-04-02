@@ -369,7 +369,20 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         const roomWorlds = roomsRes.map((r: any) => ({ id: r.id, name: r.name, rows: 1, cols: 1, maps: [r] }));
         const mergedWorlds = [...fullWorlds, ...roomWorlds];
         setMasterWorlds(mergedWorlds);
-        setAvailableObjects([...rawVillagers.map((v:any)=>({...v,type:'person',description:v.introduction||v.description})), ...rawItems.map((i:any)=>({...i,type:'item',itemType:i.type})), ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...rawDishes.map((d:any)=>({...d,type:'item',isDish:true})), ...shops]);
+        
+        const allAvailable = [...rawVillagers.map((v:any)=>({...v,type:'person',description:v.introduction||v.description})), ...rawItems.map((i:any)=>({...i,type:'item',itemType:i.type})), ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...rawDishes.map((d:any)=>({...d,type:'item',isDish:true})), ...shops];
+        setAvailableObjects(allAvailable);
+
+        // Preload object images
+        if (typeof window !== 'undefined') {
+          allAvailable.forEach(obj => {
+            if (obj.imageUrl) {
+              const img = new (window as any).Image();
+              img.src = resolveMediaUrl(obj.imageUrl);
+            }
+          });
+        }
+
         setMasterEvents(events);
         setPlayerCharacters(playerListRes.characters || []);
         setMasterSequences(sequences);
@@ -389,7 +402,21 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     const fetchAnims = async () => {
       try {
         const res = await fetch(`${activePlayerChar.path}/animations.json`);
-        if (res.ok) { const data = await res.json(); setPlayerClips(data.clips || []); }
+        if (res.ok) { 
+          const data = await res.json(); 
+          const clips = data.clips || [];
+          setPlayerClips(clips); 
+
+          // Preload player animation frames
+          if (typeof window !== 'undefined') {
+            clips.forEach((clip: AnimationClip) => {
+              clip.frames.forEach((frame) => {
+                const img = new (window as any).Image();
+                img.src = resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`);
+              });
+            });
+          }
+        }
       } catch (e) { setPlayerClips([]); }
     };
     fetchAnims();
