@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -556,15 +556,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         if (shop) { setActiveShop(shop); return; }
 
         // Meeting Place Logic
-        const mp = masterMeetingPlaces.find(m => m.id === obj.objectId);
-        if (mp && mp.eventIds.length > 0) {
-          const randomEventId = mp.eventIds[Math.floor(Math.random() * mp.eventIds.length)];
-          const flow = masterEvents.find(e => e.id === randomEventId);
-          if (flow) {
-            setActiveEvent(flow);
-            transitionToNode(flow.nodes.find(n => n.type === 'start'));
-            return;
-          }
+        const mp = masterMeetingPlaces.find(m => m.id === obj.objectId || m.id === obj.eventId);
+        if (mp) {
+          setActiveMeetingPlace(mp);
+          return;
         }
 
         if (obj.transition) {
@@ -733,6 +728,46 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           return <Card key={id} className="flex flex-col"><CardHeader className="p-3"><div className="aspect-square relative bg-muted rounded-md mb-2"><Image src={resolveMediaUrl(item.imageUrl)} alt={item.name || ''} fill className="object-contain p-2" unoptimized /></div><CardTitle className="text-sm truncate">{item.name}</CardTitle></CardHeader><CardFooter className="p-3 pt-0"><Button className="w-full" size="sm" variant={gold >= price ? "default" : "secondary"} disabled={gold < price} onClick={() => { setGold(prev=>prev-price); setInventory(p=>{const e=p.find(i=>i.itemId===item.id);return e?p.map(i=>i.itemId===item.id?{...i,quantity:i.quantity+1}:i):[...p,{itemId:item.id,quantity:1}]}); toast({title:"購入完了"}); }}>{price} K</Button></CardFooter></Card>
         })}</div><DialogFooter className="flex justify-between border-t pt-4"><div>所持金: <span className="text-primary font-bold">{gold} K</span></div><Button variant="outline" onClick={()=>setActiveShop(null)}>店を出る</Button></DialogFooter></DialogContent>
       </Dialog>
+
+      <Dialog open={activeMeetingPlace !== null} onOpenChange={(open) => !open && setActiveMeetingPlace(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              <DialogTitle>{activeMeetingPlace?.name}</DialogTitle>
+            </div>
+            <DialogDescription>実行するイベントを選択してください。</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-2 py-4">
+            {activeMeetingPlace?.eventIds.map((eventId) => {
+              const event = masterEvents.find(e => e.id === eventId);
+              return (
+                <Button 
+                  key={eventId} 
+                  variant="outline" 
+                  className="w-full justify-start h-auto py-3 px-4"
+                  onClick={() => {
+                    if (event) {
+                      setActiveMeetingPlace(null);
+                      setActiveEvent(event);
+                      transitionToNode(event.nodes.find(n => n.type === 'start'));
+                    }
+                  }}
+                >
+                  <div className="flex flex-col items-start">
+                    <span className="font-bold">{event?.title || eventId}</span>
+                    {event?.villagerName && <span className="text-[10px] text-muted-foreground">{event.villagerName}</span>}
+                  </div>
+                </Button>
+              );
+            })}
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setActiveMeetingPlace(null)}>キャンセル</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <SheetContent className="sm:max-w-xl"><SheetHeader><SheetTitle>ゲームメニュー</SheetTitle></SheetHeader><div className="mt-4"><MenuSimulatorClient inventoryItems={inventory.map(i=>{const d=availableObjects.find(a=>a.id===i.itemId); return {id:i.itemId,name:d?.name||'?',imageUrl:resolveMediaUrl(d?.imageUrl),quantity:i.quantity,canUse:(d?.recoveryAmount||0)>0,description:d?.description,rarity:d?.rarity,itemType:d?.itemType,recoveryAmount:d?.recoveryAmount,ingredients:d?.ingredients};})} sequences={masterSequences.map(s=>({id:s.id,title:s.title,description:s.description}))} characterAffection={availableObjects.filter(o=>o.type==='person').map(v=>({id:v.id,name:v.name||'?',imageUrl:resolveMediaUrl(v.imageUrl),points:affection[v.id]||0,description:v.description,personality:v.personality,age:v.age,gender:v.gender,introduction:v.introduction})).filter(c=>c.points>0).sort((a,b)=>b.points-a.points)} onPlaySequence={handlePlaySequence} onUseItem={(id)=>{
         const item = availableObjects.find(a=>a.id===id); if (!item) return; const bonus = getLevelBonus(level); const rec = Math.floor((item.recoveryAmount||0)*bonus); const hrec = item.isDish ? Math.floor((item.recoveryAmount||0)/10) : (item.recoveryAmount||0);
         if (hunger+hrec > maxHunger) { toast({variant:"destructive",title:"満腹です"}); return; }
