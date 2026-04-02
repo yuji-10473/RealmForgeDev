@@ -1,7 +1,6 @@
-
 'use client';
 
-import {useState, useEffect, useCallback, useRef, useMemo, memo, forwardRef} from 'react';
+import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star} from 'lucide-react';
@@ -102,23 +101,26 @@ const ObjectsLayer = memo(({ objects, npcStates, availableObjects }: {
 ));
 ObjectsLayer.displayName = 'ObjectsLayer';
 
-/** 
- * プレイヤーレイヤー (Optimized)
- * 座標の更新は親からrefを通じて直接スタイルを変更することで、Reactの再レンダリングを回避します。
- * アニメーションのみをこのコンポーネント内で管理します。
- */
-const PlayerLayer = memo(forwardRef<HTMLDivElement, { 
+/** プレイヤーレイヤー (メモ化) */
+const PlayerLayer = memo(({ 
+  activePlayerChar, 
+  clips,
+  direction,
+  isMoving,
+  activeCutscene,
+  x,
+  y
+}: { 
   activePlayerChar: PlayerCharacter | null, 
   clips: AnimationClip[],
   direction: CharacterDirection,
   isMoving: boolean,
   activeCutscene: boolean,
-  initialX: number,
-  initialY: number
-}>(({ activePlayerChar, clips, direction, isMoving, activeCutscene, initialX, initialY }, ref) => {
+  x: number,
+  y: number
+}) => {
   const [frameIndex, setFrameIndex] = useState(0);
 
-  // Animation cycle loop (Internalized to avoid parent re-renders)
   useEffect(() => {
     if (!isMoving) {
       setFrameIndex(0);
@@ -128,20 +130,10 @@ const PlayerLayer = memo(forwardRef<HTMLDivElement, {
     const clip = clips.find(c => c.name === clipName) || clips.find(c => c.name === `idle_${direction}`);
     if (!clip || clip.frames.length === 0) return;
 
-    let lastTime = 0;
-    let animationFrame: number;
-
-    const animate = (time: number) => {
-      const delta = time - lastTime;
-      const interval = 1000 / (clip.fps || 8);
-      if (delta > interval) {
-        setFrameIndex(prev => (prev + 1) % clip.frames.length);
-        lastTime = time;
-      }
-      animationFrame = requestAnimationFrame(animate);
-    };
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
+    const interval = setInterval(() => {
+      setFrameIndex(prev => (prev + 1) % clip.frames.length);
+    }, 1000 / (clip.fps || 8));
+    return () => clearInterval(interval);
   }, [isMoving, direction, clips]);
 
   const imageUrl = useMemo(() => {
@@ -157,16 +149,13 @@ const PlayerLayer = memo(forwardRef<HTMLDivElement, {
 
   return (
     <div 
-      ref={ref}
       style={{ 
         position: 'absolute', 
         zIndex: 10,
         opacity: activeCutscene ? 0.5 : 1,
         width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
-        left: 0,
-        top: 0,
-        transform: `translate3d(${(initialX / MAP_WIDTH) * 100}%, ${(initialY / MAP_HEIGHT) * 100}%, 0)`,
-        willChange: 'transform'
+        left: `${(x / MAP_WIDTH) * 100}%`, 
+        top: `${(y / MAP_HEIGHT) * 100}%`
       }}
     >
       <Image 
@@ -179,7 +168,7 @@ const PlayerLayer = memo(forwardRef<HTMLDivElement, {
       />
     </div>
   );
-}));
+});
 PlayerLayer.displayName = 'PlayerLayer';
 
 /** カットシーンキャラレイヤー (メモ化) */
@@ -282,9 +271,8 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [activePlayerId, setActivePlayerId] = useState<string>('');
   const [activeCellIndex, setActiveCellIndex] = useState(0);
   
-  // High performance position and animation control
-  const characterPositionRef = useRef({x: initialData?.positionX || MAP_WIDTH / 2, y: initialData?.positionY || MAP_HEIGHT / 2});
-  const playerRef = useRef<HTMLDivElement>(null);
+  // Position and direction state
+  const [characterPosition, setCharacterPosition] = useState({x: initialData?.positionX || MAP_WIDTH / 2, y: initialData?.positionY || MAP_HEIGHT / 2});
   const [characterDirection, setCharacterDirection] = useState<CharacterDirection>('down');
   const [isMoving, setIsMoving] = useState(false);
 
@@ -426,7 +414,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   const handleSave = () => {
     const saveData = {
-      userId: user.uid, mapId: selectedWorldId, positionX: characterPositionRef.current.x, positionY: characterPositionRef.current.y,
+      userId: user.uid, mapId: selectedWorldId, positionX: characterPosition.x, positionY: characterPosition.y,
       hp, maxHp, hunger, maxHunger, level, xp, inventory, gold, affection, bgmVolume, voiceVolume, isMuted, updatedAt: serverTimestamp(),
     };
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
@@ -469,8 +457,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const endCutscene = useCallback(() => {
     if (originalPlayerState) {
       setSelectedWorldId(originalPlayerState.worldId); setActiveCellIndex(originalPlayerState.cellIndex);
-      characterPositionRef.current = originalPlayerState.pos;
-      if (playerRef.current) playerRef.current.style.transform = `translate3d(${(originalPlayerState.pos.x / MAP_WIDTH) * 100}%, ${(originalPlayerState.pos.y / MAP_HEIGHT) * 100}%, 0)`;
+      setCharacterPosition(originalPlayerState.pos);
     }
     setActiveCutscene(null); setCurrentCutsceneStepIndex(-1); setCutsceneChars({}); setOriginalPlayerState(null);
   }, [originalPlayerState]);
@@ -499,7 +486,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     const seq = masterSequences.find(s => s.id === sequenceId);
     if (!seq) return;
     setIsMenuOpen(false);
-    setOriginalPlayerState({ worldId: selectedWorldId, cellIndex: activeCellIndex, pos: { ...characterPositionRef.current } });
+    setOriginalPlayerState({ worldId: selectedWorldId, cellIndex: activeCellIndex, pos: { ...characterPosition } });
     setActiveCutscene(seq);
     startCutsceneStep(seq, 0);
   };
@@ -515,7 +502,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   const checkForInteraction = useCallback(() => {
     if (isGamePaused || !activeMapData) return;
-    const pos = characterPositionRef.current;
+    const pos = characterPosition;
     const charCX = pos.x + CHARACTER_WIDTH / 2;
     const charCY = pos.y + CHARACTER_HEIGHT / 2;
     for (const obj of activeMapData.objects) {
@@ -546,15 +533,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           const targetCellIdx = targetWorld?.maps?.findIndex(m => m.id === targetMapId) ?? 0;
           if (targetWorld) setSelectedWorldId(targetWorld.id); else setSelectedWorldId(targetMapId);
           setActiveCellIndex(targetCellIdx === -1 ? 0 : targetCellIdx);
-          characterPositionRef.current = { x: targetX, y: targetY };
-          if (playerRef.current) playerRef.current.style.transform = `translate3d(${(targetX / MAP_WIDTH) * 100}%, ${(targetY / MAP_HEIGHT) * 100}%, 0)`;
+          setCharacterPosition({ x: targetX, y: targetY });
           setTargetPosition(null); return;
         }
         if (obj.eventId) { const flow = masterEvents.find(e => e.id === obj.eventId); if (flow) { setActiveEvent(flow); transitionToNode(flow.nodes.find(n => n.type === 'start')); return; } }
         if (obj.conversation) { setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath }); return; }
       }
     }
-  }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp]);
+  }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp, characterPosition]);
 
   useEffect(() => {
     const loop = (currentTime: number) => {
@@ -587,7 +573,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           if (keys.has('ArrowUp') || keys.has('w')) moveY -= 1; if (keys.has('ArrowDown') || keys.has('s')) moveY += 1;
           if (keys.has('ArrowLeft') || keys.has('a')) moveX -= 1; if (keys.has('ArrowRight') || keys.has('d')) moveX += 1;
         } else if (targetPosition) {
-          const dx = targetPosition.x - characterPositionRef.current.x, dy = targetPosition.y - characterPositionRef.current.y;
+          const dx = targetPosition.x - characterPosition.x, dy = targetPosition.y - characterPosition.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist > currentSpeed) { moveX = dx / dist; moveY = dy / dist; } else setTargetPosition(null);
         }
@@ -597,7 +583,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           let newDir: CharacterDirection = characterDirection;
           if (Math.abs(moveX) > Math.abs(moveY)) newDir = moveX > 0 ? 'right' : 'left'; else if (moveY !== 0) newDir = moveY > 0 ? 'down' : 'up';
           if (newDir !== characterDirection) setCharacterDirection(newDir);
-          const pos = characterPositionRef.current;
+          const pos = characterPosition;
           const nextX = pos.x + moveX * currentSpeed, nextY = pos.y + moveY * currentSpeed;
           if (currentWorld?.rows && currentWorld.cols) {
             const currentRow = Math.floor(activeCellIndex / currentWorld.cols), currentCol = activeCellIndex % currentWorld.cols;
@@ -607,21 +593,16 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             else if (nextX > MAP_WIDTH - CHARACTER_WIDTH + THR && currentCol + 1 < currentWorld.cols) { nextCellIdx = activeCellIndex + 1; finalX = -THR; transitioned = true; }
             else if (nextY < -THR && currentRow > 0) { nextCellIdx = activeCellIndex - currentWorld.cols; finalY = MAP_HEIGHT - CHARACTER_HEIGHT + THR; transitioned = true; }
             else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + THR && currentRow + 1 < currentWorld.rows) { nextCellIdx = activeCellIndex + currentWorld.cols; finalY = -THR; transitioned = true; }
-            if (transitioned) { setActiveCellIndex(nextCellIdx); characterPositionRef.current = { x: finalX, y: finalY }; setTargetPosition(null); }
-            else characterPositionRef.current = { x: Math.max(-CHARACTER_WIDTH/2, Math.min(MAP_WIDTH - CHARACTER_WIDTH/2, nextX)), y: Math.max(-CHARACTER_HEIGHT/2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT/2, nextY)) };
-          } else characterPositionRef.current = { x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)), y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY)) };
-          
-          if (playerRef.current) {
-            const p = characterPositionRef.current;
-            playerRef.current.style.transform = `translate3d(${(p.x / MAP_WIDTH) * 100}%, ${(p.y / MAP_HEIGHT) * 100}%, 0)`;
-          }
+            if (transitioned) { setActiveCellIndex(nextCellIdx); setCharacterPosition({ x: finalX, y: finalY }); setTargetPosition(null); }
+            else setCharacterPosition({ x: Math.max(-CHARACTER_WIDTH/2, Math.min(MAP_WIDTH - CHARACTER_WIDTH/2, nextX)), y: Math.max(-CHARACTER_HEIGHT/2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT/2, nextY)) });
+          } else setCharacterPosition({ x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)), y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY)) });
         }
       }
       gameLoopRef.current = requestAnimationFrame(loop);
     };
     gameLoopRef.current = requestAnimationFrame(loop);
     return () => { if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current); };
-  }, [pressedKeys, targetPosition, isGamePaused, isMoving, characterDirection, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, startCutsceneStep, level]);
+  }, [pressedKeys, targetPosition, isGamePaused, isMoving, characterDirection, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, startCutsceneStep, level, characterPosition]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
@@ -678,14 +659,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               {!isGamePaused && targetPosition && <div className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" style={{ left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` }} />}
               <PlayerLayer 
                 key={selectedWorldId + activeCellIndex}
-                ref={playerRef} 
                 activePlayerChar={activePlayerChar} 
                 clips={playerClips} 
                 direction={characterDirection} 
                 isMoving={isMoving} 
                 activeCutscene={!!activeCutscene} 
-                initialX={characterPositionRef.current.x} 
-                initialY={characterPositionRef.current.y} 
+                x={characterPosition.x} 
+                y={characterPosition.y} 
               />
             </>
           ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
