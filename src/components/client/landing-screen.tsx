@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2 } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 /**
  * AdSense 広告ユニットコンポーネント
@@ -66,14 +67,37 @@ export function LandingScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center p-4 relative overflow-x-hidden">
+    <div className="min-h-screen bg-background flex flex-col items-center relative overflow-x-hidden">
+      {/* Navigation Header */}
+      <header className="w-full border-b bg-background/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <RealmforgeLogo className="h-8 w-8 text-primary" />
+            <span className="font-headline text-xl font-bold tracking-tight">RealmForge</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">機能</Link>
+            <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">当サービスについて</Link>
+            <Link href="/tos" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
+              <FileText className="h-3 w-3" /> 利用規約
+            </Link>
+            <Link href="/privacy" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
+              <ShieldCheck className="h-3 w-3" /> プライバシーポリシー
+            </Link>
+          </nav>
+          <Button variant="ghost" size="sm" className="md:hidden">
+            <Info className="h-5 w-5" />
+          </Button>
+        </div>
+      </header>
+
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-4xl w-full space-y-12 text-center z-10 py-20">
+      <div className="max-w-4xl w-full space-y-12 text-center z-10 py-20 px-4">
         <div className="space-y-4">
           <div className="flex justify-center">
             <div className="bg-primary/10 p-4 rounded-2xl ring-4 ring-primary/20">
@@ -89,7 +113,7 @@ export function LandingScreen() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div id="features" className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           <div className="p-6 bg-card border rounded-xl shadow-sm space-y-3">
             <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
               <Map className="h-6 w-6" />
@@ -117,7 +141,7 @@ export function LandingScreen() {
         <GoogleAd />
 
         {/* Detailed Information Section (SEO/AdSense Content) */}
-        <div className="text-left space-y-12 py-12 border-t border-b bg-muted/5 px-6 rounded-3xl">
+        <div id="about" className="text-left space-y-12 py-12 border-t border-b bg-muted/5 px-6 rounded-3xl">
           <div className="space-y-4 max-w-3xl">
             <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
               <Info className="text-primary h-8 w-8" />
@@ -229,18 +253,59 @@ export function LandingScreen() {
           <div className="mt-8 flex flex-col items-center gap-2">
             <p className="text-xs text-muted-foreground">
               ログインすることで、当社の
-              <a href="#" className="underline hover:text-primary mx-1">利用規約</a>
+              <Link href="/tos" className="underline hover:text-primary mx-1">利用規約</Link>
               と
-              <a href="#" className="underline hover:text-primary mx-1">プライバシーポリシー</a>
+              <Link href="/privacy" className="underline hover:text-primary mx-1">プライバシーポリシー</Link>
               に同意したものとみなされます。
             </p>
           </div>
         </div>
       </div>
-      
-      <div className="absolute bottom-4 right-4 opacity-20 pointer-events-none">
-        <p className="text-[10px] font-mono tracking-widest uppercase">Ancient Parchment Style</p>
-      </div>
+
+      {/* Footer */}
+      <footer className="w-full border-t bg-muted/20 py-12 mt-20 z-10">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <RealmforgeLogo className="h-6 w-6 text-primary" />
+              <span className="font-headline text-lg font-bold">RealmForge</span>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              創造性を解き放ち、自分だけのRPGを。
+              RealmForgeはすべてのクリエイターのためのRPG制作プラットフォームです。
+            </p>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm mb-4">サービス</h4>
+            <ul className="space-y-2 text-xs text-muted-foreground">
+              <li><Link href="#features" className="hover:text-primary">機能一覧</Link></li>
+              <li><Link href="/asset-library" className="hover:text-primary">アセットライブラリ</Link></li>
+              <li><Link href="/play-test" className="hover:text-primary">プレイテスト</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm mb-4">サポート</h4>
+            <ul className="space-y-2 text-xs text-muted-foreground">
+              <li><Link href="/tos" className="hover:text-primary">利用規約</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary">プライバシーポリシー</Link></li>
+              <li><Link href="#" className="hover:text-primary">お問い合わせ</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm mb-4">コンプライアンス</h4>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">
+              当サイトでは、サービスの改善および広告配信のためにクッキー（Cookie）を使用しています。
+              詳細はプライバシーポリシーをご確認ください。
+            </p>
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto px-4 mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-[10px] text-muted-foreground">© 2024 RealmForge Project. All rights reserved.</p>
+          <div className="opacity-20 pointer-events-none">
+            <p className="text-[10px] font-mono tracking-widest uppercase">Ancient Parchment Style</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
