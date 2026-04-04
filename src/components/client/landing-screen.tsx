@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";
 
 /**
  * AdSense 広告ユニットコンポーネント
@@ -109,9 +110,22 @@ export function LandingScreen() {
       </header>
 
       {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent rounded-full blur-[120px]" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
+        {/* Gradients */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary opacity-5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent opacity-5 rounded-full blur-[120px]" />
+        
+        {/* Background Image (Semi-transparent) */}
+        <div className="absolute inset-0 opacity-15">
+          <Image 
+            src="/images/syugo.png" 
+            alt="Background Illustration" 
+            fill 
+            className="object-cover"
+            priority
+            unoptimized
+          />
+        </div>
       </div>
 
       <div className="max-w-4xl w-full space-y-12 text-center z-10 py-20 px-4">
