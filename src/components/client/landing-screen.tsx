@@ -17,13 +17,29 @@ import Link from "next/link";
  */
 function GoogleAd() {
   useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    const pushAd = () => {
+      try {
+        if (typeof window !== 'undefined') {
+          const adsbygoogle = (window as any).adsbygoogle;
+          if (adsbygoogle && typeof adsbygoogle.push === 'function') {
+            // ReactのStrict Mode（開発環境）ではuseEffectが2回実行されるため、
+            // すでに広告が処理されている（data-adsbygoogle-status="done"）場合は追加でpushしないように制御します。
+            const unprocessedAds = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
+            if (unprocessedAds.length > 0) {
+              adsbygoogle.push({});
+            }
+          }
+        }
+      } catch (e) {
+        // 開発環境でのTagError（既に広告が存在する場合の重複push）を抑制します
+        console.debug("AdSense push handled or already processed:", e);
       }
-    } catch (e) {
-      console.error("AdSense push error:", e);
-    }
+    };
+
+    // DOMのレンダリング完了を確実にするためわずかな遅延を入れ、
+    // マウント/アンマウントが激しい開発環境での安定性を高めます。
+    const timeoutId = setTimeout(pushAd, 200);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (
