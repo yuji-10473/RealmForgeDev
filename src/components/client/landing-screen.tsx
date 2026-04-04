@@ -1,16 +1,44 @@
-
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { Map, Users, Sparkles, Sword, Mail, Lock } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+
+/**
+ * AdSense 広告ユニットコンポーネント
+ */
+function GoogleAd() {
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      }
+    } catch (e) {
+      console.error("AdSense push error:", e);
+    }
+  }, []);
+
+  return (
+    <div className="my-12 flex flex-col items-center">
+      <span className="text-[10px] text-muted-foreground mb-2 uppercase tracking-widest">スポンサーリンク</span>
+      <div className="w-full max-w-[728px] min-h-[90px] bg-muted/20 border border-dashed rounded flex items-center justify-center overflow-hidden">
+        <ins className="adsbygoogle"
+             style={{ display: 'block', width: '100%' }}
+             data-ad-client="ca-pub-7148894079314433"
+             data-ad-slot="2910984428"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+    </div>
+  );
+}
 
 export function LandingScreen() {
   const auth = useAuth();
@@ -21,7 +49,6 @@ export function LandingScreen() {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      // Switched to Redirect method as requested
       await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error('Google sign-in error:', error);
@@ -39,14 +66,14 @@ export function LandingScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background flex flex-col items-center p-4 relative overflow-x-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-4xl w-full space-y-12 text-center z-10">
+      <div className="max-w-4xl w-full space-y-12 text-center z-10 py-20">
         <div className="space-y-4">
           <div className="flex justify-center">
             <div className="bg-primary/10 p-4 rounded-2xl ring-4 ring-primary/20">
@@ -83,6 +110,61 @@ export function LandingScreen() {
             </div>
             <h3 className="font-bold text-lg">プレイテスト</h3>
             <p className="text-sm text-muted-foreground">作成した世界をすぐに冒険。セーブ機能や戦闘シミュレーターでバランスを調整できます。</p>
+          </div>
+        </div>
+
+        {/* AdSense Placement */}
+        <GoogleAd />
+
+        {/* Detailed Information Section (SEO/AdSense Content) */}
+        <div className="text-left space-y-12 py-12 border-t border-b bg-muted/5 px-6 rounded-3xl">
+          <div className="space-y-4 max-w-3xl">
+            <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
+              <Info className="text-primary h-8 w-8" />
+              RealmForgeで始まる、あなたの創作の旅
+            </h2>
+            <p className="leading-relaxed text-muted-foreground">
+              RealmForgeは、プログラミングの専門知識がなくても、自分だけの壮大な2Dロールプレイングゲーム（RPG）をゼロから構築できる革新的なブラウザベースのプラットフォームです。私たちのミッションは、すべての物語の語り手に、自らの空想の世界を形にし、それを他者と共有するための強力かつシンプルなツールを提供することです。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-primary">
+                <CheckCircle2 className="h-5 w-5" />
+                <h3 className="text-xl font-bold">直感的なビジュアル制作</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                タイルベースのマップエディターを使用すれば、広大なフィールドから詳細な建物の内装まで、クリックとドラッグだけで簡単に作成できます。複数のワールドを定義し、それらをドアやワープポイントで繋ぐことで、プレイヤーが探索できるシームレスな冒険体験を構築しましょう。
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-primary">
+                <CheckCircle2 className="h-5 w-5" />
+                <h3 className="text-xl font-bold">AIによるナラティブの強化</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                最新の生成AI技術を統合した「ストーリーアシスト」機能が、あなたの創作をサポートします。キャラクターの深いバックストーリー、村人との自然な会話、あるいは世界観の根幹を成す伝説のアイデアをAIが提案。AIと対話しながら、より深みのあるゲーム体験を作り上げることが可能です。
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-primary">
+                <CheckCircle2 className="h-5 w-5" />
+                <h3 className="text-xl font-bold">高度なゲーム内システム</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                HPや空腹度の管理、レベルアップに伴う補正、村人との好感度システムなど、RPGに欠かせない複雑なロジックがプリセットとして用意されています。さらに、ショップでの売買や特定の場所でのランダムイベントなど、プレイヤーを飽きさせない多彩なギミックを簡単に導入できます。
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-primary">
+                <CheckCircle2 className="h-5 w-5" />
+                <h3 className="text-xl font-bold">開発と検証のサイクル</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                作成したマップは、即座に「プレイテスト」モードで検証できます。実際の操作感、イベントの発生フラグ、アイテムの有用性などを開発者自身がリアルタイムでチェック。納得がいくまで調整を繰り返し、あなたの「理想のRPG」を完璧な形に仕上げることができます。
+              </p>
+            </div>
           </div>
         </div>
 
