@@ -44,7 +44,8 @@ function GoogleAd() {
 
   return (
     <div className="my-12 flex flex-col items-center">
-      <span className="text-[10px] text-muted-foreground mb-2 uppercase tracking-widest">スポンサーリンク</span>
+      {/* Google AdSense のポリシー上、ラベルは「広告」または「スポンサーリンク」のいずれかである必要があります。 */}
+      <span className="text-[10px] text-muted-foreground mb-2 uppercase tracking-widest">広告</span>
       <div className="w-full max-w-[728px] min-h-[90px] bg-muted/20 border border-dashed rounded flex items-center justify-center overflow-hidden">
         <ins className="adsbygoogle"
              style={{ display: 'block', width: '100%' }}
