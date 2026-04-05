@@ -88,6 +88,10 @@
           "type": "number",
           "description": "The player's current amount of gold."
         },
+        "day": {
+          "type": "number",
+          "description": "The current day count in the game."
+        },
         "affection": {
           "type": "object",
           "description": "Affection points for each villager. Key is villagerId, value is points.",
