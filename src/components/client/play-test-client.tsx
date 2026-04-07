@@ -665,6 +665,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           setCutsceneChars(prev => {
             const next = { ...prev };
             let anyMoving = false;
+            let eventTriggered = false;
             for (const id in next) {
               const c = next[id]; if (c.targetIdx >= c.path.length) continue;
               anyMoving = true; const target = c.path[c.targetIdx]; const dx = target.x - c.x, dy = target.y - c.y; const dist = Math.sqrt(dx * dx + dy * dy); const moveSpeed = (c.speed || 1) * 5;
@@ -864,10 +865,10 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             
             <TabsContent value="buy">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 overflow-y-auto max-h-[50vh]">
-                {[...(activeShop?.itemIds || []), ...(activeShop?.dishIds || [])].map((id) => {
+                {[...(activeShop?.itemIds || []), ...(activeShop?.dishIds || [])].map((id, index) => {
                   const item = availableObjects.find(a => a.id === id); if (!item) return null; const price = item.recoveryAmount || 0;
                   return (
-                    <Card key={id} className="flex flex-col">
+                    <Card key={`${id}-${index}`} className="flex flex-col">
                       <CardHeader className="p-3">
                         <div className="aspect-square relative bg-muted rounded-md mb-2">
                           <Image src={resolveMediaUrl(item.imageUrl)} alt={item.name || ''} fill className="object-contain p-2" unoptimized />
@@ -901,13 +902,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
                         <div className="grid grid-cols-1 gap-2">
-                          {dish.ingredients.map((ing: any) => {
+                          {dish.ingredients.map((ing: any, idx: number) => {
                             const invItem = inventory.find(i => i.itemId === ing.id);
                             const currentSupply = suppliedIngredients[ing.id] || 0;
                             const needed = ing.quantity || 1;
                             const asset = availableObjects.find(a => a.id === ing.id);
                             return (
-                              <div key={ing.id} className="flex items-center justify-between text-sm bg-muted/30 p-2 rounded">
+                              <div key={`${ing.id}-${idx}`} className="flex items-center justify-between text-sm bg-muted/30 p-2 rounded">
                                 <div className="flex items-center gap-2">
                                   <div className="w-6 h-6 relative bg-background rounded">
                                     {asset?.imageUrl && <Image src={resolveMediaUrl(asset.imageUrl)} alt="" fill className="object-contain" unoptimized />}
