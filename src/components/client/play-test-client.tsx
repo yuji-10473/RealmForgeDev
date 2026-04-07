@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize, PackagePlus} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -39,6 +39,7 @@ import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '../ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
@@ -213,7 +214,7 @@ type AnimationFrame = { id: string; image: string; };
 type AnimationClip = { id: string; name: string; frames: AnimationFrame[]; fps: number; };
 type Movement = { type: 'stationary' | 'patrol-h'; range?: number; };
 type PlacedObject = { id: string; objectId: string; x: number; y: number; width: number; height: number; transition?: { targetWorldId?: string; targetMapId: string; targetX: number; targetY: number; }; conversation?: string; audioPath?: string; eventId?: string; movement?: Movement; };
-type AvailableObject = { id: string; name: string; imageUrl: string; width?: number; height?: number; type?: 'person' | 'door' | 'item' | 'building' | 'monster' | 'shop'; itemIds?: string[]; description?: string; recoveryAmount?: number; isDish?: boolean; rarity?: number; itemType?: string; ingredients?: { name: string; id: string }[]; personality?: string; age?: number; gender?: string; introduction?: string; };
+type AvailableObject = { id: string; name: string; imageUrl: string; width?: number; height?: number; type?: 'person' | 'door' | 'item' | 'building' | 'monster' | 'shop'; itemIds?: string[]; description?: string; recoveryAmount?: number; isDish?: boolean; rarity?: number; itemType?: string; ingredients?: { id: string; quantity?: number; name?: string }[]; personality?: string; age?: number; gender?: string; introduction?: string; };
 type PlayerCharacter = { id: string; name: string; path: string; };
 type MapCell = { id: string; name: string; imageUrl: string; objects: PlacedObject[]; };
 type WorldData = { id: string; name: string; bgmUrl?: string; audioUrl?: string; rows: number; cols: number; maps: MapCell[]; };
@@ -281,6 +282,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [inventory, setInventory] = useState<SavedInventoryItem[]>(initialData?.inventory || []);
   const [gold, setGold] = useState(initialData?.gold || 0);
   const [affection, setAffection] = useState<Record<string, number>>(initialData?.affection || {});
+  const [suppliedIngredients, setSuppliedIngredients] = useState<Record<string, number>>(initialData?.suppliedIngredients || {});
   const [hp, setHp] = useState(initialData?.hp ?? 1000);
   const [maxHp, setMaxHp] = useState(initialData?.maxHp ?? 1000);
   const [hunger, setHunger] = useState(initialData?.hunger ?? 100);
@@ -478,7 +480,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const handleSave = () => {
     const saveData = {
       userId: user.uid, mapId: selectedWorldId, positionX: characterPosition.x, positionY: characterPosition.y,
-      hp, maxHp, hunger, maxHunger, level, xp, day, inventory, gold, affection, bgmVolume, voiceVolume, isMuted, updatedAt: serverTimestamp(),
+      hp, maxHp, hunger, maxHunger, level, xp, day, inventory, gold, affection, suppliedIngredients, bgmVolume, voiceVolume, isMuted, updatedAt: serverTimestamp(),
     };
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
     toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
@@ -574,6 +576,41 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       if (dist < INTERACTION_RADIUS) {
         const asset = availableObjects.find(a => a.id === obj.objectId);
         if (asset?.name === '布団') { 
+          // 料理屋の売上精算
+          const dishes = availableObjects.filter(obj => obj.isDish && obj.ingredients);
+          let totalProfit = 0;
+          const nextSupplied = { ...suppliedIngredients };
+
+          dishes.forEach(dish => {
+            if (!dish.ingredients) return;
+            // 制作可能な品数を計算
+            let canMake = Infinity;
+            dish.ingredients.forEach((ing: any) => {
+              const qty = ing.quantity || 1;
+              const supplied = nextSupplied[ing.id] || 0;
+              canMake = Math.min(canMake, Math.floor(supplied / qty));
+            });
+
+            if (canMake > 0 && canMake !== Infinity) {
+              const profit = canMake * (dish.recoveryAmount || 0);
+              totalProfit += profit;
+              // 在庫から消費
+              dish.ingredients.forEach((ing: any) => {
+                const qty = ing.quantity || 1;
+                nextSupplied[ing.id] -= canMake * qty;
+              });
+            }
+          });
+
+          if (totalProfit > 0) {
+            setGold(prev => prev + totalProfit);
+            toast({ 
+              title: "売上精算", 
+              description: `昨日の料理の売上：${totalProfit} K を受け取りました！`,
+            });
+          }
+
+          setSuppliedIngredients(nextSupplied);
           setHp(maxHp); 
           setHunger(50); 
           setDay(prev => prev + 1);
@@ -617,7 +654,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         if (obj.conversation) { setActiveInteraction({ conversation: obj.conversation, audioPath: obj.audioPath }); return; }
       }
     }
-  }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp, characterPosition]);
+  }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp, characterPosition, suppliedIngredients]);
 
   useEffect(() => {
     const loop = (currentTime: number) => {
@@ -691,6 +728,29 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     window.addEventListener('keydown', handleDown); window.addEventListener('keyup', handleUp);
     return () => { window.removeEventListener('keydown', handleDown); window.removeEventListener('keyup', handleUp); };
   }, [checkForInteraction, isGamePaused]);
+
+  // 納品アクション
+  const handleSupplyIngredient = (itemId: string) => {
+    const invItem = inventory.find(i => i.itemId === itemId);
+    if (!invItem || invItem.quantity <= 0) {
+      toast({ variant: "destructive", title: "素材がありません" });
+      return;
+    }
+
+    setInventory(prev => {
+      if (invItem.quantity > 1) {
+        return prev.map(i => i.itemId === itemId ? { ...i, quantity: i.quantity - 1 } : i);
+      }
+      return prev.filter(i => i.itemId !== itemId);
+    });
+
+    setSuppliedIngredients(prev => ({
+      ...prev,
+      [itemId]: (prev[itemId] || 0) + 1
+    }));
+
+    toast({ title: "納品完了", description: `${availableObjects.find(a => a.id === itemId)?.name} を1つ補充しました。` });
+  };
 
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -784,11 +844,107 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           )}
         </div>
       </div>
+      
+      {/* 強化版ショップダイアログ */}
       <Dialog open={activeShop !== null} onOpenChange={(open) => !open && setActiveShop(null)}>
-        <DialogContent className="max-w-2xl"><DialogHeader><div className="flex items-center gap-2"><ShoppingCart className="h-5 w-5" /><DialogTitle>{activeShop?.name}</DialogTitle></div></DialogHeader><div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 overflow-y-auto max-h-[60vh]">{[...(activeShop?.itemIds || []), ...(activeShop?.dishIds || [])].map((id) => {
-          const item = availableObjects.find(a => a.id === id); if (!item) return null; const price = item.recoveryAmount || 0;
-          return <Card key={id} className="flex flex-col"><CardHeader className="p-3"><div className="aspect-square relative bg-muted rounded-md mb-2"><Image src={resolveMediaUrl(item.imageUrl)} alt={item.name || ''} fill className="object-contain p-2" unoptimized /></div><CardTitle className="text-sm truncate">{item.name}</CardTitle></CardHeader><CardFooter className="p-3 pt-0"><Button className="w-full" size="sm" variant={gold >= price ? "default" : "secondary"} disabled={gold < price} onClick={() => { setGold(prev=>prev-price); setInventory(p=>{const e=p.find(i=>i.itemId===item.id);return e?p.map(i=>i.itemId===item.id?{...i,quantity:i.quantity+1}:i):[...p,{itemId:item.id,quantity:1}]}); toast({title:"購入完了"}); }}>{price} K</Button></CardFooter></Card>
-        })}</div><DialogFooter className="flex justify-between border-t pt-4"><div>所持金: <span className="text-primary font-bold">{gold} K</span></div><Button variant="outline" onClick={()=>setActiveShop(null)}>店を出る</Button></DialogFooter></DialogContent>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <div className="flex items-center gap-2">
+              <ShoppingCart className="h-5 w-5" />
+              <DialogTitle>{activeShop?.name}</DialogTitle>
+            </div>
+          </DialogHeader>
+          
+          <Tabs defaultValue="buy" className="w-full">
+            <TabsList className={cn("grid w-full", activeShop?.dishIds && activeShop.dishIds.length > 0 ? "grid-cols-2" : "grid-cols-1")}>
+              <TabsTrigger value="buy">購入</TabsTrigger>
+              {activeShop?.dishIds && activeShop.dishIds.length > 0 && <TabsTrigger value="supply">納品</TabsTrigger>}
+            </TabsList>
+            
+            <TabsContent value="buy">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 overflow-y-auto max-h-[50vh]">
+                {[...(activeShop?.itemIds || []), ...(activeShop?.dishIds || [])].map((id) => {
+                  const item = availableObjects.find(a => a.id === id); if (!item) return null; const price = item.recoveryAmount || 0;
+                  return (
+                    <Card key={id} className="flex flex-col">
+                      <CardHeader className="p-3">
+                        <div className="aspect-square relative bg-muted rounded-md mb-2">
+                          <Image src={resolveMediaUrl(item.imageUrl)} alt={item.name || ''} fill className="object-contain p-2" unoptimized />
+                        </div>
+                        <CardTitle className="text-sm truncate">{item.name}</CardTitle>
+                      </CardHeader>
+                      <CardFooter className="p-3 pt-0">
+                        <Button className="w-full" size="sm" variant={gold >= price ? "default" : "secondary"} disabled={gold < price} onClick={() => { setGold(prev=>prev-price); setInventory(p=>{const e=p.find(i=>i.itemId===item.id);return e?p.map(i=>i.itemId===item.id?{...i,quantity:i.quantity+1}:i):[...p,{itemId:item.id,quantity:1}]}); toast({title:"購入完了"}); }}>{price} K</Button>
+                      </CardFooter>
+                    </Card>
+                  );
+                })}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="supply">
+              <div className="space-y-4 py-4 overflow-y-auto max-h-[50vh]">
+                {activeShop?.dishIds?.map(dishId => {
+                  const dish = availableObjects.find(a => a.id === dishId);
+                  if (!dish || !dish.ingredients) return null;
+                  return (
+                    <Card key={dishId}>
+                      <CardHeader className="p-4 pb-2">
+                        <div className="flex justify-between items-center">
+                          <CardTitle className="text-md flex items-center gap-2">
+                            <Utensils className="h-4 w-4 text-accent" />
+                            {dish.name}
+                          </CardTitle>
+                          <Badge variant="secondary">売価: {dish.recoveryAmount} K</Badge>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <div className="grid grid-cols-1 gap-2">
+                          {dish.ingredients.map((ing: any) => {
+                            const invItem = inventory.find(i => i.itemId === ing.id);
+                            const currentSupply = suppliedIngredients[ing.id] || 0;
+                            const needed = ing.quantity || 1;
+                            const asset = availableObjects.find(a => a.id === ing.id);
+                            return (
+                              <div key={ing.id} className="flex items-center justify-between text-sm bg-muted/30 p-2 rounded">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-6 h-6 relative bg-background rounded">
+                                    {asset?.imageUrl && <Image src={resolveMediaUrl(asset.imageUrl)} alt="" fill className="object-contain" unoptimized />}
+                                  </div>
+                                  <span>{asset?.name || ing.id} (必要: {needed})</span>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                  <div className="text-right">
+                                    <div className="text-[10px] text-muted-foreground">店在庫 / 所持</div>
+                                    <div className="font-mono">{currentSupply} / {invItem?.quantity || 0}</div>
+                                  </div>
+                                  <Button 
+                                    size="sm" 
+                                    variant="outline" 
+                                    className="h-8 w-8 p-0"
+                                    onClick={() => handleSupplyIngredient(ing.id)}
+                                    disabled={!invItem || invItem.quantity <= 0}
+                                  >
+                                    <PackagePlus className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </TabsContent>
+          </Tabs>
+
+          <DialogFooter className="flex justify-between border-t pt-4">
+            <div className="text-left flex-grow">所持金: <span className="text-primary font-bold">{gold} K</span></div>
+            <Button variant="outline" onClick={()=>setActiveShop(null)}>店を出る</Button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
 
       <Dialog open={activeMeetingPlace !== null} onOpenChange={(open) => !open && setActiveMeetingPlace(null)}>
