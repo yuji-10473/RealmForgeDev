@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -286,6 +286,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [maxHunger, setMaxHunger] = useState(initialData?.maxHunger ?? 100);
   const [level, setLevel] = useState(initialData?.level ?? 1);
   const [xp, setXp] = useState(initialData?.xp ?? 0);
+  const [day, setDay] = useState(initialData?.day ?? 1);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
@@ -442,7 +443,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const handleSave = () => {
     const saveData = {
       userId: user.uid, mapId: selectedWorldId, positionX: characterPosition.x, positionY: characterPosition.y,
-      hp, maxHp, hunger, maxHunger, level, xp, inventory, gold, affection, bgmVolume, voiceVolume, isMuted, updatedAt: serverTimestamp(),
+      hp, maxHp, hunger, maxHunger, level, xp, day, inventory, gold, affection, bgmVolume, voiceVolume, isMuted, updatedAt: serverTimestamp(),
     };
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
     toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
@@ -537,7 +538,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       const dist = Math.sqrt(Math.pow(charCX - (currentX + obj.width / 2), 2) + Math.pow(charCY - (obj.y + obj.height / 2), 2));
       if (dist < INTERACTION_RADIUS) {
         const asset = availableObjects.find(a => a.id === obj.objectId);
-        if (asset?.name === '布団') { setHp(maxHp); setHunger(50); toast({ title: "休息", description: "ぐっすり眠って、体力が回復した！" }); return; }
+        if (asset?.name === '布団') { 
+          setHp(maxHp); 
+          setHunger(50); 
+          setDay(prev => prev + 1);
+          toast({ title: "休息", description: "ぐっすり眠って、日付が進んだ！" }); 
+          return; 
+        }
         if (asset?.name === '仏壇') { setHp(prev => Math.min(maxHp, prev + 20)); setHunger(10); toast({ title: "お祈り", description: "静かに祈りを捧げた。体力が少し回復した。" }); return; }
         const cp = masterCollectionPoints.find(c => c.id === obj.objectId);
         if (cp && cp.itemIds.length > 0) {
@@ -662,6 +669,12 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </Select>
           </div>
           <div className="flex gap-2 shrink-0 items-center flex-wrap">
+            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-20 md:w-24">
+              <CalendarDays className="h-4 w-4 shrink-0 text-accent" />
+              <div className="flex flex-col flex-grow min-w-0">
+                <span className="text-[10px] font-bold whitespace-nowrap">{day} 日目</span>
+              </div>
+            </div>
             <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-36">
               <Star className="h-4 w-4 shrink-0 text-yellow-500 fill-current" />
               <div className="flex flex-col flex-grow min-w-0">
