@@ -99,6 +99,13 @@
             "type": "number"
           }
         },
+        "suppliedIngredients": {
+          "type": "object",
+          "description": "Quantities of ingredients supplied to restaurants today. Key is itemId, value is count.",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
         "bgmVolume": {
           "type": "number",
           "description": "Volume for background music (0.0 to 1.0)."
