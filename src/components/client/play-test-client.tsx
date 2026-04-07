@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -253,6 +253,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const { toast } = useToast();
   const firestore = useFirestore();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
+  const playtestContainerRef = useRef<HTMLDivElement>(null);
 
   // Assets
   const [masterWorlds, setMasterWorlds] = useState<WorldData[]>([]);
@@ -289,6 +290,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const [day, setDay] = useState(initialData?.day ?? 1);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
   const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
   const [currentNode, setCurrentEventNode] = useState<EventNode | null>(null);
@@ -323,6 +325,23 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
     voiceRef.current.muted = isMuted;
     voiceRef.current.volume = voiceVolume;
   }, [isMuted, bgmVolume, voiceVolume]);
+
+  useEffect(() => {
+    const handleFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!playtestContainerRef.current) return;
+    if (!document.fullscreenElement) {
+      playtestContainerRef.current.requestFullscreen().catch(() => {
+        toast({ variant: 'destructive', title: '全画面表示に失敗しました' });
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
 
   const activePlayerChar = useMemo(() => playerCharacters.find(c => c.id === activePlayerId) || (playerCharacters.length > 0 ? playerCharacters[0] : null), [playerCharacters, activePlayerId]);
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
@@ -675,7 +694,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-      <div className="flex flex-col h-full gap-4 relative">
+      <div ref={playtestContainerRef} className={cn("flex flex-col h-full gap-4 relative bg-background", isFullscreen && "p-4")}>
         <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4 z-10 flex-wrap">
           <div className="flex items-center gap-2 flex-grow max-w-[200px]">
             <Label className="whitespace-nowrap text-xs">マップ</Label>
@@ -721,6 +740,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </div>
             <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center shrink-0 h-10">{gold} K</div>
             <Button size="icon" variant="outline" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
+            <Button size="icon" variant="outline" className="h-10 w-10" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+              {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+            </Button>
             <SheetTrigger asChild><Button size="icon" variant="outline" className="h-10 w-10" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
         </div>
