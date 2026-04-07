@@ -29,7 +29,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Switch } from "@/components/ui/switch";
+import { Switch } from "@/switch";
 import { Separator } from "@/components/ui/separator";
 import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence, type DisplayAffection } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
@@ -328,6 +328,22 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
   const activeMapData = currentWorld?.maps[activeCellIndex];
   const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null || activeMeetingPlace !== null;
+
+  // 近接判定の自動計算 (レンダリングサイクルで実行)
+  const isNearInteractable = useMemo(() => {
+    if (!activeMapData || isGamePaused) return false;
+    const charCX = characterPosition.x + CHARACTER_WIDTH / 2;
+    const charCY = characterPosition.y + CHARACTER_HEIGHT / 2;
+    
+    return activeMapData.objects.some(obj => {
+      const currentX = npcStates[obj.id]?.x ?? obj.x;
+      const dist = Math.sqrt(
+        Math.pow(charCX - (currentX + obj.width / 2), 2) + 
+        Math.pow(charCY - (obj.y + obj.height / 2), 2)
+      );
+      return dist < INTERACTION_RADIUS;
+    });
+  }, [characterPosition, activeMapData, npcStates, isGamePaused]);
 
   const getNextXp = useCallback((lvl: number) => LEVEL_COEFF_A * (lvl ** 2) + LEVEL_COEFF_B * lvl + LEVEL_COEFF_C, []);
   const getLevelBonus = useCallback((lvl: number) => 1.0 + (lvl - 1) * BONUS_PER_LEVEL, []);
@@ -686,7 +702,18 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} /><div className="flex flex-col flex-grow min-w-0"><Progress value={(hp / maxHp) * 100} className="h-2" /><span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span></div>
             </div>
             <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-10">
-              <Button size="icon" variant="ghost" className="h-full w-10 rounded-none border-r" onClick={() => checkForInteraction()} disabled={activeCutscene !== null || isGamePaused}><Sparkles className="h-4 w-4 text-accent" /></Button>
+              <Button 
+                size="icon" 
+                variant="ghost" 
+                className={cn(
+                  "h-full w-10 rounded-none border-r transition-all duration-300",
+                  isNearInteractable && "bg-accent/30 animate-pulse shadow-[inset_0_0_10px_hsl(var(--accent))]"
+                )} 
+                onClick={() => checkForInteraction()} 
+                disabled={activeCutscene !== null || isGamePaused}
+              >
+                <Sparkles className={cn("h-4 w-4 text-accent transition-transform", isNearInteractable && "scale-110")} />
+              </Button>
               <Popover><PopoverTrigger asChild><Button size="icon" variant="ghost" className="h-full w-10 rounded-none">{isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}</Button></PopoverTrigger><PopoverContent className="w-64 p-4 shadow-xl"><div className="space-y-4"><div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div><Separator /><div className="space-y-3">
                 <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Music className="h-3 w-3" /><Label className="text-[10px] font-bold">BGM</Label></div><Slider value={[bgmVolume * 100]} max={100} onValueChange={(v)=>setBgmVolume(v[0]/100)} /></div>
                 <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Volume2 className="h-3 w-3" /><Label className="text-[10px] font-bold">VOICE</Label></div><Slider value={[voiceVolume * 100]} max={100} onValueChange={(v)=>setVoiceVolume(v[0]/100)} /></div>
