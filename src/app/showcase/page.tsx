@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -10,13 +12,11 @@ import packageJson from "../../../package.json";
 export default function ShowcasePage() {
   const version = packageJson.version;
 
-  // ローカルパス（publicフォルダ以下）を指定する方法に変更
-  // 実際のファイルが存在しない場合のフォールバックとして、これまで通りプレースホルダーも指定可能
   const samples = [
     {
       title: "鎌倉の流刑地、伊豆の再現",
       description: "平凡と述懐に満ちた13世紀の流刑地を再現。当時の穏やかな田舎や庶民の生活風景を描き出し、流刑地特有の空気感を体験できます。",
-      image: "/maps/backgrounds/map_0_0.png", // public/maps/backgrounds/map_0_0.png を参照
+      image: "/maps/backgrounds/map_0_0.png",
       fallbackImage: PlaceHolderImages.find(p => p.id === 'map-bg-0-0')?.imageUrl,
       icon: Map,
       category: "歴史都市"
@@ -24,7 +24,7 @@ export default function ShowcasePage() {
     {
       title: "日蓮大聖人の足跡",
       description: "鎌倉幕府の運命を左右する歴史的瞬間。重厚な台詞回しと緻密な感情描写により、彼の苦悩と決断を追体験するナラティブシーケンス。",
-      image: "/images/syugo.png", // public/images/syugo.png を参照
+      image: "/images/syugo.png",
       fallbackImage: PlaceHolderImages.find(p => p.id === 'hero-sprite-1')?.imageUrl,
       icon: Sparkles,
       category: "歴史物語"
@@ -67,7 +67,6 @@ export default function ShowcasePage() {
         </header>
 
         <main className="space-y-16">
-          {/* Hero Section */}
           <section className="text-center space-y-6">
             <div className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-xs font-bold rounded-full uppercase tracking-widest mb-4">
               Historical Showcase
@@ -80,7 +79,6 @@ export default function ShowcasePage() {
             </p>
           </section>
 
-          {/* Gallery Grid */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {samples.map((sample, index) => (
               <Card key={index} className="overflow-hidden border-border/50 group hover:shadow-xl transition-all duration-300">
@@ -92,7 +90,6 @@ export default function ShowcasePage() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     unoptimized
                     onError={(e) => {
-                      // ローカル画像がない場合のフォールバック処理
                       const target = e.target as HTMLImageElement;
                       if (sample.fallbackImage) target.src = sample.fallbackImage;
                     }}
@@ -119,7 +116,6 @@ export default function ShowcasePage() {
             ))}
           </section>
 
-          {/* Informational Text Section (AdSense Support) */}
           <section className="bg-muted/30 p-8 md:p-12 rounded-3xl border border-border/50 space-y-12">
             <div className="max-w-3xl">
               <h2 className="text-3xl font-bold font-headline mb-6">歴史RPG制作を、もっと身近に。</h2>
@@ -160,7 +156,6 @@ export default function ShowcasePage() {
             </div>
           </section>
 
-          {/* Final CTA */}
           <section className="text-center py-12 space-y-8">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold font-headline">あなたも、歴史の語り手になりませんか？</h2>
