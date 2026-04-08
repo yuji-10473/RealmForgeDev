@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
+import packageJson from "../../../package.json";
 
 /**
  * AdSense 広告ユニットコンポーネント
@@ -61,6 +62,7 @@ function GoogleAd() {
 
 export function LandingScreen() {
   const auth = useAuth();
+  const version = packageJson.version;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -91,7 +93,10 @@ export function LandingScreen() {
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <RealmforgeLogo className="h-8 w-8 text-primary" />
-            <span className="font-headline text-xl font-bold tracking-tight">RealmForge</span>
+            <div className="flex flex-col">
+              <span className="font-headline text-xl font-bold tracking-tight leading-none">RealmForge</span>
+              <span className="text-[10px] text-muted-foreground font-mono">Ver {version}</span>
+            </div>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/showcase" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
@@ -302,7 +307,10 @@ export function LandingScreen() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <RealmforgeLogo className="h-6 w-6 text-primary" />
-              <span className="font-headline text-lg font-bold">RealmForge</span>
+              <div className="flex flex-col">
+                <span className="font-headline text-lg font-bold">RealmForge</span>
+                <span className="text-[10px] text-muted-foreground font-mono">Ver {version}</span>
+              </div>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               創造性を解き放ち、自分だけのRPGを。
@@ -344,7 +352,7 @@ export function LandingScreen() {
           </div>
         </div>
         <div className="max-w-6xl mx-auto px-4 mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] text-muted-foreground">© 2024 RealmForge Project. All rights reserved.</p>
+          <p className="text-[10px] text-muted-foreground">© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
           <div className="opacity-20 pointer-events-none">
             <p className="text-[10px] font-mono tracking-widest uppercase">Ancient Parchment Style</p>
           </div>
