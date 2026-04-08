@@ -132,38 +132,38 @@ export function LandingScreen() {
         <div className="space-y-4">
           <div className="flex justify-center">
             <div className="bg-primary/10 p-4 rounded-2xl ring-4 ring-primary/20">
-              <History className="h-20 w-20 text-primary" />
+              <Sparkles className="h-20 w-20 text-primary" />
             </div>
           </div>
           <h1 className="text-6xl font-bold font-headline tracking-tighter text-foreground">
-            自分だけの「歴史」を創造する。
+            AIと紡ぐ、あなただけの壮大な物語。
           </h1>
           <p className="text-xl text-muted-foreground font-medium max-w-2xl mx-auto">
-            鎌倉時代の歴史をAIと対話し、形にする。直感的なエディターと高度な生成AIが、あなたの構想を壮大な物語へと昇華させます。
+            最新の生成AIと対話し、鎌倉時代の深淵を形にする。あなたの想像力が、歴史の「もしも」を創り出すRPG制作プラットフォーム。
           </p>
         </div>
 
         <div id="features" className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           <div className="p-6 bg-card border rounded-xl shadow-sm space-y-3">
             <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
-              <Map className="h-6 w-6" />
+              <Sparkles className="h-6 w-6" />
             </div>
-            <h3 className="font-bold text-lg">歴史都市の構築</h3>
-            <p className="text-sm text-muted-foreground">鎌倉の街並みや寺社、武家屋敷をタイルエディターで自由に設計。当時の景観を直感的に再現できます。</p>
+            <h3 className="font-bold text-lg">AI共創エンジニアリング</h3>
+            <p className="text-sm text-muted-foreground">プロンプト一つで当時の人物背景や複雑なイベント分岐を生成。AIがあなたのクリエイティブ・パートナーになります。</p>
           </div>
           <div className="p-6 bg-card border rounded-xl shadow-sm space-y-3">
             <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
-              <Sparkles className="h-6 w-6" />
+              <Map className="h-6 w-6" />
             </div>
-            <h3 className="font-bold text-lg">AI歴史考証アシスト</h3>
-            <p className="text-sm text-muted-foreground">AIが当時の人物の口調や社会背景を提案。歴史のIF（もしも）を含めた魅力的な対話を生成します。</p>
+            <h3 className="font-bold text-lg">歴史アセット・タイル</h3>
+            <p className="text-sm text-muted-foreground">13世紀の日本を再現するために最適化されたアセット群。AIによる歴史考証に基づいたマップデザインが可能です。</p>
           </div>
           <div className="p-6 bg-card border rounded-xl shadow-sm space-y-3">
             <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
               <Sword className="h-6 w-6" />
             </div>
-            <h3 className="font-bold text-lg">歴史の追体験</h3>
-            <p className="text-sm text-muted-foreground">作成した世界を即座に冒険。御家人としての生活や幕府の経済システムをプレイテストで検証できます。</p>
+            <h3 className="font-bold text-lg">即時プレイテスト</h3>
+            <p className="text-sm text-muted-foreground">構築した世界をワンクリックでテスト。AIが生成した対話のテンポやゲームバランスをリアルタイムでリファインできます。</p>
           </div>
         </div>
 
@@ -174,11 +174,11 @@ export function LandingScreen() {
         <div id="about" className="text-left space-y-12 py-12 border-t border-b bg-muted/5 px-6 rounded-3xl">
           <div className="space-y-4 max-w-3xl">
             <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
-              <History className="text-primary h-8 w-8" />
-              RealmForgeで始まる、時空を超えた創作の旅
+              <Sparkles className="text-primary h-8 w-8" />
+              生成AIが解き放つ、RPG制作の新たな可能性
             </h2>
             <p className="leading-relaxed text-muted-foreground">
-              RealmForgeは、生成AIの力を借りて日本の鎌倉時代という激動の時代をRPGとして再構築するためのプラットフォームです。私たちの使命は、歴史愛好家や物語の創作者が、AIとの対話を通じて当時の空気感を抽出し、それを誰もが遊べる体験へと変換できる場所を提供することです。
+              RealmForgeは、プログラミングや複雑な設定の壁を取り払い、純粋な「物語の構築」に集中できる環境を提供します。膨大な歴史データと生成AIを統合することで、鎌倉時代という激動の時代を舞台にした深みのあるRPGを、誰でも、驚くほど短時間で制作することができます。
             </p>
           </div>
 
@@ -186,37 +186,37 @@ export function LandingScreen() {
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
                 <CheckCircle2 className="h-5 w-5" />
-                <h3 className="text-xl font-bold">史実と創造の融合</h3>
+                <h3 className="text-xl font-bold">AIによるナラティブの自動生成</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                タイルベースのマップエディターは、13世紀の日本を再現するために最適化されています。寺社の境内から武家屋敷の構造まで、クリックとドラッグだけで構築可能。AIによる歴史考証データを下敷きにすることで、よりリアリティのある世界観を簡単に作り上げることができます。
+                NPC一人ひとりの会話や、プレイヤーの選択によって分岐するシナリオをAIが考案。歴史の史実をなぞるだけでなく、あなたが想像した「歴史のIF」を整合性を保ちながら物語へと昇華させます。
               </p>
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
                 <CheckCircle2 className="h-5 w-5" />
-                <h3 className="text-xl font-bold">AIによるナラティブの強化</h3>
+                <h3 className="text-xl font-bold">直感的なビジュアルエディター</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                「ストーリーアシスト」機能は、鎌倉時代の語彙や価値観を学習したAIモデルをベースにしています。源頼朝や北条政子といった歴史上の人物とのIF対話や、市井の人々の暮らしを彩る台詞を生成。AIと対話しながら、これまでにない深みのあるナラティブを構築できます。
+                AIが提案したデザイン案を、タイルベースのエディターで即座に具現化。建物、人物、収集ポイントを配置するだけで、13世紀の息吹を感じさせるマップが完成します。
               </p>
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
                 <CheckCircle2 className="h-5 w-5" />
-                <h3 className="text-xl font-bold">高度な経済・生活システム</h3>
+                <h3 className="text-xl font-bold">高度なサバイバル・経済ロジック</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                HPや空腹度といったサバイバル要素に加え、当時の通貨単位や料理屋への納品システムなど、鎌倉時代の生活圏を模したロジックがプリセットとして用意されています。プレイヤーは単なる冒険者ではなく、歴史の中に生きる一人の人間としての体験を享受できます。
+                HP、空腹度、当時の通貨による取引、料理屋への納品システムなど、ゲームに必要な基幹システムを標準搭載。AIと相談しながら、最適なパラメータ調整を行うことが可能です。
               </p>
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
                 <CheckCircle2 className="h-5 w-5" />
-                <h3 className="text-xl font-bold">検証とリファインのサイクル</h3>
+                <h3 className="text-xl font-bold">制作と改善の高速ループ</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                制作したマップやストーリーは、即座に「プレイテスト」モードで検証可能です。AIが生成した台詞のテンポ、幕府内での立ち振る舞い、アイテムの価値バランスなどを開発者自身がリアルタイムでチェックし、納得がいくまで調整を繰り返すことができます。
+                「物語を生成し、配置し、遊ぶ」。このサイクルを極限まで高速化しました。AIとの対話を繰り返すことで、一人では到達できなかったクオリティの歴史RPGを作り上げることができます。
               </p>
             </div>
           </div>
@@ -345,7 +345,7 @@ export function LandingScreen() {
         <div className="max-w-6xl mx-auto px-4 mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] text-muted-foreground">© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
           <div className="opacity-20 pointer-events-none">
-            <p className="text-[10px] font-mono tracking-widest uppercase">Ancient Parchment Style</p>
+            <p className="text-[10px] font-mono tracking-widest uppercase">AI-Powered Creation</p>
           </div>
         </div>
       </footer>

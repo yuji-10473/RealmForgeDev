@@ -13,32 +13,32 @@ export default function ShowcasePage() {
   // 鎌倉時代のコンセプトに合わせたサンプル
   const samples = [
     {
-      title: "鎌倉の港町「津」",
-      description: "タイルエディターで再現された13世紀の交易拠点。AIが当時の生活様式を考案し、活気ある港町の雰囲気を再現しています。",
+      title: "鎌倉の港町「津」の再現",
+      description: "活気に満ちた13世紀の交易拠点を再現。当時の賑やかな市場や庶民の生活風景を描き出し、港町特有の空気感を体験できます。",
       image: PlaceHolderImages.find(p => p.id === 'map-bg-0-0')?.imageUrl,
       icon: Map,
       category: "歴史都市"
     },
     {
       title: "北条政子の決意",
-      description: "ストーリーエディターで描かれる歴史的瞬間。AIが彼女の心情を膨大な歴史データから推察し、重厚な台詞として生成しています。",
+      description: "鎌倉幕府の運命を左右する歴史的瞬間。重厚な台詞回しと緻密な感情描写により、彼女の苦悩と決断を追体験するナラティブシーケンス。",
       image: PlaceHolderImages.find(p => p.id === 'hero-sprite-1')?.imageUrl,
       icon: Sparkles,
-      category: "AIナラティブ"
+      category: "歴史物語"
     },
     {
-      title: "修善寺の収集ポイント",
-      description: "史実に基づいた素材獲得システム。当時の食生活や薬草、工芸品の素材をAIがリサーチし、探索のリアリティを高めています。",
+      title: "相模の国・探索と収集",
+      description: "史実に基づいた素材獲得システム。当時の生活に欠かせなかった薬草や工芸の素材を各地で収集し、過酷な時代を生き抜くサバイバル体験。",
       image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl,
       icon: Heart,
       category: "サバイバル"
     },
     {
-      title: "幕府の御家人食堂",
-      description: "料理屋納品システムを導入した経済拠点。プレイヤーが持ち込んだ素材から当時の献立が作られ、翌日に報酬（ゴールド）が得られます。",
+      title: "御家人食堂の経済圏",
+      description: "集めた素材から当時の献立を作り、報酬を得る経済ループ。村の発展に貢献し、御家人としての位階を高めていく成長の記録。",
       image: PlaceHolderImages.find(p => p.id === 'map-bg-1-3')?.imageUrl,
       icon: Sword,
-      category: "経済"
+      category: "経済・生活"
     }
   ];
 
@@ -68,10 +68,10 @@ export default function ShowcasePage() {
               Historical Showcase
             </div>
             <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tighter">
-              歴史を刻む、AIとの対話
+              歴史の息吹を、今ここに。
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              鎌倉時代の息吹をAIと共に再現。膨大な歴史データと生成AIを融合させ、失われた物語を現代に蘇らせる新しいRPG制作の形。
+              13世紀、鎌倉。失われた物語を現代に蘇らせる。緻密な時代考証と物語性が融合した、新しい歴史RPGの形をご覧ください。
             </p>
           </section>
 
@@ -98,13 +98,13 @@ export default function ShowcasePage() {
                 </div>
                 <CardHeader>
                   <CardTitle className="text-2xl font-headline">{sample.title}</CardTitle>
-                  <CardDescription className="text-base leading-relaxed">
+                  <CardDescription className="text-base leading-relaxed text-foreground/80">
                     {sample.description}
                   </CardDescription>
                 </CardHeader>
                 <CardFooter className="border-t bg-muted/5 py-4">
-                  <p className="text-xs text-muted-foreground italic">
-                    ※これらのアセットは歴史データに基づき、AIとの対話によって構築されています。
+                  <p className="text-[10px] text-muted-foreground italic">
+                    ※これらの物語や風景は、生成AIとの対話を通じた時代考証により構築されています。
                   </p>
                 </CardFooter>
               </Card>
@@ -116,8 +116,8 @@ export default function ShowcasePage() {
             <div className="max-w-3xl">
               <h2 className="text-3xl font-bold font-headline mb-6">歴史RPG制作を、もっと身近に。</h2>
               <p className="text-lg leading-relaxed text-muted-foreground mb-8">
-                RealmForgeは、最新の生成AI技術を活用し、歴史の深淵を誰でも形にできる場所を目指しています。
-                直感的なエディターとAIの対話機能を組み合わせることで、難解になりがちな歴史考証を「物語の種」へと変え、数分で歴史の世界を構築開始できます。
+                RealmForgeは、歴史の深淵を誰でも形にできる場所を目指しています。
+                直感的なエディターとAIのサポートを組み合わせることで、難解になりがちな時代考証を「物語の種」へと変え、数分で歴史の世界を構築開始できます。
               </p>
             </div>
 
@@ -137,7 +137,7 @@ export default function ShowcasePage() {
                 </div>
                 <h3 className="font-bold text-xl">生きている歴史上の人物</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  AIストーリーアシストにより、NPC一人ひとりに当時の価値観に基づいた独自の背景と口調を設定。プレイヤーの選択が歴史の潮流を変える体験も可能です。
+                  AIの対話生成により、NPC一人ひとりに当時の価値観に基づいた独自の背景と口調を設定。プレイヤーの選択が歴史の潮流を変える体験も可能です。
                 </p>
               </div>
               <div className="space-y-3">
