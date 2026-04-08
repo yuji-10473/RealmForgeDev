@@ -319,7 +319,16 @@ export function LandingScreen() {
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li><Link href="/tos" className="hover:text-primary">利用規約</Link></li>
               <li><Link href="/privacy" className="hover:text-primary">プライバシーポリシー</Link></li>
-              <li><Link href="#" className="hover:text-primary">お問い合わせ</Link></li>
+              <li>
+                <a 
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfA-PnpIzXaM1935pJ4nF6SsqyDSOeowzxYhamHnbgH4iIsOg/viewform?usp=header" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-primary"
+                >
+                  お問い合わせ
+                </a>
+              </li>
             </ul>
           </div>
           <div>

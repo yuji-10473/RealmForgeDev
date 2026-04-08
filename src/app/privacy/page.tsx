@@ -79,7 +79,19 @@ export default function PrivacyPolicyPage() {
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">6. お問い合わせ</h2>
             <p>
-              プライバシーポリシーに関するご質問は、当サイトのお問い合わせフォーム（準備中）よりご連絡ください。
+              当サービスに関するお問い合わせ、またはプライバシーポリシーに関するご質問は、以下のメールアドレス、または
+              <a 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfA-PnpIzXaM1935pJ4nF6SsqyDSOeowzxYhamHnbgH4iIsOg/viewform?usp=header" 
+                className="text-primary underline mx-1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                お問い合わせフォーム
+              </a>
+              よりご連絡ください。
+            </p>
+            <p className="text-sm font-mono mt-2 bg-muted/50 p-2 rounded w-fit">
+              Email: firebase.25.11.11@gmail.com
             </p>
           </section>
         </main>
