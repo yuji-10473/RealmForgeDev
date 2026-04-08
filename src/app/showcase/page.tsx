@@ -3,39 +3,39 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Map, Users, Sparkles, Sword, BookOpen, Heart } from "lucide-react";
+import { ChevronLeft, Map, Users, Sparkles, Sword, BookOpen, Heart, History } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import packageJson from "../../../package.json";
 
 export default function ShowcasePage() {
   const version = packageJson.version;
 
-  // サンプルのためにプレースホルダー画像からいくつか抽出
+  // 鎌倉時代のコンセプトに合わせたサンプル
   const samples = [
     {
-      title: "始まりの村「カナリア」",
-      description: "タイルエディターで作成された平和な村.NPCとの会話イベントや、家の中に入れるトランジションが設定されています。",
+      title: "鎌倉の港町「津」",
+      description: "タイルエディターで再現された13世紀の交易拠点。AIが当時の生活様式を考案し、活気ある港町の雰囲気を再現しています。",
       image: PlaceHolderImages.find(p => p.id === 'map-bg-0-0')?.imageUrl,
       icon: Map,
-      category: "マップ"
+      category: "歴史都市"
     },
     {
-      title: "英雄アリアの物語",
-      description: "ストーリーエディターで構築されたカットシーン。複数のキャラクターが連動して動き、ドラマチックな演出を可能にします。",
+      title: "北条政子の決意",
+      description: "ストーリーエディターで描かれる歴史的瞬間。AIが彼女の心情を膨大な歴史データから推察し、重厚な台詞として生成しています。",
       image: PlaceHolderImages.find(p => p.id === 'hero-sprite-1')?.imageUrl,
       icon: Sparkles,
-      category: "ストーリー"
+      category: "AIナラティブ"
     },
     {
-      title: "影の森の収集ポイント",
-      description: "サバイバルシステムを活用した探索エリア。HPを消費してレア素材を収集し、レベルアップに繋げるゲームループを構築。",
+      title: "修善寺の収集ポイント",
+      description: "史実に基づいた素材獲得システム。当時の食生活や薬草、工芸品の素材をAIがリサーチし、探索のリアリティを高めています。",
       image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl,
       icon: Heart,
-      category: "システム"
+      category: "サバイバル"
     },
     {
-      title: "賑やかな宿場の食堂",
-      description: "料理屋納品システムを導入した経済拠点。プレイヤーが持ち込んだ素材から料理が作られ、翌日に報酬が得られます。",
+      title: "幕府の御家人食堂",
+      description: "料理屋納品システムを導入した経済拠点。プレイヤーが持ち込んだ素材から当時の献立が作られ、翌日に報酬（ゴールド）が得られます。",
       image: PlaceHolderImages.find(p => p.id === 'map-bg-1-3')?.imageUrl,
       icon: Sword,
       category: "経済"
@@ -65,13 +65,13 @@ export default function ShowcasePage() {
           {/* Hero Section */}
           <section className="text-center space-y-6">
             <div className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-xs font-bold rounded-full uppercase tracking-widest mb-4">
-              Showcase
+              Historical Showcase
             </div>
             <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tighter">
-              創造された世界たち
+              歴史を刻む、AIとの対話
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              RealmForgeのツールを使って作成された、RPG制作の可能性を示すサンプルプロジェクトをご紹介します。
+              鎌倉時代の息吹をAIと共に再現。膨大な歴史データと生成AIを融合させ、失われた物語を現代に蘇らせる新しいRPG制作の形。
             </p>
           </section>
 
@@ -104,7 +104,7 @@ export default function ShowcasePage() {
                 </CardHeader>
                 <CardFooter className="border-t bg-muted/5 py-4">
                   <p className="text-xs text-muted-foreground italic">
-                    ※これらのアセットは組み込みライブラリを使用して構築されています。
+                    ※これらのアセットは歴史データに基づき、AIとの対話によって構築されています。
                   </p>
                 </CardFooter>
               </Card>
@@ -114,39 +114,39 @@ export default function ShowcasePage() {
           {/* Informational Text Section (AdSense Support) */}
           <section className="bg-muted/30 p-8 md:p-12 rounded-3xl border border-border/50 space-y-12">
             <div className="max-w-3xl">
-              <h2 className="text-3xl font-bold font-headline mb-6">RPG制作を、もっと身近に。</h2>
+              <h2 className="text-3xl font-bold font-headline mb-6">歴史RPG制作を、もっと身近に。</h2>
               <p className="text-lg leading-relaxed text-muted-foreground mb-8">
-                RealmForgeは、プログラミングの壁を取り払い、誰もが自分の物語を形にできる場所を目指しています。
-                直感的なエディターとAIアシストを組み合わせることで、これまで数ヶ月かかっていた「動くRPG」の構築を数分で開始できます。
+                RealmForgeは、最新の生成AI技術を活用し、歴史の深淵を誰でも形にできる場所を目指しています。
+                直感的なエディターとAIの対話機能を組み合わせることで、難解になりがちな歴史考証を「物語の種」へと変え、数分で歴史の世界を構築開始できます。
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="space-y-3">
                 <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                  <Map className="h-6 w-6" />
+                  <History className="h-6 w-6" />
                 </div>
-                <h3 className="font-bold text-xl">高度なマップ構造</h3>
+                <h3 className="font-bold text-xl">高度な歴史考証マップ</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  広大なオープンワールドから、複雑に入り組んだダンジョン、そして生活感あふれる民家まで、タイルベースのエディターで自由自在に描けます。
+                  広大な鎌倉幕府の威容から、静寂に包まれた寺社、そして庶民の生活が息づく長屋まで。タイルベースのエディターで、史実に基づいた空間を描けます。
                 </p>
               </div>
               <div className="space-y-3">
                 <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                   <Users className="h-6 w-6" />
                 </div>
-                <h3 className="font-bold text-xl">生きているNPC</h3>
+                <h3 className="font-bold text-xl">生きている歴史上の人物</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  AIストーリーアシストにより、NPC一人ひとりに深い背景と独自の口調を設定。プレイヤーの行動次第で変化する絆（好感度）システムも標準搭載。
+                  AIストーリーアシストにより、NPC一人ひとりに当時の価値観に基づいた独自の背景と口調を設定。プレイヤーの選択が歴史の潮流を変える体験も可能です。
                 </p>
               </div>
               <div className="space-y-3">
                 <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                   <BookOpen className="h-6 w-6" />
                 </div>
-                <h3 className="font-bold text-xl">経済と成長の循環</h3>
+                <h3 className="font-bold text-xl">当時の経済とサバイバル</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  素材の採取、アイテムの購入、料理屋への納品、そして報酬による強化。本格的なRPGに欠かせないゲームループをプリセットから選択するだけ。
+                  素材の採取、御家人としての勤め、料理屋への納品、そして報酬による位階の向上。鎌倉時代の生活圏を模したゲームループを直感的に導入できます。
                 </p>
               </div>
             </div>
@@ -155,12 +155,12 @@ export default function ShowcasePage() {
           {/* Final CTA */}
           <section className="text-center py-12 space-y-8">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold font-headline">あなたも、鍛冶屋の一人になりませんか？</h2>
-              <p className="text-muted-foreground">想像した世界を、そのまま形にしましょう。</p>
+              <h2 className="text-3xl font-bold font-headline">あなたも、歴史の語り手になりませんか？</h2>
+              <p className="text-muted-foreground">AIと共に、想像した歴史の世界をそのまま形にしましょう。</p>
             </div>
             <Link href="/">
               <Button size="lg" className="h-14 px-12 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all">
-                今すぐ無料で制作を始める
+                今すぐ無料で歴史を創造する
               </Button>
             </Link>
           </section>

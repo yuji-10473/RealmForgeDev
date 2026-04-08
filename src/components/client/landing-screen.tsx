@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, History } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,8 +24,6 @@ function GoogleAd() {
         if (typeof window !== 'undefined') {
           const adsbygoogle = (window as any).adsbygoogle;
           if (adsbygoogle && typeof adsbygoogle.push === 'function') {
-            // ReactのStrict Mode（開発環境）ではuseEffectが2回実行されるため、
-            // すでに広告が処理されている（data-adsbygoogle-status="done"）場合は追加でpushしないように制御します。
             const unprocessedAds = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status="done"])');
             if (unprocessedAds.length > 0) {
               adsbygoogle.push({});
@@ -33,20 +31,16 @@ function GoogleAd() {
           }
         }
       } catch (e) {
-        // 開発環境でのTagError（既に広告が存在する場合の重複push）を抑制します
         console.debug("AdSense push handled or already processed:", e);
       }
     };
 
-    // DOMのレンダリング完了を確実にするためわずかな遅延を入れ、
-    // マウント/アンマウントが激しい開発環境での安定性を高めます。
     const timeoutId = setTimeout(pushAd, 200);
     return () => clearTimeout(timeoutId);
   }, []);
 
   return (
     <div className="my-12 flex flex-col items-center">
-      {/* Google AdSense のポリシー上、ラベルは「広告」または「スポンサーリンク」のいずれかである必要があります。 */}
       <span className="text-[10px] text-muted-foreground mb-2 uppercase tracking-widest">広告</span>
       <div className="w-full max-w-[728px] min-h-[90px] bg-muted/20 border border-dashed rounded flex items-center justify-center overflow-hidden">
         <ins className="adsbygoogle"
@@ -119,11 +113,9 @@ export function LandingScreen() {
 
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
-        {/* Gradients */}
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary opacity-5 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent opacity-5 rounded-full blur-[120px]" />
         
-        {/* Background Image (Semi-transparent) */}
         <div className="absolute inset-0 opacity-15">
           <Image 
             src="/images/syugo.png" 
@@ -140,15 +132,14 @@ export function LandingScreen() {
         <div className="space-y-4">
           <div className="flex justify-center">
             <div className="bg-primary/10 p-4 rounded-2xl ring-4 ring-primary/20">
-              <RealmforgeLogo className="h-20 w-20 text-primary" />
+              <History className="h-20 w-20 text-primary" />
             </div>
           </div>
           <h1 className="text-6xl font-bold font-headline tracking-tighter text-foreground">
-            RealmForge
+            自分だけの「歴史」を創造する。
           </h1>
           <p className="text-xl text-muted-foreground font-medium max-w-2xl mx-auto">
-            自分だけの2D RPGを創造し、テストし、共有するためのプラットフォーム。
-            直感的なツールで、あなたの想像する世界を形にしましょう。
+            鎌倉時代の歴史をAIと対話し、形にする。直感的なエディターと高度な生成AIが、あなたの構想を壮大な物語へと昇華させます。
           </p>
         </div>
 
@@ -157,22 +148,22 @@ export function LandingScreen() {
             <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
               <Map className="h-6 w-6" />
             </div>
-            <h3 className="font-bold text-lg">マップエディター</h3>
-            <p className="text-sm text-muted-foreground">タイルベースの直感的な操作で、広大なワールドや詳細なルームを構築できます。</p>
+            <h3 className="font-bold text-lg">歴史都市の構築</h3>
+            <p className="text-sm text-muted-foreground">鎌倉の街並みや寺社、武家屋敷をタイルエディターで自由に設計。当時の景観を直感的に再現できます。</p>
           </div>
           <div className="p-6 bg-card border rounded-xl shadow-sm space-y-3">
             <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
               <Sparkles className="h-6 w-6" />
             </div>
-            <h3 className="font-bold text-lg">ストーリーアシスト</h3>
-            <p className="text-sm text-muted-foreground">AIの力を借りて、魅力的なキャラクターの背景や対話、物語の断片を生成します。</p>
+            <h3 className="font-bold text-lg">AI歴史考証アシスト</h3>
+            <p className="text-sm text-muted-foreground">AIが当時の人物の口調や社会背景を提案。歴史のIF（もしも）を含めた魅力的な対話を生成します。</p>
           </div>
           <div className="p-6 bg-card border rounded-xl shadow-sm space-y-3">
             <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
               <Sword className="h-6 w-6" />
             </div>
-            <h3 className="font-bold text-lg">プレイテスト</h3>
-            <p className="text-sm text-muted-foreground">作成した世界をすぐに冒険。セーブ機能や戦闘シミュレーターでバランスを調整できます。</p>
+            <h3 className="font-bold text-lg">歴史の追体験</h3>
+            <p className="text-sm text-muted-foreground">作成した世界を即座に冒険。御家人としての生活や幕府の経済システムをプレイテストで検証できます。</p>
           </div>
         </div>
 
@@ -183,11 +174,11 @@ export function LandingScreen() {
         <div id="about" className="text-left space-y-12 py-12 border-t border-b bg-muted/5 px-6 rounded-3xl">
           <div className="space-y-4 max-w-3xl">
             <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
-              <Info className="text-primary h-8 w-8" />
-              RealmForgeで始まる、あなたの創作の旅
+              <History className="text-primary h-8 w-8" />
+              RealmForgeで始まる、時空を超えた創作の旅
             </h2>
             <p className="leading-relaxed text-muted-foreground">
-              RealmForgeは、プログラミングの専門知識がなくても、自分だけの壮大な2Dロールプレイングゲーム（RPG）をゼロから構築できる革新的なブラウザベースのプラットフォームです。私たちのミッションは、すべての物語の語り手に、自らの空想の世界を形にし、それを他者と共有するための強力かつシンプルなツールを提供することです。
+              RealmForgeは、生成AIの力を借りて日本の鎌倉時代という激動の時代をRPGとして再構築するためのプラットフォームです。私たちの使命は、歴史愛好家や物語の創作者が、AIとの対話を通じて当時の空気感を抽出し、それを誰もが遊べる体験へと変換できる場所を提供することです。
             </p>
           </div>
 
@@ -195,10 +186,10 @@ export function LandingScreen() {
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
                 <CheckCircle2 className="h-5 w-5" />
-                <h3 className="text-xl font-bold">直感的なビジュアル制作</h3>
+                <h3 className="text-xl font-bold">史実と創造の融合</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                タイルベースのマップエディターを使用すれば、広大なフィールドから詳細な建物の内装まで、クリックとドラッグだけで簡単に作成できます。複数のワールドを定義し、それらをドアやワープポイントで繋ぐことで、プレイヤーが探索できるシームレスな冒険体験を構築しましょう。
+                タイルベースのマップエディターは、13世紀の日本を再現するために最適化されています。寺社の境内から武家屋敷の構造まで、クリックとドラッグだけで構築可能。AIによる歴史考証データを下敷きにすることで、よりリアリティのある世界観を簡単に作り上げることができます。
               </p>
             </div>
             <div className="space-y-4">
@@ -207,25 +198,25 @@ export function LandingScreen() {
                 <h3 className="text-xl font-bold">AIによるナラティブの強化</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                最新の生成AI技術を統合した「ストーリーアシスト」機能が、あなたの創作をサポートします。キャラクターの深いバックストーリー、村人との自然な会話、あるいは世界観の根幹を成す伝説のアイデアをAIが提案。AIと対話しながら、より深みのあるゲーム体験を作り上げることが可能です。
+                「ストーリーアシスト」機能は、鎌倉時代の語彙や価値観を学習したAIモデルをベースにしています。源頼朝や北条政子といった歴史上の人物とのIF対話や、市井の人々の暮らしを彩る台詞を生成。AIと対話しながら、これまでにない深みのあるナラティブを構築できます。
               </p>
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
                 <CheckCircle2 className="h-5 w-5" />
-                <h3 className="text-xl font-bold">高度なゲーム内システム</h3>
+                <h3 className="text-xl font-bold">高度な経済・生活システム</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                HPや空腹度の管理、レベルアップに伴う補正、村人との好感度システムなど、RPGに欠かせない複雑なロジックがプリセットとして用意されています。さらに、ショップでの売買や特定の場所でのランダムイベントなど、プレイヤーを飽きさせない多彩なギミックを簡単に導入できます。
+                HPや空腹度といったサバイバル要素に加え、当時の通貨単位や料理屋への納品システムなど、鎌倉時代の生活圏を模したロジックがプリセットとして用意されています。プレイヤーは単なる冒険者ではなく、歴史の中に生きる一人の人間としての体験を享受できます。
               </p>
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
                 <CheckCircle2 className="h-5 w-5" />
-                <h3 className="text-xl font-bold">開発と検証のサイクル</h3>
+                <h3 className="text-xl font-bold">検証とリファインのサイクル</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                作成したマップは、即座に「プレイテスト」モードで検証できます。実際の操作感、イベントの発生フラグ、アイテムの有用性などを開発者自身がリアルタイムでチェック。納得がいくまで調整を繰り返し、あなたの「理想のRPG」を完璧な形に仕上げることができます。
+                制作したマップやストーリーは、即座に「プレイテスト」モードで検証可能です。AIが生成した台詞のテンポ、幕府内での立ち振る舞い、アイテムの価値バランスなどを開発者自身がリアルタイムでチェックし、納得がいくまで調整を繰り返すことができます。
               </p>
             </div>
           </div>
@@ -313,8 +304,8 @@ export function LandingScreen() {
               </div>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              創造性を解き放ち、自分だけのRPGを。
-              RealmForgeはすべてのクリエイターのためのRPG制作プラットフォームです。
+              創造性を解き放ち、AIと共に歴史を紡ぐ。
+              RealmForgeはすべての歴史創作者のためのプラットフォームです。
             </p>
           </div>
           <div>
