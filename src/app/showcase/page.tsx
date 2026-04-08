@@ -10,33 +10,38 @@ import packageJson from "../../../package.json";
 export default function ShowcasePage() {
   const version = packageJson.version;
 
-  // 鎌倉時代のコンセプトに合わせたサンプル
+  // ローカルパス（publicフォルダ以下）を指定する方法に変更
+  // 実際のファイルが存在しない場合のフォールバックとして、これまで通りプレースホルダーも指定可能
   const samples = [
     {
-      title: "鎌倉の港町「津」の再現",
-      description: "活気に満ちた13世紀の交易拠点を再現。当時の賑やかな市場や庶民の生活風景を描き出し、港町特有の空気感を体験できます。",
-      image: PlaceHolderImages.find(p => p.id === 'map-bg-0-0')?.imageUrl,
+      title: "鎌倉の流刑地、伊豆の再現",
+      description: "平凡と述懐に満ちた13世紀の流刑地を再現。当時の穏やかな田舎や庶民の生活風景を描き出し、流刑地特有の空気感を体験できます。",
+      image: "/maps/backgrounds/map_0_0.png", // public/maps/backgrounds/map_0_0.png を参照
+      fallbackImage: PlaceHolderImages.find(p => p.id === 'map-bg-0-0')?.imageUrl,
       icon: Map,
       category: "歴史都市"
     },
     {
-      title: "北条政子の決意",
-      description: "鎌倉幕府の運命を左右する歴史的瞬間。重厚な台詞回しと緻密な感情描写により、彼女の苦悩と決断を追体験するナラティブシーケンス。",
-      image: PlaceHolderImages.find(p => p.id === 'hero-sprite-1')?.imageUrl,
+      title: "日蓮大聖人の足跡",
+      description: "鎌倉幕府の運命を左右する歴史的瞬間。重厚な台詞回しと緻密な感情描写により、彼の苦悩と決断を追体験するナラティブシーケンス。",
+      image: "/images/syugo.png", // public/images/syugo.png を参照
+      fallbackImage: PlaceHolderImages.find(p => p.id === 'hero-sprite-1')?.imageUrl,
       icon: Sparkles,
       category: "歴史物語"
     },
     {
-      title: "相模の国・探索と収集",
-      description: "史実に基づいた素材獲得システム。当時の生活に欠かせなかった薬草や工芸の素材を各地で収集し、過酷な時代を生き抜くサバイバル体験。",
-      image: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl,
+      title: "伊豆の国・探索と収集",
+      description: "AIが考える史実に基づいた素材獲得システム。当時の生活に欠かせなかった薬草や料理の素材を各地で収集し、穏やかな時代を生き抜くサバイバル体験。",
+      image: "/maps/backgrounds/map_1_0.png",
+      fallbackImage: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl,
       icon: Heart,
       category: "サバイバル"
     },
     {
       title: "御家人食堂の経済圏",
-      description: "集めた素材から当時の献立を作り、報酬を得る経済ループ。村の発展に貢献し、御家人としての位階を高めていく成長の記録。",
-      image: PlaceHolderImages.find(p => p.id === 'map-bg-1-3')?.imageUrl,
+      description: "集めた素材から当時の献立を作り、報酬を得る経済ループ。村の発展に貢献し、広宣流布を広めていく広布の記録。",
+      image: "/maps/backgrounds/map_1_3.png",
+      fallbackImage: PlaceHolderImages.find(p => p.id === 'map-bg-1-3')?.imageUrl,
       icon: Sword,
       category: "経済・生活"
     }
@@ -80,15 +85,18 @@ export default function ShowcasePage() {
             {samples.map((sample, index) => (
               <Card key={index} className="overflow-hidden border-border/50 group hover:shadow-xl transition-all duration-300">
                 <div className="aspect-video relative overflow-hidden bg-muted">
-                  {sample.image && (
-                    <Image 
-                      src={sample.image} 
-                      alt={sample.title} 
-                      fill 
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      unoptimized
-                    />
-                  )}
+                  <Image 
+                    src={sample.image} 
+                    alt={sample.title} 
+                    fill 
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    unoptimized
+                    onError={(e) => {
+                      // ローカル画像がない場合のフォールバック処理
+                      const target = e.target as HTMLImageElement;
+                      if (sample.fallbackImage) target.src = sample.fallbackImage;
+                    }}
+                  />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-background/90 backdrop-blur shadow-sm text-[10px] font-bold rounded-full flex items-center gap-1.5 border border-border">
                       <sample.icon className="h-3 w-3 text-primary" />
@@ -137,7 +145,7 @@ export default function ShowcasePage() {
                 </div>
                 <h3 className="font-bold text-xl">生きている歴史上の人物</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  AIの対話生成により、NPC一人ひとりに当時の価値観に基づいた独自の背景と口調を設定。プレイヤーの選択が歴史の潮流を変える体験も可能です。
+                  当時の価値観に基づいた独自の背景と口調を設定。プレイヤーの選択が歴史の潮流を変える体験も可能です。
                 </p>
               </div>
               <div className="space-y-3">
@@ -156,7 +164,7 @@ export default function ShowcasePage() {
           <section className="text-center py-12 space-y-8">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold font-headline">あなたも、歴史の語り手になりませんか？</h2>
-              <p className="text-muted-foreground">AIと共に、想像した歴史の世界をそのまま形にしましょう。</p>
+              <p className="text-muted-foreground">想像した歴史の世界をそのまま形にしましょう。</p>
             </div>
             <Link href="/">
               <Button size="lg" className="h-14 px-12 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all">
