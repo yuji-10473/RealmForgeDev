@@ -41,6 +41,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '../ui/card
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Toaster } from '@/components/ui/toaster';
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
@@ -764,6 +765,9 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div ref={playtestContainerRef} className={cn("flex flex-col h-full gap-4 relative bg-background", isFullscreen && "p-4")}>
+        {/* 全画面モード用のトースター */}
+        {isFullscreen && portalContainer && <Toaster />}
+        
         <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4 z-10 flex-wrap">
           <div className="flex items-center gap-2 flex-grow max-w-[200px]">
             <Label className="whitespace-nowrap text-xs">マップ</Label>
