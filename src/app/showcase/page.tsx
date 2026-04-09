@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Map, Sparkles, Sword, BookOpen, History, Youtube, Heart, ArrowRight } from "lucide-react";
+import { ChevronLeft, Map, Sparkles, Sword, BookOpen, History, Youtube, Heart, ArrowRight, MessageCircle, HelpCircle } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import packageJson from "../../../package.json";
 
@@ -16,7 +16,7 @@ export default function ShowcasePage() {
     {
       title: "鎌倉の流刑地、伊豆の再現",
       description: "平凡と述懐に満ちた13世紀の流刑地を再現。当時の穏やかな田舎や庶民の生活風景を描き出し、流刑地特有の空気感を体験できます。",
-      image: "/maps/backgrounds/map_0_0.png",
+      image: "/images/Screenshot-kaigan1.png",
       fallbackImage: PlaceHolderImages.find(p => p.id === 'map-bg-0-0')?.imageUrl,
       icon: Map,
       category: "歴史都市"
@@ -31,16 +31,16 @@ export default function ShowcasePage() {
     },
     {
       title: "伊豆の国・探索と収集",
-      description: "AIが考える史実に基づいた素材獲得システム。当時の生活に欠かせなかった薬草や料理の素材を各地で収集し、穏やかな時代を生き抜くサバイバル体験。",
-      image: "/maps/backgrounds/map_1_0.png",
+      description: "史実に基づいた素材獲得システム。当時の生活に欠かせなかった薬草や料理の素材を各地で収集し、穏やかな時代を生き抜くサバイバル体験。",
+      image: "/images/items.jpg",
       fallbackImage: PlaceHolderImages.find(p => p.id === 'tree-asset')?.imageUrl,
       icon: Heart,
       category: "サバイバル"
     },
     {
-      title: "御家人食堂の経済圏",
-      description: "集めた素材から当時の献立を作り、報酬を得る経済ループ. 村の発展に貢献し、広宣流布を広めていく広布の記録。",
-      image: "/maps/backgrounds/map_1_3.png",
+      title: "日蓮食堂の経済圏",
+      description: "集めた素材から当時の献立を作り、報酬を得る経済ループ。村の発展に貢献し、広宣流布を広めていく過程を体験できます。",
+      image: "/images/sushi1.jpg",
       fallbackImage: PlaceHolderImages.find(p => p.id === 'map-bg-1-3')?.imageUrl,
       icon: Sword,
       category: "経済・生活"
@@ -203,7 +203,18 @@ export default function ShowcasePage() {
         </main>
 
         <footer className="border-t pt-8 text-center text-sm text-muted-foreground">
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex items-center gap-6">
+              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1">
+                <HelpCircle className="h-3 w-3" /> About
+              </Link>
+              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1">
+                <BookOpen className="h-3 w-3" /> チュートリアル
+              </Link>
+              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1">
+                <MessageCircle className="h-3 w-3" /> お問い合わせ
+              </Link>
+            </div>
             <div className="flex items-center gap-2">
               <RealmforgeLogo className="h-6 w-6 text-primary" />
               <span className="font-headline font-bold">RealmForge</span>
