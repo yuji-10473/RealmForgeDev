@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Sparkles, History, BookOpen, Target, HelpCircle } from "lucide-react";
+import { ChevronLeft, Sparkles, History, BookOpen, Target, HelpCircle, MessageCircle, FileText, ShieldCheck, Presentation } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default function AboutPage() {
@@ -107,7 +107,26 @@ export default function AboutPage() {
         </main>
 
         <footer className="border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>© 2024 RealmForge Project. All rights reserved.</p>
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1">
+                <Presentation className="h-3 w-3" /> 作品紹介
+              </Link>
+              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1">
+                <BookOpen className="h-3 w-3" /> チュートリアル
+              </Link>
+              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1">
+                <MessageCircle className="h-3 w-3" /> お問い合わせ
+              </Link>
+              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1">
+                <FileText className="h-3 w-3" /> 利用規約
+              </Link>
+              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1">
+                <ShieldCheck className="h-3 w-3" /> プライバシー
+              </Link>
+            </div>
+            <p>© 2024 RealmForge Project. All rights reserved.</p>
+          </div>
         </footer>
       </div>
     </div>

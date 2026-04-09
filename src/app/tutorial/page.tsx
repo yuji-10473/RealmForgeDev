@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Gamepad2, HeartPulse, Coins, Users, BookOpen, Moon, ArrowRight, PackagePlus, Presentation, MessageCircle, HelpCircle } from "lucide-react";
+import { ChevronLeft, Gamepad2, HeartPulse, Coins, Users, BookOpen, Moon, ArrowRight, PackagePlus, Presentation, MessageCircle, HelpCircle, FileText, ShieldCheck } from "lucide-react";
 import packageJson from "../../../package.json";
 
 export default function TutorialPage() {
@@ -159,7 +159,7 @@ export default function TutorialPage() {
 
         <footer className="border-t pt-8 text-center text-sm text-muted-foreground">
           <div className="flex flex-col items-center gap-6">
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
               <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1">
                 <HelpCircle className="h-3 w-3" /> About
               </Link>
@@ -168,6 +168,12 @@ export default function TutorialPage() {
               </Link>
               <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1">
                 <MessageCircle className="h-3 w-3" /> お問い合わせ
+              </Link>
+              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1">
+                <FileText className="h-3 w-3" /> 利用規約
+              </Link>
+              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1">
+                <ShieldCheck className="h-3 w-3" /> プライバシー
               </Link>
             </div>
             <p>© 2024 RealmForge Project. (Ver {version})</p>
