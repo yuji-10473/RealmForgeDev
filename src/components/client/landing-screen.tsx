@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, BookOpen } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, BookOpen, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -221,6 +221,15 @@ export function LandingScreen() {
                 「物語を生成し、配置し、遊ぶ」。このサイクルを極限まで高速化しました。AIとの対話を繰り返すことで、一人では到達できなかったクオリティの歴史RPGを作り上げることができます。
               </p>
             </div>
+          </div>
+
+          <div className="flex justify-center pt-8">
+            <Link href="/showcase">
+              <Button variant="outline" className="group">
+                実際の制作例を見る
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </div>
 

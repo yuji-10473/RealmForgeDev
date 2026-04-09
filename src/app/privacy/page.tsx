@@ -12,12 +12,17 @@ export default function PrivacyPolicyPage() {
             <RealmforgeLogo className="h-8 w-8 text-primary" />
             <span className="font-headline text-xl font-bold">RealmForge</span>
           </Link>
-          <Link href="/">
-            <Button variant="ghost" size="sm">
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              戻る
-            </Button>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/showcase">
+              <Button variant="outline" size="sm">作品紹介</Button>
+            </Link>
+            <Link href="/">
+              <Button variant="ghost" size="sm">
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                戻る
+              </Button>
+            </Link>
+          </div>
         </header>
 
         <main className="prose prose-neutral max-w-none space-y-6">
@@ -45,17 +50,23 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
 
-          <section className="space-y-4">
+          <section className="space-y-4 border-l-4 border-primary pl-6 py-2">
             <h2 className="text-2xl font-bold">3. 広告配信について（重要）</h2>
-            <div className="bg-muted/30 p-4 border rounded-lg">
+            <div className="bg-muted/30 p-4 border rounded-lg space-y-4">
               <p>
                 当サイトでは、第三者配信事業者（Google AdSense）が提供する広告を配信しています。
               </p>
-              <p className="mt-2">
-                これらの事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報「Cookie」（氏名、住所、メールアドレス、電話番号は含まれません）を使用することがあります。
+              <p>
+                Google などの第三者配信事業者は Cookie を使用して、ユーザーが当サイトや他のウェブサイトに過去にアクセスした際の情報に基づいて広告を配信します。
               </p>
-              <p className="mt-2">
-                Google AdSenseに関して、プロセスの詳細やこのような情報が広告配信事業者に使用されないようにする方法については、
+              <p>
+                Google が広告 Cookie を使用することにより、ユーザーが当サイトや他のサイトにアクセスした際の情報に基づいて、Google やそのパートナーが適切な広告をユーザーに表示できます。
+              </p>
+              <p>
+                ユーザーは、広告設定でパーソナライズ広告を無効にできます。また、www.aboutads.info にアクセスすれば、第三者配信事業者がパーソナライズ広告の掲載で使用する Cookie を無効にできます。
+              </p>
+              <p className="mt-2 text-sm italic">
+                詳細については、
                 <a href="https://policies.google.com/technologies/ads" className="text-primary underline ml-1" target="_blank" rel="noopener noreferrer">Googleのポリシーと規約</a> 
                 をご確認ください。
               </p>

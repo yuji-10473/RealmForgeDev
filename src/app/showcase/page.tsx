@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Map, Sparkles, Sword, BookOpen, History, Youtube, Heart } from "lucide-react";
+import { ChevronLeft, Map, Sparkles, Sword, BookOpen, History, Youtube, Heart, ArrowRight } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import packageJson from "../../../package.json";
 
@@ -188,14 +188,15 @@ export default function ShowcasePage() {
             </div>
           </section>
 
-          <section className="text-center py-12 space-y-8">
+          <section className="text-center py-12 space-y-8 bg-primary/5 rounded-3xl border border-primary/10">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold font-headline">あなたも、歴史の語り手になりませんか？</h2>
-              <p className="text-muted-foreground">想像した歴史の世界をそのまま形にしましょう。</p>
+              <h2 className="text-3xl font-bold font-headline">システムを詳しく知る</h2>
+              <p className="text-muted-foreground">これらのサンプルがどのように動作するか、冒険の手引きを確認しましょう。</p>
             </div>
-            <Link href="/">
-              <Button size="lg" className="h-14 px-12 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all">
-                今すぐ無料で歴史を創造する
+            <Link href="/tutorial">
+              <Button size="lg" className="h-14 px-12 text-lg font-bold rounded-full group">
+                チュートリアルを読む
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </section>

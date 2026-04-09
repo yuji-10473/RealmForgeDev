@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Gamepad2, HeartPulse, Coins, Users, BookOpen, Moon, ArrowRight, Sparkles, Map, PackagePlus, Star } from "lucide-react";
+import { ChevronLeft, Gamepad2, HeartPulse, Coins, Users, BookOpen, Moon, ArrowRight, PackagePlus, Presentation } from "lucide-react";
 import packageJson from "../../../package.json";
 
 export default function TutorialPage() {
@@ -64,12 +64,20 @@ export default function TutorialPage() {
               <span className="text-xs text-muted-foreground font-mono">Ver {version}</span>
             </div>
           </Link>
-          <Link href="/">
-            <Button variant="ghost" size="sm">
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              戻る
-            </Button>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/showcase">
+              <Button variant="outline" size="sm">
+                <Presentation className="mr-2 h-4 w-4" />
+                作品紹介
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button variant="ghost" size="sm">
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                戻る
+              </Button>
+            </Link>
+          </div>
         </header>
 
         <main className="space-y-12">
@@ -133,6 +141,19 @@ export default function TutorialPage() {
                 <Coins className="h-3 w-3" /> 売上獲得
               </div>
             </div>
+          </section>
+
+          <section className="text-center py-12 space-y-8 bg-muted/30 rounded-3xl border border-border/50">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold font-headline">実際の風景を見る</h2>
+              <p className="text-muted-foreground">これらのシステムによって構築された、鎌倉時代の世界観を確認しましょう。</p>
+            </div>
+            <Link href="/showcase">
+              <Button size="lg" variant="secondary" className="h-14 px-12 text-lg font-bold rounded-full group">
+                作品紹介へ進む
+                <Presentation className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+              </Button>
+            </Link>
           </section>
 
           <section className="text-center py-8 space-y-6">
