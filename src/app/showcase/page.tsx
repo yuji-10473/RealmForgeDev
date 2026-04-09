@@ -72,7 +72,7 @@ export default function ShowcasePage() {
               Historical Showcase
             </div>
             <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tighter">
-              歴史の息吹を、今ここに。
+              歴史の息吹を、今ここに.
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               13世紀、鎌倉。失われた物語を現代に蘇らせる。緻密な時代考証と物語性が融合した、新しい歴史RPGの形をご覧ください。
