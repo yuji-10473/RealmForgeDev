@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Map, Users, Sparkles, Sword, BookOpen, Heart, History } from "lucide-react";
+import { ChevronLeft, Map, Users, Sparkles, Sword, BookOpen, Heart, History, Youtube } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import packageJson from "../../../package.json";
 
@@ -77,6 +77,30 @@ export default function ShowcasePage() {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               13世紀、鎌倉。失われた物語を現代に蘇らせる。緻密な時代考証と物語性が融合した、新しい歴史RPGの形をご覧ください。
             </p>
+          </section>
+
+          {/* YouTube Video Section */}
+          <section className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl font-bold font-headline flex items-center justify-center gap-2">
+                <Youtube className="h-6 w-6 text-red-600" />
+                コンセプトムービー
+              </h2>
+              <p className="text-sm text-muted-foreground">AIと紡ぐ鎌倉時代の世界観を、映像で体験してください。</p>
+            </div>
+            <div className="aspect-video w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-primary/10 bg-black relative group">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/SGxelqa2L00"
+                title="RealmForge Concept Movie"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
+            </div>
           </section>
 
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
