@@ -256,6 +256,13 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
   const firestore = useFirestore();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
   const playtestContainerRef = useRef<HTMLDivElement>(null);
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (playtestContainerRef.current) {
+      setPortalContainer(playtestContainerRef.current);
+    }
+  }, []);
 
   // Assets
   const [masterWorlds, setMasterWorlds] = useState<WorldData[]>([]);
@@ -762,7 +769,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             <Label className="whitespace-nowrap text-xs">マップ</Label>
             <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }} disabled={activeCutscene !== null}>
               <SelectTrigger className="h-8"><SelectValue /></SelectTrigger>
-              <SelectContent>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
+              <SelectContent container={portalContainer}>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
             </Select>
           </div>
           <div className="flex gap-2 shrink-0 items-center flex-wrap">
@@ -795,7 +802,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               >
                 <Sparkles className={cn("h-4 w-4 text-accent transition-transform", isNearInteractable && "scale-110")} />
               </Button>
-              <Popover><PopoverTrigger asChild><Button size="icon" variant="ghost" className="h-full w-10 rounded-none">{isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}</Button></PopoverTrigger><PopoverContent className="w-64 p-4 shadow-xl"><div className="space-y-4"><div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div><Separator /><div className="space-y-3">
+              <Popover><PopoverTrigger asChild><Button size="icon" variant="ghost" className="h-full w-10 rounded-none">{isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}</Button></PopoverTrigger><PopoverContent container={portalContainer} className="w-64 p-4 shadow-xl"><div className="space-y-4"><div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div><Separator /><div className="space-y-3">
                 <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Music className="h-3 w-3" /><Label className="text-[10px] font-bold">BGM</Label></div><Slider value={[bgmVolume * 100]} max={100} onValueChange={(v)=>setBgmVolume(v[0]/100)} /></div>
                 <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Volume2 className="h-3 w-3" /><Label className="text-[10px] font-bold">VOICE</Label></div><Slider value={[voiceVolume * 100]} max={100} onValueChange={(v)=>setVoiceVolume(v[0]/100)} /></div>
               </div></div></PopoverContent></Popover>
@@ -849,7 +856,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       
       {/* 強化版ショップダイアログ */}
       <Dialog open={activeShop !== null} onOpenChange={(open) => !open && setActiveShop(null)}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent container={portalContainer} className="max-w-3xl">
           <DialogHeader>
             <div className="flex items-center gap-2">
               <ShoppingCart className="h-5 w-5" />
@@ -950,7 +957,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
       </Dialog>
 
       <Dialog open={activeMeetingPlace !== null} onOpenChange={(open) => !open && setActiveMeetingPlace(null)}>
-        <DialogContent className="max-w-md">
+        <DialogContent container={portalContainer} className="max-w-md">
           <DialogHeader>
             <div className="flex items-center gap-2">
               <Users className="h-5 w-5" />
@@ -988,7 +995,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         </DialogContent>
       </Dialog>
 
-      <SheetContent className="sm:max-w-xl"><SheetHeader><SheetTitle>ゲームメニュー</SheetTitle></SheetHeader><div className="mt-4"><MenuSimulatorClient inventoryItems={inventory.map(i=>{const d=availableObjects.find(a=>a.id===i.itemId); return {id:i.itemId,name:d?.name||'?',imageUrl:resolveMediaUrl(d?.imageUrl),quantity:i.quantity,canUse:(d?.recoveryAmount||0)>0,description:d?.description,rarity:d?.rarity,itemType:d?.itemType,recoveryAmount:d?.recoveryAmount,ingredients:d?.ingredients};})} sequences={masterSequences.map(s=>({id:s.id,title:s.title,description:s.description}))} characterAffection={availableObjects.filter(o=>o.type==='person').map(v=>({id:v.id,name:v.name||'?',imageUrl:resolveMediaUrl(v.imageUrl),points:affection[v.id]||0,description:v.description,personality:v.personality,age:v.age,gender:v.gender,introduction:v.introduction})).filter(c=>c.points>0).sort((a,b)=>b.points-a.points)} onPlaySequence={handlePlaySequence} onUseItem={(id)=>{
+      <SheetContent container={portalContainer} className="sm:max-w-xl"><SheetHeader><SheetTitle>ゲームメニュー</SheetTitle></SheetHeader><div className="mt-4"><MenuSimulatorClient inventoryItems={inventory.map(i=>{const d=availableObjects.find(a=>a.id===i.itemId); return {id:i.itemId,name:d?.name||'?',imageUrl:resolveMediaUrl(d?.imageUrl),quantity:i.quantity,canUse:(d?.recoveryAmount||0)>0,description:d?.description,rarity:d?.rarity,itemType:d?.itemType,recoveryAmount:d?.recoveryAmount,ingredients:d?.ingredients};})} sequences={masterSequences.map(s=>({id:s.id,title:s.title,description:s.description}))} characterAffection={availableObjects.filter(o=>o.type==='person').map(v=>({id:v.id,name:v.name||'?',imageUrl:resolveMediaUrl(v.imageUrl),points:affection[v.id]||0,description:v.description,personality:v.personality,age:v.age,gender:v.gender,introduction:v.introduction})).filter(c=>c.points>0).sort((a,b)=>b.points-a.points)} onPlaySequence={handlePlaySequence} onUseItem={(id)=>{
         const item = availableObjects.find(a=>a.id===id); if (!item) return; const bonus = getLevelBonus(level); const rec = Math.floor((item.recoveryAmount||0)*bonus); const hrec = item.isDish ? Math.floor((item.recoveryAmount||0)/10) : (item.recoveryAmount||0);
         if (hunger+hrec > maxHunger) { toast({variant:"destructive",title:"満腹です"}); return; }
         setHp(p=>Math.min(maxHp,p+rec)); setHunger(p=>Math.min(maxHunger,p+hrec));
