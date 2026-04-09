@@ -95,7 +95,7 @@ export default function AboutPage() {
                 なぜ「鎌倉時代」なのか
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed italic">
-                13世紀の鎌倉は、古い貴族の支配から武士の時代へと大きく転換する、エネルギーに満ちた激動の時代でした。当時の生活感、独自の経済圏、そして独自の精神文化は、RPGという形式で表現するのに最も適した「重厚な物語」を秘めています。
+                13世紀の鎌倉は、古い貴族の支配から武士の時代へと大きく転換する、エネルギーに満ちた激動の時代でした。当時の生活感、独自の経済圏、および独自の精神文化は、RPGという形式で表現するのに最も適した「重厚な物語」を秘めています。
               </p>
             </div>
           </section>
@@ -108,24 +108,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.17</Badge>
+                <div>
+                  <p className="font-bold">SEOとサイト信頼性の向上</p>
+                  <p className="text-sm text-muted-foreground mt-1">検索エンジン最適化（SEO）のためのサイトマップ生成、メタデータの拡充、およびユーザーの利便性を高めるためのナビゲーション改善を行いました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.16</Badge>
                 <div>
                   <p className="font-bold">チュートリアル機能の追加とUI改善</p>
                   <p className="text-sm text-muted-foreground mt-1">初めてのユーザー向けにプレイテストの基本ガイドを公開しました。また、全画面表示時のUI操作性を向上させました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
+              <div className="flex gap-4 items-start opacity-60">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.15</Badge>
                 <div>
                   <p className="font-bold">経済・サバイバルシステムの統合</p>
                   <p className="text-sm text-muted-foreground mt-1">料理屋への納品システムと売上精算ロジックを実装し、鎌倉時代の生活圏を模したゲームループが可能になりました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start opacity-60">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.14</Badge>
-                <div>
-                  <p className="font-bold">AIストーリーアシストの強化</p>
-                  <p className="text-sm text-muted-foreground mt-1">Gemini 2.5 を活用した高精度なナラティブ生成機能と、キャラクター背景生成の連動を最適化しました。</p>
                 </div>
               </div>
             </div>
