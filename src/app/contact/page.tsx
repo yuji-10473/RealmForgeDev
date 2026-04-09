@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Mail, MessageSquare, Send, FileText, ShieldCheck, HelpCircle, BookOpen, Presentation } from "lucide-react";
+import { ChevronLeft, Mail, MessageSquare, Send, FileText, ShieldCheck, HelpCircle, BookOpen, Presentation, MessageCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import packageJson from "../../../package.json";
 
