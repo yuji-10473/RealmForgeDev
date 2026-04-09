@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { ChevronLeft, Sparkles, History, BookOpen, Target, HelpCircle, MessageCircle, FileText, ShieldCheck, Presentation, Clock } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import packageJson from "../../../package.json";
 
 export const metadata: Metadata = {
   title: "このサイトについて | RealmForge - 13世紀鎌倉をAIで描くRPG制作プラットフォーム",
-  description: "RealmForgeプロジェクトの理念、13世紀鎌倉時代へのこだわり、そして生成AIを活用した新たなRPG制作の形について解説します。",
+  description: "RealmForgeプロジェクトの理念、13世紀鎌倉時代へのこだわり、転機となる生成AIを活用した新たなRPG制作の形について解説します。",
 };
 
 export default function AboutPage() {
