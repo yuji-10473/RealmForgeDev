@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, History } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, BookOpen } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -96,8 +96,10 @@ export function LandingScreen() {
             <Link href="/showcase" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
               <Presentation className="h-3 w-3" /> 作品紹介
             </Link>
+            <Link href="/tutorial" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
+              <BookOpen className="h-3 w-3" /> チュートリアル
+            </Link>
             <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">機能</Link>
-            <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">当サービスについて</Link>
             <Link href="/tos" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
               <FileText className="h-3 w-3" /> 利用規約
             </Link>
@@ -312,6 +314,7 @@ export function LandingScreen() {
             <h4 className="font-bold text-sm mb-4">サービス</h4>
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li><Link href="/showcase" className="hover:text-primary">作品紹介</Link></li>
+              <li><Link href="/tutorial" className="hover:text-primary">チュートリアル</Link></li>
               <li><Link href="#features" className="hover:text-primary">機能一覧</Link></li>
               <li><Link href="/asset-library" className="hover:text-primary">アセットライブラリ</Link></li>
               <li><Link href="/play-test" className="hover:text-primary">プレイテスト</Link></li>

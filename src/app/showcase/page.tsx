@@ -58,12 +58,20 @@ export default function ShowcasePage() {
               <span className="text-xs text-muted-foreground font-mono">Ver {version}</span>
             </div>
           </Link>
-          <Link href="/">
-            <Button variant="ghost" size="sm">
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              戻る
-            </Button>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/tutorial">
+              <Button variant="outline" size="sm">
+                <BookOpen className="mr-2 h-4 w-4" />
+                チュートリアル
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button variant="ghost" size="sm">
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                戻る
+              </Button>
+            </Link>
+          </div>
         </header>
 
         <main className="space-y-16">
@@ -174,7 +182,7 @@ export default function ShowcasePage() {
                 </div>
                 <h3 className="font-bold text-xl">当時の経済とサバイバル</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  素材の採取、御家人としての勤め、料理屋への納品、そして報酬による位階の向上。鎌倉時代の生活圏を模したゲームループを直感的に導入できます。
+                  素材の採取、御家人としての勤め、料理屋への納品、および報酬による位階の向上。鎌倉時代の生活圏を模したゲームループを直感的に導入できます。
                 </p>
               </div>
             </div>
