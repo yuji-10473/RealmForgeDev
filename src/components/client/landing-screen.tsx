@@ -16,6 +16,7 @@ import packageJson from "../../../package.json";
 
 /**
  * AdSense 広告ユニットコンポーネント
+ * 最小の高さを確保して CLS (Layout Shift) を防ぎます。
  */
 function GoogleAd() {
   useEffect(() => {
@@ -41,10 +42,10 @@ function GoogleAd() {
 
   return (
     <div className="my-12 flex flex-col items-center">
-      <span className="text-[10px] text-muted-foreground mb-2 uppercase tracking-widest">広告</span>
-      <div className="w-full max-w-[728px] min-h-[90px] bg-muted/20 border border-dashed rounded flex items-center justify-center overflow-hidden">
+      <span className="text-[10px] text-muted-foreground mb-2 uppercase tracking-widest">スポンサーリンク</span>
+      <div className="w-full max-w-[728px] min-h-[100px] bg-muted/10 border border-dashed rounded-lg flex items-center justify-center overflow-hidden">
         <ins className="adsbygoogle"
-             style={{ display: 'block', width: '100%' }}
+             style={{ display: 'block', width: '100%', minHeight: '90px' }}
              data-ad-client="ca-pub-7148894079314433"
              data-ad-slot="2910984428"
              data-ad-format="auto"
@@ -302,7 +303,7 @@ export function LandingScreen() {
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Consistent Footer for all public pages */}
       <footer className="w-full border-t bg-muted/20 py-12 mt-20 z-10">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
@@ -319,28 +320,23 @@ export function LandingScreen() {
             </p>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-4">サービス</h4>
+            <h4 className="font-bold text-sm mb-4">コンテンツ</h4>
             <ul className="space-y-2 text-xs text-muted-foreground">
-              <li><Link href="/about" className="hover:text-primary">About</Link></li>
-              <li><Link href="/showcase" className="hover:text-primary">作品紹介</Link></li>
-              <li><Link href="/tutorial" className="hover:text-primary">チュートリアル</Link></li>
-              <li><Link href="/contact" className="hover:text-primary">お問い合わせ</Link></li>
+              <li><Link href="/about" className="hover:text-primary transition-colors">このサイトについて</Link></li>
+              <li><Link href="/showcase" className="hover:text-primary transition-colors">作品紹介</Link></li>
+              <li><Link href="/tutorial" className="hover:text-primary transition-colors">チュートリアル</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-bold text-sm mb-4">サポート</h4>
             <ul className="space-y-2 text-xs text-muted-foreground">
-              <li><Link href="/tos" className="hover:text-primary">利用規約</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary">プライバシーポリシー</Link></li>
-              <li>
-                <Link href="/contact" className="hover:text-primary">
-                  不具合報告・ご要望
-                </Link>
-              </li>
+              <li><Link href="/contact" className="hover:text-primary transition-colors">お問い合わせ</Link></li>
+              <li><Link href="/tos" className="hover:text-primary transition-colors">利用規約</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary transition-colors">プライバシーポリシー</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-4">コンプライアンス</h4>
+            <h4 className="font-bold text-sm mb-4">クッキーについて</h4>
             <p className="text-[10px] text-muted-foreground leading-relaxed">
               当サイトでは、サービスの改善および広告配信のためにクッキー（Cookie）を使用しています。
               詳細はプライバシーポリシーをご確認ください。
@@ -348,9 +344,9 @@ export function LandingScreen() {
           </div>
         </div>
         <div className="max-w-6xl mx-auto px-4 mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] text-muted-foreground">© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
+          <p className="text-[10px] text-muted-foreground">© 2024 RealmForge Project. All rights reserved.</p>
           <div className="opacity-20 pointer-events-none">
-            <p className="text-[10px] font-mono tracking-widest uppercase">AI-Powered Creation</p>
+            <p className="text-[10px] font-mono tracking-widest uppercase">AI-Powered Historical Creation</p>
           </div>
         </div>
       </footer>

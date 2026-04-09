@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { ChevronLeft, Sparkles, History, BookOpen, Target, HelpCircle, MessageCircle, FileText, ShieldCheck, Presentation } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import packageJson from "../../../package.json";
 
 export default function AboutPage() {
+  const version = packageJson.version;
+
   return (
     <div className="min-h-screen bg-background text-foreground py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-12">
@@ -64,7 +67,7 @@ export default function AboutPage() {
               <AccordionItem value="item-1">
                 <AccordionTrigger>RealmForge は無料で利用できますか？</AccordionTrigger>
                 <AccordionContent>
-                  はい、主要なエディター機能やプレイテスト機能はどなたでも無料で体験いただけます。プロジェクトの維持・向上のために広告を表示させていただいております。
+                  はい、主要なエディター機能やプレイテスト機能はどなたでも無料で体験いただけます。プロジェクトの維持・向上のために一部で広告を表示させていただいております。
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
@@ -76,13 +79,13 @@ export default function AboutPage() {
               <AccordionItem value="item-3">
                 <AccordionTrigger>作成したゲームデータのエクスポートは可能ですか？</AccordionTrigger>
                 <AccordionContent>
-                  現在、ブラウザ上での保存機能を提供しています。外部形式へのエクスポート機能については、順次開発・公開を予定しております。
+                  現在、ブラウザ上での保存機能を提供しています。外部形式へのエクスポート機能については、最新のロードマップに基づき順次アップデート予定です。
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
                 <AccordionTrigger>スマートフォンのブラウザでも動作しますか？</AccordionTrigger>
                 <AccordionContent>
-                  エディター機能は PC の大画面での操作を推奨しておりますが、チュートリアルや作品紹介の閲覧、一部のプレイテストはモバイル環境でも最適化が進んでおります。
+                  エディター機能は PC の大画面での操作を推奨しておりますが、チュートリアルや作品紹介の閲覧、プレイテストの一部はモバイル環境にも最適化されています。
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -106,26 +109,33 @@ export default function AboutPage() {
           </section>
         </main>
 
-        <footer className="border-t pt-8 text-center text-sm text-muted-foreground">
+        {/* Consistent Footer */}
+        <footer className="border-t pt-12 text-center text-sm text-muted-foreground space-y-8">
           <div className="flex flex-col items-center gap-6">
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <HelpCircle className="h-3 w-3" /> About
+              </Link>
+              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <Presentation className="h-3 w-3" /> 作品紹介
               </Link>
-              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <BookOpen className="h-3 w-3" /> チュートリアル
               </Link>
-              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <MessageCircle className="h-3 w-3" /> お問い合わせ
               </Link>
-              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <FileText className="h-3 w-3" /> 利用規約
               </Link>
-              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <ShieldCheck className="h-3 w-3" /> プライバシー
               </Link>
             </div>
-            <p>© 2024 RealmForge Project. All rights reserved.</p>
+            <div className="flex items-center gap-2">
+              <RealmforgeLogo className="h-5 w-5 text-primary opacity-50" />
+              <p>© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
+            </div>
           </div>
         </footer>
       </div>

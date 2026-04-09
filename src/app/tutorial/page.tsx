@@ -157,26 +157,33 @@ export default function TutorialPage() {
           </section>
         </main>
 
-        <footer className="border-t pt-8 text-center text-sm text-muted-foreground">
+        {/* Consistent Footer */}
+        <footer className="border-t pt-12 text-center text-sm text-muted-foreground space-y-8">
           <div className="flex flex-col items-center gap-6">
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <HelpCircle className="h-3 w-3" /> About
               </Link>
-              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <Presentation className="h-3 w-3" /> 作品紹介
               </Link>
-              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <BookOpen className="h-3 w-3" /> チュートリアル
+              </Link>
+              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <MessageCircle className="h-3 w-3" /> お問い合わせ
               </Link>
-              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <FileText className="h-3 w-3" /> 利用規約
               </Link>
-              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1">
+              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
                 <ShieldCheck className="h-3 w-3" /> プライバシー
               </Link>
             </div>
-            <p>© 2024 RealmForge Project. (Ver {version})</p>
+            <div className="flex items-center gap-2">
+              <RealmforgeLogo className="h-5 w-5 text-primary opacity-50" />
+              <p>© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
+            </div>
           </div>
         </footer>
       </div>
