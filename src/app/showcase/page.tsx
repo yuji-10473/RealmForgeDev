@@ -3,9 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Map, Users, Sparkles, Sword, BookOpen, Heart, History, Youtube } from "lucide-react";
+import { ChevronLeft, Map, Sparkles, Sword, BookOpen, History, Youtube, Heart } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import packageJson from "../../../package.json";
 
@@ -39,7 +39,7 @@ export default function ShowcasePage() {
     },
     {
       title: "御家人食堂の経済圏",
-      description: "集めた素材から当時の献立を作り、報酬を得る経済ループ。村の発展に貢献し、広宣流布を広めていく広布の記録。",
+      description: "集めた素材から当時の献立を作り、報酬を得る経済ループ. 村の発展に貢献し、広宣流布を広めていく広布の記録。",
       image: "/maps/backgrounds/map_1_3.png",
       fallbackImage: PlaceHolderImages.find(p => p.id === 'map-bg-1-3')?.imageUrl,
       icon: Sword,
@@ -169,7 +169,7 @@ export default function ShowcasePage() {
               </div>
               <div className="space-y-3">
                 <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                  <Users className="h-6 w-6" />
+                  <Sparkles className="h-6 w-6" />
                 </div>
                 <h3 className="font-bold text-xl">生きている歴史上の人物</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
