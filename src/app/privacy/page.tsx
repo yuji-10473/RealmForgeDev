@@ -7,7 +7,7 @@ import packageJson from "../../../package.json";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー | RealmForge",
-  description: "RealmForgeプロジェクトのプライバシーポリシーです。個人情報の収集目的、利用、およびGoogle AdSenseによる広告配信とCookieの使用について説明しています。",
+  description: "RealmForgeプロジェクトのプライバシーポリシーです。個人情報の収集目的、利用、およびGoogle AdSenseによる広告配信とCookieの使用について詳細に説明しています。",
 };
 
 export default function PrivacyPolicyPage() {
@@ -55,10 +55,10 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className="space-y-4 border-l-4 border-primary pl-6 py-2">
-            <h2 className="text-2xl font-bold">3. 広告配信について（重要）</h2>
-            <div className="bg-muted/30 p-4 border rounded-lg space-y-4">
+            <h2 className="text-2xl font-bold">3. 広告配信について（Google AdSense）</h2>
+            <div className="bg-muted/30 p-6 border rounded-lg space-y-4 text-sm leading-relaxed">
               <p>
-                当サイトでは、第三者配信事業者（Google AdSense）が提供する広告を配信しています。
+                当サイトでは、第三者配信事業者（Google AdSense）が提供する広告サービスを利用しています。
               </p>
               <p>
                 Google などの第三者配信事業者は Cookie を使用して、ユーザーが当サイトや他のウェブサイトに過去にアクセスした際の情報に基づいて広告を配信します。
@@ -67,7 +67,10 @@ export default function PrivacyPolicyPage() {
                 Google が広告 Cookie を使用することにより、ユーザーが当サイトや他のサイトにアクセスした際の情報に基づいて、Google やそのパートナーが適切な広告をユーザーに表示できます。
               </p>
               <p>
-                ユーザーは、広告設定でパーソナライズ広告を無効にできます。また、www.aboutads.info にアクセスすれば、第三者配信事業者がパーソナライズ広告の掲載で使用する Cookie を無効にできます。
+                ユーザーは、Googleのアカウントの「<a href="https://adssettings.google.com/authenticated" target="_blank" rel="noopener noreferrer" className="text-primary underline">広告設定</a>」で、パーソナライズ広告を無効にできます。また、「<a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-primary underline">www.aboutads.info</a>」にアクセスすれば、第三者配信事業者がパーソナライズ広告の掲載で使用する Cookie を無効にできます。
+              </p>
+              <p>
+                詳細については、Googleの「<a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-primary underline">広告に関するポリシーと規約</a>」をご覧ください。
               </p>
             </div>
           </section>
@@ -75,26 +78,25 @@ export default function PrivacyPolicyPage() {
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">4. クッキー（Cookie）の使用</h2>
             <p>
-              当サイトは、ユーザーの利便性向上およびアクセス解析、広告配信のためにクッキーを使用しています。ユーザーはブラウザの設定によりクッキーを無効にすることができます。
+              当サイトは、ユーザーの利便性向上、トラフィック分析、および広告配信の最適化のためにクッキーを使用しています。ユーザーはブラウザの設定によりクッキーを無効にすることができますが、その場合、当サイトの一部機能が正常に動作しない可能性があります。
             </p>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">5. 情報の第三者提供</h2>
             <p>
-              当サービスは、法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。
+              当サービスは、法令に基づく場合や、サービスの提供に必要な範囲（認証プロバイダ等）を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。
             </p>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">6. お問い合わせ</h2>
             <p>
-              当サービスに関するお問い合わせは、お問い合わせフォームよりご連絡ください。
+              当サービスに関するお問い合わせは、<Link href="/contact" className="text-primary underline">お問い合わせフォーム</Link>よりご連絡ください。
             </p>
           </section>
         </main>
 
-        {/* Consistent Footer */}
         <footer className="border-t pt-12 text-center text-sm text-muted-foreground space-y-8">
           <div className="flex flex-col items-center gap-6">
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, BookOpen, ArrowRight, MessageCircle, HelpCircle } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, BookOpen, ArrowRight, MessageCircle, HelpCircle, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -55,6 +55,50 @@ function GoogleAd() {
   );
 }
 
+/**
+ * Cookie 同意バナー
+ */
+function CookieConsent() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const consent = localStorage.getItem('cookie-consent');
+    if (!consent) setShow(true);
+  }, []);
+
+  const accept = () => {
+    localStorage.setItem('cookie-consent', 'true');
+    setShow(false);
+  };
+
+  if (!show) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 w-full z-[100] p-4 animate-in slide-in-from-bottom-full duration-500">
+      <Card className="max-w-4xl mx-auto shadow-2xl border-primary/20 bg-background/95 backdrop-blur-md">
+        <CardContent className="p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="bg-primary/10 p-2 rounded-full hidden sm:block">
+              <ShieldCheck className="h-5 w-5 text-primary" />
+            </div>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              当サイトでは利便性向上、アクセス解析、広告配信のためにクッキーを使用しています。詳細は
+              <Link href="/privacy" className="text-primary underline mx-1">プライバシーポリシー</Link>
+              をご確認ください。
+            </p>
+          </div>
+          <div className="flex gap-2 shrink-0">
+            <Button size="sm" onClick={accept} className="px-6 font-bold">同意する</Button>
+            <Button size="icon" variant="ghost" onClick={() => setShow(false)} className="h-8 w-8">
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 export function LandingScreen() {
   const auth = useAuth();
   const version = packageJson.version;
@@ -83,6 +127,8 @@ export function LandingScreen() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center relative overflow-x-hidden">
+      <CookieConsent />
+      
       {/* Navigation Header */}
       <header className="w-full border-b bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -137,7 +183,7 @@ export function LandingScreen() {
               <Sparkles className="h-20 w-20 text-primary" />
             </div>
           </div>
-          <h1 className="text-6xl font-bold font-headline tracking-tighter text-foreground">
+          <h1 className="text-6xl font-bold font-headline tracking-tighter text-foreground text-balance">
             AIと紡ぐ、あなただけの壮大な物語。
           </h1>
           <p className="text-xl text-muted-foreground font-medium max-w-2xl mx-auto">
@@ -175,7 +221,7 @@ export function LandingScreen() {
         {/* Detailed Information Section (SEO/AdSense Content) */}
         <div id="about" className="text-left space-y-12 py-12 border-t border-b bg-muted/5 px-6 rounded-3xl">
           <div className="space-y-4 max-w-3xl">
-            <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
+            <h2 className="text-3xl font-bold font-headline flex items-center gap-2 text-balance">
               <Sparkles className="text-primary h-8 w-8" />
               生成AIが解き放つ、RPG制作の新たな可能性
             </h2>
@@ -225,7 +271,7 @@ export function LandingScreen() {
 
           <div className="flex justify-center pt-8">
             <Link href="/showcase">
-              <Button variant="outline" className="group">
+              <Button variant="outline" className="group font-bold">
                 実際の制作例を見る
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -283,8 +329,8 @@ export function LandingScreen() {
                     </div>
                   </div>
                   <div className="flex gap-2 pt-2">
-                    <Button onClick={handleEmailSignIn} className="flex-1">ログイン</Button>
-                    <Button onClick={handleEmailSignUp} variant="outline" className="flex-1">新規登録</Button>
+                    <Button onClick={handleEmailSignIn} className="flex-1 font-bold">ログイン</Button>
+                    <Button onClick={handleEmailSignUp} variant="outline" className="flex-1 font-bold">新規登録</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -292,7 +338,7 @@ export function LandingScreen() {
           </Tabs>
           
           <div className="mt-8 flex flex-col items-center gap-2">
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[10px] text-muted-foreground">
               ログインすることで、当社の
               <Link href="/tos" className="underline hover:text-primary mx-1">利用規約</Link>
               と
@@ -305,7 +351,7 @@ export function LandingScreen() {
 
       {/* Consistent Footer for all public pages */}
       <footer className="w-full border-t bg-muted/20 py-12 mt-20 z-10">
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-balance">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <RealmforgeLogo className="h-6 w-6 text-primary" />
@@ -322,23 +368,23 @@ export function LandingScreen() {
           <div>
             <h4 className="font-bold text-sm mb-4">コンテンツ</h4>
             <ul className="space-y-2 text-xs text-muted-foreground">
-              <li><Link href="/about" className="hover:text-primary transition-colors">このサイトについて</Link></li>
-              <li><Link href="/showcase" className="hover:text-primary transition-colors">作品紹介</Link></li>
-              <li><Link href="/tutorial" className="hover:text-primary transition-colors">チュートリアル</Link></li>
+              <li><Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1"><HelpCircle className="h-3 w-3" />About</Link></li>
+              <li><Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1"><Presentation className="h-3 w-3" />作品紹介</Link></li>
+              <li><Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1"><BookOpen className="h-3 w-3" />チュートリアル</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-bold text-sm mb-4">サポート</h4>
             <ul className="space-y-2 text-xs text-muted-foreground">
-              <li><Link href="/contact" className="hover:text-primary transition-colors">お問い合わせ</Link></li>
-              <li><Link href="/tos" className="hover:text-primary transition-colors">利用規約</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary transition-colors">プライバシーポリシー</Link></li>
+              <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1"><MessageCircle className="h-3 w-3" />お問い合わせ</Link></li>
+              <li><Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1"><FileText className="h-3 w-3" />利用規約</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1"><ShieldCheck className="h-3 w-3" />プライバシー</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-bold text-sm mb-4">クッキーについて</h4>
             <p className="text-[10px] text-muted-foreground leading-relaxed">
-              当サイトでは、サービスの改善および広告配信のためにクッキー（Cookie）を使用しています。
+              当サイトでは、サービスの改善、利便性向上および広告配信のためにクッキー（Cookie）を使用しています。
               詳細はプライバシーポリシーをご確認ください。
             </p>
           </div>

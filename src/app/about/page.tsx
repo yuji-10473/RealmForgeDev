@@ -9,15 +9,40 @@ import packageJson from "../../../package.json";
 
 export const metadata: Metadata = {
   title: "このサイトについて | RealmForge - 13世紀鎌倉をAIで描くRPG制作プラットフォーム",
-  description: "RealmForgeプロジェクトの理念、13世紀鎌倉時代へのこだわり、転機となる生成AIを活用した新たなRPG制作の形について解説します。",
+  description: "RealmForgeプロジェクトの理念、13世紀鎌倉時代へのこだわり、最新の生成AIを活用した新たなRPG制作の形について詳しく解説します。FAQや更新履歴もご覧いただけます。",
 };
 
 export default function AboutPage() {
   const version = packageJson.version;
 
+  // Structured Data for Google (JSON-LD)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RealmForge",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "description": "13世紀の日本・鎌倉時代を舞台にした歴史RPG制作プラットフォーム。",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "RealmForge Project"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto space-y-12">
+      {/* Structured Data Script */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      <div className="max-w-4xl mx-auto space-y-12 text-balance">
         <header className="flex items-center justify-between border-b pb-6">
           <Link href="/" className="flex items-center gap-2">
             <RealmforgeLogo className="h-8 w-8 text-primary" />
@@ -36,7 +61,7 @@ export default function AboutPage() {
             <h1 className="text-5xl font-bold font-headline tracking-tighter">
               このサイトについて
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto font-medium">
               RealmForge は、13世紀の日本・鎌倉時代の深遠な歴史を、最新の生成AI技術を用いて再構築するクリエイティブ・プロジェクトです。
             </p>
           </section>
@@ -52,81 +77,88 @@ export default function AboutPage() {
                 かつて鎌倉という地で生きた人々の営み、武士の覚悟、庶民の信仰。それらをただ知識として知るだけでなく、一つの「世界」として歩き、話し、体験すること。RealmForge は、専門的な知識が必要だった「歴史RPG制作」の壁を、AIとの対話によって取り払い、誰もが歴史の編纂者になれる場所を提供します。
               </p>
             </div>
-            <div className="bg-primary/5 p-8 rounded-3xl border border-primary/10 space-y-4">
-              <h3 className="font-bold flex items-center gap-2">
-                <History className="text-primary h-5 w-5" />
+            <div className="bg-primary/5 p-8 rounded-3xl border border-primary/10 space-y-4 shadow-sm">
+              <h3 className="font-bold flex items-center gap-2 text-primary">
+                <History className="h-5 w-5" />
                 なぜ「鎌倉時代」なのか
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed italic">
                 13世紀の鎌倉は、古い貴族の支配から武士の時代へと大きく転換する、エネルギーに満ちた激動の時代でした。当時の生活感、独自の経済圏、そして独自の精神文化は、RPGという形式で表現するのに最も適した「重厚な物語」を秘めています。
               </p>
             </div>
           </section>
 
-          {/* Update History Section - High signal for AdSense */}
-          <section className="space-y-8 bg-muted/10 p-8 rounded-3xl border">
+          {/* Update History Section */}
+          <section className="space-y-8 bg-muted/10 p-8 rounded-3xl border shadow-inner">
             <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
               <Clock className="text-primary h-8 w-8" />
               最新の更新履歴
             </h2>
-            <div className="space-y-4">
-              <div className="flex gap-4 items-start">
-                <Badge variant="outline" className="mt-1">Ver 0.1.16</Badge>
+            <div className="space-y-6">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.16</Badge>
                 <div>
                   <p className="font-bold">チュートリアル機能の追加とUI改善</p>
-                  <p className="text-sm text-muted-foreground">初めてのユーザー向けにプレイテストの基本ガイドを公開しました。また、全画面表示時のUI操作性を向上させました。</p>
+                  <p className="text-sm text-muted-foreground mt-1">初めてのユーザー向けにプレイテストの基本ガイドを公開しました。また、全画面表示時のUI操作性を向上させました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start opacity-70">
-                <Badge variant="outline" className="mt-1">Ver 0.1.15</Badge>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.15</Badge>
                 <div>
                   <p className="font-bold">経済・サバイバルシステムの統合</p>
-                  <p className="text-sm text-muted-foreground">料理屋への納品システムと売上精算ロジックを実装し、鎌倉時代の生活圏を模したゲームループが可能になりました。</p>
+                  <p className="text-sm text-muted-foreground mt-1">料理屋への納品システムと売上精算ロジックを実装し、鎌倉時代の生活圏を模したゲームループが可能になりました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start opacity-60">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.14</Badge>
+                <div>
+                  <p className="font-bold">AIストーリーアシストの強化</p>
+                  <p className="text-sm text-muted-foreground mt-1">Gemini 2.5 を活用した高精度なナラティブ生成機能と、キャラクター背景生成の連動を最適化しました。</p>
                 </div>
               </div>
             </div>
           </section>
 
           <section className="space-y-8">
-            <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
+            <h2 className="text-3xl font-bold font-headline flex items-center gap-2 text-balance">
               <HelpCircle className="text-primary h-8 w-8" />
               よくある質問 (FAQ)
             </h2>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger>RealmForge は無料で利用できますか？</AccordionTrigger>
-                <AccordionContent>
+                <AccordionTrigger className="text-left">RealmForge は無料で利用できますか？</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
                   はい、主要なエディター機能やプレイテスト機能はどなたでも無料で体験いただけます。プロジェクトの維持・向上のために一部で広告を表示させていただいております。
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>AIはどのように物語を生成しているのですか？</AccordionTrigger>
-                <AccordionContent>
+                <AccordionTrigger className="text-left">AIはどのように物語を生成しているのですか？</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
                   Gemini をはじめとする最新の生成モデルを使用しています。ユーザーが入力したプロンプトに基づき、当時の歴史的背景や言葉遣いを考慮したシナリオや対話をAIが提案します。
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>作成したゲームデータのエクスポートは可能ですか？</AccordionTrigger>
-                <AccordionContent>
-                  現在、ブラウザ上での保存機能を提供しています。外部形式へのエクスポート機能については、最新のロードマップに基づき順次アップデート予定です。
+                <AccordionTrigger className="text-left">作成したゲームデータのエクスポートは可能ですか？</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
+                  現在、ブラウザ上でのクラウド保存機能を提供しています。外部形式（パッケージ）へのエクスポート機能については、最新のロードマップに基づき順次アップデート予定です。
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </section>
 
-          <section className="bg-muted/20 p-8 md:p-12 rounded-3xl border border-border/50 text-center space-y-8">
+          <section className="bg-primary/5 p-8 md:p-12 rounded-3xl border border-primary/10 text-center space-y-8 shadow-sm">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold font-headline">一緒に歴史を紡ぎましょう</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 あなたの想像力が、失われた13世紀の断片を現代に蘇らせます。まずは作品紹介やチュートリアルから、その可能性に触れてみてください。
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/showcase">
-                <Button variant="outline" size="lg">作品紹介を見る</Button>
+                <Button variant="outline" size="lg" className="font-bold">作品紹介を見る</Button>
               </Link>
               <Link href="/tutorial">
-                <Button size="lg">チュートリアルを読む</Button>
+                <Button size="lg" className="font-bold">チュートリアルを読む</Button>
               </Link>
             </div>
           </section>
