@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp } from "@/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, BookOpen, ArrowRight, MessageCircle, HelpCircle, X } from "lucide-react";
+import { Map, Users, Sparkles, Sword, Mail, Lock, Info, CheckCircle2, FileText, ShieldCheck, Presentation, BookOpen, ArrowRight, MessageCircle, HelpCircle, X, ScrollText } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -81,7 +81,7 @@ function CookieConsent() {
             <div className="bg-primary/10 p-2 rounded-full hidden sm:block">
               <ShieldCheck className="h-5 w-5 text-primary" />
             </div>
-            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-left">
               当サイトでは利便性向上、アクセス解析、広告配信のためにクッキーを使用しています。詳細は
               <Link href="/privacy" className="text-primary underline mx-1">プライバシーポリシー</Link>
               をご確認ください。
@@ -139,7 +139,7 @@ export function LandingScreen() {
               <span className="text-[10px] text-muted-foreground font-mono">Ver {version}</span>
             </div>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-6">
             <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
               <HelpCircle className="h-3 w-3" /> About
             </Link>
@@ -149,11 +149,14 @@ export function LandingScreen() {
             <Link href="/tutorial" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
               <BookOpen className="h-3 w-3" /> チュートリアル
             </Link>
+            <Link href="/guide" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
+              <ScrollText className="h-3 w-3" /> 制作ガイド
+            </Link>
             <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
               <MessageCircle className="h-3 w-3" /> お問い合わせ
             </Link>
           </nav>
-          <Button variant="ghost" size="sm" className="md:hidden">
+          <Button variant="ghost" size="sm" className="lg:hidden">
             <Info className="h-5 w-5" />
           </Button>
         </div>
@@ -269,11 +272,16 @@ export function LandingScreen() {
             </div>
           </div>
 
-          <div className="flex justify-center pt-8">
+          <div className="flex justify-center pt-8 gap-4">
+            <Link href="/guide">
+              <Button size="lg" className="group font-bold px-8 h-14">
+                RPG制作ガイドを読む
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
             <Link href="/showcase">
-              <Button variant="outline" className="group font-bold">
+              <Button variant="outline" size="lg" className="group font-bold px-8 h-14">
                 実際の制作例を見る
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </div>
@@ -338,7 +346,7 @@ export function LandingScreen() {
           </Tabs>
           
           <div className="mt-8 flex flex-col items-center gap-2">
-            <p className="text-[10px] text-muted-foreground">
+            <p className="text-[10px] text-muted-foreground leading-relaxed">
               ログインすることで、当社の
               <Link href="/tos" className="underline hover:text-primary mx-1">利用規約</Link>
               と
@@ -349,9 +357,9 @@ export function LandingScreen() {
         </div>
       </div>
 
-      {/* Consistent Footer for all public pages */}
-      <footer className="w-full border-t bg-muted/20 py-12 mt-20 z-10">
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-balance">
+      {/* Structured Categories Footer */}
+      <footer className="w-full border-t bg-muted/20 py-16 mt-20 z-10">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-balance text-left">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <RealmforgeLogo className="h-6 w-6 text-primary" />
@@ -366,33 +374,33 @@ export function LandingScreen() {
             </p>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-4">コンテンツ</h4>
-            <ul className="space-y-2 text-xs text-muted-foreground">
-              <li><Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1"><HelpCircle className="h-3 w-3" />About</Link></li>
-              <li><Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1"><Presentation className="h-3 w-3" />作品紹介</Link></li>
-              <li><Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1"><BookOpen className="h-3 w-3" />チュートリアル</Link></li>
+            <h4 className="font-bold text-sm mb-6 uppercase tracking-wider">コンテンツ</h4>
+            <ul className="space-y-3 text-xs text-muted-foreground">
+              <li><Link href="/about" className="hover:text-primary transition-colors flex items-center gap-2"><HelpCircle className="h-3 w-3" /> About</Link></li>
+              <li><Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-2"><Presentation className="h-3 w-3" /> 作品紹介</Link></li>
+              <li><Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-2"><BookOpen className="h-3 w-3" /> チュートリアル</Link></li>
+              <li><Link href="/guide" className="hover:text-primary transition-colors flex items-center gap-2"><ScrollText className="h-3 w-3" /> 制作ガイド</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-4">サポート</h4>
-            <ul className="space-y-2 text-xs text-muted-foreground">
-              <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1"><MessageCircle className="h-3 w-3" />お問い合わせ</Link></li>
-              <li><Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1"><FileText className="h-3 w-3" />利用規約</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1"><ShieldCheck className="h-3 w-3" />プライバシー</Link></li>
+            <h4 className="font-bold text-sm mb-6 uppercase tracking-wider">サポート</h4>
+            <ul className="space-y-3 text-xs text-muted-foreground">
+              <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-2"><MessageCircle className="h-3 w-3" /> お問い合わせ</Link></li>
+              <li><Link href="/about#faq" className="hover:text-primary transition-colors flex items-center gap-2"><HelpCircle className="h-3 w-3" /> よくある質問</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-4">クッキーについて</h4>
-            <p className="text-[10px] text-muted-foreground leading-relaxed">
-              当サイトでは、サービスの改善、利便性向上および広告配信のためにクッキー（Cookie）を使用しています。
-              詳細はプライバシーポリシーをご確認ください。
-            </p>
+            <h4 className="font-bold text-sm mb-6 uppercase tracking-wider">法的情報</h4>
+            <ul className="space-y-3 text-xs text-muted-foreground">
+              <li><Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-2"><FileText className="h-3 w-3" /> 利用規約</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> プライバシー</Link></li>
+            </ul>
           </div>
         </div>
         <div className="max-w-6xl mx-auto px-4 mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] text-muted-foreground">© 2024 RealmForge Project. All rights reserved.</p>
           <div className="opacity-20 pointer-events-none">
-            <p className="text-[10px] font-mono tracking-widest uppercase">AI-Powered Historical Creation</p>
+            <p className="text-[10px] font-mono tracking-widest uppercase text-right">AI-Powered Historical Creation</p>
           </div>
         </div>
       </footer>

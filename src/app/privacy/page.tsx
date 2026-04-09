@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, HelpCircle, Presentation, BookOpen, MessageCircle, FileText, ShieldCheck } from "lucide-react";
+import { ChevronLeft, HelpCircle, Presentation, BookOpen, MessageCircle, FileText, ShieldCheck, ScrollText } from "lucide-react";
 import packageJson from "../../../package.json";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー | RealmForge",
   description: "RealmForgeプロジェクトのプライバシーポリシーです。個人情報の収集目的、利用、およびGoogle AdSenseによる広告配信とCookieの使用について詳細に説明しています。",
+  openGraph: {
+    title: "Privacy Policy | RealmForge",
+    description: "個人情報の取り扱い、Google AdSenseによる広告配信、Cookieの使用について説明しています。",
+    type: "website",
+  }
 };
 
 export default function PrivacyPolicyPage() {
@@ -28,6 +33,13 @@ export default function PrivacyPolicyPage() {
             </Button>
           </Link>
         </header>
+
+        {/* Breadcrumb */}
+        <nav className="text-xs text-muted-foreground flex items-center gap-2">
+          <Link href="/" className="hover:text-primary">ホーム</Link>
+          <ChevronLeft className="h-3 w-3 rotate-180" />
+          <span className="font-bold text-foreground">プライバシーポリシー</span>
+        </nav>
 
         <main className="prose prose-neutral max-w-none space-y-6">
           <h1 className="text-4xl font-bold font-headline">プライバシーポリシー</h1>
@@ -97,32 +109,39 @@ export default function PrivacyPolicyPage() {
           </section>
         </main>
 
-        <footer className="border-t pt-12 text-center text-sm text-muted-foreground space-y-8">
-          <div className="flex flex-col items-center gap-6">
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <HelpCircle className="h-3 w-3" /> About
-              </Link>
-              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <Presentation className="h-3 w-3" /> 作品紹介
-              </Link>
-              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <BookOpen className="h-3 w-3" /> チュートリアル
-              </Link>
-              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <MessageCircle className="h-3 w-3" /> お問い合わせ
-              </Link>
-              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <FileText className="h-3 w-3" /> 利用規約
-              </Link>
-              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <ShieldCheck className="h-3 w-3" /> プライバシー
-              </Link>
+        {/* Categories Footer */}
+        <footer className="border-t pt-16 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-sm">
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground uppercase tracking-wider">コンテンツ</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><Link href="/about" className="hover:text-primary transition-colors flex items-center gap-2"><HelpCircle className="h-3 w-3" /> About</Link></li>
+                <li><Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-2"><Presentation className="h-3 w-3" /> 作品紹介</Link></li>
+                <li><Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-2"><BookOpen className="h-3 w-3" /> チュートリアル</Link></li>
+                <li><Link href="/guide" className="hover:text-primary transition-colors flex items-center gap-2"><ScrollText className="h-3 w-3" /> 制作ガイド</Link></li>
+              </ul>
             </div>
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground uppercase tracking-wider">サポート</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-2"><MessageCircle className="h-3 w-3" /> お問い合わせ</Link></li>
+                <li><Link href="/about#faq" className="hover:text-primary transition-colors flex items-center gap-2"><HelpCircle className="h-3 w-3" /> よくある質問</Link></li>
+              </ul>
+            </div>
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground uppercase tracking-wider">法的情報</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-2"><FileText className="h-3 w-3" /> 利用規約</Link></li>
+                <li><Link href="/privacy" className="text-primary font-bold flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> プライバシー</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-16 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-muted-foreground">
             <div className="flex items-center gap-2">
-              <RealmforgeLogo className="h-5 w-5 text-primary opacity-50" />
+              <RealmforgeLogo className="h-4 w-4 opacity-50" />
               <p>© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
             </div>
+            <p className="font-mono tracking-widest uppercase opacity-30">AI-Powered Historical Creation</p>
           </div>
         </footer>
       </div>

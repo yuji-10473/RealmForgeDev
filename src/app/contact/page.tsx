@@ -2,13 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Mail, MessageSquare, Send, FileText, ShieldCheck, HelpCircle, BookOpen, Presentation, MessageCircle } from "lucide-react";
+import { ChevronLeft, Mail, MessageSquare, Send, FileText, ShieldCheck, HelpCircle, BookOpen, Presentation, MessageCircle, ScrollText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import packageJson from "../../../package.json";
 
 export const metadata: Metadata = {
   title: "お問い合わせ | RealmForge プロジェクト事務局",
   description: "RealmForgeプロジェクトに関するご質問、不具合の報告、時代考証に関するご提案など、お気軽にお寄せください。",
+  openGraph: {
+    title: "Contact | RealmForge",
+    description: "不具合報告、機能要望、時代考証に関するご提案などはこちらから。",
+    type: "website",
+  }
 };
 
 export default function ContactPage() {
@@ -29,6 +34,13 @@ export default function ContactPage() {
             </Button>
           </Link>
         </header>
+
+        {/* Breadcrumb */}
+        <nav className="text-xs text-muted-foreground flex items-center gap-2">
+          <Link href="/" className="hover:text-primary">ホーム</Link>
+          <ChevronLeft className="h-3 w-3 rotate-180" />
+          <span className="font-bold text-foreground">お問い合わせ</span>
+        </nav>
 
         <main className="space-y-12">
           <div className="text-center space-y-4">
@@ -90,33 +102,39 @@ export default function ContactPage() {
           </section>
         </main>
 
-        {/* Consistent Footer */}
-        <footer className="border-t pt-12 text-center text-sm text-muted-foreground space-y-8">
-          <div className="flex flex-col items-center gap-6">
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <HelpCircle className="h-3 w-3" /> About
-              </Link>
-              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <Presentation className="h-3 w-3" /> 作品紹介
-              </Link>
-              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <BookOpen className="h-3 w-3" /> チュートリアル
-              </Link>
-              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <MessageCircle className="h-3 w-3" /> お問い合わせ
-              </Link>
-              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <FileText className="h-3 w-3" /> 利用規約
-              </Link>
-              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
-                <ShieldCheck className="h-3 w-3" /> プライバシー
-              </Link>
+        {/* Categories Footer */}
+        <footer className="border-t pt-16 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-sm">
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground uppercase tracking-wider">コンテンツ</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><Link href="/about" className="hover:text-primary transition-colors flex items-center gap-2"><HelpCircle className="h-3 w-3" /> About</Link></li>
+                <li><Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-2"><Presentation className="h-3 w-3" /> 作品紹介</Link></li>
+                <li><Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-2"><BookOpen className="h-3 w-3" /> チュートリアル</Link></li>
+                <li><Link href="/guide" className="hover:text-primary transition-colors flex items-center gap-2"><ScrollText className="h-3 w-3" /> 制作ガイド</Link></li>
+              </ul>
             </div>
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground uppercase tracking-wider">サポート</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><Link href="/contact" className="text-primary font-bold flex items-center gap-2"><MessageCircle className="h-3 w-3" /> お問い合わせ</Link></li>
+                <li><Link href="/about#faq" className="hover:text-primary transition-colors flex items-center gap-2"><HelpCircle className="h-3 w-3" /> よくある質問</Link></li>
+              </ul>
+            </div>
+            <div className="space-y-4">
+              <h4 className="font-bold text-foreground uppercase tracking-wider">法的情報</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-2"><FileText className="h-3 w-3" /> 利用規約</Link></li>
+                <li><Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> プライバシー</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-16 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-muted-foreground">
             <div className="flex items-center gap-2">
-              <RealmforgeLogo className="h-5 w-5 text-primary opacity-50" />
+              <RealmforgeLogo className="h-4 w-4 opacity-50" />
               <p>© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
             </div>
+            <p className="font-mono tracking-widest uppercase opacity-30">AI-Powered Historical Creation</p>
           </div>
         </footer>
       </div>
