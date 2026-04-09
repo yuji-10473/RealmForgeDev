@@ -122,7 +122,7 @@ export default function GuidePage() {
               </Link>
               <Link href="/">
                 <Button variant="outline" size="lg" className="font-bold h-14 px-8">
-                  エディターを開く
+                  トップへ戻る
                 </Button>
               </Link>
             </div>
