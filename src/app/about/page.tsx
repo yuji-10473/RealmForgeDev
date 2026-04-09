@@ -1,11 +1,15 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft, Sparkles, History, BookOpen, Target, HelpCircle, MessageCircle, FileText, ShieldCheck, Presentation } from "lucide-react";
+import { ChevronLeft, Sparkles, History, BookOpen, Target, HelpCircle, MessageCircle, FileText, ShieldCheck, Presentation, Clock } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import packageJson from "../../../package.json";
+
+export const metadata: Metadata = {
+  title: "このサイトについて | RealmForge - 13世紀鎌倉をAIで描くRPG制作プラットフォーム",
+  description: "RealmForgeプロジェクトの理念、13世紀鎌倉時代へのこだわり、そして生成AIを活用した新たなRPG制作の形について解説します。",
+};
 
 export default function AboutPage() {
   const version = packageJson.version;
@@ -21,7 +25,7 @@ export default function AboutPage() {
           <Link href="/">
             <Button variant="ghost" size="sm">
               <ChevronLeft className="mr-2 h-4 w-4" />
-              戻る
+              ホームへ戻る
             </Button>
           </Link>
         </header>
@@ -53,8 +57,32 @@ export default function AboutPage() {
                 なぜ「鎌倉時代」なのか
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                13世紀の鎌倉は、古い貴族の支配から武士の時代へと大きく転換する、エネルギーに満ちた激動の時代でした。当時の生活感、独自の経済圏、そして日蓮大聖人をはじめとする宗教的・思想的な深まりは、RPGという形式で表現するのに最も適した「重厚な物語」を秘めています。
+                13世紀の鎌倉は、古い貴族の支配から武士の時代へと大きく転換する、エネルギーに満ちた激動の時代でした。当時の生活感、独自の経済圏、そして独自の精神文化は、RPGという形式で表現するのに最も適した「重厚な物語」を秘めています。
               </p>
+            </div>
+          </section>
+
+          {/* Update History Section - High signal for AdSense */}
+          <section className="space-y-8 bg-muted/10 p-8 rounded-3xl border">
+            <h2 className="text-3xl font-bold font-headline flex items-center gap-2">
+              <Clock className="text-primary h-8 w-8" />
+              最新の更新履歴
+            </h2>
+            <div className="space-y-4">
+              <div className="flex gap-4 items-start">
+                <Badge variant="outline" className="mt-1">Ver 0.1.16</Badge>
+                <div>
+                  <p className="font-bold">チュートリアル機能の追加とUI改善</p>
+                  <p className="text-sm text-muted-foreground">初めてのユーザー向けにプレイテストの基本ガイドを公開しました。また、全画面表示時のUI操作性を向上させました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start opacity-70">
+                <Badge variant="outline" className="mt-1">Ver 0.1.15</Badge>
+                <div>
+                  <p className="font-bold">経済・サバイバルシステムの統合</p>
+                  <p className="text-sm text-muted-foreground">料理屋への納品システムと売上精算ロジックを実装し、鎌倉時代の生活圏を模したゲームループが可能になりました。</p>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -80,12 +108,6 @@ export default function AboutPage() {
                 <AccordionTrigger>作成したゲームデータのエクスポートは可能ですか？</AccordionTrigger>
                 <AccordionContent>
                   現在、ブラウザ上での保存機能を提供しています。外部形式へのエクスポート機能については、最新のロードマップに基づき順次アップデート予定です。
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>スマートフォンのブラウザでも動作しますか？</AccordionTrigger>
-                <AccordionContent>
-                  エディター機能は PC の大画面での操作を推奨しておりますが、チュートリアルや作品紹介の閲覧、プレイテストの一部はモバイル環境にも最適化されています。
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

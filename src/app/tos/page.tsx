@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, HelpCircle, Presentation, BookOpen, MessageCircle, FileText, ShieldCheck } from "lucide-react";
+import packageJson from "../../../package.json";
+
+export const metadata: Metadata = {
+  title: "利用規約 | RealmForge",
+  description: "RealmForgeプロジェクトの利用規約です。本サービスを利用する際のルールと権利義務について規定しています。",
+};
 
 export default function TermsOfServicePage() {
+  const version = packageJson.version;
+
   return (
     <div className="min-h-screen bg-background text-foreground py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-8">
@@ -15,7 +24,7 @@ export default function TermsOfServicePage() {
           <Link href="/">
             <Button variant="ghost" size="sm">
               <ChevronLeft className="mr-2 h-4 w-4" />
-              戻る
+              ホームへ戻る
             </Button>
           </Link>
         </header>
@@ -70,8 +79,34 @@ export default function TermsOfServicePage() {
           </section>
         </main>
 
-        <footer className="border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>© 2024 RealmForge Project. All rights reserved.</p>
+        {/* Consistent Footer */}
+        <footer className="border-t pt-12 text-center text-sm text-muted-foreground space-y-8">
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <HelpCircle className="h-3 w-3" /> About
+              </Link>
+              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <Presentation className="h-3 w-3" /> 作品紹介
+              </Link>
+              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <BookOpen className="h-3 w-3" /> チュートリアル
+              </Link>
+              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <MessageCircle className="h-3 w-3" /> お問い合わせ
+              </Link>
+              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <FileText className="h-3 w-3" /> 利用規約
+              </Link>
+              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <ShieldCheck className="h-3 w-3" /> プライバシー
+              </Link>
+            </div>
+            <div className="flex items-center gap-2">
+              <RealmforgeLogo className="h-5 w-5 text-primary opacity-50" />
+              <p>© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
+            </div>
+          </div>
         </footer>
       </div>
     </div>

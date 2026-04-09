@@ -1,11 +1,15 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { ChevronLeft, Mail, MessageSquare, Send, FileText, ShieldCheck, HelpCircle, BookOpen, Presentation } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import packageJson from "../../../package.json";
+
+export const metadata: Metadata = {
+  title: "お問い合わせ | RealmForge プロジェクト事務局",
+  description: "RealmForgeプロジェクトに関するご質問、不具合の報告、時代考証に関するご提案など、お気軽にお寄せください。",
+};
 
 export default function ContactPage() {
   const version = packageJson.version;
@@ -21,7 +25,7 @@ export default function ContactPage() {
           <Link href="/">
             <Button variant="ghost" size="sm">
               <ChevronLeft className="mr-2 h-4 w-4" />
-              戻る
+              ホームへ戻る
             </Button>
           </Link>
         </header>
@@ -81,9 +85,6 @@ export default function ContactPage() {
               </p>
               <p>
                 プロジェクトは現在も継続的にアップデートを行っており、皆様からのフィードバックを大切にしています。特定の歴史的出来事の追加要望や、専門的な考証に関するアドバイスも歓迎しております。
-              </p>
-              <p className="text-xs italic">
-                ※お問い合わせいただいた内容には順次対応しておりますが、内容によってはお答えしかねる場合や、お時間をいただく場合もございます。予めご了承ください。
               </p>
             </div>
           </section>

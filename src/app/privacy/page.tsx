@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, HelpCircle, Presentation, BookOpen, MessageCircle, FileText, ShieldCheck } from "lucide-react";
+import packageJson from "../../../package.json";
+
+export const metadata: Metadata = {
+  title: "プライバシーポリシー | RealmForge",
+  description: "RealmForgeプロジェクトのプライバシーポリシーです。個人情報の収集目的、利用、およびGoogle AdSenseによる広告配信とCookieの使用について説明しています。",
+};
 
 export default function PrivacyPolicyPage() {
+  const version = packageJson.version;
+
   return (
     <div className="min-h-screen bg-background text-foreground py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-8">
@@ -12,17 +21,12 @@ export default function PrivacyPolicyPage() {
             <RealmforgeLogo className="h-8 w-8 text-primary" />
             <span className="font-headline text-xl font-bold">RealmForge</span>
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/showcase">
-              <Button variant="outline" size="sm">作品紹介</Button>
-            </Link>
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                戻る
-              </Button>
-            </Link>
-          </div>
+          <Link href="/">
+            <Button variant="ghost" size="sm">
+              <ChevronLeft className="mr-2 h-4 w-4" />
+              ホームへ戻る
+            </Button>
+          </Link>
         </header>
 
         <main className="prose prose-neutral max-w-none space-y-6">
@@ -65,18 +69,13 @@ export default function PrivacyPolicyPage() {
               <p>
                 ユーザーは、広告設定でパーソナライズ広告を無効にできます。また、www.aboutads.info にアクセスすれば、第三者配信事業者がパーソナライズ広告の掲載で使用する Cookie を無効にできます。
               </p>
-              <p className="mt-2 text-sm italic">
-                詳細については、
-                <a href="https://policies.google.com/technologies/ads" className="text-primary underline ml-1" target="_blank" rel="noopener noreferrer">Googleのポリシーと規約</a> 
-                をご確認ください。
-              </p>
             </div>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">4. クッキー（Cookie）の使用</h2>
             <p>
-              当サイトは、ユーザーの利便性向上およびアクセス解析、広告配信のためにクッキーを使用しています。ユーザーはブラウザの設定によりクッキーを無効にすることができますが、その場合、当サービスの一部機能が利用できなくなる可能性があります。
+              当サイトは、ユーザーの利便性向上およびアクセス解析、広告配信のためにクッキーを使用しています。ユーザーはブラウザの設定によりクッキーを無効にすることができます。
             </p>
           </section>
 
@@ -90,25 +89,39 @@ export default function PrivacyPolicyPage() {
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">6. お問い合わせ</h2>
             <p>
-              当サービスに関するお問い合わせ、またはプライバシーポリシーに関するご質問は、以下のメールアドレス、または
-              <a 
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfA-PnpIzXaM1935pJ4nF6SsqyDSOeowzxYhamHnbgH4iIsOg/viewform?usp=header" 
-                className="text-primary underline mx-1" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                お問い合わせフォーム
-              </a>
-              よりご連絡ください。
-            </p>
-            <p className="text-sm font-mono mt-2 bg-muted/50 p-2 rounded w-fit">
-              Email: firebase.25.11.11@gmail.com
+              当サービスに関するお問い合わせは、お問い合わせフォームよりご連絡ください。
             </p>
           </section>
         </main>
 
-        <footer className="border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>© 2024 RealmForge Project. All rights reserved.</p>
+        {/* Consistent Footer */}
+        <footer className="border-t pt-12 text-center text-sm text-muted-foreground space-y-8">
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              <Link href="/about" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <HelpCircle className="h-3 w-3" /> About
+              </Link>
+              <Link href="/showcase" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <Presentation className="h-3 w-3" /> 作品紹介
+              </Link>
+              <Link href="/tutorial" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <BookOpen className="h-3 w-3" /> チュートリアル
+              </Link>
+              <Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <MessageCircle className="h-3 w-3" /> お問い合わせ
+              </Link>
+              <Link href="/tos" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <FileText className="h-3 w-3" /> 利用規約
+              </Link>
+              <Link href="/privacy" className="hover:text-primary transition-colors flex items-center gap-1 font-medium">
+                <ShieldCheck className="h-3 w-3" /> プライバシー
+              </Link>
+            </div>
+            <div className="flex items-center gap-2">
+              <RealmforgeLogo className="h-5 w-5 text-primary opacity-50" />
+              <p>© 2024 RealmForge Project. All rights reserved. (Ver {version})</p>
+            </div>
+          </div>
         </footer>
       </div>
     </div>

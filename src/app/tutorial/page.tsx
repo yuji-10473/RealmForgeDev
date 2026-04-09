@@ -1,11 +1,15 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { ChevronLeft, Gamepad2, HeartPulse, Coins, Users, BookOpen, Moon, ArrowRight, PackagePlus, Presentation, MessageCircle, HelpCircle, FileText, ShieldCheck } from "lucide-react";
 import packageJson from "../../../package.json";
+
+export const metadata: Metadata = {
+  title: "冒険の手引き（チュートリアル） | RealmForge",
+  description: "RealmForgeでのプレイテストを100%楽しむための、操作ガイドとゲームシステムの解説です。サバイバル、経済、物語の進め方を詳しく学べます。",
+};
 
 export default function TutorialPage() {
   const version = packageJson.version;
@@ -74,7 +78,7 @@ export default function TutorialPage() {
             <Link href="/">
               <Button variant="ghost" size="sm">
                 <ChevronLeft className="mr-2 h-4 w-4" />
-                戻る
+                ホームへ戻る
               </Button>
             </Link>
           </div>
@@ -126,7 +130,6 @@ export default function TutorialPage() {
             <p className="text-muted-foreground leading-relaxed">
               マップ上のどこかにある「布団」を見つけて休息すると、HPが全快し、日付が1日進みます。
               前日に料理屋へ素材を納品していた場合、起床時にその売上が報酬として加算されます。
-              効率よく稼ぐには、毎日欠かさず探索し、納品してから眠りにつくのがコツです。
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
               <div className="flex items-center gap-2 text-xs font-bold px-3 py-1.5 bg-background rounded-full border">

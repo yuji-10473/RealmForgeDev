@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,11 @@ import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
 import { ChevronLeft, Map, Sparkles, Sword, BookOpen, History, Youtube, Heart, ArrowRight, MessageCircle, HelpCircle, FileText, ShieldCheck, Presentation } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import packageJson from "../../../package.json";
+
+export const metadata: Metadata = {
+  title: "作品紹介 | RealmForge - AIと紡ぐ歴史RPGの制作事例",
+  description: "13世紀の日本・鎌倉を舞台にした、RealmForgeによる歴史RPGの制作事例を紹介します。緻密な時代考証と物語性が融合した世界観をご覧ください。",
+};
 
 export default function ShowcasePage() {
   const version = packageJson.version;
@@ -68,7 +72,7 @@ export default function ShowcasePage() {
             <Link href="/">
               <Button variant="ghost" size="sm">
                 <ChevronLeft className="mr-2 h-4 w-4" />
-                戻る
+                ホームへ戻る
               </Button>
             </Link>
           </div>
@@ -117,14 +121,10 @@ export default function ShowcasePage() {
                 <div className="aspect-video relative overflow-hidden bg-muted">
                   <Image 
                     src={sample.image} 
-                    alt={sample.title} 
+                    alt={`${sample.title}のゲーム画面プレビュー`} 
                     fill 
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     unoptimized
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      if (sample.fallbackImage) target.src = sample.fallbackImage;
-                    }}
                   />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-background/90 backdrop-blur shadow-sm text-[10px] font-bold rounded-full flex items-center gap-1.5 border border-border">
@@ -146,46 +146,6 @@ export default function ShowcasePage() {
                 </CardFooter>
               </Card>
             ))}
-          </section>
-
-          <section className="bg-muted/30 p-8 md:p-12 rounded-3xl border border-border/50 space-y-12">
-            <div className="max-w-3xl">
-              <h2 className="text-3xl font-bold font-headline mb-6">歴史RPG制作を、もっと身近に。</h2>
-              <p className="text-lg leading-relaxed text-muted-foreground mb-8">
-                RealmForgeは、歴史の深淵を誰でも形にできる場所を目指しています。
-                直感的なエディターとAIのサポートを組み合わせることで、難解になりがちな時代考証を「物語の種」へと変え、数分で歴史の世界を構築開始できます。
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="space-y-3">
-                <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                  <History className="h-6 w-6" />
-                </div>
-                <h3 className="font-bold text-xl">高度な歴史考証マップ</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  広大な鎌倉幕府の威容から、静寂に包まれた寺社、そして庶民の生活が息づく長屋まで。タイルベースのエディターで、史実に基づいた空間を描けます。
-                </p>
-              </div>
-              <div className="space-y-3">
-                <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                  <Sparkles className="h-6 w-6" />
-                </div>
-                <h3 className="font-bold text-xl">生きている歴史上の人物</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  当時の価値観に基づいた独自の背景と口調を設定。プレイヤーの選択が歴史の潮流を変える体験も可能です。
-                </p>
-              </div>
-              <div className="space-y-3">
-                <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                  <BookOpen className="h-6 w-6" />
-                </div>
-                <h3 className="font-bold text-xl">当時の経済とサバイバル</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  素材の採取、御家人としての勤め、料理屋への納品、および報酬による位階の向上。鎌倉時代の生活圏を模したゲームループを直感的に導入できます。
-                </p>
-              </div>
-            </div>
           </section>
 
           <section className="text-center py-12 space-y-8 bg-primary/5 rounded-3xl border border-primary/10">
