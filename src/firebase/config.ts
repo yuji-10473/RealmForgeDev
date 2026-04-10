@@ -1,9 +1,9 @@
 // src/firebase/config.ts
 
 /**
- * Firebase 設定オブジェクト
- * 本番ドメイン "firebasejapan.com" の場合はカスタムドメインを優先し、
- * それ以外（開発環境など）ではデフォルトの Firebase ドメインを使用します。
+ * Firebase Authentication ドメインの解決
+ * 本番環境(firebasejapan.com)ではカスタムドメインを優先し、
+ * それ以外ではデフォルトの firebaseapp ドメインを使用します。
  */
 const resolvedAuthDomain = (typeof window !== 'undefined' && window.location.hostname === "firebasejapan.com")
   ? "firebasejapan.com"

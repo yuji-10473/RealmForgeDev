@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /play-test
-Disallow: /api/
 
 Sitemap: https://firebasejapan.com/sitemap.xml

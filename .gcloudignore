@@ -61,3 +61,8 @@ tmp/
 *.zip
 *.tar.gz
 *.mp4
+
+# 先頭にスラッシュを入れず、ディレクトリ名だけで指定してみてください
+tmp
+.next/cache
+node_modules
