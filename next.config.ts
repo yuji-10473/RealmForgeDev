@@ -2,6 +2,18 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  
+  // 【重要】experimental の中ではなく、外に出します
+  outputFileTracingExcludes: {
+    '*': [
+      'tmp/**/*',
+      './tmp/**/*',
+      '**/tmp/**/*',
+      '**/*.zip',
+      'node_modules/.cache/**/*',
+    ],
+  },
+
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -10,24 +22,9 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
-      },
+      { protocol: 'https', hostname: 'placehold.co', pathname: '/**' },
+      { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'picsum.photos', pathname: '/**' },
     ],
   },
   env: {
@@ -35,15 +32,8 @@ const nextConfig: NextConfig = {
       ? 'https://firebasejapan.com' 
       : 'http://localhost:9002',
   },
-  experimental: {
-    outputFileTracingExcludes: {
-      '*': [
-        'tmp/**/*',     // tmpフォルダの中身をすべて除外
-        '**/*.zip',     // ZIPファイルを除外
-        'node_modules/.cache/**/*', // npmのキャッシュを除外
-      ],
-    },
-  },
+  // experimental の中身は空にするか、このブロック自体を消してもOKです
+  experimental: {},
 };
 
 export default nextConfig;
