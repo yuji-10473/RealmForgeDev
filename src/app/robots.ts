@@ -1,5 +1,8 @@
 import { MetadataRoute } from 'next'
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function robots(): MetadataRoute.Robots {
   // 環境変数から取得するか、実際の運用ドメインをデフォルトにする
   const baseUrl = process.env.APP_URL || 'https://firebasejapan.com'
