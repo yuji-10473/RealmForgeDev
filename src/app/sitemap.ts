@@ -7,7 +7,7 @@ export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://firebasejapan.com';
-  // ビルド時の固定時刻を使用（あるいは完全に静的な文字列）
+  // ビルド時の固定時刻を使用してキャッシュの不整合を防ぎます
   const lastModified = new Date('2025-03-01T00:00:00.000Z');
 
   return [

@@ -10,7 +10,7 @@ export const firebaseConfig = {
   "appId": "1:1059483388102:web:c0d49ba1bee5b8118defc7",
   "apiKey": process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
   
-  // カスタムドメインを直接指定
+  // 以前の設定（firebaseapp.com）を考慮しつつ、カスタムドメインを最優先で指定
   "authDomain": "firebasejapan.com",
   
   "measurementId": "",
