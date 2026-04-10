@@ -1,5 +1,8 @@
 import type { MetadataRoute } from 'next';
 
+/**
+ * sitemap.xml の静的生成を強制します。
+ */
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
