@@ -1,14 +1,5 @@
 /**
  * このファイルは不要になりました。
- * public/sitemap.xml が優先的に使用されます。
+ * public/sitemap.xml (物理ファイル) が優先的に配信されるよう、
+ * export default を削除しました。
  */
-import { MetadataRoute } from 'next';
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: 'https://firebasejapan.com',
-      lastModified: new Date(),
-    },
-  ];
-}

@@ -1,12 +1,5 @@
 /**
  * このファイルは不要になりました。
- * public/robots.txt が優先的に使用されます。
+ * public/robots.txt (物理ファイル) が優先的に配信されるよう、
+ * export default を削除しました。
  */
-import { MetadataRoute } from 'next';
-
-export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: [{ userAgent: '*', allow: '/' }],
-    sitemap: 'https://firebasejapan.com/sitemap.xml',
-  };
-}
