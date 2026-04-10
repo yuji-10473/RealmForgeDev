@@ -39,9 +39,9 @@ const nextConfig: NextConfig = {
   experimental: {
     outputFileTracingExcludes: {
       '*': [
-        'tmp/**/*',
-        '**/*.zip',
-        'node_modules/.cache/**/*',
+        'tmp/**/*',     // tmpフォルダの中身をすべて除外
+        '**/*.zip',     // ZIPファイルを除外
+        'node_modules/.cache/**/*', // npmのキャッシュを除外
       ],
     },
   },
