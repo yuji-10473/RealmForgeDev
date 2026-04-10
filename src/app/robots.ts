@@ -1,11 +1,9 @@
-import type { MetadataRoute } from 'next';
+import { MetadataRoute } from 'next';
 
 /**
- * robots.txt の静的生成を強制します。
- * これにより Vary ヘッダーから認証関連の指定が排除され、Googlebot が正常にクロールできるようになります。
+ * 物理ファイル public/robots.txt が優先されるため、
+ * このファイルはビルドエラーを防ぐための最小限の定義のみを行います。
  */
-export const dynamic = 'force-static';
-
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -13,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: ['/play-test', '/api/'],
-      }
+      },
     ],
     sitemap: 'https://firebasejapan.com/sitemap.xml',
   };
