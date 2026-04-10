@@ -35,7 +35,6 @@ const nextConfig: NextConfig = {
       ? 'https://firebasejapan.com' 
       : 'http://localhost:9002',
   },
-  // スタンドアロン出力時のファイル除外設定
   experimental: {
     outputFileTracingExcludes: {
       '*': [
