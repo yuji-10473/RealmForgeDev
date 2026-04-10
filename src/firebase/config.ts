@@ -1,48 +1,13 @@
 // src/firebase/config.ts
 
 /**
- * 認証ドメインを動的に取得します。
- * ブラウザ環境では現在のホスト名を使用し、リダイレクト認証を「ファーストパーティ」として扱えるようにします。
- * ローカル開発環境や開発用ワークステーション環境、または Firebase 標準ドメインの場合は
- * デフォルトのドメインを返し、404エラーを防止します。
- */
-const getAuthDomain = () => {
-  const defaultDomain = "studio-3109699954-e195d.firebaseapp.com";
-  
-  if (typeof window !== 'undefined') {
-    const host = window.location.hostname;
-    
-    // 1. ローカル環境（localhost や IPアドレス）
-    const isLocal = host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.');
-    
-    // 2. 開発用ワークステーション（Firebase Studio など）
-    const isWorkstation = host.includes('cloudworkstations.dev');
-
-    // 3. Firebase 標準ドメイン（これらはデフォルトのままで問題ない）
-    const isFirebaseStandard = host.endsWith('web.app') || host.endsWith('firebaseapp.com');
-    
-    // 開発環境や標準ドメインの場合は、確実に認証ハンドラが存在するデフォルトドメインを返す
-    if (isLocal || isWorkstation || isFirebaseStandard) {
-      return defaultDomain;
-    }
-    
-    // それ以外の「完全なカスタムドメイン」環境では、現在のホスト名をそのまま authDomain として使用
-    // これによりサードパーティ・クッキーの制限を回避し、リダイレクト方式を安定させます
-    return host;
-  }
-  
-  return defaultDomain;
-};
-
-/**
  * Firebase 設定オブジェクト
- * 本番ドメイン "firebasejapan.com" の場合は、直接文字列として割り当てることで
- * 確実にカスタムドメインでの認証を有効にします。
+ * 本番ドメイン "firebasejapan.com" の場合はカスタムドメインを優先し、
+ * それ以外（開発環境など）ではデフォルトの Firebase ドメインを使用します。
  */
-const productionDomain = "firebasejapan.com";
-const resolvedAuthDomain = (typeof window !== 'undefined' && window.location.hostname === productionDomain)
-  ? productionDomain
-  : getAuthDomain();
+const resolvedAuthDomain = (typeof window !== 'undefined' && window.location.hostname === "firebasejapan.com")
+  ? "firebasejapan.com"
+  : "studio-3109699954-e195d.firebaseapp.com";
 
 export const firebaseConfig = {
   "projectId": "studio-3109699954-e195d",

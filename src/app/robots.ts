@@ -1,18 +1,13 @@
+/**
+ * このファイルは不要になりました。
+ * public/robots.txt が優先的に使用されます。
+ * ビルドエラーを避けるため、デフォルトエクスポートを削除または最小化します。
+ */
 import { MetadataRoute } from 'next';
 
-/**
- * 物理ファイル public/robots.txt が優先されるため、
- * このファイルはビルドエラーを防ぐための最小限の定義のみを行います。
- */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/play-test', '/api/'],
-      },
-    ],
+    rules: [{ userAgent: '*', allow: '/' }],
     sitemap: 'https://firebasejapan.com/sitemap.xml',
   };
 }
