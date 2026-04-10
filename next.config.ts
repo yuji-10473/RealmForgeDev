@@ -2,7 +2,6 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  /* config options here */
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -32,11 +31,20 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
-    // 実際の運用ドメインを優先し、取得できない場合のフォールバックを修正
     APP_URL: process.env.NODE_ENV === 'production' 
       ? 'https://firebasejapan.com' 
       : 'http://localhost:9002',
-  }
+  },
+  // スタンドアロン出力時のファイル除外設定
+  experimental: {
+    outputFileTracingExcludes: {
+      '*': [
+        'tmp/**/*',
+        '**/*.zip',
+        'node_modules/.cache/**/*',
+      ],
+    },
+  },
 };
 
 export default nextConfig;
