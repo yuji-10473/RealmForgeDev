@@ -31,8 +31,9 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
+    // 実際の運用ドメインを優先し、取得できない場合のフォールバックを修正
     APP_URL: process.env.NODE_ENV === 'production' 
-      ? 'https://' + process.env.APP_ID + '.web.app' 
+      ? 'https://firebasejapan.com' 
       : 'http://localhost:9002',
   }
 };

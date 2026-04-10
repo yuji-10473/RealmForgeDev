@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.APP_URL || 'https://realmforge.web.app'
+  // 環境変数から取得するか、実際の運用ドメインをデフォルトにする
+  const baseUrl = process.env.APP_URL || 'https://firebasejapan.com'
   
   return {
     rules: {
