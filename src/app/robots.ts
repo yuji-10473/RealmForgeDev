@@ -1,18 +1,4 @@
-import { MetadataRoute } from 'next'
-
-export const dynamic = 'force-static';
-export const revalidate = false;
-
-export default function robots(): MetadataRoute.Robots {
-  // 環境変数から取得するか、実際の運用ドメインをデフォルトにする
-  const baseUrl = process.env.APP_URL || 'https://firebasejapan.com'
-  
-  return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/play-test', '/api/'],
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
-  }
+// 物理ファイル public/robots.txt を優先するため、この動的生成ファイルを無効化します。
+export default function robots() {
+  return {};
 }
