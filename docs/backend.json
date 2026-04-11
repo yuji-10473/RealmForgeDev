@@ -106,6 +106,13 @@
             "type": "number"
           }
         },
+        "unlockedObjectIds": {
+          "type": "array",
+          "description": "A list of unique object instance IDs that the player has unlocked or completed construction for.",
+          "items": {
+            "type": "string"
+          }
+        },
         "bgmVolume": {
           "type": "number",
           "description": "Volume for background music (0.0 to 1.0)."
