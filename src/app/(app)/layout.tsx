@@ -1,4 +1,3 @@
-
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -38,8 +37,6 @@ import { StoryEditorIcon } from "@/components/icons/StoryEditorIcon";
 import { SequencePlayerIcon } from "@/components/icons/SequencePlayerIcon";
 import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from "@/firebase";
 import { doc } from "firebase/firestore";
-import { getRedirectResult } from "firebase/auth";
-import { setDocumentNonBlocking } from "@/firebase/non-blocking-updates";
 import { LandingScreen } from "@/components/client/landing-screen";
 import { Loader2 } from "lucide-react";
 
@@ -69,24 +66,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const firestore = useFirestore();
-
-  // Handle Google Login redirect result
-  useEffect(() => {
-    if (!auth) return;
-    getRedirectResult(auth).then((result) => {
-      if (result) {
-        const loggedInUser = result.user;
-        const userRef = doc(firestore, 'users', loggedInUser.uid);
-        setDocumentNonBlocking(userRef, {
-          displayName: loggedInUser.displayName,
-          email: loggedInUser.email,
-          photoURL: loggedInUser.photoURL,
-        }, { merge: true });
-      }
-    }).catch((error) => {
-      console.error("Login redirect result error:", error);
-    });
-  }, [auth, firestore]);
 
   // Admin status check - based on existence of document in 'admins' collection
   const adminDocRef = useMemoFirebase(() => {

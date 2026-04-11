@@ -1,13 +1,14 @@
-
 'use client';
 
 import {
   useUser,
   useAuth,
+  useFirestore,
+  setDocumentNonBlocking,
 } from '@/firebase';
 import {
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
 } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
@@ -21,16 +22,27 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogIn, LogOut } from 'lucide-react';
+import { doc } from 'firebase/firestore';
 
 export function AuthButton() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
+  const firestore = useFirestore();
 
   const handleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      // Switched to Redirect method as requested
-      await signInWithRedirect(auth, provider);
+      // ポップアップ方式でサインインを実行
+      const result = await signInWithPopup(auth, provider);
+      if (result.user) {
+        // サインイン成功直後にプロフィールを更新
+        const userRef = doc(firestore, 'users', result.user.uid);
+        setDocumentNonBlocking(userRef, {
+          displayName: result.user.displayName,
+          email: result.user.email,
+          photoURL: result.user.photoURL,
+        }, { merge: true });
+      }
     } catch (error) {
       console.error('Google sign-in error:', error);
     }
