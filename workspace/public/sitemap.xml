@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://firebasejapan.com</loc>
+    <loc>https://firebasejapan.com/</loc>
     <lastmod>2024-12-01</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://firebasejapan.com/about</loc>
+    <lastmod>2024-12-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://firebasejapan.com/showcase</loc>
+    <lastmod>2024-12-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://firebasejapan.com/tutorial</loc>
+    <lastmod>2024-12-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://firebasejapan.com/guide</loc>
+    <lastmod>2024-12-01</lastmod>
+    <priority>0.8</priority>
   </url>
 </urlset>
