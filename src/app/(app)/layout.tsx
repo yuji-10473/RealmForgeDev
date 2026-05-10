@@ -56,6 +56,7 @@ const navItems = [
   { href: "/combat-simulator", label: "戦闘シミュレーター", icon: CombatIcon },
   { href: "/asset-library", label: "アセットライブラリ", icon: AssetIcon },
   { href: "/play-test", label: "プレイテスト", icon: PlayTestIcon },
+  { href: "/play-test-vertical", label: "縦型プレイテスト", icon: PlayTestIcon },
   { href: "/export", label: "ゲームをエクスポート", icon: ExportIcon },
 ];
 

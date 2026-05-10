@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize, PackagePlus} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize, PackagePlus, LayoutGrid} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -29,7 +29,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Switch } from "@/components/ui/switch";
+import { Switch } from "@/switch";
 import { Separator } from "@/components/ui/separator";
 import { MenuSimulatorClient, type DisplayInventoryItem, type DisplaySequence, type DisplayAffection } from './menu-simulator-client';
 import type { User } from 'firebase/auth';
@@ -253,7 +253,7 @@ function MiniMap({ world, activeIndex }: { world: WorldData | undefined, activeI
   );
 }
 
-export function PlayTestClient({ user, initialData }: { user: User, initialData: any | null }) {
+export function PlayTestClient({ user, initialData, isVertical = false }: { user: User, initialData: any | null, isVertical?: boolean }) {
   const { toast } = useToast();
   const firestore = useFirestore();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
@@ -765,63 +765,105 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
 
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-      <div ref={playtestContainerRef} className={cn("flex flex-col h-full gap-4 relative bg-background", isFullscreen && "p-4")}>
+      <div ref={playtestContainerRef} className={cn(
+        "flex relative bg-background", 
+        isVertical ? "flex-col h-full gap-2" : "flex-col h-full gap-4",
+        isFullscreen && "p-4"
+      )}>
         {/* 全画面モード用のトースター */}
         {isFullscreen && portalContainer && <Toaster />}
         
-        <div className="flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-4 z-10 flex-wrap">
-          <div className="flex items-center gap-2 flex-grow max-w-[200px]">
-            <Label className="whitespace-nowrap text-xs">マップ</Label>
+        {/* ステータスバー */}
+        <div className={cn(
+          "flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-2 z-10 flex-wrap",
+          isVertical && "order-first"
+        )}>
+          <div className="flex items-center gap-2 flex-grow max-w-[150px]">
+            <Label className="whitespace-nowrap text-[10px]">マップ</Label>
             <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }} disabled={activeCutscene !== null}>
-              <SelectTrigger className="h-8"><SelectValue /></SelectTrigger>
+              <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
               <SelectContent container={portalContainer}>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
             </Select>
           </div>
-          <div className="flex gap-2 shrink-0 items-center flex-wrap">
-            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-20 md:w-24" data-testid="stat-day">
-              <CalendarDays className="h-4 w-4 shrink-0 text-accent" />
+          
+          <div className="flex gap-2 shrink-0 items-center flex-wrap justify-end">
+            <div className="flex items-center gap-1.5 px-2 py-1 bg-background/50 border rounded-lg h-8" data-testid="stat-day">
+              <CalendarDays className="h-3.5 w-3.5 shrink-0 text-accent" />
+              <span className="text-[10px] font-bold whitespace-nowrap">{day} 日</span>
+            </div>
+            
+            {!isVertical && (
+              <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-36">
+                <Star className="h-4 w-4 shrink-0 text-yellow-500 fill-current" />
+                <div className="flex flex-col flex-grow min-w-0">
+                  <div className="flex justify-between items-baseline mb-0.5"><span className="text-[10px] font-bold">Lv.{level}</span><span className="text-[8px] font-mono text-muted-foreground">{Math.floor(xp)}/{getNextXp(level)}</span></div>
+                  <Progress value={(xp / getNextXp(level)) * 100} className="h-1.5" />
+                </div>
+              </div>
+            )}
+
+            <div className={cn(
+              "flex items-center gap-2 px-2 py-1 bg-background/50 border rounded-lg",
+              isVertical ? "h-8" : "h-10 w-28 md:w-32"
+            )} data-testid="stat-hp">
+              <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} />
               <div className="flex flex-col flex-grow min-w-0">
-                <span className="text-[10px] font-bold whitespace-nowrap">{day} 日目</span>
+                <Progress value={(hp / maxHp) * 100} className="h-1.5" />
+                {!isVertical && <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span>}
               </div>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-36">
-              <Star className="h-4 w-4 shrink-0 text-yellow-500 fill-current" />
-              <div className="flex flex-col flex-grow min-w-0">
-                <div className="flex justify-between items-baseline mb-0.5"><span className="text-[10px] font-bold">Lv.{level}</span><span className="text-[8px] font-mono text-muted-foreground">{Math.floor(xp)}/{getNextXp(level)}</span></div>
-                <Progress value={(xp / getNextXp(level)) * 100} className="h-1.5" />
-              </div>
+
+            <div className={cn("bg-primary/10 px-3 py-1 rounded-full font-bold text-primary flex items-center shrink-0", isVertical ? "h-8 text-xs" : "h-10")}>{gold} K</div>
+            
+            <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-8">
+              {!isVertical && (
+                <Button 
+                  size="icon" 
+                  variant="ghost" 
+                  data-testid="btn-interact"
+                  className={cn(
+                    "h-full w-8 rounded-none border-r transition-all duration-300",
+                    isNearInteractable && "bg-accent/30 animate-pulse"
+                  )} 
+                  onClick={() => checkForInteraction()} 
+                  disabled={activeCutscene !== null || isGamePaused}
+                >
+                  <Sparkles className={cn("h-4 w-4 text-accent transition-transform", isNearInteractable && "scale-110")} />
+                </Button>
+              )}
+              <Popover>
+                <PopoverTrigger asChild><Button size="icon" variant="ghost" className="h-full w-8 rounded-none">{isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}</Button></PopoverTrigger>
+                <PopoverContent container={portalContainer} className="w-64 p-4 shadow-xl">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div>
+                    <Separator />
+                    <div className="space-y-3">
+                      <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Music className="h-3 w-3" /><Label className="text-[10px] font-bold">BGM</Label></div><Slider value={[bgmVolume * 100]} max={100} onValueChange={(v)=>setBgmVolume(v[0]/100)} /></div>
+                      <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Volume2 className="h-3 w-3" /><Label className="text-[10px] font-bold">VOICE</Label></div><Slider value={[voiceVolume * 100]} max={100} onValueChange={(v)=>setVoiceVolume(v[0]/100)} /></div>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32" data-testid="stat-hp">
-              <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} /><div className="flex flex-col flex-grow min-w-0"><Progress value={(hp / maxHp) * 100} className="h-2" /><span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span></div>
-            </div>
-            <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-10">
-              <Button 
-                size="icon" 
-                variant="ghost" 
-                data-testid="btn-interact"
-                className={cn(
-                  "h-full w-10 rounded-none border-r transition-all duration-300",
-                  isNearInteractable && "bg-accent/30 animate-pulse shadow-[inset_0_0_10px_hsl(var(--accent))]"
-                )} 
-                onClick={() => checkForInteraction()} 
-                disabled={activeCutscene !== null || isGamePaused}
-              >
-                <Sparkles className={cn("h-4 w-4 text-accent transition-transform", isNearInteractable && "scale-110")} />
-              </Button>
-              <Popover><PopoverTrigger asChild><Button size="icon" variant="ghost" className="h-full w-10 rounded-none">{isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}</Button></PopoverTrigger><PopoverContent container={portalContainer} className="w-64 p-4 shadow-xl"><div className="space-y-4"><div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div><Separator /><div className="space-y-3">
-                <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Music className="h-3 w-3" /><Label className="text-[10px] font-bold">BGM</Label></div><Slider value={[bgmVolume * 100]} max={100} onValueChange={(v)=>setBgmVolume(v[0]/100)} /></div>
-                <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Volume2 className="h-3 w-3" /><Label className="text-[10px] font-bold">VOICE</Label></div><Slider value={[voiceVolume * 100]} max={100} onValueChange={(v)=>setVoiceVolume(v[0]/100)} /></div>
-              </div></div></PopoverContent></Popover>
-            </div>
-            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center shrink-0 h-10" data-testid="stat-gold">{gold} K</div>
-            <Button size="icon" variant="outline" data-testid="btn-save" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
-            <Button size="icon" variant="outline" className="h-10 w-10" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
-              {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
-            </Button>
-            <SheetTrigger asChild><Button size="icon" variant="outline" className="h-10 w-10" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
+            
+            {!isVertical && (
+              <>
+                <Button size="icon" variant="outline" data-testid="btn-save" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
+                <Button size="icon" variant="outline" className="h-10 w-10" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+                  {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+                </Button>
+                <SheetTrigger asChild><Button size="icon" variant="outline" className="h-10 w-10" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
+              </>
+            )}
           </div>
         </div>
-        <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn("relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9]", isGamePaused ? "cursor-default" : "cursor-crosshair")}>
+
+        {/* マップ描画領域 */}
+        <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
+          "relative flex-grow bg-muted border-2 rounded-lg overflow-hidden", 
+          isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
+          isGamePaused ? "cursor-default" : "cursor-crosshair"
+        )}>
           {activeMapData ? (
             <>
               <MapLayer imageUrl={activeMapData.imageUrl} />
@@ -841,26 +883,65 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
               />
             </>
           ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
+          
           {activeCutscene && currentCutsceneStepIndex >= 0 && activeCutscene.steps[currentCutsceneStepIndex].type === 'video' && (
-            <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center"><video src={resolveMediaUrl(activeCutscene.steps[currentCutsceneStepIndex].videoUrl)} className="w-full h-full" autoPlay playsInline controls onEnded={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)} /><Button variant="ghost" className="absolute top-4 right-4 text-white" onClick={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)}>Skip</Button></div>
+            <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center">
+              <video src={resolveMediaUrl(activeCutscene.steps[currentCutsceneStepIndex].videoUrl)} className="w-full h-full" autoPlay playsInline controls onEnded={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)} />
+              <Button variant="ghost" className="absolute top-4 right-4 text-white" onClick={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)}>Skip</Button>
+            </div>
           )}
+          
           {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
+          
           {activeEvent && currentNode && (
-            <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-8 z-50">
+            <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-4 z-50">
               <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4">
                 <CardContent className="pt-6 space-y-4">
-                  <p className="text-xl font-medium whitespace-pre-wrap">{currentNode.content}</p>
+                  <p className="text-lg font-medium whitespace-pre-wrap">{currentNode.content}</p>
                   <div className="flex flex-col gap-2">
-                    {currentNode.type === 'choice' ? currentNode.choices?.map((choice, i) => <Button key={i} size="lg" className="w-full justify-start h-auto py-3" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>{choice.text}</Button>) : <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>}
+                    {currentNode.type === 'choice' ? currentNode.choices?.map((choice, i) => <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>{choice.text}</Button>) : <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>}
                   </div>
                 </CardContent>
               </Card>
             </div>
           )}
         </div>
+
+        {/* 縦型専用：下部操作パネル */}
+        {isVertical && (
+          <div className="grid grid-cols-4 gap-2 h-20 p-2 bg-background/80 backdrop-blur border-t z-10">
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className={cn(
+                "col-span-2 h-full flex flex-col gap-1 items-center justify-center transition-all duration-300",
+                isNearInteractable && "bg-accent/40 animate-pulse border-2 border-accent"
+              )}
+              onClick={() => checkForInteraction()}
+              disabled={activeCutscene !== null || isGamePaused}
+            >
+              <Sparkles className={cn("h-6 w-6 text-accent transition-transform", isNearInteractable && "scale-125")} />
+              <span className="text-[10px] font-bold">しらべる</span>
+            </Button>
+            
+            <div className="flex flex-col gap-2">
+              <Button size="icon" variant="outline" className="w-full h-7" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
+              <Button size="icon" variant="outline" className="w-full h-7" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+                {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+              </Button>
+            </div>
+            
+            <SheetTrigger asChild>
+              <Button size="lg" variant="outline" className="h-full flex flex-col gap-1 items-center justify-center" disabled={activeCutscene !== null}>
+                <MenuIcon className="h-6 w-6"/>
+                <span className="text-[10px] font-bold">メニュー</span>
+              </Button>
+            </SheetTrigger>
+          </div>
+        )}
       </div>
       
-      {/* 強化版ショップダイアログ */}
+      {/* ショップ・会合所・メニューのダイアログ等は共通で使用 */}
       <Dialog open={activeShop !== null} onOpenChange={(open) => !open && setActiveShop(null)}>
         <DialogContent container={portalContainer} className="max-w-3xl">
           <DialogHeader>
@@ -926,17 +1007,17 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                                   <div className="w-6 h-6 relative bg-background rounded">
                                     {asset?.imageUrl && <Image src={resolveMediaUrl(asset.imageUrl)} alt="" fill className="object-contain" unoptimized />}
                                   </div>
-                                  <span>{asset?.name || ing.id} (必要: {needed})</span>
+                                  <span className="text-xs">{asset?.name || ing.id} (要: {needed})</span>
                                 </div>
                                 <div className="flex items-center gap-4">
                                   <div className="text-right">
-                                    <div className="text-[10px] text-muted-foreground">店在庫 / 所持</div>
-                                    <div className="font-mono">{currentSupply} / {invItem?.quantity || 0}</div>
+                                    <div className="text-[8px] text-muted-foreground">在庫/所持</div>
+                                    <div className="font-mono text-xs">{currentSupply}/{invItem?.quantity || 0}</div>
                                   </div>
                                   <Button 
                                     size="sm" 
                                     variant="outline" 
-                                    className="h-8 w-8 p-0"
+                                    className="h-7 w-7 p-0"
                                     onClick={() => handleSupplyIngredient(ing.id)}
                                     disabled={!invItem || invItem.quantity <= 0}
                                   >
@@ -956,7 +1037,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
           </Tabs>
 
           <DialogFooter className="flex justify-between border-t pt-4">
-            <div className="text-left flex-grow">所持金: <span className="text-primary font-bold">{gold} K</span></div>
+            <div className="text-left flex-grow text-sm">所持金: <span className="text-primary font-bold">{gold} K</span></div>
             <Button variant="outline" onClick={()=>setActiveShop(null)}>店を出る</Button>
           </DialogFooter>
         </DialogContent>
@@ -1001,13 +1082,29 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
         </DialogContent>
       </Dialog>
 
-      <SheetContent container={portalContainer} className="sm:max-w-xl"><SheetHeader><SheetTitle>ゲームメニュー</SheetTitle></SheetHeader><div className="mt-4"><MenuSimulatorClient inventoryItems={inventory.map(i=>{const d=availableObjects.find(a=>a.id===i.itemId); return {id:i.itemId,name:d?.name||'?',imageUrl:resolveMediaUrl(d?.imageUrl),quantity:i.quantity,canUse:(d?.recoveryAmount||0)>0,description:d?.description,rarity:d?.rarity,itemType:d?.itemType,recoveryAmount:d?.recoveryAmount,ingredients:d?.ingredients};})} sequences={masterSequences.map(s=>({id:s.id,title:s.title,description:s.description}))} characterAffection={availableObjects.filter(o=>o.type==='person').map(v=>({id:v.id,name:v.name||'?',imageUrl:resolveMediaUrl(v.imageUrl),points:affection[v.id]||0,description:v.description,personality:v.personality,age:v.age,gender:v.gender,introduction:v.introduction})).filter(c=>c.points>0).sort((a,b)=>b.points-a.points)} onPlaySequence={handlePlaySequence} onUseItem={(id)=>{
-        const item = availableObjects.find(a=>a.id===id); if (!item) return; const bonus = getLevelBonus(level); const rec = Math.floor((item.recoveryAmount||0)*bonus); const hrec = item.isDish ? Math.floor((item.recoveryAmount||0)/10) : (item.recoveryAmount||0);
-        if (hunger+hrec > maxHunger) { toast({variant:"destructive",title:"満腹です"}); return; }
-        setHp(p=>Math.min(maxHp,p+rec)); setHunger(p=>Math.min(maxHunger,p+hrec));
-        setInventory(p=>{const e=p.find(i=>i.itemId===id); if(e&&e.quantity>1) return p.map(i=>i.itemId===id?{...i,quantity:i.quantity-1}:i); return p.filter(i=>i.itemId!==id);});
-        toast({title:"使用完了",description:`HP+${rec}, 満腹度+${hrec}`});
-      }} /></div></SheetContent>
+      <SheetContent container={portalContainer} className="sm:max-w-xl">
+        <SheetHeader>
+          <SheetTitle>ゲームメニュー</SheetTitle>
+        </SheetHeader>
+        <div className="mt-4">
+          <MenuSimulatorClient 
+            inventoryItems={inventory.map(i=>{
+              const d=availableObjects.find(a=>a.id===i.itemId); 
+              return {id:i.itemId,name:d?.name||'?',imageUrl:resolveMediaUrl(d?.imageUrl),quantity:i.quantity,canUse:(d?.recoveryAmount||0)>0,description:d?.description,rarity:d?.rarity,itemType:d?.itemType,recoveryAmount:d?.recoveryAmount,ingredients:d?.ingredients};
+            })} 
+            sequences={masterSequences.map(s=>({id:s.id,title:s.title,description:s.description}))} 
+            characterAffection={availableObjects.filter(o=>o.type==='person').map(v=>({id:v.id,name:v.name||'?',imageUrl:resolveMediaUrl(v.imageUrl),points:affection[v.id]||0,description:v.description,personality:v.personality,age:v.age,gender:v.gender,introduction:v.introduction})).filter(c=>c.points>0).sort((a,b)=>b.points-a.points)} 
+            onPlaySequence={handlePlaySequence} 
+            onUseItem={(id)=>{
+              const item = availableObjects.find(a=>a.id===id); if (!item) return; const bonus = getLevelBonus(level); const rec = Math.floor((item.recoveryAmount||0)*bonus); const hrec = item.isDish ? Math.floor((item.recoveryAmount||0)/10) : (item.recoveryAmount||0);
+              if (hunger+hrec > maxHunger) { toast({variant:"destructive",title:"満腹です"}); return; }
+              setHp(p=>Math.min(maxHp,p+rec)); setHunger(p=>Math.min(maxHunger,p+hrec));
+              setInventory(p=>{const e=p.find(i=>i.itemId===id); if(e&&e.quantity>1) return p.map(i=>i.itemId===id?{...i,quantity:i.quantity-1}:i); return p.filter(i=>i.itemId!==id);});
+              toast({title:"使用完了",description:`HP+${rec}, 満腹度+${hrec}`});
+            }} 
+          />
+        </div>
+      </SheetContent>
     </Sheet>
   );
 }

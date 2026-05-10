@@ -86,7 +86,7 @@ export default function AboutPage() {
               </div>
               <h2 className="text-3xl font-bold font-headline">歴史の「息吹」を、誰でも形にできる世界へ</h2>
               <p className="leading-relaxed text-muted-foreground">
-                かつて鎌倉という地で生きた人々の営み、武士の覚悟、庶民の信仰。それらをただ知識として知るだけでなく、一つの「世界」として歩き、話し、体験すること。RealmForge は、専門的な知識が必要だった「歴史RPG制作」の壁を、AIとの対話によって取り払い、誰もが歴史の編纂者になれる場所を提供します。
+                かつて鎌倉という地で生きた人々の営み、武士の覚悟、庶民の信仰. それらをただ知識として知るだけでなく、一つの「世界」として歩き、話し、体験すること。RealmForge は、専門的な知識が必要だった「歴史RPG制作」の壁を、AIとの対話によって取り払い、誰もが歴史の編纂者になれる場所を提供します。
               </p>
             </div>
             <div className="bg-primary/5 p-8 rounded-3xl border border-primary/10 space-y-4 shadow-sm">
@@ -108,24 +108,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.17</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.19</Badge>
                 <div>
-                  <p className="font-bold">SEOとサイト信頼性の向上</p>
-                  <p className="text-sm text-muted-foreground mt-1">検索エンジン最適化（SEO）のためのサイトマップ生成、メタデータの拡充、およびユーザーの利便性を高めるためのナビゲーション改善を行いました。</p>
+                  <p className="font-bold">縦型UIモードの追加</p>
+                  <p className="text-sm text-muted-foreground mt-1">スマートフォンの縦持ち操作に最適化した専用レイアウトを実装しました。モバイル環境でのプレイ体験が大幅に向上しました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.16</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.18</Badge>
                 <div>
-                  <p className="font-bold">チュートリアル機能の追加とUI改善</p>
-                  <p className="text-sm text-muted-foreground mt-1">初めてのユーザー向けにプレイテストの基本ガイドを公開しました。また、全画面表示時のUI操作性を向上させました。</p>
+                  <p className="font-bold">認証UXとSEOの強化</p>
+                  <p className="text-sm text-muted-foreground mt-1">Googleログインをポップアップ方式に変更し、クローラー対策としてサイトマップ等の静的ファイル化を行いました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start opacity-60">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.15</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.17</Badge>
                 <div>
-                  <p className="font-bold">経済・サバイバルシステムの統合</p>
-                  <p className="text-sm text-muted-foreground mt-1">料理屋への納品システムと売上精算ロジックを実装し、鎌倉時代の生活圏を模したゲームループが可能になりました。</p>
+                  <p className="font-bold">SEOとサイト信頼性の向上</p>
+                  <p className="text-sm text-muted-foreground mt-1">検索エンジン最適化（SEO）のためのメタデータの拡充、およびユーザーの利便性を高めるためのナビゲーション改善を行いました。</p>
                 </div>
               </div>
             </div>
