@@ -1,6 +1,6 @@
 {
   "name": "nextn",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 9002",
@@ -9,7 +9,8 @@
     "build": "next build && rm -rf .next/standalone/tmp",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.20.0",
@@ -56,6 +57,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.0",
     "@types/node": "^20",
     "@types/react": "^19.2.1",
     "@types/react-dom": "^19.2.1",

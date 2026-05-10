@@ -152,6 +152,7 @@ const PlayerLayer = memo(({
 
   return (
     <div 
+      data-testid="player-character"
       style={{ 
         position: 'absolute', 
         zIndex: 10,
@@ -777,7 +778,7 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
             </Select>
           </div>
           <div className="flex gap-2 shrink-0 items-center flex-wrap">
-            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-20 md:w-24">
+            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-20 md:w-24" data-testid="stat-day">
               <CalendarDays className="h-4 w-4 shrink-0 text-accent" />
               <div className="flex flex-col flex-grow min-w-0">
                 <span className="text-[10px] font-bold whitespace-nowrap">{day} 日目</span>
@@ -790,13 +791,14 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 <Progress value={(xp / getNextXp(level)) * 100} className="h-1.5" />
               </div>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32">
+            <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-32" data-testid="stat-hp">
               <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} /><div className="flex flex-col flex-grow min-w-0"><Progress value={(hp / maxHp) * 100} className="h-2" /><span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span></div>
             </div>
             <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-10">
               <Button 
                 size="icon" 
                 variant="ghost" 
+                data-testid="btn-interact"
                 className={cn(
                   "h-full w-10 rounded-none border-r transition-all duration-300",
                   isNearInteractable && "bg-accent/30 animate-pulse shadow-[inset_0_0_10px_hsl(var(--accent))]"
@@ -811,15 +813,15 @@ export function PlayTestClient({ user, initialData }: { user: User, initialData:
                 <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Volume2 className="h-3 w-3" /><Label className="text-[10px] font-bold">VOICE</Label></div><Slider value={[voiceVolume * 100]} max={100} onValueChange={(v)=>setVoiceVolume(v[0]/100)} /></div>
               </div></div></PopoverContent></Popover>
             </div>
-            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center shrink-0 h-10">{gold} K</div>
-            <Button size="icon" variant="outline" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
+            <div className="bg-primary/10 px-4 py-2 rounded-full font-bold text-primary flex items-center shrink-0 h-10" data-testid="stat-gold">{gold} K</div>
+            <Button size="icon" variant="outline" data-testid="btn-save" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
             <Button size="icon" variant="outline" className="h-10 w-10" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
               {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
             </Button>
             <SheetTrigger asChild><Button size="icon" variant="outline" className="h-10 w-10" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
           </div>
         </div>
-        <div ref={mapContainerRef} onClick={handleMapClick} className={cn("relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9]", isGamePaused ? "cursor-default" : "cursor-crosshair")}>
+        <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn("relative flex-grow bg-muted border-2 rounded-lg overflow-hidden aspect-[16/9]", isGamePaused ? "cursor-default" : "cursor-crosshair")}>
           {activeMapData ? (
             <>
               <MapLayer imageUrl={activeMapData.imageUrl} />

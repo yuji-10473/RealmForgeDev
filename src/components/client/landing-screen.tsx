@@ -200,6 +200,7 @@ export function LandingScreen() {
             <TabsContent value="google">
               <Button 
                 size="lg" 
+                data-testid="login-google"
                 className="w-full h-14 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all"
                 onClick={handleGoogleSignIn}
               >
@@ -240,7 +241,7 @@ export function LandingScreen() {
                     </div>
                   </div>
                   <div className="flex gap-2 pt-2">
-                    <Button onClick={handleEmailSignIn} className="flex-1 font-bold">ログイン</Button>
+                    <Button onClick={handleEmailSignIn} data-testid="login-email" className="flex-1 font-bold">ログイン</Button>
                     <Button onClick={handleEmailSignUp} variant="outline" className="flex-1 font-bold">新規登録</Button>
                   </div>
                 </CardContent>
