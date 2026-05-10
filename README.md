@@ -1,7 +1,29 @@
-# Firebase Studio
+# RealmForge (Ver 0.1.18)
 
-Ver 0.1.17
+13世紀の日本・鎌倉時代を舞台にした歴史RPG制作プラットフォーム。最新の生成AIを活用し、歴史の「もしも」を形にするクリエイティブな体験を提供します。
 
-This is a NextJS starter in Firebase Studio.
+## 🚀 主な機能
+- **マップ/ルームエディター**: 鎌倉の風景や建物の内部を直感的に構築。
+- **イベント/ストーリーエディター**: AIと対話しながら重厚なナラティブを作成。
+- **プレイテスト機能**: サバイバル（HP/空腹度）、経済（納品/売上精算）、レベルシステムを統合したゲームプレイ。
+- **AIストーリーアシスト**: バックストーリーや対話の自動生成。
 
-To get started, take a look at src/app/page.tsx.
+## 🛠 テクニカルスタック
+- **Framework**: Next.js 15 (App Router)
+- **Database/Auth**: Firebase (Firestore, Authentication)
+- **AI**: Genkit (Gemini 2.5 Flash)
+- **UI**: Shadcn UI + Tailwind CSS
+- **Testing**: Playwright (E2E)
+
+## 📝 最新の更新 (Ver 0.1.18)
+- **認証UXの向上**: Googleログインをリダイレクト方式からポップアップ方式へ変更。
+- **SEOの強化**: `robots.txt` / `sitemap.xml` を物理ファイル化し、クローラーのブロック問題を解消。
+- **ビルドの最適化**: `standalone` 出力とファイル除外設定により、デプロイ容量を大幅に削減。
+- **テスト環境の構築**: Playwright による自動操作テストの基盤を導入。
+
+## 📂 ドキュメント
+詳細は `docs/` ディレクトリ内の各仕様書を参照してください。
+- `Admin-User.md`: 権限管理とログインフロー
+- `construction_system_specification.md`: 建設（工事中）システム
+- `mobile_compatibility_roadmap.md`: モバイル対応計画
+- `testing_guide.md`: 自動テストの実行方法
