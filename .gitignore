@@ -1,17 +1,13 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+.pnp.js
 
 # testing
-/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 
 # next.js
 /.next/
@@ -28,41 +24,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# vercel
-.vercel
+# local env files
+.env
+.env*.local
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
-.genkit/*
-.env*
-
-# firebase
-firebase-debug.log
-firestore-debug.log
-
-
-public/project_data/kamakura.zip
-public/maps/maps.zip
-tmp/
-
-# Firebase temporary files
-.firebase/
-*-debug.log
-.firebaserc
-
-# App Hosting temporary build artifacts
-.apphosting/
-
-# 大容量の可能性があるバイナリやメディアファイル（もしあれば）
-*.zip
-*.tar.gz
-*.mp4
-
-# 先頭にスラッシュを入れず、ディレクトリ名だけで指定してみてください
-tmp
-.next/cache
-node_modules
+# workspace duplicate (cleanup)
+/workspace/
+/tmp/
+/tmp_objects.json
