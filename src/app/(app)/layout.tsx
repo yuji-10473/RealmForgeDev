@@ -82,8 +82,10 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const isAdmin = !!adminData && (adminData.isAdmin !== false);
 
   // Access guard logic: Non-admins are redirected to /play-test if they try to access other routes
+  // Modified to allow /play-test-vertical for non-admins as well
   useEffect(() => {
-    if (!isUserLoading && !isAdminLoading && user && !isAdmin && pathname !== '/play-test') {
+    const isAllowedPath = pathname === '/play-test' || pathname === '/play-test-vertical';
+    if (!isUserLoading && !isAdminLoading && user && !isAdmin && !isAllowedPath) {
       router.push('/play-test');
     }
   }, [user, isAdmin, isUserLoading, isAdminLoading, pathname, router]);
@@ -103,9 +105,10 @@ function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   // Filter navigation items based on permissions
+  // Now includes both standard and vertical play-test for non-admin users
   const filteredNavItems = isAdmin 
     ? navItems 
-    : navItems.filter(item => item.href === '/play-test');
+    : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical');
 
   return (
     <SidebarProvider>
