@@ -108,24 +108,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.20</Badge>
+                <div>
+                  <p className="font-bold">縦型UIの一般ユーザー開放</p>
+                  <p className="text-sm text-muted-foreground mt-1">「縦型プレイテスト」を全ユーザーが利用できるよう、アクセス権限を更新しました。全てのデバイスから最適なUIでゲームを体験いただけます。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.19</Badge>
                 <div>
                   <p className="font-bold">縦型UIモードの追加</p>
                   <p className="text-sm text-muted-foreground mt-1">スマートフォンの縦持ち操作に最適化した専用レイアウトを実装しました。モバイル環境でのプレイ体験が大幅に向上しました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-70">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.18</Badge>
                 <div>
                   <p className="font-bold">認証UXとSEOの強化</p>
                   <p className="text-sm text-muted-foreground mt-1">Googleログインをポップアップ方式に変更し、クローラー対策としてサイトマップ等の静的ファイル化を行いました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start opacity-60">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.17</Badge>
-                <div>
-                  <p className="font-bold">SEOとサイト信頼性の向上</p>
-                  <p className="text-sm text-muted-foreground mt-1">検索エンジン最適化（SEO）のためのメタデータの拡充、およびユーザーの利便性を高めるためのナビゲーション改善を行いました。</p>
                 </div>
               </div>
             </div>
