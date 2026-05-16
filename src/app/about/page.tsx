@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.22</Badge>
+                <div>
+                  <p className="font-bold">内部基盤の最適化</p>
+                  <p className="text-sm text-muted-foreground mt-1">コンポーネント整理と将来のモバイル拡張に向けた内部ロジックの調整を行いました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.21</Badge>
                 <div>
                   <p className="font-bold">システム基盤の安定化</p>
                   <p className="text-sm text-muted-foreground mt-1">内部的なコンポーネント整理を行い、将来的な拡張に向けた安定性を向上させました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-70">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.20</Badge>
                 <div>
                   <p className="font-bold">縦型UIの一般ユーザー開放</p>
                   <p className="text-sm text-muted-foreground mt-1">「縦型プレイテスト」を全ユーザーが利用できるよう、アクセス権限を更新しました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-70">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.19</Badge>
-                <div>
-                  <p className="font-bold">縦型UIモードの追加</p>
-                  <p className="text-sm text-muted-foreground mt-1">スマートフォンの縦持ち操作に最適化した専用レイアウトを実装しました。</p>
                 </div>
               </div>
             </div>

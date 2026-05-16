@@ -187,7 +187,8 @@ const CutsceneLayer = memo(({ cutsceneChars }: { cutsceneChars: Record<string, a
           top: `${(char.y / MAP_HEIGHT) * 100}%`, 
           width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
           aspectRatio: '1/1',
-          zIndex: 15
+          zIndex: 15,
+          transition: 'all 0.1s linear' // 滑らかな移動のための追加
         }}
       >
         <Image 
@@ -208,7 +209,7 @@ CutsceneLayer.displayName = 'CutsceneLayer';
 type ShopData = { id: string; name: string; itemIds?: string[]; dishIds?: string[]; };
 type CollectionPointData = { id: string; name: string; itemIds: string[]; };
 type MeetingPlaceData = { id: string; name: string; eventIds: string[]; };
-type Waypoint = { x: number; y: number; eventId?: string; };
+type Waypoint = { x: number; y: number; eventId?: string; waitForEventId?: string; visibility?: string; };
 type SequenceChar = { id: string; objectId: string; speed: number; path: Waypoint[]; };
 type StoryData = { id: string; name: string; mapId: string; worldId?: string; bgmUrl?: string; characters: SequenceChar[]; };
 type CutsceneStep = { type: "story" | "video"; storyId?: string; videoTitle?: string; videoUrl?: string; };
@@ -310,12 +311,13 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const [activeShop, setActiveShop] = useState<ShopData | null>(null);
   const [activeMeetingPlace, setActiveMeetingPlace] = useState<MeetingPlaceData | null>(null);
 
-  // Cutscene State
+  // --- 新しいシーケンシャル再生ロジック用ステート ---
   const [activeCutscene, setActiveCutscene] = useState<NarrativeSequence | null>(null);
-  const [currentCutsceneStepIndex, setCurrentCutsceneStepIndex] = useState(-1);
-  const [cutsceneChars, setCutsceneChars] = useState<Record<string, { x: number; y: number; data: AvailableObject; targetIdx: number; path: Waypoint[]; speed: number }>>({});
+  const [cutsceneEventQueue, setCutsceneEventQueue] = useState<string[]>([]);
+  const [currentQueueIndex, setCurrentQueueIndex] = useState(-1);
+  const [cutsceneChars, setCutsceneChars] = useState<Record<string, any>>({});
   const [originalPlayerState, setOriginalPlayerState] = useState<{ worldId: string, cellIndex: number, pos: {x: number, y: number} } | null>(null);
-
+  
   // Audio State
   const [isMuted, setIsMuted] = useState(initialData?.isMuted ?? false);
   const [bgmVolume, setBgmVolume] = useState(initialData?.bgmVolume ?? 0.5);
@@ -501,10 +503,80 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     if (node.audioUrl) { voiceRef.current.src = resolveMediaUrl(node.audioUrl); voiceRef.current.play().catch(()=>{}); }
   }, []);
 
+
+  // ==========================================
+  // 新しいシーケンシャル再生ロジック
+  // ==========================================
+
+  // カットシーン終了時のクリーンアップ
+  const endCutscene = useCallback(() => {
+    if (originalPlayerState) {
+      setSelectedWorldId(originalPlayerState.worldId); 
+      setActiveCellIndex(originalPlayerState.cellIndex);
+      setCharacterPosition(originalPlayerState.pos);
+    }
+    setActiveCutscene(null); 
+    setCutsceneEventQueue([]);
+    setCurrentQueueIndex(-1); 
+    setCutsceneChars({}); 
+    setOriginalPlayerState(null);
+    setActiveEvent(null);
+    setCurrentEventNode(null);
+  }, [originalPlayerState]);
+
+  // キューの次のイベントに進む
+  const playNextInQueue = useCallback((currentIndex: number, queue: string[]) => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex >= queue.length) {
+      // 全て完了したらカットシーン終了
+      endCutscene();
+      return;
+    }
+
+    setCurrentQueueIndex(nextIndex);
+    const nextEventId = queue[nextIndex];
+    
+    // イベントIDが存在しない（マーカーや空文字）場合はスキップして次へ
+    if (!nextEventId) {
+        setTimeout(() => playNextInQueue(nextIndex, queue), 10);
+        return;
+    }
+
+    // ★修正：動画の場合はJSX側で再生され、ハンドラから次へ進むのでここで待機する
+    if (nextEventId.startsWith('VIDEO:')) {
+        console.log("Playing video:", nextEventId);
+        return; 
+    }
+
+    const event = masterEvents.find(e => e.id === nextEventId);
+    if (event) {
+      setActiveEvent(event);
+      transitionToNode(event.nodes.find(n => n.type === 'start'));
+    } else {
+        // masterEventsに存在しないID（マーカーなど）は即座に次へ
+        console.warn(`Event ${nextEventId} not found, skipping.`);
+        setTimeout(() => playNextInQueue(nextIndex, queue), 10);
+    }
+  }, [masterEvents, endCutscene]);
+
+  // イベントノードの遷移処理（完了時にキューを進めるロジックを統合）
   const transitionToNode = useCallback((node: EventNode | null | undefined) => {
-    if (!node) { setActiveEvent(null); setCurrentEventNode(null); return; }
+    if (!node) { 
+      // イベントが終了した
+      setActiveEvent(null); 
+      setCurrentEventNode(null); 
+      
+      // カットシーン中であれば、キューの次のイベントを呼ぶ
+      if (activeCutscene) {
+          playNextInQueue(currentQueueIndex, cutsceneEventQueue);
+      }
+      return; 
+    }
+
     setCurrentEventNode(node);
     playNodeVoice(node);
+
+    // 報酬処理
     if (node.type === 'reward' && node.reward) {
       const { itemId, itemName, amount } = node.reward;
       const isLaborEvent = activeEvent?.tags?.includes('労働力');
@@ -527,44 +599,92 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         });
       }
     }
-  }, [playNodeVoice, toast, activeEvent, gainXp]);
+  }, [playNodeVoice, toast, activeEvent, gainXp, activeCutscene, currentQueueIndex, cutsceneEventQueue, playNextInQueue]);
 
-  const endCutscene = useCallback(() => {
-    if (originalPlayerState) {
-      setSelectedWorldId(originalPlayerState.worldId); setActiveCellIndex(originalPlayerState.cellIndex);
-      setCharacterPosition(originalPlayerState.pos);
-    }
-    setActiveCutscene(null); setCurrentCutsceneStepIndex(-1); setCutsceneChars({}); setOriginalPlayerState(null);
-  }, [originalPlayerState]);
 
-  const startCutsceneStep = useCallback(async (sequence: NarrativeSequence, index: number) => {
-    if (index >= sequence.steps.length) { endCutscene(); return; }
-    const step = sequence.steps[index];
-    setCurrentCutsceneStepIndex(index);
-    if (step.type === 'story') {
-      const story = masterStories.find(s => s.id === step.storyId);
-      if (story) {
-        const world = masterWorlds.find(w => w.id === (story.worldId || story.mapId));
-        const mapIdx = world?.maps?.findIndex(m => m.id === story.mapId);
-        if (world && mapIdx !== undefined && mapIdx !== -1) { setSelectedWorldId(world.id); setActiveCellIndex(mapIdx); }
-        const newCutChars: Record<string, any> = {};
-        story.characters.forEach(sc => {
-          const vData = availableObjects.find(v => v.id === sc.objectId);
-          if (vData && sc.path.length > 0) newCutChars[sc.id || `cut_${sc.objectId}`] = { x: sc.path[0].x, y: sc.path[0].y, data: vData, targetIdx: 0, path: sc.path, speed: sc.speed || 1 };
-        });
-        setCutsceneChars(newCutChars);
-      }
-    } else if (step.type === 'video') { setCutsceneChars({}); if (bgmRef.current) bgmRef.current.pause(); }
-  }, [masterStories, masterWorlds, availableObjects, endCutscene]);
+  // 1. stories.json から イベントID を順番通りに抽出・フラット化する関数
+  const extractEventIdsFromSequence = useCallback((sequence: NarrativeSequence) => {
+      const extractedIds: string[] = [];
+      const extractedChars: Record<string, any> = {};
 
-  const handlePlaySequence = (sequenceId: string) => {
+      sequence.steps.forEach(step => {
+          if (step.type === 'story' && step.storyId) {
+              const story = masterStories.find(s => s.id === step.storyId);
+              if (story) {
+                  // 背景マップの切り替え設定
+                  const world = masterWorlds.find(w => w.id === (story.worldId || story.mapId));
+                  const mapIdx = world?.maps?.findIndex(m => m.id === story.mapId);
+                  if (world && mapIdx !== undefined && mapIdx !== -1) { 
+                      setSelectedWorldId(world.id); 
+                      setActiveCellIndex(mapIdx); 
+                  }
+                  
+                  // キャラクターの抽出と初期位置の設定
+                  story.characters.forEach(sc => {
+                      const vData = availableObjects.find(v => v.id === sc.objectId);
+                      if (vData && sc.path.length > 0) {
+                          extractedChars[sc.id || `cut_${sc.objectId}`] = { 
+                              x: sc.path[0].x, 
+                              y: sc.path[0].y, 
+                              data: vData 
+                          };
+                          
+                          // 経路から eventId を順番に抽出する
+                          // (依存関係がある場合でも、stories.jsonの配列順が意図した再生順序であると仮定する)
+                          sc.path.forEach(pathPoint => {
+                              if (pathPoint.eventId) {
+                                  extractedIds.push(pathPoint.eventId);
+                              }
+                          });
+                      }
+                  });
+              }
+          } else if (step.type === 'video' && step.videoUrl) {
+              // 動画の場合は特殊なIDを挿入（再生時に分岐処理する）
+              extractedIds.push(`VIDEO:${step.videoUrl}`);
+          }
+      });
+      return { ids: extractedIds, chars: extractedChars };
+  }, [masterStories, masterWorlds, availableObjects]);
+
+
+  // カットシーンの開始エントリポイント
+  const handlePlaySequence = useCallback((sequenceId: string) => {
     const seq = masterSequences.find(s => s.id === sequenceId);
     if (!seq) return;
+    
     setIsMenuOpen(false);
+    // プレイヤーの元の状態を保存
     setOriginalPlayerState({ worldId: selectedWorldId, cellIndex: activeCellIndex, pos: { ...characterPosition } });
     setActiveCutscene(seq);
-    startCutsceneStep(seq, 0);
-  };
+    
+    // 1. データのフラット化
+    const { ids, chars } = extractEventIdsFromSequence(seq);
+    
+    console.log("Generated Event Queue:", ids); // デバッグ用
+
+    setCutsceneEventQueue(ids);
+    setCutsceneChars(chars);
+    
+    if (bgmRef.current) bgmRef.current.pause();
+
+    // 2. 抽出したキューの最初の要素を再生開始
+    if (ids.length > 0) {
+        // setTimeout でReactのレンダリングサイクルを一度回してから開始
+        setTimeout(() => playNextInQueue(-1, ids), 10);
+    } else {
+        endCutscene();
+    }
+  }, [masterSequences, selectedWorldId, activeCellIndex, characterPosition, extractEventIdsFromSequence, playNextInQueue, endCutscene]);
+
+
+  // ビデオの再生終了ハンドラ
+  const handleVideoEnded = useCallback(() => {
+      if (activeCutscene) {
+          playNextInQueue(currentQueueIndex, cutsceneEventQueue);
+      }
+  }, [activeCutscene, currentQueueIndex, cutsceneEventQueue, playNextInQueue]);
+
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (bgmRef.current?.paused && bgmRef.current.getAttribute('src')) bgmRef.current.play().catch(()=>{});
@@ -666,28 +786,10 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     }
   }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp, characterPosition, suppliedIngredients]);
 
+  // メインループ（キャラクター移動のみ担当）
   useEffect(() => {
     const loop = (currentTime: number) => {
-      if (activeCutscene && currentCutsceneStepIndex >= 0) {
-        const step = activeCutscene.steps[currentCutsceneStepIndex];
-        if (step.type === 'story' && !activeEvent) {
-          setCutsceneChars(prev => {
-            const next = { ...prev };
-            let anyMoving = false;
-            let eventTriggered = false;
-            for (const id in next) {
-              const c = next[id]; if (c.targetIdx >= c.path.length) continue;
-              anyMoving = true; const target = c.path[c.targetIdx]; const dx = target.x - c.x, dy = target.y - c.y; const dist = Math.sqrt(dx * dx + dy * dy); const moveSpeed = (c.speed || 1) * 5;
-              if (dist < moveSpeed) {
-                next[id] = { ...c, x: target.x, y: target.y, targetIdx: c.targetIdx + 1 };
-                if (target.eventId) { const event = masterEvents.find(e => e.id === target.eventId); if (event) { setActiveEvent(event); transitionToNode(event.nodes.find(n => n.type === 'start')); break; } }
-              } else next[id] = { ...c, x: c.x + (dx / dist) * moveSpeed, y: c.y + (dy / dist) * moveSpeed };
-            }
-            if (!anyMoving && Object.keys(next).length > 0 && !activeEvent) setTimeout(() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1), 500);
-            return next;
-          });
-        }
-      }
+      // プレイヤーの移動ロジック
       if (!isGamePaused) {
         let moveX = 0, moveY = 0;
         const currentSpeed = BASE_SPEED + level;
@@ -727,7 +829,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     };
     gameLoopRef.current = requestAnimationFrame(loop);
     return () => { if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current); };
-  }, [pressedKeys, targetPosition, isGamePaused, isMoving, characterDirection, activeCellIndex, currentWorld, activeCutscene, currentCutsceneStepIndex, activeEvent, startCutsceneStep, level, characterPosition]);
+  }, [pressedKeys, targetPosition, isGamePaused, isMoving, characterDirection, activeCellIndex, currentWorld, level, characterPosition]);
 
   useEffect(() => {
     const handleDown = (e: KeyboardEvent) => {
@@ -884,22 +986,31 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             </>
           ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
           
-          {activeCutscene && currentCutsceneStepIndex >= 0 && activeCutscene.steps[currentCutsceneStepIndex].type === 'video' && (
+          {/* 新しいシーケンシャルビデオ再生 */}
+          {activeCutscene && currentQueueIndex >= 0 && cutsceneEventQueue[currentQueueIndex]?.startsWith('VIDEO:') && (
             <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center">
-              <video src={resolveMediaUrl(activeCutscene.steps[currentCutsceneStepIndex].videoUrl)} className="w-full h-full" autoPlay playsInline controls onEnded={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)} />
-              <Button variant="ghost" className="absolute top-4 right-4 text-white" onClick={() => startCutsceneStep(activeCutscene, currentCutsceneStepIndex + 1)}>Skip</Button>
+              <video 
+                  src={resolveMediaUrl(cutsceneEventQueue[currentQueueIndex].replace('VIDEO:', ''))} 
+                  className="w-full h-full" 
+                  autoPlay 
+                  playsInline 
+                  controls 
+                  onEnded={handleVideoEnded} 
+              />
+              <Button variant="ghost" className="absolute top-4 right-4 text-white" onClick={handleVideoEnded}>Skip</Button>
             </div>
           )}
           
           {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
           
+          {/* シーケンシャルイベント再生 */}
           {activeEvent && currentNode && (
             <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-4 z-50">
               <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4">
                 <CardContent className="pt-6 space-y-4">
                   <p className="text-lg font-medium whitespace-pre-wrap">{currentNode.content}</p>
                   <div className="flex flex-col gap-2">
-                    {currentNode.type === 'choice' ? currentNode.choices?.map((choice, i) => <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>{choice.text}</Button>) : <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>{currentNode.type === 'end' ? '物語を続ける' : '次へ'}</Button>}
+                    {currentNode.type === 'choice' ? currentNode.choices?.map((choice, i) => <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>{choice.text}</Button>) : <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>{currentNode.type === 'end' ? '次へ' : '次へ'}</Button>}
                   </div>
                 </CardContent>
               </Card>
