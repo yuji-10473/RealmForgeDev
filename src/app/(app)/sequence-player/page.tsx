@@ -1,30 +1,30 @@
-'use client';
+// src/app/(app)/sequence-player/page.tsx
+"use client";
 
-import dynamic from 'next/dynamic';
-import { Loader2 } from 'lucide-react';
+import { Suspense } from 'react';
+import SequencePlayerClient from "@/components/client/sequence-player-client";
+import LoadingSpinner from "@/components/ui/loading-spinner"; 
+import { useSearchParams } from 'next/navigation';
 
-const SequencePlayerClient = dynamic(
-  () => import('@/components/client/sequence-player-client').then((mod) => mod.SequencePlayerClient),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
+function SequencePlayerPageContent() {
+  const searchParams = useSearchParams();
+  const narrativeSequenceId = searchParams.get('narrativeSequenceId'); // 変更点：narrativeSequenceIdを取得
+
+  if (!narrativeSequenceId) {
+    return (
+      <div className="flex justify-center items-center h-screen text-red-500 text-xl">
+        エラー: narrativeSequenceId が指定されていません。
       </div>
-    ),
+    );
   }
-);
+
+  return <SequencePlayerClient narrativeSequenceId={narrativeSequenceId} />; // 変更点：narrativeSequenceIdを渡す
+}
 
 export default function SequencePlayerPage() {
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col space-y-4">
-      <header>
-        <h1 className="text-3xl font-bold font-headline">シーケンスプレイヤー</h1>
-        <p className="text-muted-foreground">グランドナラティブ形式の物語をインポートして再生します。</p>
-      </header>
-      <div className="flex-grow min-h-0">
-        <SequencePlayerClient />
-      </div>
-    </div>
+    <Suspense fallback={<LoadingSpinner />}>
+      <SequencePlayerPageContent />
+    </Suspense>
   );
 }

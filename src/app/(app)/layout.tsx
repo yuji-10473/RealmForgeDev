@@ -1,3 +1,4 @@
+// src/app/(app)/layout.tsx
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -50,7 +51,7 @@ const navItems = [
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
   { href: "/event-simulator", label: "イベントシミュレーター", icon: EventSimulatorIcon },
   { href: "/story-editor", label: "ストーリーエディター", icon: StoryEditorIcon },
-  { href: "/sequence-player", label: "シーケンスプレイヤー", icon: SequencePlayerIcon },
+  { href: "/story-archive", label: "物語の記憶", icon: SequencePlayerIcon }, // 変更: /sequence-player から /story-archive へ
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
   { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
   { href: "/shop-simulator", label: "ショップシミュレーター", icon: ShopIcon },
@@ -85,7 +86,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
   // Access guard logic: Non-admins are redirected to /play-test if they try to access other routes
   // Modified to allow /play-test-vertical for non-admins as well
   useEffect(() => {
-    const isAllowedPath = pathname === '/play-test' || pathname === '/play-test-vertical';
+    const isAllowedPath = pathname === '/play-test' || pathname === '/play-test-vertical' || pathname === '/story-archive' || pathname.startsWith('/sequence-player'); // story-archive と sequence-player も許可
     if (!isUserLoading && !isAdminLoading && user && !isAdmin && !isAllowedPath) {
       router.push('/play-test');
     }
@@ -126,7 +127,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
   // Now includes both standard and vertical play-test for non-admin users
   const filteredNavItems = isAdmin 
     ? navItems 
-    : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical');
+    : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical' || item.href === '/story-archive'); // 非管理者にも story-archive を許可
 
   return (
     <SidebarProvider>
@@ -164,7 +165,9 @@ function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <main className="min-h-screen p-4 sm:p-6 lg:p-8">{children}</main>
+        <main className="min-h-screen p-4 sm:p-6 lg:p-8">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );

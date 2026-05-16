@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -108,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.20</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.21</Badge>
                 <div>
-                  <p className="font-bold">縦型UIの一般ユーザー開放</p>
-                  <p className="text-sm text-muted-foreground mt-1">「縦型プレイテスト」を全ユーザーが利用できるよう、アクセス権限を更新しました。全てのデバイスから最適なUIでゲームを体験いただけます。</p>
+                  <p className="font-bold">システム基盤の安定化</p>
+                  <p className="text-sm text-muted-foreground mt-1">内部的なコンポーネント整理を行い、将来的な拡張に向けた安定性を向上させました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.19</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.20</Badge>
                 <div>
-                  <p className="font-bold">縦型UIモードの追加</p>
-                  <p className="text-sm text-muted-foreground mt-1">スマートフォンの縦持ち操作に最適化した専用レイアウトを実装しました。モバイル環境でのプレイ体験が大幅に向上しました。</p>
+                  <p className="font-bold">縦型UIの一般ユーザー開放</p>
+                  <p className="text-sm text-muted-foreground mt-1">「縦型プレイテスト」を全ユーザーが利用できるよう、アクセス権限を更新しました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-70">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.18</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.19</Badge>
                 <div>
-                  <p className="font-bold">認証UXとSEOの強化</p>
-                  <p className="text-sm text-muted-foreground mt-1">Googleログインをポップアップ方式に変更し、クローラー対策としてサイトマップ等の静的ファイル化を行いました。</p>
+                  <p className="font-bold">縦型UIモードの追加</p>
+                  <p className="text-sm text-muted-foreground mt-1">スマートフォンの縦持ち操作に最適化した専用レイアウトを実装しました。</p>
                 </div>
               </div>
             </div>

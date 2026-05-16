@@ -1,256 +1,131 @@
-
+// src/components/client/character-animator-client.tsx
 "use client";
 
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-} from "react";
-import { useAuth } from "@/firebase/client-provider";
-import { useDocumentData } from "react-firebase-hooks/firestore";
-import { doc } from "firebase/firestore";
-import { db } from "@/firebase/config";
-import { getPreloadedResources } from "@/lib/character-preload";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import * as PIXI from "pixi.js";
+import { Spine } from "@pixi-spine/runtime-4.1";
 
-// PIXIとSpineの型定義を遅延ロードするために準備
-let PIXI: any = null;
-let Spine: any = null;
-
-interface AnimationProps {
+interface CharacterAnimatorClientProps {
   characterId: string;
   projectId: string;
+  expressionName?: string; // 新しく追加
   containerWidth?: number;
   containerHeight?: number;
   scale?: number;
-  onReady?: () => void;
   className?: string;
-  debugMode?: boolean;
 }
 
-const CharacterAnimatorClient: React.FC<AnimationProps> = ({
+const CharacterAnimatorClient: React.FC<CharacterAnimatorClientProps> = ({
   characterId,
   projectId,
+  expressionName = "normal", // デフォルト値を設定
   containerWidth = 300,
   containerHeight = 300,
-  scale = 0.3,
-  onReady,
+  scale = 0.2,
   className,
-  debugMode = false,
 }) => {
-  const pixiCanvasRef = useRef<HTMLDivElement>(null);
-  const appRef = useRef<any>(null);
-  const characterRef = useRef<any>(null);
-  const [currentAnimation, setCurrentAnimation] = useState("idle"); // Default animation
-  const auth = useAuth();
-  const userId = auth.currentUser?.uid;
-  const [pixiModulesLoaded, setPixiModulesLoaded] = useState(false); // PIXIモジュールのロード状態を管理
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const appRef = useRef<PIXI.Application | null>(null);
+  const characterRef = useRef<Spine | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // PIXIとSpineモジュールを動的にインポート
-  useEffect(() => {
-    async function loadModules() {
-      if (typeof window !== "undefined" && !pixiModulesLoaded) {
-        PIXI = await import("pixi.js");
-        const spineModule = await import("pixi-spine");
-        Spine = spineModule.Spine;
-        setPixiModulesLoaded(true);
-      }
-    }
-    loadModules();
-  }, [pixiModulesLoaded]);
+  const loadCharacter = useCallback(async () => {
+    if (!canvasRef.current) return;
 
-
-  const characterDocRef = useMemo(() => {
-    if (!userId || !projectId || !characterId) return null;
-    return doc(
-      db,
-      "users",
-      userId,
-      "projects",
-      projectId,
-      "characters",
-      characterId
-    );
-  }, [userId, projectId, characterId]);
-
-  const [characterData, loading, error] = useDocumentData(characterDocRef);
-
-  const animationsBaseUrl = useMemo(() => {
-    if (characterData?.storageBasePath) {
-      return characterData.storageBasePath;
-    }
-    // Fallback for local development or default path
-    return `/characters/${characterId}`;
-  }, [characterData, characterId]);
-
-  const loadSpineAnimation = useCallback(
-    async (
-      app: any,
-      animationJsonPath: string,
-      textureAtlasPath: string,
-      imagePath: string,
-      preloadedJson?: any,
-      preloadedAtlas?: any,
-      preloadedImage?: any
-    ) => {
-      if (!PIXI || !Spine) {
-        console.warn("PIXI or Spine not loaded yet for loadSpineAnimation.");
-        return;
-      }
-
-      try {
-        const atlasText = preloadedAtlas
-          ? preloadedAtlas.data
-          : (await fetch(textureAtlasPath).then((res) => res.text()));
-        const skeletonJson = preloadedJson
-          ? preloadedJson.data
-          : (await fetch(animationJsonPath).then((res) => res.json()));
-
-        const spineAtlas = new (PIXI as any).spine.core.TextureAtlas(atlasText, function(
-          line: string,
-          callback: any
-        ) {
-          if (preloadedImage && preloadedImage.texture) {
-            callback(preloadedImage.texture);
-          } else if (app.loader.resources[imagePath]) {
-            callback(app.loader.resources[imagePath].texture);
-          } else {
-            app.loader.add(imagePath, imagePath, () => {
-              callback(app.loader.resources[imagePath].texture);
-            });
-          }
-        });
-
-        const spineAtlasLoader = new (PIXI as any).spine.core.AtlasAttachmentLoader(
-          spineAtlas
-        );
-        const spineJsonParser = new (PIXI as any).spine.core.SkeletonJson(
-          spineAtlasLoader
-        );
-        const skeletonData = spineJsonParser.readSkeletonData(skeletonJson);
-        const spineCharacter = new Spine(skeletonData);
-
-        if (characterRef.current) {
-          app.stage.removeChild(characterRef.current);
-          characterRef.current.destroy({ children: true });
-        }
-
-        spineCharacter.x = app.renderer.width / 2;
-        spineCharacter.y = app.renderer.height;
-        spineCharacter.scale.set(scale);
-
-        app.stage.addChild(spineCharacter);
-        characterRef.current = spineCharacter;
-
-        if (spineCharacter.state.hasAnimation(currentAnimation)) {
-          spineCharacter.state.setAnimation(0, currentAnimation, true);
-        } else if (spineCharacter.state.hasAnimation("animation")) {
-          spineCharacter.state.setAnimation(0, "animation", true);
-          setCurrentAnimation("animation");
-        }
-
-        if (onReady) {
-          onReady();
-        }
-      } catch (e) {
-        console.error("Error loading spine animation:", e);
-      }
-    },
-    [scale, characterId, onReady, currentAnimation, pixiModulesLoaded]
-  );
-
-  useEffect(() => {
-    // PIXIモジュールがロードされるまで待つ
-    if (!pixiModulesLoaded || loading || error || !characterData) {
-      return;
+    if (appRef.current) {
+      appRef.current.destroy(true);
+      appRef.current = null;
     }
 
-    if (!pixiCanvasRef.current) return;
+    setLoading(true);
+    setError(null);
 
-    if (!appRef.current) {
+    try {
       const app = new PIXI.Application({
         width: containerWidth,
         height: containerHeight,
-        backgroundColor: 0x00000000,
+        backgroundAlpha: 0,
         antialias: true,
-        resolution: window.devicePixelRatio || 1,
       });
-      pixiCanvasRef.current.appendChild(app.view as HTMLCanvasElement);
+      canvasRef.current.appendChild(app.view as HTMLCanvasElement);
       appRef.current = app;
 
-      if (debugMode) {
-        const background = new PIXI.Graphics();
-        background.beginFill(0xcccccc, 0.5);
-        background.drawRect(0, 0, containerWidth, containerHeight);
-        background.endFill();
-        app.stage.addChild(background);
-      }
-    }
+      const animationsPath = `/public/characters/${characterId}/animations.json`;
+      const skeletonPath = `/public/characters/${characterId}/skeleton.json`; // 必要に応じて
 
-    const app = appRef.current;
-
-    const jsonPath = `${animationsBaseUrl}/animations.json`;
-    const atlasPath = `${animationsBaseUrl}/animations.atlas`;
-    const imagePath = `${animationsBaseUrl}/animations.png`;
-
-    const preloaded = getPreloadedResources(characterId, animationsBaseUrl);
-
-    if (preloaded.json && preloaded.atlas && preloaded.image) {
-      loadSpineAnimation(app, jsonPath, atlasPath, imagePath, preloaded.json, preloaded.atlas, preloaded.image);
-    } else {
-      app.loader.reset();
-      app.loader.add(jsonPath, jsonPath);
-      app.loader.add(atlasPath, atlasPath);
-      app.loader.add(imagePath, imagePath);
-
-      app.loader.load(() => {
-        loadSpineAnimation(app, jsonPath, atlasPath, imagePath);
+      // PIXIローダーにSpineパーサーを追加
+      PIXI.Assets.addBundle("character", {
+        spineData: animationsPath,
       });
+
+      const resource = await PIXI.Assets.loadBundle("character");
+      
+      const spine = new Spine(resource.spineData);
+
+      spine.scale.set(scale);
+      spine.x = app.screen.width / 2;
+      spine.y = app.screen.height; // 足元が中央になるように調整
+
+      app.stage.addChild(spine);
+      characterRef.current = spine;
+
+      // アニメーション設定 (もしデフォルトアニメーションがあれば)
+      if (spine.state.hasAnimation("idle")) {
+        spine.state.setAnimation(0, "idle", true);
+      } else if (spine.data.animations.length > 0) {
+        spine.state.setAnimation(0, spine.data.animations[0].name, true);
+      }
+
+      // 表情の設定
+      if (spine.skeleton.findSkin(expressionName)) {
+        spine.skeleton.setSkinByName(expressionName);
+      } else {
+        console.warn(`Expression skin "${expressionName}" not found for character "${characterId}".`);
+      }
+
+
+      setLoading(false);
+    } catch (e: any) {
+      console.error(`Error loading character ${characterId}:`, e);
+      setError(`キャラクター '${characterId}' のロードに失敗しました: ${e.message}`);
+      setLoading(false);
     }
+  }, [characterId, projectId, containerWidth, containerHeight, scale, expressionName]);
+
+  useEffect(() => {
+    loadCharacter();
 
     return () => {
       if (appRef.current) {
-        appRef.current.destroy(true, { children: true, texture: true, baseTexture: true });
+        appRef.current.destroy(true);
         appRef.current = null;
       }
     };
-  }, [
-    characterData,
-    characterId,
-    loading,
-    error,
-    containerWidth,
-    containerHeight,
-    loadSpineAnimation,
-    animationsBaseUrl,
-    debugMode,
-    pixiModulesLoaded,
-  ]);
+  }, [loadCharacter]);
+
+  // expressionNameが変更されたときにスキンを更新
+  useEffect(() => {
+    if (characterRef.current && characterRef.current.skeleton && expressionName) {
+      if (characterRef.current.skeleton.findSkin(expressionName)) {
+        characterRef.current.skeleton.setSkinByName(expressionName);
+      } else {
+        console.warn(`Expression skin "${expressionName}" not found for character "${characterId}".`);
+      }
+    }
+  }, [expressionName, characterId]);
+
 
   return (
     <div
-      ref={pixiCanvasRef}
-      className={`relative flex items-end justify-center overflow-hidden ${className}`}
+      ref={canvasRef}
+      className={`character-animator-container flex justify-center items-center ${className}`}
       style={{ width: containerWidth, height: containerHeight }}
     >
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/80">
-          <p className="text-foreground">Loading Character...</p>
-        </div>
-      )}
-      {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-destructive/80 text-destructive-foreground">
-          <p>Error loading character.</p>
-        </div>
-      )}
-      {!pixiModulesLoaded && !loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/80">
-          <p className="text-foreground">Initializing graphics...</p>
-        </div>
-      )}
+      {loading && <div className="text-gray-500">キャラクターをロード中...</div>}
+      {error && <div className="text-red-500">{error}</div>}
     </div>
   );
 };
 
-export default CharacterAnimatorClient;
+export { CharacterAnimatorClient };

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Auth Helper</title>
+    <script type="module">
+      // Firebase SDK を手動で初期化し、認証結果を処理する
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js';
+      import { getAuth, GoogleAuthProvider, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js';
+
+      let firebaseApp;
+      let auth;
+
+      // 親ウィンドウから Firebase 設定を受け取る
+      window.addEventListener('message', (event) => {
+        // セキュリティのため、メッセージの送信元を検証する
+        if (event.origin === window.location.origin && event.data && event.data.type === 'FIREBASE_AUTH_INIT') {
+          const firebaseConfig = event.data.config;
+          
+          // Firebase アプリケーションを初期化 (app/no-options エラーを避けるため)
+          if (!firebaseApp) {
+            firebaseApp = initializeApp(firebaseConfig);
+            auth = getAuth(firebaseApp);
+
+            // 認証状態の変化を監視し、親ウィンドウに結果を送信
+            onAuthStateChanged(auth, (user) => {
+              if (user) {
+                window.opener.postMessage({ type: 'FIREBASE_AUTH_SUCCESS', user: user.toJSON() }, window.location.origin);
+                // window.close(); // 認証成功時にポップアップを閉じる
+              } else {
+                // 認証失敗または未認証状態
+                // 親ウィンドウに未認証状態を送信するか、エラーを送信
+                // window.opener.postMessage({ type: 'FIREBASE_AUTH_FAILURE', error: 'User not authenticated' }, window.location.origin);
+                // window.close(); // ポップアップを閉じる
+              }
+            });
+          }
+          // 親ウィンドウに初期化完了を通知する
+          window.opener.postMessage({ type: 'FIREBASE_AUTH_IFRAME_READY' }, window.location.origin);
+        }
+      });
+
+      // ポップアップがロードされたら、親ウィンドウにメッセージを送信して設定を要求する
+      window.onload = () => {
+        if (window.opener) {
+          window.opener.postMessage({ type: 'REQUEST_FIREBASE_CONFIG' }, window.location.origin);
+        }
+      };
+
+      // 認証ポップアップを直接トリガーする関数（親ウィンドウから呼び出されることを想定）
+      window.startGoogleAuth = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+          await getAuth().signInWithPopup(provider);
+          // ポップアップが閉じられると onAuthStateChanged がトリガーされるはず
+        } catch (error) {
+          console.error("Firebase Auth popup error:", error);
+          window.opener.postMessage({ type: 'FIREBASE_AUTH_FAILURE', error: error.message }, window.location.origin);
+          window.close();
+        }
+      };
+    </script>
+</head>
+<body>
+    <!-- ユーザーには何も表示しない -->
+</body>
+</html>
