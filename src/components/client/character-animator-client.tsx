@@ -1,429 +1,256 @@
+
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Slider } from "@/components/ui/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  Play,
-  Pause,
-  Plus,
-  Trash2,
-  Copy,
-  ChevronLeft,
-  ChevronRight,
-  Loader2,
-  Terminal
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from "react";
+import { useAuth } from "@/firebase/client-provider";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import { doc } from "firebase/firestore";
+import { db } from "@/firebase/config";
+import { getPreloadedResources } from "@/lib/character-preload";
 
-type AnimationFrame = {
-  id: string;
-  image: string; // "idle_1.png"
-};
+// PIXIとSpineの型定義を遅延ロードするために準備
+let PIXI: any = null;
+let Spine: any = null;
 
-type AnimationClip = {
-  id: string;
-  name: string;
-  frames: AnimationFrame[];
-  fps: number;
-};
+interface AnimationProps {
+  characterId: string;
+  projectId: string;
+  containerWidth?: number;
+  containerHeight?: number;
+  scale?: number;
+  onReady?: () => void;
+  className?: string;
+  debugMode?: boolean;
+}
 
-type CharacterConfig = {
-  id: string;
-  name: string;
-  path: string; // "/characters/player"
-};
+const CharacterAnimatorClient: React.FC<AnimationProps> = ({
+  characterId,
+  projectId,
+  containerWidth = 300,
+  containerHeight = 300,
+  scale = 0.3,
+  onReady,
+  className,
+  debugMode = false,
+}) => {
+  const pixiCanvasRef = useRef<HTMLDivElement>(null);
+  const appRef = useRef<any>(null);
+  const characterRef = useRef<any>(null);
+  const [currentAnimation, setCurrentAnimation] = useState("idle"); // Default animation
+  const auth = useAuth();
+  const userId = auth.currentUser?.uid;
+  const [pixiModulesLoaded, setPixiModulesLoaded] = useState(false); // PIXIモジュールのロード状態を管理
 
-export function CharacterAnimatorClient() {
-  const [characters, setCharacters] = useState<CharacterConfig[]>([]);
-  const [listLoading, setListLoading] = useState(true);
-  const [listError, setListError] = useState<string | null>(null);
-
-  const [selectedCharacterId, setSelectedCharacterId] = useState<string>("");
-  const [clips, setClips] = useState<AnimationClip[]>([]);
-  const [availableFrames, setAvailableFrames] = useState<string[]>([]);
-  const [activeClipId, setActiveClipId] = useState<string>("");
-  const [selectedFrameId, setSelectedFrameId] = useState<string | null>(null);
-
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
-  
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
+  // PIXIとSpineモジュールを動的にインポート
   useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        setListLoading(true);
-        const response = await fetch('/characters/characters.json');
-        if (!response.ok) {
-          throw new Error('キャラクターリスト(characters.json)の読み込みに失敗しました。');
-        }
-        const data = await response.json();
-        setCharacters(data.characters);
-        if (data.characters.length > 0) {
-          setSelectedCharacterId(data.characters[0].id);
-        }
-      } catch (err: any) {
-        setListError(err.message);
-      } finally {
-        setListLoading(false);
+    async function loadModules() {
+      if (typeof window !== "undefined" && !pixiModulesLoaded) {
+        PIXI = await import("pixi.js");
+        const spineModule = await import("pixi-spine");
+        Spine = spineModule.Spine;
+        setPixiModulesLoaded(true);
       }
-    };
-    fetchCharacters();
-  }, []);
+    }
+    loadModules();
+  }, [pixiModulesLoaded]);
 
-  const selectedCharacter = characters.find(c => c.id === selectedCharacterId);
 
-  useEffect(() => {
-    if (!selectedCharacter) {
-      setClips([]);
-      setAvailableFrames([]);
-      setActiveClipId("");
-      setError(null);
-      setLoading(false);
-      return;
-    };
+  const characterDocRef = useMemo(() => {
+    if (!userId || !projectId || !characterId) return null;
+    return doc(
+      db,
+      "users",
+      userId,
+      "projects",
+      projectId,
+      "characters",
+      characterId
+    );
+  }, [userId, projectId, characterId]);
 
-    const loadAnimationData = async () => {
-      setLoading(true);
-      setError(null);
-      setClips([]);
-      setAvailableFrames([]);
-      setActiveClipId("");
+  const [characterData, loading, error] = useDocumentData(characterDocRef);
+
+  const animationsBaseUrl = useMemo(() => {
+    if (characterData?.storageBasePath) {
+      return characterData.storageBasePath;
+    }
+    // Fallback for local development or default path
+    return `/characters/${characterId}`;
+  }, [characterData, characterId]);
+
+  const loadSpineAnimation = useCallback(
+    async (
+      app: any,
+      animationJsonPath: string,
+      textureAtlasPath: string,
+      imagePath: string,
+      preloadedJson?: any,
+      preloadedAtlas?: any,
+      preloadedImage?: any
+    ) => {
+      if (!PIXI || !Spine) {
+        console.warn("PIXI or Spine not loaded yet for loadSpineAnimation.");
+        return;
+      }
 
       try {
-        const response = await fetch(`${selectedCharacter.path}/animations.json`);
-        if (!response.ok) {
-          throw new Error(`アニメーションファイルが見つかりません: ${selectedCharacter.path}/animations.json`);
-        }
-        const data = await response.json();
-        
-        setClips(data.clips);
-        setAvailableFrames(data.availableFrames);
-        if (data.clips.length > 0) {
-          setActiveClipId(data.clips[0].id);
-        }
+        const atlasText = preloadedAtlas
+          ? preloadedAtlas.data
+          : (await fetch(textureAtlasPath).then((res) => res.text()));
+        const skeletonJson = preloadedJson
+          ? preloadedJson.data
+          : (await fetch(animationJsonPath).then((res) => res.json()));
 
-      } catch (err: any) {
-        setError(err.message || 'アニメーションデータの読み込み中に不明なエラーが発生しました。');
-      } finally {
-        setLoading(false);
-      }
-    };
+        const spineAtlas = new (PIXI as any).spine.core.TextureAtlas(atlasText, function(
+          line: string,
+          callback: any
+        ) {
+          if (preloadedImage && preloadedImage.texture) {
+            callback(preloadedImage.texture);
+          } else if (app.loader.resources[imagePath]) {
+            callback(app.loader.resources[imagePath].texture);
+          } else {
+            app.loader.add(imagePath, imagePath, () => {
+              callback(app.loader.resources[imagePath].texture);
+            });
+          }
+        });
 
-    loadAnimationData();
-  }, [selectedCharacter]);
-
-
-  const activeClip = clips.find((c) => c.id === activeClipId);
-
-  useEffect(() => {
-    let animationInterval: NodeJS.Timeout;
-    if (isPlaying && activeClip && activeClip.frames.length > 0) {
-      animationInterval = setInterval(() => {
-        setCurrentFrameIndex(
-          (prevIndex) => (prevIndex + 1) % activeClip.frames.length
+        const spineAtlasLoader = new (PIXI as any).spine.core.AtlasAttachmentLoader(
+          spineAtlas
         );
-      }, 1000 / activeClip.fps);
-    }
-    return () => clearInterval(animationInterval);
-  }, [isPlaying, activeClip]);
-  
-  useEffect(() => {
-    if(!activeClip || activeClip.frames.length === 0) {
-      setIsPlaying(false);
-    }
-    setCurrentFrameIndex(0);
-  }, [activeClipId, activeClip])
+        const spineJsonParser = new (PIXI as any).spine.core.SkeletonJson(
+          spineAtlasLoader
+        );
+        const skeletonData = spineJsonParser.readSkeletonData(skeletonJson);
+        const spineCharacter = new Spine(skeletonData);
 
-  const handleAddClip = () => {
-    const newClip: AnimationClip = {
-      id: `clip_${Date.now()}`,
-      name: `新規アニメーション ${clips.length + 1}`,
-      frames: [],
-      fps: 8,
-    };
-    setClips([...clips, newClip]);
-    setActiveClipId(newClip.id);
-  };
+        if (characterRef.current) {
+          app.stage.removeChild(characterRef.current);
+          characterRef.current.destroy({ children: true });
+        }
 
-  const handleAddFrame = (frameImage: string) => {
-    if (!activeClipId) return;
-  
-    setClips(clips.map((c) => {
-      if (c.id === activeClipId) {
-        const newFrame: AnimationFrame = {
-          id: `${frameImage}_${c.frames.length}_${Math.random()}`,
-          image: frameImage,
-        };
-        return { ...c, frames: [...c.frames, newFrame] };
+        spineCharacter.x = app.renderer.width / 2;
+        spineCharacter.y = app.renderer.height;
+        spineCharacter.scale.set(scale);
+
+        app.stage.addChild(spineCharacter);
+        characterRef.current = spineCharacter;
+
+        if (spineCharacter.state.hasAnimation(currentAnimation)) {
+          spineCharacter.state.setAnimation(0, currentAnimation, true);
+        } else if (spineCharacter.state.hasAnimation("animation")) {
+          spineCharacter.state.setAnimation(0, "animation", true);
+          setCurrentAnimation("animation");
+        }
+
+        if (onReady) {
+          onReady();
+        }
+      } catch (e) {
+        console.error("Error loading spine animation:", e);
       }
-      return c;
-    }));
-  };
-  
-  const handleRemoveFrame = () => {
-    if (!activeClipId || !selectedFrameId) return;
-     setClips(clips.map(c => {
-       if (c.id === activeClipId) {
-         return {...c, frames: c.frames.filter(f => f.id !== selectedFrameId)}
-       }
-       return c;
-     }));
-     setSelectedFrameId(null);
-  }
-  
-  const handleFpsChange = (newFps: number[]) => {
-     if (!activeClipId) return;
-     setClips(clips.map(c => c.id === activeClipId ? {...c, fps: newFps[0]} : c));
-  }
+    },
+    [scale, characterId, onReady, currentAnimation, pixiModulesLoaded]
+  );
 
-  const getFrameUrl = (imageName: string) => {
-    if (!selectedCharacter) return "";
-    if (imageName.startsWith('/')) {
-        return imageName;
-    }
-    return `${selectedCharacter.path}/frames/${imageName}`;
-  }
-
-  const previewImage = activeClip?.frames[currentFrameIndex]?.image;
-  const previewImageUrl = previewImage ? getFrameUrl(previewImage) : undefined;
-  
-  if (listLoading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-        <p>キャラクターリストを読み込み中...</p>
-      </div>
-    );
-  }
-
-  if (listError) {
-    return (
-      <Alert variant="destructive">
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>リスト読み込みエラー</AlertTitle>
-        <AlertDescription>{listError}</AlertDescription>
-      </Alert>
-    );
-  }
-
-  const MainContent = () => {
-    if (loading) {
-      return (
-        <div className="flex items-center justify-center h-full col-span-3">
-          <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-          <p>{selectedCharacter?.name}のアニメーションを読み込み中...</p>
-        </div>
-      );
-    }
-  
-    if (error) {
-      return (
-        <div className="col-span-3">
-          <Alert variant="destructive">
-            <Terminal className="h-4 w-4" />
-            <AlertTitle>読み込みエラー</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        </div>
-      );
+  useEffect(() => {
+    // PIXIモジュールがロードされるまで待つ
+    if (!pixiModulesLoaded || loading || error || !characterData) {
+      return;
     }
 
-    return (
-    <>
-      {/* Left Column: Asset Library & Animation Clips */}
-      <div className="lg:col-span-1 flex flex-col gap-6">
-        <Card className="flex-shrink-0">
-          <CardHeader>
-            <CardTitle>フレームアセット</CardTitle>
-            <CardDescription>
-              クリックしてタイムラインにフレームを追加します。
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-48">
-              <div className="grid grid-cols-4 gap-2">
-                {availableFrames.map((frameImage) => (
-                  <div
-                    key={frameImage}
-                    onClick={() => handleAddFrame(frameImage)}
-                    className="aspect-square bg-muted rounded-md flex items-center justify-center p-1 cursor-pointer hover:bg-muted/80 border-2 border-transparent hover:border-primary"
-                  >
-                    <Image
-                      src={getFrameUrl(frameImage)}
-                      alt={frameImage}
-                      width={64}
-                      height={64}
-                      className="object-contain"
-                      unoptimized
-                    />
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
-          </CardContent>
-        </Card>
-        <Card className="flex-grow flex flex-col">
-          <CardHeader>
-            <CardTitle>アニメーションクリップ</CardTitle>
-          </CardHeader>
-          <CardContent className="flex-grow">
-            <ScrollArea className="h-full pr-4">
-              <div className="space-y-2">
-                {clips.map((clip) => (
-                  <Button
-                    key={clip.id}
-                    variant={clip.id === activeClipId ? "secondary" : "ghost"}
-                    onClick={() => setActiveClipId(clip.id)}
-                    className="w-full justify-start"
-                  >
-                    {clip.name}
-                  </Button>
-                ))}
-              </div>
-            </ScrollArea>
-          </CardContent>
-          <CardFooter className="p-2 border-t">
-            <Button variant="outline" className="w-full" onClick={handleAddClip}>
-              <Plus className="mr-2 h-4 w-4" />
-              クリップを追加
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
+    if (!pixiCanvasRef.current) return;
 
-      {/* Right Column: Editor and Preview */}
-      {activeClip ? (
-        <div className="lg:col-span-2 flex flex-col gap-6 h-full">
-          <Card className="flex-grow-[2] flex flex-col">
-            <CardHeader className="flex-row items-center justify-between">
-              <div>
-                <CardTitle>プレビュー</CardTitle>
-                <CardDescription>{activeClip.name}</CardDescription>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon" onClick={() => setIsPlaying(!isPlaying)} disabled={activeClip.frames.length === 0}>
-                  {isPlaying ? <Pause /> : <Play />}
-                </Button>
-                 <div className="flex items-center gap-2 w-48">
-                  <Label>FPS</Label>
-                  <Slider value={[activeClip.fps]} onValueChange={handleFpsChange} min={1} max={30} step={1} />
-                  <span className="font-mono text-sm">{activeClip.fps}</span>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-grow flex items-center justify-center bg-muted/50">
-              <div className="w-48 h-48 relative">
-                {previewImageUrl ? (
-                  <Image
-                    src={previewImageUrl}
-                    alt="Animation Preview"
-                    layout="fill"
-                    objectFit="contain"
-                    key={currentFrameIndex}
-                    unoptimized
-                  />
-                ) : (
-                  <div className="text-center text-muted-foreground">フレームがありません</div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="flex-grow-[1] flex flex-col">
-            <CardHeader className="flex-row items-center justify-between">
-                <div>
-                  <CardTitle>タイムライン</CardTitle>
-                  <CardDescription>
-                    フレームをクリックして選択し、削除または順序を変更します。
-                  </CardDescription>
-                </div>
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="icon" disabled={!selectedFrameId}><ChevronLeft /></Button>
-                    <Button variant="outline" size="icon" disabled={!selectedFrameId}><ChevronRight /></Button>
-                    <Button variant="outline" size="icon" disabled={!selectedFrameId}><Copy /></Button>
-                    <Button variant="destructive" size="icon" onClick={handleRemoveFrame} disabled={!selectedFrameId}><Trash2 /></Button>
-                </div>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <ScrollArea className="h-full whitespace-nowrap">
-                 <div className="flex items-center h-full gap-2 p-2">
-                    {activeClip.frames.map((frame) => (
-                      <div
-                        key={frame.id}
-                        onClick={() => setSelectedFrameId(frame.id)}
-                        className={cn("h-24 w-24 flex-shrink-0 bg-muted rounded-md flex items-center justify-center p-2 cursor-pointer border-2",
-                          selectedFrameId === frame.id ? "border-primary" : "border-transparent"
-                        )}
-                      >
-                        <Image
-                          src={getFrameUrl(frame.image)}
-                          alt={`Frame ${frame.id}`}
-                          width={80}
-                          height={80}
-                          className="object-contain"
-                          unoptimized
-                        />
-                      </div>
-                    ))}
-                     <div className="h-24 w-24 flex-shrink-0 rounded-md border-2 border-dashed text-muted-foreground flex flex-col items-center justify-center text-center p-2">
-                        <Plus className="h-6 w-6"/>
-                        <span className="text-xs mt-1">アセットをクリックして追加</span>
-                     </div>
-                 </div>
-              </ScrollArea>
-            </CardContent>
-          </Card>
-        </div>
-      ) : (
-         <div className="lg:col-span-2 flex items-center justify-center">
-           <Card className="text-center">
-             <CardHeader>
-               <CardTitle>{ selectedCharacter ? "クリップがありません" : "キャラクターが選択されていません"}</CardTitle>
-               <CardDescription>
-                 { selectedCharacter ? "左のリストからクリップを選択するか、新しいクリップを作成してください。" : "編集するキャラクターを選択してください。" }
-                </CardDescription>
-             </CardHeader>
-           </Card>
-         </div>
-      )}
-    </>
-    )
-  }
+    if (!appRef.current) {
+      const app = new PIXI.Application({
+        width: containerWidth,
+        height: containerHeight,
+        backgroundColor: 0x00000000,
+        antialias: true,
+        resolution: window.devicePixelRatio || 1,
+      });
+      pixiCanvasRef.current.appendChild(app.view as HTMLCanvasElement);
+      appRef.current = app;
+
+      if (debugMode) {
+        const background = new PIXI.Graphics();
+        background.beginFill(0xcccccc, 0.5);
+        background.drawRect(0, 0, containerWidth, containerHeight);
+        background.endFill();
+        app.stage.addChild(background);
+      }
+    }
+
+    const app = appRef.current;
+
+    const jsonPath = `${animationsBaseUrl}/animations.json`;
+    const atlasPath = `${animationsBaseUrl}/animations.atlas`;
+    const imagePath = `${animationsBaseUrl}/animations.png`;
+
+    const preloaded = getPreloadedResources(characterId, animationsBaseUrl);
+
+    if (preloaded.json && preloaded.atlas && preloaded.image) {
+      loadSpineAnimation(app, jsonPath, atlasPath, imagePath, preloaded.json, preloaded.atlas, preloaded.image);
+    } else {
+      app.loader.reset();
+      app.loader.add(jsonPath, jsonPath);
+      app.loader.add(atlasPath, atlasPath);
+      app.loader.add(imagePath, imagePath);
+
+      app.loader.load(() => {
+        loadSpineAnimation(app, jsonPath, atlasPath, imagePath);
+      });
+    }
+
+    return () => {
+      if (appRef.current) {
+        appRef.current.destroy(true, { children: true, texture: true, baseTexture: true });
+        appRef.current = null;
+      }
+    };
+  }, [
+    characterData,
+    characterId,
+    loading,
+    error,
+    containerWidth,
+    containerHeight,
+    loadSpineAnimation,
+    animationsBaseUrl,
+    debugMode,
+    pixiModulesLoaded,
+  ]);
 
   return (
-    <div className="flex flex-col gap-6 h-full">
-      <div className="flex-shrink-0">
-        <Label htmlFor="character-select">キャラクターを選択</Label>
-        <Select value={selectedCharacterId} onValueChange={setSelectedCharacterId}>
-          <SelectTrigger id="character-select" className="w-[280px] mt-2">
-            <SelectValue placeholder="編集するキャラクターを選択..." />
-          </SelectTrigger>
-          <SelectContent>
-            {characters.map(char => (
-              <SelectItem key={char.id} value={char.id}>{char.name}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow min-h-0">
-        <MainContent />
-      </div>
+    <div
+      ref={pixiCanvasRef}
+      className={`relative flex items-end justify-center overflow-hidden ${className}`}
+      style={{ width: containerWidth, height: containerHeight }}
+    >
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-background/80">
+          <p className="text-foreground">Loading Character...</p>
+        </div>
+      )}
+      {error && (
+        <div className="absolute inset-0 flex items-center justify-center bg-destructive/80 text-destructive-foreground">
+          <p>Error loading character.</p>
+        </div>
+      )}
+      {!pixiModulesLoaded && !loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-background/80">
+          <p className="text-foreground">Initializing graphics...</p>
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default CharacterAnimatorClient;

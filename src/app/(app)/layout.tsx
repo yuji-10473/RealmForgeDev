@@ -39,6 +39,7 @@ import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from "@/fireb
 import { doc } from "firebase/firestore";
 import { LandingScreen } from "@/components/client/landing-screen";
 import { Loader2 } from "lucide-react";
+import { preloadCharacterAnimation } from "@/lib/character-preload"; // 追加
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -89,6 +90,23 @@ function AppShell({ children }: { children: React.ReactNode }) {
       router.push('/play-test');
     }
   }, [user, isAdmin, isUserLoading, isAdminLoading, pathname, router]);
+
+  // 追加: アプリケーション起動時にキャラクターアニメーションをプリロード
+  useEffect(() => {
+    // プリロードする主要なキャラクターIDのリスト
+    // public/characters/ に存在するIDを参考にしています。
+    const mainCharacterIdsToPreload = ["player", "goblin", "sub1", "villagers"]; // 例: 必要に応じて調整してください
+
+    mainCharacterIdsToPreload.forEach(async (id) => {
+      try {
+        // storageBasePath はpreload時点ではFirestoreから取得できない可能性が高いため、
+        // デフォルトパス (`/characters/${id}`) でプリロードを試みます。
+        await preloadCharacterAnimation(id);
+      } catch (error) {
+        console.error(`Failed to preload character ${id}:`, error);
+      }
+    });
+  }, []); // アプリケーション起動時に一度だけ実行
 
   // Loading state
   if (isUserLoading || (user && isAdminLoading)) {
