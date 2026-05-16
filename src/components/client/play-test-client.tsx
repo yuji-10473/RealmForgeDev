@@ -224,7 +224,8 @@ type MapCell = { id: string; name: string; imageUrl: string; objects: PlacedObje
 type WorldData = { id: string; name: string; bgmUrl?: string; audioUrl?: string; rows: number; cols: number; maps: MapCell[]; };
 type CharacterDirection = 'up' | 'down' | 'left' | 'right';
 type SavedInventoryItem = { itemId: string; quantity: number; };
-export type EventNode = { id: string; type: 'start' | 'story' | 'choice' | 'reward' | 'end'; content: string; nextStepId?: string; audioUrl?: string; choices?: { text: string; nextStepId: string; audioUrl?: string }[]; reward?: { itemId?: string; itemName?: string; amount?: number; }; };
+// Add speakerId to EventNode
+export type EventNode = { id: string; type: 'start' | 'story' | 'choice' | 'reward' | 'end'; content: string; speakerId?: string; nextStepId?: string; audioUrl?: string; choices?: { text: string; nextStepId: string; audioUrl?: string }[]; reward?: { itemId?: string; itemName?: string; amount?: number; }; };
 export type EventFlow = { id: string; title: string; villagerId?: string; villagerName?: string; tags?: string[]; nodes: EventNode[]; };
 type NpcState = { x: number; y: number; originX: number; movement: Movement; direction: number; };
 
@@ -361,6 +362,18 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
   const activeMapData = currentWorld?.maps[activeCellIndex];
   const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null || activeMeetingPlace !== null;
+
+  const currentSpeaker = useMemo(() => {
+    const speakerId = currentNode?.speakerId || activeEvent?.villagerId;
+    if (!speakerId) return { name: activeEvent?.villagerName || 'ナレーション', imageUrl: undefined };
+
+    const speakerData = availableObjects.find(obj => obj.id === speakerId);
+
+    return {
+        name: speakerData?.name || activeEvent?.villagerName || '不明なキャラクター',
+        imageUrl: speakerData?.imageUrl ? resolveMediaUrl(speakerData.imageUrl) : undefined
+    };
+  }, [currentNode, activeEvent, availableObjects]);
 
   // 近接判定の自動計算 (レンダリングサイクルで実行)
   const isNearInteractable = useMemo(() => {
@@ -1006,14 +1019,42 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           {/* シーケンシャルイベント再生 */}
           {activeEvent && currentNode && (
             <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-4 z-50">
-              <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4">
-                <CardContent className="pt-6 space-y-4">
-                  <p className="text-lg font-medium whitespace-pre-wrap">{currentNode.content}</p>
-                  <div className="flex flex-col gap-2">
-                    {currentNode.type === 'choice' ? currentNode.choices?.map((choice, i) => <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>{choice.text}</Button>) : <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>{currentNode.type === 'end' ? '次へ' : '次へ'}</Button>}
-                  </div>
-                </CardContent>
-              </Card>
+                <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4">
+                    <CardHeader className="flex flex-row items-center gap-4 p-4">
+                        {currentSpeaker.imageUrl ? (
+                            <Image
+                                src={currentSpeaker.imageUrl}
+                                alt={currentSpeaker.name || ''}
+                                width={400}
+                                height={400}
+                                className="rounded-full border bg-muted object-cover"
+                            />
+                        ) : (
+                            <div className="w-28 h-28 rounded-full bg-muted border flex items-center justify-center">
+                                <UserIcon className="w-16 h-16 text-muted-foreground" />
+                            </div>
+                        )}
+                        <div className="flex-1">
+                            <CardTitle>{currentSpeaker.name}</CardTitle>
+                        </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0 space-y-4">
+                        <p className="text-lg font-medium whitespace-pre-wrap">{currentNode.content}</p>
+                        <div className="flex flex-col gap-2">
+                            {currentNode.type === 'choice' ? (
+                                currentNode.choices?.map((choice, i) => (
+                                    <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>
+                                        {choice.text}
+                                    </Button>
+                                ))
+                            ) : (
+                                <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>
+                                    {currentNode.type === 'end' ? 'イベント終了' : '次へ'}
+                                </Button>
+                            )}
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
           )}
         </div>

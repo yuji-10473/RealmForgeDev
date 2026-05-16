@@ -1,13 +1,6 @@
 [
   {
     "id": "0gSg8aLgq9OSwasshagJ",
-    "shopType": "retail",
-    "imageUrl": "media/images/file_471_1775122200415.png",
-    "createdAt": "2026-03-27T17:42:30.440Z",
-    "description": "海生簀は、相模湾より水揚げされたばかりの活きの良い魚介が所狭しと並ぶ店である。武士から町人まで、日々の食卓を彩る鮮魚や乾物を求めて多くの人々が訪れる賑やかな場となっている。",
-    "name": "海生簀（中）",
-    "ownerId": "kMEH8wVv0Y7HfbElMrtt",
-    "dishIds": [],
     "itemIds": [
       "lQ1ANrDoMdDBREFxEjHc",
       "00O78nqTnJMIg8AuxrvC",
@@ -33,16 +26,19 @@
       "kK6YCX8jsbmrrjaniC6W",
       "8rJaUbYCKMEaK3XgWnjj",
       "jhNVIDFcL2HOafI5Ce7D"
-    ]
+    ],
+    "ownerId": "kMEH8wVv0Y7HfbElMrtt",
+    "createdAt": "2026-03-27T17:42:30.440Z",
+    "imageUrl": "media/images/file_505_1778947604528.png",
+    "shopType": "retail",
+    "name": "海生簀（中）",
+    "description": "海生簀は、相模湾より水揚げされたばかりの活きの良い魚介が所狭しと並ぶ店である。武士から町人まで、日々の食卓を彩る鮮魚や乾物を求めて多くの人々が訪れる賑やかな場となっている。",
+    "dishIds": []
   },
   {
     "id": "4DSCVSm93rI0X7dMr9wZ",
-    "shopType": "retail",
-    "imageUrl": "media/images/file_472_1775122200415.png",
-    "name": "海生簀（小）",
-    "description": "海生簀（小）は、相模湾から揚がったばかりの活きの良い魚介を扱う店でございます。鎌倉の武士や町の衆が、今日の膳を彩る海の幸を求めて足繁く通い、店先は常に威勢の良い声で賑わっております。",
-    "createdAt": "2026-03-27T17:18:39.819Z",
     "ownerId": "kMEH8wVv0Y7HfbElMrtt",
+    "createdAt": "2026-03-27T17:18:39.819Z",
     "itemIds": [
       "CEzy8vMpBthwqw7dGvbC",
       "Mp12LDJ0zexNYvbSoX4a",
@@ -51,17 +47,47 @@
       "jLzSFqpHnh9NQ3Y6vvJ0",
       "QvbhOklRQlLrgqcDNxMx"
     ],
-    "dishIds": []
+    "description": "海生簀（小）は、相模湾から揚がったばかりの活きの良い魚介を扱う店でございます。鎌倉の武士や町の衆が、今日の膳を彩る海の幸を求めて足繁く通い、店先は常に威勢の良い声で賑わっております。",
+    "dishIds": [],
+    "name": "海生簀（小）",
+    "shopType": "retail",
+    "imageUrl": "media/images/file_506_1778947604528.png"
+  },
+  {
+    "id": "GrNzyKz9LMvyhNEKd2Hg",
+    "name": "天ぷら屋",
+    "shopType": "diner",
+    "description": "揚げたての海の幸や山の幸を銭と引き換えに供するこの天ぷら屋は、街道を行き交う旅人や市で働く者たちの腹を満たす、活気ある食の小売であった。",
+    "dishIds": [
+      "n0BZD41eqNO82fOntYsS",
+      "Iyh0EpTbBH7HLO3QoWQt",
+      "gmKd370gG14XOKE6DMHi",
+      "telJcG7szatu7KEGSf4l",
+      "P427w4kE4hx1i3gXcaUH",
+      "ACzyx4FDBkvp3UmCfUsD",
+      "sU3NGGTG6exmKzdGCVpm",
+      "PdGFrwJQVaAcqHhCV1u3",
+      "VYCl06eTTt5nQDTnlwki",
+      "u4NYdZ93reN08V4ZZgfS",
+      "nTlN8vI2VcowLBdEEmqN",
+      "fCcul3HzU2SXcPoIPwex",
+      "nb3DT3ugXvtHOlpRbPiA",
+      "v0hx7cM3o4mwttHUBXzO"
+    ],
+    "imageUrl": "media/images/file_507_1778947604528.png",
+    "ownerId": "aFKX7xVf5xHVhBt0uDxl",
+    "createdAt": "2026-04-09T00:45:54.607Z",
+    "itemIds": []
   },
   {
     "id": "UZeJDSSkM4ahjQ6ilTgB",
-    "createdAt": "2026-03-15T20:00:26.757Z",
-    "description": "うめの飯屋は、鎌倉の辻に立つ、武士や行商人が立ち寄る活気あるめし処である。粗食ながらも腹を満たす温かい飯と汁物が、往来の者たちの疲れを癒やし、再び道へ向かう力を与えている。",
-    "name": "うめの飯屋",
-    "ownerId": "wMSjRWzjMW8zmymdIxYk",
-    "shopType": "diner",
-    "imageUrl": "media/images/file_473_1775122200415.png",
     "itemIds": [],
+    "ownerId": "wMSjRWzjMW8zmymdIxYk",
+    "createdAt": "2026-03-15T20:00:26.757Z",
+    "imageUrl": "media/images/file_508_1778947604528.png",
+    "name": "うめの飯屋",
+    "shopType": "diner",
+    "description": "うめの飯屋は、鎌倉の辻に立つ、武士や行商人が立ち寄る活気あるめし処である。粗食ながらも腹を満たす温かい飯と汁物が、往来の者たちの疲れを癒やし、再び道へ向かう力を与えている。",
     "dishIds": [
       "JwZX5uOJ7ImaHMMtRywJ",
       "h6xq7ql0jtwtWf4lWb3l",
@@ -85,12 +111,6 @@
   },
   {
     "id": "kemzC4Hu7G2QcPkcsIB2",
-    "ownerId": "kTJkUqV6tJjH4Ua06yE5",
-    "name": "調味料店",
-    "description": "鎌倉の辻に立つこの調味料店には、日々の食卓を支える塩や味噌、そして遠き異国からもたらされた貴重な香辛料が所狭しと並ぶ。市井の人々はもちろん、武士や寺社の者までが、旨き味を求め活気ある声が絶えない。",
-    "createdAt": "2026-03-27T19:36:23.200Z",
-    "imageUrl": "media/images/file_474_1775122200415.png",
-    "shopType": "retail",
     "itemIds": [
       "EExCU3KTgaZ074nw8IzK",
       "8opkrk9Da3Xv4wp1nDaj",
@@ -102,11 +122,23 @@
       "IwDnYzIki2yL3JjImUgv",
       "fRC3hZWb49nVqCeO4xCR"
     ],
+    "createdAt": "2026-03-27T19:36:23.200Z",
+    "ownerId": "kTJkUqV6tJjH4Ua06yE5",
+    "imageUrl": "media/images/file_509_1778947604528.png",
+    "name": "調味料店",
+    "shopType": "retail",
+    "description": "鎌倉の辻に立つこの調味料店には、日々の食卓を支える塩や味噌、そして遠き異国からもたらされた貴重な香辛料が所狭しと並ぶ。市井の人々はもちろん、武士や寺社の者までが、旨き味を求め活気ある声が絶えない。",
     "dishIds": []
   },
   {
     "id": "leNTiskpyzvZGcYMjGpq",
+    "name": "農作物いね",
+    "shopType": "retail",
+    "description": "「農作物いね」には、肥沃な大地が育んだ米や麦、季節の野菜が山と積まれ、市を訪れる武士や農民たちが日々の糧を求めて活発に品定めをする。力強い商人の声が響く店先は、いつも活気に満ち溢れ、鎌倉の暮らしを支える要であった。",
     "dishIds": [],
+    "imageUrl": "media/images/file_510_1778947604529.png",
+    "createdAt": "2026-03-12T06:38:27.785Z",
+    "ownerId": "TFS6nW3oE8YYdiJ21M9R",
     "itemIds": [
       "KfC755P2vtX74e1mqqEF",
       "hjZwcagGSJ5ZqxQ7c7aG",
@@ -141,13 +173,7 @@
       "9HaQr21j16tPV4m7pxQk",
       "zEPdxxs801SQTBTM1BJT",
       "kT2BcR4eInEm3Bjub88A"
-    ],
-    "ownerId": "TFS6nW3oE8YYdiJ21M9R",
-    "name": "農作物いね",
-    "createdAt": "2026-03-12T06:38:27.785Z",
-    "description": "「農作物いね」には、肥沃な大地が育んだ米や麦、季節の野菜が山と積まれ、市を訪れる武士や農民たちが日々の糧を求めて活発に品定めをする。力強い商人の声が響く店先は、いつも活気に満ち溢れ、鎌倉の暮らしを支える要であった。",
-    "imageUrl": "media/images/file_475_1775122200415.png",
-    "shopType": "retail"
+    ]
   },
   {
     "id": "vlKV47YkkMjjrqQs8bH7",
@@ -165,17 +191,20 @@
       "NlA3ftqG96haVqMXPoJy",
       "gCAL5NtJdRHDkhddjFSb"
     ],
-    "dishIds": [],
-    "shopType": "retail",
-    "imageUrl": "media/images/file_476_1775122200415.png",
-    "description": "鎌倉の市座に軒を連ねる海生簀には、相模湾の磯の香を運ぶ活きの良い貝が山と積まれる。質実剛健な武士や町人たちが今日の膳を彩るべく、威勢の良い呼び声に誘われて賑わいを見せる活気ある店だ。",
     "createdAt": "2026-03-27T17:15:52.120Z",
+    "ownerId": "7H41aASWF8ULMczjdf8s",
+    "imageUrl": "media/images/file_511_1778947604529.png",
+    "description": "鎌倉の市座に軒を連ねる海生簀には、相模湾の磯の香を運ぶ活きの良い貝が山と積まれる。質実剛健な武士や町人たちが今日の膳を彩るべく、威勢の良い呼び声に誘われて賑わいを見せる活気ある店だ。",
+    "dishIds": [],
     "name": "海生簀（貝）",
-    "ownerId": "7H41aASWF8ULMczjdf8s"
+    "shopType": "retail"
   },
   {
     "id": "y6f9wpv6hxk4rb2FDHnp",
-    "itemIds": [],
+    "imageUrl": "media/images/file_512_1778947604529.png",
+    "shopType": "diner",
+    "name": "寿司屋",
+    "description": "初めて出した料理屋。青空に構えた簡素な作り。",
     "dishIds": [
       "MtNHbQPFv7061icrgXz2",
       "E68T1AfXiIo3hNaQu0BU",
@@ -193,11 +222,8 @@
       "aK9pH8mngXtYGQWA2942",
       "yUGeSbiLDPT0JSwOeMOk"
     ],
-    "shopType": "diner",
-    "imageUrl": "media/images/file_477_1775122200415.png",
-    "name": "寿司屋",
-    "description": "初めて出した料理屋。青空に構えた簡素な作り。",
-    "createdAt": "2026-03-27T18:29:04.839Z",
-    "ownerId": "A44lygLrpBVZjTZD1EqT"
+    "itemIds": [],
+    "ownerId": "A44lygLrpBVZjTZD1EqT",
+    "createdAt": "2026-03-27T18:29:04.839Z"
   }
 ]

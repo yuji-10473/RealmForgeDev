@@ -1,39 +1,87 @@
 [
   {
-    "id": "2umyLRvZA5ZnBHTJwYkZ",
-    "type": "民家",
+    "id": "1MIla9tSHXcOnfbudwIG",
+    "type": "その他",
+    "createdAt": "2026-04-07T11:07:06.544Z",
+    "description": "野菜などを育てる畑",
+    "name": "野菜畑",
     "suggestedSize": {
       "height": 300,
       "width": 300
     },
-    "name": "御調味蔵",
-    "createdAt": "2026-02-15T09:40:09.203Z",
+    "imageUrl": "media/images/file_482_1778947604528.png"
+  },
+  {
+    "id": "2umyLRvZA5ZnBHTJwYkZ",
+    "suggestedSize": {
+      "height": 300,
+      "width": 300
+    },
+    "imageUrl": "media/images/file_483_1778947604528.png",
     "description": "堅牢な木材で組まれた簡素な店構えで、鎌倉の町で日々の食卓を彩る調味料や香辛料を扱う。質実剛健な鎌倉時代の人々の暮らしを支える、大切な食料供給の場であっただろう。",
-    "imageUrl": "media/images/file_456_1775122200415.png"
+    "name": "御調味蔵",
+    "type": "民家",
+    "createdAt": "2026-02-15T09:40:09.203Z"
   },
   {
     "id": "9dr1XbYaMlujdWgjCqCj",
+    "type": "民家",
+    "createdAt": "2026-02-15T08:10:02.910Z",
+    "description": "太い柱と土壁で支えられた質素な茅葺き屋根の家。田畑を耕す農民が家族と暮らす、当時の一般的な住居です。",
+    "name": "茅葺の農家",
     "suggestedSize": {
       "height": 220,
       "width": 280
     },
-    "type": "民家",
-    "imageUrl": "media/images/file_457_1775122200415.png",
-    "createdAt": "2026-02-15T08:10:02.910Z",
-    "description": "太い柱と土壁で支えられた質素な茅葺き屋根の家。田畑を耕す農民が家族と暮らす、当時の一般的な住居です。",
-    "name": "茅葺の農家"
+    "imageUrl": "media/images/file_484_1778947604528.png"
+  },
+  {
+    "id": "ADooQsewCHaM33uW2WXE",
+    "imageUrl": "media/images/file_485_1778947604528.png",
+    "suggestedSize": {
+      "height": 500,
+      "width": 500
+    },
+    "name": "鎧",
+    "description": "日本の鎧の置物",
+    "type": "その他",
+    "createdAt": "2026-04-11T18:01:03.521Z"
+  },
+  {
+    "id": "AnL4Dlov7MfCXHalaU6l",
+    "description": "建設予定用の看板\n「工事中」の文字が看板に掲げられている。",
+    "name": "建設予定地工事中",
+    "suggestedSize": {
+      "height": 500,
+      "width": 500
+    },
+    "imageUrl": "media/images/file_486_1778947604528.png",
+    "type": "その他",
+    "createdAt": "2026-04-07T12:29:40.501Z"
+  },
+  {
+    "id": "AutXqJoAHh6nSGPdCe2Y",
+    "type": "その他",
+    "createdAt": "2026-04-11T18:04:07.767Z",
+    "imageUrl": "media/images/file_487_1778947604528.png",
+    "suggestedSize": {
+      "height": 500,
+      "width": 500
+    },
+    "name": "刀掛け",
+    "description": "刀を置いておく台座"
   },
   {
     "id": "CFj39Lp8BNf5QA9Hs8fp",
-    "name": "板戸の小店",
+    "type": "商店",
     "createdAt": "2026-02-15T07:42:54.996Z",
     "description": "粗末な板戸が特徴の簡素な店構え。日用品や簡単な食料品を扱う、村人にとって大切な生活の場である。",
-    "imageUrl": "media/images/file_458_1775122200415.png",
+    "name": "板戸の小店",
     "suggestedSize": {
       "height": 220,
       "width": 260
     },
-    "type": "商店"
+    "imageUrl": "media/images/file_488_1778947604528.png"
   },
   {
     "id": "EoAYBtNIeaSNU8oEkPA6",
@@ -41,23 +89,35 @@
       "height": 500,
       "width": 500
     },
-    "type": "その他",
-    "imageUrl": "media/images/file_459_1775122200415.png",
-    "createdAt": "2026-03-26T07:42:11.269Z",
+    "imageUrl": "media/images/file_489_1778947604528.png",
+    "description": "暖かい布団",
     "name": "布団",
-    "description": "暖かい布団"
+    "createdAt": "2026-03-26T07:42:11.269Z",
+    "type": "その他"
+  },
+  {
+    "id": "HUo55yHevQWM5F2hYVXA",
+    "suggestedSize": {
+      "height": 500,
+      "width": 500
+    },
+    "imageUrl": "media/images/file_490_1778947604528.png",
+    "description": "伊東家のお屋敷。代々受け継がれている立派な建物。",
+    "name": "伊東屋敷",
+    "type": "武家屋敷",
+    "createdAt": "2026-04-11T16:35:22.657Z"
   },
   {
     "id": "LRLTlq0cmEvIbn3DiFDK",
+    "type": "民家",
+    "createdAt": "2026-02-15T09:38:41.244Z",
+    "name": "里の青物売台",
+    "description": "鎌倉時代の質実剛健な様式を反映した、素朴な板材で組まれた簡素な売台です。村や市で、採れたての野菜や山菜を並べ、人々の食を支える役割を担っていました。",
+    "imageUrl": "media/images/file_491_1778947604528.png",
     "suggestedSize": {
       "height": 120,
       "width": 350
-    },
-    "type": "民家",
-    "imageUrl": "media/images/file_460_1775122200415.png",
-    "description": "鎌倉時代の質実剛健な様式を反映した、素朴な板材で組まれた簡素な売台です。村や市で、採れたての野菜や山菜を並べ、人々の食を支える役割を担っていました。",
-    "createdAt": "2026-02-15T09:38:41.244Z",
-    "name": "里の青物売台"
+    }
   },
   {
     "id": "NeU3W8egDLjgpE6ufm5L",
@@ -65,47 +125,47 @@
       "height": 400,
       "width": 550
     },
-    "type": "民家",
-    "imageUrl": "media/images/file_461_1775122200415.png",
-    "createdAt": "2026-02-20T04:38:02.191Z",
+    "imageUrl": "media/images/file_492_1778947604528.png",
     "description": "粗削りな木材と網で囲われた水上の生簀。鎌倉の港や川辺で、獲れたての魚を一時的に蓄えるために利用された、質実剛健な造りである。",
-    "name": "水辺の生簀"
+    "name": "水辺の生簀",
+    "type": "民家",
+    "createdAt": "2026-02-20T04:38:02.191Z"
   },
   {
     "id": "O8Gn16ToFKJgf956ofpI",
-    "imageUrl": "media/images/file_462_1775122200415.png",
-    "createdAt": "2026-02-15T09:37:57.733Z",
     "description": "鎌倉の市中に建つ質実剛健な木造の食処。厚い板葺きの屋根と簡素な土壁が特徴で、旅人や武士が集い、囲炉裏で焼かれた旬の海山の幸を楽しむ賑わいの場であった。",
     "name": "市中の囲炉裏端",
     "suggestedSize": {
       "height": 350,
       "width": 550
     },
-    "type": "民家"
+    "imageUrl": "media/images/file_493_1778947604528.png",
+    "type": "民家",
+    "createdAt": "2026-02-15T09:37:57.733Z"
   },
   {
     "id": "R2z9gmMxhExbCITNdPCw",
-    "imageUrl": "media/images/file_463_1775122200415.png",
-    "description": "簡素な作りのお墓。漁師の人たちのために用意された簡素なお墓。",
     "name": "お墓（漁師）",
-    "createdAt": "2026-04-01T23:26:25.327Z",
+    "description": "簡素な作りのお墓。漁師の人たちのために用意された簡素なお墓。",
+    "imageUrl": "media/images/file_494_1778947604528.png",
     "suggestedSize": {
       "height": 450,
       "width": 450
     },
+    "createdAt": "2026-04-01T23:26:25.327Z",
     "type": "その他"
   },
   {
     "id": "RxM81ObhEVdzakeAF0jb",
+    "createdAt": "2026-03-26T11:29:46.452Z",
+    "type": "その他",
+    "description": "御本尊様が収められた仏壇",
+    "name": "仏壇",
     "suggestedSize": {
       "height": 500,
       "width": 500
     },
-    "type": "その他",
-    "imageUrl": "media/images/file_464_1775122200415.png",
-    "createdAt": "2026-03-26T11:29:46.452Z",
-    "name": "仏壇",
-    "description": "御本尊様が収められた仏壇"
+    "imageUrl": "media/images/file_495_1778947604528.png"
   },
   {
     "id": "TOaCR0LSZkuilCOzI2CA",
@@ -113,11 +173,11 @@
       "height": 300,
       "width": 300
     },
-    "type": "その他",
-    "createdAt": "2026-03-19T07:15:19.831Z",
+    "imageUrl": "media/images/file_496_1778947604528.png",
     "description": "出入り口用アイコン",
     "name": "出入り口",
-    "imageUrl": "media/images/file_465_1775122200415.png"
+    "createdAt": "2026-03-19T07:15:19.831Z",
+    "type": "その他"
   },
   {
     "id": "cceWOLOqU11720QvGRME",
@@ -125,58 +185,94 @@
       "height": 200,
       "width": 450
     },
-    "type": "民家",
-    "name": "鎌倉市中の菜棚",
+    "imageUrl": "media/images/file_497_1778947604528.png",
     "description": "質実剛健な鎌倉の気風を映す、素朴な板張りの棚。市中に設けられ、近郷の農家が持ち寄った旬の野菜が並び、人々の食を支えました。",
-    "createdAt": "2026-02-15T09:39:31.211Z",
-    "imageUrl": "media/images/file_466_1775122200415.png"
+    "name": "鎌倉市中の菜棚",
+    "type": "民家",
+    "createdAt": "2026-02-15T09:39:31.211Z"
+  },
+  {
+    "id": "crUzIwGsyTjmtgDKNQxc",
+    "suggestedSize": {
+      "height": 500,
+      "width": 500
+    },
+    "imageUrl": "media/images/file_498_1778947604528.png",
+    "description": "川にある水車、水車小屋に接続させる事ができる。",
+    "name": "水車",
+    "type": "その他",
+    "createdAt": "2026-04-07T10:16:55.570Z"
   },
   {
     "id": "erMMQJcIqGKfHZpfMzOp",
+    "imageUrl": "media/images/file_499_1778947604528.png",
     "suggestedSize": {
-      "height": 240,
-      "width": 280
+      "height": 500,
+      "width": 500
     },
-    "type": "民家",
-    "createdAt": "2026-02-15T07:41:11.545Z",
-    "description": "茅葺きの屋根と土壁が特徴の、質実剛健な造りの家屋。田畑を耕す農民が家族と共に暮らし、質素ながらも力強く日々の生活を営んでいた。",
     "name": "茅葺の農家",
-    "imageUrl": "media/images/file_467_1775122200415.png"
+    "description": "茅葺きの屋根と土壁が特徴の、質実剛健な造りの家屋。田畑を耕す農民が家族と共に暮らし、質素ながらも力強く日々の生活を営んでいた。",
+    "type": "民家",
+    "createdAt": "2026-02-15T07:41:11.545Z"
   },
   {
     "id": "ghpta8MXDCwDtm2FnOtT",
+    "type": "茶屋",
+    "createdAt": "2026-02-15T08:10:35.283Z",
+    "imageUrl": "media/images/file_500_1778947604528.png",
     "suggestedSize": {
       "height": 200,
       "width": 250
     },
-    "type": "茶屋",
     "name": "峠の茶屋",
-    "description": "茅葺き屋根の質素な木造建築で、旅人や村人が一服する憩いの場。素朴ながらも堅牢な造りが特徴。",
-    "createdAt": "2026-02-15T08:10:35.283Z",
-    "imageUrl": "media/images/file_468_1775122200415.png"
+    "description": "茅葺き屋根の質素な木造建築で、旅人や村人が一服する憩いの場。素朴ながらも堅牢な造りが特徴。"
+  },
+  {
+    "id": "hR2awEOi7XG45FlQaobN",
+    "type": "その他",
+    "createdAt": "2026-04-11T17:18:03.969Z",
+    "suggestedSize": {
+      "height": 500,
+      "width": 500
+    },
+    "imageUrl": "media/images/file_501_1778947604528.png",
+    "description": "自然に湧き出ている温泉を利用した露天風呂。岩で囲っただけの簡単な作り",
+    "name": "露天風呂"
   },
   {
     "id": "kY4q0QP01Anm6gzNFJLC",
-    "suggestedSize": {
-      "height": 260,
-      "width": 280
-    },
     "type": "民家",
     "createdAt": "2026-02-19T23:01:30.454Z",
     "description": "太い木材で組まれた骨格と分厚い茅葺き屋根が印象的な質実剛健な佇まい。鎌倉時代の市井の人々の住居として、または小さな商いを行う場として利用された。",
     "name": "市井の茅葺き家",
-    "imageUrl": "media/images/file_469_1775122200415.png"
+    "suggestedSize": {
+      "height": 500,
+      "width": 500
+    },
+    "imageUrl": "media/images/file_502_1778947604528.png"
+  },
+  {
+    "id": "lEr6ZogicgdG6I68ULDs",
+    "type": "その他",
+    "createdAt": "2026-04-07T10:48:26.993Z",
+    "name": "阿弥陀如来石像",
+    "description": "阿弥陀如来の石像、大きな石像\n",
+    "imageUrl": "media/images/file_503_1778947604528.png",
+    "suggestedSize": {
+      "height": 300,
+      "width": 300
+    }
   },
   {
     "id": "uACe6ft6K0sRX1X2Mp1K",
+    "imageUrl": "media/images/file_504_1778947604528.png",
     "suggestedSize": {
-      "height": 220,
-      "width": 280
+      "height": 500,
+      "width": 500
     },
-    "type": "民家",
-    "imageUrl": "media/images/file_470_1775122200415.png",
-    "createdAt": "2026-02-15T08:44:32.013Z",
+    "name": "里の茅舎",
     "description": "厚い茅葺き屋根と質素な土壁が特徴の、鎌倉時代の一般的な農家の住まい。人々の素朴な暮らしを支える質実剛健な造りである。",
-    "name": "里の茅舎"
+    "type": "民家",
+    "createdAt": "2026-02-15T08:44:32.013Z"
   }
 ]
