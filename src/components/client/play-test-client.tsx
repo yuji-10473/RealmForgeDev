@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize, PackagePlus, LayoutGrid} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize, PackagePlus, LayoutGrid, ChevronUp, ChevronDown, ChevronLeft, ChevronRight} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -42,6 +42,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Toaster } from '@/components/ui/toaster';
+import { useMobile } from '../../hooks/use-mobile';
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
@@ -64,6 +65,57 @@ const resolveMediaUrl = (path: string | undefined) => {
   if (path.startsWith('http') || path.startsWith('/')) return path;
   return `/${path}`;
 };
+
+// --- Mobile Controls ---
+const DpadButton = memo(({ direction, className, onKeyAction }: { direction: string; className?: string; onKeyAction: (key: string, type: 'press' | 'release') => void; }) => {
+  const Icon = {
+    ArrowUp: ChevronUp,
+    ArrowDown: ChevronDown,
+    ArrowLeft: ChevronLeft,
+    ArrowRight: ChevronRight,
+  }[direction] || (() => null);
+
+  return (
+    <Button
+      variant="outline"
+      className={cn("bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 w-full h-full p-0 flex items-center justify-center", className)}
+      onTouchStart={() => onKeyAction(direction, 'press')}
+      onTouchEnd={() => onKeyAction(direction, 'release')}
+      onMouseDown={() => onKeyAction(direction, 'press')}
+      onMouseUp={() => onKeyAction(direction, 'release')}
+      onMouseLeave={() => onKeyAction(direction, 'release')}
+    >
+      <Icon className="w-8 h-8" />
+    </Button>
+  );
+});
+DpadButton.displayName = 'DpadButton';
+
+const Dpad = memo(({ onKeyAction }: { onKeyAction: (key: string, type: 'press' | 'release') => void }) => (
+  <div className="fixed bottom-8 left-8 z-50 grid grid-cols-3 grid-rows-3 gap-2 w-36 h-36">
+    <DpadButton direction="ArrowUp" className="col-start-2" onKeyAction={onKeyAction} />
+    <DpadButton direction="ArrowLeft" className="row-start-2" onKeyAction={onKeyAction} />
+    <DpadButton direction="ArrowDown" className="row-start-2 col-start-2" onKeyAction={onKeyAction} />
+    <DpadButton direction="ArrowRight" className="row-start-2 col-start-3" onKeyAction={onKeyAction} />
+  </div>
+));
+Dpad.displayName = 'Dpad';
+
+const ActionButton = memo(({ onInteract, isNear }: { onInteract: () => void; isNear: boolean }) => (
+  <div className="fixed bottom-8 right-8 z-50">
+    <Button
+      className={cn(
+        "w-24 h-24 rounded-full text-2xl font-bold border-4 border-white/50 bg-black/30 backdrop-blur-sm text-white transition-all duration-300",
+        isNear && "animate-pulse bg-accent/40 ring-4 ring-accent"
+      )}
+      onClick={onInteract}
+    >
+      A
+    </Button>
+  </div>
+));
+ActionButton.displayName = 'ActionButton';
+
 
 // --- Optimized Sub-components ---
 
@@ -241,14 +293,28 @@ function DialogueBox({ conversation, audioPath, onComplete }: { conversation: st
   );
 }
 
-function MiniMap({ world, activeIndex }: { world: WorldData | undefined, activeIndex: number }) {
+function MiniMap({ world, activeIndex, isFullscreen, isVertical }: { world: WorldData | undefined, activeIndex: number, isFullscreen: boolean, isVertical: boolean }) {
   if (!world || !world.rows || !world.cols) return null;
   return (
-    <div className="absolute top-4 right-4 bg-background/60 backdrop-blur-md border border-border p-2 rounded-lg z-40 shadow-xl">
-      <div className="flex items-center gap-2 mb-2"><MapIcon className="h-3 w-3 text-muted-foreground" /><span className="text-[10px] font-bold uppercase tracking-wider">{world.name}</span></div>
-      <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${world.cols}, 1fr)`, width: '80px' }}>
+    <div 
+      className={cn(
+        "absolute right-4 bg-background/60 backdrop-blur-md border border-border p-1.5 rounded-md z-20 shadow-lg",
+        isFullscreen && !isVertical ? "top-24" : "top-4"
+      )}
+      style={{ width: 'clamp(50px, 5vw, 80px)' }}
+    >
+      <div className="flex items-center gap-1.5 mb-1.5">
+        <MapIcon className="h-2.5 w-2.5 text-muted-foreground" />
+        <span className="text-[9px] font-bold uppercase tracking-wider truncate">{world.name}</span>
+      </div>
+      <div className="grid gap-0.5" style={{ gridTemplateColumns: `repeat(${world.cols}, 1fr)`}}>
         {Array.from({ length: world.rows * world.cols }).map((_, i) => (
-          <div key={i} className={cn("aspect-square border rounded-[1px]", i === activeIndex ? "bg-primary border-primary shadow-[0_0_5px_rgba(var(--primary),0.5)]" : "bg-muted/40 border-border/50")} />
+          <div key={i} className={cn(
+            "aspect-square border rounded-sm", 
+            i === activeIndex 
+              ? "bg-primary border-primary ring-2 ring-primary/70"
+              : "bg-muted/30 border-border/40"
+          )} />
         ))}
       </div>
     </div>
@@ -258,6 +324,7 @@ function MiniMap({ world, activeIndex }: { world: WorldData | undefined, activeI
 export function PlayTestClient({ user, initialData, isVertical = false }: { user: User, initialData: any | null, isVertical?: boolean }) {
   const { toast } = useToast();
   const firestore = useFirestore();
+  const isMobile = useMobile();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
   const playtestContainerRef = useRef<HTMLDivElement>(null);
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
@@ -701,7 +768,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (bgmRef.current?.paused && bgmRef.current.getAttribute('src')) bgmRef.current.play().catch(()=>{});
-    if (isGamePaused || !mapContainerRef.current) return;
+    if (isGamePaused || !mapContainerRef.current || isMobile) return;
     const rect = mapContainerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * MAP_WIDTH - CHARACTER_WIDTH / 2;
     const y = ((e.clientY - rect.top) / rect.height) * MAP_HEIGHT - CHARACTER_HEIGHT / 2;
@@ -799,6 +866,18 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     }
   }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp, characterPosition, suppliedIngredients]);
 
+    const handleDpadAction = useCallback((key: string, type: 'press' | 'release') => {
+        setPressedKeys(prev => {
+            const newKeys = new Set(prev);
+            if (type === 'press') {
+                newKeys.add(key);
+            } else {
+                newKeys.delete(key);
+            }
+            return newKeys;
+        });
+    }, []);
+
   // メインループ（キャラクター移動のみ担当）
   useEffect(() => {
     const loop = (currentTime: number) => {
@@ -807,11 +886,14 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         let moveX = 0, moveY = 0;
         const currentSpeed = BASE_SPEED + level;
         const keys = pressedKeys;
-        const isKeyPressed = keys.has('ArrowUp') || keys.has('w') || keys.has('ArrowDown') || keys.has('s') || keys.has('ArrowLeft') || keys.has('a') || keys.has('ArrowRight') || keys.has('d');
+        const isKeyPressed = keys.size > 0;
+
         if (isKeyPressed) {
-          setTargetPosition(null);
-          if (keys.has('ArrowUp') || keys.has('w')) moveY -= 1; if (keys.has('ArrowDown') || keys.has('s')) moveY += 1;
-          if (keys.has('ArrowLeft') || keys.has('a')) moveX -= 1; if (keys.has('ArrowRight') || keys.has('d')) moveX += 1;
+          if (targetPosition) setTargetPosition(null);
+          if (keys.has('ArrowUp') || keys.has('w')) moveY -= 1;
+          if (keys.has('ArrowDown') || keys.has('s')) moveY += 1;
+          if (keys.has('ArrowLeft') || keys.has('a')) moveX -= 1;
+          if (keys.has('ArrowRight') || keys.has('d')) moveX += 1;
         } else if (targetPosition) {
           const dx = targetPosition.x - characterPosition.x, dy = targetPosition.y - characterPosition.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -829,10 +911,12 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             const currentRow = Math.floor(activeCellIndex / currentWorld.cols), currentCol = activeCellIndex % currentWorld.cols;
             let nextCellIdx = activeCellIndex, finalX = nextX, finalY = nextY, transitioned = false;
             const THR = 50;
+            const topTransitionBoundary = isFullscreen && !isVertical ? 90 : -THR;
+
             if (nextX < -THR && currentCol > 0) { nextCellIdx = activeCellIndex - 1; finalX = MAP_WIDTH - CHARACTER_WIDTH + THR; transitioned = true; }
             else if (nextX > MAP_WIDTH - CHARACTER_WIDTH + THR && currentCol + 1 < currentWorld.cols) { nextCellIdx = activeCellIndex + 1; finalX = -THR; transitioned = true; }
-            else if (nextY < -THR && currentRow > 0) { nextCellIdx = activeCellIndex - currentWorld.cols; finalY = MAP_HEIGHT - CHARACTER_HEIGHT + THR; transitioned = true; }
-            else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + THR && currentRow + 1 < currentWorld.rows) { nextCellIdx = activeCellIndex + currentWorld.cols; finalY = -THR; transitioned = true; }
+            else if (nextY < topTransitionBoundary && currentRow > 0) { nextCellIdx = activeCellIndex - currentWorld.cols; finalY = MAP_HEIGHT - CHARACTER_HEIGHT + THR; transitioned = true; }
+            else if (nextY > MAP_HEIGHT - CHARACTER_HEIGHT + THR && currentRow + 1 < currentWorld.rows) { nextCellIdx = activeCellIndex + currentWorld.cols; finalY = isFullscreen && !isVertical ? topTransitionBoundary : -THR; transitioned = true; }
             if (transitioned) { setActiveCellIndex(nextCellIdx); setCharacterPosition({ x: finalX, y: finalY }); setTargetPosition(null); }
             else setCharacterPosition({ x: Math.max(-CHARACTER_WIDTH/2, Math.min(MAP_WIDTH - CHARACTER_WIDTH/2, nextX)), y: Math.max(-CHARACTER_HEIGHT/2, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT/2, nextY)) });
           } else setCharacterPosition({ x: Math.max(0, Math.min(MAP_WIDTH - CHARACTER_WIDTH, nextX)), y: Math.max(0, Math.min(MAP_HEIGHT - CHARACTER_HEIGHT, nextY)) });
@@ -842,18 +926,28 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     };
     gameLoopRef.current = requestAnimationFrame(loop);
     return () => { if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current); };
-  }, [pressedKeys, targetPosition, isGamePaused, isMoving, characterDirection, activeCellIndex, currentWorld, level, characterPosition]);
+  }, [pressedKeys, targetPosition, isGamePaused, isMoving, characterDirection, activeCellIndex, currentWorld, level, characterPosition, isFullscreen, isVertical]);
 
   useEffect(() => {
-    const handleDown = (e: KeyboardEvent) => {
-      if (bgmRef.current?.paused && bgmRef.current.getAttribute('src')) bgmRef.current.play().catch(()=>{});
-      if ([' ', 'Enter'].includes(e.key)) { e.preventDefault(); checkForInteraction(); }
-      else if (!isGamePaused) setPressedKeys(prev => new Set(prev).add(e.key));
-    };
-    const handleUp = (e: KeyboardEvent) => setPressedKeys(prev => { const n = new Set(prev); n.delete(e.key); return n; });
-    window.addEventListener('keydown', handleDown); window.addEventListener('keyup', handleUp);
-    return () => { window.removeEventListener('keydown', handleDown); window.removeEventListener('keyup', handleUp); };
-  }, [checkForInteraction, isGamePaused]);
+      const handleDown = (e: KeyboardEvent) => {
+          if (bgmRef.current?.paused && bgmRef.current.getAttribute('src')) bgmRef.current.play().catch(() => { });
+          if ([' ', 'Enter'].includes(e.key)) { e.preventDefault(); checkForInteraction(); }
+          else if (!isGamePaused) setPressedKeys(prev => new Set(prev).add(e.key));
+      };
+      const handleUp = (e: KeyboardEvent) => setPressedKeys(prev => { const n = new Set(prev); n.delete(e.key); return n; });
+      
+      if (!isMobile) {
+          window.addEventListener('keydown', handleDown);
+          window.addEventListener('keyup', handleUp);
+      }
+      
+      return () => {
+          if (!isMobile) {
+              window.removeEventListener('keydown', handleDown);
+              window.removeEventListener('keyup', handleUp);
+          }
+      };
+  }, [checkForInteraction, isGamePaused, isMobile]);
 
   // 納品アクション
   const handleSupplyIngredient = (itemId: string) => {
@@ -882,7 +976,8 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div ref={playtestContainerRef} className={cn(
         "flex relative bg-background", 
-        isVertical ? "flex-col h-full gap-2" : "flex-col h-full gap-4",
+        isVertical ? "flex-col h-full gap-2" : "flex-col h-full", // 全画面時にgapが適用されないように調整
+        !isVertical && !isFullscreen && "gap-4",
         isFullscreen && "p-4"
       )}>
         {/* 全画面モード用のトースター */}
@@ -890,8 +985,12 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         
         {/* ステータスバー */}
         <div className={cn(
-          "flex justify-between items-center bg-background/50 p-2 rounded-lg border gap-2 z-10 flex-wrap",
-          isVertical && "order-first"
+          "flex justify-between items-center gap-2 z-30 flex-wrap p-2", // z-indexを調整
+          isVertical && "order-first",
+          // 通常表示スタイル
+          !isFullscreen && "bg-background/50 rounded-lg border",
+          // 全画面表示スタイル (縦表示は除く)
+          isFullscreen && !isVertical && "absolute top-4 left-4 right-4 bg-black/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/10"
         )}>
           <div className="flex items-center gap-2 flex-grow max-w-[150px]">
             <Label className="whitespace-nowrap text-[10px]">マップ</Label>
@@ -931,7 +1030,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             <div className={cn("bg-primary/10 px-3 py-1 rounded-full font-bold text-primary flex items-center shrink-0", isVertical ? "h-8 text-xs" : "h-10")}>{gold} K</div>
             
             <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-8">
-              {!isVertical && (
+              {!isVertical && !isMobile && (
                 <Button 
                   size="icon" 
                   variant="ghost" 
@@ -977,14 +1076,14 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
           "relative flex-grow bg-muted border-2 rounded-lg overflow-hidden", 
           isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
-          isGamePaused ? "cursor-default" : "cursor-crosshair"
+          isGamePaused ? "cursor-default" : isMobile ? "cursor-default" : "cursor-crosshair"
         )}>
           {activeMapData ? (
             <>
               <MapLayer imageUrl={activeMapData.imageUrl} />
               <ObjectsLayer objects={activeMapData.objects} npcStates={npcStates} availableObjects={availableObjects} />
               <CutsceneLayer cutsceneChars={cutsceneChars} />
-              <MiniMap world={currentWorld} activeIndex={activeCellIndex} />
+              <MiniMap world={currentWorld} activeIndex={activeCellIndex} isFullscreen={isFullscreen} isVertical={isVertical} />
               {!isGamePaused && targetPosition && <div className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" style={{ left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` }} />}
               <PlayerLayer 
                 key={selectedWorldId + activeCellIndex}
@@ -996,6 +1095,12 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                 x={characterPosition.x} 
                 y={characterPosition.y} 
               />
+              {isMobile && !isGamePaused && (
+                <>
+                  <Dpad onKeyAction={handleDpadAction} />
+                  <ActionButton onInteract={checkForInteraction} isNear={isNearInteractable} />
+                </>
+              )}
             </>
           ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
           

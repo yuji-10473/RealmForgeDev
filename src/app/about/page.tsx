@@ -85,9 +85,9 @@ export default function AboutPage() {
                 <Target className="h-5 w-5" />
                 私たちのミッション
               </div>
-              <h2 className="text-3xl font-bold font-headline">歴史の「息吹」を、誰でも形にできる世界へ</h2>
+              <h2 className="text-3xl font-bold font-headline">歴史の「息吹」を, 誰でも形にできる世界へ</h2>
               <p className="leading-relaxed text-muted-foreground">
-                かつて鎌倉という地で生きた人々の営み、武士の覚悟、庶民の信仰. それらをただ知識として知るだけでなく、一つの「世界」として歩き、話し、体験すること。RealmForge は、専門的な知識が必要だった「歴史RPG制作」の壁を、AIとの対話によって取り払い、誰もが歴史の編纂者になれる場所を提供します。
+                かつて鎌倉という地で生きた人々の営み、武士の覚悟、庶民の信仰. それらをただ知識として知るだけでなく、一つの「世界」として歩き、話し、体験すること。RealmForge は, 専門的な知識が必要だった「歴史RPG制作」の壁を, AIとの対話によって取り払い、誰もが歴史の編纂者になれる場所を提供します。
               </p>
             </div>
             <div className="bg-primary/5 p-8 rounded-3xl border border-primary/10 space-y-4 shadow-sm">
@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.25</Badge>
+                <div>
+                  <p className="font-bold">UI/UXの更なる安定化</p>
+                  <p className="text-sm text-muted-foreground mt-1">モバイル環境での操作感の微調整と、全体的なコードのクリーンアップを行いました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.24</Badge>
                 <div>
                   <p className="font-bold">UI/UXの安定化と最適化</p>
                   <p className="text-sm text-muted-foreground mt-1">モバイル操作パネルの視認性向上と、全体的なパフォーマンスの最適化を行いました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.22</Badge>
                 <div>
                   <p className="font-bold">内部基盤の最適化</p>
                   <p className="text-sm text-muted-foreground mt-1">コンポーネント整理と将来のモバイル拡張に向けた内部ロジックの調整を行いました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.21</Badge>
-                <div>
-                  <p className="font-bold">システム基盤の安定化</p>
-                  <p className="text-sm text-muted-foreground mt-1">内部的なコンポーネント整理を行い、将来的な拡張に向けた安定性を向上させました。</p>
                 </div>
               </div>
             </div>
@@ -141,19 +141,19 @@ export default function AboutPage() {
               <AccordionItem value="item-1">
                 <AccordionTrigger className="text-left">RealmForge は無料で利用できますか？</AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed">
-                  はい、主要なエディター機能やプレイテスト機能はどなたでも無料で体験いただけます。プロジェクトの維持・向上のために一部で広告を表示させていただいております。
+                  はい, 主要なエディター機能やプレイテスト機能はどなたでも無料で体験いただけます。プロジェクトの維持・向上のために一部で広告を表示させていただいております。
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
                 <AccordionTrigger className="text-left">AIはどのように物語を生成しているのですか？</AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed">
-                  Gemini をはじめとする最新の生成モデルを使用しています。ユーザーが入力したプロンプトに基づき、当時の歴史的背景や言葉遣いを考慮したシナリオや対話をAIが提案します。
+                  Gemini をはじめとする最新の生成モデルを使用しています。ユーザーが入力したプロンプトに基づき, 当時の歴史的背景や言葉遣いを考慮したシナリオや対話をAIが提案します。
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
                 <AccordionTrigger className="text-left">作成したゲームデータのエクスポートは可能ですか？</AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed">
-                  現在、ブラウザ上でのクラウド保存機能を提供しています。外部形式（パッケージ）へのエクスポート機能については、最新のロードマップに基づき順次アップデート予定です。
+                  現在, ブラウザ上でのクラウド保存機能を提供しています。外部形式（パッケージ）へのエクスポート機能については, 最新のロードマップに基づき順次アップデート予定です。
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
