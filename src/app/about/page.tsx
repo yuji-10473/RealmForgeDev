@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.25</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.26</Badge>
                 <div>
-                  <p className="font-bold">UI/UXの更なる安定化</p>
-                  <p className="text-sm text-muted-foreground mt-1">モバイル環境での操作感の微調整と、全体的なコードのクリーンアップを行いました。</p>
+                  <p className="font-bold">モバイル操作性の更なる最適化</p>
+                  <p className="text-sm text-muted-foreground mt-1">縦型UIにおけるボタン配置とレスポンスの微調整、および内部ロジックのクリーンアップを行いました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.25</Badge>
+                <div>
+                  <p className="font-bold">UI/UXの更なる安定化</p>
+                  <p className="text-sm text-muted-foreground mt-1">モバイル環境における全体的なコードの整理と、視認性の向上を行いました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.24</Badge>
                 <div>
                   <p className="font-bold">UI/UXの安定化と最適化</p>
                   <p className="text-sm text-muted-foreground mt-1">モバイル操作パネルの視認性向上と、全体的なパフォーマンスの最適化を行いました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.22</Badge>
-                <div>
-                  <p className="font-bold">内部基盤の最適化</p>
-                  <p className="text-sm text-muted-foreground mt-1">コンポーネント整理と将来のモバイル拡張に向けた内部ロジックの調整を行いました。</p>
                 </div>
               </div>
             </div>

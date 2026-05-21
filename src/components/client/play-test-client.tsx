@@ -3,7 +3,7 @@
 import {useState, useEffect, useCallback, useRef, useMemo, memo} from 'react';
 import Image from 'next/image';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
-import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize, PackagePlus, LayoutGrid, ChevronUp, ChevronDown, ChevronLeft, ChevronRight} from 'lucide-react';
+import {Loader2, Save, Terminal, User as UserIcon, Map as MapIcon, Volume2, VolumeX, Play, Music, ShoppingCart, Sparkles, Heart, Utensils, BookOpen, MessageCircle, Star, Users, CalendarDays, Maximize, Minimize, PackagePlus, LayoutGrid, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Gamepad2} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Label} from '../ui/label';
 import {
@@ -43,6 +43,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Toaster } from '@/components/ui/toaster';
 import { useMobile } from '../../hooks/use-mobile';
+import { DpadController } from '@/components/ui/DpadController';
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
@@ -65,57 +66,6 @@ const resolveMediaUrl = (path: string | undefined) => {
   if (path.startsWith('http') || path.startsWith('/')) return path;
   return `/${path}`;
 };
-
-// --- Mobile Controls ---
-const DpadButton = memo(({ direction, className, onKeyAction }: { direction: string; className?: string; onKeyAction: (key: string, type: 'press' | 'release') => void; }) => {
-  const Icon = {
-    ArrowUp: ChevronUp,
-    ArrowDown: ChevronDown,
-    ArrowLeft: ChevronLeft,
-    ArrowRight: ChevronRight,
-  }[direction] || (() => null);
-
-  return (
-    <Button
-      variant="outline"
-      className={cn("bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 w-full h-full p-0 flex items-center justify-center", className)}
-      onTouchStart={() => onKeyAction(direction, 'press')}
-      onTouchEnd={() => onKeyAction(direction, 'release')}
-      onMouseDown={() => onKeyAction(direction, 'press')}
-      onMouseUp={() => onKeyAction(direction, 'release')}
-      onMouseLeave={() => onKeyAction(direction, 'release')}
-    >
-      <Icon className="w-8 h-8" />
-    </Button>
-  );
-});
-DpadButton.displayName = 'DpadButton';
-
-const Dpad = memo(({ onKeyAction }: { onKeyAction: (key: string, type: 'press' | 'release') => void }) => (
-  <div className="fixed bottom-8 left-8 z-50 grid grid-cols-3 grid-rows-3 gap-2 w-36 h-36">
-    <DpadButton direction="ArrowUp" className="col-start-2" onKeyAction={onKeyAction} />
-    <DpadButton direction="ArrowLeft" className="row-start-2" onKeyAction={onKeyAction} />
-    <DpadButton direction="ArrowDown" className="row-start-2 col-start-2" onKeyAction={onKeyAction} />
-    <DpadButton direction="ArrowRight" className="row-start-2 col-start-3" onKeyAction={onKeyAction} />
-  </div>
-));
-Dpad.displayName = 'Dpad';
-
-const ActionButton = memo(({ onInteract, isNear }: { onInteract: () => void; isNear: boolean }) => (
-  <div className="fixed bottom-8 right-8 z-50">
-    <Button
-      className={cn(
-        "w-24 h-24 rounded-full text-2xl font-bold border-4 border-white/50 bg-black/30 backdrop-blur-sm text-white transition-all duration-300",
-        isNear && "animate-pulse bg-accent/40 ring-4 ring-accent"
-      )}
-      onClick={onInteract}
-    >
-      A
-    </Button>
-  </div>
-));
-ActionButton.displayName = 'ActionButton';
-
 
 // --- Optimized Sub-components ---
 
@@ -372,6 +322,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showOnScreenControls, setShowOnScreenControls] = useState(false);
   const [activeInteraction, setActiveInteraction] = useState<{ conversation: string; audioPath?: string } | null>(null);
   const [activeEvent, setActiveEvent] = useState<EventFlow | null>(null);
   const [currentNode, setCurrentEventNode] = useState<EventNode | null>(null);
@@ -572,7 +523,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const handleSave = () => {
     const saveData = {
       userId: user.uid, mapId: selectedWorldId, positionX: characterPosition.x, positionY: characterPosition.y,
-      hp, maxHp, hunger, maxHunger, level, xp, day, inventory, gold, affection, suppliedIngredients, bgmVolume, voiceVolume, isMuted, updatedAt: serverTimestamp(),
+      hp, maxHp, hunger, maxHunger, level, xp, day, inventory, gold, affection, suppliedIngredients, bgmVolume, voiceVolume, isMuted, showOnScreenControls, updatedAt: serverTimestamp(),
     };
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
     toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
@@ -767,8 +718,12 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
 
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Check if the click is on the controller
+    if ((e.target as HTMLElement).closest('[data-is-controller="true"]')) {
+      return;
+    }
     if (bgmRef.current?.paused && bgmRef.current.getAttribute('src')) bgmRef.current.play().catch(()=>{});
-    if (isGamePaused || !mapContainerRef.current || isMobile) return;
+    if (isGamePaused || !mapContainerRef.current || (isMobile && !showOnScreenControls)) return;
     const rect = mapContainerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * MAP_WIDTH - CHARACTER_WIDTH / 2;
     const y = ((e.clientY - rect.top) / rect.height) * MAP_HEIGHT - CHARACTER_HEIGHT / 2;
@@ -1030,7 +985,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             <div className={cn("bg-primary/10 px-3 py-1 rounded-full font-bold text-primary flex items-center shrink-0", isVertical ? "h-8 text-xs" : "h-10")}>{gold} K</div>
             
             <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-8">
-              {!isVertical && !isMobile && (
+              {!isVertical && !(isMobile || showOnScreenControls) && (
                 <Button 
                   size="icon" 
                   variant="ghost" 
@@ -1050,6 +1005,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                 <PopoverContent container={portalContainer} className="w-64 p-4 shadow-xl">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div>
+                    {!isMobile && <div className="flex items-center justify-between"><Label className="text-xs font-bold flex items-center gap-2"><Gamepad2 className="h-4 w-4" />画面内コントローラー</Label><Switch checked={showOnScreenControls} onCheckedChange={setShowOnScreenControls} /></div>}
                     <Separator />
                     <div className="space-y-3">
                       <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Music className="h-3 w-3" /><Label className="text-[10px] font-bold">BGM</Label></div><Slider value={[bgmVolume * 100]} max={100} onValueChange={(v)=>setBgmVolume(v[0]/100)} /></div>
@@ -1076,7 +1032,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
           "relative flex-grow bg-muted border-2 rounded-lg overflow-hidden", 
           isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
-          isGamePaused ? "cursor-default" : isMobile ? "cursor-default" : "cursor-crosshair"
+          isGamePaused ? "cursor-default" : (isMobile || showOnScreenControls) ? "cursor-default" : "cursor-crosshair"
         )}>
           {activeMapData ? (
             <>
@@ -1095,11 +1051,12 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                 x={characterPosition.x} 
                 y={characterPosition.y} 
               />
-              {isMobile && !isGamePaused && (
-                <>
-                  <Dpad onKeyAction={handleDpadAction} />
-                  <ActionButton onInteract={checkForInteraction} isNear={isNearInteractable} />
-                </>
+              {(isMobile || showOnScreenControls) && !isGamePaused && (
+                <DpadController
+                  onKeyAction={handleDpadAction}
+                  onInteract={checkForInteraction}
+                  isNearInteractable={isNearInteractable}
+                />
               )}
             </>
           ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
