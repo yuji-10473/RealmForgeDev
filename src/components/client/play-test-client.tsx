@@ -337,6 +337,10 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const [cutsceneChars, setCutsceneChars] = useState<Record<string, any>>({});
   const [originalPlayerState, setOriginalPlayerState] = useState<{ worldId: string, cellIndex: number, pos: {x: number, y: number} } | null>(null);
   
+  // Camera State
+  const [cameraOffset, setCameraOffset] = useState({ x: 0, y: 0 });
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+
   // Audio State
   const [isMuted, setIsMuted] = useState(initialData?.isMuted ?? false);
   const [bgmVolume, setBgmVolume] = useState(initialData?.bgmVolume ?? 0.5);
@@ -717,6 +721,45 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   }, [activeCutscene, currentQueueIndex, cutsceneEventQueue, playNextInQueue]);
 
 
+  // Measure container size for camera calculations
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
+    const updateSize = () => {
+      if (mapContainerRef.current) {
+        setContainerSize({
+          width: mapContainerRef.current.clientWidth,
+          height: mapContainerRef.current.clientHeight
+        });
+      }
+    };
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(mapContainerRef.current);
+    updateSize();
+    return () => observer.disconnect();
+  }, []);
+
+  // Update camera offset to center player (Horizontal scroll for vertical mode)
+  useEffect(() => {
+    if (!isVertical || containerSize.width === 0 || containerSize.height === 0) {
+      setCameraOffset({ x: 0, y: 0 });
+      return;
+    }
+
+    const scale = containerSize.height / MAP_HEIGHT;
+    const worldWidth = MAP_WIDTH * scale;
+    
+    // Calculate target X to center player
+    const playerCenterX = (characterPosition.x + CHARACTER_WIDTH / 2) * scale;
+    let targetX = playerCenterX - containerSize.width / 2;
+    
+    // Clamp camera to map bounds
+    const maxX = Math.max(0, worldWidth - containerSize.width);
+    targetX = Math.max(0, Math.min(maxX, targetX));
+    
+    // For this landscape-style map in portrait mode, we only scroll horizontally
+    setCameraOffset({ x: targetX, y: 0 });
+  }, [characterPosition, containerSize, isVertical]);
+
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // Check if the click is on the controller
     if ((e.target as HTMLElement).closest('[data-is-controller="true"]')) {
@@ -724,9 +767,23 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     }
     if (bgmRef.current?.paused && bgmRef.current.getAttribute('src')) bgmRef.current.play().catch(()=>{});
     if (isGamePaused || !mapContainerRef.current) return;
+    
     const rect = mapContainerRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * MAP_WIDTH - CHARACTER_WIDTH / 2;
-    const y = ((e.clientY - rect.top) / rect.height) * MAP_HEIGHT - CHARACTER_HEIGHT / 2;
+    let x, y;
+    
+    if (isVertical && containerSize.height > 0) {
+      // Convert viewport click to map coordinates using camera offset and scale
+      const scale = containerSize.height / MAP_HEIGHT;
+      const clickXInViewport = e.clientX - rect.left;
+      const clickYInViewport = e.clientY - rect.top;
+      
+      x = (clickXInViewport + cameraOffset.x) / scale - CHARACTER_WIDTH / 2;
+      y = clickYInViewport / scale - CHARACTER_HEIGHT / 2;
+    } else {
+      x = ((e.clientX - rect.left) / rect.width) * MAP_WIDTH - CHARACTER_WIDTH / 2;
+      y = ((e.clientY - rect.top) / rect.height) * MAP_HEIGHT - CHARACTER_HEIGHT / 2;
+    }
+    
     setTargetPosition({ x, y });
   };
 
@@ -1106,21 +1163,47 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           )}>
             {activeMapData ? (
               <>
-                <MapLayer imageUrl={activeMapData.imageUrl} />
-                <ObjectsLayer objects={activeMapData.objects} npcStates={npcStates} availableObjects={availableObjects} />
-                <CutsceneLayer cutsceneChars={cutsceneChars} />
+                {/* 
+                  Camera Wrapper 
+                  In vertical mode, we scale the world to fit the container height and allow horizontal scrolling.
+                */}
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    transform: isVertical ? `translate3d(-${cameraOffset.x}px, -${cameraOffset.y}px, 0)` : 'none',
+                    width: isVertical ? `${(containerSize.height / MAP_HEIGHT) * MAP_WIDTH}px` : '100%',
+                    height: '100%',
+                    position: 'relative',
+                    transition: isMoving ? 'none' : 'transform 0.2s ease-out' // Smooth transitions when stopping
+                  }}
+                >
+                  <MapLayer imageUrl={activeMapData.imageUrl} />
+                  <ObjectsLayer objects={activeMapData.objects} npcStates={npcStates} availableObjects={availableObjects} />
+                  <CutsceneLayer cutsceneChars={cutsceneChars} />
+                  
+                  {!isGamePaused && targetPosition && (
+                    <div 
+                      className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" 
+                      style={{ 
+                        left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, 
+                        top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` 
+                      }} 
+                    />
+                  )}
+                  
+                  <PlayerLayer 
+                    key={selectedWorldId + activeCellIndex}
+                    activePlayerChar={activePlayerChar} 
+                    clips={playerClips} 
+                    direction={characterDirection} 
+                    isMoving={isMoving} 
+                    activeCutscene={!!activeCutscene} 
+                    x={characterPosition.x} 
+                    y={characterPosition.y} 
+                  />
+                </div>
+
                 <MiniMap world={currentWorld} activeIndex={activeCellIndex} isFullscreen={isFullscreen} isVertical={isVertical} />
-                {!isGamePaused && targetPosition && <div className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" style={{ left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` }} />}
-                <PlayerLayer 
-                  key={selectedWorldId + activeCellIndex}
-                  activePlayerChar={activePlayerChar} 
-                  clips={playerClips} 
-                  direction={characterDirection} 
-                  isMoving={isMoving} 
-                  activeCutscene={!!activeCutscene} 
-                  x={characterPosition.x} 
-                  y={characterPosition.y} 
-                />
                 
                 {/* 
                   コントローラーの表示条件:
