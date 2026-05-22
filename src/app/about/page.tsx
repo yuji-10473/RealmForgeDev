@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.38</Badge>
+                <div>
+                  <p className="font-bold">オートスクロール機能の導入と最適化</p>
+                  <p className="text-sm text-muted-foreground mt-1">プレイヤー中心のカメラ追従システムを全面的に実装しました。translate3d によるハードウェア加速を導入し、広大なマップでのスムーズなスクロールを実現しました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.35</Badge>
                 <div>
                   <p className="font-bold">システムの継続的改善とドキュメント整備</p>
                   <p className="text-sm text-muted-foreground mt-1">内部ロジックの最適化を継続し、プロジェクト全体のドキュメント・コードの整合性を高めるための最終調整を行いました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.34</Badge>
                 <div>
                   <p className="font-bold">継続的な品質管理とメンテナンス</p>
                   <p className="text-sm text-muted-foreground mt-1">システムの安定性を維持するための微調整を行い、ドキュメントの整合性を確保しました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.33</Badge>
-                <div>
-                  <p className="font-bold">ロジックの安定化とメンテナンス性向上</p>
-                  <p className="text-sm text-muted-foreground mt-1">これまでの改善成果を統合し、システムの継続的な品質維持に向けた調整を行いました。</p>
                 </div>
               </div>
             </div>
