@@ -119,7 +119,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const isPlayTestPage = pathname === '/play-test' || pathname === '/play-test-vertical' || pathname === '/play-test-1080p';
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className="items-stretch">
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center justify-between p-2">
@@ -162,10 +162,13 @@ function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset>
+      <SidebarInset className={cn(
+        "w-full flex-grow",
+        isPlayTestPage ? "md:ml-0 !ml-0" : "" // プレイテスト時はマージンを強制的に消す（SidebarInsetのデフォルトを上書き）
+      )}>
         <main className={cn(
-          "min-h-screen",
-          isPlayTestPage ? "p-1 md:p-2" : "p-4 sm:p-6 lg:p-8"
+          "min-h-screen w-full flex flex-col items-stretch",
+          isPlayTestPage ? "p-0" : "p-4 sm:p-6 lg:p-8"
         )}>
           {children}
         </main>

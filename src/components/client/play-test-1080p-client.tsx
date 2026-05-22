@@ -929,17 +929,17 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
 
   /** 左サイドコントロールパネル (PC表示用) */
   const SideControlPanel = () => (
-    <div className="w-64 md:w-[18vw] md:max-w-xs bg-card border-r flex flex-col h-full z-20 shrink-0 shadow-lg">
-      <div className="p-4 border-b bg-muted/30">
-        <h2 className="text-sm font-bold flex items-center gap-2">
-          <Gamepad2 className="h-4 w-4" />
+    <div className="w-48 md:w-56 shrink-0 bg-card border-r flex flex-col h-full z-20 shadow-lg">
+      <div className="p-3 border-b bg-muted/30">
+        <h2 className="text-xs font-bold flex items-center gap-2">
+          <Gamepad2 className="h-3 w-3" />
           操作パネル
         </h2>
       </div>
       
-      <div className="my-auto flex flex-col items-center justify-center gap-1 p-1">
+      <div className="flex-grow flex flex-col items-center justify-center gap-2 p-2">
         {/* D-Pad */}
-        <div className="grid grid-cols-3 grid-rows-3 gap-1 w-5/12 aspect-square">
+        <div className="grid grid-cols-3 grid-rows-3 gap-1 w-full max-w-[140px] aspect-square">
           <div />
           <DpadButton direction="ArrowUp" onKeyAction={handleDpadAction} />
           <div />
@@ -952,34 +952,36 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
         </div>
 
         {/* Action Button */}
-        <Button
-          className={cn(
-            "w-1/4 aspect-square rounded-full text-xl font-black border-2 border-primary/20 transition-all duration-300 shadow-xl",
-            isNearInteractable ? "animate-pulse bg-accent text-accent-foreground ring-4 ring-accent/20 scale-110" : "bg-primary text-primary-foreground"
-          )}
-          onClick={checkForInteraction}
-          disabled={activeCutscene !== null || isGamePaused}
-        >
-          A
-        </Button>
-        <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest">Interact / Confirm</p>
+        <div className="mt-4 flex flex-col items-center gap-1">
+          <Button
+            className={cn(
+              "w-16 h-16 rounded-full text-2xl font-black border-2 border-primary/20 transition-all duration-300 shadow-xl",
+              isNearInteractable ? "animate-pulse bg-accent text-accent-foreground ring-4 ring-accent/20 scale-110" : "bg-primary text-primary-foreground"
+            )}
+            onClick={checkForInteraction}
+            disabled={activeCutscene !== null || isGamePaused}
+          >
+            A
+          </Button>
+          <p className="text-[8px] text-muted-foreground font-bold uppercase tracking-widest mt-1">Interact / Confirm</p>
+        </div>
       </div>
 
       <div className="p-2 border-t bg-muted/20 space-y-1">
         <div className="flex flex-col gap-1">
-          <Button variant="outline" className="w-full justify-start gap-2 h-8" onClick={handleSave} disabled={activeCutscene !== null}>
-            <Save className="h-4 w-4 text-primary" />
-            <span className="text-xs font-bold">クイックセーブ</span>
+          <Button variant="outline" className="w-full justify-start gap-2 h-8 px-2" onClick={handleSave} disabled={activeCutscene !== null}>
+            <Save className="h-3.5 w-3.5 text-primary" />
+            <span className="text-[10px] font-bold">クイックセーブ</span>
           </Button>
           <SheetTrigger asChild>
-            <Button variant="outline" className="w-full justify-start gap-2 h-8" disabled={activeCutscene !== null}>
-              <MenuIcon className="h-4 w-4 text-accent" />
-              <span className="text-xs font-bold">メニューを開く</span>
+            <Button variant="outline" className="w-full justify-start gap-2 h-8 px-2" disabled={activeCutscene !== null}>
+              <MenuIcon className="h-3.5 w-3.5 text-accent" />
+              <span className="text-[10px] font-bold">メニューを開く</span>
             </Button>
           </SheetTrigger>
-          <Button variant="outline" className="w-full justify-start gap-2 h-8" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
-            <Maximize className="h-4 w-4" />
-            <span className="text-xs font-bold">全画面表示</span>
+          <Button variant="outline" className="w-full justify-start gap-2 h-8 px-2" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+            <Maximize className="h-3.5 w-3.5" />
+            <span className="text-[10px] font-bold">全画面表示</span>
           </Button>
         </div>
       </div>
@@ -990,7 +992,7 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div ref={playtestContainerRef} className={cn(
         "flex relative bg-background overflow-hidden h-full w-full",
-        isVertical ? "flex-col gap-1" : "flex-row",
+        isVertical ? "flex-col gap-1" : "flex-row justify-start items-start",
         isFullscreen && "p-0" // 全画面時は余白なし
       )}>
         {/* PC表示かつ非全画面時の左サイドパネル */}
@@ -1094,7 +1096,7 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
           <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
             "relative flex-grow bg-muted rounded-lg overflow-hidden m-1", 
             isFullscreen && "m-0 rounded-none",
-            isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
+            isVertical ? "aspect-[9/12]" : "aspect-[16/9] max-w-full",
             isGamePaused ? "cursor-default" : (isMobile || showOnScreenControls) ? "cursor-default" : "cursor-crosshair"
           )}>
             {activeMapData ? (
@@ -1176,6 +1178,7 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
                               {currentNode.type === 'choice' ? (
                                   currentNode.choices?.map((choice, i) => (
                                       <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>
+                                          {choice.text}
                                           {choice.text}
                                       </Button>
                                   ))

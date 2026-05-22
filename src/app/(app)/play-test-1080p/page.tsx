@@ -119,14 +119,14 @@ export default function PlayTest1080pPage() {
   // 3. Show game or load screen
   if (gameState === 'playing') {
     return (
-      <div className="h-[calc(100vh-2rem)] flex flex-col">
-        <header className="flex-shrink-0 mb-1">
+      <div className="h-[calc(100vh-1rem)] flex flex-col p-0 w-full items-start">
+        <header className="flex-shrink-0 px-2 pt-1 w-full">
           <div className="flex items-baseline gap-2">
-            <h1 className="text-lg md:text-xl font-bold font-headline leading-none">プレイテスト (1080p)</h1>
-            <p className="text-xs text-muted-foreground leading-none">マップ上をキャラクターを動かしてテストします。</p>
+            <h1 className="text-sm font-bold font-headline leading-none">プレイテスト (1080p)</h1>
+            <p className="text-[10px] text-muted-foreground leading-none">マップ上をキャラクターを動かしてテストします。</p>
           </div>
         </header>
-        <div className="flex-grow min-h-0">
+        <div className="flex-grow min-h-0 w-full">
           <PlayTest1080pClient user={user} initialData={initialSave} />
         </div>
       </div>
