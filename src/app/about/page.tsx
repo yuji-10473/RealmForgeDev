@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.33</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.34</Badge>
                 <div>
-                  <p className="font-bold">継続的な品質向上とロジックの安定化</p>
-                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の安定性をさらに高めるための微調整とメンテナンスを行いました。</p>
+                  <p className="font-bold">継続的な品質向上とメンテナンス</p>
+                  <p className="text-sm text-muted-foreground mt-1">システムの安定性を維持し、全体的な整合性を確保するための微調整を行いました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.32</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.33</Badge>
                 <div>
-                  <p className="font-bold">システムの継続的な安定化とドキュメント整理</p>
-                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持し、内部ロジックとドキュメントの整合性を高める最終調整を行いました。</p>
+                  <p className="font-bold">ロジックの安定化とドキュメントの最新化</p>
+                  <p className="text-sm text-muted-foreground mt-1">これまでの改善成果を統合し、プロジェクト全体の品質維持を目的とした最終調整を行いました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.31</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.32</Badge>
                 <div>
-                  <p className="font-bold">システムの安定化とロジックの微調整</p>
-                  <p className="text-sm text-muted-foreground mt-1">これまでの改善成果を統合し、アプリケーション全体の安定性を向上させました。</p>
+                  <p className="font-bold">システムの堅牢化とメンテナンス性向上</p>
+                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための最終調整とメンテナンスを行いました。</p>
                 </div>
               </div>
             </div>

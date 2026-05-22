@@ -990,7 +990,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div ref={playtestContainerRef} className={cn(
         "flex relative bg-background overflow-hidden h-full w-full",
-        isVertical ? "flex-col gap-2" : "flex-row",
+        isVertical ? "flex-col gap-0" : "flex-row",
         isFullscreen && "p-0" // 全画面時は余白なし
       )}>
         {/* PC表示かつ非全画面時の左サイドパネル */}
@@ -1004,7 +1004,10 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           <div className={cn(
             "flex justify-between items-center gap-2 z-30 flex-wrap p-2",
             isVertical && "order-first",
-            !isFullscreen && "bg-background/50 rounded-lg border m-2",
+            !isFullscreen && cn(
+              "bg-background/50 rounded-lg border m-2",
+              isVertical && "mb-1" // 縦型時は下の余白を削る
+            ),
             isFullscreen && !isVertical && "absolute top-4 left-4 right-4 bg-black/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/10 mx-0"
           )}>
             <div className="flex items-center gap-2 flex-grow max-w-[150px]">
@@ -1042,7 +1045,10 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                 </div>
               </div>
 
-              <div className={cn("bg-primary/10 px-3 py-1 rounded-full font-bold text-primary flex items-center shrink-0", isVertical ? "h-8 text-xs" : "h-10")}>{gold} K</div>
+              <div className={cn(
+                "bg-primary/10 px-3 py-1 rounded-full font-bold text-primary flex items-center shrink-0", 
+                isVertical ? "h-8 text-xs" : "h-10"
+              )}>{gold} K</div>
               
               <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-8">
                 {/* 縦表示または全画面時のみ、しらべるボタンを表示（PC通常時は左ペインにあるため） */}
@@ -1093,8 +1099,9 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           {/* マップ描画領域 */}
           <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
             "relative flex-grow bg-muted rounded-lg overflow-hidden m-2", 
+            isVertical && "mt-1 mb-1", // 縦型時は上下の余白を削る
             isFullscreen && "m-0 rounded-none",
-            isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
+            isVertical ? "aspect-[9/10.5]" : "aspect-[16/9]", // 縦型時は高さを約10%削減
             isGamePaused ? "cursor-default" : "cursor-crosshair"
           )}>
             {activeMapData ? (
@@ -1194,11 +1201,11 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
 
         {/* 縦型専用：下部操作パネル */}
         {isVertical && (
-          <div className="flex flex-col gap-4 p-4 bg-muted/20 border-t z-10 shrink-0">
+          <div className="flex flex-col gap-2 p-2 pt-0 bg-muted/20 border-t z-10 shrink-0">
             {/* メインコントローラーエリア */}
-            <div className="flex items-center justify-around w-full max-w-md mx-auto py-2">
+            <div className="flex items-center justify-around w-full max-w-md mx-auto py-1">
               {/* 十字キー (D-Pad) */}
-              <div className="grid grid-cols-3 grid-rows-3 gap-2 w-32 h-32">
+              <div className="grid grid-cols-3 grid-rows-3 gap-2 w-28 h-28">
                 <div />
                 <DpadButton direction="ArrowUp" onKeyAction={handleDpadAction} />
                 <div />
@@ -1211,10 +1218,10 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
               </div>
 
               {/* Aボタン (決定/しらべる) */}
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-1">
                 <Button
                   className={cn(
-                    "w-24 h-24 rounded-full text-3xl font-black border-8 border-primary/20 transition-all duration-300 shadow-xl",
+                    "w-20 h-20 rounded-full text-2xl font-black border-8 border-primary/20 transition-all duration-300 shadow-xl",
                     isNearInteractable ? "animate-pulse bg-accent text-accent-foreground ring-8 ring-accent/20 scale-110" : "bg-primary text-primary-foreground"
                   )}
                   onClick={checkForInteraction}
@@ -1228,16 +1235,16 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             
             {/* 補助ボタンエリア */}
             <div className="grid grid-cols-3 gap-2 p-1 bg-background/50 rounded-xl border">
-              <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-12" onClick={handleSave} disabled={activeCutscene !== null}>
+              <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-9" onClick={handleSave} disabled={activeCutscene !== null}>
                 <Save className="h-4 w-4 text-primary"/>
                 <span className="text-[10px] font-bold">セーブ</span>
               </Button>
-              <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-12" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+              <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-9" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
                 {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
                 <span className="text-[10px] font-bold">{isFullscreen ? '縮小' : '全画面'}</span>
               </Button>
               <SheetTrigger asChild>
-                <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-12" disabled={activeCutscene !== null}>
+                <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-9" disabled={activeCutscene !== null}>
                   <MenuIcon className="h-4 w-4 text-accent"/>
                   <span className="text-[10px] font-bold">メニュー</span>
                 </Button>
