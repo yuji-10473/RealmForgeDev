@@ -723,7 +723,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
       return;
     }
     if (bgmRef.current?.paused && bgmRef.current.getAttribute('src')) bgmRef.current.play().catch(()=>{});
-    if (isGamePaused || !mapContainerRef.current || (isMobile && !showOnScreenControls)) return;
+    if (isGamePaused || !mapContainerRef.current) return;
     const rect = mapContainerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * MAP_WIDTH - CHARACTER_WIDTH / 2;
     const y = ((e.clientY - rect.top) / rect.height) * MAP_HEIGHT - CHARACTER_HEIGHT / 2;
@@ -1095,7 +1095,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             "relative flex-grow bg-muted rounded-lg overflow-hidden m-2", 
             isFullscreen && "m-0 rounded-none",
             isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
-            isGamePaused ? "cursor-default" : (isMobile || showOnScreenControls) ? "cursor-default" : "cursor-crosshair"
+            isGamePaused ? "cursor-default" : "cursor-crosshair"
           )}>
             {activeMapData ? (
               <>
@@ -1117,11 +1117,11 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                 
                 {/* 
                   コントローラーの表示条件:
-                  1. モバイル端末である
+                  1. モバイル端末である(縦型モード以外)
                   2. PCだが設定で「画面内コントローラー」がONになっている
                   3. PC全画面表示である（左ペインが消えるため）
                 */}
-                {(isMobile || showOnScreenControls || (isFullscreen && !isVertical)) && !isGamePaused && (
+                {((isMobile && !isVertical) || showOnScreenControls || (isFullscreen && !isVertical)) && !isGamePaused && (
                   <DpadController
                     onKeyAction={handleDpadAction}
                     onInteract={checkForInteraction}
@@ -1194,34 +1194,55 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
 
         {/* 縦型専用：下部操作パネル */}
         {isVertical && (
-          <div className="grid grid-cols-4 gap-2 h-20 p-2 bg-background/80 backdrop-blur border-t z-10">
-            <Button 
-              size="lg" 
-              variant="secondary" 
-              className={cn(
-                "col-span-2 h-full flex flex-col gap-1 items-center justify-center transition-all duration-300",
-                isNearInteractable && "bg-accent/40 animate-pulse border-2 border-accent"
-              )}
-              onClick={() => checkForInteraction()}
-              disabled={activeCutscene !== null || isGamePaused}
-            >
-              <Sparkles className={cn("h-6 w-6 text-accent transition-transform", isNearInteractable && "scale-125")} />
-              <span className="text-[10px] font-bold">しらべる</span>
-            </Button>
-            
-            <div className="flex flex-col gap-2">
-              <Button size="icon" variant="outline" className="w-full h-7" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
-              <Button size="icon" variant="outline" className="w-full h-7" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
-                {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
-              </Button>
+          <div className="flex flex-col gap-4 p-4 bg-muted/20 border-t z-10 shrink-0">
+            {/* メインコントローラーエリア */}
+            <div className="flex items-center justify-around w-full max-w-md mx-auto py-2">
+              {/* 十字キー (D-Pad) */}
+              <div className="grid grid-cols-3 grid-rows-3 gap-2 w-32 h-32">
+                <div />
+                <DpadButton direction="ArrowUp" onKeyAction={handleDpadAction} />
+                <div />
+                <DpadButton direction="ArrowLeft" onKeyAction={handleDpadAction} />
+                <DpadButton direction="ArrowDown" onKeyAction={handleDpadAction} />
+                <DpadButton direction="ArrowRight" onKeyAction={handleDpadAction} />
+                <div />
+                <div />
+                <div />
+              </div>
+
+              {/* Aボタン (決定/しらべる) */}
+              <div className="flex flex-col items-center gap-2">
+                <Button
+                  className={cn(
+                    "w-24 h-24 rounded-full text-3xl font-black border-8 border-primary/20 transition-all duration-300 shadow-xl",
+                    isNearInteractable ? "animate-pulse bg-accent text-accent-foreground ring-8 ring-accent/20 scale-110" : "bg-primary text-primary-foreground"
+                  )}
+                  onClick={checkForInteraction}
+                  disabled={activeCutscene !== null || isGamePaused}
+                >
+                  A
+                </Button>
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">INTERACT</span>
+              </div>
             </div>
             
-            <SheetTrigger asChild>
-              <Button size="lg" variant="outline" className="h-full flex flex-col gap-1 items-center justify-center" disabled={activeCutscene !== null}>
-                <MenuIcon className="h-6 w-6"/>
-                <span className="text-[10px] font-bold">メニュー</span>
+            {/* 補助ボタンエリア */}
+            <div className="grid grid-cols-3 gap-2 p-1 bg-background/50 rounded-xl border">
+              <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-12" onClick={handleSave} disabled={activeCutscene !== null}>
+                <Save className="h-4 w-4 text-primary"/>
+                <span className="text-[10px] font-bold">セーブ</span>
               </Button>
-            </SheetTrigger>
+              <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-12" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+                {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+                <span className="text-[10px] font-bold">{isFullscreen ? '縮小' : '全画面'}</span>
+              </Button>
+              <SheetTrigger asChild>
+                <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-12" disabled={activeCutscene !== null}>
+                  <MenuIcon className="h-4 w-4 text-accent"/>
+                  <span className="text-[10px] font-bold">メニュー</span>
+                </Button>
+              </SheetTrigger>
+            </div>
           </div>
         )}
       </div>
