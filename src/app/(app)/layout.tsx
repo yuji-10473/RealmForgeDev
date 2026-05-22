@@ -60,6 +60,7 @@ const navItems = [
   { href: "/asset-library", label: "アセットライブラリ", icon: AssetIcon },
   { href: "/play-test", label: "プレイテスト", icon: PlayTestIcon },
   { href: "/play-test-vertical", label: "縦型プレイテスト", icon: PlayTestIcon },
+  { href: "/play-test-1080p", label: "プレイテスト (1080p)", icon: PlayTestIcon },
   { href: "/export", label: "ゲームをエクスポート", icon: ExportIcon },
 ];
 
@@ -80,7 +81,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const isAdmin = !!adminData && (adminData.isAdmin !== false);
 
   useEffect(() => {
-    const isAllowedPath = pathname === '/play-test' || pathname === '/play-test-vertical' || pathname === '/story-archive' || pathname.startsWith('/sequence-player');
+    const isAllowedPath = pathname === '/play-test' || pathname === '/play-test-vertical' || pathname === '/play-test-1080p' || pathname === '/story-archive' || pathname.startsWith('/sequence-player');
     if (!isUserLoading && !isAdminLoading && user && !isAdmin && !isAllowedPath) {
       router.push('/play-test');
     }
@@ -111,7 +112,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
 
   const filteredNavItems = isAdmin 
     ? navItems 
-    : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical' || item.href === '/story-archive');
+    : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical' || item.href === '/play-test-1080p' || item.href === '/story-archive');
 
   return (
     <SidebarProvider>
