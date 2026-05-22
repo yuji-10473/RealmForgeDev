@@ -120,10 +120,12 @@ export default function PlayTestPage() {
   if (gameState === 'playing') {
     return (
       <div className="h-[calc(100vh-6rem)] flex flex-col">
+        {/*
         <header className="py-4 flex-shrink-0">
           <h1 className="text-3xl font-bold font-headline">縦型プレイテスト</h1>
           <p className="text-muted-foreground">縦型UIでキャラクターを動かしてテストします。</p>
         </header>
+        */}
         <div className="flex-grow min-h-0">
           <PlayTestClient user={user} initialData={initialSave} isVertical={true} />
         </div>
