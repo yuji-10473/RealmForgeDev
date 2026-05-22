@@ -23,7 +23,7 @@ function LoadScreen({
   const lastSaved = saveData?.updatedAt?.toDate();
 
   return (
-    <div className="flex flex-col justify-center items-center h-[calc(100vh-6rem)] text-center">
+    <div className="flex flex-col justify-center items-center h-[calc(100vh-4rem)] text-center">
        <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-3xl font-headline">プレイテスト (1080p)</CardTitle>
@@ -99,7 +99,7 @@ export default function PlayTest1080pPage() {
   // 1. Show loader while checking for user
   if (isUserLoading) {
     return (
-      <div className="flex justify-center items-center h-[calc(100vh-6rem)]">
+      <div className="flex justify-center items-center h-[calc(100vh-4rem)]">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
@@ -108,7 +108,7 @@ export default function PlayTest1080pPage() {
   // 2. Deny access if not logged in
   if (!user) {
     return (
-      <div className="flex flex-col justify-center items-center h-[calc(100vh-6rem)] text-center">
+      <div className="flex flex-col justify-center items-center h-[calc(100vh-4rem)] text-center">
         <h1 className="text-2xl font-bold mb-4">アクセスが拒否されました</h1>
         <p className="text-muted-foreground mb-6">プレイテストを行うにはログインが必要です。</p>
         <p className="text-sm text-muted-foreground">サイドバーのボタンからログインしてください。</p>
@@ -119,10 +119,12 @@ export default function PlayTest1080pPage() {
   // 3. Show game or load screen
   if (gameState === 'playing') {
     return (
-      <div className="h-[calc(100vh-6rem)] flex flex-col">
-        <header className="flex-shrink-0">
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold font-headline leading-none">プレイテスト (1080p)</h1>
-          <p className="text-sm text-muted-foreground leading-none">マップ上をキャラクターを動かしてテストします。</p>
+      <div className="h-[calc(100vh-2rem)] flex flex-col">
+        <header className="flex-shrink-0 mb-1">
+          <div className="flex items-baseline gap-2">
+            <h1 className="text-lg md:text-xl font-bold font-headline leading-none">プレイテスト (1080p)</h1>
+            <p className="text-xs text-muted-foreground leading-none">マップ上をキャラクターを動かしてテストします。</p>
+          </div>
         </header>
         <div className="flex-grow min-h-0">
           <PlayTest1080pClient user={user} initialData={initialSave} />

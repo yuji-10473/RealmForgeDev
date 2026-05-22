@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.30</Badge>
+                <div>
+                  <p className="font-bold">システムの全体的な安定化と品質向上</p>
+                  <p className="text-sm text-muted-foreground mt-1">これまでの改善成果を統合し、アプリケーション全体の安定性と操作性を向上させました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.29</Badge>
                 <div>
                   <p className="font-bold">システム全体の最適化と応答性能の向上</p>
                   <p className="text-sm text-muted-foreground mt-1">内部ロジックのクリーンアップとモバイル環境でのパフォーマンス改善、UIのブラッシュアップを行いました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.28</Badge>
                 <div>
                   <p className="font-bold">システムの安定化とUIの微調整</p>
                   <p className="text-sm text-muted-foreground mt-1">モバイル環境における更なる安定性の向上と内部処理の最適化、UI/UXの細かな調整を行いました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.27</Badge>
-                <div>
-                  <p className="font-bold">システムの安定性向上とUI最適化</p>
-                  <p className="text-sm text-muted-foreground mt-1">モバイル環境における更なる安定性の向上と内部処理の最適化を行いました。</p>
                 </div>
               </div>
             </div>

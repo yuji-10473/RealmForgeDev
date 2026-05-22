@@ -42,6 +42,7 @@ import { doc } from "firebase/firestore";
 import { LandingScreen } from "@/components/client/landing-screen";
 import { Loader2 } from "lucide-react";
 import { preloadCharacterAnimation } from "@/lib/character-preload";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -114,6 +115,9 @@ function AppShell({ children }: { children: React.ReactNode }) {
     ? navItems 
     : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical' || item.href === '/play-test-1080p' || item.href === '/story-archive');
 
+  // プレイテスト画面では余白を最小限にする
+  const isPlayTestPage = pathname === '/play-test' || pathname === '/play-test-vertical' || pathname === '/play-test-1080p';
+
   return (
     <SidebarProvider>
       <Sidebar>
@@ -159,7 +163,10 @@ function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <main className="min-h-screen p-4 sm:p-6 lg:p-8">
+        <main className={cn(
+          "min-h-screen",
+          isPlayTestPage ? "p-1 md:p-2" : "p-4 sm:p-6 lg:p-8"
+        )}>
           {children}
         </main>
       </SidebarInset>

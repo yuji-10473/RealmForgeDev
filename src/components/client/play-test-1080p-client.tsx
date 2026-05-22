@@ -990,7 +990,7 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div ref={playtestContainerRef} className={cn(
         "flex relative bg-background overflow-hidden h-full w-full",
-        isVertical ? "flex-col gap-2" : "flex-row",
+        isVertical ? "flex-col gap-1" : "flex-row",
         isFullscreen && "p-0" // 全画面時は余白なし
       )}>
         {/* PC表示かつ非全画面時の左サイドパネル */}
@@ -1002,9 +1002,9 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
           
           {/* ステータスバー */}
           <div className={cn(
-            "flex justify-between items-center gap-2 z-30 flex-wrap p-2",
+            "flex justify-between items-center gap-2 z-30 flex-wrap p-1",
             isVertical && "order-first",
-            !isFullscreen && "bg-background/50 rounded-lg border m-2",
+            !isFullscreen && "bg-background/50 rounded-lg border m-1",
             isFullscreen && !isVertical && "absolute top-4 left-4 right-4 bg-black/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/10 mx-0"
           )}>
             <div className="flex items-center gap-2 flex-grow max-w-[150px]">
@@ -1092,7 +1092,7 @@ export function PlayTest1080pClient({ user, initialData, isVertical = false }: {
 
           {/* マップ描画領域 */}
           <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
-            "relative flex-grow bg-muted rounded-lg overflow-hidden m-2", 
+            "relative flex-grow bg-muted rounded-lg overflow-hidden m-1", 
             isFullscreen && "m-0 rounded-none",
             isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
             isGamePaused ? "cursor-default" : (isMobile || showOnScreenControls) ? "cursor-default" : "cursor-crosshair"
