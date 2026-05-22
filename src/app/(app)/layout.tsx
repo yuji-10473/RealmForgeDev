@@ -14,6 +14,7 @@ import {
   SidebarMenuButton,
   SidebarInset,
   SidebarFooter,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { RealmforgeLogo } from "@/components/icons/RealmforgeLogo";
@@ -40,7 +41,7 @@ import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from "@/fireb
 import { doc } from "firebase/firestore";
 import { LandingScreen } from "@/components/client/landing-screen";
 import { Loader2 } from "lucide-react";
-import { preloadCharacterAnimation } from "@/lib/character-preload"; // 追加
+import { preloadCharacterAnimation } from "@/lib/character-preload";
 
 const navItems = [
   { href: "/", label: "マップエディター", icon: MapIcon },
@@ -51,7 +52,7 @@ const navItems = [
   { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
   { href: "/event-simulator", label: "イベントシミュレーター", icon: EventSimulatorIcon },
   { href: "/story-editor", label: "ストーリーエディター", icon: StoryEditorIcon },
-  { href: "/story-archive", label: "物語の記憶", icon: SequencePlayerIcon }, // 変更: /sequence-player から /story-archive へ
+  { href: "/story-archive", label: "物語の記憶", icon: SequencePlayerIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
   { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
   { href: "/shop-simulator", label: "ショップシミュレーター", icon: ShopIcon },
@@ -70,46 +71,32 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const auth = useAuth();
   const firestore = useFirestore();
 
-  // Admin status check - based on existence of document in 'admins' collection
   const adminDocRef = useMemoFirebase(() => {
     if (!user) return null;
     return doc(firestore, 'admins', user.uid);
   }, [user, firestore]);
 
   const { data: adminData, isLoading: isAdminLoading } = useDoc(adminDocRef);
-  
-  // Robust admin check: 
-  // 1. Must have document data (not null)
-  // 2. If 'isAdmin' field exists, it must not be explicitly false
   const isAdmin = !!adminData && (adminData.isAdmin !== false);
 
-  // Access guard logic: Non-admins are redirected to /play-test if they try to access other routes
-  // Modified to allow /play-test-vertical for non-admins as well
   useEffect(() => {
-    const isAllowedPath = pathname === '/play-test' || pathname === '/play-test-vertical' || pathname === '/story-archive' || pathname.startsWith('/sequence-player'); // story-archive と sequence-player も許可
+    const isAllowedPath = pathname === '/play-test' || pathname === '/play-test-vertical' || pathname === '/story-archive' || pathname.startsWith('/sequence-player');
     if (!isUserLoading && !isAdminLoading && user && !isAdmin && !isAllowedPath) {
       router.push('/play-test');
     }
   }, [user, isAdmin, isUserLoading, isAdminLoading, pathname, router]);
 
-  // 追加: アプリケーション起動時にキャラクターアニメーションをプリロード
   useEffect(() => {
-    // プリロードする主要なキャラクターIDのリスト
-    // public/characters/ に存在するIDを参考にしています。
-    const mainCharacterIdsToPreload = ["player", "goblin", "sub1", "villagers"]; // 例: 必要に応じて調整してください
-
+    const mainCharacterIdsToPreload = ["player", "goblin", "sub1", "villagers"];
     mainCharacterIdsToPreload.forEach(async (id) => {
       try {
-        // storageBasePath はpreload時点ではFirestoreから取得できない可能性が高いため、
-        // デフォルトパス (`/characters/${id}`) でプリロードを試みます。
         await preloadCharacterAnimation(id);
       } catch (error) {
         console.error(`Failed to preload character ${id}:`, error);
       }
     });
-  }, []); // アプリケーション起動時に一度だけ実行
+  }, []);
 
-  // Loading state
   if (isUserLoading || (user && isAdminLoading)) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -118,26 +105,29 @@ function AppShell({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Show landing screen if not logged in
   if (!user) {
     return <LandingScreen />;
   }
 
-  // Filter navigation items based on permissions
-  // Now includes both standard and vertical play-test for non-admin users
   const filteredNavItems = isAdmin 
     ? navItems 
-    : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical' || item.href === '/story-archive'); // 非管理者にも story-archive を許可
+    : navItems.filter(item => item.href === '/play-test' || item.href === '/play-test-vertical' || item.href === '/story-archive');
 
   return (
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center justify-between p-2">
-            <Button variant="ghost" className="h-10 justify-start px-2">
-              <RealmforgeLogo className="h-6 w-6 text-primary" />
-              <span className="font-headline text-lg font-bold ml-2">RealmForge</span>
-            </Button>
+            <div className="flex items-center gap-2">
+                <SidebarMenuButton tooltip="RealmForge" asChild className="w-10 h-10 p-2">
+                    <Link href="/">
+                        <RealmforgeLogo className="h-6 w-6 text-primary" />
+                    </Link>
+                </SidebarMenuButton>
+                <h1 className="font-headline text-lg font-bold truncate group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:w-0 transition-opacity duration-200">
+                    RealmForge
+                </h1>
+            </div>
             <AuthButton />
           </div>
         </SidebarHeader>
@@ -151,7 +141,9 @@ function AppShell({ children }: { children: React.ReactNode }) {
                     tooltip={item.label}
                   >
                     <item.icon className="h-5 w-5" />
-                    <span>{item.label}</span>
+                    <span className="truncate group-data-[state=collapsed]:hidden">
+                      {item.label}
+                    </span>
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>
@@ -159,7 +151,8 @@ function AppShell({ children }: { children: React.ReactNode }) {
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
-          <div className="text-center text-xs text-muted-foreground p-2">
+          <SidebarTrigger className="w-full" variant="outline" />
+          <div className="text-center text-xs text-muted-foreground pt-1 group-data-[state=collapsed]:hidden">
             Ver {version}
           </div>
         </SidebarFooter>

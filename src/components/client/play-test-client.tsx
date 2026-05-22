@@ -43,7 +43,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Toaster } from '@/components/ui/toaster';
 import { useMobile } from '../../hooks/use-mobile';
-import { DpadController } from '@/components/ui/DpadController';
+import { DpadController, DpadButton } from '@/components/ui/DpadController';
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
@@ -927,198 +927,269 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     toast({ title: "納品完了", description: `${availableObjects.find(a => a.id === itemId)?.name} を1つ補充しました。` });
   };
 
+  /** 左サイドコントロールパネル (PC表示用) */
+  const SideControlPanel = () => (
+    <div className="w-64 md:w-[18vw] md:max-w-xs bg-card border-r flex flex-col h-full z-20 shrink-0 shadow-lg">
+      <div className="p-4 border-b bg-muted/30">
+        <h2 className="text-sm font-bold flex items-center gap-2">
+          <Gamepad2 className="h-4 w-4" />
+          操作パネル
+        </h2>
+      </div>
+      
+      <div className="flex-grow flex flex-col items-center justify-center gap-8 p-6">
+        {/* D-Pad */}
+        <div className="grid grid-cols-3 grid-rows-3 gap-2 w-3/4 aspect-square">
+          <div />
+          <DpadButton direction="ArrowUp" onKeyAction={handleDpadAction} />
+          <div />
+          <DpadButton direction="ArrowLeft" onKeyAction={handleDpadAction} />
+          <DpadButton direction="ArrowDown" onKeyAction={handleDpadAction} />
+          <DpadButton direction="ArrowRight" onKeyAction={handleDpadAction} />
+          <div />
+          <div />
+          <div />
+        </div>
+
+        {/* Action Button */}
+        <Button
+          className={cn(
+            "w-1/2 aspect-square rounded-full text-4xl font-black border-8 border-primary/20 transition-all duration-300 shadow-xl",
+            isNearInteractable ? "animate-pulse bg-accent text-accent-foreground ring-8 ring-accent/20 scale-110" : "bg-primary text-primary-foreground"
+          )}
+          onClick={checkForInteraction}
+          disabled={activeCutscene !== null || isGamePaused}
+        >
+          A
+        </Button>
+        <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-2">Interact / Confirm</p>
+      </div>
+
+      <div className="p-4 border-t bg-muted/20 space-y-3">
+        <div className="flex flex-col gap-2">
+          <Button variant="outline" className="w-full justify-start gap-3 h-10" onClick={handleSave} disabled={activeCutscene !== null}>
+            <Save className="h-4 w-4 text-primary" />
+            <span className="text-xs font-bold">クイックセーブ</span>
+          </Button>
+          <SheetTrigger asChild>
+            <Button variant="outline" className="w-full justify-start gap-3 h-10" disabled={activeCutscene !== null}>
+              <MenuIcon className="h-4 w-4 text-accent" />
+              <span className="text-xs font-bold">メニューを開く</span>
+            </Button>
+          </SheetTrigger>
+          <Button variant="outline" className="w-full justify-start gap-3 h-10" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+            <Maximize className="h-4 w-4" />
+            <span className="text-xs font-bold">全画面表示</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div ref={playtestContainerRef} className={cn(
-        "flex relative bg-background", 
-        isVertical ? "flex-col h-full gap-2" : "flex-col h-full", // 全画面時にgapが適用されないように調整
-        !isVertical && !isFullscreen && "gap-4",
-        isFullscreen && "p-4"
+        "flex relative bg-background overflow-hidden h-full w-full",
+        isVertical ? "flex-col gap-2" : "flex-row",
+        isFullscreen && "p-0" // 全画面時は余白なし
       )}>
-        {/* 全画面モード用のトースター */}
-        {isFullscreen && portalContainer && <Toaster />}
-        
-        {/* ステータスバー */}
-        <div className={cn(
-          "flex justify-between items-center gap-2 z-30 flex-wrap p-2", // z-indexを調整
-          isVertical && "order-first",
-          // 通常表示スタイル
-          !isFullscreen && "bg-background/50 rounded-lg border",
-          // 全画面表示スタイル (縦表示は除く)
-          isFullscreen && !isVertical && "absolute top-4 left-4 right-4 bg-black/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/10"
-        )}>
-          <div className="flex items-center gap-2 flex-grow max-w-[150px]">
-            <Label className="whitespace-nowrap text-[10px]">マップ</Label>
-            <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }} disabled={activeCutscene !== null}>
-              <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
-              <SelectContent container={portalContainer}>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
-            </Select>
-          </div>
+        {/* PC表示かつ非全画面時の左サイドパネル */}
+        {!isVertical && !isFullscreen && <SideControlPanel />}
+
+        <div className="flex flex-col flex-grow min-w-0 h-full relative">
+          {/* 全画面モード用のトースター */}
+          {isFullscreen && portalContainer && <Toaster />}
           
-          <div className="flex gap-2 shrink-0 items-center flex-wrap justify-end">
-            <div className="flex items-center gap-1.5 px-2 py-1 bg-background/50 border rounded-lg h-8" data-testid="stat-day">
-              <CalendarDays className="h-3.5 w-3.5 shrink-0 text-accent" />
-              <span className="text-[10px] font-bold whitespace-nowrap">{day} 日</span>
+          {/* ステータスバー */}
+          <div className={cn(
+            "flex justify-between items-center gap-2 z-30 flex-wrap p-2",
+            isVertical && "order-first",
+            !isFullscreen && "bg-background/50 rounded-lg border m-2",
+            isFullscreen && !isVertical && "absolute top-4 left-4 right-4 bg-black/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/10 mx-0"
+          )}>
+            <div className="flex items-center gap-2 flex-grow max-w-[150px]">
+              <Label className="whitespace-nowrap text-[10px]">マップ</Label>
+              <Select value={selectedWorldId} onValueChange={(val) => { setSelectedWorldId(val); setActiveCellIndex(0); }} disabled={activeCutscene !== null}>
+                <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
+                <SelectContent container={portalContainer}>{masterWorlds.map(w => <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>)}</SelectContent>
+              </Select>
             </div>
             
-            {!isVertical && (
-              <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-36">
-                <Star className="h-4 w-4 shrink-0 text-yellow-500 fill-current" />
+            <div className="flex gap-2 shrink-0 items-center flex-wrap justify-end">
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-background/50 border rounded-lg h-8" data-testid="stat-day">
+                <CalendarDays className="h-3.5 w-3.5 shrink-0 text-accent" />
+                <span className="text-[10px] font-bold whitespace-nowrap">{day} 日</span>
+              </div>
+              
+              {!isVertical && (
+                <div className="flex items-center gap-2 px-3 py-1 bg-background/50 border rounded-lg h-10 w-28 md:w-36">
+                  <Star className="h-4 w-4 shrink-0 text-yellow-500 fill-current" />
+                  <div className="flex flex-col flex-grow min-w-0">
+                    <div className="flex justify-between items-baseline mb-0.5"><span className="text-[10px] font-bold">Lv.{level}</span><span className="text-[8px] font-mono text-muted-foreground">{Math.floor(xp)}/{getNextXp(level)}</span></div>
+                    <Progress value={(xp / getNextXp(level)) * 100} className="h-1.5" />
+                  </div>
+                </div>
+              )}
+
+              <div className={cn(
+                "flex items-center gap-2 px-2 py-1 bg-background/50 border rounded-lg",
+                isVertical ? "h-8" : "h-10 w-28 md:w-32"
+              )} data-testid="stat-hp">
+                <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} />
                 <div className="flex flex-col flex-grow min-w-0">
-                  <div className="flex justify-between items-baseline mb-0.5"><span className="text-[10px] font-bold">Lv.{level}</span><span className="text-[8px] font-mono text-muted-foreground">{Math.floor(xp)}/{getNextXp(level)}</span></div>
-                  <Progress value={(xp / getNextXp(level)) * 100} className="h-1.5" />
+                  <Progress value={(hp / maxHp) * 100} className="h-1.5" />
+                  {!isVertical && <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span>}
                 </div>
               </div>
-            )}
 
-            <div className={cn(
-              "flex items-center gap-2 px-2 py-1 bg-background/50 border rounded-lg",
-              isVertical ? "h-8" : "h-10 w-28 md:w-32"
-            )} data-testid="stat-hp">
-              <Heart className={cn("h-4 w-4 shrink-0", hp < (maxHp * 0.2) ? "text-destructive animate-pulse" : "text-red-500")} />
-              <div className="flex flex-col flex-grow min-w-0">
-                <Progress value={(hp / maxHp) * 100} className="h-1.5" />
-                {!isVertical && <span className="text-[10px] font-mono leading-none mt-1 truncate">{Math.ceil(hp)}/{maxHp}</span>}
-              </div>
-            </div>
-
-            <div className={cn("bg-primary/10 px-3 py-1 rounded-full font-bold text-primary flex items-center shrink-0", isVertical ? "h-8 text-xs" : "h-10")}>{gold} K</div>
-            
-            <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-8">
-              {!isVertical && !(isMobile || showOnScreenControls) && (
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
-                  data-testid="btn-interact"
-                  className={cn(
-                    "h-full w-8 rounded-none border-r transition-all duration-300",
-                    isNearInteractable && "bg-accent/30 animate-pulse"
-                  )} 
-                  onClick={() => checkForInteraction()} 
-                  disabled={activeCutscene !== null || isGamePaused}
-                >
-                  <Sparkles className={cn("h-4 w-4 text-accent transition-transform", isNearInteractable && "scale-110")} />
-                </Button>
-              )}
-              <Popover>
-                <PopoverTrigger asChild><Button size="icon" variant="ghost" className="h-full w-8 rounded-none">{isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}</Button></PopoverTrigger>
-                <PopoverContent container={portalContainer} className="w-64 p-4 shadow-xl">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div>
-                    {!isMobile && <div className="flex items-center justify-between"><Label className="text-xs font-bold flex items-center gap-2"><Gamepad2 className="h-4 w-4" />画面内コントローラー</Label><Switch checked={showOnScreenControls} onCheckedChange={setShowOnScreenControls} /></div>}
-                    <Separator />
-                    <div className="space-y-3">
-                      <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Music className="h-3 w-3" /><Label className="text-[10px] font-bold">BGM</Label></div><Slider value={[bgmVolume * 100]} max={100} onValueChange={(v)=>setBgmVolume(v[0]/100)} /></div>
-                      <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Volume2 className="h-3 w-3" /><Label className="text-[10px] font-bold">VOICE</Label></div><Slider value={[voiceVolume * 100]} max={100} onValueChange={(v)=>setVoiceVolume(v[0]/100)} /></div>
+              <div className={cn("bg-primary/10 px-3 py-1 rounded-full font-bold text-primary flex items-center shrink-0", isVertical ? "h-8 text-xs" : "h-10")}>{gold} K</div>
+              
+              <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-8">
+                {/* 縦表示または全画面時のみ、しらべるボタンを表示（PC通常時は左ペインにあるため） */}
+                {(isVertical || isFullscreen) && !isMobile && !showOnScreenControls && (
+                  <Button 
+                    size="icon" 
+                    variant="ghost" 
+                    data-testid="btn-interact"
+                    className={cn(
+                      "h-full w-8 rounded-none border-r transition-all duration-300",
+                      isNearInteractable && "bg-accent/30 animate-pulse"
+                    )} 
+                    onClick={() => checkForInteraction()} 
+                    disabled={activeCutscene !== null || isGamePaused}
+                  >
+                    <Sparkles className={cn("h-4 w-4 text-accent transition-transform", isNearInteractable && "scale-110")} />
+                  </Button>
+                )}
+                <Popover>
+                  <PopoverTrigger asChild><Button size="icon" variant="ghost" className="h-full w-8 rounded-none">{isMuted ? <VolumeX className="h-4 w-4 text-destructive" /> : <Volume2 className="h-4 w-4" />}</Button></PopoverTrigger>
+                  <PopoverContent container={portalContainer} className="w-64 p-4 shadow-xl">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between"><Label className="text-xs font-bold">全体消音</Label><Switch checked={isMuted} onCheckedChange={setIsMuted} /></div>
+                      {!isMobile && <div className="flex items-center justify-between"><Label className="text-xs font-bold flex items-center gap-2"><Gamepad2 className="h-4 w-4" />画面内コントローラー</Label><Switch checked={showOnScreenControls} onCheckedChange={setShowOnScreenControls} /></div>}
+                      <Separator />
+                      <div className="space-y-3">
+                        <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Music className="h-3 w-3" /><Label className="text-[10px] font-bold">BGM</Label></div><Slider value={[bgmVolume * 100]} max={100} onValueChange={(v)=>setBgmVolume(v[0]/100)} /></div>
+                        <div className="space-y-1"><div className="flex items-center gap-2 mb-1"><Volume2 className="h-3 w-3" /><Label className="text-[10px] font-bold">VOICE</Label></div><Slider value={[voiceVolume * 100]} max={100} onValueChange={(v)=>setVoiceVolume(v[0]/100)} /></div>
+                      </div>
                     </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
+                  </PopoverContent>
+                </Popover>
+              </div>
+              
+              {/* PC全画面または縦表示時のみ表示される補助ボタン */}
+              {(isVertical || isFullscreen) && (
+                <>
+                  {!isVertical && <Button size="icon" variant="outline" data-testid="btn-save" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>}
+                  <Button size="icon" variant="outline" className="h-10 w-10" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
+                    {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+                  </Button>
+                  {!isVertical && <SheetTrigger asChild><Button size="icon" variant="outline" className="h-10 w-10" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>}
+                </>
+              )}
             </div>
-            
-            {!isVertical && (
+          </div>
+
+          {/* マップ描画領域 */}
+          <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
+            "relative flex-grow bg-muted rounded-lg overflow-hidden m-2", 
+            isFullscreen && "m-0 rounded-none",
+            isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
+            isGamePaused ? "cursor-default" : (isMobile || showOnScreenControls) ? "cursor-default" : "cursor-crosshair"
+          )}>
+            {activeMapData ? (
               <>
-                <Button size="icon" variant="outline" data-testid="btn-save" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>
-                <Button size="icon" variant="outline" className="h-10 w-10" onClick={toggleFullscreen} disabled={activeCutscene !== null}>
-                  {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
-                </Button>
-                <SheetTrigger asChild><Button size="icon" variant="outline" className="h-10 w-10" disabled={activeCutscene !== null}><MenuIcon className="h-4 w-4"/></Button></SheetTrigger>
+                <MapLayer imageUrl={activeMapData.imageUrl} />
+                <ObjectsLayer objects={activeMapData.objects} npcStates={npcStates} availableObjects={availableObjects} />
+                <CutsceneLayer cutsceneChars={cutsceneChars} />
+                <MiniMap world={currentWorld} activeIndex={activeCellIndex} isFullscreen={isFullscreen} isVertical={isVertical} />
+                {!isGamePaused && targetPosition && <div className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" style={{ left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` }} />}
+                <PlayerLayer 
+                  key={selectedWorldId + activeCellIndex}
+                  activePlayerChar={activePlayerChar} 
+                  clips={playerClips} 
+                  direction={characterDirection} 
+                  isMoving={isMoving} 
+                  activeCutscene={!!activeCutscene} 
+                  x={characterPosition.x} 
+                  y={characterPosition.y} 
+                />
+                
+                {/* 
+                  コントローラーの表示条件:
+                  1. モバイル端末である
+                  2. PCだが設定で「画面内コントローラー」がONになっている
+                  3. PC全画面表示である（左ペインが消えるため）
+                */}
+                {(isMobile || showOnScreenControls || (isFullscreen && !isVertical)) && !isGamePaused && (
+                  <DpadController
+                    onKeyAction={handleDpadAction}
+                    onInteract={checkForInteraction}
+                    isNearInteractable={isNearInteractable}
+                  />
+                )}
               </>
+            ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
+            
+            {/* 新しいシーケンシャルビデオ再生 */}
+            {activeCutscene && currentQueueIndex >= 0 && cutsceneEventQueue[currentQueueIndex]?.startsWith('VIDEO:') && (
+              <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center">
+                <video 
+                    src={resolveMediaUrl(cutsceneEventQueue[currentQueueIndex].replace('VIDEO:', ''))} 
+                    className="w-full h-full" 
+                    autoPlay 
+                    playsInline 
+                    controls 
+                    onEnded={handleVideoEnded} 
+                />
+                <Button variant="ghost" className="absolute top-4 right-4 text-white" onClick={handleVideoEnded}>Skip</Button>
+              </div>
+            )}
+            
+            {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
+            
+            {/* シーケンシャルイベント再生 */}
+            {activeEvent && currentNode && (
+              <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-4 z-50">
+                  <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4">
+                      <CardHeader className="flex flex-row items-center gap-4 p-4">
+                          {currentSpeaker.imageUrl ? (
+                              <Image
+                                  src={currentSpeaker.imageUrl}
+                                  alt={currentSpeaker.name || ''}
+                                  width={400}
+                                  height={400}
+                                  className="rounded-full border bg-muted object-cover"
+                              />
+                          ) : (
+                              <div className="w-28 h-28 rounded-full bg-muted border flex items-center justify-center">
+                                  <UserIcon className="w-16 h-16 text-muted-foreground" />
+                              </div>
+                          )}
+                          <div className="flex-1">
+                              <CardTitle>{currentSpeaker.name}</CardTitle>
+                          </div>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0 space-y-4">
+                          <p className="text-lg font-medium whitespace-pre-wrap">{currentNode.content}</p>
+                          <div className="flex flex-col gap-2">
+                              {currentNode.type === 'choice' ? (
+                                  currentNode.choices?.map((choice, i) => (
+                                      <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>
+                                          {choice.text}
+                                      </Button>
+                                  ))
+                              ) : (
+                                  <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>
+                                      {currentNode.type === 'end' ? 'イベント終了' : '次へ'}
+                                  </Button>
+                              )}
+                          </div>
+                      </CardContent>
+                  </Card>
+              </div>
             )}
           </div>
-        </div>
-
-        {/* マップ描画領域 */}
-        <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
-          "relative flex-grow bg-muted border-2 rounded-lg overflow-hidden", 
-          isVertical ? "aspect-[9/12]" : "aspect-[16/9]",
-          isGamePaused ? "cursor-default" : (isMobile || showOnScreenControls) ? "cursor-default" : "cursor-crosshair"
-        )}>
-          {activeMapData ? (
-            <>
-              <MapLayer imageUrl={activeMapData.imageUrl} />
-              <ObjectsLayer objects={activeMapData.objects} npcStates={npcStates} availableObjects={availableObjects} />
-              <CutsceneLayer cutsceneChars={cutsceneChars} />
-              <MiniMap world={currentWorld} activeIndex={activeCellIndex} isFullscreen={isFullscreen} isVertical={isVertical} />
-              {!isGamePaused && targetPosition && <div className="absolute w-4 h-4 bg-primary/50 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" style={{ left: `${(targetPosition.x + CHARACTER_WIDTH/2) / MAP_WIDTH * 100}%`, top: `${(targetPosition.y + CHARACTER_HEIGHT/2) / MAP_HEIGHT * 100}%` }} />}
-              <PlayerLayer 
-                key={selectedWorldId + activeCellIndex}
-                activePlayerChar={activePlayerChar} 
-                clips={playerClips} 
-                direction={characterDirection} 
-                isMoving={isMoving} 
-                activeCutscene={!!activeCutscene} 
-                x={characterPosition.x} 
-                y={characterPosition.y} 
-              />
-              {(isMobile || showOnScreenControls) && !isGamePaused && (
-                <DpadController
-                  onKeyAction={handleDpadAction}
-                  onInteract={checkForInteraction}
-                  isNearInteractable={isNearInteractable}
-                />
-              )}
-            </>
-          ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
-          
-          {/* 新しいシーケンシャルビデオ再生 */}
-          {activeCutscene && currentQueueIndex >= 0 && cutsceneEventQueue[currentQueueIndex]?.startsWith('VIDEO:') && (
-            <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center">
-              <video 
-                  src={resolveMediaUrl(cutsceneEventQueue[currentQueueIndex].replace('VIDEO:', ''))} 
-                  className="w-full h-full" 
-                  autoPlay 
-                  playsInline 
-                  controls 
-                  onEnded={handleVideoEnded} 
-              />
-              <Button variant="ghost" className="absolute top-4 right-4 text-white" onClick={handleVideoEnded}>Skip</Button>
-            </div>
-          )}
-          
-          {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
-          
-          {/* シーケンシャルイベント再生 */}
-          {activeEvent && currentNode && (
-            <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-4 z-50">
-                <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4">
-                    <CardHeader className="flex flex-row items-center gap-4 p-4">
-                        {currentSpeaker.imageUrl ? (
-                            <Image
-                                src={currentSpeaker.imageUrl}
-                                alt={currentSpeaker.name || ''}
-                                width={400}
-                                height={400}
-                                className="rounded-full border bg-muted object-cover"
-                            />
-                        ) : (
-                            <div className="w-28 h-28 rounded-full bg-muted border flex items-center justify-center">
-                                <UserIcon className="w-16 h-16 text-muted-foreground" />
-                            </div>
-                        )}
-                        <div className="flex-1">
-                            <CardTitle>{currentSpeaker.name}</CardTitle>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-0 space-y-4">
-                        <p className="text-lg font-medium whitespace-pre-wrap">{currentNode.content}</p>
-                        <div className="flex flex-col gap-2">
-                            {currentNode.type === 'choice' ? (
-                                currentNode.choices?.map((choice, i) => (
-                                    <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>
-                                        {choice.text}
-                                    </Button>
-                                ))
-                            ) : (
-                                <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>
-                                    {currentNode.type === 'end' ? 'イベント終了' : '次へ'}
-                                </Button>
-                            )}
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
-          )}
         </div>
 
         {/* 縦型専用：下部操作パネル */}
