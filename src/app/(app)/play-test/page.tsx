@@ -120,9 +120,9 @@ export default function PlayTestPage() {
   if (gameState === 'playing') {
     return (
       <div className="h-[calc(100vh-6rem)] flex flex-col">
-        <header className="py-4 flex-shrink-0">
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold font-headline">プレイテスト</h1>
-          <p className="text-sm text-muted-foreground">マップ上をキャラクターを動かしてテストします。</p>
+        <header className="flex-shrink-0">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold font-headline leading-none">プレイテスト</h1>
+          <p className="text-sm text-muted-foreground leading-none">マップ上をキャラクターを動かしてテストします。</p>
         </header>
         <div className="flex-grow min-h-0">
           <PlayTestClient user={user} initialData={initialSave} />
