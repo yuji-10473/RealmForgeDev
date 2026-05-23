@@ -38,7 +38,7 @@ DpadButton.displayName = 'DpadButton';
 export const DpadController = memo(({ onKeyAction, onInteract, isNearInteractable }: DpadControllerProps) => {
   return (
     <div className="absolute inset-0 z-40 pointer-events-none" data-is-controller="true">
-      <div className="fixed bottom-8 left-8 grid grid-cols-3 grid-rows-3 gap-2 w-[30vmin] h-[30vmin] max-w-[9rem] max-h-[9rem] pointer-events-auto">
+      <div className="fixed bottom-8 left-8 grid grid-cols-3 grid-rows-2 gap-6 w-[45vmin] h-[30vmin] max-w-[12rem] max-h-[8rem] pointer-events-auto">
         <DpadButton direction="ArrowUp" className="col-start-2" onKeyAction={onKeyAction} />
         <DpadButton direction="ArrowLeft" className="row-start-2" onKeyAction={onKeyAction} />
         <DpadButton direction="ArrowDown" className="row-start-2 col-start-2" onKeyAction={onKeyAction} />
