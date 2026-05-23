@@ -277,6 +277,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const isMobile = useMobile();
   const saveDocRef = useRef(doc(firestore, 'playtestSaves', user.uid));
   const playtestContainerRef = useRef<HTMLDivElement>(null);
+  const dpadTimersRef = useRef<Record<string, NodeJS.Timeout>>({});
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -879,16 +880,40 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp, characterPosition, suppliedIngredients]);
 
     const handleDpadAction = useCallback((key: string, type: 'press' | 'release') => {
-        setPressedKeys(prev => {
-            const newKeys = new Set(prev);
+        // 縦型モードの時だけ遅延をいれる
+        if (isVertical) {
             if (type === 'press') {
-                newKeys.add(key);
-            } else {
-                newKeys.delete(key);
+                const timerId = setTimeout(() => {
+                    setPressedKeys(prev => {
+                        const newKeys = new Set(prev);
+                        newKeys.add(key);
+                        return newKeys;
+                    });
+                }, 100);
+                dpadTimersRef.current[key] = timerId;
+            } else { // release
+                if (dpadTimersRef.current[key]) {
+                    clearTimeout(dpadTimersRef.current[key]);
+                    delete dpadTimersRef.current[key];
+                }
+                setPressedKeys(prev => {
+                    const newKeys = new Set(prev);
+                    newKeys.delete(key);
+                    return newKeys;
+                });
             }
-            return newKeys;
-        });
-    }, []);
+        } else {
+            setPressedKeys(prev => {
+                const newKeys = new Set(prev);
+                if (type === 'press') {
+                    newKeys.add(key);
+                } else {
+                    newKeys.delete(key);
+                }
+                return newKeys;
+            });
+        }
+    }, [isVertical]);
 
   // メインループ（キャラクター移動のみ担当）
   useEffect(() => {
