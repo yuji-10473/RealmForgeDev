@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.40</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.41</Badge>
                 <div>
                   <p className="font-bold">システムの継続的最適化</p>
+                  <p className="text-sm text-muted-foreground mt-1">UIの応答性能をさらに高め、プロジェクト全体の堅牢性を向上させるための内部調整を行いました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.40</Badge>
+                <div>
+                  <p className="font-bold">システムの安定化と最適化</p>
                   <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の安定性を高めるための内部調整と、UIの応答性能のさらなる向上を行いました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.39</Badge>
                 <div>
                   <p className="font-bold">システムの安定化と最適化</p>
                   <p className="text-sm text-muted-foreground mt-1">オートスクロール機能の導入に伴う内部ロジックの最終調整を行い、システム全体のパフォーマンスと安定性を向上させました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.38</Badge>
-                <div>
-                  <p className="font-bold">オートスクロール機能の全面導入</p>
-                  <p className="text-sm text-muted-foreground mt-1">プレイヤー中心のカメラ追従システムを実装。translate3d によるハードウェア加速を導入し、広大なマップでのスムーズなスクロールを実現しました。</p>
                 </div>
               </div>
             </div>
