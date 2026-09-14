@@ -1265,44 +1265,59 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             
             {/* シーケンシャルイベント再生 */}
             {activeEvent && currentNode && (
-              <div className="absolute inset-0 bg-black/40 flex items-end justify-center p-4 z-50">
-                  <Card className="w-full max-w-2xl bg-background/95 backdrop-blur animate-in slide-in-from-bottom-4">
-                      <CardHeader className="flex flex-row items-center gap-4 p-4">
-                          {currentSpeaker.imageUrl ? (
-                              <Image
-                                  src={currentSpeaker.imageUrl}
-                                  alt={currentSpeaker.name || ''}
-                                  width={400}
-                                  height={400}
-                                  className="rounded-full border bg-muted object-cover"
-                              />
-                          ) : (
-                              <div className="w-28 h-28 rounded-full bg-muted border flex items-center justify-center">
-                                  <UserIcon className="w-16 h-16 text-muted-foreground" />
-                              </div>
-                          )}
-                          <div className="flex-1">
-                              <CardTitle>{currentSpeaker.name}</CardTitle>
-                          </div>
-                      </CardHeader>
-                      <CardContent className="p-4 pt-0 space-y-4">
-                          <p className="text-lg font-medium whitespace-pre-wrap">{currentNode.content}</p>
-                          <div className="flex flex-col gap-2">
-                              {currentNode.type === 'choice' ? (
-                                  currentNode.choices?.map((choice, i) => (
-                                      <Button key={i} size="lg" className="w-full justify-start h-auto py-3 text-sm" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}>
-                                          {choice.text}
-                                      </Button>
-                                  ))
-                              ) : (
-                                  <Button size="lg" className="w-full" onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}>
-                                      {currentNode.type === 'end' ? 'イベント終了' : '次へ'}
-                                  </Button>
-                              )}
-                          </div>
-                      </CardContent>
-                  </Card>
-              </div>
+                <div className="absolute inset-0 z-50 pointer-events-none">
+                    {/* 背景の半透明オーバーレイ */}
+                    <div className="absolute inset-0 bg-black/40 pointer-events-auto" />
+
+                    {/* キャラクター画像 (画面中央) */}
+                    {currentSpeaker.imageUrl && (
+                        <div className="absolute inset-0 flex justify-center items-center">
+                            <Image
+                                key={currentSpeaker.imageUrl} // 画像URLが変わるたびに再マウントしてアニメーションをトリガー
+                                src={currentSpeaker.imageUrl}
+                                alt={currentSpeaker.name || 'Speaker'}
+                                width={isVertical ? 400 : 800}
+                                height={isVertical ? 400 : 800}
+                                className="object-contain drop-shadow-2xl max-w-[80%] max-h-[70%] animate-in fade-in zoom-in-95"
+                                unoptimized
+                            />
+                        </div>
+                    )}
+
+                    {/* セリフウィンドウ (画面下部) */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
+                        <Card className="w-full max-w-4xl mx-auto bg-background/90 backdrop-blur-sm animate-in slide-in-from-bottom-4 shadow-2xl">
+                            <CardHeader className="p-4">
+                                <CardTitle className="text-2xl">{currentSpeaker.name}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-4 pt-0 space-y-4">
+                                <p className="text-lg font-medium whitespace-pre-wrap min-h-[3em]">{currentNode.content}</p>
+                                <div className="flex flex-col gap-2">
+                                    {currentNode.type === 'choice' ? (
+                                        currentNode.choices?.map((choice, i) => (
+                                            <Button
+                                                key={i}
+                                                size="lg"
+                                                className="w-full justify-start h-auto py-3 text-sm"
+                                                onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === choice.nextStepId))}
+                                            >
+                                                {choice.text}
+                                            </Button>
+                                        ))
+                                    ) : (
+                                        <Button
+                                            size="lg"
+                                            className="w-full"
+                                            onClick={() => transitionToNode(activeEvent.nodes.find(n => n.id === currentNode.nextStepId))}
+                                        >
+                                            {currentNode.type === 'end' ? 'イベント終了' : '次へ'}
+                                        </Button>
+                                    )}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
             )}
           </div>
         </div>
