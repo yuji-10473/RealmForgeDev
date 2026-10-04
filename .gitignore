@@ -28,7 +28,7 @@ yarn-error.log*
 # local env files
 .env
 .env*.local
-
+.env.copy
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -38,3 +38,9 @@ next-env.d.ts
 /tmp/
 /tmp_objects.json
 public/project_data/kamakura.zip
+
+# service account keys & secrets
+*.json.secret
+*serviceAccount*.json
+*service-account*.json
+scripts/keys/
