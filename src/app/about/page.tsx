@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.43</Badge>
+                <div>
+                  <p className="font-bold">システムの堅牢化と整合性の向上</p>
+                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを継続して行いました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.42</Badge>
                 <div>
                   <p className="font-bold">システムの継続的安定化</p>
                   <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の堅牢性を高めるための内部メンテナンスと、コードの整合性チェックを行いました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.41</Badge>
                 <div>
                   <p className="font-bold">システムの継続的最適化</p>
                   <p className="text-sm text-muted-foreground mt-1">UIの応答性能をさらに高め、プロジェクト全体の堅牢性を向上させるための内部調整を行いました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.40</Badge>
-                <div>
-                  <p className="font-bold">システムの安定化と最適化</p>
-                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の安定性を高めるための内部調整と、UIの応答性能のさらなる向上を行いました。</p>
                 </div>
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function AboutPage() {
             <div className="space-y-4">
               <h2 className="text-3xl font-bold font-headline">一緒に歴史を紡ぎましょう</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                あなたの想像力が、失われた13世紀の断片を現代に蘇らせます。まずは制作ガイドやチュートリアルから、その可能性に触れてみてください。
+                あなたの想像力が、失われた13世紀の断刻を現代に蘇らせます。まずは制作ガイドやチュートリアルから、その可能性に触れてみてください。
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">

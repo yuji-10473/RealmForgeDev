@@ -1,308 +1,569 @@
 [
   {
-    "id": "0qRyop1RAw8TsEnICzbm",
-    "imageUrl": "media/images/file_328_1778947604518.png",
-    "audioUrl": "media/audios/file_329_1778947604518.wav",
-    "name": "おとみ",
-    "age": 31,
+    "id": "0Rl1aX6Qjt96JrpBZGou",
+    "imageUrl": "media/images/file_329_1791402382913.png",
+    "conversation": "どちらからお越しになられたのですか？このような辺鄙な村へ旅人が訪れるとは、珍しいことです。",
+    "personality": "好奇心旺盛",
+    "age": 18,
+    "name": "こま",
+    "introduction": "村の若い娘で、家業の手伝いをしながらも、外の世界に憧れを抱いている。",
     "gender": "女性",
+    "conversations": {
+      "rumors": {
+        "text": "聞いた話ですが、森の奥に古い祠があって、夜な夜な不思議な光が漏れるとか…内緒ですよ。"
+      },
+      "confide": {
+        "text": "本当は、この村の外がどんなところなのか、見てみたいのです。でも、私のような者が村を出るなんて、許されないでしょうね。"
+      },
+      "first_encounter": {
+        "text": "どちらからお越しになられたのですか？このような辺鄙な村へ旅人が訪れるとは、珍しいことです。"
+      },
+      "greeting": {
+        "text": "旅人さん、今日もどちらへお出かけですか？"
+      },
+      "daily_life": {
+        "text": "この頃は、朝から晩まで畑仕事に精を出しています。秋にはたくさん収穫できますように。"
+      }
+    },
+    "createdAt": "2026-06-12T10:25:44.665Z",
+    "voiceName": "aoede"
+  },
+  {
+    "id": "0qRyop1RAw8TsEnICzbm",
+    "imageUrl": "media/images/file_330_1791402382913.png",
+    "age": 31,
     "createdAt": "2026-01-14T02:15:22.017Z",
-    "introduction": "夫を早くに亡くしたが、持ち前の世話好きで村の子供たちを温かく見守るしっかり者。夏の盛りは畑仕事に精を出しつつ、村の皆の健康も気にかける日々を送っている。",
+    "name": "おとみ",
+    "gender": "女性",
+    "audioUrl": "media/audios/file_331_1791402382913.wav",
     "conversation": "「旅の方かい？ この日差しじゃさぞ喉も渇くじゃろう。井戸水でも一杯、どうじゃね。」",
-    "personality": "世話好き"
+    "personality": "世話好き",
+    "introduction": "夫を早くに亡くしたが、持ち前の世話好きで村の子供たちを温かく見守るしっかり者。夏の盛りは畑仕事に精を出しつつ、村の皆の健康も気にかける日々を送っている。"
+  },
+  {
+    "id": "0rhRNwm1eBv64HcxjZKJ",
+    "imageUrl": "media/images/file_332_1791402382913.png",
+    "gender": "男性",
+    "age": 15,
+    "conversation": "あんた、見慣れない顔だね。どこから来たんだ？もしかして、都の人間かい？",
+    "voiceName": "puck",
+    "conversations": {
+      "greeting": {
+        "text": "旅人さん、今日も早いね！何か面白いことあったかい？"
+      },
+      "confide": {
+        "text": "正直な話、この村の外にはもっと広い世界があるって聞く。俺、ずっとこの村で暮らすのかって考えると、なんだか胸がざわつくんだ。"
+      },
+      "rumors": {
+        "text": "この間、裏山で光るものを見たって爺様が言ってたんだ。狐火かもしれないけど、なんだか不気味だよな。"
+      },
+      "first_encounter": {
+        "text": "あんた、見慣れない顔だね。どこから来たんだ？もしかして、都の人間かい？"
+      },
+      "daily_life": {
+        "text": "毎日、朝から晩まで畑仕事だよ。腰が痛くなるんだ。でも、大人になったらもっと大きな魚を釣ってみたいんだ。"
+      }
+    },
+    "createdAt": "2026-06-12T10:52:54.615Z",
+    "introduction": "栄吉は村で一番のやんちゃ坊主で、いつも新しいことを見つけては目を輝かせている。いつか都に出てみたいと、密かに夢見ている。",
+    "personality": "好奇心旺盛",
+    "name": "栄吉"
   },
   {
     "id": "0x9QCvl35ETTNNDvBAOg",
-    "gender": "女性",
-    "createdAt": "2026-01-15T06:40:06.352Z",
-    "age": 41,
-    "audioUrl": "media/audios/file_330_1778947604518.wav",
-    "name": "まさ",
-    "imageUrl": "media/images/file_331_1778947604518.png",
-    "personality": "世話好き",
+    "imageUrl": "media/images/file_333_1791402382913.png",
+    "introduction": "夫に先立たれても、畑を一人で守り抜く気丈な女性。村の若い衆には実の母のように慕われ、困っている者を見れば放っておけない。",
     "conversation": "「こんな暑い日に遠くまでよう来たのう。日差しが強いから、そこの木陰で少し休んでいきなされ。冷たい水もあるぞ。」}{",
-    "introduction": "夫に先立たれても、畑を一人で守り抜く気丈な女性。村の若い衆には実の母のように慕われ、困っている者を見れば放っておけない。"
+    "age": 41,
+    "personality": "世話好き",
+    "audioUrl": "media/audios/file_334_1791402382913.wav",
+    "name": "まさ",
+    "gender": "女性",
+    "createdAt": "2026-01-15T06:40:06.352Z"
+  },
+  {
+    "id": "1M8OqGZMeXyWF78wkSL9",
+    "imageUrl": "media/images/file_335_1791402382913.png",
+    "conversations": {
+      "greeting": {
+        "text": "旅人様、今日も良い天気ですね！"
+      },
+      "confide": {
+        "text": "この村は好きですが、このまま一生をここで過ごすのかと思うと、少しだけ胸がざわつくのです。旅人様は、色々な場所をご覧になってきたのでしょう？"
+      },
+      "daily_life": {
+        "text": "今は田んぼの草むしりをする季節です。腰をかがめて一日中だから、腰が痛くなりますの。"
+      },
+      "rumors": {
+        "text": "この前の嵐の夜、裏山の社から不思議な光が漏れていたと、隣のおばさんが言っていました。誰にも言わないでくださいね。"
+      },
+      "first_encounter": {
+        "text": "そ、そなたは…村の外から来たお方ですか？こんな奥まで珍しい方もいらっしゃるのですね。"
+      }
+    },
+    "personality": "好奇心旺盛",
+    "name": "たま",
+    "conversation": "そ、そなたは…村の外から来たお方ですか？こんな奥まで珍しい方もいらっしゃるのですね。",
+    "gender": "女性",
+    "createdAt": "2026-06-12T10:42:38.509Z",
+    "age": 14,
+    "voiceName": "aoede",
+    "introduction": "働き者の両親を手伝いながら、村の小さな出来事にも目を凝らす利発な少女。いつか村の外の世界を見てみたいと願っている。"
   },
   {
     "id": "24eDzCK3Nl01uq4k1nW1",
-    "imageUrl": "media/images/file_332_1778947604518.png",
-    "name": "小次郎",
+    "conversation": "あんた、どこから来たんだ？こんな奥まった村に、物珍しい…まさか、都の人かい？",
+    "imageUrl": "media/images/file_336_1791402382913.png",
+    "introduction": "村の年長者たちに混じって田畑を手伝う日々だが、時折、村の境を越えて外の世界を夢見ている。",
     "conversations": {
-      "confide": {
-        "text": "正直な話、俺、この村だけで一生を終えるのは、なんだか物足りねえ気がするんだ。あんたみたいに、色々な場所を見てみたいよ。",
-        "audioUrl": "media/audios/file_333_1778947604518.wav"
-      },
       "first_encounter": {
         "text": "あんた、どこから来たんだ？こんな奥まった村に、物珍しい…まさか、都の人かい？",
-        "audioUrl": "media/audios/file_334_1778947604518.wav"
+        "audioUrl": "media/audios/file_337_1791402382913.wav"
+      },
+      "daily_life": {
+        "text": "今年の稲作は順調で、父ちゃんも喜んでる。でも、来年の種籾をどうするか、皆で頭を悩ませてるよ。",
+        "audioUrl": "media/audios/file_338_1791402382913.wav"
       },
       "rumors": {
         "text": "この前、山向こうの村で妙な光を見たって爺様が言ってたんだ。狐火じゃねぇって…一体何だったんだろうな。",
-        "audioUrl": "media/audios/file_335_1778947604518.wav"
+        "audioUrl": "media/audios/file_339_1791402382913.wav"
       },
       "greeting": {
         "text": "よう、旅人さん。今日はどこへ行くんだい？",
-        "audioUrl": "media/audios/file_336_1778947604518.wav"
+        "audioUrl": "media/audios/file_340_1791402382913.wav"
       },
-      "daily_life": {
-        "audioUrl": "media/audios/file_337_1778947604518.wav",
-        "text": "今年の稲作は順調で、父ちゃんも喜んでる。でも、来年の種籾をどうするか、皆で頭を悩ませてるよ。"
+      "confide": {
+        "audioUrl": "media/audios/file_341_1791402382913.wav",
+        "text": "正直な話、俺、この村だけで一生を終えるのは、なんだか物足りねえ気がするんだ。あんたみたいに、色々な場所を見てみたいよ。"
       }
     },
-    "audioUrl": "media/audios/file_338_1778947604518.wav",
+    "audioUrl": "media/audios/file_342_1791402382913.wav",
+    "voiceName": "puck",
+    "gender": "男性",
+    "name": "小次郎",
     "age": 14,
     "createdAt": "2026-03-14T13:16:23.982Z",
-    "gender": "男性",
-    "introduction": "村の年長者たちに混じって田畑を手伝う日々だが、時折、村の境を越えて外の世界を夢見ている。",
-    "voiceName": "puck",
-    "conversation": "あんた、どこから来たんだ？こんな奥まった村に、物珍しい…まさか、都の人かい？",
     "personality": "好奇心旺盛"
   },
   {
     "id": "4OPELhPhTx0RpaQiu0Af",
-    "age": 22,
-    "gender": "男性",
-    "createdAt": "2026-01-15T06:39:10.597Z",
-    "imageUrl": "media/images/file_339_1778947604518.png",
-    "audioUrl": "media/audios/file_340_1778947604518.wav",
     "name": "庄助",
     "conversation": "暑い中、遠くからよう来たな。日差しは強いが、日暮れには涼しい風が吹く。休んでいけ。",
+    "introduction": "庄助は、村で一番の働き手と評判の若者だ。厳しい年貢に耐えつつも、秋の収穫祭では太鼓を叩き、皆と笑い合うのを何よりの楽しみにしている。",
+    "createdAt": "2026-01-15T06:39:10.597Z",
+    "imageUrl": "media/images/file_343_1791402382913.png",
+    "age": 22,
     "personality": "真面目",
-    "introduction": "庄助は、村で一番の働き手と評判の若者だ。厳しい年貢に耐えつつも、秋の収穫祭では太鼓を叩き、皆と笑い合うのを何よりの楽しみにしている。"
+    "gender": "男性",
+    "audioUrl": "media/audios/file_344_1791402382913.wav"
+  },
+  {
+    "id": "5z20MUGEf3hBwL9RfksS",
+    "createdAt": "2026-06-12T08:38:40.367Z",
+    "introduction": "村の奥で代々続く田を守る農夫。口数は少ないが、その目はいつも周りを見ている。",
+    "voiceName": "rasalgethi",
+    "conversation": "旅の方か？こんな奥まで珍しい。何か用か？",
+    "age": 45,
+    "gender": "男性",
+    "imageUrl": "media/images/file_345_1791402382913.png",
+    "conversations": {
+      "daily_life": {
+        "text": "今年は雨が少のうてな、作物の育ちが悪くて困っとる。神様も見ていてくださらんか。"
+      },
+      "first_encounter": {
+        "text": "旅の方か？こんな奥まで珍しい。何か用か？"
+      },
+      "greeting": {
+        "text": "おう、旅の者。息災か？"
+      },
+      "rumors": {
+        "text": "この前の嵐の夜、森の奥から変な光が見えたと婆様が言っておった。狐か、それとも…。"
+      },
+      "confide": {
+        "text": "この村の若者たちも、都の暮らしに憧れて出ていく者が増えた。この先、誰がこの田を守るのかと思うと、胸が締め付けられるわい。"
+      }
+    },
+    "personality": "実直",
+    "name": "源兵衛"
+  },
+  {
+    "id": "6JjcvxneXutAqSjDWXRt",
+    "conversations": {
+      "daily_life": {
+        "text": "今は田植えの時期で、みんな朝から晩まで汗を流してるんだ。去年の米は不作だったから、今年は豊作であってほしいもんだ。"
+      },
+      "confide": {
+        "text": "俺、いつか都へ出て、色々なものを見てみたいんだ。でも、親父を残して行くのは、なんか申し訳ねぇ気もして…"
+      },
+      "first_encounter": {
+        "text": "あんた、この村じゃ見かけねぇ顔だなぁ。どっから来たんだい？こんな奥まで来るなんて、珍しいこともあるもんだ。"
+      },
+      "greeting": {
+        "text": "おお、旅のお兄さん！今日はどこへ行くんだい？何か面白いことあったか？"
+      },
+      "rumors": {
+        "text": "この間、村の奥の森で、妙な光を見たって爺さんが言ってたぞ。狐火か、はたまた山神様の仕業か、みんな噂してるぜ。"
+      }
+    },
+    "imageUrl": "media/images/file_346_1791402382913.png",
+    "introduction": "まだ元服を済ませていないが、大人に交じって畑仕事を手伝う毎日。村の外の世界に憧れを抱いている。",
+    "age": 15,
+    "gender": "男性",
+    "name": "助次郎",
+    "personality": "物見高い",
+    "conversation": "あんた、この村じゃ見かけねぇ顔だなぁ。どっから来たんだい？こんな奥まで来るなんて、珍しいこともあるもんだ。",
+    "voiceName": "autonoe",
+    "createdAt": "2026-06-12T10:53:17.171Z"
   },
   {
     "id": "6uxZ9UvQDDCAfFi0MplG",
-    "imageUrl": "media/images/file_341_1778947604518.png",
-    "audioUrl": "media/audios/file_342_1778947604518.wav",
-    "name": "きぬ",
-    "age": 48,
+    "imageUrl": "media/images/file_347_1791402382913.png",
+    "conversation": "おや、見慣れぬ旅人さんかね。こんな暑い盛りによくぞここまで。日差しがきついから、泉で喉を潤していくといいよ。",
     "createdAt": "2026-01-13T08:57:12.994Z",
     "gender": "女性",
+    "audioUrl": "media/audios/file_348_1791402382913.wav",
     "introduction": "きぬは村の古株で、薬草の知識が豊富だ。若い嫁たちに日々の暮らしの知恵を教え、夏には畑仕事の合間に涼みながら、昔語りをするのが好きだ。",
-    "conversation": "おや、見慣れぬ旅人さんかね。こんな暑い盛りによくぞここまで。日差しがきついから、泉で喉を潤していくといいよ。",
+    "name": "きぬ",
+    "age": 48,
     "personality": "物知り"
   },
   {
     "id": "7H41aASWF8ULMczjdf8s",
-    "createdAt": "2026-02-09T06:58:26.085Z",
     "gender": "女性",
-    "age": 35,
-    "name": "凪咲",
-    "audioUrl": "media/audios/file_343_1778947604518.wav",
     "conversations": {
-      "confide": {
-        "audioUrl": "media/audios/file_344_1778947604518.wav",
-        "text": "弥三郎の船仕事、時化が続けば暮らしもままならぬ。この子らが飢えぬかと案じて、夜も眠れぬ時があるのじゃ。"
-      },
-      "greeting": {
-        "text": "旅のお方、ご機嫌よう。また顔を見せてくれて嬉しいわ。",
-        "audioUrl": "media/audios/file_345_1778947604518.wav"
-      },
-      "first_encounter": {
-        "audioUrl": "media/audios/file_346_1778947604518.wav",
-        "text": "もし、旅のお方。このような村里に、いかなるご用向きでござるか？見慣れぬお姿ゆえ、つい声をおかけしてしもうたわ。"
-      },
-      "rumors": {
-        "audioUrl": "media/audios/file_347_1778947604518.wav",
-        "text": "この頃、沖の方で光る玉を見たという者がおるのよ。弥三郎も何か気味悪がっておったわ、内緒じゃぞ。"
-      },
       "daily_life": {
         "text": "弥三郎は今日も沖へ出たけれど、時化にならねば良いがね。子どもたちも浜で貝拾いをしているよ。",
-        "audioUrl": "media/audios/file_348_1778947604518.wav"
+        "audioUrl": "media/audios/file_349_1791402382913.wav"
+      },
+      "first_encounter": {
+        "audioUrl": "media/audios/file_350_1791402382913.wav",
+        "text": "もし、旅のお方。このような村里に、いかなるご用向きでござるか？見慣れぬお姿ゆえ、つい声をおかけしてしもうたわ。"
+      },
+      "greeting": {
+        "audioUrl": "media/audios/file_351_1791402382913.wav",
+        "text": "旅のお方、ご機嫌よう。また顔を見せてくれて嬉しいわ。"
+      },
+      "rumors": {
+        "audioUrl": "media/audios/file_352_1791402382913.wav",
+        "text": "この頃、沖の方で光る玉を見たという者がおるのよ。弥三郎も何か気味悪がっておったわ、内緒じゃぞ。"
+      },
+      "confide": {
+        "text": "弥三郎の船仕事、時化が続けば暮らしもままならぬ。この子らが飢えぬかと案じて、夜も眠れぬ時があるのじゃ。",
+        "audioUrl": "media/audios/file_353_1791402382913.wav"
       }
     },
-    "imageUrl": "media/images/file_349_1778947604518.png",
+    "name": "凪咲",
+    "imageUrl": "media/images/file_354_1791402382913.png",
+    "audioUrl": "media/audios/file_355_1791402382913.wav",
     "personality": "面倒見の良い、母性溢れる女性。",
     "expressions": [],
     "conversation": "もし、旅のお方。このような村里に、いかなるご用向きでござるか？見慣れぬお姿ゆえ、つい声をおかけしてしもうたわ。",
+    "createdAt": "2026-02-09T06:58:26.085Z",
+    "introduction": "船守の弥三郎の妻。子供2人。料理上手。",
     "voiceName": "vindemiatrix",
-    "introduction": "船守の弥三郎の妻。子供2人。料理上手。"
+    "age": 35
   },
   {
     "id": "7WVudEcwgprud6DxaSiB",
     "name": "おはな",
-    "audioUrl": "media/audios/file_350_1778947604518.wav",
-    "imageUrl": "media/images/file_351_1778947604518.png",
-    "createdAt": "2026-01-15T06:39:31.152Z",
     "gender": "女性",
-    "age": 55,
-    "introduction": "長年この地の土を耕し、多くの豊作も凶作も経験してきたおはな。祭りでは若い衆に昔話を語り、村の子供たちにとっては優しいおばあちゃんだ。",
+    "audioUrl": "media/audios/file_356_1791402382913.wav",
+    "imageUrl": "media/images/file_357_1791402382913.png",
     "personality": "世話好き",
-    "conversation": "あんたさん、見慣れない顔だね。こんな暑い日に遠くから来たのかい？うちの井戸水で喉を潤していくといいよ。"
+    "createdAt": "2026-01-15T06:39:31.152Z",
+    "conversation": "あんたさん、見慣れない顔だね。こんな暑い日に遠くから来たのかい？うちの井戸水で喉を潤していくといいよ。",
+    "age": 55,
+    "introduction": "長年この地の土を耕し、多くの豊作も凶作も経験してきたおはな。祭りでは若い衆に昔話を語り、村の子供たちにとっては優しいおばあちゃんだ。"
   },
   {
     "id": "89EEwHmVDScRW14wlUNf",
-    "voiceName": "algieba",
-    "introduction": "幼い頃から畑仕事を手伝い、村の未来を真剣に考える青年。口数は少ないが、常に周りをよく見ている。",
     "conversation": "あんた…見ねえ顔だな。どこから来たんだ？ この先は山道だ、気をつけてな。",
-    "personality": "真面目",
-    "imageUrl": "media/images/file_352_1778947604518.png",
-    "audioUrl": "media/audios/file_353_1778947604518.wav",
+    "name": "庄太",
+    "introduction": "幼い頃から畑仕事を手伝い、村の未来を真剣に考える青年。口数は少ないが、常に周りをよく見ている。",
     "conversations": {
-      "confide": {
-        "audioUrl": "media/audios/file_354_1778947604518.wav",
-        "text": "いつか、この村の作物をもっと増やして、皆が困らぬようにしたいと思ってる。だが、今のやり方では限界があるようにも思えて…どうすれば良いものか、と。"
-      },
-      "greeting": {
-        "text": "よう、旅のお方。今日は良い天気だな。",
-        "audioUrl": "media/audios/file_355_1778947604518.wav"
+      "daily_life": {
+        "text": "今年は日照りが長くて困ったもんだ。このままじゃ、秋の収穫が心配だ。",
+        "audioUrl": "media/audios/file_358_1791402382913.wav"
       },
       "rumors": {
         "text": "この前、山向こうの村で、夜な夜な光るものが見えたって話を聞いたんだ。狐火だろうか、それとも…。",
-        "audioUrl": "media/audios/file_356_1778947604518.wav"
+        "audioUrl": "media/audios/file_359_1791402382913.wav"
+      },
+      "confide": {
+        "text": "いつか、この村の作物をもっと増やして、皆が困らぬようにしたいと思ってる。だが、今のやり方では限界があるようにも思えて…どうすれば良いものか、と。",
+        "audioUrl": "media/audios/file_360_1791402382913.wav"
       },
       "first_encounter": {
         "text": "あんた…見ねえ顔だな。どこから来たんだ？ この先は山道だ、気をつけてな。",
-        "audioUrl": "media/audios/file_357_1778947604518.wav"
+        "audioUrl": "media/audios/file_361_1791402382913.wav"
       },
-      "daily_life": {
-        "text": "今年は日照りが長くて困ったもんだ。このままじゃ、秋の収穫が心配だ。",
-        "audioUrl": "media/audios/file_358_1778947604518.wav"
+      "greeting": {
+        "text": "よう、旅のお方。今日は良い天気だな。",
+        "audioUrl": "media/audios/file_362_1791402382913.wav"
       }
     },
-    "name": "庄太",
+    "imageUrl": "media/images/file_363_1791402382913.png",
     "age": 24,
+    "personality": "真面目",
+    "audioUrl": "media/audios/file_364_1791402382913.wav",
+    "voiceName": "algieba",
     "gender": "男性",
     "createdAt": "2026-03-14T13:15:46.328Z"
   },
   {
+    "id": "8GEuUqa0IHWmZY6dxS6z",
+    "name": "ゆき",
+    "gender": "女性",
+    "conversations": {
+      "first_encounter": {
+        "text": "あなたはどちらから？こんな奥まった村に、旅の人が来るなんて珍しいね。"
+      },
+      "rumors": {
+        "text": "この間、裏山の祠の近くで、変な鳴き声がしたんだって。狐狸の仕業かしら、それとも…？"
+      },
+      "daily_life": {
+        "text": "今年は雨が少なくて、畑の作物が心配だわ。このままではお米が足りなくなるかもしれない。"
+      },
+      "greeting": {
+        "text": "旅人様、こんにちは。またいらしたのですね。"
+      },
+      "confide": {
+        "text": "いつかこの村を出て、都というものを見てみたい。でも、おっかあを残していくのは心苦しいわ…"
+      }
+    },
+    "imageUrl": "media/images/file_365_1791402382913.png",
+    "personality": "素直",
+    "createdAt": "2026-06-12T10:42:54.930Z",
+    "conversation": "あなたはどちらから？こんな奥まった村に、旅の人が来るなんて珍しいね。",
+    "voiceName": "aoede",
+    "age": 14,
+    "introduction": "毎日、母の手伝いで水汲みや薪拾いに精を出す、村一番の働き者。外の世界に憧れを抱いている。"
+  },
+  {
     "id": "A44lygLrpBVZjTZD1EqT",
-    "conversation": "こんにちは",
+    "imageUrl": "media/images/file_366_1791402382913.png",
+    "gender": "男性",
     "expressions": [],
+    "audioUrl": "media/audios/file_367_1791402382913.wav",
     "personality": "情熱的、信念を曲げない、誠実、活動的",
-    "introduction": "1260年、大聖人は北条時頼に『立正安国論』を提出し伊豆に流罪となった僧侶",
+    "name": "日蓮",
+    "conversation": "こんにちは",
     "voiceName": "sadaltager",
     "age": 40,
-    "gender": "男性",
-    "createdAt": "2026-02-20T15:59:10.279Z",
-    "imageUrl": "media/images/file_359_1778947604518.png",
-    "audioUrl": "media/audios/file_360_1778947604518.wav",
-    "name": "日蓮"
+    "introduction": "1260年、大聖人は北条時頼に『立正安国論』を提出し伊豆に流罪となった僧侶",
+    "createdAt": "2026-02-20T15:59:10.279Z"
   },
   {
     "id": "ABDKMNns8Z9trb49L0eI",
-    "introduction": "村の暮らしに順応しつつも、外の世界への憧れを胸に秘めた14歳の少女。畑仕事を手伝いながら、旅人が語る見知らぬ土地の話に耳を傾けることを楽しみにしている。",
-    "voiceName": "kore",
+    "gender": "女性",
     "personality": "好奇心旺盛",
-    "conversation": "あの…旅のお方ですか？こんな山奥まで来られる方は珍しいから、びっくりしました。",
     "name": "さち",
     "conversations": {
-      "daily_life": {
-        "text": "そろそろ秋の収穫の準備です。父上も母上も大忙しで、私も少しでも力になりたいんです。",
-        "audioUrl": "media/audios/file_361_1778947604518.wav"
-      },
       "confide": {
-        "audioUrl": "media/audios/file_362_1778947604518.wav",
+        "audioUrl": "media/audios/file_368_1791402382913.wav",
         "text": "私、本当はいつか都に行ってみたいんです。でも、こんな村の娘には無理だって言われてしまって…旅人さんは、色々な場所を見られて羨ましいです。"
       },
+      "greeting": {
+        "audioUrl": "media/audios/file_369_1791402382913.wav",
+        "text": "旅人さん、こんにちは！今日は何か珍しいものを見つけましたか？"
+      },
       "rumors": {
-        "audioUrl": "media/audios/file_363_1778947604518.wav",
-        "text": "この前の夜、お堂の裏から光る玉が飛んでいくのを見たって人がいて…あれは狐の嫁入りだったのかな。"
+        "text": "この前の夜、お堂の裏から光る玉が飛んでいくのを見たって人がいて…あれは狐の嫁入りだったのかな。",
+        "audioUrl": "media/audios/file_370_1791402382913.wav"
+      },
+      "daily_life": {
+        "text": "そろそろ秋の収穫の準備です。父上も母上も大忙しで、私も少しでも力になりたいんです。",
+        "audioUrl": "media/audios/file_371_1791402382913.wav"
       },
       "first_encounter": {
-        "text": "あの…旅のお方ですか？こんな山奥まで来られる方は珍しいから、びっくりしました。",
-        "audioUrl": "media/audios/file_364_1778947604518.wav"
-      },
-      "greeting": {
-        "text": "旅人さん、こんにちは！今日は何か珍しいものを見つけましたか？",
-        "audioUrl": "media/audios/file_365_1778947604518.wav"
+        "audioUrl": "media/audios/file_372_1791402382913.wav",
+        "text": "あの…旅のお方ですか？こんな山奥まで来られる方は珍しいから、びっくりしました。"
       }
     },
-    "audioUrl": "media/audios/file_366_1778947604518.wav",
-    "imageUrl": "media/images/file_367_1778947604518.png",
+    "voiceName": "kore",
+    "imageUrl": "media/images/file_373_1791402382913.png",
+    "introduction": "村の暮らしに順応しつつも、外の世界への憧れを胸に秘めた14歳の少女。畑仕事を手伝いながら、旅人が語る見知らぬ土地の話に耳を傾けることを楽しみにしている。",
     "createdAt": "2026-03-14T13:16:50.487Z",
-    "gender": "女性",
-    "age": 14
+    "age": 14,
+    "audioUrl": "media/audios/file_374_1791402382913.wav",
+    "conversation": "あの…旅のお方ですか？こんな山奥まで来られる方は珍しいから、びっくりしました。"
   },
   {
     "id": "Aqs3Annh4ru5uRixSgho",
-    "introduction": "しずは村で最も古株の一人として、皆から慕われている。野良仕事の合間には、村の子供たちに昔話を語り聞かせ、祭りでは誰よりも楽しそうに踊る。",
-    "voiceName": "achernar",
     "personality": "世話好き",
-    "conversation": "おや、見慣れぬお方様だね。この奥には何もござらんぞ。どこぞへ向かう途中かい？",
+    "gender": "女性",
+    "name": "しず",
     "conversations": {
-      "confide": {
-        "audioUrl": "media/audios/file_368_1778947604518.wav",
-        "text": "わしはもう先が短いが、この里の行く末を案じると、夜も眠れぬことがある。この子らが平穏に暮らせるよう、どうか世が静まってほしいものだ。"
-      },
       "greeting": {
-        "text": "おう、旅のお人か。また顔を見せてくれたねえ。",
-        "audioUrl": "media/audios/file_369_1778947604518.wav"
+        "audioUrl": "media/audios/file_375_1791402382913.wav",
+        "text": "おう、旅のお人か。また顔を見せてくれたねえ。"
       },
       "first_encounter": {
-        "audioUrl": "media/audios/file_370_1778947604518.wav",
-        "text": "おや、見慣れぬお方様だね。この奥には何もござらんぞ。どこぞへ向かう途中かい？"
-      },
-      "rumors": {
-        "audioUrl": "media/audios/file_371_1778947604518.wav",
-        "text": "この前の晩、裏山の森から妙な光が見えたと、若い衆が騒いでおったよ。口外無用じゃぞ。"
+        "text": "おや、見慣れぬお方様だね。この奥には何もござらんぞ。どこぞへ向かう途中かい？",
+        "audioUrl": "media/audios/file_376_1791402382913.wav"
       },
       "daily_life": {
-        "audioUrl": "media/audios/file_372_1778947604518.wav",
+        "audioUrl": "media/audios/file_377_1791402382913.wav",
         "text": "この頃は日照りが続いてな。去年の麦の出来が良うて助かったが、今年の米は気がかりだ。"
+      },
+      "rumors": {
+        "text": "この前の晩、裏山の森から妙な光が見えたと、若い衆が騒いでおったよ。口外無用じゃぞ。",
+        "audioUrl": "media/audios/file_378_1791402382913.wav"
+      },
+      "confide": {
+        "audioUrl": "media/audios/file_379_1791402382913.wav",
+        "text": "わしはもう先が短いが、この里の行く末を案じると、夜も眠れぬことがある。この子らが平穏に暮らせるよう、どうか世が静まってほしいものだ。"
       }
     },
-    "audioUrl": "media/audios/file_373_1778947604518.wav",
-    "name": "しず",
-    "imageUrl": "media/images/file_374_1778947604518.png",
+    "voiceName": "achernar",
+    "imageUrl": "media/images/file_380_1791402382913.png",
+    "introduction": "しずは村で最も古株の一人として、皆から慕われている。野良仕事の合間には、村の子供たちに昔話を語り聞かせ、祭りでは誰よりも楽しそうに踊る。",
     "createdAt": "2026-01-15T18:56:54.234Z",
-    "gender": "女性",
-    "age": 56
+    "conversation": "おや、見慣れぬお方様だね。この奥には何もござらんぞ。どこぞへ向かう途中かい？",
+    "age": 56,
+    "audioUrl": "media/audios/file_381_1791402382913.wav"
+  },
+  {
+    "id": "BtHnOPB3vqXZxRLebNSp",
+    "personality": "真面目",
+    "voiceName": "puck",
+    "introduction": "清助は村の若衆で、父の手伝いをしながら畑仕事に励む日々。早く一人前の男になりたいと願っている。",
+    "gender": "男性",
+    "createdAt": "2026-06-12T10:52:37.669Z",
+    "conversation": "あんた…見ねえ顔だなぁ。どこから来たんだ？ 村の衆じゃねえだろう？",
+    "conversations": {
+      "first_encounter": {
+        "text": "あんた…見ねえ顔だなぁ。どこから来たんだ？ 村の衆じゃねえだろう？"
+      },
+      "confide": {
+        "text": "俺もいつか、この村を出て都を見てみたいって思うんだ。でも、母ちゃんを一人にするわけにもいかねえし、どうしたらいいか分からねえ。"
+      },
+      "rumors": {
+        "text": "この前、隣の山で大きな猪が暴れてるって話を聞いたんだ。親父は狩りに行くって言ってたけど、俺はちょっと怖えや。"
+      },
+      "daily_life": {
+        "text": "この時期は麦の穂が出始めて、田んぼの世話も忙しいんだ。日差しが強いと苗も育つから、ありがたいんだけどな。"
+      },
+      "greeting": {
+        "text": "よお、旅の衆！ 今日も村にいるのかい？"
+      }
+    },
+    "age": 15,
+    "name": "清助",
+    "imageUrl": "media/images/file_382_1791402382913.png"
   },
   {
     "id": "ByroZjVr97HcRtM5X1XD",
-    "age": 3,
     "gender": "動物",
-    "createdAt": "2026-03-27T21:32:19.488Z",
-    "imageUrl": "media/images/file_375_1778947604518.png",
-    "name": "野良猫",
+    "imageUrl": "media/images/file_383_1791402382913.png",
+    "personality": "野性的、かわいい",
     "conversations": {
-      "daily_life": {
-        "audioUrl": null,
-        "text": ""
-      },
       "confide": {
         "text": "",
         "audioUrl": null
       },
-      "greeting": {
+      "rumors": {
+        "audioUrl": null,
+        "text": ""
+      },
+      "daily_life": {
         "audioUrl": null,
         "text": ""
       },
       "first_encounter": {
-        "text": "にゃ〜",
-        "audioUrl": null
+        "audioUrl": null,
+        "text": "にゃ〜"
       },
-      "rumors": {
+      "greeting": {
         "audioUrl": null,
         "text": ""
       }
     },
+    "introduction": "気まぐれな猫、いつもおこぼれを狙っている。",
     "expressions": [],
-    "conversation": "にゃ〜",
-    "personality": "野性的、かわいい",
+    "name": "野良猫",
+    "age": 3,
     "voiceName": "achird",
-    "introduction": "気まぐれな猫、いつもおこぼれを狙っている。"
+    "conversation": "にゃ〜",
+    "createdAt": "2026-03-27T21:32:19.488Z"
   },
   {
     "id": "CZUqtAygc2z4bSm9bxHH",
+    "imageUrl": "https://images.unsplash.com/photo-1587393529323-93836540d5a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxxdWVzdGlvbiUyMG1hcmt8ZW58MHx8fHwxNzM3NTQ0NTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "introduction": "夫と幼い子を支え、田畑を耕し、夜は機を織る日々。厳しい年貢の取り立ての中でも、村の皆と力を合わせ、祭りの賑わいを心待ちにしています。",
     "personality": "しっかり者",
     "gender": "女性",
-    "age": 30,
-    "introduction": "夫と幼い子を支え、田畑を耕し、夜は機を織る日々。厳しい年貢の取り立ての中でも、村の皆と力を合わせ、祭りの賑わいを心待ちにしています。",
-    "imageUrl": "https://images.unsplash.com/photo-1587393529323-93836540d5a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxxdWVzdGlvbiUyMG1hcmt8ZW58MHx8fHwxNzM3NTQ0NTg2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    "age": 30
+  },
+  {
+    "id": "Cum2lOkAQxfgce5yhVIT",
+    "introduction": "村の若者。親父の畑仕事を手伝いながら、いつか自分の田を持つ日を夢見ている。",
+    "personality": "世話好き",
+    "imageUrl": "media/images/file_384_1791402382913.png",
+    "gender": "男性",
+    "conversation": "あんた、見慣れぬ顔だな。どこから来たんだ？この村には滅多に旅人なんぞ来ねぇから、一体何の用だ？",
+    "voiceName": "enceladus",
+    "createdAt": "2026-06-12T08:39:14.098Z",
+    "name": "源次",
+    "age": 23,
+    "conversations": {
+      "daily_life": {
+        "text": "そろそろ稲の育ち具合が気になる頃合いだ。今年の収穫も豊かだと良いんだがな。"
+      },
+      "first_encounter": {
+        "text": "あんた、見慣れぬ顔だな。どこから来たんだ？この村には滅多に旅人なんぞ来ねぇから、一体何の用だ？"
+      },
+      "rumors": {
+        "text": "この前の晩、森の奥から変な光が見えたんだ。鬼火ってやつか…？親父は気のせいだって言うが、どうも気味が悪いぜ。"
+      },
+      "greeting": {
+        "text": "おう、旅人さん。今日も元気そうで何よりだ。"
+      },
+      "confide": {
+        "text": "実はな、いつかこの村を出て、都の暮らしってやつを見てみたいんだ。でも、この田畑を置いていくのも忍びなくてな…"
+      }
+    }
+  },
+  {
+    "id": "I9SdvHknPj61RtSEEJaL",
+    "introduction": "村で生まれ育ち、夫と子と共に畑を耕す、村のしっかり者。いつも皆の事を気にかけている。",
+    "personality": "しっかり者",
+    "gender": "女性",
+    "imageUrl": "media/images/file_385_1791402382913.png",
+    "conversation": "見慣れぬお方じゃな。どこから来たんじゃ？こんな里に何の用じゃろう。",
+    "voiceName": "leda",
+    "name": "ふく",
+    "createdAt": "2026-06-12T09:10:10.286Z",
+    "age": 43,
+    "conversations": {
+      "first_encounter": {
+        "text": "見慣れぬお方じゃな。どこから来たんじゃ？こんな里に何の用じゃろう。"
+      },
+      "rumors": {
+        "text": "隣の村の裏山に、夜な夜な光る石があるとかないとか。不思議な話じゃわい。"
+      },
+      "greeting": {
+        "text": "おや、旅のお方。今日は良い天気じゃのう。"
+      },
+      "confide": {
+        "text": "この先、世がどうなるのか、正直不安でならん。この子らが飢えずに暮らせるのかと思うと胸が締め付けられるわい。"
+      },
+      "daily_life": {
+        "text": "このところ、日照りが続いて困るのう。稲が育つか心配じゃて。"
+      }
+    }
   },
   {
     "id": "IjX31wjbBQxdPsVK0Dit",
-    "conversation": "旅のお方か。こんな暑い日に遠くからようこそ。日陰で少し休んでいかねえか、冷たい沢水でも用意するぜ。",
-    "personality": "働き盛り",
-    "introduction": "勘太は、夏の盛りに田んぼで汗を流すのが日課の、若き働き手だ。秋の収穫祭や冬の狩りの話に目を輝かせる、村の将来を担う一人である。",
     "age": 16,
-    "createdAt": "2026-01-15T08:40:58.580Z",
-    "gender": "男性",
-    "imageUrl": "media/images/file_376_1778947604518.png",
+    "conversation": "旅のお方か。こんな暑い日に遠くからようこそ。日陰で少し休んでいかねえか、冷たい沢水でも用意するぜ。",
     "name": "勘太",
-    "audioUrl": "media/audios/file_377_1778947604518.wav"
+    "introduction": "勘太は、夏の盛りに田んぼで汗を流すのが日課の、若き働き手だ。秋の収穫祭や冬の狩りの話に目を輝かせる、村の将来を担う一人である。",
+    "createdAt": "2026-01-15T08:40:58.580Z",
+    "audioUrl": "media/audios/file_386_1791402382913.wav",
+    "personality": "働き盛り",
+    "gender": "男性",
+    "imageUrl": "media/images/file_387_1791402382913.png"
   },
   {
     "id": "Lo2VeFw6somoDwZRNvJF",
@@ -319,670 +580,786 @@
         "text": "",
         "audioUrl": null
       },
-      "first_encounter": {
-        "text": "本日は晴天なり",
-        "audioUrl": null
-      },
       "greeting": {
         "text": "",
         "audioUrl": null
+      },
+      "first_encounter": {
+        "audioUrl": null,
+        "text": "本日は晴天なり"
       }
     },
-    "name": "邪辺流",
-    "imageUrl": "media/images/file_378_1778947604518.png",
-    "gender": "男性",
-    "createdAt": "2026-04-11T21:49:43.458Z",
     "age": 38,
-    "introduction": "禁欲主義で生真面目かつ自分にも他人にも厳格な男。社会秩序を絶対的に信奉する法の番人であり、これに逆らう者には公正だが容赦なく振る舞ったため、町のならず者達を震え上がらせる。罪人同士の間に生まれ宿業の深い人生を歩んできた。",
-    "voiceName": "alnilam",
+    "name": "邪辺流",
+    "expressions": [],
+    "imageUrl": "media/images/file_388_1791402382913.png",
+    "createdAt": "2026-04-11T21:49:43.458Z",
     "personality": "生真面目かつ自分にも他人にも厳格な男",
-    "conversation": "本日は晴天なり",
-    "expressions": []
+    "voiceName": "alnilam",
+    "gender": "男性",
+    "introduction": "禁欲主義で生真面目かつ自分にも他人にも厳格な男。社会秩序を絶対的に信奉する法の番人であり、これに逆らう者には公正だが容赦なく振る舞ったため、町のならず者達を震え上がらせる。罪人同士の間に生まれ宿業の深い人生を歩んできた。",
+    "conversation": "本日は晴天なり"
   },
   {
     "id": "MYt16EagBGANLopR2WxX",
-    "createdAt": "2026-01-15T08:40:09.872Z",
-    "gender": "男性",
-    "age": 32,
-    "audioUrl": "media/audios/file_379_1778947604518.wav",
     "name": "源太",
-    "imageUrl": "media/images/file_380_1778947604518.png",
-    "personality": "実直",
+    "createdAt": "2026-01-15T08:40:09.872Z",
     "conversation": "「こんな暑い盛りに遠路はるばるご苦労さんじゃな。おや、若いのにしっかりした旅人さんだ。日が傾く前に、どこか休める場所を見つけると良いぞ。」",
-    "introduction": "源太は、村の誰よりも早起きして田畑を耕す実直な男。日中の厳しい農作業の合間には、村の子供たちに笑顔で話しかけ、彼らの成長を温かく見守っている。"
+    "gender": "男性",
+    "introduction": "源太は、村の誰よりも早起きして田畑を耕す実直な男。日中の厳しい農作業の合間には、村の子供たちに笑顔で話しかけ、彼らの成長を温かく見守っている。",
+    "personality": "実直",
+    "age": 32,
+    "audioUrl": "media/audios/file_389_1791402382913.wav",
+    "imageUrl": "media/images/file_390_1791402382913.png"
   },
   {
     "id": "NEntrh0jYY62zYGD6gnK",
-    "personality": "おとなしい、やさしい",
-    "expressions": [],
-    "conversation": "あの…どちらからおいでなされましたか？この里には、珍しきお方ゆえ…。",
-    "voiceName": "leda",
-    "introduction": "弥三郎の娘",
-    "createdAt": "2026-02-25T19:39:44.896Z",
-    "gender": "女性",
-    "age": 14,
     "name": "かず子",
+    "expressions": [],
+    "age": 14,
+    "voiceName": "leda",
+    "imageUrl": "media/images/file_391_1791402382913.png",
+    "createdAt": "2026-02-25T19:39:44.896Z",
+    "introduction": "弥三郎の娘",
+    "audioUrl": "media/audios/file_392_1791402382913.wav",
     "conversations": {
-      "daily_life": {
-        "text": "父上が畑を耕すのに、私も少しばかり手伝っております。今年は良い米が獲れると良いのですが。",
-        "audioUrl": "media/audios/file_381_1778947604518.wav"
-      },
       "confide": {
-        "text": "この頃、作物がうまく育たず、父上は深く心配しておられます。この先、村はどうなってしまうのでしょう。",
-        "audioUrl": "media/audios/file_382_1778947604518.wav"
+        "audioUrl": "media/audios/file_393_1791402382913.wav",
+        "text": "この頃、作物がうまく育たず、父上は深く心配しておられます。この先、村はどうなってしまうのでしょう。"
       },
       "first_encounter": {
-        "audioUrl": "media/audios/file_383_1778947604518.wav",
-        "text": "あの…どちらからおいでなされましたか？この里には、珍しきお方ゆえ…。"
+        "text": "あの…どちらからおいでなされましたか？この里には、珍しきお方ゆえ…。",
+        "audioUrl": "media/audios/file_394_1791402382913.wav"
+      },
+      "daily_life": {
+        "text": "父上が畑を耕すのに、私も少しばかり手伝っております。今年は良い米が獲れると良いのですが。",
+        "audioUrl": "media/audios/file_395_1791402382913.wav"
       },
       "rumors": {
-        "audioUrl": "media/audios/file_384_1778947604518.wav",
+        "audioUrl": "media/audios/file_396_1791402382913.wav",
         "text": "この間、村の裏手で狐火を見たと、若い衆が申しておりました。あれは、山の神のなせる技でしょうか。"
       },
       "greeting": {
-        "audioUrl": "media/audios/file_385_1778947604518.wav",
-        "text": "旅の方、ようおいでなされました。"
+        "text": "旅の方、ようおいでなされました。",
+        "audioUrl": "media/audios/file_397_1791402382913.wav"
       }
     },
-    "audioUrl": "media/audios/file_386_1778947604518.wav",
-    "imageUrl": "media/images/file_387_1778947604518.png"
+    "conversation": "あの…どちらからおいでなされましたか？この里には、珍しきお方ゆえ…。",
+    "gender": "女性",
+    "personality": "おとなしい、やさしい"
+  },
+  {
+    "id": "OlvvXeCc4HDDqHnQ67vC",
+    "name": "茂作",
+    "imageUrl": "media/images/file_398_1791402382913.png",
+    "conversation": "おや、見慣れぬ顔じゃな。こんな山奥まで、どこから参ったのかね、旅の方？",
+    "age": 64,
+    "gender": "男性",
+    "conversations": {
+      "confide": {
+        "text": "わしも年を取った。この村も、いつまで平和でいられるか。若い者たちが、この先も健やかに暮らせるかと思うと、案ずるばかりじゃ…。"
+      },
+      "rumors": {
+        "text": "聞くところによると、山の向こうの森で、夜な夜な不思議な光が揺れるらしいぞ。狐火か、はたまた…？"
+      },
+      "greeting": {
+        "text": "おう、また来たか。元気に村を見て回っとるかい？"
+      },
+      "daily_life": {
+        "text": "最近は、田んぼの様子が気になるな。このまま雨が降らねば、今年の収穫は危ういかもしれん。"
+      },
+      "first_encounter": {
+        "text": "おや、見慣れぬ顔じゃな。こんな山奥まで、どこから参ったのかね、旅の方？"
+      }
+    },
+    "introduction": "長年この村で生きてきた古老。多くは語らぬが、その眼差しには村の歴史と人々の営みが映し出されている。",
+    "createdAt": "2026-06-12T08:56:14.725Z",
+    "personality": "達観した",
+    "voiceName": "iapetus"
   },
   {
     "id": "PSPsScqd9sszs3rThPA2",
-    "age": 12,
-    "createdAt": "2026-02-25T19:12:45.403Z",
-    "gender": "男性",
-    "imageUrl": "media/images/file_388_1778947604518.png",
-    "conversations": {
-      "daily_life": {
-        "text": "今日は父上と畑を耕したんだ！来年は俺がもっと広い畝を任されるはずだぞ。",
-        "audioUrl": "media/audios/file_389_1778947604518.wav"
-      },
-      "confide": {
-        "text": "もし今年も作物が不作だったら、村はどうなるんだろう。俺も早く大人になって、父上みたいに村を守れるようになりたいんだ。",
-        "audioUrl": "media/audios/file_390_1778947604518.wav"
-      },
-      "rumors": {
-        "text": "この前の夜、山の向こうから変な光が見えたって、ばあ様が言ってたぞ。狐火か、それとも鬼の仕業か…。",
-        "audioUrl": "media/audios/file_391_1778947604518.wav"
-      },
-      "first_encounter": {
-        "text": "あんた、見たことねぇ顔だな！どこから来たんだ？",
-        "audioUrl": "media/audios/file_392_1778947604518.wav"
-      },
-      "greeting": {
-        "text": "おう、旅のお兄さん！また来てくれたのかい！",
-        "audioUrl": "media/audios/file_393_1778947604518.wav"
-      }
-    },
-    "audioUrl": "media/audios/file_394_1778947604518.wav",
-    "name": "太郎",
     "conversation": "あんた、見たことねぇ顔だな！どこから来たんだ？",
     "expressions": [],
-    "personality": "元気、活発、好奇心旺盛",
     "introduction": "弥三郎の息子",
-    "voiceName": "aoede"
+    "createdAt": "2026-02-25T19:12:45.403Z",
+    "voiceName": "aoede",
+    "age": 12,
+    "gender": "男性",
+    "personality": "元気、活発、好奇心旺盛",
+    "audioUrl": "media/audios/file_399_1791402382913.wav",
+    "conversations": {
+      "greeting": {
+        "audioUrl": "media/audios/file_400_1791402382913.wav",
+        "text": "おう、旅のお兄さん！また来てくれたのかい！"
+      },
+      "daily_life": {
+        "text": "今日は父上と畑を耕したんだ！来年は俺がもっと広い畝を任されるはずだぞ。",
+        "audioUrl": "media/audios/file_401_1791402382913.wav"
+      },
+      "confide": {
+        "audioUrl": "media/audios/file_402_1791402382913.wav",
+        "text": "もし今年も作物が不作だったら、村はどうなるんだろう。俺も早く大人になって、父上みたいに村を守れるようになりたいんだ。"
+      },
+      "rumors": {
+        "audioUrl": "media/audios/file_403_1791402382913.wav",
+        "text": "この前の夜、山の向こうから変な光が見えたって、ばあ様が言ってたぞ。狐火か、それとも鬼の仕業か…。"
+      },
+      "first_encounter": {
+        "audioUrl": "media/audios/file_404_1791402382913.wav",
+        "text": "あんた、見たことねぇ顔だな！どこから来たんだ？"
+      }
+    },
+    "imageUrl": "media/images/file_405_1791402382913.png",
+    "name": "太郎"
+  },
+  {
+    "id": "QW4tUYe6jsFQ9QIttvaG",
+    "name": "きく",
+    "age": 34,
+    "voiceName": "aoede",
+    "imageUrl": "media/images/file_406_1791402382913.png",
+    "createdAt": "2026-06-12T09:10:26.988Z",
+    "introduction": "夫と幼子を支え、日々の暮らしを切り盛りする、村の働き手の一人。口数は少ないが、芯の強い女性である。",
+    "conversations": {
+      "greeting": {
+        "text": "旅人さん、今日もご苦労さんだね。"
+      },
+      "first_encounter": {
+        "text": "あんた、見慣れぬ顔だが、どちらから来たんだい？ この村に何か用事があるのかい？"
+      },
+      "confide": {
+        "text": "この子が健やかに育ってくれることだけが、あたしの願いさ。世が乱れても、どうか穏やかに暮らせるようにと、願うばかりだ。"
+      },
+      "rumors": {
+        "text": "この前の夜、山の奥から変な音が聞こえたって、庄治が言っていたよ。獣の声ではなかったとか…。"
+      },
+      "daily_life": {
+        "text": "この長雨では、畑の作物の育ちが心配でならない。どうか、早く晴れ間がのぞきますように。"
+      }
+    },
+    "gender": "女性",
+    "conversation": "あんた、見慣れぬ顔だが、どちらから来たんだい？ この村に何か用事があるのかい？",
+    "personality": "しっかり者"
   },
   {
     "id": "Rbx0W9Qr1F81xFOlwWIE",
-    "voiceName": "achernar",
-    "introduction": "波恵の一人息子。",
-    "expressions": [],
-    "conversation": "かあさん",
-    "personality": "活発、優しい、好奇心旺盛、愛らしい",
-    "imageUrl": "media/images/file_395_1778947604518.png",
+    "age": 5,
     "conversations": {
-      "confide": {
-        "text": "",
-        "audioUrl": null
-      },
-      "greeting": {
+      "rumors": {
         "audioUrl": null,
         "text": ""
       },
-      "first_encounter": {
-        "audioUrl": "media/audios/file_396_1778947604518.wav",
-        "text": "かあさん"
-      },
-      "rumors": {
-        "text": "",
-        "audioUrl": null
+      "confide": {
+        "audioUrl": null,
+        "text": ""
       },
       "daily_life": {
         "text": "",
         "audioUrl": null
+      },
+      "first_encounter": {
+        "audioUrl": "media/audios/file_407_1791402382913.wav",
+        "text": "かあさん"
+      },
+      "greeting": {
+        "audioUrl": null,
+        "text": ""
       }
     },
-    "name": "波瑠都",
-    "age": 5,
     "gender": "男性",
-    "createdAt": "2026-04-04T04:36:43.638Z"
+    "introduction": "波恵の一人息子。",
+    "expressions": [],
+    "name": "波瑠都",
+    "conversation": "かあさん",
+    "imageUrl": "media/images/file_408_1791402382913.png",
+    "createdAt": "2026-04-04T04:36:43.638Z",
+    "voiceName": "achernar",
+    "personality": "活発、優しい、好奇心旺盛、愛らしい"
   },
   {
     "id": "SKGryi77HDknYcHDg0RI",
+    "gender": "女性",
+    "imageUrl": "media/images/file_409_1791402382913.png",
+    "voiceName": "kore",
+    "name": "つる",
     "conversation": "あ、あなたは…村では見かけない方ですね。どこからいらしたのですか？",
     "personality": "世話好き",
-    "introduction": "畑仕事の手伝いをしながら、いつも村の大人たちの話に耳を傾けている。将来は母のような立派な女になりたいと思っている。",
-    "voiceName": "kore",
-    "age": 14,
     "createdAt": "2026-03-14T13:19:21.360Z",
-    "gender": "女性",
-    "imageUrl": "media/images/file_397_1778947604518.png",
-    "name": "つる",
+    "age": 14,
+    "audioUrl": "media/audios/file_410_1791402382913.wav",
+    "introduction": "畑仕事の手伝いをしながら、いつも村の大人たちの話に耳を傾けている。将来は母のような立派な女になりたいと思っている。",
     "conversations": {
-      "daily_life": {
-        "audioUrl": "media/audios/file_398_1778947604518.wav",
-        "text": "この前、畑に猪が来てね、父さんが大変だったの。今年は豊作だと良いんだけど。"
+      "greeting": {
+        "text": "旅人さん、こんにちは。今日はどちらへ？",
+        "audioUrl": "media/audios/file_411_1791402382913.wav"
       },
       "confide": {
-        "text": "私、将来、この村を出て都に行ってみたいって、こっそり思うことがあるんです。でも、母さんはきっと許してくれないでしょうね…",
-        "audioUrl": "media/audios/file_399_1778947604518.wav"
+        "audioUrl": "media/audios/file_412_1791402382913.wav",
+        "text": "私、将来、この村を出て都に行ってみたいって、こっそり思うことがあるんです。でも、母さんはきっと許してくれないでしょうね…"
+      },
+      "daily_life": {
+        "audioUrl": "media/audios/file_413_1791402382913.wav",
+        "text": "この前、畑に猪が来てね、父さんが大変だったの。今年は豊作だと良いんだけど。"
       },
       "first_encounter": {
-        "audioUrl": "media/audios/file_400_1778947604518.wav",
+        "audioUrl": "media/audios/file_414_1791402382913.wav",
         "text": "あ、あなたは…村では見かけない方ですね。どこからいらしたのですか？"
       },
       "rumors": {
-        "audioUrl": "media/audios/file_401_1778947604518.wav",
+        "audioUrl": "media/audios/file_415_1791402382913.wav",
         "text": "この前の大雨の晩、裏山から変な音がしたんだって。誰かの話し声みたいだったって、おばばが言ってたよ。"
-      },
-      "greeting": {
-        "audioUrl": "media/audios/file_402_1778947604518.wav",
-        "text": "旅人さん、こんにちは。今日はどちらへ？"
       }
-    },
-    "audioUrl": "media/audios/file_403_1778947604518.wav"
+    }
   },
   {
     "id": "TFS6nW3oE8YYdiJ21M9R",
-    "gender": "女性",
-    "createdAt": "2026-01-15T06:39:46.956Z",
-    "age": 24,
-    "audioUrl": "media/audios/file_404_1778947604518.wav",
-    "name": "いね",
-    "imageUrl": "media/images/file_405_1778947604518.png",
-    "personality": "世話好き",
     "conversation": "おや、旅の方かい？この暑い中、どこへ急ぐんだい。よかったら、あそこの井戸で喉を潤していくといいよ。",
-    "introduction": "いねは村で一番の働き者で、夏は田んぼの草むしりに精を出す。疲れた体で眺める夕焼けが、日々のささやかな楽しみだ。"
+    "audioUrl": "media/audios/file_416_1791402382913.wav",
+    "age": 24,
+    "imageUrl": "media/images/file_417_1791402382913.png",
+    "introduction": "いねは村で一番の働き者で、夏は田んぼの草むしりに精を出す。疲れた体で眺める夕焼けが、日々のささやかな楽しみだ。",
+    "name": "いね",
+    "personality": "世話好き",
+    "gender": "女性",
+    "createdAt": "2026-01-15T06:39:46.956Z"
   },
   {
     "id": "WrZCRg4Uve5mJVSTrFcN",
-    "imageUrl": "media/images/file_406_1778947604518.png",
+    "conversation": "本日は晴天なり",
+    "expressions": [],
     "conversations": {
+      "greeting": {
+        "text": "",
+        "audioUrl": null
+      },
+      "confide": {
+        "audioUrl": null,
+        "text": ""
+      },
+      "first_encounter": {
+        "audioUrl": "media/audios/file_418_1791402382913.wav",
+        "text": "本日は晴天なり"
+      },
       "rumors": {
         "text": "",
         "audioUrl": null
       },
-      "first_encounter": {
-        "text": "本日は晴天なり",
-        "audioUrl": "media/audios/file_407_1778947604518.wav"
-      },
-      "greeting": {
-        "audioUrl": null,
-        "text": ""
-      },
-      "confide": {
-        "audioUrl": null,
-        "text": ""
-      },
       "daily_life": {
         "audioUrl": null,
         "text": ""
       }
     },
-    "name": "伊東八郎ざえもん（改心）",
+    "imageUrl": "media/images/file_419_1791402382913.png",
     "age": 40,
     "gender": "男性",
-    "createdAt": "2026-04-11T21:19:21.128Z",
     "introduction": "病に伏した際、日蓮に諭されて改心している。",
+    "createdAt": "2026-04-11T21:19:21.128Z",
+    "personality": "臆病者、謙虚",
     "voiceName": "algieba",
-    "conversation": "本日は晴天なり",
-    "expressions": [],
-    "personality": "臆病者、謙虚"
+    "name": "伊東八郎ざえもん（改心）"
   },
   {
     "id": "Yg1n1Klt9jYifRCexE9X",
-    "createdAt": "2026-03-12T03:26:53.047Z",
-    "gender": "女性",
+    "imageUrl": "media/images/file_420_1791402382913.png",
     "age": 62,
+    "conversation": "どちらからのお方じゃ？こんな山奥まで、物珍しいことよのう。",
+    "gender": "女性",
+    "introduction": "夫を早くに亡くし、女手一つで子らを育て上げた苦労人。村の若い者にとっては母親のような存在であり、その温かい言葉は多くの者を励ます。",
     "conversations": {
-      "daily_life": {
-        "audioUrl": "media/audios/file_408_1778947604518.wav",
-        "text": "このところ、日照りが続いて畑が心配でね。神様も、もう少し慈悲をかけてくださらんかのう。"
-      },
       "confide": {
-        "audioUrl": "media/audios/file_409_1778947604518.wav",
+        "audioUrl": "media/audios/file_421_1791402382913.wav",
         "text": "わしももう年じゃ。この子らが無事に世を渡っていけるかと思うと、胸が締め付けられる思いじゃよ。"
       },
-      "first_encounter": {
-        "text": "どちらからのお方じゃ？こんな山奥まで、物珍しいことよのう。",
-        "audioUrl": "media/audios/file_410_1778947604518.wav"
-      },
       "rumors": {
-        "audioUrl": "media/audios/file_411_1778947604518.wav",
+        "audioUrl": "media/audios/file_422_1791402382913.wav",
         "text": "先日、山の奥で見たことのない大きな獣がうろついていたと、若い衆が騒いでおったよ。あまり近寄らぬ方がよいだろう。"
       },
+      "first_encounter": {
+        "audioUrl": "media/audios/file_423_1791402382913.wav",
+        "text": "どちらからのお方じゃ？こんな山奥まで、物珍しいことよのう。"
+      },
+      "daily_life": {
+        "audioUrl": "media/audios/file_424_1791402382913.wav",
+        "text": "このところ、日照りが続いて畑が心配でね。神様も、もう少し慈悲をかけてくださらんかのう。"
+      },
       "greeting": {
-        "audioUrl": "media/audios/file_412_1778947604518.wav",
+        "audioUrl": "media/audios/file_425_1791402382913.wav",
         "text": "あら、旅のお方。またいらしたね。息災で何よりだよ。"
       }
     },
-    "name": "まつ",
-    "imageUrl": "media/images/file_413_1778947604518.png",
     "personality": "世話好き",
-    "conversation": "どちらからのお方じゃ？こんな山奥まで、物珍しいことよのう。",
-    "introduction": "夫を早くに亡くし、女手一つで子らを育て上げた苦労人。村の若い者にとっては母親のような存在であり、その温かい言葉は多くの者を励ます。",
-    "voiceName": "vindemiatrix"
+    "voiceName": "vindemiatrix",
+    "name": "まつ",
+    "createdAt": "2026-03-12T03:26:53.047Z"
   },
   {
     "id": "aFKX7xVf5xHVhBt0uDxl",
-    "personality": "心優しい、奥ゆかしい、従順",
-    "expressions": [],
-    "conversation": "旅のお方様、どちらからおいでに？この村では、あまり見かけぬお顔ゆえ。",
     "voiceName": "leda",
-    "introduction": "娘一人に、一人息子を亡くした。心優しい女性",
     "createdAt": "2026-04-01T06:37:15.197Z",
     "gender": "女性",
     "age": 23,
+    "expressions": [],
+    "imageUrl": "media/images/file_426_1791402382913.png",
+    "conversation": "旅のお方様、どちらからおいでに？この村では、あまり見かけぬお顔ゆえ。",
+    "personality": "心優しい、奥ゆかしい、従順",
     "conversations": {
       "daily_life": {
         "text": "この頃は日差しが強く、田の草取りが骨の折れる仕事でございます。娘と二人で、なんとかこなしております。",
         "audioUrl": null
       },
       "rumors": {
-        "audioUrl": null,
-        "text": "昨夜、裏山の方から妙な笛の音が聞こえたと申す者がおりました。人には言えませぬが、もしかしたら狐狸の仕業かもしれませぬ。"
-      },
-      "first_encounter": {
-        "audioUrl": "media/audios/file_414_1778947604518.wav",
-        "text": "旅のお方様、どちらからおいでに？この村では、あまり見かけぬお顔ゆえ。"
+        "text": "昨夜、裏山の方から妙な笛の音が聞こえたと申す者がおりました。人には言えませぬが、もしかしたら狐狸の仕業かもしれませぬ。",
+        "audioUrl": null
       },
       "greeting": {
         "text": "またおいでなすったのですね、旅のお方様。お変わりなく何よりでございます。",
         "audioUrl": null
       },
+      "first_encounter": {
+        "text": "旅のお方様、どちらからおいでに？この村では、あまり見かけぬお顔ゆえ。",
+        "audioUrl": "media/audios/file_427_1791402382913.wav"
+      },
       "confide": {
-        "audioUrl": null,
-        "text": "せがれを病で失いましてから、この娘を育てるのが何よりも気がかりでございます。この先の世が、穏やかであってほしいと願うばかり。"
+        "text": "せがれを病で失いましてから、この娘を育てるのが何よりも気がかりでございます。この先の世が、穏やかであってほしいと願うばかり。",
+        "audioUrl": null
       }
     },
-    "name": "浪恵",
-    "imageUrl": "media/images/file_415_1778947604518.png"
+    "introduction": "娘一人に、一人息子を亡くした。心優しい女性",
+    "name": "浪恵"
   },
   {
     "id": "ejn9K1lUhjCBZd67mx0B",
-    "introduction": "紋太は、村の田畑を耕し続けて四十余年、今年も豊作を願う日々だ。日々の苦労は絶えぬが、村の若者たちに稲作の知恵を教えることを楽しみとしている。",
+    "createdAt": "2026-01-15T16:02:55.271Z",
+    "gender": "男性",
+    "age": 42,
+    "imageUrl": "media/images/file_428_1791402382913.png",
     "conversation": "どちらからお越しになられた？このような辺鄙な村に、珍しき旅人じゃ。",
     "personality": "世話好き",
-    "imageUrl": "media/images/file_416_1778947604518.png",
     "conversations": {
       "confide": {
         "text": "わしらがどれだけ尽くしても、飢饉や疫病がいつ襲うやもしれぬ。この村の未来を思うと、夜も寝られぬ時があるのじゃ。",
-        "audioUrl": "media/audios/file_417_1778947604518.wav"
-      },
-      "greeting": {
-        "text": "おう、旅のお方。今日も達者で何よりじゃ。",
-        "audioUrl": "media/audios/file_418_1778947604518.wav"
+        "audioUrl": "media/audios/file_429_1791402382913.wav"
       },
       "first_encounter": {
-        "audioUrl": "media/audios/file_419_1778947604518.wav",
+        "audioUrl": "media/audios/file_430_1791402382913.wav",
         "text": "どちらからお越しになられた？このような辺鄙な村に、珍しき旅人じゃ。"
       },
-      "rumors": {
-        "text": "この前の大風の夜、山の奥から不気味な声が聞こえたと、皆がひそひそ話しておる。どうか他言は無用じゃぞ。",
-        "audioUrl": "media/audios/file_420_1778947604518.wav"
+      "greeting": {
+        "audioUrl": "media/audios/file_431_1791402382913.wav",
+        "text": "おう、旅のお方。今日も達者で何よりじゃ。"
       },
       "daily_life": {
-        "text": "今年は日照りに恵まれ、稲の育ちも上々じゃ。若者らにも、水の引かせ方を教えておるよ。",
-        "audioUrl": "media/audios/file_421_1778947604518.wav"
+        "audioUrl": "media/audios/file_432_1791402382913.wav",
+        "text": "今年は日照りに恵まれ、稲の育ちも上々じゃ。若者らにも、水の引かせ方を教えておるよ。"
+      },
+      "rumors": {
+        "audioUrl": "media/audios/file_433_1791402382913.wav",
+        "text": "この前の大風の夜、山の奥から不気味な声が聞こえたと、皆がひそひそ話しておる。どうか他言は無用じゃぞ。"
       }
     },
-    "audioUrl": "media/audios/file_422_1778947604518.wav",
-    "name": "紋太",
-    "age": 42,
+    "introduction": "紋太は、村の田畑を耕し続けて四十余年、今年も豊作を願う日々だ。日々の苦労は絶えぬが、村の若者たちに稲作の知恵を教えることを楽しみとしている。",
+    "audioUrl": "media/audios/file_434_1791402382913.wav",
+    "name": "紋太"
+  },
+  {
+    "id": "eztVUOavvUatebo2KARy",
+    "age": 27,
     "gender": "男性",
-    "createdAt": "2026-01-15T16:02:55.271Z"
+    "personality": "実直な働き者",
+    "createdAt": "2026-06-12T08:03:41.142Z",
+    "voiceName": "algenib",
+    "introduction": "村の田畑を耕し、家族を支える若き働き手。口数は少ないが、その眼差しには村への深い愛情が宿る。",
+    "conversations": {
+      "confide": {
+        "text": "正直なところ、この先の年貢の取り立てが不安でな。このままでは皆、食い詰めてしまうかもしれん。先の見えない世の中が恐ろしいよ。"
+      },
+      "daily_life": {
+        "text": "最近は田んぼの様子が気になる。雨が少なすぎても困るし、降りすぎても困るからな。作物次第で村の暮らしが決まる。"
+      },
+      "first_encounter": {
+        "text": "…見慣れぬ顔だな。都の方から来たのか？こんな里まで、何か用でもあるのかい？"
+      },
+      "greeting": {
+        "text": "おう、旅人殿。今日も良い日和だな。道中ご苦労様。"
+      },
+      "rumors": {
+        "text": "この前の晩、村の裏手で狐火を見たって爺さんが言ってたぞ。何かの祟りか、それともただの気のせいか…。"
+      }
+    },
+    "imageUrl": "media/images/file_435_1791402382913.png",
+    "name": "藤太",
+    "conversation": "…見慣れぬ顔だな。都の方から来たのか？こんな里まで、何か用でもあるのかい？"
   },
   {
     "id": "gh9gg9PoOv89NWEg3vry",
     "gender": "女性",
-    "createdAt": "2026-01-15T08:39:50.495Z",
-    "age": 50,
-    "audioUrl": "media/audios/file_423_1778947604518.wav",
-    "name": "まつ",
-    "imageUrl": "media/images/file_424_1778947604518.png",
+    "audioUrl": "media/audios/file_436_1791402382913.wav",
     "personality": "しっかり者",
+    "imageUrl": "media/images/file_437_1791402382913.png",
+    "createdAt": "2026-01-15T08:39:50.495Z",
+    "name": "まつ",
     "conversation": "旅の若者よ、こんな暑い日は日差しを避けねばならん。少し休んで、この井戸水でも飲んでいくといい。",
-    "introduction": "若き日に夫を亡くし、畑仕事と家の切り盛りに精を出してきた。近年は孫の顔を見るのが何よりの楽しみで、収穫の喜びを共に分かち合っている。"
+    "introduction": "若き日に夫を亡くし、畑仕事と家の切り盛りに精を出してきた。近年は孫の顔を見るのが何よりの楽しみで、収穫の喜びを共に分かち合っている。",
+    "age": 50
+  },
+  {
+    "id": "gpdvEoKF5ktWel0cmc34",
+    "createdAt": "2026-06-12T10:25:28.562Z",
+    "voiceName": "aoede",
+    "age": 18,
+    "name": "こと",
+    "personality": "世話好き",
+    "conversations": {
+      "daily_life": {
+        "text": "朝早くから畑に出ておりました。今年は大根の出来が良さそうで、ほっと一安心です。豊作になれば、皆が笑顔になれますから。"
+      },
+      "greeting": {
+        "text": "おや、旅人さん。今日も良い天気ですな。お変わりなくお過ごしでしょうか。"
+      },
+      "rumors": {
+        "text": "この間、裏山のあたりで、見たこともない大きな鳥が飛んでおったと年寄りが言うておりました。まさか、そんな不思議なことが…。旅人さんは何かご存知ですか？"
+      },
+      "confide": {
+        "text": "母の体が思わしくなくて、薬草を煎じて飲ませておりますが、いつまで持つことやら。どうか、病が治りますようにと、神様にお祈りするばかりです。"
+      },
+      "first_encounter": {
+        "text": "どちらからいらっしゃいましたか？こんな奥まで来る旅人さんは珍しいですな。何か御用でも？"
+      }
+    },
+    "conversation": "どちらからいらっしゃいましたか？こんな奥まで来る旅人さんは珍しいですな。何か御用でも？",
+    "imageUrl": "media/images/file_438_1791402382913.png",
+    "gender": "女性",
+    "introduction": "病弱な母を支えながら、毎日畑仕事に精を出す健気な娘。村の皆の世話も焼く、心優しい働き者です。"
   },
   {
     "id": "h9JJrqBaH2EBgbHAoF0Y",
-    "personality": "好奇心旺盛",
-    "conversation": "あんた、見たことねぇ顔だなぁ。どこから来たんだ？もしかして都からか？",
-    "voiceName": "puck",
     "introduction": "村の端で母と暮らす若者。常に新しいことや珍しいものに目を輝かせている。",
+    "name": "小太郎",
+    "conversation": "あんた、見たことねぇ顔だなぁ。どこから来たんだ？もしかして都からか？",
+    "personality": "好奇心旺盛",
     "gender": "男性",
-    "createdAt": "2026-03-14T13:19:38.327Z",
+    "imageUrl": "media/images/file_439_1791402382913.png",
     "age": 14,
-    "audioUrl": "media/audios/file_425_1778947604518.wav",
+    "audioUrl": "media/audios/file_440_1791402382913.wav",
     "conversations": {
-      "daily_life": {
-        "text": "今日は畑仕事の手伝いだったんだ。腰が痛くなるばっかりで、面白いことは何もねぇな。",
-        "audioUrl": "media/audios/file_426_1778947604518.wav"
-      },
-      "confide": {
-        "text": "俺、いつかこの村を出て、もっと広い世界を見てみてぇんだ。旅人さんみたいに、色んな場所に行ってみたいなぁ。",
-        "audioUrl": "media/audios/file_427_1778947604523.wav"
-      },
-      "greeting": {
-        "text": "よお、旅人さん！今日も良い天気だな！",
-        "audioUrl": "media/audios/file_428_1778947604523.wav"
-      },
       "first_encounter": {
-        "text": "あんた、見たことねぇ顔だなぁ。どこから来たんだ？もしかして都からか？",
-        "audioUrl": "media/audios/file_429_1778947604523.wav"
+        "audioUrl": "media/audios/file_441_1791402382913.wav",
+        "text": "あんた、見たことねぇ顔だなぁ。どこから来たんだ？もしかして都からか？"
       },
       "rumors": {
-        "text": "この前、山ん中で光る石を見たって爺様が言ってたぞ。狐火じゃねぇかって、村じゃ噂になってる。",
-        "audioUrl": "media/audios/file_430_1778947604523.wav"
+        "audioUrl": "media/audios/file_442_1791402382913.wav",
+        "text": "この前、山ん中で光る石を見たって爺様が言ってたぞ。狐火じゃねぇかって、村じゃ噂になってる。"
+      },
+      "greeting": {
+        "audioUrl": "media/audios/file_443_1791402382913.wav",
+        "text": "よお、旅人さん！今日も良い天気だな！"
+      },
+      "confide": {
+        "audioUrl": "media/audios/file_444_1791402382913.wav",
+        "text": "俺、いつかこの村を出て、もっと広い世界を見てみてぇんだ。旅人さんみたいに、色んな場所に行ってみたいなぁ。"
+      },
+      "daily_life": {
+        "audioUrl": "media/audios/file_445_1791402382913.wav",
+        "text": "今日は畑仕事の手伝いだったんだ。腰が痛くなるばっかりで、面白いことは何もねぇな。"
       }
     },
-    "name": "小太郎",
-    "imageUrl": "media/images/file_431_1778947604523.png"
+    "createdAt": "2026-03-14T13:19:38.327Z",
+    "voiceName": "puck"
   },
   {
     "id": "kMEH8wVv0Y7HfbElMrtt",
-    "imageUrl": "media/images/file_432_1778947604523.png",
+    "introduction": "船守。漁師。凪咲の旦那。二人の子供。",
+    "age": 38,
+    "audioUrl": "media/audios/file_446_1791402382913.wav",
+    "createdAt": "2026-02-09T07:10:48.113Z",
+    "conversation": "おや、見慣れぬ御仁じゃな。この奥には何も御座らぬぞ、何用で参られたか？",
+    "personality": "面倒見の良い。しっかりもの。器用。",
+    "imageUrl": "media/images/file_447_1791402382913.png",
+    "voiceName": "algenib",
+    "expressions": [],
+    "name": "弥三郎",
     "conversations": {
-      "daily_life": {
-        "text": "この頃は鰯がよう獲れるゆえ、村も賑わっておる。だが、時化ればすぐに漁に出られぬのが辛いところじゃな。",
-        "audioUrl": "media/audios/file_433_1778947604523.wav"
-      },
-      "greeting": {
-        "audioUrl": "media/audios/file_434_1778947604523.wav",
-        "text": "おう、旅の御仁。今日もご苦労さまじゃな。海の具合はいかがかの？"
-      },
-      "first_encounter": {
-        "text": "おや、見慣れぬ御仁じゃな。この奥には何も御座らぬぞ、何用で参られたか？",
-        "audioUrl": "media/audios/file_435_1778947604523.wav"
-      },
       "rumors": {
-        "audioUrl": "media/audios/file_436_1778947604523.wav",
-        "text": "先日の大時化の晩には、沖の方から笛のような音が聞こえたと申す者がいた。人に言えば笑われるじゃろうが、妙なことよ。"
+        "text": "先日の大時化の晩には、沖の方から笛のような音が聞こえたと申す者がいた。人に言えば笑われるじゃろうが、妙なことよ。",
+        "audioUrl": "media/audios/file_448_1791402382913.wav"
       },
       "confide": {
         "text": "子供らも大きゅうなったが、この先の世がどうなることやら、案じてならぬ。この海が、いつまでも豊かであってくれると良いのだが。",
-        "audioUrl": "media/audios/file_437_1778947604523.wav"
+        "audioUrl": "media/audios/file_449_1791402382913.wav"
+      },
+      "greeting": {
+        "text": "おう、旅の御仁。今日もご苦労さまじゃな。海の具合はいかがかの？",
+        "audioUrl": "media/audios/file_450_1791402382913.wav"
+      },
+      "first_encounter": {
+        "audioUrl": "media/audios/file_451_1791402382913.wav",
+        "text": "おや、見慣れぬ御仁じゃな。この奥には何も御座らぬぞ、何用で参られたか？"
+      },
+      "daily_life": {
+        "audioUrl": "media/audios/file_452_1791402382913.wav",
+        "text": "この頃は鰯がよう獲れるゆえ、村も賑わっておる。だが、時化ればすぐに漁に出られぬのが辛いところじゃな。"
       }
     },
-    "audioUrl": "media/audios/file_438_1778947604523.wav",
-    "name": "弥三郎",
-    "age": 38,
-    "gender": "男性",
-    "createdAt": "2026-02-09T07:10:48.113Z",
-    "introduction": "船守。漁師。凪咲の旦那。二人の子供。",
-    "voiceName": "algenib",
-    "conversation": "おや、見慣れぬ御仁じゃな。この奥には何も御座らぬぞ、何用で参られたか？",
-    "expressions": [],
-    "personality": "面倒見の良い。しっかりもの。器用。"
+    "gender": "男性"
   },
   {
     "id": "kPqAriSaRwp4bUg4tbS9",
-    "introduction": "おしげは村の誰よりも早起きで、朝露が乾く前に畑仕事に取り掛かります。手先が器用で、夏祭りにはいつも皆の髪を結ってやるのが楽しみです。",
+    "createdAt": "2026-01-15T08:41:09.315Z",
+    "gender": "女性",
     "conversation": "そなた、見かけぬ顔じゃな。どこから来たのじゃ？こんな村の奥まで。",
+    "introduction": "おしげは村の誰よりも早起きで、朝露が乾く前に畑仕事に取り掛かります。手先が器用で、夏祭りにはいつも皆の髪を結ってやるのが楽しみです。",
     "personality": "世話好き",
-    "imageUrl": "media/images/file_439_1778947604523.png",
+    "name": "おしげ",
+    "imageUrl": "media/images/file_453_1791402382913.png",
+    "audioUrl": "media/audios/file_454_1791402382913.wav",
+    "age": 28,
     "conversations": {
-      "daily_life": {
-        "audioUrl": "media/audios/file_440_1778947604523.wav",
-        "text": "そろそろ稲の育ちを見に行かぬと。手先が器用だと褒められるが、土を耕すのはやはり腰にくるわい。"
-      },
-      "confide": {
-        "audioUrl": "media/audios/file_441_1778947604523.wav",
-        "text": "本当は、豊作続きの年もあれば、飢饉の年もあったりして、この先どうなるか、時々不安になるのじゃ。せめて皆が腹一杯食べられるよう、わしはもっと働かねば。"
-      },
-      "greeting": {
-        "audioUrl": "media/audios/file_442_1778947604523.wav",
-        "text": "旅のお方、息災で何よりじゃ。また会うたな。"
-      },
       "rumors": {
-        "text": "聞くところによると、この前の満月の晩、山の向こうで鬼火を見た者がおるらしい。他言無用じゃぞ。",
-        "audioUrl": "media/audios/file_443_1778947604523.wav"
+        "audioUrl": "media/audios/file_455_1791402382913.wav",
+        "text": "聞くところによると、この前の満月の晩、山の向こうで鬼火を見た者がおるらしい。他言無用じゃぞ。"
       },
       "first_encounter": {
         "text": "そなた、見かけぬ顔じゃな。どこから来たのじゃ？こんな村の奥まで。",
-        "audioUrl": "media/audios/file_444_1778947604523.wav"
+        "audioUrl": "media/audios/file_456_1791402382913.wav"
+      },
+      "confide": {
+        "audioUrl": "media/audios/file_457_1791402382913.wav",
+        "text": "本当は、豊作続きの年もあれば、飢饉の年もあったりして、この先どうなるか、時々不安になるのじゃ。せめて皆が腹一杯食べられるよう、わしはもっと働かねば。"
+      },
+      "daily_life": {
+        "audioUrl": "media/audios/file_458_1791402382913.wav",
+        "text": "そろそろ稲の育ちを見に行かぬと。手先が器用だと褒められるが、土を耕すのはやはり腰にくるわい。"
+      },
+      "greeting": {
+        "text": "旅のお方、息災で何よりじゃ。また会うたな。",
+        "audioUrl": "media/audios/file_459_1791402382913.wav"
       }
-    },
-    "audioUrl": "media/audios/file_445_1778947604523.wav",
-    "name": "おしげ",
-    "age": 28,
-    "createdAt": "2026-01-15T08:41:09.315Z",
-    "gender": "女性"
+    }
   },
   {
     "id": "kTJkUqV6tJjH4Ua06yE5",
-    "age": 33,
     "createdAt": "2026-03-12T03:52:42.223Z",
     "gender": "女性",
-    "imageUrl": "media/images/file_446_1778947604523.png",
+    "conversation": "おや、見慣れぬお方。どちらからいらっしゃいました？ こんな山奥まで、何かご用でございますか。",
+    "voiceName": "schedar",
+    "introduction": "夫と幼い子を支える傍ら、畑仕事にも精を出す村の働き手。控えめだが、芯の強い女性として皆に慕われている。",
+    "personality": "しっかり者",
     "name": "おきぬ",
+    "imageUrl": "media/images/file_460_1791402382913.png",
+    "age": 33,
     "conversations": {
+      "rumors": {
+        "audioUrl": "media/audios/file_461_1791402382913.wav",
+        "text": "この前の晩、森の方から妙な音が聞こえたって、弥助さんが言っていたわ。獣の鳴き声とは違う、笛のような響きだったとか…"
+      },
       "confide": {
-        "text": "正直な話、この先、子どもたちが健やかに育っていけるのか、時折不安になるのです。飢えや病だけは、避けたいと願うばかりで。",
-        "audioUrl": "media/audios/file_447_1778947604523.wav"
+        "audioUrl": "media/audios/file_462_1791402382913.wav",
+        "text": "正直な話、この先、子どもたちが健やかに育っていけるのか、時折不安になるのです。飢えや病だけは、避けたいと願うばかりで。"
       },
       "first_encounter": {
         "text": "おや、見慣れぬお方。どちらからいらっしゃいました？ こんな山奥まで、何かご用でございますか。",
-        "audioUrl": "media/audios/file_448_1778947604523.wav"
+        "audioUrl": "media/audios/file_463_1791402382913.wav"
       },
-      "rumors": {
-        "audioUrl": "media/audios/file_449_1778947604523.wav",
-        "text": "この前の晩、森の方から妙な音が聞こえたって、弥助さんが言っていたわ。獣の鳴き声とは違う、笛のような響きだったとか…"
+      "daily_life": {
+        "text": "朝早くから畑に出て、稗を植えてきました。今年はどうか、良い実りがありますように。",
+        "audioUrl": "media/audios/file_464_1791402382913.wav"
       },
       "greeting": {
         "text": "旅人様、今日も一日ご苦労様でございます。",
-        "audioUrl": "media/audios/file_450_1778947604523.wav"
-      },
-      "daily_life": {
-        "audioUrl": "media/audios/file_451_1778947604523.wav",
-        "text": "朝早くから畑に出て、稗を植えてきました。今年はどうか、良い実りがありますように。"
+        "audioUrl": "media/audios/file_465_1791402382913.wav"
       }
-    },
-    "conversation": "おや、見慣れぬお方。どちらからいらっしゃいました？ こんな山奥まで、何かご用でございますか。",
-    "personality": "しっかり者",
-    "introduction": "夫と幼い子を支える傍ら、畑仕事にも精を出す村の働き手。控えめだが、芯の強い女性として皆に慕われている。",
-    "voiceName": "schedar"
+    }
   },
   {
     "id": "l9OQHeEKsllqsTgVBnsE",
-    "imageUrl": "media/images/file_452_1778947604523.png",
-    "audioUrl": "media/audios/file_453_1778947604523.wav",
-    "name": "弥平",
-    "age": 51,
-    "gender": "男性",
-    "createdAt": "2026-01-15T08:40:41.156Z",
+    "personality": "思慮深い",
     "introduction": "村の畑を守り半世紀、弥平は村の長老として皆に頼られる存在だ。今年の夏の豊作を願いつつ、夕焼け空の下、孫と過ごすひと時が何よりの楽しみである。",
+    "createdAt": "2026-01-15T08:40:41.156Z",
+    "age": 51,
     "conversation": "暑い盛りじゃのう、旅の若者よ。日差しは強いが、この豊かな緑を見れば、畑の作物もよう育つじゃろうて。",
-    "personality": "思慮深い"
+    "imageUrl": "media/images/file_466_1791402382913.png",
+    "audioUrl": "media/audios/file_467_1791402382913.wav",
+    "gender": "男性",
+    "name": "弥平"
   },
   {
     "id": "lg6USIozxY3kV8mUtFrv",
-    "conversation": "あんた、若いのにずいぶん遠くまで来たもんだね。この暑さじゃ水筒が欠かせないよ、しっかり飲みな。",
     "personality": "しっかり者",
     "introduction": "たけは、夫と共に田畑を耕し、日々の糧を得ている。若い衆の世話を焼き、村の祭ではいつも一番先に準備に取り掛かる、頼りになる存在だ。",
-    "age": 44,
-    "createdAt": "2026-01-15T08:39:29.807Z",
+    "conversation": "あんた、若いのにずいぶん遠くまで来たもんだね。この暑さじゃ水筒が欠かせないよ、しっかり飲みな。",
     "gender": "女性",
-    "imageUrl": "media/images/file_454_1778947604523.png",
-    "audioUrl": "media/audios/file_455_1778947604523.wav",
-    "name": "たけ"
+    "audioUrl": "media/audios/file_468_1791402382913.wav",
+    "name": "たけ",
+    "createdAt": "2026-01-15T08:39:29.807Z",
+    "age": 44,
+    "imageUrl": "media/images/file_469_1791402382913.png"
   },
   {
     "id": "lgUpVsz8PHgWVJMRMp01",
     "voiceName": "charon",
-    "introduction": "村で生まれ育った生粋の農夫。口数は少ないが、その瞳は常に畑の作物を見守っている。",
     "personality": "寡黙",
-    "expressions": [],
+    "createdAt": "2026-03-14T13:09:51.247Z",
+    "introduction": "村で生まれ育った生粋の農夫。口数は少ないが、その瞳は常に畑の作物を見守っている。",
+    "age": 43,
     "conversation": "見慣れぬ顔じゃな。どこから来た。こんな山奥に、何か用か？",
-    "audioUrl": "media/audios/file_456_1778947604523.wav",
     "conversations": {
       "first_encounter": {
-        "audioUrl": "media/audios/file_457_1778947604523.wav",
+        "audioUrl": "media/audios/file_470_1791402382913.wav",
         "text": "見慣れぬ顔じゃな。どこから来た。こんな山奥に、何か用か？"
       },
       "rumors": {
-        "text": "最近、隣の村の林で、夜な夜な笛の音が聞こえるという話じゃ。狐のしわざか、それとも…。",
-        "audioUrl": "media/audios/file_458_1778947604523.wav"
+        "audioUrl": "media/audios/file_471_1791402382913.wav",
+        "text": "最近、隣の村の林で、夜な夜な笛の音が聞こえるという話じゃ。狐のしわざか、それとも…。"
       },
       "greeting": {
-        "audioUrl": "media/audios/file_459_1778947604523.wav",
-        "text": "おう、旅人殿。今日も良い日和じゃな。"
+        "text": "おう、旅人殿。今日も良い日和じゃな。",
+        "audioUrl": "media/audios/file_472_1791402382913.wav"
+      },
+      "daily_life": {
+        "text": "今年は日照りが長うてな、作物の育ちが心配じゃ。雨乞いでもせねばなるまいか。",
+        "audioUrl": "media/audios/file_473_1791402382913.wav"
       },
       "confide": {
         "text": "わしももう四十を過ぎた。この先の年貢のことや、息子が一人前になれるかと思うと、夜も寝られぬ時がある。",
-        "audioUrl": "media/audios/file_460_1778947604523.wav"
-      },
-      "daily_life": {
-        "audioUrl": "media/audios/file_461_1778947604523.wav",
-        "text": "今年は日照りが長うてな、作物の育ちが心配じゃ。雨乞いでもせねばなるまいか。"
+        "audioUrl": "media/audios/file_474_1791402382913.wav"
       }
     },
-    "name": "源蔵",
-    "imageUrl": "media/images/file_462_1778947604523.png",
-    "createdAt": "2026-03-14T13:09:51.247Z",
+    "imageUrl": "media/images/file_475_1791402382913.png",
+    "expressions": [],
+    "audioUrl": "media/audios/file_476_1791402382913.wav",
     "gender": "男性",
-    "age": 43
+    "name": "源蔵"
   },
   {
     "id": "olCEMKCl0vWKNZOIrj2g",
-    "introduction": "システムの案内人",
     "voiceName": "enceladus",
-    "conversation": "こんにちは",
-    "expressions": [],
-    "personality": "真面目、無機質",
-    "imageUrl": "media/images/file_463_1778947604523.png",
-    "audioUrl": "media/audios/file_464_1778947604523.wav",
-    "name": "システム",
     "age": 30,
     "gender": "男性",
-    "createdAt": "2026-02-23T15:43:12.782Z"
+    "personality": "真面目、無機質",
+    "createdAt": "2026-02-23T15:43:12.782Z",
+    "imageUrl": "media/images/file_477_1791402382913.png",
+    "introduction": "システムの案内人",
+    "name": "システム",
+    "expressions": [],
+    "conversation": "こんにちは",
+    "audioUrl": "media/audios/file_478_1791402382913.wav"
   },
   {
     "id": "pT0EsE1BMBpKRUZSjUb9",
-    "conversation": "見慣れぬお方じゃな。一体どちらからいらっしゃったのじゃ？この村は旅の者が立ち寄るところではないが…何か困り事かえ？",
-    "personality": "世話好き",
-    "introduction": "長年この村で暮らし、村の移り変わりを静かに見守ってきた老女。誰よりも村の出来事や人々の暮らしに詳しい。",
     "voiceName": "charon",
     "age": 64,
     "gender": "女性",
+    "personality": "世話好き",
     "createdAt": "2026-03-14T13:08:57.083Z",
-    "imageUrl": "media/images/file_465_1778947604523.png",
-    "audioUrl": "media/audios/file_466_1778947604523.wav",
+    "imageUrl": "media/images/file_479_1791402382913.png",
+    "introduction": "長年この村で暮らし、村の移り変わりを静かに見守ってきた老女。誰よりも村の出来事や人々の暮らしに詳しい。",
+    "name": "おきぬ",
     "conversations": {
-      "confide": {
-        "audioUrl": "media/audios/file_467_1778947604523.wav",
-        "text": "わしももう年じゃ。この先、どこまで村のために働けるか、孫たちにこの貧しい暮らしを続けさせるのかと思うと、胸が締め付けられるようじゃ。"
-      },
       "greeting": {
-        "audioUrl": "media/audios/file_468_1778947604523.wav",
+        "audioUrl": "media/audios/file_480_1791402382913.wav",
         "text": "おや、旅のお方。今日も元気にしておったかえ？"
       },
       "rumors": {
         "text": "最近、隣の里で、夜な夜な森から妙な光が見えるという話じゃ。狐火か、それとも何か別のものか…。",
-        "audioUrl": "media/audios/file_469_1778947604523.wav"
+        "audioUrl": "media/audios/file_481_1791402382913.wav"
       },
       "first_encounter": {
-        "text": "見慣れぬお方じゃな。一体どちらからいらっしゃったのじゃ？この村は旅の者が立ち寄るところではないが…何か困り事かえ？",
-        "audioUrl": "media/audios/file_470_1778947604523.wav"
+        "audioUrl": "media/audios/file_482_1791402382913.wav",
+        "text": "見慣れぬお方じゃな。一体どちらからいらっしゃったのじゃ？この村は旅の者が立ち寄るところではないが…何か困り事かえ？"
       },
       "daily_life": {
-        "audioUrl": "media/audios/file_471_1778947604523.wav",
-        "text": "今年は雨が多くてな、畑の作物の育ちが思わしくないんじゃ。秋の収穫が心配でならんよ。"
+        "text": "今年は雨が多くてな、畑の作物の育ちが思わしくないんじゃ。秋の収穫が心配でならんよ。",
+        "audioUrl": "media/audios/file_483_1791402382913.wav"
+      },
+      "confide": {
+        "audioUrl": "media/audios/file_484_1791402382913.wav",
+        "text": "わしももう年じゃ。この先、どこまで村のために働けるか、孫たちにこの貧しい暮らしを続けさせるのかと思うと、胸が締め付けられるようじゃ。"
       }
     },
-    "name": "おきぬ"
+    "conversation": "見慣れぬお方じゃな。一体どちらからいらっしゃったのじゃ？この村は旅の者が立ち寄るところではないが…何か困り事かえ？",
+    "audioUrl": "media/audios/file_485_1791402382913.wav"
   },
   {
     "id": "tTPwcEBQZSA6Bxl7JYcF",
-    "introduction": "幼少の頃より日蓮を師事して、流罪となった日蓮に付き添って、伊豆にやってきた少年僧侶",
+    "imageUrl": "media/images/file_486_1791402382913.png",
+    "personality": "真面目、誠実、優しい",
+    "name": "伯耆",
     "voiceName": "puck",
+    "audioUrl": "media/audios/file_487_1791402382913.wav",
+    "gender": "男性",
+    "createdAt": "2026-02-20T16:05:26.349Z",
+    "introduction": "幼少の頃より日蓮を師事して、流罪となった日蓮に付き添って、伊豆にやってきた少年僧侶",
+    "age": 16,
     "conversation": "こんにちは",
     "expressions": [
       {
         "name": "苦しい表情",
-        "imageUrl": "media/images/file_472_1778947604523.png"
+        "imageUrl": "media/images/file_488_1791402382913.png"
       },
       {
-        "imageUrl": "media/images/file_473_1778947604523.png",
+        "imageUrl": "media/images/file_489_1791402382913.png",
         "name": "明るい表情"
       }
-    ],
-    "personality": "真面目、誠実、優しい",
-    "imageUrl": "media/images/file_474_1778947604523.png",
-    "audioUrl": "media/audios/file_475_1778947604523.wav",
-    "name": "伯耆",
-    "age": 16,
-    "gender": "男性",
-    "createdAt": "2026-02-20T16:05:26.349Z"
+    ]
   },
   {
     "id": "wMSjRWzjMW8zmymdIxYk",
-    "createdAt": "2026-01-15T08:39:39.606Z",
-    "gender": "女性",
+    "audioUrl": "media/audios/file_490_1791402382913.wav",
+    "introduction": "田畑を耕す両親を手伝いながらも、遠くの都の話に耳を傾けるのが好きだ。祭りの準備ではいつも誰よりも早く駆けつけ、村の賑わいを心待ちにしている。",
     "age": 16,
-    "name": "うめ",
-    "audioUrl": "media/audios/file_476_1778947604523.wav",
-    "imageUrl": "media/images/file_477_1778947604523.png",
-    "personality": "好奇心旺盛",
     "conversation": "旅の人かい？こんな暑い日に遠くから、一体どんな面白い話を持ってきてくれたんだい？",
-    "introduction": "田畑を耕す両親を手伝いながらも、遠くの都の話に耳を傾けるのが好きだ。祭りの準備ではいつも誰よりも早く駆けつけ、村の賑わいを心待ちにしている。"
+    "name": "うめ",
+    "imageUrl": "media/images/file_491_1791402382913.png",
+    "createdAt": "2026-01-15T08:39:39.606Z",
+    "personality": "好奇心旺盛",
+    "gender": "女性"
   },
   {
     "id": "wxkrxJkKSXwtiWiURiTf",
     "age": 50,
-    "createdAt": "2026-01-15T06:40:34.071Z",
     "gender": "女性",
-    "imageUrl": "media/images/file_478_1778947604523.png",
-    "audioUrl": "media/audios/file_479_1778947604523.wav",
     "name": "ふじ",
-    "conversation": "おや、旅のお方かい？こんな暑い盛りによく来たもんだね。少し休んで、この冷たい水でも飲んでいくといいよ。",
     "personality": "しっかり者",
+    "conversation": "おや、旅のお方かい？こんな暑い盛りによく来たもんだね。少し休んで、この冷たい水でも飲んでいくといいよ。",
+    "createdAt": "2026-01-15T06:40:34.071Z",
+    "audioUrl": "media/audios/file_492_1791402382913.wav",
+    "imageUrl": "media/images/file_493_1791402382913.png",
     "introduction": "ふじは、村の誰よりも朝早く起き、井戸端で一日を始める。彼女の作った味噌は村一番と評判で、嫁いだ娘や孫たちが時折味見に訪れるのが何よりの楽しみだ。"
   },
   {
     "id": "zr7FF1eL9z2jmpE464es",
-    "voiceName": "algieba",
+    "name": "伊東八郎ざえもん",
     "introduction": "鎌倉時代の武士。伊豆の地頭で日向伊東氏の祖。伊豆法難中の日蓮の病を治した縁で帰依し釈迦像を贈った。信心を貫いたとする記録の一方、後に念仏へ戻り「退転」したとする記述も日蓮の遺した書状に残されている。",
     "personality": "傲慢、偉そう、臆病",
-    "expressions": [],
     "conversation": "本日は晴天なり",
+    "voiceName": "algieba",
+    "createdAt": "2026-04-09T01:15:53.842Z",
+    "age": 40,
+    "expressions": [],
+    "imageUrl": "media/images/file_494_1791402382913.png",
+    "gender": "男性",
     "conversations": {
+      "rumors": {
+        "text": "",
+        "audioUrl": null
+      },
+      "first_encounter": {
+        "text": "本日は晴天なり",
+        "audioUrl": "media/audios/file_495_1791402382913.wav"
+      },
       "confide": {
+        "audioUrl": null,
+        "text": ""
+      },
+      "daily_life": {
         "audioUrl": null,
         "text": ""
       },
       "greeting": {
         "text": "",
         "audioUrl": null
-      },
-      "rumors": {
-        "text": "",
-        "audioUrl": null
-      },
-      "first_encounter": {
-        "audioUrl": "media/audios/file_480_1778947604523.wav",
-        "text": "本日は晴天なり"
-      },
-      "daily_life": {
-        "audioUrl": null,
-        "text": ""
       }
-    },
-    "name": "伊東八郎ざえもん",
-    "imageUrl": "media/images/file_481_1778947604523.png",
-    "gender": "男性",
-    "createdAt": "2026-04-09T01:15:53.842Z",
-    "age": 40
+    }
   }
 ]

@@ -1,17 +1,17 @@
 [
   {
     "id": "LBsOuOfTRQ2jE2egjpQQ",
-    "stats": {
-      "mp": 80,
-      "attack": 20,
-      "defense": 45,
-      "magic": 20,
-      "hp": 150
-    },
     "attribute": "土",
-    "story": "キチットは、真面目な性格がかわいらしい小さなモンスターです。いつも周囲をきちんと整頓しています。",
+    "stats": {
+      "hp": 150,
+      "mp": 80,
+      "magic": 20,
+      "attack": 20,
+      "defense": 45
+    },
     "personality": "真面目",
     "motif": "Gemini_Generated_Image_jkzcbyjkzcbyjkzc",
+    "story": "キチットは、真面目な性格がかわいらしい小さなモンスターです。いつも周囲をきちんと整頓しています。",
     "name": "キチット"
   },
   {
@@ -19,14 +19,14 @@
     "name": "ネバリッチ",
     "personality": "粘り強い",
     "motif": "Gemini_Generated_Image_ani0n7ani0n7ani0",
-    "attribute": "土",
     "stats": {
-      "hp": 180,
       "mp": 80,
+      "hp": 180,
       "attack": 25,
-      "defense": 45,
-      "magic": 20
+      "magic": 20,
+      "defense": 45
     },
+    "attribute": "土",
     "story": "ネバリッチは、一度決めたことは決して諦めない粘り強いモンスターです。ぷるぷる震えながらも、目標に向かってひたすら進み続けます。"
   }
 ]
