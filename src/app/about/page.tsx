@@ -109,24 +109,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.44</Badge>
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.47</Badge>
                 <div>
                   <p className="font-bold">システムの継続的堅牢化</p>
-                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを継続して行いました。</p>
+                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを継続して実施しました。</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.44</Badge>
+                <div>
+                  <p className="font-bold">システムの安定化と整合性の向上</p>
+                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを行いました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.43</Badge>
                 <div>
                   <p className="font-bold">システムの堅牢化と整合性の向上</p>
                   <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを継続して行いました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.42</Badge>
-                <div>
-                  <p className="font-bold">システムの継続的安定化</p>
-                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の堅牢性を高めるための内部メンテナンスと、コードの整合性チェックを行いました。</p>
                 </div>
               </div>
             </div>
