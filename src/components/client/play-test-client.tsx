@@ -299,6 +299,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
 
   // State
   const [loading, setLoading] = useState(true);
+  const [isAssetsLoading, setIsAssetsLoading] = useState(true);
   const [selectedWorldId, setSelectedWorldId] = useState<string>(initialData?.mapId || '');
   const [activePlayerId, setActivePlayerId] = useState<string>('');
   const [activeCellIndex, setActiveCellIndex] = useState(0);
@@ -487,23 +488,57 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     if (!activePlayerChar) return;
     const fetchAnims = async () => {
       try {
+        setIsAssetsLoading(true);
         const res = await fetch(`${activePlayerChar.path}/animations.json`);
         if (res.ok) { 
           const data = await res.json(); 
           const clips = data.clips || [];
           setPlayerClips(clips); 
 
-          // Preload player animation frames
+          // Preload player animation frames with onload tracking
           if (typeof window !== 'undefined') {
+            const imagePromises: Promise<void>[] = [];
             clips.forEach((clip: AnimationClip) => {
               clip.frames.forEach((frame) => {
-                const img = new (window as any).Image();
-                img.src = resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`);
+                const url = resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`);
+                const promise = new Promise<void>((resolve) => {
+                  const img = new (window as any).Image();
+                  img.onload = () => resolve();
+                  img.onerror = () => resolve(); // エラー時もブロックしない
+                  img.src = url;
+                  // すでにキャッシュ済みの場合のフォールバック
+                  if (img.complete) {
+                    resolve();
+                  }
+                });
+                imagePromises.push(promise);
               });
             });
+
+            // アイドル時の基本画像もプリロード
+            const idleDirections: CharacterDirection[] = ['down', 'up', 'left', 'right'];
+            idleDirections.forEach((dir) => {
+              const idleUrl = resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${dir}_1.png`);
+              const promise = new Promise<void>((resolve) => {
+                const img = new (window as any).Image();
+                img.onload = () => resolve();
+                img.onerror = () => resolve();
+                img.src = idleUrl;
+                if (img.complete) {
+                  resolve();
+                }
+              });
+              imagePromises.push(promise);
+            });
+
+            await Promise.all(imagePromises);
           }
         }
-      } catch (e) { setPlayerClips([]); }
+      } catch (e) { 
+        setPlayerClips([]); 
+      } finally {
+        setIsAssetsLoading(false);
+      }
     };
     fetchAnims();
   }, [activePlayerChar]);
@@ -1186,7 +1221,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             isVertical ? "aspect-[9/10.5]" : "aspect-[16/9]", // 縦型時は高さを約10%削減
             isGamePaused ? "cursor-default" : "cursor-crosshair"
           )}>
-            {activeMapData ? (
+            {activeMapData && !isAssetsLoading ? (
               <>
                 {/* 
                   Camera Wrapper 
