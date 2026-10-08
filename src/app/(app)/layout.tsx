@@ -23,8 +23,6 @@ import { RoomIcon } from "@/components/icons/RoomIcon";
 import { CharacterIcon } from "@/components/icons/CharacterIcon";
 import { ObjectIcon } from "@/components/icons/ObjectIcon";
 import { ItemIcon } from "@/components/icons/ItemIcon";
-import { EventIcon } from "@/components/icons/EventIcon";
-import { EventSimulatorIcon } from "@/components/icons/EventSimulatorIcon";
 import { StoryIcon } from "@/components/icons/StoryIcon";
 import { CombatIcon } from "@/components/icons/CombatIcon";
 import { ExportIcon } from "@/components/icons/ExportIcon";
@@ -35,7 +33,6 @@ import { ShopIcon } from "@/components/icons/ShopIcon";
 import packageJson from "../../../package.json";
 import { AuthButton } from "@/components/client/auth-button";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
-import { StoryEditorIcon } from "@/components/icons/StoryEditorIcon";
 import { SequencePlayerIcon } from "@/components/icons/SequencePlayerIcon";
 import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -50,9 +47,6 @@ const navItems = [
   { href: "/object-list", label: "オブジェクトリスト", icon: ObjectIcon },
   { href: "/item-list", label: "アイテムリスト", icon: ItemIcon },
   { href: "/character-editor", label: "キャラクターエディター", icon: CharacterIcon },
-  { href: "/event-editor", label: "イベントエディター", icon: EventIcon },
-  { href: "/event-simulator", label: "イベントシミュレーター", icon: EventSimulatorIcon },
-  { href: "/story-editor", label: "ストーリーエディター", icon: StoryEditorIcon },
   { href: "/story-archive", label: "物語の記憶", icon: SequencePlayerIcon },
   { href: "/story-assist", label: "ストーリーアシスト", icon: StoryIcon },
   { href: "/menu-simulator", label: "メニューシミュレーター", icon: MenuIcon },
