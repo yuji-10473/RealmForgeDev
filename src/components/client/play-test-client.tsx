@@ -1326,13 +1326,13 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         {isVertical && (
           <div className="flex flex-col gap-2 p-2 pt-0 bg-muted/20 border-t z-10 shrink-0">
             {/* メインコントローラーエリア */}
-            <div className="flex items-center justify-around w-full max-w-md mx-auto py-1">
+            <div className="flex items-center justify-between w-full max-w-full mx-auto px-4 py-2">
               {/* 十字キー (D-Pad) */}
-              <div className="grid grid-cols-3 grid-rows-2 gap-8 w-40 h-24">
-                <DpadButton direction="ArrowUp" className="col-start-2" onKeyAction={handleDpadAction} />
-                <DpadButton direction="ArrowLeft" className="row-start-2" onKeyAction={handleDpadAction} />
-                <DpadButton direction="ArrowDown" className="row-start-2 col-start-2" onKeyAction={handleDpadAction} />
-                <DpadButton direction="ArrowRight" className="row-start-2 col-start-3" onKeyAction={handleDpadAction} />
+              <div className="flex gap-2 w-[50vw] h-[18vmin] max-h-[75px]">
+                <DpadButton direction="ArrowLeft" onKeyAction={handleDpadAction} />
+                <DpadButton direction="ArrowUp" onKeyAction={handleDpadAction} />
+                <DpadButton direction="ArrowDown" onKeyAction={handleDpadAction} />
+                <DpadButton direction="ArrowRight" onKeyAction={handleDpadAction} />
               </div>
 
               {/* Aボタン (決定/しらべる) */}
