@@ -321,6 +321,8 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const [level, setLevel] = useState(initialData?.level ?? 1);
   const [xp, setXp] = useState(initialData?.xp ?? 0);
   const [day, setDay] = useState(initialData?.day ?? 1);
+  const [seenStoryIds, setSeenStoryIds] = useState<string[]>(initialData?.flags || []);
+  const isInitialStoryCheckDone = useRef(false);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -563,7 +565,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const handleSave = () => {
     const saveData = {
       userId: user.uid, mapId: selectedWorldId, positionX: characterPosition.x, positionY: characterPosition.y,
-      hp, maxHp, hunger, maxHunger, level, xp, day, inventory, gold, affection, suppliedIngredients, bgmVolume, voiceVolume, isMuted, showOnScreenControls, updatedAt: serverTimestamp(),
+      hp, maxHp, hunger, maxHunger, level, xp, day, inventory, gold, affection, suppliedIngredients, flags: seenStoryIds, bgmVolume, voiceVolume, isMuted, showOnScreenControls, updatedAt: serverTimestamp(),
     };
     setDocumentNonBlocking(saveDocRef.current, saveData, { merge: true });
     toast({ title: "セーブ完了", description: "進行状況を保存しました。" });
@@ -586,6 +588,16 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
       setActiveCellIndex(originalPlayerState.cellIndex);
       setCharacterPosition(originalPlayerState.pos);
     }
+    if (activeCutscene) {
+      setSeenStoryIds(prev => {
+        if (!prev.includes(activeCutscene.id)) {
+          const updated = [...prev, activeCutscene.id];
+          setDocumentNonBlocking(saveDocRef.current, { flags: updated }, { merge: true });
+          return updated;
+        }
+        return prev;
+      });
+    }
     setActiveCutscene(null); 
     setCutsceneEventQueue([]);
     setCurrentQueueIndex(-1); 
@@ -593,7 +605,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     setOriginalPlayerState(null);
     setActiveEvent(null);
     setCurrentEventNode(null);
-  }, [originalPlayerState]);
+  }, [originalPlayerState, activeCutscene]);
 
   // キューの次のイベントに進む
   const playNextInQueue = useCallback((currentIndex: number, queue: string[]) => {
@@ -749,6 +761,25 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   }, [masterSequences, selectedWorldId, activeCellIndex, characterPosition, extractEventIdsFromSequence, playNextInQueue, endCutscene]);
 
 
+  // 日数に応じた物語の判定と再生
+  const checkAndPlayStoryForDay = useCallback((targetDay: number, currentSeenIds = seenStoryIds) => {
+    const seq = masterSequences.find(s => (s.day === targetDay || (targetDay === 1 && s.title.includes('オープニング'))));
+    if (seq && !currentSeenIds.includes(seq.id)) {
+      handlePlaySequence(seq.id);
+      return true;
+    }
+    return false;
+  }, [masterSequences, seenStoryIds, handlePlaySequence]);
+
+  // 1日目のスタート直後の自動再生判定（初回読み込み完了時）
+  useEffect(() => {
+    if (loading || isAssetsLoading || masterSequences.length === 0 || isInitialStoryCheckDone.current) return;
+    isInitialStoryCheckDone.current = true;
+    if (day === 1) {
+      checkAndPlayStoryForDay(1);
+    }
+  }, [loading, isAssetsLoading, masterSequences, day, checkAndPlayStoryForDay]);
+
   // ビデオの再生終了ハンドラ
   const handleVideoEnded = useCallback(() => {
       if (activeCutscene) {
@@ -871,8 +902,13 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           setSuppliedIngredients(nextSupplied);
           setHp(maxHp); 
           setHunger(50); 
-          setDay(prev => prev + 1);
-          toast({ title: "休息", description: "ぐっすり眠って、日付が進んだ！" }); 
+          const nextDay = day + 1;
+          setDay(nextDay);
+          toast({ title: "休息", description: "朝が来ました。日付が進んだ！" }); 
+          // 2日目以降：就寝後、朝が来てから自動再生
+          setTimeout(() => {
+            checkAndPlayStoryForDay(nextDay);
+          }, 300);
           return; 
         }
         if (asset?.name === '仏壇') { setHp(prev => Math.min(maxHp, prev + 20)); setHunger(10); toast({ title: "お祈り", description: "静かに祈りを捧げた。体力が少し回復した。" }); return; }
@@ -1558,7 +1594,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
               const d=availableObjects.find(a=>a.id===i.itemId); 
               return {id:i.itemId,name:d?.name||'?',imageUrl:resolveMediaUrl(d?.imageUrl),quantity:i.quantity,canUse:(d?.recoveryAmount||0)>0,description:d?.description,rarity:d?.rarity,itemType:d?.itemType,recoveryAmount:d?.recoveryAmount,ingredients:d?.ingredients};
             })} 
-            sequences={masterSequences.map(s=>({id:s.id,title:s.title,description:s.description}))} 
+            sequences={masterSequences.filter(s => seenStoryIds.includes(s.id)).map(s=>({id:s.id,title:s.title,description:s.description}))} 
             characterAffection={availableObjects.filter(o=>o.type==='person').map(v=>({id:v.id,name:v.name||'?',imageUrl:resolveMediaUrl(v.imageUrl),points:affection[v.id]||0,description:v.description,personality:v.personality,age:v.age,gender:v.gender,introduction:v.introduction})).filter(c=>c.points>0).sort((a,b)=>b.points-a.points)} 
             onPlaySequence={handlePlaySequence} 
             onUseItem={(id)=>{

@@ -1,9 +1,6 @@
 [
   {
     "id": "1dSI5mdK2GdtD1gOEtvB",
-    "rarity": 4,
-    "servings": 1,
-    "imageUrl": "media/images/file_242_1791402382912.png",
     "embedding": [
       0.0043526273,
       0.0031689154,
@@ -774,17 +771,20 @@
       0.006715612,
       0.012304236
     ],
+    "recoveryAmount": 20,
+    "rarity": 4,
+    "description": "赤く艶やかな身が目を引く、新鮮な赤貝の握り寿司。磯の香りとコリコリとした食感が、特製の酢飯と絶妙に調和し、口の中に至福の旨味が広がる。",
     "createdAt": "2026-03-27T18:10:35.492Z",
     "ingredients": [
       {
+        "id": "Q3azybqvPedx0YPwZWwV",
         "name": "アカガイ",
-        "amount": 0.3125,
-        "id": "Q3azybqvPedx0YPwZWwV"
+        "amount": 0.3125
       },
       {
         "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "amount": 0.025,
-        "name": "ワサビの根茎"
+        "name": "ワサビの根茎",
+        "amount": 0.025
       },
       {
         "amount": 6.5,
@@ -792,14 +792,14 @@
         "name": "白米"
       },
       {
-        "amount": 0.1,
+        "id": "8opkrk9Da3Xv4wp1nDaj",
         "name": "米飴",
-        "id": "8opkrk9Da3Xv4wp1nDaj"
+        "amount": 0.1
       },
       {
+        "id": "hRrafDY8fmMbfzUyfJMI",
         "amount": 0.3,
-        "name": "酢",
-        "id": "hRrafDY8fmMbfzUyfJMI"
+        "name": "酢"
       },
       {
         "amount": 0.3,
@@ -807,49 +807,16 @@
         "name": "醤油"
       }
     ],
-    "recoveryAmount": 20,
     "name": "握り寿司（赤貝）",
-    "description": "赤く艶やかな身が目を引く、新鮮な赤貝の握り寿司。磯の香りとコリコリとした食感が、特製の酢飯と絶妙に調和し、口の中に至福の旨味が広がる。"
+    "servings": 1,
+    "imageUrl": "media/images/file_242_1791792766730.png"
   },
   {
     "id": "2IJnr2je0q0d3rplq6tn",
-    "ingredients": [
-      {
-        "id": "53a43XLTHX09uRI9V2Gu",
-        "name": "カツオ",
-        "amount": 0.0865
-      },
-      {
-        "name": "ワサビの根茎",
-        "amount": 0.025,
-        "id": "XSw2Zr7bVJeNJWzaJW5E"
-      },
-      {
-        "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "amount": 0.01,
-        "name": "塩"
-      },
-      {
-        "name": "白米",
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "amount": 4
-      },
-      {
-        "amount": 0.2,
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "name": "酢"
-      },
-      {
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "amount": 0.12
-      }
-    ],
-    "recoveryAmount": 30,
-    "description": "新鮮な鰹の旨みが口いっぱいに広がる握り寿司。きらめく赤身と程よい酸味の酢飯が織りなす、滋味豊かな逸品です。",
-    "imageUrl": "media/images/file_243_1791402382912.png",
-    "servings": 1,
     "createdAt": "2026-03-27T18:10:13.012Z",
+    "name": "握り寿司（鰹）",
+    "rarity": 4,
+    "imageUrl": "media/images/file_243_1791792766730.png",
     "embedding": [
       -0.0003698557,
       0.010230691,
@@ -1620,14 +1587,50 @@
       0.01975082,
       0.0034679112
     ],
-    "name": "握り寿司（鰹）",
-    "rarity": 4
+    "ingredients": [
+      {
+        "id": "53a43XLTHX09uRI9V2Gu",
+        "name": "カツオ",
+        "amount": 0.0865
+      },
+      {
+        "name": "ワサビの根茎",
+        "amount": 0.025,
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "amount": 0.01
+      },
+      {
+        "amount": 4,
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "name": "白米"
+      },
+      {
+        "amount": 0.2,
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "name": "酢"
+      },
+      {
+        "amount": 0.12,
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "name": "醤油"
+      }
+    ],
+    "recoveryAmount": 30,
+    "description": "新鮮な鰹の旨みが口いっぱいに広がる握り寿司。きらめく赤身と程よい酸味の酢飯が織りなす、滋味豊かな逸品です。",
+    "servings": 1
   },
   {
     "id": "2SHl9vPaAWszftM720sc",
     "recoveryAmount": 450,
     "rarity": 5,
-    "imageUrl": "media/images/file_244_1791402382912.png",
+    "createdAt": "2026-03-03T18:30:36.053Z",
+    "name": "昇竜ホウボウと松茸の雅蒸し",
+    "imageUrl": "media/images/file_244_1791792766730.png",
+    "description": "金色の鱗輝くホウボウを、清らかな出汁とみりんで丁寧に蒸し上げた一品。その上に、気高き香りの松茸、優美なきぬがさ茸、そして海の恵みたる濃厚な雲丹を添える。一口頬張れば、深淵なる海の幸と山の恵みが織りなす至高の風味が、心身を癒すであろう。",
     "servings": 3,
     "embedding": [
       0.001586927,
@@ -2399,12 +2402,11 @@
       0.006711255,
       0.0060320324
     ],
-    "createdAt": "2026-03-03T18:30:36.053Z",
     "ingredients": [
       {
-        "id": "jLzSFqpHnh9NQ3Y6vvJ0",
         "name": "ホウボウ",
-        "amount": 2.33
+        "amount": 2.33,
+        "id": "jLzSFqpHnh9NQ3Y6vvJ0"
       },
       {
         "id": "EExCU3KTgaZ074nw8IzK",
@@ -2418,22 +2420,52 @@
       },
       {
         "name": "まつたけ",
-        "id": "uejC6QExQ6p1m0p2EiS7",
-        "amount": 3
+        "amount": 3,
+        "id": "uejC6QExQ6p1m0p2EiS7"
       },
       {
-        "id": "YzTZxIFZLFuw6Y5NTIab",
         "amount": 2,
-        "name": "ウニ"
+        "name": "ウニ",
+        "id": "YzTZxIFZLFuw6Y5NTIab"
       }
-    ],
-    "name": "昇竜ホウボウと松茸の雅蒸し",
-    "description": "金色の鱗輝くホウボウを、清らかな出汁とみりんで丁寧に蒸し上げた一品。その上に、気高き香りの松茸、優美なきぬがさ茸、そして海の恵みたる濃厚な雲丹を添える。一口頬張れば、深淵なる海の幸と山の恵みが織りなす至高の風味が、心身を癒すであろう。"
+    ]
   },
   {
     "id": "2aoSaYoDjoS6QDn8qH7L",
-    "recoveryAmount": 250,
+    "imageUrl": "media/images/file_245_1791792766730.png",
+    "ingredients": [
+      {
+        "id": "Mp12LDJ0zexNYvbSoX4a",
+        "amount": 1.5,
+        "name": "秋刀魚"
+      },
+      {
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5",
+        "amount": 6.5625
+      },
+      {
+        "amount": 32.8125,
+        "id": "hjZwcagGSJ5ZqxQ7c7aG",
+        "name": "ししとう"
+      },
+      {
+        "amount": 3.9375,
+        "id": "yM3qjHb3MURbMEtjE8CB",
+        "name": "柿"
+      },
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF",
+        "amount": 7
+      }
+    ],
+    "description": "脂の乗った秋刀魚を丁寧に炙り、香ばしい焦げ目を付け、秋の恵みであるししとうとしいたけと共に焼き上げた一品。甘く熟した柿が、焼魚の風味に奥深さと季節の彩りを添え、口の中に広がる豊かな味わいは、まるで錦に染まる秋の山々を思わせる。",
+    "servings": 1,
     "createdAt": "2026-03-03T18:37:46.865Z",
+    "rarity": 3,
+    "recoveryAmount": 250,
+    "name": "錦秋の秋刀魚彩り焼き",
     "embedding": [
       0.008229705,
       -0.0024891843,
@@ -3203,51 +3235,19 @@
       0.052079115,
       0.0009217284,
       0.003885271
-    ],
-    "rarity": 3,
-    "name": "錦秋の秋刀魚彩り焼き",
-    "description": "脂の乗った秋刀魚を丁寧に炙り、香ばしい焦げ目を付け、秋の恵みであるししとうとしいたけと共に焼き上げた一品。甘く熟した柿が、焼魚の風味に奥深さと季節の彩りを添え、口の中に広がる豊かな味わいは、まるで錦に染まる秋の山々を思わせる。",
-    "imageUrl": "media/images/file_245_1791402382912.png",
-    "ingredients": [
-      {
-        "name": "秋刀魚",
-        "id": "Mp12LDJ0zexNYvbSoX4a",
-        "amount": 1.5
-      },
-      {
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "amount": 6.5625,
-        "name": "葱"
-      },
-      {
-        "name": "ししとう",
-        "id": "hjZwcagGSJ5ZqxQ7c7aG",
-        "amount": 32.8125
-      },
-      {
-        "amount": 3.9375,
-        "name": "柿",
-        "id": "yM3qjHb3MURbMEtjE8CB"
-      },
-      {
-        "id": "KfC755P2vtX74e1mqqEF",
-        "amount": 7,
-        "name": "しいたけ"
-      }
-    ],
-    "servings": 1
+    ]
   },
   {
     "id": "3lIeyoKU4ixPE3DHXonw",
     "servings": 2,
-    "description": "深き山々で育まれしホンシメジの香りと、清き海より獲れし真鯛の旨味が溶け合う、清らかな蒸し料理。口に含めば、山芋のとろみが舌を包み込み、大根の清涼な風味が後を追う。鯛と茸を酒と少量の味噌で蒸し上げ、素材本来の味わいを最大限に引き出した逸品なり。",
-    "imageUrl": "media/images/file_246_1791402382912.png",
-    "recoveryAmount": 350,
+    "rarity": 4,
+    "createdAt": "2026-03-03T18:31:51.562Z",
+    "imageUrl": "media/images/file_246_1791792766730.png",
     "ingredients": [
       {
-        "amount": 1.91,
         "id": "8lsKJW8hJWyELJhdNsmj",
-        "name": "マダイ"
+        "name": "マダイ",
+        "amount": 1.91
       },
       {
         "name": "ホンシメジ",
@@ -3255,21 +3255,24 @@
         "amount": 20
       },
       {
-        "amount": 0.96,
+        "name": "大根",
         "id": "zoSSJHt3VcF7YYSm6N7m",
-        "name": "大根"
+        "amount": 0.96
       },
       {
-        "id": "z8M5UiMDOHXstbSYrdTg",
         "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg",
         "amount": 1.2
       },
       {
-        "id": "2H6H30X0wlCBYfbtm2sk",
         "amount": 6,
-        "name": "味噌"
+        "name": "味噌",
+        "id": "2H6H30X0wlCBYfbtm2sk"
       }
     ],
+    "name": "真鯛とホンシメジの深山の恵み蒸し",
+    "description": "深き山々で育まれしホンシメジの香りと、清き海より獲れし真鯛の旨味が溶け合う、清らかな蒸し料理。口に含めば、山芋のとろみが舌を包み込み、大根の清涼な風味が後を追う。鯛と茸を酒と少量の味噌で蒸し上げ、素材本来の味わいを最大限に引き出した逸品なり。",
+    "recoveryAmount": 350,
     "embedding": [
       0.0074009206,
       -0.0018388251,
@@ -4039,36 +4042,30 @@
       0.036258828,
       0.010002634,
       0.0041142018
-    ],
-    "createdAt": "2026-03-03T18:31:51.562Z",
-    "name": "真鯛とホンシメジの深山の恵み蒸し",
-    "rarity": 4
+    ]
   },
   {
     "id": "5nqKHCGpKQy8gIb3KV1v",
-    "description": "深海の紅玉たる紅ズワイガニを中心に、磯の恵みであるサザエとホタテ、そして秘境に息づくイワタケ、香豊かな葱を贅沢に盛り込み、優しく蒸し上げた逸品。立ち上る湯気と共に海の香が広がり、一口含めば、カニの甘みと磯の旨味が口いっぱいに満ち、滋味深いイワタケと葱の香りが繊細な風味を添える。素材の持ち味を最大限に引き出すため、新鮮なまま、少量の酒と共に蒸篭でじっくりと蒸し上げました。",
-    "recoveryAmount": 600,
-    "name": "紅玉蟹と磯宝の姿蒸し",
     "ingredients": [
       {
-        "amount": 3,
         "id": "ZoynJPNkAS3aA99cWBlX",
-        "name": "紅ズワイガニ"
+        "name": "紅ズワイガニ",
+        "amount": 3
       },
       {
         "name": "サザエ",
-        "id": "eFmdysNHnI5NAURBTcVF",
-        "amount": 3.43
+        "amount": 3.43,
+        "id": "eFmdysNHnI5NAURBTcVF"
       },
       {
-        "amount": 3.43,
         "name": "ホタテ貝",
+        "amount": 3.43,
         "id": "qeRLNkbtgDSGGdAOuSgm"
       },
       {
-        "id": "ox3Yzp87XLY9J2oMfmrj",
         "name": "イワタケ",
-        "amount": 12
+        "amount": 12,
+        "id": "ox3Yzp87XLY9J2oMfmrj"
       },
       {
         "id": "5AZ2gOb0pKEtI0ktdXg5",
@@ -4076,6 +4073,12 @@
         "name": "葱"
       }
     ],
+    "description": "深海の紅玉たる紅ズワイガニを中心に、磯の恵みであるサザエとホタテ、そして秘境に息づくイワタケ、香豊かな葱を贅沢に盛り込み、優しく蒸し上げた逸品。立ち上る湯気と共に海の香が広がり、一口含めば、カニの甘みと磯の旨味が口いっぱいに満ち、滋味深いイワタケと葱の香りが繊細な風味を添える。素材の持ち味を最大限に引き出すため、新鮮なまま、少量の酒と共に蒸篭でじっくりと蒸し上げました。",
+    "createdAt": "2026-03-03T18:37:28.735Z",
+    "recoveryAmount": 600,
+    "rarity": 4,
+    "imageUrl": "media/images/file_247_1791792766730.png",
+    "name": "紅玉蟹と磯宝の姿蒸し",
     "embedding": [
       0.011463348,
       0.0022159275,
@@ -4846,45 +4849,40 @@
       -0.0020508554,
       0.024052646
     ],
-    "createdAt": "2026-03-03T18:37:28.735Z",
-    "rarity": 4,
-    "imageUrl": "media/images/file_247_1791402382912.png",
     "servings": 3
   },
   {
     "id": "679F8NUB7m1UrPPAUYkh",
-    "rarity": 4,
-    "imageUrl": "media/images/file_248_1791402382912.png",
-    "name": "潮風薫る平政の彩り造り",
-    "servings": 3,
     "ingredients": [
       {
         "id": "uTSFIz6bYNyKFQgUg8Nu",
-        "amount": 2.7,
-        "name": "平政"
+        "name": "平政",
+        "amount": 2.7
       },
       {
-        "amount": 2.4,
         "id": "xEAYmyPE8MbIuMYM1s7X",
+        "amount": 2.4,
         "name": "縞鯵"
       },
       {
+        "id": "Q3azybqvPedx0YPwZWwV",
         "amount": 2.25,
-        "name": "アカガイ",
-        "id": "Q3azybqvPedx0YPwZWwV"
+        "name": "アカガイ"
       },
       {
-        "id": "VWjfw0RXg0J3HRJABwGo",
+        "name": "ワカメ",
         "amount": 9.6,
-        "name": "ワカメ"
+        "id": "VWjfw0RXg0J3HRJABwGo"
       },
       {
+        "id": "3YZfJ2kNdsbpz0GHk0Yz",
         "amount": 2.4,
-        "name": "ミツバ",
-        "id": "3YZfJ2kNdsbpz0GHk0Yz"
+        "name": "ミツバ"
       }
     ],
-    "createdAt": "2026-03-03T18:33:04.523Z",
+    "name": "潮風薫る平政の彩り造り",
+    "description": "厳選された平政と縞鯵を薄造りにし、瑞々しいアカガイと磯の香豊かなワカメ、そして清々しいミツバと共に美しく盛り付けた逸品。口に運べば、海の恵みが織りなす繊細な旨味が広がり、潮風のような爽やかさが心身を癒すでしょう。新鮮な魚介を丁寧に捌き、彩り豊かに盛り付けただけの、素材の持ち味を最大限に引き出した逸品です。",
+    "servings": 3,
     "embedding": [
       0.00062599435,
       0.00471733,
@@ -5655,11 +5653,60 @@
       0.0038457012,
       0.008101301
     ],
-    "description": "厳選された平政と縞鯵を薄造りにし、瑞々しいアカガイと磯の香豊かなワカメ、そして清々しいミツバと共に美しく盛り付けた逸品。口に運べば、海の恵みが織りなす繊細な旨味が広がり、潮風のような爽やかさが心身を癒すでしょう。新鮮な魚介を丁寧に捌き、彩り豊かに盛り付けただけの、素材の持ち味を最大限に引き出した逸品です。",
-    "recoveryAmount": 400
+    "imageUrl": "media/images/file_248_1791792766730.png",
+    "rarity": 4,
+    "recoveryAmount": 400,
+    "createdAt": "2026-03-03T18:33:04.523Z"
   },
   {
     "id": "709ZpjboHQfrLy8GXpw9",
+    "description": "濃厚な海の香りが広がる、とろけるような甘さの雲丹を惜しみなく乗せた握り寿司。口の中で米の旨味と相まって至福のひとときをもたらす逸品。",
+    "recoveryAmount": 75,
+    "name": "握り寿司（雲丹）",
+    "ingredients": [
+      {
+        "id": "EExCU3KTgaZ074nw8IzK",
+        "name": "みりん",
+        "amount": 0.05
+      },
+      {
+        "amount": 0.025,
+        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "name": "ワサビの根茎"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "amount": 0.05
+      },
+      {
+        "amount": 1,
+        "id": "STRvLHjFtu4fDkBHaqut",
+        "name": "大葉"
+      },
+      {
+        "name": "海苔",
+        "id": "4th7RhqsWqmT7ZA87sFK"
+      },
+      {
+        "name": "白米",
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "amount": 6.5
+      },
+      {
+        "amount": 0.3,
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "name": "酢"
+      },
+      {
+        "amount": 2.5,
+        "name": "雲丹",
+        "id": "jhNVIDFcL2HOafI5Ce7D"
+      }
+    ],
+    "rarity": 5,
+    "createdAt": "2026-03-27T18:10:42.902Z",
+    "servings": 1,
     "embedding": [
       0.01589084,
       0.005962393,
@@ -6430,59 +6477,44 @@
       0.010950642,
       0.018141473
     ],
-    "createdAt": "2026-03-27T18:10:42.902Z",
-    "recoveryAmount": 75,
-    "rarity": 5,
-    "servings": 1,
-    "imageUrl": "media/images/file_249_1791402382912.png",
-    "name": "握り寿司（雲丹）",
-    "ingredients": [
-      {
-        "amount": 0.05,
-        "id": "EExCU3KTgaZ074nw8IzK",
-        "name": "みりん"
-      },
-      {
-        "name": "ワサビの根茎",
-        "amount": 0.025,
-        "id": "XSw2Zr7bVJeNJWzaJW5E"
-      },
-      {
-        "name": "塩",
-        "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "amount": 0.05
-      },
-      {
-        "name": "大葉",
-        "id": "STRvLHjFtu4fDkBHaqut",
-        "amount": 1
-      },
-      {
-        "name": "海苔",
-        "id": "4th7RhqsWqmT7ZA87sFK"
-      },
-      {
-        "amount": 6.5,
-        "name": "白米",
-        "id": "mQ5aybZclKtqbmhzSNUj"
-      },
-      {
-        "name": "酢",
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "amount": 0.3
-      },
-      {
-        "name": "雲丹",
-        "amount": 2.5,
-        "id": "jhNVIDFcL2HOafI5Ce7D"
-      }
-    ],
-    "description": "濃厚な海の香りが広がる、とろけるような甘さの雲丹を惜しみなく乗せた握り寿司。口の中で米の旨味と相まって至福のひとときをもたらす逸品。"
+    "imageUrl": "media/images/file_249_1791792766730.png"
   },
   {
     "id": "7otQpn8ugYoYb3uOInb6",
-    "description": "濃厚な味噌の香りが食欲をそそる一品。柔らかく煮込まれたイカと、歯ごたえ豊かなアカザラガイの旨味が、染み込んだ大根としいたけと共に口いっぱいに広がる。海の恵みを贅沢に使い、特製の味噌だれでじっくりと煮込んだ逸品である。",
+    "imageUrl": "media/images/file_250_1791792766730.png",
     "createdAt": "2026-03-03T17:17:11.745Z",
+    "servings": 4,
+    "name": "深海の恵み、潮騒の具足煮",
+    "ingredients": [
+      {
+        "name": "イカ",
+        "id": "e4MS3bAlVhNcZLeW7wC9",
+        "amount": 2
+      },
+      {
+        "id": "2H6H30X0wlCBYfbtm2sk",
+        "name": "味噌",
+        "amount": 24
+      },
+      {
+        "name": "大根",
+        "id": "zoSSJHt3VcF7YYSm6N7m",
+        "amount": 1.44
+      },
+      {
+        "name": "しいたけ",
+        "amount": 4,
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "id": "HWoHHDxYrMeOb76mBuKJ",
+        "name": "アカザラガイ",
+        "amount": 5.14
+      }
+    ],
+    "recoveryAmount": 2250,
+    "description": "濃厚な味噌の香りが食欲をそそる一品。柔らかく煮込まれたイカと、歯ごたえ豊かなアカザラガイの旨味が、染み込んだ大根としいたけと共に口いっぱいに広がる。海の恵みを贅沢に使い、特製の味噌だれでじっくりと煮込んだ逸品である。",
+    "rarity": 4,
     "embedding": [
       0.014335294,
       0.004555708,
@@ -7252,43 +7284,45 @@
       0.045570374,
       0.0044222088,
       0.032883883
-    ],
-    "ingredients": [
-      {
-        "amount": 2,
-        "name": "イカ",
-        "id": "e4MS3bAlVhNcZLeW7wC9"
-      },
-      {
-        "id": "2H6H30X0wlCBYfbtm2sk",
-        "name": "味噌",
-        "amount": 24
-      },
-      {
-        "amount": 1.44,
-        "name": "大根",
-        "id": "zoSSJHt3VcF7YYSm6N7m"
-      },
-      {
-        "name": "しいたけ",
-        "amount": 4,
-        "id": "KfC755P2vtX74e1mqqEF"
-      },
-      {
-        "name": "アカザラガイ",
-        "id": "HWoHHDxYrMeOb76mBuKJ",
-        "amount": 5.14
-      }
-    ],
-    "rarity": 4,
-    "servings": 4,
-    "name": "深海の恵み、潮騒の具足煮",
-    "imageUrl": "media/images/file_250_1791402382912.png",
-    "recoveryAmount": 2250
+    ]
   },
   {
     "id": "8wc9jML8FFBHZeGLhmeP",
-    "name": "握り寿司（鰆）",
+    "imageUrl": "media/images/file_251_1791792766730.png",
+    "ingredients": [
+      {
+        "amount": 0.05,
+        "name": "ワサビの根茎",
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      },
+      {
+        "name": "白米",
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "amount": 6.5
+      },
+      {
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "name": "米飴",
+        "amount": 0.05
+      },
+      {
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "name": "酢",
+        "amount": 0.15
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "amount": 0.1
+      },
+      {
+        "amount": 0.1,
+        "id": "NqXZo9OMLPycRT458F4p",
+        "name": "鰆"
+      }
+    ],
+    "recoveryAmount": 35,
+    "description": "新鮮な鰆の切り身が、ふっくらと炊かれた酢飯の上に美しく並ぶ握り寿司。口に広がる鰆の旨味と酢飯の絶妙なバランスが至福のひとときを届ける一品。",
     "embedding": [
       0.00528974,
       0.0025461558,
@@ -8059,90 +8093,14 @@
       -0.0036253284,
       0.01732258
     ],
-    "createdAt": "2026-03-27T17:59:19.850Z",
-    "rarity": 4,
-    "description": "新鮮な鰆の切り身が、ふっくらと炊かれた酢飯の上に美しく並ぶ握り寿司。口に広がる鰆の旨味と酢飯の絶妙なバランスが至福のひとときを届ける一品。",
-    "ingredients": [
-      {
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "amount": 0.05,
-        "name": "ワサビの根茎"
-      },
-      {
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "amount": 6.5,
-        "name": "白米"
-      },
-      {
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "amount": 0.05,
-        "name": "米飴"
-      },
-      {
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "amount": 0.15,
-        "name": "酢"
-      },
-      {
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "amount": 0.1
-      },
-      {
-        "amount": 0.1,
-        "id": "NqXZo9OMLPycRT458F4p",
-        "name": "鰆"
-      }
-    ],
     "servings": 1,
-    "recoveryAmount": 35,
-    "imageUrl": "media/images/file_251_1791402382912.png"
+    "name": "握り寿司（鰆）",
+    "rarity": 4,
+    "createdAt": "2026-03-27T17:59:19.850Z"
   },
   {
     "id": "ACzyx4FDBkvp3UmCfUsD",
-    "ingredients": [
-      {
-        "baseUnit": "個",
-        "amount": 3.5,
-        "name": "茄子",
-        "shakuPerUnit": 9,
-        "id": "iAfESxyxyJJThEnvuPQv"
-      },
-      {
-        "name": "小麦粉",
-        "shakuPerUnit": null,
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "baseUnit": "勺",
-        "amount": 7
-      },
-      {
-        "baseUnit": "個",
-        "id": "XP2ysxstRn327LT7opOy",
-        "shakuPerUnit": 2,
-        "name": "卵",
-        "amount": 1.5
-      },
-      {
-        "shakuPerUnit": null,
-        "baseUnit": "勺",
-        "name": "水",
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "amount": 6
-      },
-      {
-        "baseUnit": "勺",
-        "name": "菜種油",
-        "shakuPerUnit": null,
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "amount": 1
-      }
-    ],
-    "recoveryAmount": 100,
     "description": "とろけるような食感と、香ばしい衣が絶妙に調和した茄子の天ぷら。一口食べれば、口いっぱいに広がる豊かな風味と、茄子本来の甘みが心と体を癒します。揚げたて熱々を塩でシンプルにいただくのが至高の贅沢。",
-    "name": "天ぷら（茄子）",
-    "rarity": 3,
-    "servings": 1,
-    "imageUrl": "media/images/file_252_1791402382912.png",
     "embedding": [
       -0.0011056523,
       0.0019951437,
@@ -8913,10 +8871,56 @@
       0.014304818,
       -0.000544205
     ],
-    "createdAt": "2026-04-07T08:39:07.215Z"
+    "ingredients": [
+      {
+        "id": "iAfESxyxyJJThEnvuPQv",
+        "baseUnit": "個",
+        "amount": 3.5,
+        "name": "茄子",
+        "shakuPerUnit": 9
+      },
+      {
+        "baseUnit": "勺",
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "amount": 7,
+        "shakuPerUnit": null
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy",
+        "shakuPerUnit": 2,
+        "amount": 1.5,
+        "baseUnit": "個"
+      },
+      {
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "name": "水",
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "amount": 6
+      },
+      {
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "amount": 1,
+        "name": "菜種油"
+      }
+    ],
+    "rarity": 3,
+    "createdAt": "2026-04-07T08:39:07.215Z",
+    "name": "天ぷら（茄子）",
+    "imageUrl": "media/images/file_252_1791792766730.png",
+    "servings": 1,
+    "recoveryAmount": 100
   },
   {
     "id": "AntZxvj090mN75tOrCdG",
+    "name": "潮騒の恵み、五宝の海山焼き",
+    "createdAt": "2026-03-03T17:42:29.859Z",
+    "rarity": 5,
+    "recoveryAmount": 750,
     "embedding": [
       0.0038935337,
       0.003061162,
@@ -9687,31 +9691,25 @@
       0.011075954,
       0.016882798
     ],
-    "createdAt": "2026-03-03T17:42:29.859Z",
-    "recoveryAmount": 750,
     "servings": 3,
-    "name": "潮騒の恵み、五宝の海山焼き",
-    "imageUrl": "media/images/file_253_1791402382912.png",
-    "description": "黒潮に揉まれた新鮮なカツオを豪快に炙り、磯の香豊かなサザエ、清らかな山の恵みであるホンシメジとタケノコを添えました。薬味のワサビが素材の旨味を一層引き立て、口いっぱいに海と山の恵みが広がる逸品です。これらの食材は、焚き火で丁寧に炙られ、その香ばしさが格別の味わいを生み出します。",
-    "rarity": 5,
     "ingredients": [
       {
-        "id": "53a43XLTHX09uRI9V2Gu",
+        "name": "カツオ",
         "amount": 1.2,
-        "name": "カツオ"
+        "id": "53a43XLTHX09uRI9V2Gu"
       },
       {
         "name": "ワサビの根茎",
         "id": "XSw2Zr7bVJeNJWzaJW5E"
       },
       {
-        "amount": 8,
         "name": "ホンシメジ",
+        "amount": 8,
         "id": "wjNpgsoUGtPWkykXvfyk"
       },
       {
-        "name": "サザエ",
         "amount": 4.29,
+        "name": "サザエ",
         "id": "eFmdysNHnI5NAURBTcVF"
       },
       {
@@ -9719,10 +9717,44 @@
         "amount": 1.33,
         "id": "KU5dMDHGiJUmEhv59Kd8"
       }
-    ]
+    ],
+    "imageUrl": "media/images/file_253_1791792766730.png",
+    "description": "黒潮に揉まれた新鮮なカツオを豪快に炙り、磯の香豊かなサザエ、清らかな山の恵みであるホンシメジとタケノコを添えました。薬味のワサビが素材の旨味を一層引き立て、口いっぱいに海と山の恵みが広がる逸品です。これらの食材は、焚き火で丁寧に炙られ、その香ばしさが格別の味わいを生み出します。"
   },
   {
     "id": "BfFpaD8TiXkSzYjPXvu3",
+    "createdAt": "2026-03-03T17:43:27.712Z",
+    "ingredients": [
+      {
+        "id": "jTqpUdOfrQFbGaElicVh",
+        "amount": 8.4,
+        "name": "カジカ"
+      },
+      {
+        "amount": 3,
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "name": "生姜"
+      },
+      {
+        "amount": 3,
+        "id": "3jIIklqiteVQC0Ae5qjt",
+        "name": "牛蒡"
+      },
+      {
+        "name": "大豆",
+        "id": "JGZQ3ns1WcfsUi56u10y",
+        "amount": 18
+      },
+      {
+        "name": "ワカメ",
+        "id": "VWjfw0RXg0J3HRJABwGo",
+        "amount": 18
+      }
+    ],
+    "name": "清流カジカの滋養汁",
+    "description": "清らかな川で獲れたカジカを主役に、土の恵みと海の幸が溶け合う滋味深い汁物。生姜が魚の風味を引き立て、牛蒡と大豆が深みと食感を加え、ワカメが磯の香りを添える。全ての具材を丁寧に煮込み、心身を温める一品に仕上げた。",
+    "imageUrl": "media/images/file_254_1791792766730.png",
+    "recoveryAmount": 160,
     "embedding": [
       0.005546891,
       -0.00615634,
@@ -10493,89 +10525,62 @@
       0.004684406,
       0.01773217
     ],
-    "createdAt": "2026-03-03T17:43:27.712Z",
-    "name": "清流カジカの滋養汁",
-    "imageUrl": "media/images/file_254_1791402382912.png",
     "servings": 2,
-    "description": "清らかな川で獲れたカジカを主役に、土の恵みと海の幸が溶け合う滋味深い汁物。生姜が魚の風味を引き立て、牛蒡と大豆が深みと食感を加え、ワカメが磯の香りを添える。全ての具材を丁寧に煮込み、心身を温める一品に仕上げた。",
-    "recoveryAmount": 160,
-    "rarity": 3,
-    "ingredients": [
-      {
-        "amount": 8.4,
-        "name": "カジカ",
-        "id": "jTqpUdOfrQFbGaElicVh"
-      },
-      {
-        "name": "生姜",
-        "amount": 3,
-        "id": "u0dh8tyTOcLrmu2D8E1M"
-      },
-      {
-        "id": "3jIIklqiteVQC0Ae5qjt",
-        "name": "牛蒡",
-        "amount": 3
-      },
-      {
-        "amount": 18,
-        "name": "大豆",
-        "id": "JGZQ3ns1WcfsUi56u10y"
-      },
-      {
-        "id": "VWjfw0RXg0J3HRJABwGo",
-        "amount": 18,
-        "name": "ワカメ"
-      }
-    ]
+    "rarity": 3
   },
   {
     "id": "DEiuXdlNhWGy4j4KFWVL",
-    "description": "ホウボウの鮮やかな赤身が白米の上に美しく映える一貫。口に含めば、上品な旨味とほのかな甘みが広がり、磯の香りが鼻腔をくすぐる逸品です。",
     "ingredients": [
       {
-        "name": "ホウボウ",
         "amount": 0.111,
-        "baseUnit": "個",
+        "shakuPerUnit": 18,
+        "name": "ホウボウ",
         "id": "jLzSFqpHnh9NQ3Y6vvJ0",
-        "shakuPerUnit": 18
+        "baseUnit": "個"
       },
       {
+        "amount": 0.025,
         "id": "XSw2Zr7bVJeNJWzaJW5E",
         "shakuPerUnit": 4,
-        "baseUnit": "個",
         "name": "ワサビの根茎",
-        "amount": 0.025
+        "baseUnit": "個"
       },
       {
         "baseUnit": "勺",
+        "amount": 7,
         "shakuPerUnit": null,
         "id": "mQ5aybZclKtqbmhzSNUj",
-        "amount": 7,
         "name": "白米"
       },
       {
-        "name": "米飴",
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "amount": 0.2,
         "baseUnit": "勺",
-        "shakuPerUnit": null
+        "name": "米飴",
+        "amount": 0.2,
+        "shakuPerUnit": null,
+        "id": "8opkrk9Da3Xv4wp1nDaj"
       },
       {
-        "shakuPerUnit": null,
         "amount": 0.7,
         "id": "hRrafDY8fmMbfzUyfJMI",
+        "baseUnit": "勺",
         "name": "酢",
-        "baseUnit": "勺"
+        "shakuPerUnit": null
       },
       {
-        "name": "醤油",
         "amount": 1,
-        "id": "XhkCWADRwNYsGVQBXwVs",
+        "shakuPerUnit": null,
+        "name": "醤油",
         "baseUnit": "勺",
-        "shakuPerUnit": null
+        "id": "XhkCWADRwNYsGVQBXwVs"
       }
     ],
+    "description": "ホウボウの鮮やかな赤身が白米の上に美しく映える一貫。口に含めば、上品な旨味とほのかな甘みが広がり、磯の香りが鼻腔をくすぐる逸品です。",
     "recoveryAmount": 25,
+    "createdAt": "2026-03-27T18:11:10.831Z",
+    "imageUrl": "media/images/file_255_1791792766730.png",
+    "name": "握り寿司（ホウボウ）",
+    "rarity": 4,
+    "servings": 1,
     "embedding": [
       0.0031301451,
       0.0121178925,
@@ -11345,36 +11350,31 @@
       0.0231498,
       0.018860543,
       0.014204959
-    ],
-    "createdAt": "2026-03-27T18:11:10.831Z",
-    "name": "握り寿司（ホウボウ）",
-    "servings": 1,
-    "rarity": 4,
-    "imageUrl": "media/images/file_255_1791402382912.png"
+    ]
   },
   {
     "id": "DmfWXWEGPtMUp1RdXaw7",
-    "imageUrl": "media/images/file_256_1791402382912.png",
+    "rarity": 5,
     "ingredients": [
       {
         "amount": 1.886,
-        "id": "tblQtSx30FPHOuSB8zZE",
-        "name": "伊勢海老"
+        "name": "伊勢海老",
+        "id": "tblQtSx30FPHOuSB8zZE"
       },
       {
-        "amount": 1.2,
         "name": "コンブ",
+        "amount": 1.2,
         "id": "fTD4pKW8rlT7aRjpnGH0"
       },
       {
-        "amount": 1.5,
+        "name": "生姜",
         "id": "u0dh8tyTOcLrmu2D8E1M",
-        "name": "生姜"
+        "amount": 1.5
       },
       {
-        "amount": 18,
+        "id": "XhkCWADRwNYsGVQBXwVs",
         "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs"
+        "amount": 18
       },
       {
         "amount": 12,
@@ -11382,10 +11382,6 @@
         "id": "8opkrk9Da3Xv4wp1nDaj"
       }
     ],
-    "servings": 4,
-    "recoveryAmount": 950,
-    "description": "瑞々しい伊勢海老を贅沢に丸ごと使い、昆布出汁と生姜の香る特製煮汁でじっくりと煮込んだ逸品。米飴と醤油で調えた琥珀色の餡が伊勢海老の旨味を包み込み、口に運べば至福の甘辛さが広がる。その豪華な見た目は、まさに宝船の如し。",
-    "createdAt": "2026-03-03T13:42:41.724Z",
     "embedding": [
       0.010949409,
       0.013088891,
@@ -12156,15 +12152,66 @@
       -0.0023884503,
       0.030797927
     ],
-    "rarity": 5,
-    "name": "宝船伊勢海老の旨煮"
+    "description": "瑞々しい伊勢海老を贅沢に丸ごと使い、昆布出汁と生姜の香る特製煮汁でじっくりと煮込んだ逸品。米飴と醤油で調えた琥珀色の餡が伊勢海老の旨味を包み込み、口に運べば至福の甘辛さが広がる。その豪華な見た目は、まさに宝船の如し。",
+    "name": "宝船伊勢海老の旨煮",
+    "recoveryAmount": 950,
+    "imageUrl": "media/images/file_256_1791792766730.png",
+    "createdAt": "2026-03-03T13:42:41.724Z",
+    "servings": 4
   },
   {
     "id": "E68T1AfXiIo3hNaQu0BU",
-    "rarity": 4,
-    "servings": 1,
-    "recoveryAmount": 25,
     "createdAt": "2026-03-27T17:47:49.750Z",
+    "rarity": 4,
+    "imageUrl": "media/images/file_257_1791792766730.png",
+    "description": "透き通るような白身が美しいヒラメの握り寿司。上品な甘みと弾むような食感が口いっぱいに広がり、心身を癒します。",
+    "ingredients": [
+      {
+        "amount": 0.086,
+        "shakuPerUnit": 35,
+        "id": "TDtHPWfuw76in3vue0g3",
+        "name": "ヒラメ",
+        "baseUnit": "個"
+      },
+      {
+        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "name": "ワサビの根茎",
+        "amount": 0.025,
+        "baseUnit": "個",
+        "shakuPerUnit": 4
+      },
+      {
+        "shakuPerUnit": null,
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "baseUnit": "勺",
+        "amount": 6.5,
+        "name": "白米"
+      },
+      {
+        "amount": 0.05,
+        "shakuPerUnit": null,
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "name": "米飴",
+        "baseUnit": "勺"
+      },
+      {
+        "baseUnit": "勺",
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "shakuPerUnit": null,
+        "amount": 0.3,
+        "name": "酢"
+      },
+      {
+        "shakuPerUnit": null,
+        "name": "醤油",
+        "amount": 0.025,
+        "baseUnit": "勺",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      }
+    ],
+    "servings": 1,
+    "name": "握り寿司（ヒラメ）",
+    "recoveryAmount": 25,
     "embedding": [
       -0.013463423,
       0.00081621466,
@@ -12934,59 +12981,14 @@
       0.018395064,
       0.0015283991,
       0.004473524
-    ],
-    "name": "握り寿司（ヒラメ）",
-    "imageUrl": "media/images/file_257_1791402382912.png",
-    "description": "透き通るような白身が美しいヒラメの握り寿司。上品な甘みと弾むような食感が口いっぱいに広がり、心身を癒します。",
-    "ingredients": [
-      {
-        "id": "TDtHPWfuw76in3vue0g3",
-        "amount": 0.086,
-        "name": "ヒラメ",
-        "baseUnit": "個",
-        "shakuPerUnit": 35
-      },
-      {
-        "name": "ワサビの根茎",
-        "baseUnit": "個",
-        "shakuPerUnit": 4,
-        "amount": 0.025,
-        "id": "XSw2Zr7bVJeNJWzaJW5E"
-      },
-      {
-        "name": "白米",
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "baseUnit": "勺",
-        "amount": 6.5,
-        "shakuPerUnit": null
-      },
-      {
-        "name": "米飴",
-        "baseUnit": "勺",
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "amount": 0.05,
-        "shakuPerUnit": null
-      },
-      {
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "baseUnit": "勺",
-        "amount": 0.3,
-        "shakuPerUnit": null,
-        "name": "酢"
-      },
-      {
-        "shakuPerUnit": null,
-        "baseUnit": "勺",
-        "name": "醤油",
-        "amount": 0.025,
-        "id": "XhkCWADRwNYsGVQBXwVs"
-      }
     ]
   },
   {
     "id": "FU0i2BXdgDzx9imJkMjR",
-    "rarity": 3,
     "createdAt": "2026-04-07T05:54:17.168Z",
+    "rarity": 3,
+    "imageUrl": "media/images/file_258_1791792766730.png",
+    "recoveryAmount": 750,
     "embedding": [
       0.0055998317,
       0.0055089537,
@@ -13757,96 +13759,97 @@
       -0.0004999092,
       0.021979243
     ],
+    "name": "海鮮焼きそば",
     "ingredients": [
       {
-        "amount": 0.64,
-        "id": "e4MS3bAlVhNcZLeW7wC9",
+        "baseUnit": "個",
         "name": "イカ",
-        "baseUnit": "個"
+        "amount": 0.64,
+        "id": "e4MS3bAlVhNcZLeW7wC9"
       },
       {
+        "amount": 2.1,
         "id": "kK6YCX8jsbmrrjaniC6W",
         "baseUnit": "個",
-        "name": "車海老",
-        "amount": 2.1
+        "name": "車海老"
       },
       {
-        "id": "gCAL5NtJdRHDkhddjFSb",
-        "name": "帆立",
-        "amount": 1.44,
-        "baseUnit": "個"
-      },
-      {
-        "name": "人参",
         "baseUnit": "個",
-        "amount": 0.75,
-        "id": "KZpwGqZRFCzr2T34LqAM"
+        "amount": 1.44,
+        "name": "帆立",
+        "id": "gCAL5NtJdRHDkhddjFSb"
       },
       {
-        "name": "醤油",
-        "baseUnit": "勺",
+        "baseUnit": "個",
+        "id": "KZpwGqZRFCzr2T34LqAM",
+        "name": "人参",
+        "amount": 0.75
+      },
+      {
         "amount": 1.44,
+        "baseUnit": "勺",
+        "name": "醤油",
         "id": "XhkCWADRwNYsGVQBXwVs"
       },
       {
         "name": "酒",
-        "baseUnit": "勺",
+        "id": "3YerNFezpn9YOVp7SQwD",
         "amount": 1.2,
-        "id": "3YerNFezpn9YOVp7SQwD"
+        "baseUnit": "勺"
       },
       {
         "amount": 1.2,
         "name": "みりん",
-        "baseUnit": "勺",
-        "id": "EExCU3KTgaZ074nw8IzK"
+        "id": "EExCU3KTgaZ074nw8IzK",
+        "baseUnit": "勺"
       },
       {
         "amount": 0.24,
-        "name": "塩",
         "baseUnit": "勺",
+        "name": "塩",
         "id": "zAxz2xd8a2Tu7CYBpEiK"
       },
       {
         "name": "生姜",
         "baseUnit": "個",
-        "amount": 0.03,
-        "id": "u0dh8tyTOcLrmu2D8E1M"
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "amount": 0.03
       },
       {
-        "baseUnit": "勺",
+        "name": "あおさ",
         "id": "R6OrQCjMwBU4KRJUYU4V",
         "amount": 0.6,
-        "name": "あおさ"
+        "baseUnit": "勺"
       },
       {
-        "name": "焼きそば麺",
-        "baseUnit": "勺",
         "amount": 45.6,
+        "baseUnit": "勺",
+        "id": "manual",
+        "name": "焼きそば麺"
+      },
+      {
+        "name": "キャベツ",
+        "baseUnit": "勺",
+        "amount": 18,
         "id": "manual"
       },
       {
-        "baseUnit": "勺",
-        "amount": 18,
-        "id": "manual",
-        "name": "キャベツ"
-      },
-      {
-        "name": "玉ねぎ",
         "amount": 4.8,
         "id": "manual",
+        "name": "玉ねぎ",
         "baseUnit": "勺"
       },
       {
-        "name": "ピーマン",
         "id": "manual",
-        "baseUnit": "勺",
-        "amount": 4.8
+        "amount": 4.8,
+        "name": "ピーマン",
+        "baseUnit": "勺"
       },
       {
-        "amount": 8.4,
         "name": "焼きそばソース",
         "id": "manual",
-        "baseUnit": "勺"
+        "baseUnit": "勺",
+        "amount": 8.4
       },
       {
         "amount": 1.8,
@@ -13855,50 +13858,17 @@
         "name": "サラダ油"
       },
       {
-        "amount": 0.6,
-        "name": "紅生姜",
         "baseUnit": "勺",
-        "id": "manual"
+        "amount": 0.6,
+        "id": "manual",
+        "name": "紅生姜"
       }
     ],
-    "name": "海鮮焼きそば",
     "servings": 1,
-    "imageUrl": "media/images/file_258_1791402382912.png",
-    "recoveryAmount": 750,
     "description": "熱々の中華鍋で豪快に炒められた海鮮焼きそばは、香ばしい麺にぷりぷりのイカと海老、そして甘み豊かな帆立が絶妙に絡み合います。特製のソースが食欲をそそり、仕上げのあおさの香りが磯の風味を一層引き立てる、至福の一皿です。一口食べれば、港町の活気と海の恵みが口いっぱいに広がります。"
   },
   {
     "id": "HMMrY0M5cAodUAFh9D0R",
-    "recoveryAmount": 250,
-    "ingredients": [
-      {
-        "id": "kK6YCX8jsbmrrjaniC6W",
-        "name": "車海老",
-        "amount": 7.5
-      },
-      {
-        "id": "uejC6QExQ6p1m0p2EiS7",
-        "name": "まつたけ",
-        "amount": 2
-      },
-      {
-        "amount": 12,
-        "name": "タラの芽",
-        "id": "4LX5NPVfFizQCUlmXUHE"
-      },
-      {
-        "id": "3YZfJ2kNdsbpz0GHk0Yz",
-        "amount": 12,
-        "name": "ミツバ"
-      },
-      {
-        "amount": 7.2,
-        "id": "jYqWUsreHLxSHVkbYIyd",
-        "name": "里芋"
-      }
-    ],
-    "description": "駿河湾の深き恵み、車海老が昇り立つが如く姿を現し、古き森の霊気宿る松茸、春告げるタラの芽、香り高きミツバ、そして土の滋味を宿す里芋と共に、澄んだ出汁で丁寧に仕立てた椀物。それぞれの食材が持つ風味を最大限に引き出すべく、静かに温められた清らかな出汁へと加えられ、海と山の恵みが織りなす至福の香りが心身を深く癒すだろう。",
-    "createdAt": "2026-03-03T18:38:15.092Z",
     "embedding": [
       0.008642197,
       0.004616763,
@@ -14670,46 +14640,42 @@
       0.005170156
     ],
     "servings": 3,
+    "imageUrl": "media/images/file_259_1791792766730.png",
+    "ingredients": [
+      {
+        "amount": 7.5,
+        "id": "kK6YCX8jsbmrrjaniC6W",
+        "name": "車海老"
+      },
+      {
+        "amount": 2,
+        "id": "uejC6QExQ6p1m0p2EiS7",
+        "name": "まつたけ"
+      },
+      {
+        "amount": 12,
+        "name": "タラの芽",
+        "id": "4LX5NPVfFizQCUlmXUHE"
+      },
+      {
+        "name": "ミツバ",
+        "amount": 12,
+        "id": "3YZfJ2kNdsbpz0GHk0Yz"
+      },
+      {
+        "amount": 7.2,
+        "name": "里芋",
+        "id": "jYqWUsreHLxSHVkbYIyd"
+      }
+    ],
+    "description": "駿河湾の深き恵み、車海老が昇り立つが如く姿を現し、古き森の霊気宿る松茸、春告げるタラの芽、香り高きミツバ、そして土の滋味を宿す里芋と共に、澄んだ出汁で丁寧に仕立てた椀物。それぞれの食材が持つ風味を最大限に引き出すべく、静かに温められた清らかな出汁へと加えられ、海と山の恵みが織りなす至福の香りが心身を深く癒すだろう。",
+    "recoveryAmount": 250,
+    "createdAt": "2026-03-03T18:38:15.092Z",
     "name": "昇龍海老と山海の寿汁",
-    "rarity": 5,
-    "imageUrl": "media/images/file_259_1791402382912.png"
+    "rarity": 5
   },
   {
     "id": "Hcm8OC1TGp7PdEpk039R",
-    "rarity": 5,
-    "description": "深紅に輝くキンキの身に、漆黒の深山黒茸が添えられ、食欲をそそる香りが立ち込める。口に含むと、キンキの濃厚な脂と深山黒茸の奥深い旨味が合わさり、極上の滋味をもたらす。清らかな水で煮込んだキンキに、深山黒茸、葱、そして秘伝の醤油と味噌を加え、じっくりと火にかけることで、素材の魂が一つとなる。",
-    "recoveryAmount": 1200,
-    "servings": 2,
-    "imageUrl": "media/images/file_260_1791402382912.png",
-    "ingredients": [
-      {
-        "amount": 4,
-        "id": "ZG5s4s3JkUO3Txnbx4AH",
-        "name": "キンキ"
-      },
-      {
-        "amount": 18,
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "name": "醤油"
-      },
-      {
-        "name": "葱",
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "amount": 3
-      },
-      {
-        "id": "199WE9uvPmPJh5zNhR41",
-        "amount": 2,
-        "name": "深山黒茸"
-      },
-      {
-        "amount": 18,
-        "name": "味噌",
-        "id": "2H6H30X0wlCBYfbtm2sk"
-      }
-    ],
-    "name": "深海王キンキの昇龍煮",
-    "createdAt": "2026-03-03T17:43:02.230Z",
     "embedding": [
       0.010831684,
       0.009458058,
@@ -15479,43 +15445,78 @@
       0.03441178,
       0.013858264,
       0.0016527472
-    ]
+    ],
+    "description": "深紅に輝くキンキの身に、漆黒の深山黒茸が添えられ、食欲をそそる香りが立ち込める。口に含むと、キンキの濃厚な脂と深山黒茸の奥深い旨味が合わさり、極上の滋味をもたらす。清らかな水で煮込んだキンキに、深山黒茸、葱、そして秘伝の醤油と味噌を加え、じっくりと火にかけることで、素材の魂が一つとなる。",
+    "ingredients": [
+      {
+        "amount": 4,
+        "name": "キンキ",
+        "id": "ZG5s4s3JkUO3Txnbx4AH"
+      },
+      {
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "amount": 18,
+        "name": "醤油"
+      },
+      {
+        "id": "5AZ2gOb0pKEtI0ktdXg5",
+        "amount": 3,
+        "name": "葱"
+      },
+      {
+        "name": "深山黒茸",
+        "id": "199WE9uvPmPJh5zNhR41",
+        "amount": 2
+      },
+      {
+        "amount": 18,
+        "id": "2H6H30X0wlCBYfbtm2sk",
+        "name": "味噌"
+      }
+    ],
+    "recoveryAmount": 1200,
+    "servings": 2,
+    "name": "深海王キンキの昇龍煮",
+    "createdAt": "2026-03-03T17:43:02.230Z",
+    "imageUrl": "media/images/file_260_1791792766730.png",
+    "rarity": 5
   },
   {
     "id": "IwSsGjuvzS8W9pPKml2N",
     "name": "海神の祝宴鍋",
-    "rarity": 5,
-    "description": "深海の王者クエを主役に、磯の香豊かなウニとアワビ、海の滋味たるアカモク、そして至高の香りのまつたけを贅沢に配した鍋料理。とろける身と濃厚な出汁が五臓六腑に染み渡り、疲弊した魂さえ癒す。清らかな泉の水と昆布で食材の旨味を最大限に引き出し、丁寧に炊き上げることで完成する、まさに海神が授けし逸品である。",
-    "imageUrl": "media/images/file_261_1791402382912.png",
+    "createdAt": "2026-03-03T17:43:58.277Z",
     "servings": 5,
+    "description": "深海の王者クエを主役に、磯の香豊かなウニとアワビ、海の滋味たるアカモク、そして至高の香りのまつたけを贅沢に配した鍋料理。とろける身と濃厚な出汁が五臓六腑に染み渡り、疲弊した魂さえ癒す。清らかな泉の水と昆布で食材の旨味を最大限に引き出し、丁寧に炊き上げることで完成する、まさに海神が授けし逸品である。",
     "ingredients": [
       {
         "name": "クエ",
-        "id": "91Hx3yUejdXsduLKWRLc",
-        "amount": 1.2
+        "amount": 1.2,
+        "id": "91Hx3yUejdXsduLKWRLc"
       },
       {
-        "id": "uejC6QExQ6p1m0p2EiS7",
+        "name": "まつたけ",
         "amount": 1,
-        "name": "まつたけ"
+        "id": "uejC6QExQ6p1m0p2EiS7"
       },
       {
+        "amount": 1,
         "name": "ウニ",
-        "id": "YzTZxIFZLFuw6Y5NTIab",
-        "amount": 1
+        "id": "YzTZxIFZLFuw6Y5NTIab"
       },
       {
+        "id": "5nMtu9gPetWlnwXZ3OBz",
         "name": "アワビ",
-        "amount": 3,
-        "id": "5nMtu9gPetWlnwXZ3OBz"
+        "amount": 3
       },
       {
-        "name": "アカモク",
+        "id": "55j4sJfonG5zFqokqJuc",
         "amount": 24,
-        "id": "55j4sJfonG5zFqokqJuc"
+        "name": "アカモク"
       }
     ],
+    "imageUrl": "media/images/file_261_1791792766730.png",
     "recoveryAmount": 5000,
+    "rarity": 5,
     "embedding": [
       0.0023114148,
       0.009213398,
@@ -16285,12 +16286,14 @@
       0.0330353,
       -0.0012059201,
       0.025547886
-    ],
-    "createdAt": "2026-03-03T17:43:58.277Z"
+    ]
   },
   {
     "id": "Iyh0EpTbBH7HLO3QoWQt",
-    "name": "天ぷら（海老）",
+    "imageUrl": "media/images/file_262_1791792766730.png",
+    "rarity": 3,
+    "recoveryAmount": 80,
+    "servings": 1,
     "embedding": [
       0.016668882,
       0.015601504,
@@ -17061,35 +17064,32 @@
       0.014173716,
       0.003036988
     ],
-    "createdAt": "2026-04-07T08:38:19.736Z",
-    "recoveryAmount": 80,
-    "imageUrl": "media/images/file_262_1791402382912.png",
-    "servings": 1,
     "description": "黄金色に揚がった衣を纏った、ぷりぷりの海老が主役の天ぷら。旬の野菜と共に、秘伝の天つゆと大根おろし、生姜で味わう、至福の一品。一口食べれば、海の幸と山の恵みが織りなすハーモニーが口いっぱいに広がり、疲れた体に活力を与えてくれるでしょう。",
+    "createdAt": "2026-04-07T08:38:19.736Z",
     "ingredients": [
       {
+        "name": "車海老",
         "id": "kK6YCX8jsbmrrjaniC6W",
-        "baseUnit": "個",
         "amount": 4,
-        "name": "車海老"
+        "baseUnit": "個"
       },
       {
-        "baseUnit": "勺",
-        "id": "02VLUbqVhFyJ0TJSCBaG",
         "name": "小麦粉",
-        "amount": 12
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "amount": 12,
+        "baseUnit": "勺"
       },
       {
-        "id": "XP2ysxstRn327LT7opOy",
         "amount": 3,
         "baseUnit": "個",
+        "id": "XP2ysxstRn327LT7opOy",
         "name": "卵"
       },
       {
-        "name": "水",
-        "id": "HDWmnrNO5LC8WLURsxoN",
+        "amount": 9.6,
         "baseUnit": "勺",
-        "amount": 9.6
+        "name": "水",
+        "id": "HDWmnrNO5LC8WLURsxoN"
       },
       {
         "amount": 24,
@@ -17098,13 +17098,42 @@
         "baseUnit": "勺"
       }
     ],
-    "rarity": 3
+    "name": "天ぷら（海老）"
   },
   {
     "id": "J0lxP9CqhpXut7eXU1U7",
-    "rarity": 4,
     "servings": 1,
+    "ingredients": [
+      {
+        "name": "本ズワイガニ",
+        "amount": 0.56,
+        "id": "Zal6r4vOH5DgFXvoEiAv"
+      },
+      {
+        "name": "ホタテ貝",
+        "amount": 1.79,
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "amount": 1.67,
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF"
+      },
+      {
+        "name": "ジネンジョ",
+        "id": "7iTiMLHySgBCMa95VVZb",
+        "amount": 0.38
+      },
+      {
+        "name": "ひじき",
+        "amount": 2.5,
+        "id": "hszcWFxgiPgsrofAaYd4"
+      }
+    ],
     "description": "白く輝く本ズワイガニの身と、海の恵みであるホタテ貝が織りなす極上の逸品。しいたけの芳醇な香りとジネンジョの滑らかなとろみが、ひじきの磯の香りと共に口いっぱいに広がる。全ての食材を丁寧に蒸し上げ、特製の出汁で優しく煮込んだ後、とろりとした餡をかけて仕上げる、高貴な味わいの滋養料理。",
+    "imageUrl": "media/images/file_263_1791792766730.png",
+    "recoveryAmount": 950,
+    "name": "瑞獣蟹宝珠",
     "createdAt": "2026-03-03T18:33:18.438Z",
     "embedding": [
       0.002287321,
@@ -17876,45 +17905,19 @@
       0.0052607995,
       0.019797387
     ],
-    "name": "瑞獣蟹宝珠",
-    "imageUrl": "media/images/file_263_1791402382912.png",
-    "ingredients": [
-      {
-        "id": "Zal6r4vOH5DgFXvoEiAv",
-        "name": "本ズワイガニ",
-        "amount": 0.56
-      },
-      {
-        "name": "ホタテ貝",
-        "amount": 1.79,
-        "id": "qeRLNkbtgDSGGdAOuSgm"
-      },
-      {
-        "name": "しいたけ",
-        "id": "KfC755P2vtX74e1mqqEF",
-        "amount": 1.67
-      },
-      {
-        "id": "7iTiMLHySgBCMa95VVZb",
-        "amount": 0.38,
-        "name": "ジネンジョ"
-      },
-      {
-        "name": "ひじき",
-        "amount": 2.5,
-        "id": "hszcWFxgiPgsrofAaYd4"
-      }
-    ],
-    "recoveryAmount": 950
+    "rarity": 4
   },
   {
     "id": "JC0o5LHQnaK8yKCOGMnT",
-    "description": "新鮮な鯖を丁寧に締め、ふっくらと炊き上げた酢飯と合わせて握る。口の中でとろけるような鯖の旨味と、ほんのり甘いシャリの絶妙なハーモニーが、至福の時を奏でる逸品。",
+    "servings": 1,
+    "name": "握り寿司（鯖）",
+    "createdAt": "2026-03-27T17:59:11.388Z",
+    "imageUrl": "media/images/file_264_1791792766730.png",
     "ingredients": [
       {
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "name": "ワサビの根茎",
         "amount": 0.05,
-        "name": "ワサビの根茎"
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
       },
       {
         "amount": 4.5,
@@ -17923,28 +17926,27 @@
       },
       {
         "amount": 0.2,
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "name": "米飴"
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
       },
       {
-        "name": "酢",
         "amount": 0.5,
+        "name": "酢",
         "id": "hRrafDY8fmMbfzUyfJMI"
       },
       {
-        "id": "XhkCWADRwNYsGVQBXwVs",
         "name": "醤油",
-        "amount": 0.1
+        "amount": 0.1,
+        "id": "XhkCWADRwNYsGVQBXwVs"
       },
       {
         "id": "9qdabd2NBXLPaKEqW4co",
-        "name": "鯖",
-        "amount": 0.25
+        "amount": 0.25,
+        "name": "鯖"
       }
     ],
-    "rarity": 4,
+    "description": "新鮮な鯖を丁寧に締め、ふっくらと炊き上げた酢飯と合わせて握る。口の中でとろけるような鯖の旨味と、ほんのり甘いシャリの絶妙なハーモニーが、至福の時を奏でる逸品。",
     "recoveryAmount": 25,
-    "name": "握り寿司（鯖）",
     "embedding": [
       0.0028407048,
       0.010488624,
@@ -18715,44 +18717,12 @@
       0.013777996,
       0.010775206
     ],
-    "createdAt": "2026-03-27T17:59:11.388Z",
-    "servings": 1,
-    "imageUrl": "media/images/file_264_1791402382912.png"
+    "rarity": 4
   },
   {
     "id": "JwZX5uOJ7ImaHMMtRywJ",
-    "ingredients": [
-      {
-        "name": "伊勢海老",
-        "baseUnit": "個",
-        "amount": 1.37,
-        "id": "tblQtSx30FPHOuSB8zZE"
-      },
-      {
-        "baseUnit": "個",
-        "amount": 3,
-        "id": "uejC6QExQ6p1m0p2EiS7",
-        "name": "まつたけ"
-      },
-      {
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "amount": 18,
-        "name": "醤油",
-        "baseUnit": "勺"
-      },
-      {
-        "amount": 12,
-        "name": "米飴",
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "baseUnit": "勺"
-      },
-      {
-        "name": "生姜",
-        "id": "u0dh8tyTOcLrmu2D8E1M",
-        "baseUnit": "個",
-        "amount": 1.5
-      }
-    ],
+    "rarity": 5,
+    "recoveryAmount": 3000,
     "embedding": [
       0.0051972065,
       0.021755256,
@@ -19523,89 +19493,48 @@
       -0.0028477588,
       0.022488749
     ],
-    "createdAt": "2026-03-03T13:50:38.624Z",
     "name": "伊勢海老と松茸の月光焼き",
-    "description": "伊勢海老の鮮やかな赤と松茸の芳醇な香りが食欲をそそる、贅を尽くした一品。ぷりぷりの伊勢海老を醤油と米飴で照り焼きにし、香ばしく焼き上げた松茸と共に供する。生姜の爽やかな風味が海の恵みと山の幸を見事に結びつけ、一口食べれば月光のように輝く至福の味わいが広がる。",
-    "imageUrl": "media/images/file_265_1791402382912.png",
+    "imageUrl": "media/images/file_265_1791792766730.png",
     "servings": 1,
-    "recoveryAmount": 3000,
-    "rarity": 5
+    "ingredients": [
+      {
+        "baseUnit": "個",
+        "name": "伊勢海老",
+        "amount": 1.37,
+        "id": "tblQtSx30FPHOuSB8zZE"
+      },
+      {
+        "baseUnit": "個",
+        "amount": 3,
+        "id": "uejC6QExQ6p1m0p2EiS7",
+        "name": "まつたけ"
+      },
+      {
+        "name": "醤油",
+        "baseUnit": "勺",
+        "amount": 18,
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "amount": 12,
+        "name": "米飴",
+        "baseUnit": "勺",
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      },
+      {
+        "amount": 1.5,
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "baseUnit": "個"
+      }
+    ],
+    "description": "伊勢海老の鮮やかな赤と松茸の芳醇な香りが食欲をそそる、贅を尽くした一品。ぷりぷりの伊勢海老を醤油と米飴で照り焼きにし、香ばしく焼き上げた松茸と共に供する。生姜の爽やかな風味が海の恵みと山の幸を見事に結びつけ、一口食べれば月光のように輝く至福の味わいが広がる。",
+    "createdAt": "2026-03-03T13:50:38.624Z"
   },
   {
     "id": "LdY92GiFVPu6O7Wxd5MY",
-    "ingredients": [
-      {
-        "name": "しいたけ",
-        "id": "KfC755P2vtX74e1mqqEF",
-        "amount": 4
-      },
-      {
-        "id": "EExCU3KTgaZ074nw8IzK",
-        "amount": 1.2,
-        "name": "みりん"
-      },
-      {
-        "id": "KU5dMDHGiJUmEhv59Kd8",
-        "name": "タケノコ",
-        "amount": 1
-      },
-      {
-        "id": "KZpwGqZRFCzr2T34LqAM",
-        "name": "人参",
-        "amount": 1.2
-      },
-      {
-        "id": "XP2ysxstRn327LT7opOy",
-        "name": "卵",
-        "amount": 3
-      },
-      {
-        "name": "塩",
-        "amount": 0.6,
-        "id": "zAxz2xd8a2Tu7CYBpEiK"
-      },
-      {
-        "id": "Zal6r4vOH5DgFXvoEiAv",
-        "amount": 0.72,
-        "name": "本ズワイガニ"
-      },
-      {
-        "amount": 0.15,
-        "id": "u0dh8tyTOcLrmu2D8E1M",
-        "name": "生姜"
-      },
-      {
-        "amount": 6,
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "name": "菜種油"
-      },
-      {
-        "amount": 0.9,
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "name": "葱"
-      },
-      {
-        "amount": 2.4,
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "name": "醤油"
-      },
-      {
-        "id": "manual",
-        "amount": 30,
-        "name": "春巻きの皮"
-      },
-      {
-        "name": "胡椒",
-        "amount": 30,
-        "id": "manual"
-      },
-      {
-        "amount": 30,
-        "name": "水",
-        "id": "manual"
-      }
-    ],
-    "createdAt": "2026-03-14T12:54:11.953Z",
+    "rarity": 4,
+    "recoveryAmount": 500,
     "embedding": [
       0.008451386,
       0.0024498543,
@@ -20377,48 +20306,85 @@
       0.013495376
     ],
     "name": "蟹春巻き",
-    "description": "黄金色に揚げられた皮はサクサクと軽やかで、一口食べれば本ズワイガニの豊かな旨味と筍の歯ごたえが口いっぱいに広がる。生姜と椎茸の香りが食欲をそそる逸品だ。",
-    "imageUrl": "media/images/file_266_1791402382912.png",
-    "servings": 2,
-    "recoveryAmount": 500,
-    "rarity": 4
-  },
-  {
-    "id": "LzNDYjloaoumHY0OO3Nb",
-    "imageUrl": "media/images/file_267_1791402382912.png",
+    "imageUrl": "media/images/file_266_1791792766730.png",
     "servings": 2,
     "ingredients": [
       {
-        "id": "lF4QQv96wuBNKRDqB20h",
-        "name": "ブリ",
-        "amount": 1.5
+        "id": "KfC755P2vtX74e1mqqEF",
+        "amount": 4,
+        "name": "しいたけ"
       },
       {
-        "name": "まつたけ",
-        "id": "uejC6QExQ6p1m0p2EiS7",
-        "amount": 1.25
+        "amount": 1.2,
+        "id": "EExCU3KTgaZ074nw8IzK",
+        "name": "みりん"
       },
       {
-        "amount": 1.07,
-        "id": "Bw25bk1NW2dTngqTaMBK",
-        "name": "ホッキ貝"
+        "name": "タケノコ",
+        "amount": 1,
+        "id": "KU5dMDHGiJUmEhv59Kd8"
       },
       {
-        "id": "ygkM6FTx6unhf36hd5jz",
-        "name": "ハナビラタケ",
-        "amount": 1.5
+        "id": "KZpwGqZRFCzr2T34LqAM",
+        "name": "人参",
+        "amount": 1.2
       },
       {
-        "amount": 6.43,
-        "id": "JheQkeYkBGY9Oltg1uen",
-        "name": "クルマエビ"
+        "name": "卵",
+        "amount": 3,
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "amount": 0.6,
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "name": "塩"
+      },
+      {
+        "name": "本ズワイガニ",
+        "amount": 0.72,
+        "id": "Zal6r4vOH5DgFXvoEiAv"
+      },
+      {
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "amount": 0.15,
+        "name": "生姜"
+      },
+      {
+        "amount": 6,
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "amount": 0.9,
+        "id": "5AZ2gOb0pKEtI0ktdXg5",
+        "name": "葱"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "amount": 2.4
+      },
+      {
+        "name": "春巻きの皮",
+        "amount": 30,
+        "id": "manual"
+      },
+      {
+        "id": "manual",
+        "name": "胡椒",
+        "amount": 30
+      },
+      {
+        "name": "水",
+        "amount": 30,
+        "id": "manual"
       }
     ],
-    "recoveryAmount": 5000,
-    "rarity": 5,
-    "description": "黄金色に焼き上げられた鰤を主役に、芳醇な香りの松茸、甘み豊かな北寄貝、海の宝石たる車海老、そして神秘的な花弁茸が彩りを添える。これらの山海の恵みを、秘伝の技で最高の状態に引き出し、一口食べれば昇竜の如く力が湧き上がる、まさに至高の御膳である。",
-    "name": "昇竜海山の絢爛五味",
-    "createdAt": "2026-03-03T18:30:24.589Z",
+    "description": "黄金色に揚げられた皮はサクサクと軽やかで、一口食べれば本ズワイガニの豊かな旨味と筍の歯ごたえが口いっぱいに広がる。生姜と椎茸の香りが食欲をそそる逸品だ。",
+    "createdAt": "2026-03-14T12:54:11.953Z"
+  },
+  {
+    "id": "LzNDYjloaoumHY0OO3Nb",
     "embedding": [
       -0.003141238,
       -0.001549448,
@@ -21188,7 +21154,41 @@
       0.03101769,
       0.01629982,
       0.009970198
-    ]
+    ],
+    "rarity": 5,
+    "servings": 2,
+    "name": "昇竜海山の絢爛五味",
+    "recoveryAmount": 5000,
+    "imageUrl": "media/images/file_267_1791792766730.png",
+    "createdAt": "2026-03-03T18:30:24.589Z",
+    "ingredients": [
+      {
+        "id": "lF4QQv96wuBNKRDqB20h",
+        "amount": 1.5,
+        "name": "ブリ"
+      },
+      {
+        "name": "まつたけ",
+        "id": "uejC6QExQ6p1m0p2EiS7",
+        "amount": 1.25
+      },
+      {
+        "id": "Bw25bk1NW2dTngqTaMBK",
+        "name": "ホッキ貝",
+        "amount": 1.07
+      },
+      {
+        "id": "ygkM6FTx6unhf36hd5jz",
+        "name": "ハナビラタケ",
+        "amount": 1.5
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen",
+        "amount": 6.43
+      }
+    ],
+    "description": "黄金色に焼き上げられた鰤を主役に、芳醇な香りの松茸、甘み豊かな北寄貝、海の宝石たる車海老、そして神秘的な花弁茸が彩りを添える。これらの山海の恵みを、秘伝の技で最高の状態に引き出し、一口食べれば昇竜の如く力が湧き上がる、まさに至高の御膳である。"
   },
   {
     "id": "M7972lO87CtkAqPZ1ZAw",
@@ -21962,28 +21962,30 @@
       0.0071963356,
       0.028759541
     ],
-    "createdAt": "2026-05-25T04:11:19.920Z",
     "rarity": 3,
+    "servings": 1,
+    "createdAt": "2026-05-25T04:11:19.920Z",
+    "name": "磯辺焼き",
     "ingredients": [
       {
-        "id": "9qdabd2NBXLPaKEqW4co",
         "amount": 4,
         "baseUnit": "個",
+        "shakuPerUnit": 18,
         "name": "鯖",
-        "shakuPerUnit": 18
+        "id": "9qdabd2NBXLPaKEqW4co"
       },
       {
         "name": "海苔",
-        "shakuPerUnit": 0.3,
         "baseUnit": "個",
         "amount": 20,
-        "id": "4th7RhqsWqmT7ZA87sFK"
+        "id": "4th7RhqsWqmT7ZA87sFK",
+        "shakuPerUnit": 0.3
       },
       {
-        "baseUnit": "勺",
-        "id": "XhkCWADRwNYsGVQBXwVs",
         "name": "醤油",
         "shakuPerUnit": null,
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "baseUnit": "勺",
         "amount": 18
       },
       {
@@ -21994,37 +21996,66 @@
         "id": "EExCU3KTgaZ074nw8IzK"
       },
       {
+        "shakuPerUnit": null,
         "id": "3YerNFezpn9YOVp7SQwD",
         "name": "酒",
-        "shakuPerUnit": null,
         "amount": 6,
         "baseUnit": "勺"
       },
       {
-        "id": "u0dh8tyTOcLrmu2D8E1M",
         "amount": 0.6,
+        "shakuPerUnit": 4,
+        "id": "u0dh8tyTOcLrmu2D8E1M",
         "baseUnit": "個",
-        "name": "生姜",
-        "shakuPerUnit": 4
+        "name": "生姜"
       },
       {
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
         "amount": 3.6,
         "baseUnit": "勺",
         "shakuPerUnit": 1,
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
         "name": "菜種油"
       }
     ],
-    "description": "香ばしく焼き上げた鯖に、豊かな磯の香りを纏わせた逸品。特製の甘辛い醤油だれが食欲をそそり、一口食べれば潮風を感じるような、懐かしくも奥深い味わいが広がります。栄養満点で疲れた体を優しく癒やしてくれるでしょう。",
     "recoveryAmount": 320,
-    "servings": 1,
-    "name": "磯辺焼き",
-    "imageUrl": "media/images/file_268_1791402382913.png"
+    "imageUrl": "media/images/file_268_1791792766730.png",
+    "description": "香ばしく焼き上げた鯖に、豊かな磯の香りを纏わせた逸品。特製の甘辛い醤油だれが食欲をそそり、一口食べれば潮風を感じるような、懐かしくも奥深い味わいが広がります。栄養満点で疲れた体を優しく癒やしてくれるでしょう。"
   },
   {
     "id": "MUpfnB3pd8xYvx5ut6gO",
-    "imageUrl": "media/images/file_269_1791402382913.png",
+    "name": "銀鱗滋養煮",
     "servings": 4,
+    "description": "潮風香るマサバと、大地の恵みである生姜、ひじき、牛蒡、舞茸を丁寧に煮込んだ滋養あふれる一品。とろけるような鯖の旨味と、各食材が織りなす奥深い味わいが口いっぱいに広がり、疲れた体に活力を与えるでしょう。まずは鯖を清めて下処理を施し、千切りにした生姜と共に鍋へ。水と調味料を加え、ひじき、牛蒡、舞茸を加えて、それぞれの食材が持つ滋味を最大限に引き出すよう、ゆっくりと煮含めました。",
+    "recoveryAmount": 1500,
+    "createdAt": "2026-03-03T18:31:32.208Z",
+    "imageUrl": "media/images/file_269_1791792766730.png",
+    "ingredients": [
+      {
+        "amount": 3,
+        "name": "マサバ",
+        "id": "n30MXiK2fFT63kFyC7sJ"
+      },
+      {
+        "amount": 3,
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "name": "生姜"
+      },
+      {
+        "id": "hszcWFxgiPgsrofAaYd4",
+        "name": "ひじき",
+        "amount": 24
+      },
+      {
+        "name": "牛蒡",
+        "id": "3jIIklqiteVQC0Ae5qjt",
+        "amount": 1.8
+      },
+      {
+        "amount": 0.67,
+        "id": "kT2BcR4eInEm3Bjub88A",
+        "name": "舞茸"
+      }
+    ],
     "embedding": [
       0.0038915006,
       0.003990228,
@@ -22795,47 +22826,10 @@
       0.009642662,
       0.0162997
     ],
-    "createdAt": "2026-03-03T18:31:32.208Z",
-    "description": "潮風香るマサバと、大地の恵みである生姜、ひじき、牛蒡、舞茸を丁寧に煮込んだ滋養あふれる一品。とろけるような鯖の旨味と、各食材が織りなす奥深い味わいが口いっぱいに広がり、疲れた体に活力を与えるでしょう。まずは鯖を清めて下処理を施し、千切りにした生姜と共に鍋へ。水と調味料を加え、ひじき、牛蒡、舞茸を加えて、それぞれの食材が持つ滋味を最大限に引き出すよう、ゆっくりと煮含めました。",
-    "name": "銀鱗滋養煮",
-    "recoveryAmount": 1500,
-    "rarity": 4,
-    "ingredients": [
-      {
-        "name": "マサバ",
-        "amount": 3,
-        "id": "n30MXiK2fFT63kFyC7sJ"
-      },
-      {
-        "id": "u0dh8tyTOcLrmu2D8E1M",
-        "name": "生姜",
-        "amount": 3
-      },
-      {
-        "name": "ひじき",
-        "id": "hszcWFxgiPgsrofAaYd4",
-        "amount": 24
-      },
-      {
-        "amount": 1.8,
-        "id": "3jIIklqiteVQC0Ae5qjt",
-        "name": "牛蒡"
-      },
-      {
-        "id": "kT2BcR4eInEm3Bjub88A",
-        "name": "舞茸",
-        "amount": 0.67
-      }
-    ]
+    "rarity": 4
   },
   {
     "id": "MhCCZhdvSUZhJkWsAcjz",
-    "name": "海底の宝玉煮",
-    "servings": 2,
-    "imageUrl": "media/images/file_270_1791402382913.png",
-    "recoveryAmount": 200,
-    "rarity": 4,
-    "description": "紺碧の深海に潜む宝の如く、ミズダコは柔らかく、車海老は甘く、アカガイは磯の香を放つ。これらを秘伝の出汁で丁寧に煮込み、山芋の優しいとろみときぬがさ茸の繊細な風味で仕上げた一品。一口含めば、海の底から湧き上がるような生命力が心身に満ち渡る。",
     "embedding": [
       0.011432733,
       0.00395007,
@@ -23606,17 +23600,20 @@
       0.0038247502,
       0.024518173
     ],
-    "createdAt": "2026-03-03T18:32:06.516Z",
+    "name": "海底の宝玉煮",
+    "description": "紺碧の深海に潜む宝の如く、ミズダコは柔らかく、車海老は甘く、アカガイは磯の香を放つ。これらを秘伝の出汁で丁寧に煮込み、山芋の優しいとろみときぬがさ茸の繊細な風味で仕上げた一品。一口含めば、海の底から湧き上がるような生命力が心身に満ち渡る。",
+    "servings": 2,
+    "recoveryAmount": 200,
     "ingredients": [
       {
-        "name": "ミズダコ",
         "amount": 0.48,
+        "name": "ミズダコ",
         "id": "xykgWubdzEVxEFdgiVvt"
       },
       {
         "name": "車海老",
-        "amount": 7.5,
-        "id": "kK6YCX8jsbmrrjaniC6W"
+        "id": "kK6YCX8jsbmrrjaniC6W",
+        "amount": 7.5
       },
       {
         "amount": 3.75,
@@ -23630,13 +23627,65 @@
       },
       {
         "name": "きぬがさ茸",
-        "id": "hSKJktibBcmuntZ8JMBf",
-        "amount": 4
+        "amount": 4,
+        "id": "hSKJktibBcmuntZ8JMBf"
       }
-    ]
+    ],
+    "createdAt": "2026-03-03T18:32:06.516Z",
+    "imageUrl": "media/images/file_270_1791792766730.png",
+    "rarity": 4
   },
   {
     "id": "MtNHbQPFv7061icrgXz2",
+    "rarity": 5,
+    "imageUrl": "media/images/file_271_1791792766730.png",
+    "servings": 1,
+    "description": "透明感あふれるクエの身は、口に含むととろけるような脂の甘みと上品な旨味が広がり、熟練の技で握られたシャリと絶妙に調和します。山葵と生姜の香りが引き立てる、至福の一貫をご堪能あれ。",
+    "createdAt": "2026-03-27T18:11:02.182Z",
+    "ingredients": [
+      {
+        "id": "91Hx3yUejdXsduLKWRLc",
+        "baseUnit": "個",
+        "name": "クエ",
+        "shakuPerUnit": 40,
+        "amount": 0.0875
+      },
+      {
+        "name": "ワサビの根茎",
+        "baseUnit": "個",
+        "amount": 0.025,
+        "shakuPerUnit": 4,
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      },
+      {
+        "name": "白米",
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "amount": 6,
+        "id": "mQ5aybZclKtqbmhzSNUj"
+      },
+      {
+        "name": "米飴",
+        "shakuPerUnit": null,
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "baseUnit": "勺",
+        "amount": 0.1
+      },
+      {
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "name": "酢",
+        "amount": 0.2
+      },
+      {
+        "baseUnit": "勺",
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "name": "醤油",
+        "amount": 0.05,
+        "shakuPerUnit": null
+      }
+    ],
     "embedding": [
       0.005477481,
       -0.007718456,
@@ -24407,89 +24456,13 @@
       0.015684923,
       0.002222912
     ],
-    "createdAt": "2026-03-27T18:11:02.182Z",
-    "ingredients": [
-      {
-        "baseUnit": "個",
-        "amount": 0.0875,
-        "id": "91Hx3yUejdXsduLKWRLc",
-        "name": "クエ",
-        "shakuPerUnit": 40
-      },
-      {
-        "amount": 0.025,
-        "shakuPerUnit": 4,
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "baseUnit": "個",
-        "name": "ワサビの根茎"
-      },
-      {
-        "shakuPerUnit": null,
-        "name": "白米",
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "amount": 6,
-        "baseUnit": "勺"
-      },
-      {
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "baseUnit": "勺",
-        "name": "米飴",
-        "shakuPerUnit": null,
-        "amount": 0.1
-      },
-      {
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "amount": 0.2,
-        "baseUnit": "勺",
-        "shakuPerUnit": null,
-        "name": "酢"
-      },
-      {
-        "amount": 0.05,
-        "baseUnit": "勺",
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "shakuPerUnit": null
-      }
-    ],
     "recoveryAmount": 8,
-    "servings": 1,
-    "imageUrl": "media/images/file_271_1791402382913.png",
-    "description": "透明感あふれるクエの身は、口に含むととろけるような脂の甘みと上品な旨味が広がり、熟練の技で握られたシャリと絶妙に調和します。山葵と生姜の香りが引き立てる、至福の一貫をご堪能あれ。",
-    "name": "握り寿司（クエ）",
-    "rarity": 5
+    "name": "握り寿司（クエ）"
   },
   {
     "id": "N0VbbBrG33XPlPy9ToIj",
-    "description": "山深い森で育った猪肉を主役に、稀少なホンシメジと共に米飴と醤油でじっくりと照り煮にした一品。艶やかな琥珀色に輝く猪肉は、口にすればとろけるような柔らかさで、奥深い旨味が広がります。ホンシメジの芳醇な香りと生姜の清涼感が、猪肉の滋味を一層引き立て、心身に活力を与えるでしょう。猪肉の表面を焼き固めてから、米飴、醤油、酒、おろし生姜を加えて、ホンシメジと共にゆっくりと煮含めることで、深い味わいととろけるような食感を生み出します。",
-    "servings": 3,
-    "ingredients": [
-      {
-        "id": "azmXcyKC3nnAAteW0ZuG",
-        "amount": 54,
-        "name": "イノシシ肉"
-      },
-      {
-        "name": "ホンシメジ",
-        "amount": 12,
-        "id": "wjNpgsoUGtPWkykXvfyk"
-      },
-      {
-        "amount": 24,
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs"
-      },
-      {
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "amount": 18,
-        "name": "米飴"
-      },
-      {
-        "id": "u0dh8tyTOcLrmu2D8E1M",
-        "amount": 1.5,
-        "name": "生姜"
-      }
-    ],
+    "createdAt": "2026-03-03T13:49:35.471Z",
+    "rarity": 4,
     "embedding": [
       0.029765423,
       0.014843838,
@@ -25260,27 +25233,51 @@
       0.0071797143,
       0.029791128
     ],
-    "createdAt": "2026-03-03T13:49:35.471Z",
-    "imageUrl": "media/images/file_272_1791402382913.png",
-    "rarity": 4,
+    "servings": 3,
+    "recoveryAmount": 1200,
+    "imageUrl": "media/images/file_272_1791792766730.png",
     "name": "深山猪肉の米飴照り煮",
-    "recoveryAmount": 1200
+    "description": "山深い森で育った猪肉を主役に、稀少なホンシメジと共に米飴と醤油でじっくりと照り煮にした一品。艶やかな琥珀色に輝く猪肉は、口にすればとろけるような柔らかさで、奥深い旨味が広がります。ホンシメジの芳醇な香りと生姜の清涼感が、猪肉の滋味を一層引き立て、心身に活力を与えるでしょう。猪肉の表面を焼き固めてから、米飴、醤油、酒、おろし生姜を加えて、ホンシメジと共にゆっくりと煮含めることで、深い味わいととろけるような食感を生み出します。",
+    "ingredients": [
+      {
+        "id": "azmXcyKC3nnAAteW0ZuG",
+        "amount": 54,
+        "name": "イノシシ肉"
+      },
+      {
+        "name": "ホンシメジ",
+        "id": "wjNpgsoUGtPWkykXvfyk",
+        "amount": 12
+      },
+      {
+        "amount": 24,
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "name": "醤油"
+      },
+      {
+        "name": "米飴",
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "amount": 18
+      },
+      {
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "amount": 1.5,
+        "name": "生姜"
+      }
+    ]
   },
   {
     "id": "NuF9cKJ4jk6PzGYkANfF",
-    "recoveryAmount": 800,
-    "rarity": 5,
-    "name": "黄金蟹茸宝珠蒸し",
     "ingredients": [
       {
-        "amount": 1.4,
         "id": "GYxAN3yTtym288E3BrOf",
+        "amount": 1.4,
         "name": "毛蟹"
       },
       {
-        "id": "jhNVIDFcL2HOafI5Ce7D",
         "amount": 18,
-        "name": "雲丹"
+        "name": "雲丹",
+        "id": "jhNVIDFcL2HOafI5Ce7D"
       },
       {
         "name": "シロカノコタケ",
@@ -25288,9 +25285,9 @@
         "id": "sZAJ5kQ5pHxzgCpuYyn9"
       },
       {
-        "amount": 3.09,
         "name": "ポルチーニ茸",
-        "id": "iJrOh2eSQn6LQ1DiusvR"
+        "id": "iJrOh2eSQn6LQ1DiusvR",
+        "amount": 3.09
       },
       {
         "name": "モクズガニ",
@@ -25298,6 +25295,9 @@
         "amount": 2.67
       }
     ],
+    "description": "深紅の毛蟹が黄金色の雲丹と稀少な茸を抱き、秘伝の出汁で蒸し上げた逸品。口に含めば、磯の香りと大地の恵みが織りなす至福の甘みが広がり、心身に活力が満ちるだろう。活きの良い毛蟹とモクズガニを丁寧に捌き、雲丹と香り高きシロカノコタケ、ポルチーニ茸と共に器に盛り、酒と少量の塩で調えた出汁を張って、強火で一気に蒸し上げる。",
+    "servings": 2,
+    "imageUrl": "media/images/file_273_1791792766730.png",
     "embedding": [
       0.019706616,
       0.008683354,
@@ -26068,42 +26068,14 @@
       0.008936513,
       0.019622477
     ],
-    "createdAt": "2026-03-03T18:34:03.135Z",
-    "servings": 2,
-    "imageUrl": "media/images/file_273_1791402382913.png",
-    "description": "深紅の毛蟹が黄金色の雲丹と稀少な茸を抱き、秘伝の出汁で蒸し上げた逸品。口に含めば、磯の香りと大地の恵みが織りなす至福の甘みが広がり、心身に活力が満ちるだろう。活きの良い毛蟹とモクズガニを丁寧に捌き、雲丹と香り高きシロカノコタケ、ポルチーニ茸と共に器に盛り、酒と少量の塩で調えた出汁を張って、強火で一気に蒸し上げる。"
+    "recoveryAmount": 800,
+    "rarity": 5,
+    "name": "黄金蟹茸宝珠蒸し",
+    "createdAt": "2026-03-03T18:34:03.135Z"
   },
   {
     "id": "NuPxdXSrdEtWDHqVCd09",
-    "ingredients": [
-      {
-        "amount": 2.1,
-        "id": "TmG7yvtmwbclAGj7yYmE",
-        "name": "アオリイカ"
-      },
-      {
-        "amount": 1.6,
-        "name": "山芋",
-        "id": "z8M5UiMDOHXstbSYrdTg"
-      },
-      {
-        "amount": 30,
-        "id": "K3u8xXSdIOZHktqJ45ZL",
-        "name": "アサリ"
-      },
-      {
-        "name": "大根",
-        "amount": 0.72,
-        "id": "zoSSJHt3VcF7YYSm6N7m"
-      },
-      {
-        "amount": 0.75,
-        "id": "4Lm06zklbNoy3zg6tN1N",
-        "name": "コウタケ"
-      }
-    ],
-    "imageUrl": "media/images/file_274_1791402382913.png",
-    "servings": 3,
+    "recoveryAmount": 600,
     "embedding": [
       0.014923014,
       -0.006714223,
@@ -26874,52 +26846,46 @@
       0.0019470386,
       0.01829733
     ],
-    "createdAt": "2026-03-03T17:01:58.226Z",
+    "servings": 3,
     "description": "透き通るようなアオリイカの身と、海の旨味を凝縮したアサリが織りなす磯の香りに、コウタケの深い土の香りが重なる逸品。やわらかな大根と山芋が、それぞれの出汁を吸い込み、滋味あふれる味わいを生み出す。これらの食材を丁寧に煮込み、心身を癒す豊かな恵みとした。",
+    "rarity": 4,
     "name": "烏賊と山の幸、潮の恵み煮",
-    "recoveryAmount": 600,
-    "rarity": 4
+    "ingredients": [
+      {
+        "name": "アオリイカ",
+        "id": "TmG7yvtmwbclAGj7yYmE",
+        "amount": 2.1
+      },
+      {
+        "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg",
+        "amount": 1.6
+      },
+      {
+        "id": "K3u8xXSdIOZHktqJ45ZL",
+        "amount": 30,
+        "name": "アサリ"
+      },
+      {
+        "name": "大根",
+        "amount": 0.72,
+        "id": "zoSSJHt3VcF7YYSm6N7m"
+      },
+      {
+        "name": "コウタケ",
+        "id": "4Lm06zklbNoy3zg6tN1N",
+        "amount": 0.75
+      }
+    ],
+    "imageUrl": "media/images/file_274_1791792766730.png",
+    "createdAt": "2026-03-03T17:01:58.226Z"
   },
   {
     "id": "P427w4kE4hx1i3gXcaUH",
-    "description": "旬のたけのこを丁寧に下処理し、軽やかな衣で包み込んだ、季節の恵みを感じる一品。外はサクサク、中はふっくらとしたたけのこの豊かな風味と甘みが口いっぱいに広がり、春の訪れを感じさせます。添えられた大葉が香りのアクセントとなり、素材の味を一層引き立てます。シンプルながらも奥深い、至福の天ぷらです。",
-    "name": "天ぷら（筍）",
-    "imageUrl": "media/images/file_275_1791402382913.png",
-    "recoveryAmount": 70,
-    "ingredients": [
-      {
-        "name": "タケノコ",
-        "baseUnit": "個",
-        "id": "KU5dMDHGiJUmEhv59Kd8",
-        "amount": 2.28
-      },
-      {
-        "amount": 20,
-        "name": "小麦粉",
-        "baseUnit": "勺",
-        "id": "02VLUbqVhFyJ0TJSCBaG"
-      },
-      {
-        "amount": 15,
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "baseUnit": "勺",
-        "name": "水"
-      },
-      {
-        "baseUnit": "個",
-        "name": "卵",
-        "id": "XP2ysxstRn327LT7opOy",
-        "amount": 2.5
-      },
-      {
-        "amount": 15,
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "baseUnit": "勺",
-        "name": "菜種油"
-      }
-    ],
-    "servings": 1,
+    "imageUrl": "media/images/file_275_1791792766730.png",
     "createdAt": "2026-04-07T08:39:30.572Z",
+    "recoveryAmount": 70,
+    "servings": 1,
     "embedding": [
       -0.005306374,
       0.008850345,
@@ -27690,16 +27656,45 @@
       0.0154909445,
       0.003557557
     ],
-    "rarity": 3
+    "rarity": 3,
+    "description": "旬のたけのこを丁寧に下処理し、軽やかな衣で包み込んだ、季節の恵みを感じる一品。外はサクサク、中はふっくらとしたたけのこの豊かな風味と甘みが口いっぱいに広がり、春の訪れを感じさせます。添えられた大葉が香りのアクセントとなり、素材の味を一層引き立てます。シンプルながらも奥深い、至福の天ぷらです。",
+    "name": "天ぷら（筍）",
+    "ingredients": [
+      {
+        "name": "タケノコ",
+        "id": "KU5dMDHGiJUmEhv59Kd8",
+        "amount": 2.28,
+        "baseUnit": "個"
+      },
+      {
+        "name": "小麦粉",
+        "amount": 20,
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "baseUnit": "勺"
+      },
+      {
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "baseUnit": "勺",
+        "name": "水",
+        "amount": 15
+      },
+      {
+        "name": "卵",
+        "baseUnit": "個",
+        "amount": 2.5,
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "baseUnit": "勺",
+        "amount": 15,
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      }
+    ]
   },
   {
     "id": "PdGFrwJQVaAcqHhCV1u3",
-    "description": "花咲蟹の豊かな旨味が衣の中でふっくらと蒸し上げられ、サクサクとした軽い食感と見事な調和を奏でます。香ばしい大葉と奥深い椎茸が彩りを添え、特製の天つゆに浸せば、至福の香りが口いっぱいに広がります。一口ごとに海の恵みと匠の技を感じられる、まさに絶品の逸品です。",
-    "imageUrl": "media/images/file_276_1791402382913.png",
-    "name": "天ぷら（蟹）",
-    "servings": 1,
-    "createdAt": "2026-04-07T08:40:06.525Z",
-    "recoveryAmount": 95,
+    "rarity": 4,
     "embedding": [
       0.006742864,
       0.01396839,
@@ -28470,75 +28465,81 @@
       0.015520165,
       0.0075475075
     ],
+    "imageUrl": "media/images/file_276_1791792766730.png",
+    "recoveryAmount": 95,
+    "name": "天ぷら（蟹）",
+    "servings": 1,
+    "createdAt": "2026-04-07T08:40:06.525Z",
     "ingredients": [
       {
-        "amount": 1.03,
-        "name": "花咲蟹",
+        "baseUnit": "個",
         "id": "cNrfvImIFxNlUonuOjl4",
-        "baseUnit": "個"
+        "amount": 1.03,
+        "name": "花咲蟹"
       },
       {
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "baseUnit": "勺",
         "name": "小麦粉",
-        "amount": 15.6
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "amount": 15.6,
+        "baseUnit": "勺"
       },
       {
         "amount": 3.6,
-        "baseUnit": "個",
         "id": "XP2ysxstRn327LT7opOy",
-        "name": "卵"
+        "name": "卵",
+        "baseUnit": "個"
       },
       {
+        "id": "HDWmnrNO5LC8WLURsxoN",
         "name": "水",
-        "baseUnit": "勺",
         "amount": 7.2,
-        "id": "HDWmnrNO5LC8WLURsxoN"
+        "baseUnit": "勺"
       },
       {
+        "amount": 9.6,
         "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "name": "菜種油",
         "baseUnit": "勺",
-        "amount": 9.6
+        "name": "菜種油"
       }
     ],
-    "rarity": 4
+    "description": "花咲蟹の豊かな旨味が衣の中でふっくらと蒸し上げられ、サクサクとした軽い食感と見事な調和を奏でます。香ばしい大葉と奥深い椎茸が彩りを添え、特製の天つゆに浸せば、至福の香りが口いっぱいに広がります。一口ごとに海の恵みと匠の技を感じられる、まさに絶品の逸品です。"
   },
   {
     "id": "RGZIfsCPX63iAUMRuOej",
+    "recoveryAmount": 600,
+    "name": "深海黄金雲丹飯",
+    "imageUrl": "media/images/file_277_1791792766730.png",
+    "description": "この料理は、深海の宝である黄金色の雲丹と、清らかな渓流に住まう神秘の魚ゴギが織りなす絶妙な一品です。熱々の白米の上に、みりんを軽く刷毛で塗ったゴギの切り身と、とろけるような甘さの雲丹を贅沢に盛り付け、最後に清涼感あふれるミョウガを添えました。一口頬張れば、海の恵みと大地の香りが口いっぱいに広がり、至福の時をもたらすでしょう。",
+    "createdAt": "2026-03-03T17:43:13.553Z",
+    "servings": 2,
     "ingredients": [
       {
+        "name": "ウニ",
         "id": "YzTZxIFZLFuw6Y5NTIab",
-        "amount": 6,
-        "name": "ウニ"
+        "amount": 6
       },
       {
-        "id": "mQ5aybZclKtqbmhzSNUj",
+        "amount": 60,
         "name": "白米",
-        "amount": 60
+        "id": "mQ5aybZclKtqbmhzSNUj"
       },
       {
+        "name": "ゴギ",
         "id": "KHT4u4qy72i6VFpJSgXP",
-        "amount": 2.4,
-        "name": "ゴギ"
+        "amount": 2.4
       },
       {
+        "id": "Ef2yeNUWRLdnkBgUHZX8",
         "name": "ミョウガ",
-        "amount": 3,
-        "id": "Ef2yeNUWRLdnkBgUHZX8"
+        "amount": 3
       },
       {
         "id": "EExCU3KTgaZ074nw8IzK",
-        "name": "みりん",
-        "amount": 6
+        "amount": 6,
+        "name": "みりん"
       }
     ],
-    "imageUrl": "media/images/file_277_1791402382913.png",
-    "description": "この料理は、深海の宝である黄金色の雲丹と、清らかな渓流に住まう神秘の魚ゴギが織りなす絶妙な一品です。熱々の白米の上に、みりんを軽く刷毛で塗ったゴギの切り身と、とろけるような甘さの雲丹を贅沢に盛り付け、最後に清涼感あふれるミョウガを添えました。一口頬張れば、海の恵みと大地の香りが口いっぱいに広がり、至福の時をもたらすでしょう。",
-    "name": "深海黄金雲丹飯",
-    "servings": 2,
     "rarity": 4,
-    "recoveryAmount": 600,
     "embedding": [
       0.0077812234,
       0.012409794,
@@ -29308,45 +29309,15 @@
       0.029549751,
       0.018143509,
       0.028971115
-    ],
-    "createdAt": "2026-03-03T17:43:13.553Z"
+    ]
   },
   {
     "id": "Rowbg1aH0MmVlM7i8WbB",
-    "rarity": 4,
-    "ingredients": [
-      {
-        "id": "vF0ZJvf6lg98XJMUfAn4",
-        "name": "牡丹海老",
-        "amount": 10.125
-      },
-      {
-        "name": "山芋",
-        "id": "z8M5UiMDOHXstbSYrdTg",
-        "amount": 1.5
-      },
-      {
-        "amount": 0.03857142857142857,
-        "id": "xOA27EPv8LeNdyYfYO02",
-        "name": "鮪"
-      },
-      {
-        "name": "清流岩魚",
-        "id": "ewW6RNMQxbz1X0c36fAk",
-        "amount": 1.8
-      },
-      {
-        "name": "きぬがさ茸",
-        "amount": 1.5,
-        "id": "hSKJktibBcmuntZ8JMBf"
-      }
-    ],
-    "recoveryAmount": 600,
-    "imageUrl": "media/images/file_278_1791402382913.png",
-    "name": "牡丹海老の錦重ね",
-    "description": "透き通るような甘みを持つ牡丹海老を主役に、海の幸と山の恵みが織りなす豪華な一皿。新鮮な牡丹海老は姿造りに、鮪と清流岩魚は薄切りに、とろろ仕立ての山芋ときぬがさ茸と共に、四季折々の彩りを添えて盛り付けられた、鎌倉の武士も唸るであろう贅を尽くした逸品。",
-    "servings": 3,
     "createdAt": "2026-03-03T18:34:14.750Z",
+    "name": "牡丹海老の錦重ね",
+    "servings": 3,
+    "imageUrl": "media/images/file_278_1791792766730.png",
+    "description": "透き通るような甘みを持つ牡丹海老を主役に、海の幸と山の恵みが織りなす豪華な一皿。新鮮な牡丹海老は姿造りに、鮪と清流岩魚は薄切りに、とろろ仕立ての山芋ときぬがさ茸と共に、四季折々の彩りを添えて盛り付けられた、鎌倉の武士も唸るであろう贅を尽くした逸品。",
     "embedding": [
       0.007826815,
       0.01313533,
@@ -30116,113 +30087,43 @@
       0.03049047,
       0.002446245,
       0.0111262975
-    ]
-  },
-  {
-    "id": "UQUHdVsmIw26ZtqWd5h2",
-    "imageUrl": "media/images/file_279_1791402382913.png",
-    "servings": 1,
-    "recoveryAmount": 180,
-    "name": "握り寿司（十貫盛上）",
+    ],
+    "rarity": 4,
     "ingredients": [
       {
-        "baseUnit": "勺",
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "amount": 72,
-        "shakuPerUnit": null,
-        "name": "白米"
+        "name": "牡丹海老",
+        "amount": 10.125,
+        "id": "vF0ZJvf6lg98XJMUfAn4"
       },
       {
-        "name": "酢",
-        "amount": 6,
-        "baseUnit": "勺",
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "shakuPerUnit": null
+        "name": "山芋",
+        "amount": 1.5,
+        "id": "z8M5UiMDOHXstbSYrdTg"
       },
       {
-        "amount": 0.6,
-        "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "shakuPerUnit": null,
-        "name": "塩",
-        "baseUnit": "勺"
-      },
-      {
-        "shakuPerUnit": 350,
         "name": "鮪",
-        "amount": 0.02857,
-        "baseUnit": "個",
+        "amount": 0.03857142857142857,
         "id": "xOA27EPv8LeNdyYfYO02"
       },
       {
-        "amount": 0.4,
-        "id": "8rJaUbYCKMEaK3XgWnjj",
-        "baseUnit": "個",
-        "shakuPerUnit": 20,
-        "name": "鯛"
+        "name": "清流岩魚",
+        "id": "ewW6RNMQxbz1X0c36fAk",
+        "amount": 1.8
       },
       {
-        "name": "鮭",
-        "shakuPerUnit": 45,
-        "amount": 0.1777,
-        "id": "mWcCEevlOzp3hN8Onvvt",
-        "baseUnit": "個"
-      },
-      {
-        "shakuPerUnit": 15,
-        "amount": 0.2667,
-        "name": "イカ",
-        "id": "e4MS3bAlVhNcZLeW7wC9",
-        "baseUnit": "個"
-      },
-      {
-        "id": "kK6YCX8jsbmrrjaniC6W",
-        "name": "車海老",
-        "shakuPerUnit": 4,
-        "amount": 1,
-        "baseUnit": "個"
-      },
-      {
-        "shakuPerUnit": null,
-        "amount": 4,
-        "id": "jhNVIDFcL2HOafI5Ce7D",
-        "name": "雲丹",
-        "baseUnit": "勺"
-      },
-      {
-        "amount": 0.3333,
-        "baseUnit": "個",
-        "shakuPerUnit": 12,
-        "id": "1MorH0nFSqmSvcRAbTph",
-        "name": "穴子"
-      },
-      {
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "baseUnit": "勺",
-        "amount": 3,
-        "shakuPerUnit": null
-      },
-      {
-        "name": "ワサビの根茎",
-        "baseUnit": "個",
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "shakuPerUnit": 4,
-        "amount": 0.5
-      },
-      {
-        "baseUnit": "個",
-        "name": "大葉",
-        "shakuPerUnit": 0.3,
-        "amount": 3.3333,
-        "id": "STRvLHjFtu4fDkBHaqut"
-      },
-      {
-        "id": "manual",
-        "name": "砂糖(0.6勺)",
-        "amount": 1
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf",
+        "amount": 1.5
       }
     ],
-    "rarity": 4,
+    "recoveryAmount": 600
+  },
+  {
+    "id": "UQUHdVsmIw26ZtqWd5h2",
+    "createdAt": "2026-04-02T00:37:55.948Z",
+    "name": "握り寿司（十貫盛上）",
+    "servings": 1,
+    "imageUrl": "media/images/file_279_1791792766730.png",
     "description": "職人の技が光る、豪華絢爛な握り寿司十貫盛上。選び抜かれた旬の魚介が織りなす彩り豊かなネタは、口の中でとろけるような至福の味わい。シャリはふっくらと炊き上げられ、繊細な酢の香りが素材の旨みを最大限に引き立てます。特別な日の食卓を彩る、まさに海の宝石箱です。",
     "embedding": [
       -0.00018252191,
@@ -30994,42 +30895,141 @@
       -0.010039381,
       0.020986548
     ],
-    "createdAt": "2026-04-02T00:37:55.948Z"
-  },
-  {
-    "id": "US2KjG0047LZSKBG16N8",
-    "imageUrl": "media/images/file_280_1791402382913.png",
-    "recoveryAmount": 650,
-    "servings": 3,
-    "name": "豊穣の海幸山幸和え",
     "ingredients": [
       {
-        "amount": 6.25,
-        "id": "7YGHlHIujIZXF6ElsMhL",
-        "name": "甘海老"
+        "shakuPerUnit": null,
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "name": "白米",
+        "amount": 72,
+        "baseUnit": "勺"
+      },
+      {
+        "shakuPerUnit": null,
+        "amount": 6,
+        "baseUnit": "勺",
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "name": "酢"
+      },
+      {
+        "amount": 0.6,
+        "name": "塩",
+        "baseUnit": "勺",
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "shakuPerUnit": null
+      },
+      {
+        "shakuPerUnit": 350,
+        "baseUnit": "個",
+        "id": "xOA27EPv8LeNdyYfYO02",
+        "name": "鮪",
+        "amount": 0.02857
+      },
+      {
+        "id": "8rJaUbYCKMEaK3XgWnjj",
+        "baseUnit": "個",
+        "name": "鯛",
+        "shakuPerUnit": 20,
+        "amount": 0.4
+      },
+      {
+        "amount": 0.1777,
+        "shakuPerUnit": 45,
+        "id": "mWcCEevlOzp3hN8Onvvt",
+        "name": "鮭",
+        "baseUnit": "個"
+      },
+      {
+        "name": "イカ",
+        "shakuPerUnit": 15,
+        "id": "e4MS3bAlVhNcZLeW7wC9",
+        "amount": 0.2667,
+        "baseUnit": "個"
+      },
+      {
+        "name": "車海老",
+        "id": "kK6YCX8jsbmrrjaniC6W",
+        "shakuPerUnit": 4,
+        "amount": 1,
+        "baseUnit": "個"
+      },
+      {
+        "baseUnit": "勺",
+        "name": "雲丹",
+        "id": "jhNVIDFcL2HOafI5Ce7D",
+        "shakuPerUnit": null,
+        "amount": 4
+      },
+      {
+        "baseUnit": "個",
+        "amount": 0.3333,
+        "id": "1MorH0nFSqmSvcRAbTph",
+        "name": "穴子",
+        "shakuPerUnit": 12
+      },
+      {
+        "shakuPerUnit": null,
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "baseUnit": "勺",
+        "amount": 3,
+        "name": "醤油"
+      },
+      {
+        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "baseUnit": "個",
+        "name": "ワサビの根茎",
+        "amount": 0.5,
+        "shakuPerUnit": 4
+      },
+      {
+        "baseUnit": "個",
+        "shakuPerUnit": 0.3,
+        "amount": 3.3333,
+        "id": "STRvLHjFtu4fDkBHaqut",
+        "name": "大葉"
       },
       {
         "amount": 1,
-        "name": "山芋",
-        "id": "z8M5UiMDOHXstbSYrdTg"
-      },
-      {
-        "id": "KdQ3vQHuC8mwljKkvlHx",
-        "amount": 1.875,
-        "name": "胡瓜"
-      },
-      {
-        "id": "hszcWFxgiPgsrofAaYd4",
-        "name": "ひじき",
-        "amount": 11.25
-      },
-      {
-        "amount": 0.5,
-        "id": "ygkM6FTx6unhf36hd5jz",
-        "name": "ハナビラタケ"
+        "name": "砂糖(0.6勺)",
+        "id": "manual"
       }
     ],
     "rarity": 4,
+    "recoveryAmount": 180
+  },
+  {
+    "id": "US2KjG0047LZSKBG16N8",
+    "createdAt": "2026-03-03T18:37:16.702Z",
+    "ingredients": [
+      {
+        "id": "7YGHlHIujIZXF6ElsMhL",
+        "name": "甘海老",
+        "amount": 6.25
+      },
+      {
+        "name": "山芋",
+        "id": "z8M5UiMDOHXstbSYrdTg",
+        "amount": 1
+      },
+      {
+        "amount": 1.875,
+        "name": "胡瓜",
+        "id": "KdQ3vQHuC8mwljKkvlHx"
+      },
+      {
+        "amount": 11.25,
+        "id": "hszcWFxgiPgsrofAaYd4",
+        "name": "ひじき"
+      },
+      {
+        "name": "ハナビラタケ",
+        "amount": 0.5,
+        "id": "ygkM6FTx6unhf36hd5jz"
+      }
+    ],
+    "imageUrl": "media/images/file_280_1791792766730.png",
+    "description": "透き通る甘海老と、彩り豊かな山の幸、海の恵みが盛り付けられた、まるで絵画のような一品。口に含むと、甘海老の濃厚な甘みが広がり、山芋のとろける舌触り、胡瓜の清涼な歯ごたえ、ひじきとハナビラタケの奥深い香りが絶妙な調和を生み出す。甘海老は丁寧に殻を剥き、新鮮な山芋を擦りおろし、胡瓜とひじきは薄切りにして軽く和える。仕上げに香り高きハナビラタケを添えれば、天地の恵みが織りなす極上の味わいが完成する。",
+    "rarity": 4,
+    "servings": 3,
     "embedding": [
       -0.0020325826,
       0.0018198723,
@@ -31800,43 +31800,14 @@
       -0.000989381,
       0.020022534
     ],
-    "createdAt": "2026-03-03T18:37:16.702Z",
-    "description": "透き通る甘海老と、彩り豊かな山の幸、海の恵みが盛り付けられた、まるで絵画のような一品。口に含むと、甘海老の濃厚な甘みが広がり、山芋のとろける舌触り、胡瓜の清涼な歯ごたえ、ひじきとハナビラタケの奥深い香りが絶妙な調和を生み出す。甘海老は丁寧に殻を剥き、新鮮な山芋を擦りおろし、胡瓜とひじきは薄切りにして軽く和える。仕上げに香り高きハナビラタケを添えれば、天地の恵みが織りなす極上の味わいが完成する。"
+    "name": "豊穣の海幸山幸和え",
+    "recoveryAmount": 650
   },
   {
     "id": "Uj7Yt4Grq0bktIdb7WDi",
-    "name": "幽玄深海鮑茸蒸し",
-    "ingredients": [
-      {
-        "name": "アワビ",
-        "amount": 5.4,
-        "id": "5nMtu9gPetWlnwXZ3OBz"
-      },
-      {
-        "name": "深山黒茸",
-        "amount": 5,
-        "id": "199WE9uvPmPJh5zNhR41"
-      },
-      {
-        "amount": 6,
-        "id": "hSKJktibBcmuntZ8JMBf",
-        "name": "きぬがさ茸"
-      },
-      {
-        "amount": 12,
-        "name": "ひじき",
-        "id": "hszcWFxgiPgsrofAaYd4"
-      },
-      {
-        "amount": 1.2,
-        "id": "Bpay4d6OWtZ30TG5I4YU",
-        "name": "ツルニンジン"
-      }
-    ],
-    "rarity": 5,
-    "description": "深山の奥で育まれた幻の深山黒茸と、海の宝である鮑が織りなす、幽玄なる一品。柔らかな鮑の旨味と、深山黒茸の芳醇な香りが口いっぱいに広がり、きぬがさ茸の繊細な食感が舌を楽しませる。ひじきの磯の香りとツルニンジンのほのかな苦味が深みを加え、滋味あふれる味わいとなっている。鮑を秘伝の出汁で蒸し上げ、茸とひじき、ツルニンジンを添え、深き森と海の恵みを閉じ込めた逸品である。",
-    "recoveryAmount": 1000,
     "createdAt": "2026-03-03T17:03:53.963Z",
+    "rarity": 5,
+    "recoveryAmount": 1000,
     "embedding": [
       0.0062765945,
       0.012527161,
@@ -32607,49 +32578,45 @@
       -0.001716037,
       0.011536966
     ],
-    "imageUrl": "media/images/file_281_1791402382913.png",
-    "servings": 3
+    "servings": 3,
+    "description": "深山の奥で育まれた幻の深山黒茸と、海の宝である鮑が織りなす、幽玄なる一品。柔らかな鮑の旨味と、深山黒茸の芳醇な香りが口いっぱいに広がり、きぬがさ茸の繊細な食感が舌を楽しませる。ひじきの磯の香りとツルニンジンのほのかな苦味が深みを加え、滋味あふれる味わいとなっている。鮑を秘伝の出汁で蒸し上げ、茸とひじき、ツルニンジンを添え、深き森と海の恵みを閉じ込めた逸品である。",
+    "ingredients": [
+      {
+        "name": "アワビ",
+        "id": "5nMtu9gPetWlnwXZ3OBz",
+        "amount": 5.4
+      },
+      {
+        "name": "深山黒茸",
+        "amount": 5,
+        "id": "199WE9uvPmPJh5zNhR41"
+      },
+      {
+        "amount": 6,
+        "name": "きぬがさ茸",
+        "id": "hSKJktibBcmuntZ8JMBf"
+      },
+      {
+        "name": "ひじき",
+        "id": "hszcWFxgiPgsrofAaYd4",
+        "amount": 12
+      },
+      {
+        "id": "Bpay4d6OWtZ30TG5I4YU",
+        "name": "ツルニンジン",
+        "amount": 1.2
+      }
+    ],
+    "imageUrl": "media/images/file_281_1791792766730.png",
+    "name": "幽玄深海鮑茸蒸し"
   },
   {
     "id": "VYCl06eTTt5nQDTnlwki",
-    "recoveryAmount": 250,
-    "description": "深海に棲む高級魚、金目鯛を贅沢に揚げた一品。ふっくらとした身は衣の中でしっとりと蒸し上がり、口いっぱいに広がる上品な旨味と香りが五感を刺激します。旬の野菜と共に、彩り豊かに盛り付けられた天ぷらは、まさに海の幸と大地の恵みのハーモニー。疲れた冒険者の心と体に深い癒しをもたらし、明日への活力を与えるでしょう。",
-    "ingredients": [
-      {
-        "baseUnit": "個",
-        "name": "キンメダイ",
-        "id": "lQ1ANrDoMdDBREFxEjHc",
-        "amount": 2
-      },
-      {
-        "name": "小麦粉",
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "baseUnit": "勺",
-        "amount": 25
-      },
-      {
-        "name": "卵",
-        "id": "XP2ysxstRn327LT7opOy",
-        "amount": 5,
-        "baseUnit": "個"
-      },
-      {
-        "baseUnit": "勺",
-        "name": "水",
-        "amount": 15,
-        "id": "HDWmnrNO5LC8WLURsxoN"
-      },
-      {
-        "baseUnit": "勺",
-        "name": "菜種油",
-        "amount": 36,
-        "id": "vsMZJ7qXcvbMd4bPa3GE"
-      }
-    ],
-    "rarity": 3,
-    "imageUrl": "media/images/file_282_1791402382913.png",
-    "servings": 1,
+    "imageUrl": "media/images/file_282_1791792766730.png",
     "createdAt": "2026-04-09T00:19:34.410Z",
+    "servings": 1,
+    "recoveryAmount": 250,
+    "rarity": 3,
     "embedding": [
       0.010446626,
       0.010709237,
@@ -33420,48 +33387,43 @@
       0.008598462,
       0.011802408
     ],
-    "name": "天ぷら（金目鯛）"
+    "name": "天ぷら（金目鯛）",
+    "ingredients": [
+      {
+        "amount": 2,
+        "id": "lQ1ANrDoMdDBREFxEjHc",
+        "name": "キンメダイ",
+        "baseUnit": "個"
+      },
+      {
+        "baseUnit": "勺",
+        "name": "小麦粉",
+        "amount": 25,
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "amount": 5,
+        "name": "卵",
+        "baseUnit": "個",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "name": "水",
+        "baseUnit": "勺",
+        "amount": 15
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "baseUnit": "勺",
+        "amount": 36
+      }
+    ],
+    "description": "深海に棲む高級魚、金目鯛を贅沢に揚げた一品。ふっくらとした身は衣の中でしっとりと蒸し上がり、口いっぱいに広がる上品な旨味と香りが五感を刺激します。旬の野菜と共に、彩り豊かに盛り付けられた天ぷらは、まさに海の幸と大地の恵みのハーモニー。疲れた冒険者の心と体に深い癒しをもたらし、明日への活力を与えるでしょう。"
   },
   {
     "id": "XrIR6ZhpeJkXpABRJiY5",
-    "ingredients": [
-      {
-        "amount": 4.5,
-        "name": "ししとう",
-        "id": "hjZwcagGSJ5ZqxQ7c7aG"
-      },
-      {
-        "amount": 3,
-        "id": "XP2ysxstRn327LT7opOy",
-        "name": "卵"
-      },
-      {
-        "name": "塩",
-        "amount": 2.4,
-        "id": "zAxz2xd8a2Tu7CYBpEiK"
-      },
-      {
-        "amount": 24,
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "name": "小麦粉"
-      },
-      {
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "amount": 12,
-        "name": "菜種油"
-      },
-      {
-        "id": "kK6YCX8jsbmrrjaniC6W",
-        "amount": 12,
-        "name": "車海老"
-      },
-      {
-        "name": "水",
-        "id": "manual",
-        "amount": 24
-      }
-    ],
-    "createdAt": "2026-03-03T13:14:07.059Z",
     "embedding": [
       -0.0019613956,
       0.013518806,
@@ -34232,49 +34194,87 @@
       0.008060685,
       -0.011239055
     ],
-    "description": "黄金色の衣をまとった車海老は、見る者を惹きつけ、一口食べればプリッとした食感と海老本来の甘みが口いっぱいに広がる。添えられたししとうが、清涼な苦味で味を引き締める逸品。",
-    "recoveryAmount": 200,
-    "rarity": 4,
+    "imageUrl": "media/images/file_283_1791792766730.png",
+    "servings": 3,
+    "ingredients": [
+      {
+        "name": "ししとう",
+        "amount": 4.5,
+        "id": "hjZwcagGSJ5ZqxQ7c7aG"
+      },
+      {
+        "name": "卵",
+        "amount": 3,
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "amount": 2.4
+      },
+      {
+        "name": "小麦粉",
+        "amount": 24,
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "amount": 12,
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "車海老",
+        "id": "kK6YCX8jsbmrrjaniC6W",
+        "amount": 12
+      },
+      {
+        "id": "manual",
+        "amount": 24,
+        "name": "水"
+      }
+    ],
     "name": "海老天",
-    "imageUrl": "media/images/file_283_1791402382913.png",
-    "servings": 3
+    "rarity": 4,
+    "createdAt": "2026-03-03T13:14:07.059Z",
+    "recoveryAmount": 200,
+    "description": "黄金色の衣をまとった車海老は、見る者を惹きつけ、一口食べればプリッとした食感と海老本来の甘みが口いっぱいに広がる。添えられたししとうが、清涼な苦味で味を引き締める逸品。"
   },
   {
     "id": "YUQq7lyLSjggvfZEWjFR",
+    "recoveryAmount": 1800,
+    "createdAt": "2026-03-03T18:32:39.091Z",
+    "name": "瑞祥 勘八と海宝の重ね蒸し",
+    "imageUrl": "media/images/file_284_1791792766730.png",
     "ingredients": [
       {
-        "amount": 1.92,
         "id": "ChkEloTZ7x61AW5vsotL",
-        "name": "勘八"
+        "name": "勘八",
+        "amount": 1.92
       },
       {
-        "amount": 0.86,
+        "id": "tblQtSx30FPHOuSB8zZE",
         "name": "伊勢海老",
-        "id": "tblQtSx30FPHOuSB8zZE"
+        "amount": 0.86
       },
       {
-        "name": "アワビ",
         "id": "5nMtu9gPetWlnwXZ3OBz",
+        "name": "アワビ",
         "amount": 1.8
       },
       {
-        "amount": 1.5,
         "name": "コウタケ",
+        "amount": 1.5,
         "id": "4Lm06zklbNoy3zg6tN1N"
       },
       {
         "amount": 0.6,
-        "id": "7iTiMLHySgBCMa95VVZb",
-        "name": "ジネンジョ"
+        "name": "ジネンジョ",
+        "id": "7iTiMLHySgBCMa95VVZb"
       }
     ],
-    "name": "瑞祥 勘八と海宝の重ね蒸し",
-    "rarity": 5,
-    "recoveryAmount": 1800,
-    "description": "透き通るような勘八の身に、磯の香豊かな伊勢海老と柔らかな鮑を添え、滋味深きコウタケと粘り強きジネンジョが彩りを加える。全ての食材を丁寧に蒸し上げ、素材本来の旨味を凝縮させた、一口食べれば昇天するような至福の逸品。海原の恵みが織りなす、滋養溢れる饗宴である。",
     "servings": 3,
-    "imageUrl": "media/images/file_284_1791402382913.png",
-    "createdAt": "2026-03-03T18:32:39.091Z",
+    "rarity": 5,
+    "description": "透き通るような勘八の身に、磯の香豊かな伊勢海老と柔らかな鮑を添え、滋味深きコウタケと粘り強きジネンジョが彩りを加える。全ての食材を丁寧に蒸し上げ、素材本来の旨味を凝縮させた、一口食べれば昇天するような至福の逸品。海原の恵みが織りなす、滋養溢れる饗宴である。",
     "embedding": [
       -0.0038784002,
       -0.0027669023,
@@ -35048,8 +35048,7 @@
   },
   {
     "id": "YwU0qRUwjjLm4H2jt7Wa",
-    "imageUrl": "media/images/file_285_1791402382913.png",
-    "servings": 2,
+    "rarity": 4,
     "embedding": [
       0.013659278,
       -0.00055243267,
@@ -35820,43 +35819,44 @@
       0.012245837,
       0.00540261
     ],
+    "recoveryAmount": 1000,
+    "imageUrl": "media/images/file_285_1791792766730.png",
     "createdAt": "2026-03-03T18:32:52.085Z",
-    "rarity": 4,
     "ingredients": [
       {
-        "amount": 9.6,
+        "name": "天然鮎",
         "id": "fKUWTZ9jiIuU6v5WNrxy",
-        "name": "天然鮎"
+        "amount": 9.6
       },
       {
         "id": "hjZwcagGSJ5ZqxQ7c7aG",
-        "name": "ししとう",
-        "amount": 15
+        "amount": 15,
+        "name": "ししとう"
       },
       {
-        "amount": 6,
         "name": "ツルニンジン",
+        "amount": 6,
         "id": "Bpay4d6OWtZ30TG5I4YU"
       },
       {
-        "name": "ぜんまい",
+        "amount": 9,
         "id": "mvPBgXi6O2vw5pjrGoyq",
-        "amount": 9
+        "name": "ぜんまい"
       },
       {
         "amount": 8,
-        "id": "Ia5B1VrQwyNnDBPmFQUl",
-        "name": "クリタケ"
+        "name": "クリタケ",
+        "id": "Ia5B1VrQwyNnDBPmFQUl"
       }
     ],
-    "recoveryAmount": 1000,
-    "description": "清らかな流れに育まれた天然鮎を、香り豊かなししとう、滋味深いツルニンジン、ぜんまい、クリタケと共に香ばしく包み焼きにした逸品。鮎独特の香りと山菜のほろ苦さが絶妙に調和し、炭火でじっくり焼き上げることで、素材本来の旨味が凝縮された奥深い味わいが口いっぱいに広がる。",
-    "name": "清流鮎の山菜包み焼き"
+    "name": "清流鮎の山菜包み焼き",
+    "servings": 2,
+    "description": "清らかな流れに育まれた天然鮎を、香り豊かなししとう、滋味深いツルニンジン、ぜんまい、クリタケと共に香ばしく包み焼きにした逸品。鮎独特の香りと山菜のほろ苦さが絶妙に調和し、炭火でじっくり焼き上げることで、素材本来の旨味が凝縮された奥深い味わいが口いっぱいに広がる。"
   },
   {
     "id": "aK9pH8mngXtYGQWA2942",
-    "imageUrl": "media/images/file_286_1791402382913.png",
-    "description": "あおさの磯の香りがふわりと立ち上る、心安らぐ味噌仕立ての汁物。シジミの滋味が溶け込んだ奥深い味わいは、疲れた体を優しく癒やします。",
+    "servings": 1,
+    "imageUrl": "media/images/file_286_1791792766730.png",
     "embedding": [
       -0.004527569,
       -0.0058271587,
@@ -36627,66 +36627,64 @@
       0.018274216,
       0.037222933
     ],
+    "rarity": 3,
+    "description": "あおさの磯の香りがふわりと立ち上る、心安らぐ味噌仕立ての汁物。シジミの滋味が溶け込んだ奥深い味わいは、疲れた体を優しく癒やします。",
+    "recoveryAmount": 50,
+    "name": "あおさ汁",
     "createdAt": "2026-03-27T18:32:22.958Z",
-    "servings": 1,
     "ingredients": [
       {
-        "baseUnit": "個",
-        "shakuPerUnit": 15,
-        "id": "fTD4pKW8rlT7aRjpnGH0",
+        "name": "コンブ",
         "amount": 0.013,
-        "name": "コンブ"
+        "baseUnit": "個",
+        "id": "fTD4pKW8rlT7aRjpnGH0",
+        "shakuPerUnit": 15
       },
       {
-        "name": "味噌",
-        "baseUnit": "勺",
+        "shakuPerUnit": null,
         "id": "2H6H30X0wlCBYfbtm2sk",
-        "shakuPerUnit": null,
-        "amount": 1
+        "name": "味噌",
+        "amount": 1,
+        "baseUnit": "勺"
       },
       {
-        "id": "3YerNFezpn9YOVp7SQwD",
         "shakuPerUnit": null,
-        "name": "酒",
+        "amount": 0.1,
+        "id": "3YerNFezpn9YOVp7SQwD",
         "baseUnit": "勺",
-        "amount": 0.1
+        "name": "酒"
       },
       {
         "amount": 0.011,
-        "id": "iPFKO7B0kNlQyA5SDx6Q",
-        "name": "鰹節",
+        "baseUnit": "個",
         "shakuPerUnit": 18,
-        "baseUnit": "個"
+        "name": "鰹節",
+        "id": "iPFKO7B0kNlQyA5SDx6Q"
       },
       {
-        "id": "R6OrQCjMwBU4KRJUYU4V",
+        "shakuPerUnit": null,
         "baseUnit": "勺",
-        "name": "あおさ",
+        "id": "R6OrQCjMwBU4KRJUYU4V",
         "amount": 1.5,
-        "shakuPerUnit": null
+        "name": "あおさ"
       },
       {
-        "id": "manual",
         "name": "あおさ",
-        "amount": 7
+        "amount": 7,
+        "id": "manual"
       },
       {
         "amount": 7,
-        "id": "manual",
-        "name": "水"
+        "name": "水",
+        "id": "manual"
       }
-    ],
-    "name": "あおさ汁",
-    "rarity": 3,
-    "recoveryAmount": 50
+    ]
   },
   {
     "id": "caywwu987VB3kVJI1NgD",
-    "recoveryAmount": 250,
-    "name": "蟹しゃぶ",
-    "rarity": 5,
-    "description": "冬の贅沢を極めた、本ズワイガニの豊潤な旨味が凝縮された至福の逸品。特製の昆布出汁にくぐらせた蟹の身は、とろけるような甘みと繊細な食感が口いっぱいに広がり、心身を芯から温めます。新鮮な旬の野菜と共に、贅沢なひとときをお楽しみください。締めは、蟹の旨味が溶け込んだ出汁で作る雑炊で、最後のひとしずくまで堪能できます。",
+    "imageUrl": "media/images/file_287_1791792766730.png",
     "createdAt": "2026-04-18T08:59:52.921Z",
+    "servings": 3,
     "embedding": [
       0.01654832,
       0.007777222,
@@ -37457,136 +37455,36 @@
       0.014235244,
       0.0100341365
     ],
-    "imageUrl": "media/images/file_287_1791402382913.png",
-    "servings": 3,
+    "description": "冬の贅沢を極めた、本ズワイガニの豊潤な旨味が凝縮された至福の逸品。特製の昆布出汁にくぐらせた蟹の身は、とろけるような甘みと繊細な食感が口いっぱいに広がり、心身を芯から温めます。新鮮な旬の野菜と共に、贅沢なひとときをお楽しみください。締めは、蟹の旨味が溶け込んだ出汁で作る雑炊で、最後のひとしずくまで堪能できます。",
+    "recoveryAmount": 250,
+    "name": "蟹しゃぶ",
     "ingredients": [
       {
         "baseUnit": "個",
         "id": "Zal6r4vOH5DgFXvoEiAv",
-        "name": "本ズワイガニ",
         "shakuPerUnit": 40,
-        "amount": 3
+        "amount": 3,
+        "name": "本ズワイガニ"
       },
       {
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "name": "水",
         "shakuPerUnit": null,
         "baseUnit": "勺",
-        "amount": 120,
-        "name": "水",
-        "id": "HDWmnrNO5LC8WLURsxoN"
+        "amount": 120
       },
       {
-        "name": "コンブ",
         "amount": 0.27,
         "shakuPerUnit": 15,
-        "baseUnit": "個",
-        "id": "fTD4pKW8rlT7aRjpnGH0"
+        "name": "コンブ",
+        "id": "fTD4pKW8rlT7aRjpnGH0",
+        "baseUnit": "個"
       }
-    ]
+    ],
+    "rarity": 5
   },
   {
     "id": "ccbGzVXHfmUn9HjFjWJx",
-    "name": "海鮮ラーメン",
-    "servings": 1,
-    "imageUrl": "media/images/file_288_1791402382913.png",
-    "rarity": 4,
-    "ingredients": [
-      {
-        "name": "水",
-        "amount": 50.4,
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "baseUnit": "勺"
-      },
-      {
-        "baseUnit": "勺",
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "amount": 4.2
-      },
-      {
-        "amount": 1.4,
-        "id": "EExCU3KTgaZ074nw8IzK",
-        "baseUnit": "勺",
-        "name": "みりん"
-      },
-      {
-        "baseUnit": "勺",
-        "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "amount": 0.7,
-        "name": "塩"
-      },
-      {
-        "name": "コンブ",
-        "amount": 0.19,
-        "id": "fTD4pKW8rlT7aRjpnGH0",
-        "baseUnit": "個"
-      },
-      {
-        "baseUnit": "個",
-        "id": "iPFKO7B0kNlQyA5SDx6Q",
-        "amount": 0.16,
-        "name": "鰹節"
-      },
-      {
-        "baseUnit": "個",
-        "id": "JheQkeYkBGY9Oltg1uen",
-        "amount": 2,
-        "name": "クルマエビ"
-      },
-      {
-        "amount": 7,
-        "id": "K3u8xXSdIOZHktqJ45ZL",
-        "baseUnit": "勺",
-        "name": "アサリ"
-      },
-      {
-        "baseUnit": "個",
-        "amount": 0.65,
-        "id": "e4MS3bAlVhNcZLeW7wC9",
-        "name": "イカ"
-      },
-      {
-        "name": "ホタテ貝",
-        "amount": 1,
-        "id": "qeRLNkbtgDSGGdAOuSgm",
-        "baseUnit": "個"
-      },
-      {
-        "name": "あおさ",
-        "id": "R6OrQCjMwBU4KRJUYU4V",
-        "amount": 1.4,
-        "baseUnit": "勺"
-      },
-      {
-        "name": "葱",
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "amount": 0.7,
-        "baseUnit": "個"
-      },
-      {
-        "amount": 1,
-        "name": "卵",
-        "baseUnit": "個",
-        "id": "XP2ysxstRn327LT7opOy"
-      },
-      {
-        "amount": 0.18,
-        "baseUnit": "個",
-        "id": "u0dh8tyTOcLrmu2D8E1M",
-        "name": "生姜"
-      },
-      {
-        "name": "ラーメン麺",
-        "id": "manual",
-        "amount": 42,
-        "baseUnit": "勺"
-      },
-      {
-        "id": "manual",
-        "amount": 2.24,
-        "baseUnit": "勺",
-        "name": "ラーメンスープベース"
-      }
-    ],
     "recoveryAmount": 120,
     "embedding": [
       -0.012292635,
@@ -38358,53 +38256,116 @@
       0.0006579184,
       0.024095116
     ],
-    "createdAt": "2026-04-07T05:54:38.363Z",
-    "description": "豊かな海の恵みを惜しみなく使った、風味豊かで奥深い味わいの究極の海鮮ラーメン。プリプリのエビ、磯の香るアサリ、柔らかなイカ、そしてふっくらとしたホタテが織りなすハーモニーは、一口食べれば潮風を感じさせ、心と体を癒します。厳選された出汁と秘伝のスープが、それぞれの素材の旨みを最大限に引き出し、忘れられない一杯となるでしょう。"
-  },
-  {
-    "id": "dIbkq4smqKngrNfH7ndz",
-    "servings": 1,
-    "description": "帆立の甘みと旨味が凝縮された、贅沢な握り寿司。口の中でとろけるような柔らかい身と、ふわりと握られた酢飯の絶妙なハーモニーが、至福の時を運ぶ逸品です。",
-    "imageUrl": "media/images/file_289_1791402382913.png",
     "rarity": 4,
     "ingredients": [
       {
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "name": "ワサビの根茎"
+        "amount": 50.4,
+        "name": "水",
+        "baseUnit": "勺",
+        "id": "HDWmnrNO5LC8WLURsxoN"
       },
       {
-        "name": "塩",
-        "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "amount": 0.08
-      },
-      {
-        "amount": 0.8,
-        "id": "gCAL5NtJdRHDkhddjFSb",
-        "name": "帆立"
-      },
-      {
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "name": "白米",
-        "amount": 5.5
-      },
-      {
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "name": "米飴",
-        "amount": 0.07
-      },
-      {
-        "amount": 0.25,
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "name": "酢"
-      },
-      {
-        "amount": 0.04,
         "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs"
+        "baseUnit": "勺",
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "amount": 4.2
+      },
+      {
+        "baseUnit": "勺",
+        "name": "みりん",
+        "amount": 1.4,
+        "id": "EExCU3KTgaZ074nw8IzK"
+      },
+      {
+        "amount": 0.7,
+        "baseUnit": "勺",
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "name": "塩"
+      },
+      {
+        "id": "fTD4pKW8rlT7aRjpnGH0",
+        "name": "コンブ",
+        "baseUnit": "個",
+        "amount": 0.19
+      },
+      {
+        "baseUnit": "個",
+        "name": "鰹節",
+        "id": "iPFKO7B0kNlQyA5SDx6Q",
+        "amount": 0.16
+      },
+      {
+        "name": "クルマエビ",
+        "baseUnit": "個",
+        "id": "JheQkeYkBGY9Oltg1uen",
+        "amount": 2
+      },
+      {
+        "baseUnit": "勺",
+        "id": "K3u8xXSdIOZHktqJ45ZL",
+        "amount": 7,
+        "name": "アサリ"
+      },
+      {
+        "baseUnit": "個",
+        "name": "イカ",
+        "amount": 0.65,
+        "id": "e4MS3bAlVhNcZLeW7wC9"
+      },
+      {
+        "amount": 1,
+        "baseUnit": "個",
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "id": "R6OrQCjMwBU4KRJUYU4V",
+        "name": "あおさ",
+        "baseUnit": "勺",
+        "amount": 1.4
+      },
+      {
+        "id": "5AZ2gOb0pKEtI0ktdXg5",
+        "name": "葱",
+        "amount": 0.7,
+        "baseUnit": "個"
+      },
+      {
+        "amount": 1,
+        "name": "卵",
+        "baseUnit": "個",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "baseUnit": "個",
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "name": "生姜",
+        "amount": 0.18
+      },
+      {
+        "amount": 42,
+        "name": "ラーメン麺",
+        "id": "manual",
+        "baseUnit": "勺"
+      },
+      {
+        "name": "ラーメンスープベース",
+        "baseUnit": "勺",
+        "amount": 2.24,
+        "id": "manual"
       }
     ],
+    "imageUrl": "media/images/file_288_1791792766730.png",
+    "description": "豊かな海の恵みを惜しみなく使った、風味豊かで奥深い味わいの究極の海鮮ラーメン。プリプリのエビ、磯の香るアサリ、柔らかなイカ、そしてふっくらとしたホタテが織りなすハーモニーは、一口食べれば潮風を感じさせ、心と体を癒します。厳選された出汁と秘伝のスープが、それぞれの素材の旨みを最大限に引き出し、忘れられない一杯となるでしょう。",
+    "name": "海鮮ラーメン",
+    "servings": 1,
+    "createdAt": "2026-04-07T05:54:38.363Z"
+  },
+  {
+    "id": "dIbkq4smqKngrNfH7ndz",
     "recoveryAmount": 10,
-    "name": "握り寿司（帆立）",
+    "rarity": 4,
+    "description": "帆立の甘みと旨味が凝縮された、贅沢な握り寿司。口の中でとろけるような柔らかい身と、ふわりと握られた酢飯の絶妙なハーモニーが、至福の時を運ぶ逸品です。",
     "embedding": [
       -0.0003879526,
       -0.0028515817,
@@ -39175,48 +39136,49 @@
       0.0019207508,
       0.021804906
     ],
-    "createdAt": "2026-03-27T18:10:25.867Z"
+    "ingredients": [
+      {
+        "name": "ワサビの根茎",
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      },
+      {
+        "amount": 0.08,
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "name": "塩"
+      },
+      {
+        "id": "gCAL5NtJdRHDkhddjFSb",
+        "name": "帆立",
+        "amount": 0.8
+      },
+      {
+        "amount": 5.5,
+        "name": "白米",
+        "id": "mQ5aybZclKtqbmhzSNUj"
+      },
+      {
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "name": "米飴",
+        "amount": 0.07
+      },
+      {
+        "amount": 0.25,
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "name": "酢"
+      },
+      {
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "name": "醤油",
+        "amount": 0.04
+      }
+    ],
+    "createdAt": "2026-03-27T18:10:25.867Z",
+    "imageUrl": "media/images/file_289_1791792766730.png",
+    "name": "握り寿司（帆立）",
+    "servings": 1
   },
   {
     "id": "eJVgzagX6cV2U7Cnho0W",
-    "description": "艶やかな赤身と脂の乗った金目鯛を丁寧に握った一貫。口に入れた瞬間、上品な甘みと磯の香りが広がり、至福の時をもたらす逸品です。",
-    "recoveryAmount": 50,
-    "ingredients": [
-      {
-        "amount": 0.144,
-        "name": "キンメダイ",
-        "id": "lQ1ANrDoMdDBREFxEjHc"
-      },
-      {
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "amount": 0.025,
-        "name": "ワサビの根茎"
-      },
-      {
-        "amount": 0,
-        "name": "海苔",
-        "id": "4th7RhqsWqmT7ZA87sFK"
-      },
-      {
-        "amount": 5.2,
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "name": "白米"
-      },
-      {
-        "name": "酢",
-        "amount": 0.4,
-        "id": "hRrafDY8fmMbfzUyfJMI"
-      },
-      {
-        "amount": 0.2,
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs"
-      }
-    ],
-    "imageUrl": "media/images/file_290_1791402382913.png",
-    "name": "握り寿司（金目鯛）",
-    "servings": 1,
-    "createdAt": "2026-03-27T18:10:05.223Z",
     "embedding": [
       0.0070534255,
       0.004307636,
@@ -39987,11 +39949,82 @@
       0.01213869,
       0.0069438275
     ],
-    "rarity": 5
+    "imageUrl": "media/images/file_290_1791792766730.png",
+    "name": "握り寿司（金目鯛）",
+    "rarity": 5,
+    "servings": 1,
+    "ingredients": [
+      {
+        "id": "lQ1ANrDoMdDBREFxEjHc",
+        "name": "キンメダイ",
+        "amount": 0.144
+      },
+      {
+        "amount": 0.025,
+        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "name": "ワサビの根茎"
+      },
+      {
+        "id": "4th7RhqsWqmT7ZA87sFK",
+        "name": "海苔",
+        "amount": 0
+      },
+      {
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "name": "白米",
+        "amount": 5.2
+      },
+      {
+        "name": "酢",
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "amount": 0.4
+      },
+      {
+        "amount": 0.2,
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      }
+    ],
+    "createdAt": "2026-03-27T18:10:05.223Z",
+    "description": "艶やかな赤身と脂の乗った金目鯛を丁寧に握った一貫。口に入れた瞬間、上品な甘みと磯の香りが広がり、至福の時をもたらす逸品です。",
+    "recoveryAmount": 50
   },
   {
     "id": "fB5WLz9I54RN9YyIlVHe",
+    "servings": 3,
+    "ingredients": [
+      {
+        "id": "VWspMl7WEOiHJkbw92uA",
+        "name": "渡り蟹",
+        "amount": 2
+      },
+      {
+        "id": "qeRLNkbtgDSGGdAOuSgm",
+        "name": "ホタテ貝",
+        "amount": 4.29
+      },
+      {
+        "amount": 12,
+        "name": "ギョウジャニンニク",
+        "id": "qu3zf52IH65BtjzCacla"
+      },
+      {
+        "id": "ScO3kvro3uwPiVMkOJbA",
+        "amount": 6.86,
+        "name": "タマゴタケ"
+      },
+      {
+        "id": "91mQBQaO2ReWMrsGlGrb",
+        "name": "ウド",
+        "amount": 1
+      }
+    ],
+    "createdAt": "2026-03-03T18:34:48.078Z",
+    "rarity": 4,
+    "description": "広大な海で育った渡り蟹と陸の恵みを一つにした贅沢な逸品。蒸篭から立ち上る湯気はまるで雲海の如く、その中には渡り蟹の甘みとホタテ貝の旨味が凝縮されています。ギョウジャニンニクとタマゴタケが香りを添え、ウドの歯応えが絶妙な調和を生み出します。全ての食材を丁寧に蒸し上げ、素材本来の味が際立つよう仕上げた、滋味深い一皿です。",
+    "imageUrl": "media/images/file_291_1791792766730.png",
     "name": "海幸山幸の宝蒸し",
+    "recoveryAmount": 2500,
     "embedding": [
       0.0043681734,
       0.00789212,
@@ -40761,81 +40794,11 @@
       0.023400387,
       -0.0020679706,
       0.022617174
-    ],
-    "createdAt": "2026-03-03T18:34:48.078Z",
-    "recoveryAmount": 2500,
-    "rarity": 4,
-    "ingredients": [
-      {
-        "id": "VWspMl7WEOiHJkbw92uA",
-        "amount": 2,
-        "name": "渡り蟹"
-      },
-      {
-        "name": "ホタテ貝",
-        "amount": 4.29,
-        "id": "qeRLNkbtgDSGGdAOuSgm"
-      },
-      {
-        "name": "ギョウジャニンニク",
-        "id": "qu3zf52IH65BtjzCacla",
-        "amount": 12
-      },
-      {
-        "id": "ScO3kvro3uwPiVMkOJbA",
-        "name": "タマゴタケ",
-        "amount": 6.86
-      },
-      {
-        "id": "91mQBQaO2ReWMrsGlGrb",
-        "amount": 1,
-        "name": "ウド"
-      }
-    ],
-    "servings": 3,
-    "description": "広大な海で育った渡り蟹と陸の恵みを一つにした贅沢な逸品。蒸篭から立ち上る湯気はまるで雲海の如く、その中には渡り蟹の甘みとホタテ貝の旨味が凝縮されています。ギョウジャニンニクとタマゴタケが香りを添え、ウドの歯応えが絶妙な調和を生み出します。全ての食材を丁寧に蒸し上げ、素材本来の味が際立つよう仕上げた、滋味深い一皿です。",
-    "imageUrl": "media/images/file_291_1791402382913.png"
+    ]
   },
   {
     "id": "fCcul3HzU2SXcPoIPwex",
-    "imageUrl": "media/images/file_292_1791402382913.png",
     "servings": 1,
-    "recoveryAmount": 220,
-    "description": "揚げたて熱々の真鯛天ぷらは、黄金色の衣を纏い、口にすればサクッとした軽やかな音と共に、ふっくらとした鯛の白身の旨味がじゅわっと広がります。新鮮な海の幸と旬の野菜が織りなす極上のハーモニーは、疲れた体を癒し、至福のひとときをもたらします。",
-    "name": "天ぷら（鯛）",
-    "rarity": 4,
-    "ingredients": [
-      {
-        "baseUnit": "個",
-        "name": "鯛",
-        "id": "8rJaUbYCKMEaK3XgWnjj",
-        "amount": 2.1
-      },
-      {
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 21.6,
-        "baseUnit": "勺",
-        "name": "小麦粉"
-      },
-      {
-        "amount": 1.8,
-        "id": "XP2ysxstRn327LT7opOy",
-        "name": "卵",
-        "baseUnit": "個"
-      },
-      {
-        "name": "水",
-        "baseUnit": "勺",
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "amount": 14.4
-      },
-      {
-        "name": "菜種油",
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "baseUnit": "勺",
-        "amount": 12
-      }
-    ],
     "embedding": [
       0.0037158611,
       0.002839064,
@@ -41606,43 +41569,81 @@
       0.011941778,
       0.0072320555
     ],
-    "createdAt": "2026-04-09T00:19:10.236Z"
+    "description": "揚げたて熱々の真鯛天ぷらは、黄金色の衣を纏い、口にすればサクッとした軽やかな音と共に、ふっくらとした鯛の白身の旨味がじゅわっと広がります。新鮮な海の幸と旬の野菜が織りなす極上のハーモニーは、疲れた体を癒し、至福のひとときをもたらします。",
+    "imageUrl": "media/images/file_292_1791792766730.png",
+    "recoveryAmount": 220,
+    "ingredients": [
+      {
+        "amount": 2.1,
+        "name": "鯛",
+        "baseUnit": "個",
+        "id": "8rJaUbYCKMEaK3XgWnjj"
+      },
+      {
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "baseUnit": "勺",
+        "amount": 21.6,
+        "name": "小麦粉"
+      },
+      {
+        "id": "XP2ysxstRn327LT7opOy",
+        "amount": 1.8,
+        "baseUnit": "個",
+        "name": "卵"
+      },
+      {
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "baseUnit": "勺",
+        "name": "水",
+        "amount": 14.4
+      },
+      {
+        "amount": 12,
+        "name": "菜種油",
+        "baseUnit": "勺",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      }
+    ],
+    "rarity": 4,
+    "createdAt": "2026-04-09T00:19:10.236Z",
+    "name": "天ぷら（鯛）"
   },
   {
     "id": "fKFAW4i5t7d550wQDE4P",
-    "imageUrl": "media/images/file_293_1791402382913.png",
-    "servings": 3,
-    "rarity": 4,
     "description": "肉厚なホッキ貝と本鱈場蟹、アワビといった海の至宝が織りなす磯の香りは、見目麗しく、食欲をそそる。しいたけの芳醇な旨味と大葉の清涼感が加わり、口に運べば至福の波が押し寄せるだろう。これらの厳選素材を丁寧に酒蒸しにすることで、各々の持つ甘みと旨味が凝縮され、最高の調和を生み出す。",
-    "name": "北海の恵み 豪華蒸し物",
     "ingredients": [
       {
-        "amount": 2.57,
         "name": "ホッキ貝",
+        "amount": 2.57,
         "id": "Bw25bk1NW2dTngqTaMBK"
       },
       {
-        "name": "本鱈場蟹",
+        "id": "6gNrCWH2sVGdCvc8i8UT",
         "amount": 0.32,
-        "id": "6gNrCWH2sVGdCvc8i8UT"
+        "name": "本鱈場蟹"
       },
       {
-        "name": "アワビ",
         "id": "5nMtu9gPetWlnwXZ3OBz",
+        "name": "アワビ",
         "amount": 2.4
       },
       {
         "name": "しいたけ",
-        "amount": 6,
-        "id": "KfC755P2vtX74e1mqqEF"
+        "id": "KfC755P2vtX74e1mqqEF",
+        "amount": 6
       },
       {
-        "amount": 40,
         "name": "大葉",
+        "amount": 40,
         "id": "STRvLHjFtu4fDkBHaqut"
       }
     ],
+    "name": "北海の恵み 豪華蒸し物",
     "createdAt": "2026-03-03T18:31:09.773Z",
+    "rarity": 4,
+    "servings": 3,
+    "imageUrl": "media/images/file_293_1791792766730.png",
+    "recoveryAmount": 450,
     "embedding": [
       -0.0073917722,
       -0.0098507535,
@@ -42412,11 +42413,11 @@
       0.031217622,
       0.005748964,
       0.026603945
-    ],
-    "recoveryAmount": 450
+    ]
   },
   {
     "id": "gmKd370gG14XOKE6DMHi",
+    "rarity": 3,
     "embedding": [
       0.009282959,
       0.013628067,
@@ -43187,91 +43188,89 @@
       0.012590129,
       0.011158897
     ],
+    "name": "天ぷら（烏賊）",
+    "imageUrl": "media/images/file_294_1791792766730.png",
     "createdAt": "2026-04-09T00:17:09.386Z",
-    "imageUrl": "media/images/file_294_1791402382913.png",
-    "servings": 1,
     "ingredients": [
       {
+        "id": "e4MS3bAlVhNcZLeW7wC9",
         "name": "イカ",
-        "baseUnit": "個",
         "amount": 3.333,
-        "id": "e4MS3bAlVhNcZLeW7wC9"
+        "baseUnit": "個"
       },
       {
-        "name": "小麦粉",
-        "baseUnit": "勺",
         "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 20
+        "amount": 20,
+        "name": "小麦粉",
+        "baseUnit": "勺"
       },
       {
+        "amount": 15,
         "baseUnit": "勺",
         "id": "HDWmnrNO5LC8WLURsxoN",
-        "amount": 15,
         "name": "水"
       },
       {
+        "amount": 2.5,
         "name": "卵",
         "id": "XP2ysxstRn327LT7opOy",
-        "baseUnit": "個",
-        "amount": 2.5
+        "baseUnit": "個"
       },
       {
+        "amount": 9,
         "name": "菜種油",
         "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "baseUnit": "勺",
-        "amount": 9
+        "baseUnit": "勺"
       }
     ],
-    "name": "天ぷら（烏賊）",
-    "rarity": 3,
     "recoveryAmount": 80,
-    "description": "新鮮な烏賊の旨みが衣の中に閉じ込められ、サクッとした食感と相まって口いっぱいに広がる逸品。磯の香りが食欲をそそり、軽やかな油の風味と塩味が烏賊本来の甘みを引き立てます。熱々を頬張れば、至福のひとときが訪れるでしょう。"
+    "description": "新鮮な烏賊の旨みが衣の中に閉じ込められ、サクッとした食感と相まって口いっぱいに広がる逸品。磯の香りが食欲をそそり、軽やかな油の風味と塩味が烏賊本来の甘みを引き立てます。熱々を頬張れば、至福のひとときが訪れるでしょう。",
+    "servings": 1
   },
   {
     "id": "h6xq7ql0jtwtWf4lWb3l",
-    "imageUrl": "media/images/file_295_1791402382913.png",
+    "rarity": 5,
+    "createdAt": "2026-03-03T15:27:31.671Z",
     "description": "深き海の恵み、伊勢海老を主役に据えた、贅沢なる一品。醤油と蜂蜜を秘伝の割合で調合した特製だれを纏わせ、炭火でじっくりと炙り焼きにすることで、香ばしくも濃厚な甘みが引き立つ。仕上げにすりおろした生姜と、清らかな沢で育ちしワサビの根茎を添えれば、その芳醇な香りと辛味が、伊勢海老本来の旨味を一層際立たせる。見た目も鮮やかな琥珀色に輝き、一口食べれば至福が広がる。",
-    "recoveryAmount": 1000,
-    "servings": 2,
     "ingredients": [
       {
         "baseUnit": "個",
-        "shakuPerUnit": 35,
-        "amount": 1.5428571428571427,
+        "id": "tblQtSx30FPHOuSB8zZE",
         "name": "伊勢海老",
-        "id": "tblQtSx30FPHOuSB8zZE"
+        "shakuPerUnit": 35,
+        "amount": 1.5428571428571427
       },
       {
-        "baseUnit": "勺",
-        "name": "醤油",
         "shakuPerUnit": null,
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "baseUnit": "勺",
         "amount": 30,
-        "id": "XhkCWADRwNYsGVQBXwVs"
+        "name": "醤油"
       },
       {
-        "baseUnit": "勺",
+        "id": "wLCxKI7rSfvQABSDmGm1",
+        "shakuPerUnit": null,
         "amount": 24,
         "name": "蜂蜜",
-        "shakuPerUnit": null,
-        "id": "wLCxKI7rSfvQABSDmGm1"
+        "baseUnit": "勺"
       },
       {
         "shakuPerUnit": 4,
-        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M",
         "baseUnit": "個",
         "amount": 1.5,
-        "id": "u0dh8tyTOcLrmu2D8E1M"
+        "name": "生姜"
       },
       {
         "name": "ワサビの根茎",
-        "shakuPerUnit": 4,
         "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "shakuPerUnit": 4,
         "amount": 1.5,
         "baseUnit": "個"
       }
     ],
-    "name": "伊勢海老の秘伝蜜照り焼き",
-    "rarity": 5,
+    "imageUrl": "media/images/file_295_1791792766730.png",
+    "recoveryAmount": 1000,
     "embedding": [
       0.021077117,
       0.021768559,
@@ -44042,42 +44041,15 @@
       0.0043882052,
       0.015445261
     ],
-    "createdAt": "2026-03-03T15:27:31.671Z"
+    "name": "伊勢海老の秘伝蜜照り焼き",
+    "servings": 2
   },
   {
     "id": "idflavzpqBdgvsMBaTbm",
-    "servings": 1,
-    "ingredients": [
-      {
-        "amount": 4.5,
-        "name": "ウナギ",
-        "id": "aG2DLeDbxj8mcQuPo09N"
-      },
-      {
-        "name": "まつたけ",
-        "amount": 2.5,
-        "id": "uejC6QExQ6p1m0p2EiS7"
-      },
-      {
-        "id": "JheQkeYkBGY9Oltg1uen",
-        "name": "クルマエビ",
-        "amount": 5.14
-      },
-      {
-        "amount": 4,
-        "name": "しいたけ",
-        "id": "KfC755P2vtX74e1mqqEF"
-      },
-      {
-        "amount": 6,
-        "name": "アカモク",
-        "id": "55j4sJfonG5zFqokqJuc"
-      }
-    ],
-    "imageUrl": "media/images/file_296_1791402382913.png",
-    "description": "深海の秘宝たる車海老と磯の香漂うアカモク、そして山の神が宿る松茸と滋味深き椎茸を、見事なまでに照り焼きにされた昇龍鰻と共に漆塗りの重箱へと美しく盛り付けた。一口食せば、海の恵みと大地の息吹が渾然一体となり、至高の美味が五臓六腑に染み渡り、疲弊した身体に新たな活力を与えるだろう。鰻は特製の甘辛いタレで幾度も焼き上げられ、他の厳選素材もそれぞれが最高の風味を引き出されるよう丁寧に調理された後、美しく盛り付けられる。",
-    "name": "昇龍鰻の極み膳",
+    "rarity": 5,
     "createdAt": "2026-03-03T17:42:14.927Z",
+    "imageUrl": "media/images/file_296_1791792766730.png",
+    "recoveryAmount": 100,
     "embedding": [
       0.009611031,
       0.002448901,
@@ -44848,70 +44820,39 @@
       0.021551074,
       0.0098614255
     ],
-    "recoveryAmount": 100,
-    "rarity": 5
+    "description": "深海の秘宝たる車海老と磯の香漂うアカモク、そして山の神が宿る松茸と滋味深き椎茸を、見事なまでに照り焼きにされた昇龍鰻と共に漆塗りの重箱へと美しく盛り付けた。一口食せば、海の恵みと大地の息吹が渾然一体となり、至高の美味が五臓六腑に染み渡り、疲弊した身体に新たな活力を与えるだろう。鰻は特製の甘辛いタレで幾度も焼き上げられ、他の厳選素材もそれぞれが最高の風味を引き出されるよう丁寧に調理された後、美しく盛り付けられる。",
+    "name": "昇龍鰻の極み膳",
+    "servings": 1,
+    "ingredients": [
+      {
+        "id": "aG2DLeDbxj8mcQuPo09N",
+        "name": "ウナギ",
+        "amount": 4.5
+      },
+      {
+        "amount": 2.5,
+        "id": "uejC6QExQ6p1m0p2EiS7",
+        "name": "まつたけ"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen",
+        "amount": 5.14
+      },
+      {
+        "amount": 4,
+        "id": "KfC755P2vtX74e1mqqEF",
+        "name": "しいたけ"
+      },
+      {
+        "amount": 6,
+        "id": "55j4sJfonG5zFqokqJuc",
+        "name": "アカモク"
+      }
+    ]
   },
   {
     "id": "iw0KrZc4PUHo7yjmNK9a",
-    "imageUrl": "media/images/file_297_1791402382913.png",
-    "ingredients": [
-      {
-        "amount": 15.43,
-        "baseUnit": "個",
-        "shakuPerUnit": 3.5,
-        "id": "JheQkeYkBGY9Oltg1uen",
-        "name": "クルマエビ"
-      },
-      {
-        "amount": 30,
-        "baseUnit": "勺",
-        "shakuPerUnit": null,
-        "name": "パン粉",
-        "id": "fRC3hZWb49nVqCeO4xCR"
-      },
-      {
-        "amount": 4.8,
-        "baseUnit": "個",
-        "shakuPerUnit": 2,
-        "name": "卵",
-        "id": "XP2ysxstRn327LT7opOy"
-      },
-      {
-        "amount": 1.2,
-        "shakuPerUnit": null,
-        "name": "塩",
-        "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "baseUnit": "勺"
-      },
-      {
-        "baseUnit": "勺",
-        "shakuPerUnit": null,
-        "name": "小麦粉",
-        "amount": 12,
-        "id": "02VLUbqVhFyJ0TJSCBaG"
-      },
-      {
-        "amount": 13.2,
-        "shakuPerUnit": null,
-        "name": "菜種油",
-        "baseUnit": "勺",
-        "id": "vsMZJ7qXcvbMd4bPa3GE"
-      },
-      {
-        "name": "水",
-        "id": "manual",
-        "amount": 1
-      },
-      {
-        "name": "胡椒",
-        "amount": 1,
-        "id": "manual"
-      }
-    ],
-    "servings": 1,
-    "description": "黄金色に揚がった衣はサクサクと軽快な音を立て、一口噛めば、プリプリとした海老の旨みが口いっぱいに広がる至福の一品。",
-    "name": "エビフライ",
-    "createdAt": "2026-03-01T18:08:16.680Z",
     "embedding": [
       0.013102859,
       0.006921574,
@@ -45682,86 +45623,70 @@
       0.018258905,
       0.0011150793
     ],
+    "imageUrl": "media/images/file_297_1791792766730.png",
+    "name": "エビフライ",
+    "servings": 1,
     "rarity": 4,
-    "recoveryAmount": 450
-  },
-  {
-    "id": "j26bd4xGNnVIxSxckFu4",
-    "imageUrl": "media/images/file_298_1791402382913.png",
+    "createdAt": "2026-03-01T18:08:16.680Z",
+    "description": "黄金色に揚がった衣はサクサクと軽快な音を立て、一口噛めば、プリプリとした海老の旨みが口いっぱいに広がる至福の一品。",
     "ingredients": [
       {
-        "amount": 4.8,
-        "name": "しいたけ",
-        "id": "KfC755P2vtX74e1mqqEF"
-      },
-      {
-        "name": "みりん",
-        "id": "EExCU3KTgaZ074nw8IzK",
-        "amount": 2.4
-      },
-      {
+        "baseUnit": "個",
+        "shakuPerUnit": 3.5,
+        "amount": 15.43,
         "name": "クルマエビ",
-        "amount": 12,
         "id": "JheQkeYkBGY9Oltg1uen"
       },
       {
-        "name": "タケノコ",
-        "amount": 1.2,
-        "id": "KU5dMDHGiJUmEhv59Kd8"
-      },
-      {
-        "amount": 1.05,
-        "name": "人参",
-        "id": "KZpwGqZRFCzr2T34LqAM"
+        "baseUnit": "勺",
+        "amount": 30,
+        "name": "パン粉",
+        "id": "fRC3hZWb49nVqCeO4xCR",
+        "shakuPerUnit": null
       },
       {
         "id": "XP2ysxstRn327LT7opOy",
-        "amount": 0.6,
-        "name": "卵"
+        "shakuPerUnit": 2,
+        "baseUnit": "個",
+        "name": "卵",
+        "amount": 4.8
       },
       {
+        "shakuPerUnit": null,
         "amount": 1.2,
+        "baseUnit": "勺",
         "id": "zAxz2xd8a2Tu7CYBpEiK",
         "name": "塩"
       },
       {
-        "amount": 1.2,
+        "amount": 12,
+        "shakuPerUnit": null,
         "id": "02VLUbqVhFyJ0TJSCBaG",
-        "name": "小麦粉"
+        "name": "小麦粉",
+        "baseUnit": "勺"
       },
       {
-        "name": "生姜",
-        "id": "u0dh8tyTOcLrmu2D8E1M",
-        "amount": 0.3
-      },
-      {
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
         "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "amount": 13.2,
         "name": "菜種油"
       },
       {
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "name": "葱",
-        "amount": 2.1
-      },
-      {
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "amount": 2.4
-      },
-      {
-        "name": "春巻きの皮",
-        "id": "manual",
-        "amount": 3.6
-      },
-      {
         "name": "水",
-        "amount": 3.6,
+        "amount": 1,
         "id": "manual"
+      },
+      {
+        "id": "manual",
+        "name": "胡椒",
+        "amount": 1
       }
     ],
-    "servings": 3,
-    "description": "黄金色に揚げられた衣はパリッと香ばしく、中からはプリプリの海老と滋味深い野菜が詰まった熱々の餡がとろけ出します。一口頬張れば、豊かな磯の香りと山海の恵みが織りなす極上の風味に、心ゆくまで酔いしれることでしょう。",
-    "name": "海老春巻き",
+    "recoveryAmount": 450
+  },
+  {
+    "id": "j26bd4xGNnVIxSxckFu4",
     "embedding": [
       0.009797875,
       0.0045659062,
@@ -46532,16 +46457,92 @@
       0.00031943579,
       0.009164369
     ],
-    "createdAt": "2026-03-14T12:49:13.405Z",
+    "imageUrl": "media/images/file_298_1791792766730.png",
+    "name": "海老春巻き",
     "rarity": 4,
+    "servings": 3,
+    "createdAt": "2026-03-14T12:49:13.405Z",
+    "description": "黄金色に揚げられた衣はパリッと香ばしく、中からはプリプリの海老と滋味深い野菜が詰まった熱々の餡がとろけ出します。一口頬張れば、豊かな磯の香りと山海の恵みが織りなす極上の風味に、心ゆくまで酔いしれることでしょう。",
+    "ingredients": [
+      {
+        "name": "しいたけ",
+        "id": "KfC755P2vtX74e1mqqEF",
+        "amount": 4.8
+      },
+      {
+        "name": "みりん",
+        "id": "EExCU3KTgaZ074nw8IzK",
+        "amount": 2.4
+      },
+      {
+        "amount": 12,
+        "id": "JheQkeYkBGY9Oltg1uen",
+        "name": "クルマエビ"
+      },
+      {
+        "name": "タケノコ",
+        "id": "KU5dMDHGiJUmEhv59Kd8",
+        "amount": 1.2
+      },
+      {
+        "name": "人参",
+        "id": "KZpwGqZRFCzr2T34LqAM",
+        "amount": 1.05
+      },
+      {
+        "id": "XP2ysxstRn327LT7opOy",
+        "amount": 0.6,
+        "name": "卵"
+      },
+      {
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "name": "塩",
+        "amount": 1.2
+      },
+      {
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "amount": 1.2,
+        "name": "小麦粉"
+      },
+      {
+        "id": "u0dh8tyTOcLrmu2D8E1M",
+        "amount": 0.3,
+        "name": "生姜"
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "葱",
+        "amount": 2.1,
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "amount": 2.4
+      },
+      {
+        "name": "春巻きの皮",
+        "id": "manual",
+        "amount": 3.6
+      },
+      {
+        "amount": 3.6,
+        "id": "manual",
+        "name": "水"
+      }
+    ],
     "recoveryAmount": 1000
   },
   {
     "id": "jX1Bs3T27sZSojFtvgQJ",
+    "description": "清流で獲れた虹鱒を主役に、山の恵みであるイワタケ、ギョウジャニンニク、カヤの実、さるなしを丁寧に包み込み、炭火でじっくりと焼き上げた一品。虹鱒のふっくらとした身から溢れる旨味と、野性味溢れる山の幸が織りなす香ばしさと爽やかな酸味が口いっぱいに広がり、至福のひとときを約束する。",
     "ingredients": [
       {
-        "id": "QpjdWB7cJAEWHkxFUHqE",
         "name": "ニジマス",
+        "id": "QpjdWB7cJAEWHkxFUHqE",
         "amount": 7.5
       },
       {
@@ -46555,23 +46556,20 @@
         "id": "qu3zf52IH65BtjzCacla"
       },
       {
+        "name": "カヤの実",
         "id": "uOjuSjFZG0WtQmQRj7Kf",
-        "amount": 120,
-        "name": "カヤの実"
+        "amount": 120
       },
       {
-        "amount": 12,
+        "name": "さるなし",
         "id": "LszMM4SyZFjpoWoexRE5",
-        "name": "さるなし"
+        "amount": 12
       }
     ],
-    "imageUrl": "media/images/file_299_1791402382913.png",
-    "recoveryAmount": 750,
-    "name": "清流虹鱒の山幸包み焼き",
-    "servings": 2,
-    "description": "清流で獲れた虹鱒を主役に、山の恵みであるイワタケ、ギョウジャニンニク、カヤの実、さるなしを丁寧に包み込み、炭火でじっくりと焼き上げた一品。虹鱒のふっくらとした身から溢れる旨味と、野性味溢れる山の幸が織りなす香ばしさと爽やかな酸味が口いっぱいに広がり、至福のひとときを約束する。",
     "rarity": 4,
     "createdAt": "2026-03-03T18:30:08.190Z",
+    "name": "清流虹鱒の山幸包み焼き",
+    "servings": 2,
     "embedding": [
       0.017436897,
       0.006695785,
@@ -47341,12 +47339,13 @@
       0.034235515,
       0.00017197826,
       0.014125313
-    ]
+    ],
+    "recoveryAmount": 750,
+    "imageUrl": "media/images/file_299_1791792766730.png"
   },
   {
     "id": "kKtg5SVEcLc9MhcDL4oz",
-    "name": "深山の清流蟹鍋",
-    "description": "深山の清流に育まれたモクズガニを主役に、清らかなシジミとカジカで深い旨味の出汁を取り、きぬがさ茸と秘伝の酒で風味豊かに仕上げた逸品。これらの食材を土鍋でじっくりと煮込むことで、琥珀色の汁は滋味深く、身はとろけるような甘さとなり、一口食べれば山河の恵みが身体に満ち渡る。",
+    "servings": 3,
     "ingredients": [
       {
         "name": "モクズガニ",
@@ -47359,9 +47358,9 @@
         "id": "pUIDeeQEBPZlMmn0b012"
       },
       {
+        "name": "カジカ",
         "id": "jTqpUdOfrQFbGaElicVh",
-        "amount": 4.8,
-        "name": "カジカ"
+        "amount": 4.8
       },
       {
         "id": "hSKJktibBcmuntZ8JMBf",
@@ -47370,12 +47369,10 @@
       },
       {
         "id": "3YerNFezpn9YOVp7SQwD",
-        "amount": 12,
-        "name": "酒"
+        "name": "酒",
+        "amount": 12
       }
     ],
-    "imageUrl": "media/images/file_300_1791402382913.png",
-    "rarity": 4,
     "embedding": [
       0.031042684,
       0.000072844865,
@@ -48146,94 +48143,16 @@
       0.0145196235,
       0.008117014
     ],
-    "createdAt": "2026-03-03T18:32:23.402Z",
     "recoveryAmount": 800,
-    "servings": 3
+    "description": "深山の清流に育まれたモクズガニを主役に、清らかなシジミとカジカで深い旨味の出汁を取り、きぬがさ茸と秘伝の酒で風味豊かに仕上げた逸品。これらの食材を土鍋でじっくりと煮込むことで、琥珀色の汁は滋味深く、身はとろけるような甘さとなり、一口食べれば山河の恵みが身体に満ち渡る。",
+    "imageUrl": "media/images/file_300_1791792766730.png",
+    "rarity": 4,
+    "createdAt": "2026-03-03T18:32:23.402Z",
+    "name": "深山の清流蟹鍋"
   },
   {
     "id": "kMjUutzTwVXMpdewKMzu",
-    "name": "海老餃子",
-    "description": "透き通るような薄皮に包まれたプリプリの海老と、旬の野菜の旨味が凝縮された一品。口に入れた瞬間、海老の甘みと香りが広がり、至福の時をもたらします。",
-    "ingredients": [
-      {
-        "amount": 1.5,
-        "id": "KfC755P2vtX74e1mqqEF",
-        "name": "しいたけ"
-      },
-      {
-        "amount": 0.45,
-        "id": "EExCU3KTgaZ074nw8IzK",
-        "name": "みりん"
-      },
-      {
-        "amount": 7.71,
-        "id": "JheQkeYkBGY9Oltg1uen",
-        "name": "クルマエビ"
-      },
-      {
-        "amount": 0.5,
-        "id": "KU5dMDHGiJUmEhv59Kd8",
-        "name": "タケノコ"
-      },
-      {
-        "amount": 1.35,
-        "name": "卵",
-        "id": "XP2ysxstRn327LT7opOy"
-      },
-      {
-        "amount": 0.9,
-        "name": "塩",
-        "id": "zAxz2xd8a2Tu7CYBpEiK"
-      },
-      {
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 22.5,
-        "name": "小麦粉"
-      },
-      {
-        "amount": 0.45,
-        "id": "u0dh8tyTOcLrmu2D8E1M",
-        "name": "生姜"
-      },
-      {
-        "name": "葱",
-        "amount": 1.76,
-        "id": "5AZ2gOb0pKEtI0ktdXg5"
-      },
-      {
-        "name": "酒",
-        "id": "3YerNFezpn9YOVp7SQwD",
-        "amount": 0.9
-      },
-      {
-        "amount": 0.9,
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs"
-      },
-      {
-        "name": "水",
-        "id": "manual",
-        "amount": 10.8
-      },
-      {
-        "amount": 10.8,
-        "id": "manual",
-        "name": "にんにく"
-      },
-      {
-        "name": "ごま油",
-        "id": "manual",
-        "amount": 10.8
-      },
-      {
-        "amount": 10.8,
-        "name": "胡椒",
-        "id": "manual"
-      }
-    ],
-    "imageUrl": "media/images/file_301_1791402382913.png",
-    "recoveryAmount": 70,
-    "createdAt": "2026-03-14T12:51:12.084Z",
+    "servings": 2,
     "embedding": [
       0.0082545625,
       0.009219405,
@@ -49004,46 +48923,93 @@
       0.0033441198,
       -0.007372865
     ],
-    "servings": 2,
-    "rarity": 4
+    "ingredients": [
+      {
+        "id": "KfC755P2vtX74e1mqqEF",
+        "amount": 1.5,
+        "name": "しいたけ"
+      },
+      {
+        "id": "EExCU3KTgaZ074nw8IzK",
+        "name": "みりん",
+        "amount": 0.45
+      },
+      {
+        "id": "JheQkeYkBGY9Oltg1uen",
+        "amount": 7.71,
+        "name": "クルマエビ"
+      },
+      {
+        "name": "タケノコ",
+        "amount": 0.5,
+        "id": "KU5dMDHGiJUmEhv59Kd8"
+      },
+      {
+        "id": "XP2ysxstRn327LT7opOy",
+        "amount": 1.35,
+        "name": "卵"
+      },
+      {
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "amount": 0.9
+      },
+      {
+        "amount": 22.5,
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "amount": 0.45,
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "amount": 1.76,
+        "name": "葱",
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "name": "酒",
+        "amount": 0.9,
+        "id": "3YerNFezpn9YOVp7SQwD"
+      },
+      {
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "name": "醤油",
+        "amount": 0.9
+      },
+      {
+        "amount": 10.8,
+        "name": "水",
+        "id": "manual"
+      },
+      {
+        "name": "にんにく",
+        "amount": 10.8,
+        "id": "manual"
+      },
+      {
+        "name": "ごま油",
+        "amount": 10.8,
+        "id": "manual"
+      },
+      {
+        "name": "胡椒",
+        "amount": 10.8,
+        "id": "manual"
+      }
+    ],
+    "description": "透き通るような薄皮に包まれたプリプリの海老と、旬の野菜の旨味が凝縮された一品。口に入れた瞬間、海老の甘みと香りが広がり、至福の時をもたらします。",
+    "recoveryAmount": 70,
+    "imageUrl": "media/images/file_301_1791792766730.png",
+    "rarity": 4,
+    "createdAt": "2026-03-14T12:51:12.084Z",
+    "name": "海老餃子"
   },
   {
     "id": "n0BZD41eqNO82fOntYsS",
-    "description": "旬の椎茸を贅沢に使用し、熟練の技で揚げられた天ぷらは、衣はサクサク、中はふっくらジューシー。椎茸本来の豊かな香りと旨みが口いっぱいに広がり、至福のひとときを約束します。シンプルながらも奥深い、日本の味覚の真髄をお楽しみください。",
     "name": "天ぷら（椎茸）",
-    "recoveryAmount": 65,
-    "ingredients": [
-      {
-        "name": "しいたけ",
-        "id": "KfC755P2vtX74e1mqqEF",
-        "baseUnit": "個",
-        "amount": 4
-      },
-      {
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "name": "小麦粉",
-        "baseUnit": "勺",
-        "amount": 14
-      },
-      {
-        "name": "卵",
-        "id": "XP2ysxstRn327LT7opOy",
-        "baseUnit": "個",
-        "amount": 1
-      },
-      {
-        "name": "水",
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "baseUnit": "勺",
-        "amount": 10.5
-      },
-      {
-        "amount": 31.05,
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "name": "菜種油",
-        "baseUnit": "勺"
-      }
-    ],
     "embedding": [
       0.005069861,
       0.011521522,
@@ -49814,47 +49780,53 @@
       0.0019881867,
       -0.0073656603
     ],
+    "rarity": 3,
     "createdAt": "2026-04-07T08:39:18.991Z",
-    "imageUrl": "media/images/file_302_1791402382913.png",
-    "servings": 1,
-    "rarity": 3
+    "description": "旬の椎茸を贅沢に使用し、熟練の技で揚げられた天ぷらは、衣はサクサク、中はふっくらジューシー。椎茸本来の豊かな香りと旨みが口いっぱいに広がり、至福のひとときを約束します。シンプルながらも奥深い、日本の味覚の真髄をお楽しみください。",
+    "imageUrl": "media/images/file_302_1791792766730.png",
+    "recoveryAmount": 65,
+    "ingredients": [
+      {
+        "name": "しいたけ",
+        "baseUnit": "個",
+        "id": "KfC755P2vtX74e1mqqEF",
+        "amount": 4
+      },
+      {
+        "name": "小麦粉",
+        "amount": 14,
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "baseUnit": "勺"
+      },
+      {
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy",
+        "amount": 1,
+        "baseUnit": "個"
+      },
+      {
+        "name": "水",
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "baseUnit": "勺",
+        "amount": 10.5
+      },
+      {
+        "amount": 31.05,
+        "name": "菜種油",
+        "baseUnit": "勺",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      }
+    ],
+    "servings": 1
   },
   {
     "id": "n2keSakkXYm1dZHVuQ3g",
-    "imageUrl": "media/images/file_303_1791402382913.png",
-    "servings": 3,
-    "recoveryAmount": 250,
-    "name": "神亀螺貝の潮霊煮込み",
-    "rarity": 5,
-    "ingredients": [
-      {
-        "amount": 3.75,
-        "id": "QofWhwCVRS8QXVO2aVmY",
-        "name": "螺貝"
-      },
-      {
-        "name": "シロカノコタケ",
-        "amount": 4.5,
-        "id": "sZAJ5kQ5pHxzgCpuYyn9"
-      },
-      {
-        "amount": 0.9,
-        "name": "スッポン",
-        "id": "U8SyliGKVXNG3NXTV5UU"
-      },
-      {
-        "name": "ジネンジョ",
-        "id": "7iTiMLHySgBCMa95VVZb",
-        "amount": 1.2
-      },
-      {
-        "id": "pUIDeeQEBPZlMmn0b012",
-        "amount": 12,
-        "name": "シジミ"
-      }
-    ],
-    "description": "深海の神秘を宿す螺貝と、長寿の象徴たるスッポンを、稀なるシロカノコタケと滋味豊かなジネンジョ、そして潮の恵みシジミと共に、時間をかけてじっくりと煮込んだ逸品。琥珀色の汁は滋養に満ち、一口含めば芳醇な磯の香りと大地の恵みが口いっぱいに広がり、心身を深く癒すだろう。",
+    "imageUrl": "media/images/file_303_1791792766730.png",
     "createdAt": "2026-03-03T18:38:30.908Z",
+    "servings": 3,
+    "rarity": 5,
+    "name": "神亀螺貝の潮霊煮込み",
+    "recoveryAmount": 250,
     "embedding": [
       0.0058262204,
       0.005580916,
@@ -50624,39 +50596,68 @@
       0.03699572,
       -0.0016400176,
       0.031323873
+    ],
+    "description": "深海の神秘を宿す螺貝と、長寿の象徴たるスッポンを、稀なるシロカノコタケと滋味豊かなジネンジョ、そして潮の恵みシジミと共に、時間をかけてじっくりと煮込んだ逸品。琥珀色の汁は滋養に満ち、一口含めば芳醇な磯の香りと大地の恵みが口いっぱいに広がり、心身を深く癒すだろう。",
+    "ingredients": [
+      {
+        "amount": 3.75,
+        "name": "螺貝",
+        "id": "QofWhwCVRS8QXVO2aVmY"
+      },
+      {
+        "id": "sZAJ5kQ5pHxzgCpuYyn9",
+        "amount": 4.5,
+        "name": "シロカノコタケ"
+      },
+      {
+        "amount": 0.9,
+        "name": "スッポン",
+        "id": "U8SyliGKVXNG3NXTV5UU"
+      },
+      {
+        "id": "7iTiMLHySgBCMa95VVZb",
+        "amount": 1.2,
+        "name": "ジネンジョ"
+      },
+      {
+        "name": "シジミ",
+        "amount": 12,
+        "id": "pUIDeeQEBPZlMmn0b012"
+      }
     ]
   },
   {
     "id": "nAwCpoDZU8rRaVY9pWIN",
+    "createdAt": "2026-03-03T15:23:25.249Z",
     "ingredients": [
       {
         "name": "クエ",
-        "id": "91Hx3yUejdXsduLKWRLc",
-        "amount": 1.8
+        "amount": 1.8,
+        "id": "91Hx3yUejdXsduLKWRLc"
       },
       {
-        "amount": 0.8,
         "id": "fTD4pKW8rlT7aRjpnGH0",
+        "amount": 0.8,
         "name": "コンブ"
       },
       {
+        "name": "米飴",
         "amount": 6,
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "name": "米飴"
+        "id": "8opkrk9Da3Xv4wp1nDaj"
       },
       {
-        "name": "醤油",
         "amount": 18,
-        "id": "XhkCWADRwNYsGVQBXwVs"
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "name": "醤油"
       },
       {
+        "amount": 3,
         "name": "葱",
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "amount": 3
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
       }
     ],
     "name": "絶海の恵み、九絵の蒸し宝珠",
-    "rarity": 5,
+    "recoveryAmount": 800,
     "description": "深海の王たる九絵を贅沢に厚切りにし、昆布でとった清らかな出汁と米飴、醤油で調えた餡と共に丁寧に蒸し上げた逸品。九絵の引き締まった身はしっとりと上品な旨味を湛え、葱の香りが食欲をそそる。口に含めば、海の恵みが舌の上でとろけ、心身を満たすだろう。",
     "embedding": [
       0.013655838,
@@ -51428,51 +51429,51 @@
       0.014252199,
       0.019650359
     ],
-    "createdAt": "2026-03-03T15:23:25.249Z",
-    "recoveryAmount": 800,
-    "servings": 1,
-    "imageUrl": "media/images/file_304_1791402382913.png"
+    "imageUrl": "media/images/file_304_1791792766730.png",
+    "rarity": 5,
+    "servings": 1
   },
   {
     "id": "nTlN8vI2VcowLBdEEmqN",
-    "servings": 1,
     "recoveryAmount": 150,
-    "imageUrl": "media/images/file_305_1791402382913.png",
+    "name": "天ぷら（鯖）",
+    "createdAt": "2026-04-09T00:18:13.682Z",
     "rarity": 4,
     "description": "旬の鯖を贅沢に味わう、外はサクサク、中はふっくらジューシーな絶品天ぷら。特製の衣で揚げた鯖は、その旨味が凝縮され、一口食べれば至福の香りが広がります。添えられた彩り豊かな旬野菜の天ぷらが、軽やかな食感と風味をプラスし、食欲を一層掻き立てます。おろし大根と生姜を添えて、揚げたてを塩でシンプルにいただくも良し、天つゆで奥深い味わいを楽しむも良し、贅沢なひとときをお届けします。",
-    "name": "天ぷら（鯖）",
     "ingredients": [
       {
-        "baseUnit": "個",
+        "id": "9qdabd2NBXLPaKEqW4co",
         "amount": 3,
         "name": "鯖",
-        "id": "9qdabd2NBXLPaKEqW4co"
+        "baseUnit": "個"
       },
       {
-        "name": "小麦粉",
-        "baseUnit": "勺",
         "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 18
+        "baseUnit": "勺",
+        "amount": 18,
+        "name": "小麦粉"
       },
       {
         "name": "卵",
-        "baseUnit": "個",
         "id": "XP2ysxstRn327LT7opOy",
-        "amount": 4.5
+        "amount": 4.5,
+        "baseUnit": "個"
       },
       {
-        "baseUnit": "勺",
         "name": "水",
         "id": "HDWmnrNO5LC8WLURsxoN",
+        "baseUnit": "勺",
         "amount": 12
       },
       {
         "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "amount": 30,
+        "name": "菜種油",
         "baseUnit": "勺",
-        "name": "菜種油"
+        "amount": 30
       }
     ],
+    "servings": 1,
+    "imageUrl": "media/images/file_305_1791792766730.png",
     "embedding": [
       0.0038871006,
       0.0058666067,
@@ -52242,12 +52243,44 @@
       0.025951002,
       0.015175105,
       0.0036138932
-    ],
-    "createdAt": "2026-04-09T00:18:13.682Z"
+    ]
   },
   {
     "id": "nb3DT3ugXvtHOlpRbPiA",
-    "createdAt": "2026-04-07T08:38:33.167Z",
+    "imageUrl": "media/images/file_306_1791792766730.png",
+    "description": "清らかな海で育った新鮮な鯵を、熟練の技でふんわりと揚げた至高の逸品。サクサクの衣を纏った鯵は、噛むほどに旨みが広がり、口いっぱいに潮の香りが満ち溢れます。隠し味の風味豊かな調味料が、鯵本来の味を一層引き立て、五感を刺激する極上の天ぷらをぜひご堪能ください。",
+    "ingredients": [
+      {
+        "baseUnit": "個",
+        "id": "ExL7XRc43PXwBF0OhXGE",
+        "amount": 2.71,
+        "name": "鯵"
+      },
+      {
+        "baseUnit": "勺",
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "name": "小麦粉",
+        "amount": 26
+      },
+      {
+        "name": "卵",
+        "baseUnit": "個",
+        "amount": 3.25,
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "amount": 19.5,
+        "baseUnit": "勺",
+        "name": "水"
+      },
+      {
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "amount": 32.5,
+        "baseUnit": "勺"
+      }
+    ],
     "embedding": [
       0.0006315605,
       0.019815218,
@@ -53018,79 +53051,15 @@
       0.010133709,
       -0.0042315894
     ],
-    "description": "清らかな海で育った新鮮な鯵を、熟練の技でふんわりと揚げた至高の逸品。サクサクの衣を纏った鯵は、噛むほどに旨みが広がり、口いっぱいに潮の香りが満ち溢れます。隠し味の風味豊かな調味料が、鯵本来の味を一層引き立て、五感を刺激する極上の天ぷらをぜひご堪能ください。",
-    "rarity": 4,
-    "recoveryAmount": 300,
-    "ingredients": [
-      {
-        "baseUnit": "個",
-        "id": "ExL7XRc43PXwBF0OhXGE",
-        "name": "鯵",
-        "amount": 2.71
-      },
-      {
-        "amount": 26,
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "baseUnit": "勺",
-        "name": "小麦粉"
-      },
-      {
-        "name": "卵",
-        "id": "XP2ysxstRn327LT7opOy",
-        "amount": 3.25,
-        "baseUnit": "個"
-      },
-      {
-        "amount": 19.5,
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "name": "水",
-        "baseUnit": "勺"
-      },
-      {
-        "amount": 32.5,
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "baseUnit": "勺",
-        "name": "菜種油"
-      }
-    ],
     "name": "天ぷら（鯵）",
     "servings": 1,
-    "imageUrl": "media/images/file_306_1791402382913.png"
+    "recoveryAmount": 300,
+    "createdAt": "2026-04-07T08:38:33.167Z",
+    "rarity": 4
   },
   {
     "id": "o4zVyCJI570seTWgQdEM",
-    "name": "潮見の宝玉蒸し",
-    "ingredients": [
-      {
-        "name": "潮見カキ",
-        "amount": 8.57,
-        "id": "Qde2vp3VtXnZuNEvrHjw"
-      },
-      {
-        "id": "gCAL5NtJdRHDkhddjFSb",
-        "amount": 4.8,
-        "name": "帆立"
-      },
-      {
-        "name": "毛蟹",
-        "amount": 0.6,
-        "id": "GYxAN3yTtym288E3BrOf"
-      },
-      {
-        "id": "zoSSJHt3VcF7YYSm6N7m",
-        "name": "大根",
-        "amount": 1.44
-      },
-      {
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "amount": 12,
-        "name": "米飴"
-      }
-    ],
-    "description": "磯の香りを閉じ込めた潮見カキと帆立、そして甘美な毛蟹の身を、柔らかな大根と共に蒸し上げ、米飴を忍ばせた出汁で仕上げた贅沢な逸品。口に含めば、海原の恵みが舌の上でとろけ合う、至福の味わいが広がります。",
     "rarity": 4,
-    "imageUrl": "media/images/file_307_1791402382913.png",
-    "recoveryAmount": 1200,
     "embedding": [
       -0.00033454582,
       -0.013056347,
@@ -53861,13 +53830,74 @@
       0.0006652315,
       0.030840363
     ],
+    "imageUrl": "media/images/file_307_1791792766730.png",
+    "description": "磯の香りを閉じ込めた潮見カキと帆立、そして甘美な毛蟹の身を、柔らかな大根と共に蒸し上げ、米飴を忍ばせた出汁で仕上げた贅沢な逸品。口に含めば、海原の恵みが舌の上でとろけ合う、至福の味わいが広がります。",
+    "ingredients": [
+      {
+        "id": "Qde2vp3VtXnZuNEvrHjw",
+        "amount": 8.57,
+        "name": "潮見カキ"
+      },
+      {
+        "amount": 4.8,
+        "name": "帆立",
+        "id": "gCAL5NtJdRHDkhddjFSb"
+      },
+      {
+        "name": "毛蟹",
+        "amount": 0.6,
+        "id": "GYxAN3yTtym288E3BrOf"
+      },
+      {
+        "id": "zoSSJHt3VcF7YYSm6N7m",
+        "amount": 1.44,
+        "name": "大根"
+      },
+      {
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "amount": 12,
+        "name": "米飴"
+      }
+    ],
+    "servings": 3,
     "createdAt": "2026-03-03T18:34:30.005Z",
-    "servings": 3
+    "name": "潮見の宝玉蒸し",
+    "recoveryAmount": 1200
   },
   {
     "id": "pg0aKa0YdOsby0wvtSen",
-    "rarity": 5,
+    "description": "深海の至宝、喉黒とクエを贅沢に使い、芳醇なアミガサタケと共に酒と大葉で香り高く蒸し上げた逸品。白身魚の繊細な旨味が凝縮され、口に含めば海の恵みが舌の上で花開く。新鮮な魚を丁寧に下処理し、酒と大葉を敷いた蒸し器で、アミガサタケと共にふっくらと蒸し上げる。",
     "recoveryAmount": 1800,
+    "rarity": 5,
+    "imageUrl": "media/images/file_308_1791792766730.png",
+    "ingredients": [
+      {
+        "id": "jhPJ95Mj4PwzbKjq2P0K",
+        "amount": 2.33,
+        "name": "喉黒"
+      },
+      {
+        "name": "クエ",
+        "id": "91Hx3yUejdXsduLKWRLc",
+        "amount": 0.9
+      },
+      {
+        "name": "アミガサタケ",
+        "amount": 7.2,
+        "id": "5picSP9wSIINFrMFi2sI"
+      },
+      {
+        "name": "酒",
+        "amount": 18,
+        "id": "3YerNFezpn9YOVp7SQwD"
+      },
+      {
+        "amount": 20,
+        "name": "大葉",
+        "id": "STRvLHjFtu4fDkBHaqut"
+      }
+    ],
+    "servings": 2,
     "embedding": [
       -0.008446114,
       0.012912126,
@@ -54638,45 +54668,16 @@
       -0.0015208777,
       0.010322565
     ],
-    "createdAt": "2026-03-03T18:33:31.813Z",
-    "description": "深海の至宝、喉黒とクエを贅沢に使い、芳醇なアミガサタケと共に酒と大葉で香り高く蒸し上げた逸品。白身魚の繊細な旨味が凝縮され、口に含めば海の恵みが舌の上で花開く。新鮮な魚を丁寧に下処理し、酒と大葉を敷いた蒸し器で、アミガサタケと共にふっくらと蒸し上げる。",
     "name": "深海の幸 絢爛蒸し",
-    "servings": 2,
-    "ingredients": [
-      {
-        "name": "喉黒",
-        "amount": 2.33,
-        "id": "jhPJ95Mj4PwzbKjq2P0K"
-      },
-      {
-        "amount": 0.9,
-        "id": "91Hx3yUejdXsduLKWRLc",
-        "name": "クエ"
-      },
-      {
-        "amount": 7.2,
-        "id": "5picSP9wSIINFrMFi2sI",
-        "name": "アミガサタケ"
-      },
-      {
-        "name": "酒",
-        "amount": 18,
-        "id": "3YerNFezpn9YOVp7SQwD"
-      },
-      {
-        "amount": 20,
-        "name": "大葉",
-        "id": "STRvLHjFtu4fDkBHaqut"
-      }
-    ],
-    "imageUrl": "media/images/file_308_1791402382913.png"
+    "createdAt": "2026-03-03T18:33:31.813Z"
   },
   {
     "id": "qPYMEUQp7sE4NU6HIeMo",
-    "servings": 1,
-    "description": "透き通るような銀色の小肌と、酢で締めた身の繊細な旨味が口の中で見事に調和する、熟練の技が光る逸品。さっぱりとした中に奥深い風味と香りが感じられ、一口ごとに至福の時が訪れる。",
-    "imageUrl": "media/images/file_309_1791402382913.png",
+    "name": "握り寿司（小肌）",
     "createdAt": "2026-03-27T17:59:01.903Z",
+    "servings": 1,
+    "imageUrl": "media/images/file_309_1791792766730.png",
+    "description": "透き通るような銀色の小肌と、酢で締めた身の繊細な旨味が口の中で見事に調和する、熟練の技が光る逸品。さっぱりとした中に奥深い風味と香りが感じられ、一口ごとに至福の時が訪れる。",
     "embedding": [
       -0.0022229096,
       0.00852721,
@@ -55448,21 +55449,22 @@
       -0.0037469496
     ],
     "rarity": 4,
+    "recoveryAmount": 10,
     "ingredients": [
       {
-        "amount": 0.0125,
         "name": "ワサビの根茎",
-        "id": "XSw2Zr7bVJeNJWzaJW5E"
+        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "amount": 0.0125
       },
       {
+        "amount": 0.75,
         "name": "小肌",
-        "id": "YjzSEzohEDolpVWSad1w",
-        "amount": 0.75
+        "id": "YjzSEzohEDolpVWSad1w"
       },
       {
-        "id": "mQ5aybZclKtqbmhzSNUj",
+        "amount": 0.6,
         "name": "白米",
-        "amount": 0.6
+        "id": "mQ5aybZclKtqbmhzSNUj"
       },
       {
         "name": "米飴",
@@ -55479,49 +55481,44 @@
         "name": "醤油",
         "amount": 0.05
       }
-    ],
-    "recoveryAmount": 10,
-    "name": "握り寿司（小肌）"
+    ]
   },
   {
     "id": "qYvs7oWsY8Bxi8I1buPE",
-    "imageUrl": "media/images/file_310_1791402382913.png",
-    "description": "透き通るような美しい白身の鯛が、口の中でとろけるような繊細な旨みを放つ。ワサビの清涼感が引き立てる、まさに至高の一貫。",
-    "servings": 1,
     "ingredients": [
       {
+        "amount": 0.025,
         "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "name": "ワサビの根茎",
-        "amount": 0.025
+        "name": "ワサビの根茎"
       },
       {
         "amount": 6,
-        "name": "白米",
-        "id": "mQ5aybZclKtqbmhzSNUj"
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "name": "白米"
       },
       {
+        "name": "米飴",
         "amount": 0.1,
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "name": "米飴"
+        "id": "8opkrk9Da3Xv4wp1nDaj"
       },
       {
+        "amount": 0.2,
         "id": "hRrafDY8fmMbfzUyfJMI",
-        "name": "酢",
-        "amount": 0.2
+        "name": "酢"
       },
       {
-        "id": "XhkCWADRwNYsGVQBXwVs",
         "amount": 0.05,
+        "id": "XhkCWADRwNYsGVQBXwVs",
         "name": "醤油"
       },
       {
-        "id": "8rJaUbYCKMEaK3XgWnjj",
         "amount": 0.175,
-        "name": "鯛"
+        "name": "鯛",
+        "id": "8rJaUbYCKMEaK3XgWnjj"
       },
       {
-        "amount": 0.05,
         "name": "水",
+        "amount": 0.05,
         "id": "manual"
       }
     ],
@@ -56295,15 +56292,18 @@
       0.010354202,
       -0.0029068182
     ],
-    "createdAt": "2026-03-27T17:45:01.917Z",
-    "recoveryAmount": 15,
+    "imageUrl": "media/images/file_310_1791792766730.png",
+    "description": "透き通るような美しい白身の鯛が、口の中でとろけるような繊細な旨みを放つ。ワサビの清涼感が引き立てる、まさに至高の一貫。",
     "rarity": 4,
+    "servings": 1,
+    "recoveryAmount": 15,
+    "createdAt": "2026-03-27T17:45:01.917Z",
     "name": "握り寿司（鯛）"
   },
   {
     "id": "qZovUJBPl2hlZc4pxZ3g",
-    "name": "潮音の宝蒸し",
-    "createdAt": "2026-03-03T18:30:56.073Z",
+    "recoveryAmount": 1300,
+    "rarity": 5,
     "embedding": [
       -0.005992675,
       -0.004525761,
@@ -57074,15 +57074,12 @@
       0.0034703382,
       0.01646176
     ],
-    "servings": 2,
-    "recoveryAmount": 1300,
-    "imageUrl": "media/images/file_311_1791402382913.png",
-    "rarity": 5,
+    "imageUrl": "media/images/file_311_1791792766730.png",
     "ingredients": [
       {
-        "name": "ヒラメ",
         "id": "TDtHPWfuw76in3vue0g3",
-        "amount": 1.03
+        "amount": 1.03,
+        "name": "ヒラメ"
       },
       {
         "amount": 1.2,
@@ -57090,25 +57087,78 @@
         "name": "キンメダイ"
       },
       {
+        "name": "アサリ",
         "id": "K3u8xXSdIOZHktqJ45ZL",
-        "amount": 24,
-        "name": "アサリ"
+        "amount": 24
       },
       {
+        "amount": 1.5,
         "name": "まつたけ",
-        "id": "uejC6QExQ6p1m0p2EiS7",
-        "amount": 1.5
+        "id": "uejC6QExQ6p1m0p2EiS7"
       },
       {
-        "amount": 4,
         "id": "hSKJktibBcmuntZ8JMBf",
-        "name": "きぬがさ茸"
+        "name": "きぬがさ茸",
+        "amount": 4
       }
     ],
-    "description": "黄金色の出汁に浮かぶは、透明な身を湛えた平目と錦鯛の艶姿。松茸の芳醇な香りが立ち上り、きぬがさ茸が潮の旨味を吸い込み、口にすれば雅な海の幸が広がる逸品である。海から汲んだ清らかな水で蒸し上げ、深き旨味を引き出した。"
+    "servings": 2,
+    "description": "黄金色の出汁に浮かぶは、透明な身を湛えた平目と錦鯛の艶姿。松茸の芳醇な香りが立ち上り、きぬがさ茸が潮の旨味を吸い込み、口にすれば雅な海の幸が広がる逸品である。海から汲んだ清らかな水で蒸し上げ、深き旨味を引き出した。",
+    "createdAt": "2026-03-03T18:30:56.073Z",
+    "name": "潮音の宝蒸し"
   },
   {
     "id": "qgHGOzzoMt83Oxj158Jn",
+    "servings": 1,
+    "ingredients": [
+      {
+        "name": "ワサビの根茎",
+        "amount": 0.013,
+        "shakuPerUnit": 4,
+        "baseUnit": "個",
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
+      },
+      {
+        "shakuPerUnit": null,
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "baseUnit": "勺",
+        "name": "白米",
+        "amount": 7
+      },
+      {
+        "baseUnit": "勺",
+        "amount": 0.1,
+        "name": "米飴",
+        "shakuPerUnit": null,
+        "id": "8opkrk9Da3Xv4wp1nDaj"
+      },
+      {
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "amount": 0.3,
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "name": "酢"
+      },
+      {
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "amount": 0.05,
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "name": "醤油"
+      },
+      {
+        "amount": 0.056,
+        "id": "mWcCEevlOzp3hN8Onvvt",
+        "baseUnit": "個",
+        "name": "鮭",
+        "shakuPerUnit": 45
+      }
+    ],
+    "recoveryAmount": 5,
+    "createdAt": "2026-03-27T17:46:51.364Z",
+    "description": "鮮やかな紅色の鮭が、ふっくらと炊き上げられた白米に優しく乗り、口の中でとろけるような至福の味わいを生み出す。磯の香りと山葵の清涼感が、この一貫を忘れがたい逸品へと昇華させるだろう。",
+    "imageUrl": "media/images/file_312_1791792766730.png",
+    "rarity": 4,
     "embedding": [
       0.0069751474,
       0.006472179,
@@ -57879,63 +57929,48 @@
       0.010145832,
       0.021375094
     ],
-    "createdAt": "2026-03-27T17:46:51.364Z",
-    "imageUrl": "media/images/file_312_1791402382913.png",
-    "servings": 1,
-    "rarity": 4,
-    "name": "握り寿司（鮭）",
-    "description": "鮮やかな紅色の鮭が、ふっくらと炊き上げられた白米に優しく乗り、口の中でとろけるような至福の味わいを生み出す。磯の香りと山葵の清涼感が、この一貫を忘れがたい逸品へと昇華させるだろう。",
-    "ingredients": [
-      {
-        "shakuPerUnit": 4,
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "amount": 0.013,
-        "name": "ワサビの根茎",
-        "baseUnit": "個"
-      },
-      {
-        "amount": 7,
-        "name": "白米",
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "baseUnit": "勺",
-        "shakuPerUnit": null
-      },
-      {
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "shakuPerUnit": null,
-        "name": "米飴",
-        "amount": 0.1,
-        "baseUnit": "勺"
-      },
-      {
-        "name": "酢",
-        "shakuPerUnit": null,
-        "baseUnit": "勺",
-        "amount": 0.3,
-        "id": "hRrafDY8fmMbfzUyfJMI"
-      },
-      {
-        "shakuPerUnit": null,
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "baseUnit": "勺",
-        "amount": 0.05
-      },
-      {
-        "id": "mWcCEevlOzp3hN8Onvvt",
-        "amount": 0.056,
-        "baseUnit": "個",
-        "shakuPerUnit": 45,
-        "name": "鮭"
-      }
-    ],
-    "recoveryAmount": 5
+    "name": "握り寿司（鮭）"
   },
   {
     "id": "sU3NGGTG6exmKzdGCVpm",
-    "imageUrl": "media/images/file_313_1791402382913.png",
+    "recoveryAmount": 300,
     "servings": 1,
+    "rarity": 3,
     "createdAt": "2026-04-09T00:17:39.667Z",
+    "imageUrl": "media/images/file_313_1791792766730.png",
+    "name": "天ぷら（蛸）",
+    "ingredients": [
+      {
+        "id": "FLQKZHKJNU0hmciDXybL",
+        "amount": 1.8,
+        "name": "マダコ",
+        "baseUnit": "個"
+      },
+      {
+        "amount": 20.4,
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "baseUnit": "勺"
+      },
+      {
+        "id": "XP2ysxstRn327LT7opOy",
+        "amount": 3,
+        "name": "卵",
+        "baseUnit": "個"
+      },
+      {
+        "amount": 20.4,
+        "baseUnit": "勺",
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "name": "水"
+      },
+      {
+        "amount": 21.6,
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "baseUnit": "勺",
+        "name": "菜種油"
+      }
+    ],
     "embedding": [
       0.006051704,
       0.006256034,
@@ -58706,51 +58741,48 @@
       0.00527429,
       0.006671277
     ],
-    "name": "天ぷら（蛸）",
-    "ingredients": [
-      {
-        "id": "FLQKZHKJNU0hmciDXybL",
-        "baseUnit": "個",
-        "amount": 1.8,
-        "name": "マダコ"
-      },
-      {
-        "amount": 20.4,
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "baseUnit": "勺",
-        "name": "小麦粉"
-      },
-      {
-        "amount": 3,
-        "baseUnit": "個",
-        "id": "XP2ysxstRn327LT7opOy",
-        "name": "卵"
-      },
-      {
-        "name": "水",
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "amount": 20.4,
-        "baseUnit": "勺"
-      },
-      {
-        "name": "菜種油",
-        "amount": 21.6,
-        "baseUnit": "勺",
-        "id": "vsMZJ7qXcvbMd4bPa3GE"
-      }
-    ],
-    "recoveryAmount": 300,
-    "rarity": 3,
     "description": "プリプリの新鮮な真蛸を、黄金色の薄衣で包み込んだ贅沢な一品。口の中で弾ける蛸の旨味と、サクサクとした衣の食感が絶妙なハーモニーを奏でます。旬のししとうと大葉が彩りを添え、目にも鮮やかな日本の味覚の真髄です。疲れた体に活力を与える逸品。"
   },
   {
     "id": "telJcG7szatu7KEGSf4l",
-    "name": "天ぷら（穴子）",
-    "imageUrl": "media/images/file_314_1791402382913.png",
-    "description": "ふっくらと揚げられた旬の穴子を主役に、舞茸やししとうといった季節の野菜を添えた贅沢な天ぷら。サクサクの衣をまとった穴子は口の中でとろけ、特製の天つゆと薬味で、至福のひとときをお届けします。",
-    "recoveryAmount": 150,
-    "servings": 1,
+    "rarity": 3,
     "createdAt": "2026-04-07T08:38:48.316Z",
+    "name": "天ぷら（穴子）",
+    "recoveryAmount": 150,
+    "description": "ふっくらと揚げられた旬の穴子を主役に、舞茸やししとうといった季節の野菜を添えた贅沢な天ぷら。サクサクの衣をまとった穴子は口の中でとろけ、特製の天つゆと薬味で、至福のひとときをお届けします。",
+    "ingredients": [
+      {
+        "baseUnit": "個",
+        "name": "穴子",
+        "amount": 1.53125,
+        "id": "1MorH0nFSqmSvcRAbTph"
+      },
+      {
+        "baseUnit": "勺",
+        "amount": 7.5,
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
+      },
+      {
+        "baseUnit": "個",
+        "amount": 1.875,
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy"
+      },
+      {
+        "baseUnit": "勺",
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "name": "水",
+        "amount": 7.5
+      },
+      {
+        "baseUnit": "勺",
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "name": "菜種油",
+        "amount": 11.25
+      }
+    ],
+    "imageUrl": "media/images/file_314_1791792766730.png",
     "embedding": [
       -0.00275698,
       -0.0024870713,
@@ -59521,45 +59553,11 @@
       0.01970806,
       0.005006152
     ],
-    "rarity": 3,
-    "ingredients": [
-      {
-        "baseUnit": "個",
-        "id": "1MorH0nFSqmSvcRAbTph",
-        "amount": 1.53125,
-        "name": "穴子"
-      },
-      {
-        "baseUnit": "勺",
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 7.5,
-        "name": "小麦粉"
-      },
-      {
-        "id": "XP2ysxstRn327LT7opOy",
-        "amount": 1.875,
-        "name": "卵",
-        "baseUnit": "個"
-      },
-      {
-        "name": "水",
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "amount": 7.5,
-        "baseUnit": "勺"
-      },
-      {
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "name": "菜種油",
-        "baseUnit": "勺",
-        "amount": 11.25
-      }
-    ]
+    "servings": 1
   },
   {
     "id": "u4NYdZ93reN08V4ZZgfS",
-    "servings": 1.5,
-    "imageUrl": "media/images/file_315_1791402382913.png",
-    "createdAt": "2026-04-09T00:19:55.626Z",
+    "recoveryAmount": 120,
     "embedding": [
       0.0096043525,
       -0.00034643977,
@@ -60330,47 +60328,48 @@
       0.010532917,
       0.001007027
     ],
-    "description": "揚がった瞬間の香ばしさと、衣の中に閉じ込められた鮭のふっくらとした身が織りなす至福の逸品。出汁の効いた熱々の天つゆにくぐらせれば、口いっぱいに潮の香りと旨みが広がり、心身ともに満たされるでしょう。旬の野菜と共に、贅沢な和の風味をお楽しみください。",
-    "recoveryAmount": 120,
+    "name": "天ぷら（鮭）",
+    "servings": 1.5,
     "rarity": 3,
+    "createdAt": "2026-04-09T00:19:55.626Z",
+    "imageUrl": "media/images/file_315_1791792766730.png",
+    "description": "揚がった瞬間の香ばしさと、衣の中に閉じ込められた鮭のふっくらとした身が織りなす至福の逸品。出汁の効いた熱々の天つゆにくぐらせれば、口いっぱいに潮の香りと旨みが広がり、心身ともに満たされるでしょう。旬の野菜と共に、贅沢な和の風味をお楽しみください。",
     "ingredients": [
       {
+        "name": "鮭",
         "amount": 0.8,
         "baseUnit": "個",
-        "id": "mWcCEevlOzp3hN8Onvvt",
-        "name": "鮭"
+        "id": "mWcCEevlOzp3hN8Onvvt"
       },
       {
+        "amount": 18,
         "baseUnit": "勺",
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 18,
-        "name": "小麦粉"
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
       },
       {
-        "amount": 18,
-        "id": "HDWmnrNO5LC8WLURsxoN",
         "name": "水",
-        "baseUnit": "勺"
+        "baseUnit": "勺",
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "amount": 18
       },
       {
+        "id": "XP2ysxstRn327LT7opOy",
         "name": "卵",
         "baseUnit": "個",
-        "id": "XP2ysxstRn327LT7opOy",
         "amount": 3
       },
       {
-        "name": "菜種油",
         "amount": 14.4,
-        "baseUnit": "勺",
-        "id": "vsMZJ7qXcvbMd4bPa3GE"
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "name": "菜種油",
+        "baseUnit": "勺"
       }
-    ],
-    "name": "天ぷら（鮭）"
+    ]
   },
   {
     "id": "uu3tJQRIep50qUwDr4It",
-    "recoveryAmount": 550,
-    "createdAt": "2026-03-03T17:44:13.531Z",
+    "imageUrl": "media/images/file_316_1791792766730.png",
     "embedding": [
       0.016903333,
       0.009717885,
@@ -61141,15 +61140,15 @@
       0.0072288145,
       0.013108815
     ],
-    "imageUrl": "media/images/file_316_1791402382913.png",
-    "servings": 3,
-    "description": "煌めくクルマエビとモクズガニが山海の恵みを抱き、深山黒茸とヤマドリタケの芳醇な香りが立ち上る、まるで龍が昇るがごとき豪華な一品。口に含むと、海老と帆立の甘みが溢れ、濃厚な蟹の旨味が深山茸の深い香りと見事に調和します。捕れたての新鮮な海の幸と清らかな山の恵みを丁寧に捌き、酒と僅かな塩で味を整えた後、蒸籠にてじっくりと蒸し上げました。",
     "name": "昇龍海山蒸し",
+    "servings": 3,
     "rarity": 5,
+    "createdAt": "2026-03-03T17:44:13.531Z",
+    "description": "煌めくクルマエビとモクズガニが山海の恵みを抱き、深山黒茸とヤマドリタケの芳醇な香りが立ち上る、まるで龍が昇るがごとき豪華な一品。口に含むと、海老と帆立の甘みが溢れ、濃厚な蟹の旨味が深山茸の深い香りと見事に調和します。捕れたての新鮮な海の幸と清らかな山の恵みを丁寧に捌き、酒と僅かな塩で味を整えた後、蒸籠にてじっくりと蒸し上げました。",
     "ingredients": [
       {
-        "id": "JheQkeYkBGY9Oltg1uen",
         "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen",
         "amount": 8.57
       },
       {
@@ -61159,38 +61158,41 @@
       },
       {
         "id": "gCAL5NtJdRHDkhddjFSb",
-        "name": "帆立",
-        "amount": 4.8
+        "amount": 4.8,
+        "name": "帆立"
       },
       {
         "id": "199WE9uvPmPJh5zNhR41",
-        "name": "深山黒茸",
-        "amount": 4
+        "amount": 4,
+        "name": "深山黒茸"
       },
       {
+        "id": "duCiEdQULBf5DsKQAsoe",
         "name": "ヤマドリタケ",
-        "amount": 1.8,
-        "id": "duCiEdQULBf5DsKQAsoe"
+        "amount": 1.8
       }
-    ]
+    ],
+    "recoveryAmount": 550
   },
   {
     "id": "uvtAPtB2C6TO72IwS0D1",
+    "description": "深山の恵みたる黒茸の芳醇な香りが、とろけるように煮込まれた穴子の上品な旨味と見事に溶け合う逸品。米飴と秘伝の醤油で甘辛く煮詰め、香り高い葱と鰹節を添えれば、一口ごとに滋味深い味わいが広がり、深い山の情景が目に浮かぶだろう。",
+    "servings": 3,
     "ingredients": [
       {
+        "id": "1MorH0nFSqmSvcRAbTph",
         "amount": 3.8,
-        "name": "穴子",
-        "id": "1MorH0nFSqmSvcRAbTph"
+        "name": "穴子"
       },
       {
-        "amount": 24,
         "name": "米飴",
+        "amount": 24,
         "id": "8opkrk9Da3Xv4wp1nDaj"
       },
       {
         "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "amount": 1.5,
-        "name": "葱"
+        "name": "葱",
+        "amount": 1.5
       },
       {
         "name": "鰹節",
@@ -61203,6 +61205,9 @@
         "id": "199WE9uvPmPJh5zNhR41"
       }
     ],
+    "createdAt": "2026-03-03T18:38:01.119Z",
+    "imageUrl": "media/images/file_317_1791792766730.png",
+    "rarity": 5,
     "embedding": [
       0.015481473,
       0.010479206,
@@ -61973,54 +61978,44 @@
       0.0150321275,
       0.0022888577
     ],
-    "createdAt": "2026-03-03T18:38:01.119Z",
-    "description": "深山の恵みたる黒茸の芳醇な香りが、とろけるように煮込まれた穴子の上品な旨味と見事に溶け合う逸品。米飴と秘伝の醤油で甘辛く煮詰め、香り高い葱と鰹節を添えれば、一口ごとに滋味深い味わいが広がり、深い山の情景が目に浮かぶだろう。",
     "recoveryAmount": 200,
-    "servings": 3,
-    "rarity": 5,
-    "imageUrl": "media/images/file_317_1791402382913.png",
     "name": "深山黒茸と穴子の甘露煮"
   },
   {
     "id": "v0hx7cM3o4mwttHUBXzO",
     "ingredients": [
       {
-        "amount": 0.9375,
         "baseUnit": "個",
         "id": "53a43XLTHX09uRI9V2Gu",
+        "amount": 0.9375,
         "name": "カツオ"
       },
       {
         "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 18,
         "name": "小麦粉",
+        "amount": 18,
         "baseUnit": "勺"
       },
       {
-        "amount": 3,
-        "name": "卵",
         "id": "XP2ysxstRn327LT7opOy",
-        "baseUnit": "個"
+        "amount": 3,
+        "baseUnit": "個",
+        "name": "卵"
       },
       {
+        "name": "水",
         "amount": 37.5,
         "baseUnit": "勺",
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "name": "水"
+        "id": "HDWmnrNO5LC8WLURsxoN"
       },
       {
         "baseUnit": "勺",
         "amount": 18,
-        "name": "菜種油",
-        "id": "vsMZJ7qXcvbMd4bPa3GE"
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
+        "name": "菜種油"
       }
     ],
     "recoveryAmount": 85,
-    "description": "香ばしく揚げられた新鮮なカツオの天ぷらは、外はサクサク、中はふっくらジューシー。旬の野菜と共に盛り付けられ、特製の出汁香る天つゆと大根おろし、生姜で味わえば、至福のひとときが訪れるでしょう。一口食べれば、海の恵みと匠の技が織りなす極上のハーモニーに心奪われる逸品です。",
-    "imageUrl": "media/images/file_318_1791402382913.png",
-    "servings": 1,
-    "name": "天ぷら（鰹）",
-    "rarity": 3,
     "embedding": [
       -0.004584806,
       0.010113133,
@@ -62791,10 +62786,17 @@
       0.021223297,
       0.002200979
     ],
-    "createdAt": "2026-04-09T00:18:44.557Z"
+    "description": "香ばしく揚げられた新鮮なカツオの天ぷらは、外はサクサク、中はふっくらジューシー。旬の野菜と共に盛り付けられ、特製の出汁香る天つゆと大根おろし、生姜で味わえば、至福のひとときが訪れるでしょう。一口食べれば、海の恵みと匠の技が織りなす極上のハーモニーに心奪われる逸品です。",
+    "name": "天ぷら（鰹）",
+    "servings": 1,
+    "createdAt": "2026-04-09T00:18:44.557Z",
+    "imageUrl": "media/images/file_318_1791792766730.png",
+    "rarity": 3
   },
   {
     "id": "v57WMJaXTUFLvTaemn7e",
+    "description": "深海の恵み、黄金の鱗を持つ錦鯛を主役に、磯の香り豊かなクルマエビ、岩間にひっそりと息づくイワタケ、そして幻のきぬがさ茸、滋養溢れるジネンジョを丁寧に蒸し上げた、まさに海の宝玉たる一品。澄んだ出汁が素材本来の旨味を最大限に引き出し、口に含めば、潮風と大地の恵みが織りなす極上の調和が広がります。",
+    "imageUrl": "media/images/file_319_1791792766730.png",
     "ingredients": [
       {
         "name": "キンメダイ",
@@ -62802,13 +62804,13 @@
         "id": "lQ1ANrDoMdDBREFxEjHc"
       },
       {
+        "amount": 6.86,
         "id": "JheQkeYkBGY9Oltg1uen",
-        "name": "クルマエビ",
-        "amount": 6.86
+        "name": "クルマエビ"
       },
       {
-        "name": "きぬがさ茸",
         "id": "hSKJktibBcmuntZ8JMBf",
+        "name": "きぬがさ茸",
         "amount": 6
       },
       {
@@ -62818,14 +62820,10 @@
       },
       {
         "amount": 0.9,
-        "id": "7iTiMLHySgBCMa95VVZb",
-        "name": "ジネンジョ"
+        "name": "ジネンジョ",
+        "id": "7iTiMLHySgBCMa95VVZb"
       }
     ],
-    "recoveryAmount": 500,
-    "rarity": 5,
-    "description": "深海の恵み、黄金の鱗を持つ錦鯛を主役に、磯の香り豊かなクルマエビ、岩間にひっそりと息づくイワタケ、そして幻のきぬがさ茸、滋養溢れるジネンジョを丁寧に蒸し上げた、まさに海の宝玉たる一品。澄んだ出汁が素材本来の旨味を最大限に引き出し、口に含めば、潮風と大地の恵みが織りなす極上の調和が広がります。",
-    "createdAt": "2026-03-03T17:43:43.711Z",
     "embedding": [
       0.0061833113,
       -0.0017230114,
@@ -63596,44 +63594,19 @@
       0.010155746,
       0.014406017
     ],
+    "rarity": 5,
     "servings": 1,
-    "name": "黄金鱗の錦蒸し",
-    "imageUrl": "media/images/file_319_1791402382913.png"
+    "recoveryAmount": 500,
+    "createdAt": "2026-03-03T17:43:43.711Z",
+    "name": "黄金鱗の錦蒸し"
   },
   {
     "id": "wgQSfUjnjrJeOCVUJ5oI",
-    "rarity": 5,
-    "recoveryAmount": 720,
     "servings": 2,
-    "imageUrl": "media/images/file_320_1791402382913.png",
-    "ingredients": [
-      {
-        "amount": 4.29,
-        "name": "ホタテ貝",
-        "id": "qeRLNkbtgDSGGdAOuSgm"
-      },
-      {
-        "id": "jhPJ95Mj4PwzbKjq2P0K",
-        "amount": 2,
-        "name": "喉黒"
-      },
-      {
-        "amount": 1.4,
-        "id": "GYxAN3yTtym288E3BrOf",
-        "name": "毛蟹"
-      },
-      {
-        "id": "eq0EJtHCx1J2D2LhuNED",
-        "amount": 2.74,
-        "name": "ムラサキシメジ"
-      },
-      {
-        "amount": 2.4,
-        "id": "3YZfJ2kNdsbpz0GHk0Yz",
-        "name": "ミツバ"
-      }
-    ],
+    "imageUrl": "media/images/file_320_1791792766730.png",
+    "recoveryAmount": 720,
     "createdAt": "2026-03-03T18:31:20.553Z",
+    "rarity": 5,
     "embedding": [
       -0.008379127,
       0.0013447792,
@@ -64404,140 +64377,40 @@
       -0.0064726477,
       0.01913185
     ],
+    "ingredients": [
+      {
+        "amount": 4.29,
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "amount": 2,
+        "name": "喉黒",
+        "id": "jhPJ95Mj4PwzbKjq2P0K"
+      },
+      {
+        "amount": 1.4,
+        "name": "毛蟹",
+        "id": "GYxAN3yTtym288E3BrOf"
+      },
+      {
+        "name": "ムラサキシメジ",
+        "amount": 2.74,
+        "id": "eq0EJtHCx1J2D2LhuNED"
+      },
+      {
+        "amount": 2.4,
+        "id": "3YZfJ2kNdsbpz0GHk0Yz",
+        "name": "ミツバ"
+      }
+    ],
     "description": "白く輝くホタテ貝と、脂の乗った喉黒、そして甘美な毛蟹の身が織りなす、海からの贈り物。紫色のムラサキシメジが彩りを添え、瑞々しいミツバの香りがふわりと立ち上る。これらの海の幸と山の恵みを丁寧に蒸し上げ、素材本来の旨味を最大限に引き出した逸品。一口頬張れば、深海の恵みが身体中に満ち渡り、至福の時を味わえるだろう。",
     "name": "海神の宝玉蒸し"
   },
   {
     "id": "xgRDJFnUJG0AVoFghEJ8",
-    "rarity": 5,
     "recoveryAmount": 250,
-    "name": "海鮮ラーメン",
-    "ingredients": [
-      {
-        "id": "KfC755P2vtX74e1mqqEF",
-        "name": "しいたけ",
-        "amount": 0.4
-      },
-      {
-        "name": "みりん",
-        "amount": 1.8,
-        "id": "EExCU3KTgaZ074nw8IzK"
-      },
-      {
-        "id": "TmG7yvtmwbclAGj7yYmE",
-        "amount": 0.18,
-        "name": "アオリイカ"
-      },
-      {
-        "amount": 0.36,
-        "name": "アワビ",
-        "id": "5nMtu9gPetWlnwXZ3OBz"
-      },
-      {
-        "id": "fTD4pKW8rlT7aRjpnGH0",
-        "name": "コンブ",
-        "amount": 0.16
-      },
-      {
-        "id": "KU5dMDHGiJUmEhv59Kd8",
-        "amount": 0.0333,
-        "name": "タケノコ"
-      },
-      {
-        "name": "ワカメ",
-        "id": "VWjfw0RXg0J3HRJABwGo",
-        "amount": 2.4
-      },
-      {
-        "name": "伊勢海老",
-        "id": "tblQtSx30FPHOuSB8zZE",
-        "amount": 0.1371
-      },
-      {
-        "amount": 0.9,
-        "id": "XP2ysxstRn327LT7opOy",
-        "name": "卵"
-      },
-      {
-        "amount": 0.6,
-        "name": "塩",
-        "id": "zAxz2xd8a2Tu7CYBpEiK"
-      },
-      {
-        "name": "小麦粉",
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "amount": 18
-      },
-      {
-        "name": "帆立",
-        "amount": 0.72,
-        "id": "gCAL5NtJdRHDkhddjFSb"
-      },
-      {
-        "name": "海苔",
-        "amount": 2,
-        "id": "4th7RhqsWqmT7ZA87sFK"
-      },
-      {
-        "id": "Qde2vp3VtXnZuNEvrHjw",
-        "amount": 1.0285,
-        "name": "潮見カキ"
-      },
-      {
-        "name": "生姜",
-        "amount": 0.15,
-        "id": "u0dh8tyTOcLrmu2D8E1M"
-      },
-      {
-        "amount": 0.3,
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "name": "葱"
-      },
-      {
-        "amount": 0.3,
-        "id": "QofWhwCVRS8QXVO2aVmY",
-        "name": "螺貝"
-      },
-      {
-        "id": "3YerNFezpn9YOVp7SQwD",
-        "amount": 2.4,
-        "name": "酒"
-      },
-      {
-        "name": "醤油",
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "amount": 3.6
-      },
-      {
-        "amount": 1.2,
-        "name": "魚粉",
-        "id": "IwDnYzIki2yL3JjImUgv"
-      },
-      {
-        "name": "鰹節",
-        "id": "iPFKO7B0kNlQyA5SDx6Q",
-        "amount": 0.1333
-      },
-      {
-        "name": "水",
-        "id": "manual",
-        "amount": 1.2
-      },
-      {
-        "name": "かん水",
-        "amount": 1.2,
-        "id": "manual"
-      },
-      {
-        "amount": 1.2,
-        "id": "manual",
-        "name": "胡椒"
-      }
-    ],
-    "servings": 1,
-    "imageUrl": "media/images/file_321_1791402382913.png",
-    "description": "芳醇な海の香りが立ち上る、透き通る黄金色のスープに、選び抜かれた海の幸が豪華に彩りを添える。一口すすれば、磯の旨味が口いっぱいに広がり、心身を満たす至福の一杯。",
-    "createdAt": "2026-03-14T12:52:59.761Z",
+    "rarity": 5,
     "embedding": [
       -0.00754977,
       0.018021703,
@@ -65307,119 +65180,249 @@
       0.04286125,
       0.0028796648,
       0.02752139
-    ]
-  },
-  {
-    "id": "xrSvwgt1dLVGON46fq9z",
-    "rarity": 4,
-    "name": "天丼（海老、里芋、大葉、茄子）",
-    "recoveryAmount": 250,
+    ],
+    "description": "芳醇な海の香りが立ち上る、透き通る黄金色のスープに、選び抜かれた海の幸が豪華に彩りを添える。一口すすれば、磯の旨味が口いっぱいに広がり、心身を満たす至福の一杯。",
+    "servings": 1,
     "ingredients": [
       {
-        "shakuPerUnit": null,
+        "id": "KfC755P2vtX74e1mqqEF",
+        "name": "しいたけ",
+        "amount": 0.4
+      },
+      {
         "name": "みりん",
-        "amount": 1.92,
-        "baseUnit": "勺",
-        "id": "EExCU3KTgaZ074nw8IzK"
+        "id": "EExCU3KTgaZ074nw8IzK",
+        "amount": 1.8
       },
       {
-        "amount": 2.74,
-        "name": "クルマエビ",
-        "baseUnit": "個",
-        "shakuPerUnit": 3.5,
-        "id": "JheQkeYkBGY9Oltg1uen"
+        "id": "TmG7yvtmwbclAGj7yYmE",
+        "amount": 0.18,
+        "name": "アオリイカ"
       },
       {
-        "name": "卵",
-        "id": "XP2ysxstRn327LT7opOy",
-        "baseUnit": "個",
-        "shakuPerUnit": 2,
+        "amount": 0.36,
+        "name": "アワビ",
+        "id": "5nMtu9gPetWlnwXZ3OBz"
+      },
+      {
+        "amount": 0.16,
+        "id": "fTD4pKW8rlT7aRjpnGH0",
+        "name": "コンブ"
+      },
+      {
+        "name": "タケノコ",
+        "amount": 0.0333,
+        "id": "KU5dMDHGiJUmEhv59Kd8"
+      },
+      {
+        "id": "VWjfw0RXg0J3HRJABwGo",
+        "name": "ワカメ",
         "amount": 2.4
       },
       {
-        "baseUnit": "勺",
-        "name": "塩",
-        "amount": 1.2,
-        "shakuPerUnit": null,
-        "id": "zAxz2xd8a2Tu7CYBpEiK"
+        "name": "伊勢海老",
+        "amount": 0.1371,
+        "id": "tblQtSx30FPHOuSB8zZE"
       },
       {
-        "shakuPerUnit": 0.3,
-        "id": "STRvLHjFtu4fDkBHaqut",
-        "amount": 24,
-        "baseUnit": "個",
-        "name": "大葉"
+        "id": "XP2ysxstRn327LT7opOy",
+        "amount": 0.9,
+        "name": "卵"
+      },
+      {
+        "amount": 0.6,
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "name": "塩"
       },
       {
         "id": "02VLUbqVhFyJ0TJSCBaG",
         "name": "小麦粉",
+        "amount": 18
+      },
+      {
+        "name": "帆立",
+        "id": "gCAL5NtJdRHDkhddjFSb",
+        "amount": 0.72
+      },
+      {
+        "id": "4th7RhqsWqmT7ZA87sFK",
+        "name": "海苔",
+        "amount": 2
+      },
+      {
+        "amount": 1.0285,
+        "id": "Qde2vp3VtXnZuNEvrHjw",
+        "name": "潮見カキ"
+      },
+      {
+        "amount": 0.15,
+        "name": "生姜",
+        "id": "u0dh8tyTOcLrmu2D8E1M"
+      },
+      {
+        "id": "5AZ2gOb0pKEtI0ktdXg5",
+        "name": "葱",
+        "amount": 0.3
+      },
+      {
+        "amount": 0.3,
+        "id": "QofWhwCVRS8QXVO2aVmY",
+        "name": "螺貝"
+      },
+      {
+        "id": "3YerNFezpn9YOVp7SQwD",
+        "amount": 2.4,
+        "name": "酒"
+      },
+      {
+        "name": "醤油",
+        "amount": 3.6,
+        "id": "XhkCWADRwNYsGVQBXwVs"
+      },
+      {
+        "amount": 1.2,
+        "id": "IwDnYzIki2yL3JjImUgv",
+        "name": "魚粉"
+      },
+      {
+        "id": "iPFKO7B0kNlQyA5SDx6Q",
+        "name": "鰹節",
+        "amount": 0.1333
+      },
+      {
+        "name": "水",
+        "id": "manual",
+        "amount": 1.2
+      },
+      {
+        "name": "かん水",
+        "amount": 1.2,
+        "id": "manual"
+      },
+      {
+        "amount": 1.2,
+        "id": "manual",
+        "name": "胡椒"
+      }
+    ],
+    "name": "海鮮ラーメン",
+    "createdAt": "2026-03-14T12:52:59.761Z",
+    "imageUrl": "media/images/file_321_1791792766730.png"
+  },
+  {
+    "id": "xrSvwgt1dLVGON46fq9z",
+    "servings": 1,
+    "createdAt": "2026-03-01T18:12:12.209Z",
+    "rarity": 4,
+    "description": "黄金色の衣をまとった海老や旬の野菜が、秘伝の甘辛いタレを吸い込み、ご飯と共に至福の味わいを奏でる。一口食べれば、衣の軽やかな食感と素材の旨みが口いっぱいに広がる絶品丼。",
+    "imageUrl": "media/images/file_322_1791792766730.png",
+    "ingredients": [
+      {
+        "baseUnit": "勺",
+        "id": "EExCU3KTgaZ074nw8IzK",
+        "amount": 1.92,
         "shakuPerUnit": null,
-        "baseUnit": "勺",
-        "amount": 6
+        "name": "みりん"
       },
       {
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "baseUnit": "勺",
-        "amount": 54,
-        "name": "白米",
-        "shakuPerUnit": null
+        "name": "クルマエビ",
+        "baseUnit": "個",
+        "id": "JheQkeYkBGY9Oltg1uen",
+        "amount": 2.74,
+        "shakuPerUnit": 3.5
       },
       {
-        "name": "米飴",
-        "shakuPerUnit": null,
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "baseUnit": "勺",
-        "amount": 0.24
-      },
-      {
-        "name": "茄子",
-        "shakuPerUnit": 9,
-        "id": "iAfESxyxyJJThEnvuPQv",
-        "amount": 1.07,
+        "shakuPerUnit": 2,
+        "amount": 2.4,
+        "name": "卵",
+        "id": "XP2ysxstRn327LT7opOy",
         "baseUnit": "個"
       },
       {
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
         "shakuPerUnit": null,
-        "name": "菜種油",
-        "baseUnit": "勺",
-        "amount": 9.6
-      },
-      {
-        "amount": 1.44,
-        "baseUnit": "勺",
-        "shakuPerUnit": null,
-        "name": "酒",
-        "id": "3YerNFezpn9YOVp7SQwD"
-      },
-      {
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "shakuPerUnit": null,
-        "name": "醤油",
-        "amount": 2.64,
+        "name": "塩",
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
+        "amount": 1.2,
         "baseUnit": "勺"
       },
       {
-        "name": "里芋",
-        "shakuPerUnit": 5,
-        "id": "jYqWUsreHLxSHVkbYIyd",
-        "amount": 1.44,
-        "baseUnit": "個"
+        "id": "STRvLHjFtu4fDkBHaqut",
+        "shakuPerUnit": 0.3,
+        "baseUnit": "個",
+        "amount": 24,
+        "name": "大葉"
+      },
+      {
+        "amount": 6,
+        "name": "小麦粉",
+        "id": "02VLUbqVhFyJ0TJSCBaG",
+        "shakuPerUnit": null,
+        "baseUnit": "勺"
+      },
+      {
+        "name": "白米",
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "baseUnit": "勺",
+        "amount": 54,
+        "shakuPerUnit": null
+      },
+      {
+        "baseUnit": "勺",
+        "amount": 0.24,
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "shakuPerUnit": null,
+        "name": "米飴"
       },
       {
         "baseUnit": "個",
-        "id": "iPFKO7B0kNlQyA5SDx6Q",
-        "amount": 0,
-        "shakuPerUnit": 18,
-        "name": "鰹節"
+        "shakuPerUnit": 9,
+        "amount": 1.07,
+        "id": "iAfESxyxyJJThEnvuPQv",
+        "name": "茄子"
       },
       {
+        "amount": 9.6,
+        "name": "菜種油",
+        "shakuPerUnit": null,
+        "baseUnit": "勺",
+        "id": "vsMZJ7qXcvbMd4bPa3GE"
+      },
+      {
+        "name": "酒",
+        "amount": 1.44,
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "id": "3YerNFezpn9YOVp7SQwD"
+      },
+      {
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "name": "醤油",
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "amount": 2.64
+      },
+      {
+        "id": "jYqWUsreHLxSHVkbYIyd",
+        "baseUnit": "個",
+        "shakuPerUnit": 5,
+        "amount": 1.44,
+        "name": "里芋"
+      },
+      {
+        "shakuPerUnit": 18,
+        "name": "鰹節",
+        "baseUnit": "個",
+        "id": "iPFKO7B0kNlQyA5SDx6Q",
+        "amount": 0
+      },
+      {
+        "name": "水",
         "id": "manual",
-        "amount": 4.56,
-        "name": "水"
+        "amount": 4.56
       }
     ],
-    "servings": 1,
+    "name": "天丼（海老、里芋、大葉、茄子）",
+    "recoveryAmount": 250,
     "embedding": [
       0.014597043,
       0.002290024,
@@ -66189,14 +66192,41 @@
       0.035393555,
       0.016414175,
       -0.006416342
-    ],
-    "createdAt": "2026-03-01T18:12:12.209Z",
-    "imageUrl": "media/images/file_322_1791402382913.png",
-    "description": "黄金色の衣をまとった海老や旬の野菜が、秘伝の甘辛いタレを吸い込み、ご飯と共に至福の味わいを奏でる。一口食べれば、衣の軽やかな食感と素材の旨みが口いっぱいに広がる絶品丼。"
+    ]
   },
   {
     "id": "y4CRZ6xZUGj9fQyF2jdl",
+    "ingredients": [
+      {
+        "amount": 0.36,
+        "id": "6gNrCWH2sVGdCvc8i8UT",
+        "name": "本鱈場蟹"
+      },
+      {
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen",
+        "amount": 10.29
+      },
+      {
+        "amount": 3.6,
+        "id": "jYqWUsreHLxSHVkbYIyd",
+        "name": "里芋"
+      },
+      {
+        "name": "葱",
+        "amount": 2.4,
+        "id": "5AZ2gOb0pKEtI0ktdXg5"
+      },
+      {
+        "id": "Ef2yeNUWRLdnkBgUHZX8",
+        "amount": 1.2,
+        "name": "ミョウガ"
+      }
+    ],
     "name": "黄金海鮮の宝蒸し",
+    "createdAt": "2026-03-03T18:33:47.604Z",
+    "description": "黄金色の本鱈場蟹と紅に輝くクルマエビを主役に、素朴な里芋と清々しい葱、そして香るミョウガと共に、秘伝の出汁でじっくりと蒸し上げた逸品。口に含めば、海の幸の甘みが広がり、滋味深い里芋と薬味の香りが優雅に調和する。まさに食する宝玉、心身を癒す至高の膳なり。",
+    "rarity": 5,
     "embedding": [
       0.004057364,
       0.010624382,
@@ -66967,47 +66997,103 @@
       0.00396894,
       0.02291228
     ],
-    "createdAt": "2026-03-03T18:33:47.604Z",
-    "ingredients": [
-      {
-        "id": "6gNrCWH2sVGdCvc8i8UT",
-        "name": "本鱈場蟹",
-        "amount": 0.36
-      },
-      {
-        "id": "JheQkeYkBGY9Oltg1uen",
-        "name": "クルマエビ",
-        "amount": 10.29
-      },
-      {
-        "amount": 3.6,
-        "name": "里芋",
-        "id": "jYqWUsreHLxSHVkbYIyd"
-      },
-      {
-        "amount": 2.4,
-        "id": "5AZ2gOb0pKEtI0ktdXg5",
-        "name": "葱"
-      },
-      {
-        "amount": 1.2,
-        "name": "ミョウガ",
-        "id": "Ef2yeNUWRLdnkBgUHZX8"
-      }
-    ],
-    "imageUrl": "media/images/file_323_1791402382913.png",
     "servings": 3,
     "recoveryAmount": 1000,
-    "rarity": 5,
-    "description": "黄金色の本鱈場蟹と紅に輝くクルマエビを主役に、素朴な里芋と清々しい葱、そして香るミョウガと共に、秘伝の出汁でじっくりと蒸し上げた逸品。口に含めば、海の幸の甘みが広がり、滋味深い里芋と薬味の香りが優雅に調和する。まさに食する宝玉、心身を癒す至高の膳なり。"
+    "imageUrl": "media/images/file_323_1791792766730.png"
   },
   {
     "id": "yUGeSbiLDPT0JSwOeMOk",
-    "servings": 1,
-    "name": "握り寿司（十貫盛並）",
     "rarity": 3,
+    "servings": 1,
+    "createdAt": "2026-04-02T02:01:22.190Z",
+    "imageUrl": "media/images/file_324_1791792766730.png",
+    "ingredients": [
+      {
+        "baseUnit": "勺",
+        "shakuPerUnit": null,
+        "amount": 47.25,
+        "id": "mQ5aybZclKtqbmhzSNUj",
+        "name": "白米"
+      },
+      {
+        "amount": 0.0875,
+        "shakuPerUnit": 20,
+        "baseUnit": "個",
+        "id": "8rJaUbYCKMEaK3XgWnjj",
+        "name": "鯛"
+      },
+      {
+        "amount": 0.039,
+        "baseUnit": "個",
+        "id": "mWcCEevlOzp3hN8Onvvt",
+        "shakuPerUnit": 45,
+        "name": "鮭"
+      },
+      {
+        "id": "TmG7yvtmwbclAGj7yYmE",
+        "amount": 0.0875,
+        "baseUnit": "個",
+        "name": "アオリイカ",
+        "shakuPerUnit": 20
+      },
+      {
+        "shakuPerUnit": 7,
+        "amount": 0.25,
+        "id": "qeRLNkbtgDSGGdAOuSgm",
+        "name": "ホタテ貝",
+        "baseUnit": "個"
+      },
+      {
+        "name": "雲丹",
+        "id": "jhNVIDFcL2HOafI5Ce7D",
+        "baseUnit": "勺",
+        "amount": 1.75,
+        "shakuPerUnit": null
+      },
+      {
+        "id": "hRrafDY8fmMbfzUyfJMI",
+        "shakuPerUnit": null,
+        "baseUnit": "勺",
+        "amount": 2.45,
+        "name": "酢"
+      },
+      {
+        "amount": 1.4,
+        "shakuPerUnit": null,
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "baseUnit": "勺",
+        "name": "醤油"
+      },
+      {
+        "name": "ワサビの根茎",
+        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "amount": 0.0875,
+        "shakuPerUnit": 4,
+        "baseUnit": "個"
+      },
+      {
+        "id": "4th7RhqsWqmT7ZA87sFK",
+        "name": "海苔",
+        "shakuPerUnit": 0.3,
+        "baseUnit": "個",
+        "amount": 0.7
+      },
+      {
+        "name": "米飴",
+        "shakuPerUnit": null,
+        "id": "8opkrk9Da3Xv4wp1nDaj",
+        "baseUnit": "勺",
+        "amount": 1
+      },
+      {
+        "shakuPerUnit": 4,
+        "name": "牡丹海老",
+        "id": "vF0ZJvf6lg98XJMUfAn4",
+        "baseUnit": "個",
+        "amount": 1
+      }
+    ],
     "recoveryAmount": 80,
-    "imageUrl": "media/images/file_324_1791402382913.png",
     "description": "名匠の技が光る、豪華十貫盛り。とろける大トロ、ぷりぷりの甘海老、香り高い雲丹など、旬の海の幸が織りなす至福のハーモニー。口の中でほどけるシャリとネタの絶妙なバランスが、至高のひとときをお約束します。",
     "embedding": [
       0.008462969,
@@ -67779,109 +67865,26 @@
       -0.0013354627,
       0.012048724
     ],
-    "createdAt": "2026-04-02T02:01:22.190Z",
-    "ingredients": [
-      {
-        "amount": 47.25,
-        "shakuPerUnit": null,
-        "baseUnit": "勺",
-        "id": "mQ5aybZclKtqbmhzSNUj",
-        "name": "白米"
-      },
-      {
-        "amount": 0.0875,
-        "id": "8rJaUbYCKMEaK3XgWnjj",
-        "shakuPerUnit": 20,
-        "baseUnit": "個",
-        "name": "鯛"
-      },
-      {
-        "amount": 0.039,
-        "baseUnit": "個",
-        "id": "mWcCEevlOzp3hN8Onvvt",
-        "name": "鮭",
-        "shakuPerUnit": 45
-      },
-      {
-        "amount": 0.0875,
-        "name": "アオリイカ",
-        "id": "TmG7yvtmwbclAGj7yYmE",
-        "baseUnit": "個",
-        "shakuPerUnit": 20
-      },
-      {
-        "amount": 0.25,
-        "baseUnit": "個",
-        "shakuPerUnit": 7,
-        "id": "qeRLNkbtgDSGGdAOuSgm",
-        "name": "ホタテ貝"
-      },
-      {
-        "amount": 1.75,
-        "baseUnit": "勺",
-        "name": "雲丹",
-        "id": "jhNVIDFcL2HOafI5Ce7D",
-        "shakuPerUnit": null
-      },
-      {
-        "shakuPerUnit": null,
-        "amount": 2.45,
-        "id": "hRrafDY8fmMbfzUyfJMI",
-        "baseUnit": "勺",
-        "name": "酢"
-      },
-      {
-        "amount": 1.4,
-        "baseUnit": "勺",
-        "shakuPerUnit": null,
-        "id": "XhkCWADRwNYsGVQBXwVs",
-        "name": "醤油"
-      },
-      {
-        "name": "ワサビの根茎",
-        "baseUnit": "個",
-        "shakuPerUnit": 4,
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
-        "amount": 0.0875
-      },
-      {
-        "shakuPerUnit": 0.3,
-        "amount": 0.7,
-        "baseUnit": "個",
-        "id": "4th7RhqsWqmT7ZA87sFK",
-        "name": "海苔"
-      },
-      {
-        "shakuPerUnit": null,
-        "name": "米飴",
-        "baseUnit": "勺",
-        "id": "8opkrk9Da3Xv4wp1nDaj",
-        "amount": 1
-      },
-      {
-        "id": "vF0ZJvf6lg98XJMUfAn4",
-        "name": "牡丹海老",
-        "amount": 1,
-        "shakuPerUnit": 4,
-        "baseUnit": "個"
-      }
-    ]
+    "name": "握り寿司（十貫盛並）"
   },
   {
     "id": "z8Lt9hKaOD0ZJYfM6QWq",
+    "createdAt": "2026-04-07T05:54:58.725Z",
+    "recoveryAmount": 200,
+    "name": "海鮮お好み焼き",
     "rarity": 4,
     "ingredients": [
       {
         "amount": 27,
-        "id": "02VLUbqVhFyJ0TJSCBaG",
         "name": "小麦粉",
-        "baseUnit": "勺"
+        "baseUnit": "勺",
+        "id": "02VLUbqVhFyJ0TJSCBaG"
       },
       {
-        "id": "XP2ysxstRn327LT7opOy",
+        "amount": 4.5,
         "baseUnit": "個",
-        "name": "卵",
-        "amount": 4.5
+        "id": "XP2ysxstRn327LT7opOy",
+        "name": "卵"
       },
       {
         "name": "水",
@@ -67896,58 +67899,58 @@
         "baseUnit": "個"
       },
       {
-        "baseUnit": "個",
-        "id": "JheQkeYkBGY9Oltg1uen",
         "amount": 4.11,
-        "name": "クルマエビ"
+        "baseUnit": "個",
+        "name": "クルマエビ",
+        "id": "JheQkeYkBGY9Oltg1uen"
       },
       {
+        "name": "イカ",
         "amount": 0.96,
         "baseUnit": "個",
-        "id": "e4MS3bAlVhNcZLeW7wC9",
-        "name": "イカ"
+        "id": "e4MS3bAlVhNcZLeW7wC9"
       },
       {
         "id": "gCAL5NtJdRHDkhddjFSb",
-        "baseUnit": "個",
+        "name": "帆立",
         "amount": 2.52,
-        "name": "帆立"
-      },
-      {
-        "name": "アサリ",
-        "id": "K3u8xXSdIOZHktqJ45ZL",
-        "baseUnit": "勺",
-        "amount": 12.6
-      },
-      {
-        "amount": 0.9,
-        "baseUnit": "勺",
-        "name": "あおさ",
-        "id": "R6OrQCjMwBU4KRJUYU4V"
-      },
-      {
-        "amount": 0.1,
-        "id": "iPFKO7B0kNlQyA5SDx6Q",
-        "name": "鰹節",
         "baseUnit": "個"
       },
       {
-        "id": "vsMZJ7qXcvbMd4bPa3GE",
-        "name": "菜種油",
+        "name": "アサリ",
         "baseUnit": "勺",
+        "amount": 12.6,
+        "id": "K3u8xXSdIOZHktqJ45ZL"
+      },
+      {
+        "baseUnit": "勺",
+        "id": "R6OrQCjMwBU4KRJUYU4V",
+        "amount": 0.9,
+        "name": "あおさ"
+      },
+      {
+        "id": "iPFKO7B0kNlQyA5SDx6Q",
+        "baseUnit": "個",
+        "amount": 0.1,
+        "name": "鰹節"
+      },
+      {
+        "baseUnit": "勺",
+        "name": "菜種油",
+        "id": "vsMZJ7qXcvbMd4bPa3GE",
         "amount": 3.6
       },
       {
-        "amount": 0.45,
-        "name": "葱",
         "baseUnit": "個",
-        "id": "5AZ2gOb0pKEtI0ktdXg5"
+        "amount": 0.45,
+        "id": "5AZ2gOb0pKEtI0ktdXg5",
+        "name": "葱"
       },
       {
-        "id": "XhkCWADRwNYsGVQBXwVs",
         "amount": 1.8,
-        "baseUnit": "勺",
-        "name": "醤油"
+        "id": "XhkCWADRwNYsGVQBXwVs",
+        "name": "醤油",
+        "baseUnit": "勺"
       },
       {
         "baseUnit": "勺",
@@ -67956,39 +67959,36 @@
         "name": "みりん"
       },
       {
-        "amount": 0.9,
         "baseUnit": "勺",
+        "name": "塩",
         "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "name": "塩"
+        "amount": 0.9
       },
       {
-        "baseUnit": "勺",
         "id": "manual",
+        "baseUnit": "勺",
         "amount": 45,
         "name": "キャベツ"
       },
       {
-        "baseUnit": "勺",
         "name": "お好み焼きソース",
+        "baseUnit": "勺",
         "amount": 5.4,
         "id": "manual"
       },
       {
-        "baseUnit": "勺",
-        "name": "マヨネーズ",
         "amount": 3.6,
-        "id": "manual"
+        "name": "マヨネーズ",
+        "id": "manual",
+        "baseUnit": "勺"
       },
       {
         "amount": 0.9,
         "name": "紅生姜",
-        "id": "manual",
-        "baseUnit": "勺"
+        "baseUnit": "勺",
+        "id": "manual"
       }
     ],
-    "servings": 1,
-    "imageUrl": "media/images/file_325_1791402382913.png",
-    "description": "潮の香りが食欲をそそる、ふっくらと焼き上げた海鮮お好み焼き。新鮮な海の幸が贅沢に溶け込み、特製ソースと青のりが織りなすハーモニーは、まさに至福の味わいです。一口食べれば、港町の活気と海の恵みが口いっぱいに広がります。疲れた体を芯から癒す、心温まる逸品。",
     "embedding": [
       0.00523855,
       -0.003638798,
@@ -68759,82 +68759,85 @@
       -0.013322596,
       0.017806409
     ],
-    "createdAt": "2026-04-07T05:54:58.725Z",
-    "recoveryAmount": 200,
-    "name": "海鮮お好み焼き"
+    "imageUrl": "media/images/file_325_1791792766730.png",
+    "description": "潮の香りが食欲をそそる、ふっくらと焼き上げた海鮮お好み焼き。新鮮な海の幸が贅沢に溶け込み、特製ソースと青のりが織りなすハーモニーは、まさに至福の味わいです。一口食べれば、港町の活気と海の恵みが口いっぱいに広がります。疲れた体を芯から癒す、心温まる逸品。",
+    "servings": 1
   },
   {
     "id": "zGaMjhRtI3frj7ZUkmpb",
+    "createdAt": "2026-04-07T05:51:39.761Z",
+    "recoveryAmount": 180,
+    "name": "たこ焼き",
     "rarity": 3,
     "ingredients": [
       {
+        "baseUnit": "勺",
+        "amount": 24,
         "name": "小麦粉",
         "shakuPerUnit": null,
-        "id": "02VLUbqVhFyJ0TJSCBaG",
-        "baseUnit": "勺",
-        "amount": 24
+        "id": "02VLUbqVhFyJ0TJSCBaG"
       },
       {
-        "id": "HDWmnrNO5LC8WLURsxoN",
-        "amount": 24,
+        "shakuPerUnit": null,
         "name": "水",
-        "baseUnit": "勺",
-        "shakuPerUnit": null
+        "amount": 24,
+        "id": "HDWmnrNO5LC8WLURsxoN",
+        "baseUnit": "勺"
       },
       {
-        "id": "XP2ysxstRn327LT7opOy",
-        "name": "卵",
+        "amount": 2.4,
         "shakuPerUnit": 2,
         "baseUnit": "個",
-        "amount": 2.4
+        "id": "XP2ysxstRn327LT7opOy",
+        "name": "卵"
       },
       {
-        "baseUnit": "個",
         "id": "FLQKZHKJNU0hmciDXybL",
+        "baseUnit": "個",
         "name": "マダコ",
-        "shakuPerUnit": 20,
-        "amount": 0.9
+        "amount": 0.9,
+        "shakuPerUnit": 20
       },
       {
         "name": "葱",
+        "amount": 0.9,
         "shakuPerUnit": 4,
         "baseUnit": "個",
-        "amount": 0.9,
         "id": "5AZ2gOb0pKEtI0ktdXg5"
       },
       {
-        "amount": 1.2,
+        "id": "XhkCWADRwNYsGVQBXwVs",
         "name": "醤油",
+        "amount": 1.2,
         "shakuPerUnit": null,
-        "baseUnit": "勺",
-        "id": "XhkCWADRwNYsGVQBXwVs"
+        "baseUnit": "勺"
       },
       {
         "id": "EExCU3KTgaZ074nw8IzK",
         "name": "みりん",
         "amount": 0.6,
-        "shakuPerUnit": null,
-        "baseUnit": "勺"
+        "baseUnit": "勺",
+        "shakuPerUnit": null
       },
       {
         "baseUnit": "勺",
-        "id": "zAxz2xd8a2Tu7CYBpEiK",
-        "shakuPerUnit": null,
         "name": "塩",
+        "shakuPerUnit": null,
+        "id": "zAxz2xd8a2Tu7CYBpEiK",
         "amount": 0.6
       },
       {
         "shakuPerUnit": 18,
-        "amount": 0.33,
         "baseUnit": "個",
-        "id": "iPFKO7B0kNlQyA5SDx6Q",
-        "name": "鰹節"
+        "amount": 0.33,
+        "name": "鰹節",
+        "id": "iPFKO7B0kNlQyA5SDx6Q"
       },
       {
         "name": "あおさ",
+        "baseUnit": "勺",
         "id": "R6OrQCjMwBU4KRJUYU4V",
         "shakuPerUnit": null,
-        "baseUnit": "勺",
         "amount": 1.2
       },
       {
@@ -68843,29 +68846,26 @@
         "name": "だし昆布(1.2勺)"
       },
       {
-        "id": "manual",
-        "name": "揚げ玉(3.6勺)",
-        "amount": 1
-      },
-      {
-        "name": "たこ焼きソース(18勺)",
-        "id": "manual",
-        "amount": 1
-      },
-      {
-        "name": "マヨネーズ(9.6勺)",
         "amount": 1,
+        "name": "揚げ玉(3.6勺)",
         "id": "manual"
       },
       {
-        "id": "manual",
         "amount": 1,
+        "id": "manual",
+        "name": "たこ焼きソース(18勺)"
+      },
+      {
+        "id": "manual",
+        "name": "マヨネーズ(9.6勺)",
+        "amount": 1
+      },
+      {
+        "amount": 1,
+        "id": "manual",
         "name": "紅生姜(1.2勺)"
       }
     ],
-    "servings": 2,
-    "imageUrl": "media/images/file_326_1791402382913.png",
-    "description": "外はカリッと、中はとろりとした食感がたまらない、風味豊かなたこ焼き。プリプリの新鮮なマダコとシャキシャキの葱、そして隠し味の生姜が絶妙なハーモニーを奏でます。特製のだしが香る生地に、揚げ玉のコクと紅生姜のアクセントが加わり、濃厚なソースとマヨネーズ、踊る鰹節と青のりが食欲をそそる逸品です。",
     "embedding": [
       0.0075122938,
       -0.0015555305,
@@ -69636,45 +69636,19 @@
       0.017579246,
       -0.002036026
     ],
-    "createdAt": "2026-04-07T05:51:39.761Z",
-    "recoveryAmount": 180,
-    "name": "たこ焼き"
+    "imageUrl": "media/images/file_326_1791792766730.png",
+    "description": "外はカリッと、中はとろりとした食感がたまらない、風味豊かなたこ焼き。プリプリの新鮮なマダコとシャキシャキの葱、そして隠し味の生姜が絶妙なハーモニーを奏でます。特製のだしが香る生地に、揚げ玉のコクと紅生姜のアクセントが加わり、濃厚なソースとマヨネーズ、踊る鰹節と青のりが食欲をそそる逸品です。",
+    "servings": 2
   },
   {
     "id": "zP5dnw643dSeozsi8N6Q",
     "recoveryAmount": 500,
-    "servings": 1,
     "name": "琥珀潮騒蒸し",
+    "createdAt": "2026-03-03T17:42:48.197Z",
+    "servings": 1,
     "rarity": 5,
-    "imageUrl": "media/images/file_327_1791402382913.png",
     "description": "荒波の恵みたるカンパチを主役に、深山黒茸とイワベンケイの土の香、そして甘美なホタテ貝とアカザラガイの潮の香を共に蒸し上げた逸品。琥珀色に輝くカンパチの身は舌の上でとろけ、秘められた海の滋味と山の恵みが五臓六腑に染み渡る。素材の旨味を最大限に引き出すため、熱した石と薬草で包み込み、ゆっくりと蒸し上げられた。",
-    "ingredients": [
-      {
-        "name": "カンパチ",
-        "id": "7cUxF3cIPMgYNpdd9a7B",
-        "amount": 1.05
-      },
-      {
-        "id": "199WE9uvPmPJh5zNhR41",
-        "name": "深山黒茸",
-        "amount": 3
-      },
-      {
-        "id": "qeRLNkbtgDSGGdAOuSgm",
-        "name": "ホタテ貝",
-        "amount": 4.29
-      },
-      {
-        "id": "mpOuF8k7g2iIastunu7S",
-        "name": "イワベンケイ",
-        "amount": 12
-      },
-      {
-        "name": "アカザラガイ",
-        "id": "HWoHHDxYrMeOb76mBuKJ",
-        "amount": 5.14
-      }
-    ],
+    "imageUrl": "media/images/file_327_1791792766730.png",
     "embedding": [
       0.015344402,
       0.00669561,
@@ -70445,25 +70419,55 @@
       -0.008596798,
       0.025264572
     ],
-    "createdAt": "2026-03-03T17:42:48.197Z"
+    "ingredients": [
+      {
+        "amount": 1.05,
+        "name": "カンパチ",
+        "id": "7cUxF3cIPMgYNpdd9a7B"
+      },
+      {
+        "id": "199WE9uvPmPJh5zNhR41",
+        "name": "深山黒茸",
+        "amount": 3
+      },
+      {
+        "amount": 4.29,
+        "name": "ホタテ貝",
+        "id": "qeRLNkbtgDSGGdAOuSgm"
+      },
+      {
+        "name": "イワベンケイ",
+        "id": "mpOuF8k7g2iIastunu7S",
+        "amount": 12
+      },
+      {
+        "name": "アカザラガイ",
+        "amount": 5.14,
+        "id": "HWoHHDxYrMeOb76mBuKJ"
+      }
+    ]
   },
   {
     "id": "zjQNFRS26122J5AgHhd3",
+    "servings": 2,
+    "createdAt": "2026-03-03T14:09:39.934Z",
+    "imageUrl": "media/images/file_328_1791792766730.png",
+    "description": "深山の恵み、香り高き松茸と滋味あふれる鹿肉を、秘伝の醤油と米飴で甘辛く艶やかに焼き上げた逸品。仕上げには、すりおろした山葵の根茎で作る特製の餡を添え、その芳醇な香りと共に、口いっぱいに広がる旨味と爽やかな辛みが絶妙な調和を奏でる。体力失せし旅人の気力をたちまち回復させる、まさに仙境の味。",
     "ingredients": [
       {
-        "amount": 2,
         "id": "uejC6QExQ6p1m0p2EiS7",
-        "name": "まつたけ"
+        "name": "まつたけ",
+        "amount": 2
       },
       {
-        "id": "EdqQS6nalrQnMdET4fcO",
+        "amount": 66,
         "name": "鹿肉",
-        "amount": 66
+        "id": "EdqQS6nalrQnMdET4fcO"
       },
       {
-        "id": "XSw2Zr7bVJeNJWzaJW5E",
+        "name": "ワサビの根茎",
         "amount": 2.4,
-        "name": "ワサビの根茎"
+        "id": "XSw2Zr7bVJeNJWzaJW5E"
       },
       {
         "id": "XhkCWADRwNYsGVQBXwVs",
@@ -70471,16 +70475,14 @@
         "name": "醤油"
       },
       {
+        "amount": 8.4,
         "id": "8opkrk9Da3Xv4wp1nDaj",
-        "name": "米飴",
-        "amount": 8.4
+        "name": "米飴"
       }
     ],
-    "description": "深山の恵み、香り高き松茸と滋味あふれる鹿肉を、秘伝の醤油と米飴で甘辛く艶やかに焼き上げた逸品。仕上げには、すりおろした山葵の根茎で作る特製の餡を添え、その芳醇な香りと共に、口いっぱいに広がる旨味と爽やかな辛みが絶妙な調和を奏でる。体力失せし旅人の気力をたちまち回復させる、まさに仙境の味。",
+    "name": "深山松茸鹿肉の雅焼き 秘伝山葵餡添え",
+    "recoveryAmount": 240,
     "rarity": 5,
-    "imageUrl": "media/images/file_328_1791402382913.png",
-    "servings": 2,
-    "createdAt": "2026-03-03T14:09:39.934Z",
     "embedding": [
       0.018254831,
       0.008667817,
@@ -71250,8 +71252,6 @@
       0.036009558,
       -0.009037503,
       0.015974753
-    ],
-    "recoveryAmount": 240,
-    "name": "深山松茸鹿肉の雅焼き 秘伝山葵餡添え"
+    ]
   }
 ]
