@@ -1,4 +1,5 @@
 
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -109,24 +110,24 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6">
               <div className="flex gap-4 items-start border-b border-border/50 pb-4">
+                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.48</Badge>
+                <div>
+                  <p className="font-bold">システムの安定化と保守</p>
+                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを継続して実施しました。</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.47</Badge>
                 <div>
                   <p className="font-bold">システムの継続的堅牢化</p>
                   <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを継続して実施しました。</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-90">
+              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
                 <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.44</Badge>
                 <div>
                   <p className="font-bold">システムの安定化と整合性の向上</p>
                   <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを行いました。</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start border-b border-border/50 pb-4 opacity-80">
-                <Badge variant="outline" className="mt-1 shrink-0 font-mono">Ver 0.1.43</Badge>
-                <div>
-                  <p className="font-bold">システムの堅牢化と整合性の向上</p>
-                  <p className="text-sm text-muted-foreground mt-1">プロジェクト全体の品質を維持するための内部メンテナンスと、コードの整合性チェックを継続して行いました。</p>
                 </div>
               </div>
             </div>
@@ -192,7 +193,7 @@ export default function AboutPage() {
             <div className="space-y-4">
               <h4 className="font-bold text-foreground uppercase tracking-wider">サポート</h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center gap-2"><MessageCircle className="h-3 w-3" /> お問い合わせ</Link></li>
+                <li><Link href="/contact" className="text-primary font-bold flex items-center gap-2"><MessageCircle className="h-3 w-3" /> お問い合わせ</Link></li>
                 <li><Link href="/about#faq" className="hover:text-primary transition-colors flex items-center gap-2"><HelpCircle className="h-3 w-3" /> よくある質問</Link></li>
               </ul>
             </div>
