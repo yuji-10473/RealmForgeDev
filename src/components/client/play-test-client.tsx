@@ -44,6 +44,7 @@ import { Badge } from "@/components/ui/badge";
 import { Toaster } from '@/components/ui/toaster';
 import { useMobile } from '../../hooks/use-mobile';
 import { DpadController, DpadButton } from '@/components/ui/DpadController';
+import { LoadingOverlay } from "@/components/ui/LoadingOverlay";
 
 const MAP_WIDTH = 2752;
 const MAP_HEIGHT = 1536;
@@ -190,7 +191,7 @@ const CutsceneLayer = memo(({ cutsceneChars }: { cutsceneChars: Record<string, a
           width: `${(CHARACTER_WIDTH / MAP_WIDTH) * 100}%`, 
           aspectRatio: '1/1',
           zIndex: 15,
-          transition: 'all 0.1s linear' // 滑らかな移動のための追加
+          transition: 'all 0.1s linear'
         }}
       >
         <Image 
@@ -226,7 +227,6 @@ type MapCell = { id: string; name: string; imageUrl: string; objects: PlacedObje
 type WorldData = { id: string; name: string; bgmUrl?: string; audioUrl?: string; rows: number; cols: number; maps: MapCell[]; };
 type CharacterDirection = 'up' | 'down' | 'left' | 'right';
 type SavedInventoryItem = { itemId: string; quantity: number; };
-// Add speakerId to EventNode
 export type EventNode = { id: string; type: 'start' | 'story' | 'choice' | 'reward' | 'end'; content: string; speakerId?: string; nextStepId?: string; audioUrl?: string; choices?: { text: string; nextStepId: string; audioUrl?: string }[]; reward?: { itemId?: string; itemName?: string; amount?: number; }; };
 export type EventFlow = { id: string; title: string; villagerId?: string; villagerName?: string; tags?: string[]; nodes: EventNode[]; };
 type NpcState = { x: number; y: number; originX: number; movement: Movement; direction: number; };
@@ -300,6 +300,13 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   // State
   const [loading, setLoading] = useState(true);
   const [isAssetsLoading, setIsAssetsLoading] = useState(true);
+
+  // プリロード進捗＆開始待機ステート (LoadingOverlay 連動用)
+  const [preloadProgress, setPreloadProgress] = useState(0);
+  const [preloadTask, setPreloadTask] = useState('ゲームリソースを確認中...');
+  const [isPreloadComplete, setIsPreloadComplete] = useState(false);
+  const [hasStartedPlay, setHasStartedPlay] = useState(false);
+
   const [selectedWorldId, setSelectedWorldId] = useState<string>(initialData?.mapId || '');
   const [activePlayerId, setActivePlayerId] = useState<string>('');
   const [activeCellIndex, setActiveCellIndex] = useState(0);
@@ -387,7 +394,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const activePlayerChar = useMemo(() => playerCharacters.find(c => c.id === activePlayerId) || (playerCharacters.length > 0 ? playerCharacters[0] : null), [playerCharacters, activePlayerId]);
   const currentWorld = useMemo(() => masterWorlds.find(w => w.id === selectedWorldId), [masterWorlds, selectedWorldId]);
   const activeMapData = currentWorld?.maps[activeCellIndex];
-  const isGamePaused = activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null || activeMeetingPlace !== null;
+  const isGamePaused = !hasStartedPlay || activeInteraction !== null || isMenuOpen || activeEvent !== null || activeCutscene !== null || activeShop !== null || activeMeetingPlace !== null;
 
   const currentSpeaker = useMemo(() => {
     const speakerId = currentNode?.speakerId || activeEvent?.villagerId;
@@ -438,19 +445,36 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     });
   }, [level, getNextXp, toast]);
 
+  // マスターデータ取得 & 進捗連動 (全体の約 0% 〜 40%)
   useEffect(() => {
     const init = async () => {
       try {
         setLoading(true);
+        const jsonFiles = [
+          'worlds', 'rooms', 'villagers', 'items', 'buildings', 
+          'eventFlows', 'collectionPoints', 'meetingPlaces', 
+          'monsters', 'dishes', 'shops', 'narrativeSequences', 'stories'
+        ];
+        let loadedJsons = 0;
+
         const fetchData = async (file: string) => {
+          setPreloadTask(`データ読込中: ${file}.json`);
           const res = await fetch(`/data/${file}.json`);
+          loadedJsons++;
+          setPreloadProgress(Math.floor((loadedJsons / (jsonFiles.length + 1)) * 40));
           if (!res.ok) return [];
           const data = await res.json();
           return Array.isArray(data) ? data : (data.worlds || data.events || data.sequences || data.stories || data.shops || data.collectionPoints || data.rooms || data.meetingPlaces || data.villagers || data.items || data.buildings || data.monsters || data.dishes || []);
         };
-        const [worldIndex, roomsRes, rawVillagers, rawItems, buildings, events, collectionPoints, meetingPlaces, monsters, rawDishes, shops, playerListRes, sequences, stories] = await Promise.all([
-          fetchData('worlds'), fetchData('rooms'), fetchData('villagers'), fetchData('items'), fetchData('buildings'), fetchData('eventFlows'), fetchData('collectionPoints'), fetchData('meetingPlaces'), fetchData('monsters'), fetchData('dishes'), fetchData('shops'), fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] }), fetchData('narrativeSequences'), fetchData('stories')
+
+        const [worldIndex, roomsRes, rawVillagers, rawItems, buildings, events, collectionPoints, meetingPlaces, monsters, rawDishes, shops, sequences, stories] = await Promise.all([
+          fetchData('worlds'), fetchData('rooms'), fetchData('villagers'), fetchData('items'), fetchData('buildings'), fetchData('eventFlows'), fetchData('collectionPoints'), fetchData('meetingPlaces'), fetchData('monsters'), fetchData('dishes'), fetchData('shops'), fetchData('narrativeSequences'), fetchData('stories')
         ]);
+
+        setPreloadTask('キャラクター定義を取得中...');
+        const playerListRes = await fetch('/characters/characters.json').then(res => res.ok ? res.json() : { characters: [] }).catch(() => ({ characters: [] }));
+        setPreloadProgress(40);
+
         const fullWorlds = await Promise.all(worldIndex.map(async (w: any) => {
           try { const detailRes = await fetch(`/data/${w.id}.json`); if (detailRes.ok) return { ...w, ...(await detailRes.json()) }; } catch (e) {}
           return w;
@@ -462,7 +486,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         const allAvailable = [...rawVillagers.map((v:any)=>({...v,type:'person',description:v.introduction||v.description})), ...rawItems.map((i:any)=>({...i,type:'item',itemType:i.type})), ...buildings, ...collectionPoints, ...meetingPlaces, ...monsters, ...rawDishes.map((d:any)=>({...d,type:'item',isDish:true})), ...shops];
         setAvailableObjects(allAvailable);
 
-        // Preload object images
+        // Preload object images (バックグラウンドで開始)
         if (typeof window !== 'undefined') {
           allAvailable.forEach(obj => {
             if (obj.imageUrl) {
@@ -481,56 +505,66 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         setMasterMeetingPlaces(meetingPlaces);
         if (playerListRes.characters?.length > 0 && !activePlayerId) setActivePlayerId(playerListRes.characters[0].id);
         if (mergedWorlds.length > 0 && !selectedWorldId) setSelectedWorldId(mergedWorlds[0].id);
-      } catch (e) { console.error("Initialization error:", e); } finally { setLoading(false); }
+      } catch (e) { 
+        console.error("Initialization error:", e); 
+      } finally { 
+        setLoading(false); 
+      }
     };
     init();
   }, []);
 
+  // アニメーションフレーム各画像の onload 連動プリロード (全体の約 40% 〜 100%)
   useEffect(() => {
     if (!activePlayerChar) return;
     const fetchAnims = async () => {
       try {
         setIsAssetsLoading(true);
+        setPreloadTask('アニメーション定義を取得中...');
         const res = await fetch(`${activePlayerChar.path}/animations.json`);
         if (res.ok) { 
           const data = await res.json(); 
           const clips = data.clips || [];
           setPlayerClips(clips); 
 
-          // Preload player animation frames with onload tracking
           if (typeof window !== 'undefined') {
-            const imagePromises: Promise<void>[] = [];
+            // プリロード対象の画像URLリストを収集
+            const urlsToLoad: string[] = [];
             clips.forEach((clip: AnimationClip) => {
               clip.frames.forEach((frame) => {
-                const url = resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`);
-                const promise = new Promise<void>((resolve) => {
-                  const img = new (window as any).Image();
-                  img.onload = () => resolve();
-                  img.onerror = () => resolve(); // エラー時もブロックしない
-                  img.src = url;
-                  // すでにキャッシュ済みの場合のフォールバック
-                  if (img.complete) {
-                    resolve();
-                  }
-                });
-                imagePromises.push(promise);
+                urlsToLoad.push(resolveMediaUrl(`${activePlayerChar.path}/frames/${frame.image}`));
               });
             });
 
-            // アイドル時の基本画像もプリロード
             const idleDirections: CharacterDirection[] = ['down', 'up', 'left', 'right'];
             idleDirections.forEach((dir) => {
-              const idleUrl = resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${dir}_1.png`);
-              const promise = new Promise<void>((resolve) => {
+              urlsToLoad.push(resolveMediaUrl(`${activePlayerChar.path}/frames/idle_${dir}_1.png`));
+            });
+
+            const totalImages = urlsToLoad.length;
+            let loadedImages = 0;
+
+            const imagePromises = urlsToLoad.map((url) => {
+              return new Promise<void>((resolve) => {
                 const img = new (window as any).Image();
-                img.onload = () => resolve();
-                img.onerror = () => resolve();
-                img.src = idleUrl;
-                if (img.complete) {
+                const onFinish = () => {
+                  loadedImages++;
+                  if (totalImages > 0) {
+                    const ratio = loadedImages / totalImages;
+                    const calculatedPercent = Math.min(100, Math.floor(40 + ratio * 60));
+                    setPreloadProgress(calculatedPercent);
+                    setPreloadTask(`スプライト読み込み中 (${loadedImages}/${totalImages})`);
+                  }
                   resolve();
+                };
+
+                img.onload = onFinish;
+                img.onerror = onFinish; // エラー時も進捗を止めない
+                img.src = url;
+                if (img.complete) {
+                  onFinish();
                 }
               });
-              imagePromises.push(promise);
             });
 
             await Promise.all(imagePromises);
@@ -540,20 +574,23 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         setPlayerClips([]); 
       } finally {
         setIsAssetsLoading(false);
+        setPreloadProgress(100);
+        setPreloadTask('準備完了！');
+        setIsPreloadComplete(true);
       }
     };
     fetchAnims();
   }, [activePlayerChar]);
 
   useEffect(() => {
-    if (!currentWorld || activeCutscene) return;
+    if (!hasStartedPlay || !currentWorld || activeCutscene) return;
     const targetBgm = currentWorld.bgmUrl || currentWorld.audioUrl;
     if (targetBgm && bgmRef.current) {
       const resolved = resolveMediaUrl(targetBgm);
       if (bgmRef.current.getAttribute('src') !== resolved) { bgmRef.current.setAttribute('src', resolved); bgmRef.current.play().catch(()=>{}); }
       else if (bgmRef.current.paused) bgmRef.current.play().catch(()=>{});
     } else if (bgmRef.current) { bgmRef.current.pause(); bgmRef.current.removeAttribute('src'); }
-  }, [currentWorld, activeCutscene]);
+  }, [currentWorld, activeCutscene, hasStartedPlay]);
 
   useEffect(() => {
     if (!activeMapData) return;
@@ -575,11 +612,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     if (!voiceRef.current) voiceRef.current = new Audio();
     if (node.audioUrl) { voiceRef.current.src = resolveMediaUrl(node.audioUrl); voiceRef.current.play().catch(()=>{}); }
   }, []);
-
-
-  // ==========================================
-  // 新しいシーケンシャル再生ロジック
-  // ==========================================
 
   // カットシーン終了時のクリーンアップ
   const endCutscene = useCallback(() => {
@@ -611,7 +643,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   const playNextInQueue = useCallback((currentIndex: number, queue: string[]) => {
     const nextIndex = currentIndex + 1;
     if (nextIndex >= queue.length) {
-      // 全て完了したらカットシーン終了
       endCutscene();
       return;
     }
@@ -619,13 +650,11 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     setCurrentQueueIndex(nextIndex);
     const nextEventId = queue[nextIndex];
     
-    // イベントIDが存在しない（マーカーや空文字）場合はスキップして次へ
     if (!nextEventId) {
         setTimeout(() => playNextInQueue(nextIndex, queue), 10);
         return;
     }
 
-    // ★修正：動画の場合はJSX側で再生され、ハンドラから次へ進むのでここで待機する
     if (nextEventId.startsWith('VIDEO:')) {
         console.log("Playing video:", nextEventId);
         return; 
@@ -636,20 +665,17 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
       setActiveEvent(event);
       transitionToNode(event.nodes.find(n => n.type === 'start'));
     } else {
-        // masterEventsに存在しないID（マーカーなど）は即座に次へ
         console.warn(`Event ${nextEventId} not found, skipping.`);
         setTimeout(() => playNextInQueue(nextIndex, queue), 10);
     }
   }, [masterEvents, endCutscene]);
 
-  // イベントノードの遷移処理（完了時にキューを進めるロジックを統合）
+  // イベントノードの遷移処理
   const transitionToNode = useCallback((node: EventNode | null | undefined) => {
     if (!node) { 
-      // イベントが終了した
       setActiveEvent(null); 
       setCurrentEventNode(null); 
       
-      // カットシーン中であれば、キューの次のイベントを呼ぶ
       if (activeCutscene) {
           playNextInQueue(currentQueueIndex, cutsceneEventQueue);
       }
@@ -659,7 +685,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     setCurrentEventNode(node);
     playNodeVoice(node);
 
-    // 報酬処理
     if (node.type === 'reward' && node.reward) {
       const { itemId, itemName, amount } = node.reward;
       const isLaborEvent = activeEvent?.tags?.includes('労働力');
@@ -684,8 +709,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     }
   }, [playNodeVoice, toast, activeEvent, gainXp, activeCutscene, currentQueueIndex, cutsceneEventQueue, playNextInQueue]);
 
-
-  // 1. stories.json から イベントID を順番通りに抽出・フラット化する関数
+  // stories.json から イベントID を抽出
   const extractEventIdsFromSequence = useCallback((sequence: NarrativeSequence) => {
       const extractedIds: string[] = [];
       const extractedChars: Record<string, any> = {};
@@ -694,7 +718,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           if (step.type === 'story' && step.storyId) {
               const story = masterStories.find(s => s.id === step.storyId);
               if (story) {
-                  // 背景マップの切り替え設定
                   const world = masterWorlds.find(w => w.id === (story.worldId || story.mapId));
                   const mapIdx = world?.maps?.findIndex(m => m.id === story.mapId);
                   if (world && mapIdx !== undefined && mapIdx !== -1) { 
@@ -702,7 +725,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                       setActiveCellIndex(mapIdx); 
                   }
                   
-                  // キャラクターの抽出と初期位置の設定
                   story.characters.forEach(sc => {
                       const vData = availableObjects.find(v => v.id === sc.objectId);
                       if (vData && sc.path.length > 0) {
@@ -712,8 +734,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                               data: vData 
                           };
                           
-                          // 経路から eventId を順番に抽出する
-                          // (依存関係がある場合でも、stories.jsonの配列順が意図した再生順序であると仮定する)
                           sc.path.forEach(pathPoint => {
                               if (pathPoint.eventId) {
                                   extractedIds.push(pathPoint.eventId);
@@ -723,13 +743,11 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                   });
               }
           } else if (step.type === 'video' && step.videoUrl) {
-              // 動画の場合は特殊なIDを挿入（再生時に分岐処理する）
               extractedIds.push(`VIDEO:${step.videoUrl}`);
           }
       });
       return { ids: extractedIds, chars: extractedChars };
   }, [masterStories, masterWorlds, availableObjects]);
-
 
   // カットシーンの開始エントリポイント
   const handlePlaySequence = useCallback((sequenceId: string) => {
@@ -737,29 +755,21 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     if (!seq) return;
     
     setIsMenuOpen(false);
-    // プレイヤーの元の状態を保存
     setOriginalPlayerState({ worldId: selectedWorldId, cellIndex: activeCellIndex, pos: { ...characterPosition } });
     setActiveCutscene(seq);
     
-    // 1. データのフラット化
     const { ids, chars } = extractEventIdsFromSequence(seq);
-    
-    console.log("Generated Event Queue:", ids); // デバッグ用
-
     setCutsceneEventQueue(ids);
     setCutsceneChars(chars);
     
     if (bgmRef.current) bgmRef.current.pause();
 
-    // 2. 抽出したキューの最初の要素を再生開始
     if (ids.length > 0) {
-        // setTimeout でReactのレンダリングサイクルを一度回してから開始
         setTimeout(() => playNextInQueue(-1, ids), 10);
     } else {
         endCutscene();
     }
   }, [masterSequences, selectedWorldId, activeCellIndex, characterPosition, extractEventIdsFromSequence, playNextInQueue, endCutscene]);
-
 
   // 日数に応じた物語の判定と再生
   const checkAndPlayStoryForDay = useCallback((targetDay: number, currentSeenIds = seenStoryIds) => {
@@ -771,14 +781,14 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     return false;
   }, [masterSequences, seenStoryIds, handlePlaySequence]);
 
-  // 1日目のスタート直後の自動再生判定（初回読み込み完了時）
+  // 1日目のスタート直後の自動再生判定（初回読み込み完了かつユーザー開始後）
   useEffect(() => {
-    if (loading || isAssetsLoading || masterSequences.length === 0 || isInitialStoryCheckDone.current) return;
+    if (!hasStartedPlay || loading || isAssetsLoading || masterSequences.length === 0 || isInitialStoryCheckDone.current) return;
     isInitialStoryCheckDone.current = true;
     if (day === 1) {
       checkAndPlayStoryForDay(1);
     }
-  }, [loading, isAssetsLoading, masterSequences, day, checkAndPlayStoryForDay]);
+  }, [hasStartedPlay, loading, isAssetsLoading, masterSequences, day, checkAndPlayStoryForDay]);
 
   // ビデオの再生終了ハンドラ
   const handleVideoEnded = useCallback(() => {
@@ -786,7 +796,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           playNextInQueue(currentQueueIndex, cutsceneEventQueue);
       }
   }, [activeCutscene, currentQueueIndex, cutsceneEventQueue, playNextInQueue]);
-
 
   // Measure container size for camera calculations
   useEffect(() => {
@@ -805,7 +814,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     return () => observer.disconnect();
   }, []);
 
-  // Update camera offset to center player (Horizontal scroll for vertical mode)
+  // Update camera offset to center player
   useEffect(() => {
     if (!isVertical || containerSize.width === 0 || containerSize.height === 0) {
       setCameraOffset({ x: 0, y: 0 });
@@ -815,20 +824,16 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     const scale = containerSize.height / MAP_HEIGHT;
     const worldWidth = MAP_WIDTH * scale;
     
-    // Calculate target X to center player
     const playerCenterX = (characterPosition.x + CHARACTER_WIDTH / 2) * scale;
     let targetX = playerCenterX - containerSize.width / 2;
     
-    // Clamp camera to map bounds
     const maxX = Math.max(0, worldWidth - containerSize.width);
     targetX = Math.max(0, Math.min(maxX, targetX));
     
-    // For this landscape-style map in portrait mode, we only scroll horizontally
     setCameraOffset({ x: targetX, y: 0 });
   }, [characterPosition, containerSize, isVertical]);
 
   const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Check if the click is on the controller
     if ((e.target as HTMLElement).closest('[data-is-controller="true"]')) {
       return;
     }
@@ -839,7 +844,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     let x, y;
     
     if (isVertical && containerSize.height > 0) {
-      // Convert viewport click to map coordinates using camera offset and scale
       const scale = containerSize.height / MAP_HEIGHT;
       const clickXInViewport = e.clientX - rect.left;
       const clickYInViewport = e.clientY - rect.top;
@@ -865,14 +869,12 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
       if (dist < INTERACTION_RADIUS) {
         const asset = availableObjects.find(a => a.id === obj.objectId);
         if (asset?.name === '布団') { 
-          // 料理屋の売上精算
           const dishes = availableObjects.filter(obj => obj.isDish && obj.ingredients);
           let totalProfit = 0;
           const nextSupplied = { ...suppliedIngredients };
 
           dishes.forEach(dish => {
             if (!dish.ingredients) return;
-            // 制作可能な品数を計算
             let canMake = Infinity;
             dish.ingredients.forEach((ing: any) => {
               const qty = ing.quantity || 1;
@@ -883,7 +885,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             if (canMake > 0 && canMake !== Infinity) {
               const profit = canMake * (dish.recoveryAmount || 0);
               totalProfit += profit;
-              // 在庫から消費
               dish.ingredients.forEach((ing: any) => {
                 const qty = ing.quantity || 1;
                 nextSupplied[ing.id] -= canMake * qty;
@@ -905,7 +906,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           const nextDay = day + 1;
           setDay(nextDay);
           toast({ title: "休息", description: "朝が来ました。日付が進んだ！" }); 
-          // 2日目以降：就寝後、朝が来てから自動再生
           setTimeout(() => {
             checkAndPlayStoryForDay(nextDay);
           }, 300);
@@ -928,7 +928,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         const shop = masterShops.find(s => s.id === (obj.eventId?.startsWith('shop:') ? obj.eventId.split(':')[1] : obj.objectId));
         if (shop) { setActiveShop(shop); return; }
 
-        // Meeting Place Logic
         const mp = masterMeetingPlaces.find(m => m.id === obj.objectId || m.id === obj.eventId);
         if (mp) {
           setActiveMeetingPlace(mp);
@@ -951,7 +950,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   }, [activeMapData, npcStates, masterEvents, isGamePaused, masterWorlds, toast, availableObjects, masterShops, masterCollectionPoints, masterMeetingPlaces, hp, transitionToNode, maxHp, level, getLevelBonus, gainXp, characterPosition, suppliedIngredients]);
 
     const handleDpadAction = useCallback((key: string, type: 'press' | 'release') => {
-        // 縦型モードの時だけ遅延をいれる
         if (isVertical) {
             if (type === 'press') {
                 const timerId = setTimeout(() => {
@@ -962,7 +960,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                     });
                 }, 100);
                 dpadTimersRef.current[key] = timerId;
-            } else { // release
+            } else {
                 if (dpadTimersRef.current[key]) {
                     clearTimeout(dpadTimersRef.current[key]);
                     delete dpadTimersRef.current[key];
@@ -989,7 +987,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
   // メインループ（キャラクター移動のみ担当）
   useEffect(() => {
     const loop = (currentTime: number) => {
-      // プレイヤーの移動ロジック
       if (!isGamePaused) {
         let moveX = 0, moveY = 0;
         const currentSpeed = BASE_SPEED + level;
@@ -1091,7 +1088,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
       </div>
       
       <div className="flex-grow flex flex-col items-center justify-center gap-8 p-6">
-        {/* D-Pad */}
         <div className="grid grid-cols-3 grid-rows-3 gap-2 w-3/4 aspect-square">
           <div />
           <DpadButton direction="ArrowUp" onKeyAction={handleDpadAction} />
@@ -1104,7 +1100,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           <div />
         </div>
 
-        {/* Action Button */}
         <Button
           className={cn(
             "w-1/2 aspect-square rounded-full text-4xl font-black border-8 border-primary/20 transition-all duration-300 shadow-xl",
@@ -1139,27 +1134,46 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
     </div>
   );
 
+  // プリロード中または開始タップ前の場合は LoadingOverlay を表示
+  if (!hasStartedPlay) {
+    return (
+      <LoadingOverlay
+        progress={preloadProgress}
+        currentTask={preloadTask}
+        requireTapToStart={true}
+        onComplete={() => {
+          setHasStartedPlay(true);
+          // 音声自動再生の開始
+          if (bgmRef.current && currentWorld) {
+            const targetBgm = currentWorld.bgmUrl || currentWorld.audioUrl;
+            if (targetBgm) {
+              bgmRef.current.src = resolveMediaUrl(targetBgm);
+              bgmRef.current.play().catch(() => {});
+            }
+          }
+        }}
+      />
+    );
+  }
+
   return (
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <div ref={playtestContainerRef} className={cn(
         "flex relative bg-background overflow-hidden h-full w-full",
         isVertical ? "flex-col gap-0" : "flex-row",
-        isFullscreen && "p-0" // 全画面時は余白なし
+        isFullscreen && "p-0"
       )}>
-        {/* PC表示かつ非全画面時の左サイドパネル */}
         {!isVertical && !isFullscreen && <SideControlPanel />}
 
         <div className="flex flex-col flex-grow min-w-0 h-full relative">
-          {/* 全画面モード用のトースター */}
           {isFullscreen && portalContainer && <Toaster />}
           
-          {/* ステータスバー */}
           <div className={cn(
             "flex justify-between items-center gap-2 z-30 flex-wrap p-2",
             isVertical && "order-first",
             !isFullscreen && cn(
               "bg-background/50 rounded-lg border m-2",
-              isVertical && "mb-1" // 縦型時は下の余白を削る
+              isVertical && "mb-1"
             ),
             isFullscreen && !isVertical && "absolute top-4 left-4 right-4 bg-black/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/10 mx-0"
           )}>
@@ -1204,7 +1218,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
               )}>{gold} K</div>
               
               <div className="flex items-center bg-background/50 border rounded-lg overflow-hidden h-8">
-                {/* 縦表示または全画面時のみ、しらべるボタンを表示（PC通常時は左ペインにあるため） */}
                 {(isVertical || isFullscreen) && !isMobile && !showOnScreenControls && (
                   <Button 
                     size="icon" 
@@ -1236,7 +1249,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                 </Popover>
               </div>
               
-              {/* PC全画面または縦表示時のみ表示される補助ボタン */}
               {(isVertical || isFullscreen) && (
                 <>
                   {!isVertical && <Button size="icon" variant="outline" data-testid="btn-save" className="h-10 w-10" onClick={handleSave} disabled={activeCutscene !== null}><Save className="h-4 w-4"/></Button>}
@@ -1249,20 +1261,15 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             </div>
           </div>
 
-          {/* マップ描画領域 */}
           <div ref={mapContainerRef} data-testid="playtest-map" onClick={handleMapClick} className={cn(
             "relative flex-grow bg-muted rounded-lg overflow-hidden m-2", 
-            isVertical && "mt-1 mb-1", // 縦型時は上下の余白を削る
+            isVertical && "mt-1 mb-1",
             isFullscreen && "m-0 rounded-none",
-            isVertical ? "aspect-[9/10.5]" : "aspect-[16/9]", // 縦型時は高さを約10%削減
+            isVertical ? "aspect-[9/10.5]" : "aspect-[16/9]",
             isGamePaused ? "cursor-default" : "cursor-crosshair"
           )}>
-            {activeMapData && !isAssetsLoading ? (
+            {activeMapData ? (
               <>
-                {/* 
-                  Camera Wrapper 
-                  In vertical mode, we scale the world to fit the container height and allow horizontal scrolling.
-                */}
                 <div 
                   className="absolute inset-0"
                   style={{
@@ -1270,7 +1277,7 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                     width: isVertical ? `${(containerSize.height / MAP_HEIGHT) * MAP_WIDTH}px` : '100%',
                     height: '100%',
                     position: 'relative',
-                    transition: isMoving ? 'none' : 'transform 0.2s ease-out' // Smooth transitions when stopping
+                    transition: isMoving ? 'none' : 'transform 0.2s ease-out'
                   }}
                 >
                   <MapLayer imageUrl={activeMapData.imageUrl} />
@@ -1301,12 +1308,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
 
                 <MiniMap world={currentWorld} activeIndex={activeCellIndex} isFullscreen={isFullscreen} isVertical={isVertical} />
                 
-                {/* 
-                  コントローラーの表示条件:
-                  1. モバイル端末である(縦型モード以外)
-                  2. PCだが設定で「画面内コントローラー」がONになっている
-                  3. PC全画面表示である（左ペインが消えるため）
-                */}
                 {((isMobile && !isVertical) || showOnScreenControls || (isFullscreen && !isVertical)) && !isGamePaused && (
                   <DpadController
                     onKeyAction={handleDpadAction}
@@ -1317,7 +1318,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
               </>
             ) : <div className="flex flex-col items-center justify-center h-full"><Loader2 className="h-12 w-12 animate-spin" /></div>}
             
-            {/* 新しいシーケンシャルビデオ再生 */}
             {activeCutscene && currentQueueIndex >= 0 && cutsceneEventQueue[currentQueueIndex]?.startsWith('VIDEO:') && (
               <div className="absolute inset-0 bg-black z-[60] flex items-center justify-center">
                 <video 
@@ -1334,17 +1334,14 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
             
             {activeInteraction && <DialogueBox conversation={activeInteraction.conversation} audioPath={activeInteraction.audioPath} onComplete={() => setActiveInteraction(null)} />}
             
-            {/* シーケンシャルイベント再生 */}
             {activeEvent && currentNode && (
                 <div className="absolute inset-0 z-50 pointer-events-none">
-                    {/* 背景の半透明オーバーレイ */}
                     <div className="absolute inset-0 bg-black/40 pointer-events-auto" />
 
-                    {/* キャラクター画像 (画面中央) */}
                     {currentSpeaker.imageUrl && (
                         <div className="absolute inset-0 flex justify-center items-center">
                             <Image
-                                key={currentSpeaker.imageUrl} // 画像URLが変わるたびに再マウントしてアニメーションをトリガー
+                                key={currentSpeaker.imageUrl}
                                 src={currentSpeaker.imageUrl}
                                 alt={currentSpeaker.name || 'Speaker'}
                                 width={isVertical ? 400 : 800}
@@ -1355,7 +1352,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                         </div>
                     )}
 
-                    {/* セリフウィンドウ (画面下部) */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
                         <Card className="w-full max-w-4xl mx-auto bg-background/90 backdrop-blur-sm animate-in slide-in-from-bottom-4 shadow-2xl">
                             <CardHeader className="p-4">
@@ -1393,12 +1389,9 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
           </div>
         </div>
 
-        {/* 縦型専用：下部操作パネル */}
         {isVertical && (
           <div className="flex flex-col gap-2 p-2 pt-0 bg-muted/20 border-t z-10 shrink-0">
-            {/* メインコントローラーエリア */}
             <div className="flex items-center justify-between w-full max-w-full mx-auto px-4 py-2">
-              {/* 十字キー (D-Pad) */}
               <div className="flex gap-2 w-[50vw] h-[18vmin] max-h-[75px]">
                 <DpadButton direction="ArrowLeft" onKeyAction={handleDpadAction} />
                 <DpadButton direction="ArrowUp" onKeyAction={handleDpadAction} />
@@ -1406,7 +1399,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
                 <DpadButton direction="ArrowRight" onKeyAction={handleDpadAction} />
               </div>
 
-              {/* Aボタン (決定/しらべる) */}
               <div className="flex flex-col items-center gap-1">
                 <Button
                   className={cn(
@@ -1422,7 +1414,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
               </div>
             </div>
             
-            {/* 補助ボタンエリア */}
             <div className="grid grid-cols-3 gap-2 p-1 bg-background/50 rounded-xl border">
               <Button size="sm" variant="ghost" className="flex flex-col gap-1 h-9" onClick={handleSave} disabled={activeCutscene !== null}>
                 <Save className="h-4 w-4 text-primary"/>
@@ -1443,7 +1434,6 @@ export function PlayTestClient({ user, initialData, isVertical = false }: { user
         )}
       </div>
       
-      {/* ショップ・会合所・メニューのダイアログ等は共通で使用 */}
       <Dialog open={activeShop !== null} onOpenChange={(open) => !open && setActiveShop(null)}>
         <DialogContent container={portalContainer} className="max-w-3xl">
           <DialogHeader>

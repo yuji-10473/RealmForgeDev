@@ -10,7 +10,7 @@ import { doc } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 
-// This is the new Load screen component that will be shown before the game starts.
+// セーブデータ選択／開始画面コンポーネント
 function LoadScreen({
   saveData,
   isSaveLoading,
@@ -59,17 +59,15 @@ function LoadScreen({
   );
 }
 
-
 export default function PlayTestPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   
-  // 'menu' is the new load screen, 'playing' is the actual game
+  // 'loading' (初期確認) -> 'menu' (セーブ選択) -> 'playing' (ゲーム本体マウント、内部でプリロード＆ロード画面表示)
   const [gameState, setGameState] = useState<'loading' | 'menu' | 'playing'>('loading');
-  // This will hold the save data to pass to the game client
   const [initialSave, setInitialSave] = useState<any | null>(null);
 
-  // Memoize the document reference for useDoc, this is critical for performance
+  // Memoize the document reference for useDoc
   const saveDocRef = useMemoFirebase(() => {
     if (!user) return null;
     return doc(firestore, 'playtestSaves', user.uid);
@@ -77,26 +75,19 @@ export default function PlayTestPage() {
 
   const { data: saveData, isLoading: isSaveLoading } = useDoc(saveDocRef);
 
-  // Once user and save data loading is finished, show the menu
+  // ユーザーとセーブデータの取得が完了したらメニュー画面へ
   useEffect(() => {
-    if (!isUserLoading && !isSaveLoading) {
+    if (!isUserLoading && !isSaveLoading && gameState === 'loading') {
       setGameState('menu');
     }
-  }, [isUserLoading, isSaveLoading]);
-
+  }, [isUserLoading, isSaveLoading, gameState]);
 
   const handleContinue = () => {
-    // We set whatever data we have (could be null) and start playing
     setInitialSave(saveData);
     setGameState('playing');
   };
 
-  const handleNewGame = () => {
-    setInitialSave(null);
-    setGameState('playing');
-  };
-
-  // 1. Show loader while checking for user
+  // 1. ユーザーチェック中
   if (isUserLoading) {
     return (
       <div className="flex justify-center items-center h-[calc(100vh-6rem)]">
@@ -105,7 +96,7 @@ export default function PlayTestPage() {
     );
   }
 
-  // 2. Deny access if not logged in
+  // 2. 未ログインの場合
   if (!user) {
     return (
       <div className="flex flex-col justify-center items-center h-[calc(100vh-6rem)] text-center">
@@ -116,7 +107,7 @@ export default function PlayTestPage() {
     );
   }
 
-  // 3. Show game or load screen
+  // 3. ゲーム画面（内部でマスターデータ取得＆全画像onload完了までLoadingOverlayが表示される）
   if (gameState === 'playing') {
     return (
       <div className="h-[calc(100vh-6rem)] flex flex-col">
@@ -131,7 +122,7 @@ export default function PlayTestPage() {
     );
   }
 
-  // By default, show the loading or menu screen
+  // 4. セーブデータ選択メニュー
   return (
     <LoadScreen 
       saveData={saveData}

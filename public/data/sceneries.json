@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ohLGmz13srzWRNZBrUD5",
+    "imageUrl": "media/images/file_979_1791849346819.png",
+    "characters": [
+      {
+        "age": 16,
+        "name": "伯耆",
+        "personality": "真面目、誠実、優しい",
+        "gender": "男性"
+      },
+      {
+        "name": "日蓮",
+        "gender": "男性",
+        "age": 40,
+        "personality": "情熱的、信念を曲げない、誠実、活動的"
+      }
+    ],
+    "aspectRatio": "9:16",
+    "actionText": "二人荷物を背負って散策している",
+    "createdAt": "2026-10-12T23:52:41.246Z",
+    "mapName": "海岸1",
+    "worldTitle": "海岸"
+  },
+  {
+    "id": "qtPeCLGnyILuODOaJj9X",
+    "imageUrl": "media/images/file_980_1791849346819.png",
+    "actionText": "縁側に腰掛けて、湯呑みのお茶をすすりながら楽しそうに談笑している",
+    "characters": [
+      {
+        "name": "助次郎",
+        "age": 15,
+        "gender": "男性",
+        "personality": "物見高い"
+      }
+    ],
+    "worldTitle": "伊東家敷地",
+    "mapName": "北西区画",
+    "createdAt": "2026-10-12T22:41:46.187Z",
+    "aspectRatio": "16:9"
+  }
+]

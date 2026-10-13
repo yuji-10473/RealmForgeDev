@@ -1,185 +1,229 @@
 [
   {
     "id": "0RAPWAweirKJH2ZAxEvF",
-    "name": "冒頭の説明",
-    "characters": [
-      {
-        "speed": 1,
-        "objectId": "olCEMKCl0vWKNZOIrj2g",
-        "id": "seq_char_1772044933661",
-        "path": [
-          {
-            "eventId": "k4FQ2Vz6z2hY1OL8ndTu",
-            "visibility": "none",
-            "y": 1386,
-            "x": 2577
-          }
-        ]
-      }
-    ],
+    "bgmUrl": "media/audios/file_538_1791849346816.mp3",
     "customId": "opening_scene1",
+    "worldId": "Zmzp41TLWlimB3mo6SqB",
+    "name": "冒頭の説明",
     "mapId": "map_0_0",
     "createdAt": {
       "nanoseconds": 529000000,
       "seconds": 1772038533
     },
-    "worldId": "Zmzp41TLWlimB3mo6SqB",
-    "bgmUrl": "media/audios/file_538_1791792766737.mp3"
-  },
-  {
-    "id": "IobAGOFkDdR6tiGUIJZp",
-    "customId": "opening_scene1",
-    "mapId": "map_0_0",
-    "worldId": "mEnMq0Q9cBhEx1B39RlT",
-    "createdAt": {
-      "nanoseconds": 508000000,
-      "seconds": 1774649794
-    },
-    "name": "子供たちとの出会い",
-    "bgmUrl": "media/audios/file_555_1791792766737.mp3",
     "characters": [
       {
         "path": [
           {
-            "eventId": "9aYqFJJl6fP5mD9Wp3QS",
+            "y": 1386,
+            "eventId": "k4FQ2Vz6z2hY1OL8ndTu",
             "visibility": "none",
-            "y": 403,
-            "x": 856
+            "x": 2577
           }
         ],
-        "speed": 1,
-        "id": "seq_char_1774650016948",
-        "objectId": "A44lygLrpBVZjTZD1EqT"
-      },
-      {
-        "id": "seq_char_1774650022964",
-        "speed": 1,
-        "path": [
-          {
-            "x": 1135,
-            "y": 417,
-            "visibility": "none"
-          }
-        ],
-        "objectId": "ABDKMNns8Z9trb49L0eI"
-      },
-      {
-        "objectId": "SKGryi77HDknYcHDg0RI",
-        "speed": 1,
-        "path": [
-          {
-            "x": 909,
-            "y": 742,
-            "visibility": "none"
-          }
-        ],
-        "id": "seq_char_1774650046579"
-      },
-      {
-        "path": [
-          {
-            "x": 1059,
-            "y": 973,
-            "visibility": "none"
-          }
-        ],
-        "objectId": "24eDzCK3Nl01uq4k1nW1",
-        "id": "seq_char_1774650149324",
+        "objectId": "olCEMKCl0vWKNZOIrj2g",
+        "id": "seq_char_1772044933661",
         "speed": 1
-      },
+      }
+    ]
+  },
+  {
+    "id": "IobAGOFkDdR6tiGUIJZp",
+    "createdAt": {
+      "nanoseconds": 508000000,
+      "seconds": 1774649794
+    },
+    "characters": [
       {
-        "id": "seq_char_1774650159868",
+        "id": "seq_char_1774650016948",
         "speed": 1,
-        "objectId": "h9JJrqBaH2EBgbHAoF0Y",
+        "objectId": "A44lygLrpBVZjTZD1EqT",
         "path": [
           {
-            "visibility": "none",
-            "x": 477,
-            "y": 872
+            "eventId": "9aYqFJJl6fP5mD9Wp3QS",
+            "x": 856,
+            "y": 403,
+            "visibility": "none"
           }
         ]
       },
       {
+        "path": [
+          {
+            "x": 1135,
+            "visibility": "none",
+            "y": 417
+          }
+        ],
         "speed": 1,
-        "objectId": "tTPwcEBQZSA6Bxl7JYcF",
-        "id": "seq_char_1774650180280",
+        "id": "seq_char_1774650022964",
+        "objectId": "ABDKMNns8Z9trb49L0eI"
+      },
+      {
+        "path": [
+          {
+            "visibility": "none",
+            "y": 742,
+            "x": 909
+          }
+        ],
+        "id": "seq_char_1774650046579",
+        "speed": 1,
+        "objectId": "SKGryi77HDknYcHDg0RI"
+      },
+      {
+        "id": "seq_char_1774650149324",
+        "path": [
+          {
+            "y": 973,
+            "x": 1059,
+            "visibility": "none"
+          }
+        ],
+        "objectId": "24eDzCK3Nl01uq4k1nW1",
+        "speed": 1
+      },
+      {
+        "objectId": "h9JJrqBaH2EBgbHAoF0Y",
+        "speed": 1,
+        "id": "seq_char_1774650159868",
+        "path": [
+          {
+            "y": 872,
+            "visibility": "none",
+            "x": 477
+          }
+        ]
+      },
+      {
         "path": [
           {
             "y": 442,
             "visibility": "none",
             "x": 497
           }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "fCRctREgNQAd6VU1v0wl",
-    "worldId": "8cbQhI5KmyB1d9DrvOvM",
-    "customId": "opening_scene",
-    "name": "新しい物語",
-    "bgmUrl": "media/audios/file_538_1791792766737.mp3",
-    "createdAt": {
-      "seconds": 1771655025,
-      "nanoseconds": 195000000
-    },
-    "mapId": "map_0_0",
-    "characters": [
-      {
-        "path": [
-          {
-            "y": 715,
-            "x": 1604,
-            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx"
-          },
-          {
-            "x": 1605,
-            "y": 1251,
-            "visibility": "none",
-            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx"
-          }
         ],
-        "speed": 1,
-        "objectId": "A44lygLrpBVZjTZD1EqT",
-        "id": "seq_char_1771655133164"
-      },
-      {
         "objectId": "tTPwcEBQZSA6Bxl7JYcF",
         "speed": 1,
+        "id": "seq_char_1774650180280"
+      }
+    ],
+    "bgmUrl": "media/audios/file_555_1791849346816.mp3",
+    "customId": "opening_scene1",
+    "worldId": "mEnMq0Q9cBhEx1B39RlT",
+    "name": "子供たちとの出会い",
+    "mapId": "map_0_0"
+  },
+  {
+    "id": "RazyGYfY6TsfxCUqpt3F",
+    "worldId": "L4cp7idBKu3JzNv0Tmlb",
+    "name": "凪咲のねがい",
+    "characters": [
+      {
+        "id": "seq_char_1791797547592",
+        "speed": 1,
+        "objectId": "7H41aASWF8ULMczjdf8s",
+        "path": [
+          {
+            "visibility": "none",
+            "x": 1376,
+            "eventId": "My9zoBRQs9KJp0msGhir",
+            "y": 768
+          }
+        ]
+      }
+    ],
+    "customId": "scene_01",
+    "mapId": "map_0_0",
+    "createdAt": {
+      "nanoseconds": 541000000,
+      "seconds": 1791797465
+    }
+  },
+  {
+    "id": "eZcsYFzLRyqYM9cj9Q1F",
+    "customId": "scene_02",
+    "mapId": "map_0_0",
+    "worldId": "wXNebg8bm6DPvV0DYFKB",
+    "name": "波恵の悩み",
+    "characters": [
+      {
+        "id": "seq_char_1791797864834",
+        "speed": 1,
+        "objectId": "aFKX7xVf5xHVhBt0uDxl",
         "path": [
           {
             "x": 1376,
+            "eventId": "TAlqjpEUdteTzTWXZ61u",
             "y": 768,
+            "visibility": "none"
+          }
+        ]
+      }
+    ],
+    "createdAt": {
+      "nanoseconds": 61000000,
+      "seconds": 1791797830
+    }
+  },
+  {
+    "id": "fCRctREgNQAd6VU1v0wl",
+    "characters": [
+      {
+        "objectId": "A44lygLrpBVZjTZD1EqT",
+        "path": [
+          {
             "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
-            "eventId": "SS3U7Dy8AnkaWyguQqGM"
+            "x": 1604,
+            "y": 715
           },
           {
-            "x": 1387,
-            "y": 1329,
-            "visibility": "none",
-            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx"
+            "x": 1605,
+            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+            "y": 1251,
+            "visibility": "none"
           }
         ],
-        "id": "seq_char_1771655155105"
+        "id": "seq_char_1771655133164",
+        "speed": 1
+      },
+      {
+        "id": "seq_char_1771655155105",
+        "path": [
+          {
+            "eventId": "SS3U7Dy8AnkaWyguQqGM",
+            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+            "x": 1376,
+            "y": 768
+          },
+          {
+            "visibility": "none",
+            "waitForEventId": "9Nz9tw4vVX3wGhaau0wx",
+            "x": 1387,
+            "y": 1329
+          }
+        ],
+        "speed": 1,
+        "objectId": "tTPwcEBQZSA6Bxl7JYcF"
       },
       {
         "id": "seq_char_1771903696866",
+        "objectId": "kMEH8wVv0Y7HfbElMrtt",
         "path": [
           {
-            "x": 1525,
             "y": 1462,
-            "visibility": "disappear"
+            "visibility": "disappear",
+            "x": 1525
           },
           {
             "visibility": "appear",
+            "y": 1455,
             "eventId": "",
-            "x": 1609,
-            "y": 1455
+            "x": 1609
           },
           {
-            "visibility": "none",
             "eventId": "9Nz9tw4vVX3wGhaau0wx",
             "x": 1609,
+            "visibility": "none",
             "y": 1038
           },
           {
@@ -188,90 +232,82 @@
             "visibility": "none"
           }
         ],
-        "speed": 1,
-        "objectId": "kMEH8wVv0Y7HfbElMrtt"
-      },
-      {
-        "path": [
-          {
-            "visibility": "none",
-            "eventId": "k4FQ2Vz6z2hY1OL8ndTu",
-            "y": 1354,
-            "x": 2591
-          }
-        ],
-        "speed": 1,
-        "id": "seq_char_1772037149901",
-        "objectId": "olCEMKCl0vWKNZOIrj2g"
+        "speed": 1
       }
-    ]
+    ],
+    "name": "新しい物語",
+    "worldId": "8cbQhI5KmyB1d9DrvOvM",
+    "createdAt": {
+      "seconds": 1771655025,
+      "nanoseconds": 195000000
+    },
+    "bgmUrl": "media/audios/file_538_1791849346816.mp3",
+    "mapId": "map_0_0",
+    "customId": "opening_scene"
   },
   {
     "id": "qxNCsj2amJGDSYdiAOIh",
-    "name": "弥三郎の家で話",
-    "mapId": "map_0_0",
-    "customId": "opening_scene",
     "characters": [
       {
         "objectId": "kMEH8wVv0Y7HfbElMrtt",
         "speed": 1,
-        "id": "seq_char_1774404821234",
         "path": [
           {
+            "x": 1376,
             "eventId": "EWd5roYMWNIsFh1DjLKi",
-            "visibility": "none",
             "y": 768,
-            "x": 1376
-          }
-        ]
-      },
-      {
-        "id": "seq_char_1774511673600",
-        "speed": 1,
-        "path": [
-          {
-            "y": 1064,
-            "x": 1547,
             "visibility": "none"
           }
         ],
-        "objectId": "A44lygLrpBVZjTZD1EqT"
+        "id": "seq_char_1774404821234"
       },
       {
-        "path": [
-          {
-            "visibility": "none",
-            "y": 1013,
-            "x": 1330
-          }
-        ],
-        "id": "seq_char_1774511692250",
-        "objectId": "tTPwcEBQZSA6Bxl7JYcF",
-        "speed": 1
-      },
-      {
-        "objectId": "7H41aASWF8ULMczjdf8s",
         "speed": 1,
         "path": [
           {
+            "x": 1547,
             "visibility": "none",
-            "y": 617,
-            "x": 695
+            "y": 1064
           }
         ],
+        "objectId": "A44lygLrpBVZjTZD1EqT",
+        "id": "seq_char_1774511673600"
+      },
+      {
+        "speed": 1,
+        "objectId": "tTPwcEBQZSA6Bxl7JYcF",
+        "path": [
+          {
+            "y": 1013,
+            "x": 1330,
+            "visibility": "none"
+          }
+        ],
+        "id": "seq_char_1774511692250"
+      },
+      {
+        "speed": 1,
+        "path": [
+          {
+            "x": 695,
+            "visibility": "none",
+            "y": 617
+          }
+        ],
+        "objectId": "7H41aASWF8ULMczjdf8s",
         "id": "seq_char_1774511716971"
       },
       {
-        "objectId": "NEntrh0jYY62zYGD6gnK",
-        "id": "seq_char_1774511743263",
-        "speed": 1,
         "path": [
           {
             "visibility": "none",
-            "y": 634,
-            "x": 1903
+            "x": 1903,
+            "y": 634
           }
-        ]
+        ],
+        "speed": 1,
+        "objectId": "NEntrh0jYY62zYGD6gnK",
+        "id": "seq_char_1774511743263"
       },
       {
         "id": "seq_char_1774511868013",
@@ -279,56 +315,59 @@
         "speed": 1,
         "path": [
           {
+            "visibility": "none",
             "x": 1931,
-            "y": 917,
-            "visibility": "none"
+            "y": 917
           }
         ]
       }
     ],
-    "worldId": "L4cp7idBKu3JzNv0Tmlb",
+    "name": "弥三郎の家で話",
     "createdAt": {
       "seconds": 1774404790,
       "nanoseconds": 348000000
-    }
+    },
+    "worldId": "L4cp7idBKu3JzNv0Tmlb",
+    "customId": "opening_scene",
+    "mapId": "map_0_0"
   },
   {
     "id": "wOw5hM85Kni2EXXZblJH",
-    "createdAt": {
-      "seconds": 1771211065,
-      "nanoseconds": 92000000
-    },
-    "name": "広場で開店",
-    "mapId": "map_0_0",
     "customId": "opening_scene",
-    "bgmUrl": "media/audios/file_555_1791792766737.mp3",
     "characters": [
       {
         "objectId": "A44lygLrpBVZjTZD1EqT",
+        "id": "seq_char_1774650093329",
+        "speed": 1,
         "path": [
           {
+            "y": 372,
             "eventId": "hewHWkNa9vQZPiSyxdZ4",
-            "visibility": "none",
             "x": 887,
-            "y": 372
+            "visibility": "none"
           }
-        ],
-        "speed": 1,
-        "id": "seq_char_1774650093329"
+        ]
       },
       {
-        "id": "seq_char_1774650104754",
         "objectId": "tTPwcEBQZSA6Bxl7JYcF",
         "path": [
           {
-            "visibility": "none",
             "x": 618,
+            "visibility": "none",
             "y": 425
           }
         ],
-        "speed": 1
+        "speed": 1,
+        "id": "seq_char_1774650104754"
       }
     ],
-    "worldId": "mEnMq0Q9cBhEx1B39RlT"
+    "bgmUrl": "media/audios/file_555_1791849346816.mp3",
+    "worldId": "mEnMq0Q9cBhEx1B39RlT",
+    "createdAt": {
+      "nanoseconds": 92000000,
+      "seconds": 1771211065
+    },
+    "name": "広場で開店",
+    "mapId": "map_0_0"
   }
 ]
